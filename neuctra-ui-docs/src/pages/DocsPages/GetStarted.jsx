@@ -1,11 +1,32 @@
 import React from "react";
 
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Button, Text } from "@neuctra/ui";
+import { Button, Input, Text } from "@neuctra/ui";
 
 const GetStarted = () => {
   return (
     <div className="bg-zinc-950 font-primary text-gray-200 min-h-screen py-10">
+      {/* Text Input */}
+<Input label="Username" placeholder="Enter your username" />
+
+{/* Password */}
+<Input type="password" label="Password" baseColor="#2563eb" darkMode />
+
+{/* Email */}
+<Input type="email" label="Email" required success />
+
+{/* Textarea */}
+<Input type="textarea" label="Your Message" maxLength={200} showCharacterCount />
+
+{/* Checkbox */}
+<Input type="checkbox" label="I agree to terms" />
+
+{/* Radio */}
+<Input type="radio" label="Option A" name="options" />
+
+{/* Switch */}
+<Input  type="switch" label="Enable dark mode" darkMode />
+
     <Button onClick={() => alert("Clicked!")}>Default</Button>
 
 <Button baseColor="#2563eb">Dark Blue</Button>
