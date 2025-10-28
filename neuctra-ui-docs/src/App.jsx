@@ -4,6 +4,8 @@ import SiteLayout from "./layouts/SiteLayout";
 import DocsLayout from "./layouts/DocsLayout";
 import LandingPage from "./pages/SitePages/LandingPage";
 import GetStarted from "./pages/DocsPages/GetStarted";
+import AboutPage from "./pages/DocsPages/AboutPage";
+import ButtonDocs from "./pages/DocsPages/ButtonDocs";
 
 
 const App = () => {
@@ -18,7 +20,8 @@ const App = () => {
         {/* Docs Section */}
         <Route path="/docs" element={<DocsLayout />}>
           <Route index element={<GetStarted />} />
-          {/* <Route path="installation" element={<DocsInstall />} /> */}
+          <Route path="button" element={<ButtonDocs />} />
+          <Route path="about" element={<AboutPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
