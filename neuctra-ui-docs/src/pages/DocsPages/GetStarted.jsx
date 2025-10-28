@@ -1,12 +1,27 @@
 import React from "react";
 
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Text } from "@neuctra/ui";
+import { Button, Text } from "@neuctra/ui";
 
 const GetStarted = () => {
   return (
     <div className="bg-zinc-950 font-primary text-gray-200 min-h-screen py-10">
-    
+    <Button onClick={() => alert("Clicked!")}>Default</Button>
+
+<Button baseColor="#2563eb">Dark Blue</Button>
+
+<Button  baseColor="#22c55e" iconBefore="✅">
+  Success Button
+</Button>
+
+<Button baseColor="#e11d48" size="sm" loading>
+  Deleting...
+</Button>
+
+<Button baseColor="#9333ea" rounded={false} fullWidth>
+  Square Full Width
+</Button>
+
       <Text color="var(--primary)" hoverable>Normal paragraph text</Text>
 
       <Text as="a" href="mailto:hello@example.com" color="primary" hoverable>

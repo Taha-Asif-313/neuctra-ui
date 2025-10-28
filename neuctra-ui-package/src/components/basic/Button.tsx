@@ -1,105 +1,159 @@
 "use client";
-import React, { CSSProperties } from "react";
+import React, { useMemo, useState, CSSProperties, FC } from "react";
 
-interface ButtonProps {
+/** 🌈 Default color palette */
+const defaultColors = {
+  light: {
+    default: "#111",
+    primary: "#2563eb",
+    success: "#16a34a",
+    danger: "#dc2626",
+    white: "#ffffff",
+    muted: "#6b7280",
+    border: "#d1d5db",
+    hover: "#1d4ed8",
+    text: "#ffffff",
+  },
+  dark: {
+    default: "#f8fafc",
+    primary: "#60a5fa",
+    success: "#22c55e",
+    danger: "#f87171",
+    white: "#ffffff",
+    muted: "#9ca3af",
+    border: "#374151",
+    hover: "#3b82f6",
+    text: "#000000",
+  },
+};
+
+/** 🎨 Adjust color shade utility */
+function adjustColor(color: string, amount: number): string {
+  if (!color.startsWith("#") || color.length !== 7) return color; // Prevent invalid hex
+  return (
+    "#" +
+    color
+      .replace(/^#/, "")
+      .replace(/../g, (hex) =>
+        (
+          "0" +
+          Math.min(255, Math.max(0, parseInt(hex, 16) + amount)).toString(16)
+        ).slice(-2)
+      )
+  );
+}
+
+/** ⚙️ Props */
+export interface ButtonProps {
   children: React.ReactNode;
   type?: "button" | "submit" | "reset";
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   iconBefore?: React.ReactNode;
   iconAfter?: React.ReactNode;
   className?: string;
-  style?: CSSProperties; // ✅ NEW
+  style?: CSSProperties;
   fullWidth?: boolean;
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
 
-  // Styling options
-  paddingHorizontal?: number;
-  paddingVertical?: number;
-  fontSize?: string;
-  fontWeight?: string | number;
-  borderRadius?: number;
-  backgroundColor?: string;
-  textColor?: string;
-  borderColor?: string;
-  hoverBgColor?: string;
-  hoverTextColor?: string;
-  hoverBorderColor?: string;
-  boxShadow?: string;
+  /** 🎨 Theme options */
+  darkMode?: boolean;
+  baseColor?: string;
+
+  /** 🧩 Optional design tweaks */
+  size?: "sm" | "md" | "lg";
+  rounded?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+/** 💎 Minimal customizable Button */
+export const Button: FC<ButtonProps> = ({
   children,
   type = "button",
   onClick,
   iconBefore,
   iconAfter,
   className = "",
-  style, // ✅ NEW
+  style,
   fullWidth = false,
   disabled = false,
   loading = false,
   loadingText = "Loading...",
-
-  paddingHorizontal = 30,
-  paddingVertical = 8,
-  fontSize = "16px",
-  fontWeight = 400,
-  borderRadius = 6,
-  backgroundColor = "#02b314",
-  textColor = "white",
-  borderColor = "transparent",
-  hoverBgColor = "transparent",
-  hoverTextColor = "black",
-  hoverBorderColor,
-  boxShadow = "0 1px 2px rgba(0, 0, 0, 0.05)",
+  darkMode = false,
+  baseColor,
+  size = "md",
+  rounded = true,
 }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+  const [hovered, setHovered] = useState(false);
 
-  const currentTextColor =
-    isHovered && !disabled ? hoverTextColor || textColor : textColor;
-  const currentBorderColor =
-    isHovered && !disabled ? hoverBorderColor || borderColor : borderColor;
-  const currentBackgroundColor =
-    isHovered && !disabled ? hoverBgColor : backgroundColor;
+  /** 🧠 Theme system */
+  const theme = useMemo(() => {
+    if (!baseColor) return defaultColors[darkMode ? "dark" : "light"];
 
-  const baseStyles: CSSProperties = {
+    const light = {
+      primary: baseColor,
+      hover: adjustColor(baseColor, -40),
+      text: "#ffffff",
+      border: adjustColor(baseColor, -60),
+    };
+    const dark = {
+      primary: adjustColor(baseColor, 60),
+      hover: adjustColor(baseColor, 80),
+      text: "#000000",
+      border: adjustColor(baseColor, 40),
+    };
+    return darkMode ? dark : light;
+  }, [baseColor, darkMode]);
+
+  /** 📏 Sizes */
+  const sizes: Record<
+    NonNullable<ButtonProps["size"]>,
+    { px: number; py: number; font: string }
+  > = {
+    sm: { px: 16, py: 6, font: "0.85rem" },
+    md: { px: 24, py: 10, font: "1rem" },
+    lg: { px: 32, py: 14, font: "1.125rem" },
+  };
+
+  const s = sizes[size];
+
+  /** 💅 Computed styles */
+  const buttonStyle: CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: `${paddingVertical}px ${paddingHorizontal}px`,
-    fontSize,
-    fontWeight,
-    borderRadius: `${borderRadius}px`,
+    gap: "8px",
+    padding: `${s.py}px ${s.px}px`,
+    fontSize: s.font,
+    fontWeight: 500,
+    borderRadius: rounded ? 8 : 3,
+    border: `1px solid ${theme.border}`,
     width: fullWidth ? "100%" : "auto",
-    color: currentTextColor,
-    border: `1px solid ${currentBorderColor}`,
-    backgroundColor: currentBackgroundColor,
-    boxShadow,
+    backgroundColor: hovered && !disabled ? theme.hover : theme.primary,
+    color: theme.text,
     cursor: disabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.6 : 1,
-    transition: "all 0.2s ease-in-out",
-    gap: "8px",
-    ...style, // ✅ Apply user-supplied inline styles last
+    transition: "all 0.25s ease-in-out",
+    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.15)",
+    ...style,
   };
 
   return (
     <button
       type={type}
       className={className}
-      style={baseStyles}
+      style={buttonStyle}
       onClick={!disabled && !loading ? onClick : undefined}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       disabled={disabled}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {loading ? (
         <>
           <span
             style={{
-              width: "18px",
-              height: "18px",
+              width: "16px",
+              height: "16px",
               border: "2px solid currentColor",
               borderTopColor: "transparent",
               borderRadius: "50%",
@@ -127,3 +181,5 @@ export const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
+export default Button;
