@@ -288,7 +288,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-5xl md:text-6xl font-bold tracking-tight mb-2 leading-tight"
+                className="text-5xl md:text-5xl font-bold tracking-tight mb-2 leading-tight"
               >
                 Craft <GlitchText><span className="text-primary">Stunning</span></GlitchText> Interfaces with Ease
               </motion.h1>
@@ -297,7 +297,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-gray-400 mb-8 text-lg leading-relaxed"
+                className="text-gray-400 mb-4 text-sm leading-relaxed"
               >
                 Unlock the power of a next-generation UI component library
                 designed for React and Next.js. Lightning-fast, visually
@@ -308,23 +308,10 @@ const LandingPage = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="relative mb-8 group"
+                className="relative group"
               >
                 <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:blur-2xl transition-all duration-300" />
-                <div className="relative bg-zinc-950 border border-primary/30 rounded-lg overflow-hidden">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border-b border-primary/20">
-                    <div className="w-3 h-3 rounded-full bg-red-500" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                    <div className="w-3 h-3 rounded-full bg-green-500" />
-                    <span className="ml-2 text-xs text-gray-500">Terminal</span>
-                  </div>
-                  <div className="px-6 py-4">
-                    <code className="text-primary text-sm font-mono">
-                      $ npm install @neuctra/ui
-                    </code>
-                  </div>
-                  <CopyButton code="npm install @neuctra/ui" />
-                </div>
+                
               </motion.div>
 
               <motion.div
@@ -345,7 +332,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6 }}
-                className="flex gap-8 mt-12"
+                className="flex gap-8 mt-4"
               >
                 <div>
                   <div className="text-3xl font-bold text-primary">50+</div>
