@@ -1,11 +1,30 @@
 import React from "react";
 
 import CodeBlock from "../../components/Docs/CodeBlock";
-
+import { Text } from "@neuctra/ui";
 
 const GetStarted = () => {
   return (
     <div className="bg-zinc-950 font-primary text-gray-200 min-h-screen py-10">
+    
+      <Text color="var(--primary)" hoverable>Normal paragraph text</Text>
+
+      <Text as="a" href="mailto:hello@example.com" color="primary" hoverable>
+        Contact us
+      </Text>
+    
+      <Text baseColor="#00c214" darkMode size="lg" weight={700}>
+        Green-themed large text (dark mode)
+      </Text>
+   
+      <Text
+        as="button"
+        onClick={() => alert("clicked")}
+        className="px-4 py-2 rounded"
+        hoverable
+      >
+        Click me
+      </Text>
       <div className="space-y-10 max-w-5xl mx-auto px-4">
         {/* Header */}
         <header>
@@ -14,8 +33,8 @@ const GetStarted = () => {
             <span className="text-primary font-semibold">Neuctra</span> UI
           </h1>
           <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-            A modern, customizable{" "}
-            <span className="text-primary">React</span> component library (
+            A modern, customizable <span className="text-primary">React</span>{" "}
+            component library (
             <span className="text-primary">Tailwind CSS</span> +{" "}
             <span className="text-primary">TypeScript</span>) designed for
             building scalable and maintainable user interfaces.
@@ -143,8 +162,6 @@ npx tailwindcss init -p`}
 }`}
           />
         </section>
-
-       
 
         {/* Troubleshooting */}
         <section>
