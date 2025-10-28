@@ -17,7 +17,7 @@ const CircuitLine = ({
   delay = 0,
   width = 200,
   height = 200,
-  color = "#00FF88",
+  color = "#00c214",
 }) => {
   return (
     <motion.div
@@ -385,12 +385,12 @@ const LandingPage = () => {
                     className="w-32 z-50 h-32 bg-gradient-to-br from-zinc-950 to-black rounded-2xl flex items-center justify-center shadow-2xl"
                     animate={{
                       boxShadow: [
-                        "0 0 20px rgba(0, 255, 136, 0.3)",
-                        "0 0 60px rgba(0, 255, 136, 0.6)",
-                        "0 0 20px rgba(0, 255, 136, 0.3)",
+                        "0 0 20px var(--primary)",
+                        "0 0 60px var(--primary)",
+                        "0 0 20px var(--primary)",
                       ],
                     }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 4, repeat: Infinity }}
                   >
                     <img src={"/logo.png"} className="w-16 z-20 h-16 text-black" />
                   </motion.div>
