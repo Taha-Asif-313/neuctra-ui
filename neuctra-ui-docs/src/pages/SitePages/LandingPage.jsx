@@ -265,37 +265,7 @@ const LandingPage = () => {
       <CircuitLine top="45%" left="0%" delay={1.5} width={200} height={100} />
       <CircuitLine top="45%" left="92%" delay={2.0} width={200} height={100} />
 
-      {/* Navbar */}
-      <nav className="relative z-50 backdrop-blur-md bg-black/50 border-b border-primary/20">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2"
-          >
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Zap className="w-5 h-5 text-black" />
-            </div>
-            <span className="text-xl font-bold">Neuctra</span>
-          </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-6"
-          >
-            <a href="#" className="text-sm hover:text-primary transition-colors">
-              Docs
-            </a>
-            <a href="#" className="text-sm hover:text-primary transition-colors">
-              Components
-            </a>
-            <a href="#" className="text-sm hover:text-primary transition-colors">
-              Examples
-            </a>
-          </motion.div>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <div className="relative z-10 min-h-screen px-4 md:px-6 py-10 flex flex-col items-center justify-center">

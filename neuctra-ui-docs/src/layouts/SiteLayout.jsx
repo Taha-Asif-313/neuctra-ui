@@ -1,19 +1,21 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Navbar from "../components/site/Navbar";
+import Footer from "../components/site/Footer";
 
 const SiteLayout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-black text-white font-primary">
       {/* Navbar */}
-      {/* <Navbar /> */}
+      <Navbar />
 
       {/* Main Content (where nested routes render) */}
-      <main className="flex-grow">
+      <main className="flex-grow pt-10">
         <Outlet />
       </main>
 
       {/* Footer */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
