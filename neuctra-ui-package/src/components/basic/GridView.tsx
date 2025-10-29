@@ -2,18 +2,20 @@ import React, { useState, useEffect, useMemo } from "react";
 
 type ScreenSize = "sm" | "md" | "lg";
 
-interface GridViewProps {
-  columns?: number | Partial<Record<ScreenSize, number>>;
-  gap?: string; // e.g. "16px"
-  padding?: string;
+export interface GridProps {
+  columns?: number | Partial<Record<ScreenSize, number>>; // responsive column config
+  gap?: number | string; // grid gap
+  padding?: number | string;
   alignItems?: "start" | "center" | "end" | "stretch";
   justifyItems?: "start" | "center" | "end" | "stretch";
   backgroundColor?: string;
   width?: string;
   maxWidth?: string;
   height?: string;
-  children: React.ReactNode;
+  margin?: number | string;
   style?: React.CSSProperties;
+  className?: string;
+  children: React.ReactNode;
 }
 
 const getScreenSize = (width: number): ScreenSize => {
@@ -22,32 +24,30 @@ const getScreenSize = (width: number): ScreenSize => {
   return "lg";
 };
 
-export const GridView: React.FC<GridViewProps> = ({
+export const GridView: React.FC<GridProps> = ({
   columns = { sm: 1, md: 2, lg: 3 },
-  gap = "16px",
-  padding = "20px",
+  gap = 16,
+  padding = 0,
   alignItems = "stretch",
   justifyItems = "stretch",
   backgroundColor = "transparent",
   width = "100%",
   maxWidth = "100%",
   height = "auto",
-  children,
+  margin = 0,
   style,
+  className = "",
+  children,
 }) => {
-const [screenSize, setScreenSize] = useState<ScreenSize>("lg"); // default for SSR
+  const [screenSize, setScreenSize] = useState<ScreenSize>("lg");
 
-useEffect(() => {
-  // Set initial screen size on client
-  setScreenSize(getScreenSize(window.innerWidth));
+  useEffect(() => {
+    setScreenSize(getScreenSize(window.innerWidth));
+    const onResize = () => setScreenSize(getScreenSize(window.innerWidth));
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-  // Listen for resize
-  const onResize = () => setScreenSize(getScreenSize(window.innerWidth));
-  window.addEventListener("resize", onResize);
-  return () => window.removeEventListener("resize", onResize);
-}, []);
-
-  // Resolve columns count depending on screen size
   const resolvedColumns = useMemo(() => {
     if (typeof columns === "number") return columns;
     return columns[screenSize] ?? 1;
@@ -57,8 +57,9 @@ useEffect(() => {
     () => ({
       display: "grid",
       gridTemplateColumns: `repeat(${resolvedColumns}, 1fr)`,
-      gap,
-      padding,
+      gap: typeof gap === "number" ? `${gap}px` : gap,
+      padding: typeof padding === "number" ? `${padding}px` : padding,
+      margin: typeof margin === "number" ? `${margin}px` : margin,
       alignItems,
       justifyItems,
       backgroundColor,
@@ -72,6 +73,7 @@ useEffect(() => {
       resolvedColumns,
       gap,
       padding,
+      margin,
       alignItems,
       justifyItems,
       backgroundColor,
@@ -82,5 +84,9 @@ useEffect(() => {
     ]
   );
 
-  return <div style={styles}>{children}</div>;
+  return (
+    <div style={styles} className={className}>
+      {children}
+    </div>
+  );
 };

@@ -5,9 +5,11 @@ interface Option {
   value: string;
 }
 
+type CheckRadioType = "checkbox" | "radio" | "switch";
+
 interface CheckRadioProps {
-  type: "checkbox" | "radio";
-  name?: string; // required for radio groups
+  type?: CheckRadioType; // default = checkbox
+  name?: string;
   options: Option[];
   selectedValues?: string[] | string;
   onChange?: (value: string | string[]) => void;
@@ -15,19 +17,20 @@ interface CheckRadioProps {
   readOnly?: boolean;
   required?: boolean;
   error?: string;
-  className?: string; // optional wrapper styles (string for now)
-  customIcon?: (checked: boolean) => React.ReactNode; // custom icon renderer
-  style?: React.CSSProperties; // container inline style override
-  labelStyle?: React.CSSProperties; // label inline style override
-  iconSize?: number; // size in px, default 20
-  iconCheckedBgColor?: string; // default blue
-  iconUncheckedBorderColor?: string; // default gray
-  textColor?: string; // label text color
-  errorStyle?: React.CSSProperties; // error text style override
+  className?: string;
+  customIcon?: (checked: boolean) => React.ReactNode;
+  style?: React.CSSProperties;
+  labelStyle?: React.CSSProperties;
+  iconSize?: number;
+  iconCheckedBgColor?: string;
+  iconUncheckedBorderColor?: string;
+  switchBgColor?: string;
+  textColor?: string;
+  errorStyle?: React.CSSProperties;
 }
 
 export const CheckRadio: React.FC<CheckRadioProps> = ({
-  type,
+  type = "checkbox",
   name,
   options,
   selectedValues,
@@ -43,30 +46,37 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
   iconSize = 20,
   iconCheckedBgColor = "#2563eb", // blue-600
   iconUncheckedBorderColor = "#9ca3af", // gray-400
+  switchBgColor = "#d1d5db", // gray-300
   textColor = "#374151", // gray-700
   errorStyle,
 }) => {
   const isCheckbox = type === "checkbox";
+  const isRadio = type === "radio";
+  const isSwitch = type === "switch";
 
   const handleChange = (value: string) => {
-    if (onChange) {
-      if (isCheckbox) {
-        const updatedValues = Array.isArray(selectedValues)
-          ? selectedValues.includes(value)
-            ? selectedValues.filter((v) => v !== value)
-            : [...selectedValues, value]
-          : [value];
-        onChange(updatedValues);
-      } else {
-        onChange(value);
-      }
+    if (!onChange) return;
+    if (isCheckbox) {
+      const updatedValues = Array.isArray(selectedValues)
+        ? selectedValues.includes(value)
+          ? selectedValues.filter((v) => v !== value)
+          : [...selectedValues, value]
+        : [value];
+      onChange(updatedValues);
+    } else {
+      onChange(value);
     }
   };
 
   return (
     <div
       className={className}
-      style={{ display: "flex", flexDirection: "column", gap: 8, ...style }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+        ...style,
+      }}
       role={type}
       aria-disabled={disabled}
     >
@@ -81,6 +91,7 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
             style={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
               cursor: disabled ? "not-allowed" : "pointer",
               opacity: disabled ? 0.6 : 1,
               gap: 8,
@@ -88,9 +99,12 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
               ...labelStyle,
             }}
           >
+            {/* Label Text */}
+            <span style={{ color: textColor, fontSize: 14 }}>{option.label}</span>
+
             {/* Hidden Input */}
             <input
-              type={type}
+              type={isSwitch ? "checkbox" : type}
               name={name}
               value={option.value}
               checked={isChecked}
@@ -100,8 +114,33 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
               style={{ display: "none" }}
             />
 
-            {/* Custom or Default Icon */}
-            {customIcon ? (
+            {/* Icon or Switch */}
+            {isSwitch ? (
+              <span
+                style={{
+                  position: "relative",
+                  width: iconSize * 2,
+                  height: iconSize * 1.1,
+                  borderRadius: 9999,
+                  backgroundColor: isChecked ? iconCheckedBgColor : switchBgColor,
+                  transition: "background 0.2s ease",
+                  flexShrink: 0,
+                }}
+              >
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 2,
+                    left: isChecked ? iconSize : 2,
+                    width: iconSize - 4,
+                    height: iconSize - 4,
+                    borderRadius: "50%",
+                    backgroundColor: "#fff",
+                    transition: "left 0.2s ease",
+                  }}
+                />
+              </span>
+            ) : customIcon ? (
               customIcon(isChecked)
             ) : (
               <span
@@ -120,7 +159,7 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
                   flexShrink: 0,
                 }}
               >
-                {isChecked && !isCheckbox && (
+                {isChecked && isRadio && (
                   <span
                     style={{
                       width: iconSize / 2,
@@ -145,9 +184,6 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
                 )}
               </span>
             )}
-
-            {/* Label Text */}
-            <span style={{ color: textColor, fontSize: 14 }}>{option.label}</span>
           </label>
         );
       })}
@@ -157,7 +193,7 @@ export const CheckRadio: React.FC<CheckRadioProps> = ({
         <p
           role="alert"
           style={{
-            color: "#dc2626", // red-600
+            color: "#dc2626",
             fontSize: 12,
             marginTop: 4,
             ...errorStyle,

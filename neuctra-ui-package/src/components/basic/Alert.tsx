@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
+import React, { useEffect, useState, useMemo } from "react";
+import {
+  X,
+  Info,
+  CheckCircle,
+  AlertCircle,
+  AlertTriangle,
+} from "lucide-react";
 
 type AlertType = "success" | "error" | "warning" | "info";
-
 type AlertPosition =
   | "top-left"
   | "top-center"
@@ -11,18 +16,31 @@ type AlertPosition =
   | "bottom-center"
   | "bottom-right";
 
-interface AlertProps {
+export interface AlertProps {
   title?: string;
   description?: string;
   type?: AlertType;
   dismissible?: boolean;
-  onClose?: () => void;
   duration?: number;
+  onClose?: () => void;
+
+  /** Customization */
   icon?: React.ReactNode;
   actionButton?: React.ReactNode;
   position?: AlertPosition;
-  className?: string; // ✅ NEW
-  style?: React.CSSProperties; // ✅ NEW
+  backgroundColor?: string;
+  borderColor?: string;
+  textColor?: string;
+  borderRadius?: string | number;
+  shadow?: string;
+  padding?: string | number;
+  fontSize?: string | number;
+  fontWeight?: number | string;
+  descriptionColor?: string;
+  animationDuration?: string;
+  maxWidth?: string;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 const typeStyles: Record<AlertType, any> = {
@@ -52,44 +70,59 @@ const typeStyles: Record<AlertType, any> = {
   },
 };
 
+/** 📍 Dynamic position styles */
 const getPositionStyle = (position: AlertPosition): React.CSSProperties => {
   const base: React.CSSProperties = {
     position: "fixed",
     zIndex: 9999,
+    pointerEvents: "auto",
   };
 
   switch (position) {
     case "top-left":
-      return { ...base, top: "20px", left: "20px" };
+      return { ...base, top: "1.25rem", left: "1.25rem" };
     case "top-center":
-      return { ...base, top: "20px", left: "50%", transform: "translateX(-50%)" };
+      return { ...base, top: "1.25rem", left: "50%", transform: "translateX(-50%)" };
     case "top-right":
-      return { ...base, top: "20px", right: "20px" };
+      return { ...base, top: "1.25rem", right: "1.25rem" };
     case "bottom-left":
-      return { ...base, bottom: "20px", left: "20px" };
+      return { ...base, bottom: "1.25rem", left: "1.25rem" };
     case "bottom-center":
-      return { ...base, bottom: "20px", left: "50%", transform: "translateX(-50%)" };
+      return { ...base, bottom: "1.25rem", left: "50%", transform: "translateX(-50%)" };
     case "bottom-right":
     default:
-      return { ...base, bottom: "20px", right: "20px" };
+      return { ...base, bottom: "1.25rem", right: "1.25rem" };
   }
 };
 
+/** 🎯 Production-grade Alert Component */
 export const Alert: React.FC<AlertProps> = ({
-  title = "",
-  description = "",
+  title,
+  description,
   type = "info",
   dismissible = true,
-  onClose,
   duration,
+  onClose,
   icon,
   actionButton,
   position = "top-right",
-  className,
+  backgroundColor,
+  borderColor,
+  textColor = "#111827",
+  borderRadius = "0.75rem",
+  shadow = "0 4px 14px rgba(0,0,0,0.1)",
+  padding = "1rem",
+  fontSize = "0.95rem",
+  fontWeight = 500,
+  descriptionColor = "#374151",
+  animationDuration = "300ms",
+  maxWidth = "480px",
+  className = "",
   style,
 }) => {
   const [visible, setVisible] = useState(true);
 
+  /** Auto-dismiss after duration */
   useEffect(() => {
     if (duration) {
       const timer = setTimeout(() => {
@@ -100,48 +133,85 @@ export const Alert: React.FC<AlertProps> = ({
     }
   }, [duration, onClose]);
 
-  if (!visible) return null;
-
   const { bg, border, iconColor, Icon } = typeStyles[type];
   const positionStyle = getPositionStyle(position);
 
-  return (
-    <div
-      className={className}
-      style={{
-        ...positionStyle,
-        display: "flex",
-        gap: "12px",
-        padding: "16px",
-        backgroundColor: bg,
-        borderLeft: `4px solid ${border}`,
-        borderRadius: "8px",
-        color: "#111827",
-        alignItems: "flex-start",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-        transition: "all 0.3s ease",
-        animation: "slideIn 0.3s ease",
-        maxWidth: "600px",
-        width: "calc(100% - 40px)",
-        ...style, // ✅ User custom styles merged last
-      }}
-    >
-      <div style={{ color: iconColor, marginTop: "3px" }}>{icon || Icon}</div>
+  /** Combine computed and custom styles */
+  const containerStyle: React.CSSProperties = useMemo(
+    () => ({
+      ...positionStyle,
+      display: "flex",
+      alignItems: "flex-start",
+      gap: "0.75rem",
+      backgroundColor: backgroundColor ?? bg,
+      borderLeft: `4px solid ${borderColor ?? border}`,
+      borderRadius,
+      color: textColor,
+      boxShadow: shadow,
+      padding,
+      maxWidth,
+      width: "calc(100% - 2.5rem)",
+      opacity: visible ? 1 : 0,
+      transform: visible
+        ? position.includes("bottom")
+          ? "translateY(0)"
+          : "translateY(0)"
+        : position.includes("bottom")
+        ? "translateY(20px)"
+        : "translateY(-20px)",
+      transition: `opacity ${animationDuration} ease, transform ${animationDuration} ease`,
+      ...style,
+    }),
+    [
+      visible,
+      bg,
+      border,
+      borderColor,
+      borderRadius,
+      position,
+      shadow,
+      padding,
+      textColor,
+      maxWidth,
+      backgroundColor,
+      animationDuration,
+      style,
+    ]
+  );
 
-      <div style={{ flex: 1 }}>
+  if (!visible) return null;
+
+  return (
+    <div className={className} style={containerStyle} role="alert">
+      {/* Icon */}
+      <div style={{ color: iconColor, marginTop: "2px" }}>
+        {icon || Icon}
+      </div>
+
+      {/* Text content */}
+      <div style={{ flex: 1, minWidth: 0 }}>
         {title && (
-          <div style={{ fontWeight: "600", marginBottom: "4px" }}>{title}</div>
+          <div style={{ fontWeight: 600, fontSize, marginBottom: "4px" }}>
+            {title}
+          </div>
         )}
         {description && (
-          <div style={{ fontSize: "14px", color: "#374151" }}>
+          <div
+            style={{
+              fontSize: "0.875rem",
+              color: descriptionColor,
+              lineHeight: 1.4,
+            }}
+          >
             {description}
           </div>
         )}
         {actionButton && (
-          <div style={{ marginTop: "10px" }}>{actionButton}</div>
+          <div style={{ marginTop: "8px" }}>{actionButton}</div>
         )}
       </div>
 
+      {/* Dismiss button */}
       {dismissible && (
         <button
           onClick={() => {
@@ -154,21 +224,16 @@ export const Alert: React.FC<AlertProps> = ({
             color: "#6b7280",
             cursor: "pointer",
             marginLeft: "8px",
+            padding: 0,
+            lineHeight: 0,
           }}
+          aria-label="Close alert"
         >
           <X size={16} />
         </button>
       )}
-
-      {/* Inline keyframes */}
-      <style>
-        {`
-          @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-        `}
-      </style>
     </div>
   );
 };
+
+Alert.displayName = "Alert";

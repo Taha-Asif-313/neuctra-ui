@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Circle, User } from "lucide-react";
+import { User } from "lucide-react";
 
 interface AvatarProps {
   src?: string;
   alt?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive";
   variant?: "circular" | "rounded" | "square";
   isOnline?: boolean;
   isOffline?: boolean;
@@ -16,17 +16,18 @@ interface AvatarProps {
   fallback?: string;
   ring?: boolean;
   ringColor?: string;
+  ringSize?: number;
   onClick?: () => void;
 }
 
 interface AvatarGroupProps {
   avatars: AvatarProps[];
   max?: number;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-  className?: string;
-  style?: React.CSSProperties;
+  size?: AvatarProps["size"];
   spacing?: "tight" | "normal" | "loose";
   direction?: "left" | "right";
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 const sizeMap = {
@@ -38,15 +39,6 @@ const sizeMap = {
   "2xl": 64,
 };
 
-const statusSizeMap = {
-  xs: 6,
-  sm: 8,
-  md: 10,
-  lg: 12,
-  xl: 14,
-  "2xl": 16,
-};
-
 const fontSizeMap = {
   xs: 10,
   sm: 12,
@@ -56,299 +48,215 @@ const fontSizeMap = {
   "2xl": 20,
 };
 
-const getVariantStyles = (variant: AvatarProps["variant"]) => {
-  switch (variant) {
-    case "square":
-      return "0px";
-    case "rounded":
-      return "8px";
-    case "circular":
-    default:
-      return "50%";
-  }
+const getVariantRadius = (variant?: string) =>
+  variant === "square" ? "0px" : variant === "rounded" ? "10px" : "50%";
+
+const getStatusPosition = (pos: AvatarProps["statusPosition"]) => {
+  const base = 1;
+  return {
+    topLeft: { top: base, left: base },
+    topRight: { top: base, right: base },
+    bottomLeft: { bottom: base, left: base },
+    bottomRight: { bottom: base, right: base },
+  }[
+    (pos || "bottom-right").replace("-", "") as
+      | "topLeft"
+      | "topRight"
+      | "bottomLeft"
+      | "bottomRight"
+  ];
 };
 
-const getStatusPositionStyle = (
-  position: AvatarProps["statusPosition"],
-  statusSize: number
-): React.CSSProperties => {
-  const offset = 1; // Increased negative offset to position further outside the avatar
-  switch (position) {
-    case "top-left":
-      return { top: offset, left: offset };
-    case "top-right":
-      return { top: offset, right: offset };
-    case "bottom-left":
-      return { bottom: offset, left: offset };
-    case "bottom-right":
-    default:
-      return { bottom: offset, right: offset };
-  }
-};
-
-const getSpacingOffset = (spacing: AvatarGroupProps["spacing"], dimension: number) => {
-  switch (spacing) {
-    case "tight":
-      return -(dimension * 0.5);
-    case "loose":
-      return -(dimension * 0.15);
-    case "normal":
-    default:
-      return -(dimension * 0.35);
-  }
-};
-
-export const Avatar: React.FC<AvatarProps> = ({
+const Avatar: React.FC<AvatarProps> = ({
   src,
-  alt = "User Avatar",
+  alt = "User avatar",
   size = "md",
   variant = "circular",
-  isOnline = false,
-  isOffline = false,
+  isOnline,
+  isOffline,
   className = "",
   style,
-  statusClassName = "",
+  statusClassName,
   statusStyle,
   statusPosition = "bottom-right",
   fallback,
-  ring = false,
+  ring,
   ringColor = "#3b82f6",
+  ringSize = 2,
   onClick,
 }) => {
-  const [imageError, setImageError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const dimension = sizeMap[size];
-  const statusSize = statusSizeMap[size];
-  const fontSize = fontSizeMap[size];
-  const borderRadius = getVariantStyles(variant);
+  const [error, setError] = useState(false);
+  const [hover, setHover] = useState(false);
 
-  const initials = fallback || alt.split(' ').map(name => name[0]).join('').toUpperCase().slice(0, 2);
+  const dimension = size === "responsive" ? "100%" : `${sizeMap[size]}px`;
+  const fontSize =
+    size === "responsive" ? "clamp(10px, 1vw, 18px)" : `${fontSizeMap[size]}px`;
 
-  let statusColor = "";
-  let statusLabel = "";
-  if (isOnline) {
-    statusColor = "#10b981"; // emerald-500
-    statusLabel = "Online";
-  } else if (isOffline) {
-    statusColor = "#6b7280"; // gray-500
-    statusLabel = "Offline";
-  }
+  const initials =
+    fallback ||
+    alt
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
 
-  const hasStatus = isOnline || isOffline;
-  const showImage = src && !imageError;
-  const isClickable = !!onClick;
+  const statusColor = isOnline
+    ? "#10b981"
+    : isOffline
+    ? "#6b7280"
+    : undefined;
 
   return (
     <div
+      className={className}
+      onClick={onClick}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       style={{
-        position: "relative",
         width: dimension,
         height: dimension,
-        borderRadius,
-        overflow: "visible", // Changed from "hidden" to show status dots outside
-        display: "inline-block",
-        flexShrink: 0,
-        cursor: isClickable ? "pointer" : "default",
-        transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-        transform: isHovered && isClickable ? "scale(1.05)" : "scale(1)",
-        boxShadow: ring ? `0 0 0 3px ${ringColor}20, 0 0 0 1px ${ringColor}` : 
-                   isHovered && isClickable ? "0 8px 25px -8px rgba(0, 0, 0, 0.3)" : 
-                   "0 1px 3px rgba(0, 0, 0, 0.1)",
+        borderRadius: getVariantRadius(variant),
+        overflow: "hidden",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+        cursor: onClick ? "pointer" : "default",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        transform: hover && onClick ? "scale(1.05)" : "none",
+        boxShadow: ring
+          ? `0 0 0 ${ringSize}px ${ringColor}`
+          : hover && onClick
+          ? "0 4px 12px rgba(0,0,0,0.15)"
+          : "0 1px 3px rgba(0,0,0,0.1)",
         ...style,
       }}
-      className={className}
-      aria-label={alt}
-      role={isClickable ? "button" : "img"}
-      tabIndex={isClickable ? 0 : -1}
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onKeyDown={(e) => {
-        if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
-          e.preventDefault();
-          onClick?.();
-        }
-      }}
+      role={onClick ? "button" : "img"}
+      tabIndex={onClick ? 0 : -1}
     >
-      {showImage ? (
-        <div style={{ borderRadius, overflow: "hidden", width: "100%", height: "100%" }}>
-          <img
-            src={src}
-            alt={alt}
-            width={dimension}
-            height={dimension}
-            loading="lazy"
-            onError={() => setImageError(true)}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-              display: "block",
-              transition: "opacity 0.2s ease-in-out",
-            }}
-          />
-        </div>
+      {src && !error ? (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          onError={() => setError(true)}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: getVariantRadius(variant),
+            transition: "opacity 0.2s ease-in-out",
+          }}
+        />
       ) : (
         <div
           style={{
             width: "100%",
             height: "100%",
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "white",
+            background:
+              "linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #f87171)",
+            color: "#fff",
+            fontWeight: 600,
             fontSize,
-            fontWeight: "600",
-            borderRadius,
-            position: "relative",
+            userSelect: "none",
+            borderRadius: getVariantRadius(variant),
           }}
         >
-          {initials ? (
-            <span style={{ userSelect: "none" }}>{initials}</span>
-          ) : (
-            <User size={dimension * 0.5} strokeWidth={1.5} />
-          )}
+          {initials || <User size={18} />}
         </div>
       )}
-      
-      {hasStatus && (
-        <div
+
+      {statusColor && (
+        <span
           className={statusClassName}
           style={{
             position: "absolute",
-            width: statusSize,
-            height: statusSize,
+            width: 10,
+            height: 10,
             borderRadius: "50%",
             backgroundColor: statusColor,
-            border: "2px solid white",
-            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12)",
-            ...getStatusPositionStyle(statusPosition, statusSize),
+            border: "2px solid #fff",
+            boxShadow: "0 0 4px rgba(0,0,0,0.15)",
+            ...getStatusPosition(statusPosition),
             ...statusStyle,
           }}
-          aria-label={statusLabel}
-          title={statusLabel}
         />
       )}
     </div>
   );
 };
 
-export const AvatarGroup: React.FC<AvatarGroupProps> = ({
+const AvatarGroup: React.FC<AvatarGroupProps> = ({
   avatars,
   max = 4,
   size = "md",
-  className = "",
-  style,
   spacing = "normal",
   direction = "left",
+  className = "",
+  style,
 }) => {
-  const dimension = sizeMap[size];
-  const fontSize = fontSizeMap[size];
-  const visibleAvatars = avatars.slice(0, max);
-  const extraCount = avatars.length - max;
-  const spacingOffset = getSpacingOffset(spacing, dimension);
+const dimension = size === "responsive" ? "100%" : sizeMap[size as keyof typeof sizeMap] ?? 40;
+  const offset =
+    spacing === "tight"
+      ? -dimension * 0.5
+      : spacing === "loose"
+      ? -dimension * 0.15
+      : -dimension * 0.3;
+
+  const visible = avatars.slice(0, max);
+  const remaining = avatars.length - max;
 
   return (
     <div
+      className={className}
       style={{
         display: "flex",
-        alignItems: "center",
         flexDirection: direction === "right" ? "row-reverse" : "row",
+        alignItems: "center",
         ...style,
       }}
-      className={className}
-      aria-label={`Avatar group with ${avatars.length} members`}
-      role="group"
     >
-      {visibleAvatars.map((avatarProps, i) => {
-        const isFirst = direction === "left" ? i === 0 : i === visibleAvatars.length - 1;
-        const zIndex = direction === "left" ? visibleAvatars.length - i : i + 1;
-        
-        return (
-          <div
-            key={i}
-            style={{
-              marginLeft: direction === "left" && !isFirst ? spacingOffset : 0,
-              marginRight: direction === "right" && !isFirst ? spacingOffset : 0,
-              position: "relative",
-              zIndex,
-              transition: "transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-            className="group-hover:translate-x-1"
-            onMouseEnter={(e) => {
-              const element = e.currentTarget;
-              element.style.transform = `translateY(-2px) ${direction === 'right' ? 'translateX(4px)' : 'translateX(-4px)'}`;
-              element.style.zIndex = '100';
-            }}
-            onMouseLeave={(e) => {
-              const element = e.currentTarget;
-              element.style.transform = 'translateY(0) translateX(0)';
-              element.style.zIndex = zIndex.toString();
-            }}
-          >
-            <div
-              style={{
-                border: "3px solid white",
-                borderRadius: getVariantStyles(avatarProps.variant || "circular"),
-                boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-              }}
-            >
-              <Avatar
-                {...avatarProps}
-                size={size}
-                style={{
-                  boxShadow: "none",
-                }}
-              />
-            </div>
-          </div>
-        );
-      })}
-      
-      {extraCount > 0 && (
+      {visible.map((a, i) => (
+        <div
+          key={i}
+          style={{
+            marginLeft: direction === "left" && i > 0 ? offset : 0,
+            marginRight: direction === "right" && i > 0 ? offset : 0,
+            position: "relative",
+            zIndex: visible.length - i,
+            transition: "transform 0.2s ease",
+          }}
+        >
+          <Avatar {...a} size={size} />
+        </div>
+      ))}
+      {remaining > 0 && (
         <div
           style={{
-            marginLeft: direction === "left" ? spacingOffset : 0,
-            marginRight: direction === "right" ? spacingOffset : 0,
             width: dimension,
             height: dimension,
             borderRadius: "50%",
-            background: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)",
+            background: "#f3f4f6",
             color: "#374151",
-            fontSize: fontSize * 0.9,
-            fontWeight: "600",
+            fontSize: 14,
+            fontWeight: 600,
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            border: "3px solid white",
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+            justifyContent: "center",
+            border: "2px solid white",
             userSelect: "none",
-            cursor: "default",
-            flexShrink: 0,
-            position: "relative",
-            zIndex: 0,
-            transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-          aria-label={`${extraCount} more members`}
-          title={`${extraCount} more members`}
-          onMouseEnter={(e) => {
-            const element = e.currentTarget;
-            element.style.transform = 'translateY(-2px) scale(1.05)';
-            element.style.background = 'linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%)';
-          }}
-          onMouseLeave={(e) => {
-            const element = e.currentTarget;
-            element.style.transform = 'translateY(0) scale(1)';
-            element.style.background = 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)';
+            marginLeft: offset,
           }}
         >
-          +{extraCount}
+          +{remaining}
         </div>
       )}
     </div>
   );
 };
 
+export { Avatar, AvatarGroup };

@@ -3,27 +3,27 @@ import React, { useState, useEffect, useMemo } from "react";
 type ScreenSize = "sm" | "md" | "lg";
 type ResponsiveValue<T> = T | Partial<Record<ScreenSize, T>>;
 
-interface FlexboxProps {
-  direction?: ResponsiveValue<"row" | "column" | "row-reverse" | "column-reverse">;
+interface StackProps {
+  direction?: ResponsiveValue<"vertical" | "horizontal">;
+  gap?: ResponsiveValue<number | string>;
   align?: ResponsiveValue<"flex-start" | "flex-end" | "center" | "stretch" | "baseline">;
   justify?: ResponsiveValue<
     "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly"
   >;
   wrap?: ResponsiveValue<"nowrap" | "wrap" | "wrap-reverse">;
-  gap?: ResponsiveValue<number | string>;
   padding?: ResponsiveValue<number | string>;
   margin?: ResponsiveValue<number | string>;
-  backgroundColor?: ResponsiveValue<string>;
   width?: ResponsiveValue<string>;
   maxWidth?: ResponsiveValue<string>;
   height?: ResponsiveValue<string>;
+  backgroundColor?: ResponsiveValue<string>;
   borderRadius?: ResponsiveValue<string>;
   border?: ResponsiveValue<string>;
   boxShadow?: ResponsiveValue<string>;
   overflow?: ResponsiveValue<"visible" | "hidden" | "auto" | "scroll">;
-  children: React.ReactNode;
   style?: React.CSSProperties;
-  className?: string; // for Tailwind or other classes
+  className?: string;
+  children: React.ReactNode;
 }
 
 const getScreenSize = (width: number): ScreenSize => {
@@ -42,25 +42,25 @@ const resolveResponsive = <T,>(
   return (prop as Partial<Record<ScreenSize, T>>)[screen] ?? fallback;
 };
 
-export const Flexbox: React.FC<FlexboxProps> = ({
-  direction = { sm: "column", md: "row", lg: "row" },
+export const Stack: React.FC<StackProps> = ({
+  direction = { sm: "vertical", md: "horizontal", lg: "horizontal" },
+  gap = 12,
   align = "center",
-  justify = "space-between",
-  wrap = "wrap",
-  gap = 16,
+  justify = "flex-start",
+  wrap = "nowrap",
   padding,
   margin,
-  backgroundColor = "transparent",
   width = "100%",
-  maxWidth = "100%",
+  maxWidth,
   height = "auto",
+  backgroundColor = "transparent",
   borderRadius,
   border,
   boxShadow,
   overflow,
-  children,
-  style,
   className,
+  style,
+  children,
 }) => {
   const [screen, setScreen] = useState<ScreenSize>("lg");
 
@@ -75,19 +75,22 @@ export const Flexbox: React.FC<FlexboxProps> = ({
     const toCssValue = (val?: string | number) =>
       typeof val === "number" ? `${val}px` : val;
 
+    const resolvedDir = resolveResponsive(direction, screen, "vertical");
+    const flexDir = resolvedDir === "vertical" ? "column" : "row";
+
     return {
       display: "flex",
-      flexDirection: resolveResponsive(direction, screen, "row"),
+      flexDirection: flexDir,
       alignItems: resolveResponsive(align, screen, "center"),
       justifyContent: resolveResponsive(justify, screen, "flex-start"),
-      flexWrap: resolveResponsive(wrap, screen, "wrap"),
-      gap: toCssValue(resolveResponsive(gap, screen, undefined)),
+      flexWrap: resolveResponsive(wrap, screen, "nowrap"),
+      gap: toCssValue(resolveResponsive(gap, screen, 12)),
       padding: toCssValue(resolveResponsive(padding, screen, undefined)),
       margin: toCssValue(resolveResponsive(margin, screen, undefined)),
-      backgroundColor: resolveResponsive(backgroundColor, screen, undefined),
       width: resolveResponsive(width, screen, "100%"),
       maxWidth: resolveResponsive(maxWidth, screen, undefined),
       height: resolveResponsive(height, screen, undefined),
+      backgroundColor: resolveResponsive(backgroundColor, screen, undefined),
       borderRadius: resolveResponsive(borderRadius, screen, undefined),
       border: resolveResponsive(border, screen, undefined),
       boxShadow: resolveResponsive(boxShadow, screen, undefined),
@@ -97,22 +100,22 @@ export const Flexbox: React.FC<FlexboxProps> = ({
     };
   }, [
     direction,
+    gap,
     align,
     justify,
     wrap,
-    gap,
     padding,
     margin,
-    backgroundColor,
     width,
     maxWidth,
     height,
+    backgroundColor,
     borderRadius,
     border,
     boxShadow,
     overflow,
-    screen,
     style,
+    screen,
   ]);
 
   return (
@@ -120,4 +123,14 @@ export const Flexbox: React.FC<FlexboxProps> = ({
       {children}
     </div>
   );
+};
+
+
+
+export const HStack: React.FC<StackProps> = (props) => {
+  return <Stack direction="horizontal" {...props} />;
+};
+
+export const VStack: React.FC<StackProps> = (props) => {
+  return <Stack direction="vertical" {...props} />;
 };
