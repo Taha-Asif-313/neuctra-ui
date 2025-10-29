@@ -1,20 +1,21 @@
-import React, { CSSProperties, ReactNode } from "react";
+import React, { CSSProperties, ReactNode, memo } from "react";
 
-interface BadgeProps {
+export interface BadgeProps {
   text?: string;
-  color?: string;
+  color?: string; // background
   textColor?: string;
   borderColor?: string;
+  borderWidth?: string;
 
   icon?: ReactNode;
   iconPosition?: "left" | "right";
 
   rounded?: boolean;
   borderRadius?: string;
-  borderWidth?: string;
 
   fontSize?: string;
   fontWeight?: number | string;
+
   horizontalPadding?: string;
   verticalPadding?: string;
   margin?: string;
@@ -26,136 +27,127 @@ interface BadgeProps {
   pulse?: boolean;
 
   style?: CSSProperties;
+  className?: string;
   onClick?: () => void;
 }
 
-export const Badge: React.FC<BadgeProps> = ({
-  text,
-  color = "#2563eb",
-  textColor = "#fff",
-  borderColor = "#2563eb",
+export const Badge: React.FC<BadgeProps> = memo(
+  ({
+    text,
+    color = "#2563eb",
+    textColor = "#fff",
+    borderColor = "#2563eb",
+    borderWidth = "0",
 
-  icon,
-  iconPosition = "left",
+    icon,
+    iconPosition = "left",
 
-  rounded = false,
-  borderRadius,
-  borderWidth = "0",
+    rounded = false,
+    borderRadius,
+    fontSize = "13px",
+    fontWeight = 500,
+    horizontalPadding = "10px",
+    verticalPadding = "4px",
+    margin = "0",
+    shadow = "0 1px 3px rgba(0,0,0,0.1)",
 
-  fontSize = "14px",
-  fontWeight = 500,
-  horizontalPadding = "10px",
-  verticalPadding = "6px",
-  margin = "0",
-  shadow = "0 1px 4px rgba(0, 0, 0, 0.1)",
+    notificationDot = false,
+    dotColor = "#ef4444",
+    count,
+    pulse = false,
 
-  notificationDot = false,
-  dotColor = "#ef4444",
-  count,
-  pulse = false,
+    style,
+    className = "",
+    onClick,
+  }) => {
+    const baseStyle: CSSProperties = {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: color,
+      color: textColor,
+      border: `${borderWidth} solid ${borderColor}`,
+      borderRadius: borderRadius || (rounded ? "9999px" : "6px"),
+      padding: `${verticalPadding} ${horizontalPadding}`,
+      fontSize,
+      fontWeight,
+      margin,
+      boxShadow: shadow,
+      position: "relative",
+      cursor: onClick ? "pointer" : "default",
+      userSelect: "none",
+      lineHeight: 1,
+      transition: "all 0.2s ease",
+      ...style,
+    };
 
-  style,
-  onClick,
-}) => {
-  const badgeStyle: CSSProperties = {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: color,
-    border: `${borderWidth} solid ${borderColor}`,
-    borderRadius: borderRadius || (rounded ? "9999px" : "6px"),
-    padding: `${verticalPadding} ${horizontalPadding}`,
-    fontSize,
-    fontWeight,
-    margin,
-    boxShadow: shadow,
-    position: "relative",
-    cursor: onClick ? "pointer" : "default",
-    ...style,
-  };
+    const dotStyle: CSSProperties = {
+      position: "absolute",
+      top: "-4px",
+      right: "-4px",
+      height: "8px",
+      width: "8px",
+      backgroundColor: dotColor,
+      borderRadius: "50%",
+      animation: pulse ? "pulseAnim 1.2s infinite" : undefined,
+    };
 
-  const textStyle: CSSProperties = {
-    color: textColor,
-    display: "inline",
-  };
+    const countStyle: CSSProperties = {
+      position: "absolute",
+      top: "-8px",
+      right: "-8px",
+      backgroundColor: dotColor,
+      color: "#fff",
+      borderRadius: "50%",
+      minWidth: "18px",
+      height: "18px",
+      fontSize: "11px",
+      padding: "0 5px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      lineHeight: 1,
+    };
 
-  const iconStyle: CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    color: textColor,
-  };
+    const iconStyle: CSSProperties = {
+      display: "flex",
+      alignItems: "center",
+      margin:
+        icon && text
+          ? iconPosition === "left"
+            ? "0 6px 0 0"
+            : "0 0 0 6px"
+          : 0,
+    };
 
-  const iconLeftStyle: CSSProperties = {
-    ...iconStyle,
-    marginRight: text ? "6px" : "0px",
-  };
+    return (
+      <span style={baseStyle} className={className} onClick={onClick}>
+        {/* Dot */}
+        {notificationDot && <span style={dotStyle} />}
 
-  const iconRightStyle: CSSProperties = {
-    ...iconStyle,
-    marginLeft: text ? "6px" : "0px",
-  };
+        {/* Count */}
+        {typeof count !== "undefined" && <span style={countStyle}>{count}</span>}
 
-  const countStyle: CSSProperties = {
-    position: "absolute",
-    top: "-6px",
-    right: "-6px",
-    backgroundColor: "#ef4444",
-    color: "#fff",
-    borderRadius: "50%",
-    minWidth: "20px",
-    height: "20px",
-    fontSize: "12px",
-    padding: "0 6px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    lineHeight: 1,
-    zIndex: 1,
-  };
+        {/* Icon Left */}
+        {icon && iconPosition === "left" && <span style={iconStyle}>{icon}</span>}
 
-  const dotStyle: CSSProperties = {
-    position: "absolute",
-    top: "-4px",
-    right: "-4px",
-    height: "8px",
-    width: "8px",
-    backgroundColor: dotColor,
-    borderRadius: "50%",
-    zIndex: 1,
-    animation: pulse ? "pulseAnim 1.2s infinite" : undefined,
-  };
+        {/* Text */}
+        {text && <span>{text}</span>}
 
-  return (
-    <span style={badgeStyle} onClick={onClick}>
-      {/* Notification Dot */}
-      {notificationDot && <span style={dotStyle}></span>}
+        {/* Icon Right */}
+        {icon && iconPosition === "right" && <span style={iconStyle}>{icon}</span>}
 
-      {/* Notification Count */}
-      {typeof count !== "undefined" && <span style={countStyle}>{count}</span>}
-
-      {/* Icon Left */}
-      {icon && iconPosition === "left" && (
-        <span style={iconLeftStyle}>{icon}</span>
-      )}
-
-      {/* Text */}
-      {text && <span style={textStyle}>{text}</span>}
-
-      {/* Icon Right */}
-      {icon && iconPosition === "right" && (
-        <span style={iconRightStyle}>{icon}</span>
-      )}
-
-      {/* Pulse Animation */}
-      <style>
-        {`
-          @keyframes pulseAnim {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
-          }
-        `}
-      </style>
-    </span>
-  );
-};
+        {/* Pulse Animation */}
+        <style>
+          {`
+            @keyframes pulseAnim {
+              0% { transform: scale(1); opacity: 1; }
+              50% { transform: scale(1.5); opacity: 0.5; }
+              100% { transform: scale(1); opacity: 1; }
+            }
+          `}
+        </style>
+      </span>
+    );
+  }
+);

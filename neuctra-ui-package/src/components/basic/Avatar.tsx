@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { User } from "lucide-react";
 
+type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive";
+type AvatarVariant = "circular" | "rounded" | "square";
+
 interface AvatarProps {
   src?: string;
   alt?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive";
-  variant?: "circular" | "rounded" | "square";
+  size?: AvatarSize;
+  variant?: AvatarVariant;
   isOnline?: boolean;
   isOffline?: boolean;
   className?: string;
@@ -16,20 +19,20 @@ interface AvatarProps {
   fallback?: string;
   ring?: boolean;
   ringColor?: string;
-  ringSize?: number;
   onClick?: () => void;
 }
 
 interface AvatarGroupProps {
   avatars: AvatarProps[];
   max?: number;
-  size?: AvatarProps["size"];
-  spacing?: "tight" | "normal" | "loose";
-  direction?: "left" | "right";
+  size?: AvatarSize;
   className?: string;
   style?: React.CSSProperties;
+  spacing?: "tight" | "normal" | "loose";
+  direction?: "left" | "right";
 }
 
+// --- Base maps ---
 const sizeMap = {
   xs: 24,
   sm: 32,
@@ -37,7 +40,7 @@ const sizeMap = {
   lg: 48,
   xl: 56,
   "2xl": 64,
-};
+} as const;
 
 const fontSizeMap = {
   xs: 10,
@@ -46,107 +49,144 @@ const fontSizeMap = {
   lg: 16,
   xl: 18,
   "2xl": 20,
+} as const;
+
+const statusSizeMap = {
+  xs: 6,
+  sm: 8,
+  md: 10,
+  lg: 12,
+  xl: 14,
+  "2xl": 16,
+} as const;
+
+// --- Helpers ---
+const getVariantStyles = (variant: AvatarVariant): string => {
+  switch (variant) {
+    case "square":
+      return "0px";
+    case "rounded":
+      return "8px";
+    default:
+      return "50%";
+  }
 };
 
-const getVariantRadius = (variant?: string) =>
-  variant === "square" ? "0px" : variant === "rounded" ? "10px" : "50%";
-
-const getStatusPosition = (pos: AvatarProps["statusPosition"]) => {
-  const base = 1;
-  return {
-    topLeft: { top: base, left: base },
-    topRight: { top: base, right: base },
-    bottomLeft: { bottom: base, left: base },
-    bottomRight: { bottom: base, right: base },
-  }[
-    (pos || "bottom-right").replace("-", "") as
-      | "topLeft"
-      | "topRight"
-      | "bottomLeft"
-      | "bottomRight"
-  ];
+const getStatusPositionStyle = (
+  position: AvatarProps["statusPosition"],
+  offset: number
+): React.CSSProperties => {
+  switch (position) {
+    case "top-left":
+      return { top: 2, left: 2 };
+    case "top-right":
+      return { top: 2, right: 2 };
+    case "bottom-left":
+      return { bottom: 2, left: 2 };
+    default:
+      return { bottom: 2, right: 2 };
+  }
 };
 
-const Avatar: React.FC<AvatarProps> = ({
+const getSpacingOffset = (spacing: AvatarGroupProps["spacing"], dim: number) => {
+  switch (spacing) {
+    case "tight":
+      return -(dim * 0.5);
+    case "loose":
+      return -(dim * 0.15);
+    default:
+      return -(dim * 0.35);
+  }
+};
+
+// --- Avatar Component ---
+export const Avatar: React.FC<AvatarProps> = ({
   src,
   alt = "User avatar",
   size = "md",
   variant = "circular",
-  isOnline,
-  isOffline,
+  isOnline = false,
+  isOffline = false,
   className = "",
   style,
-  statusClassName,
+  statusClassName = "",
   statusStyle,
   statusPosition = "bottom-right",
   fallback,
-  ring,
+  ring = false,
   ringColor = "#3b82f6",
-  ringSize = 2,
   onClick,
 }) => {
-  const [error, setError] = useState(false);
-  const [hover, setHover] = useState(false);
+  const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const dimension = size === "responsive" ? "100%" : `${sizeMap[size]}px`;
-  const fontSize =
-    size === "responsive" ? "clamp(10px, 1vw, 18px)" : `${fontSizeMap[size]}px`;
+  const isResponsive = size === "responsive";
+  const dimension = !isResponsive ? sizeMap[size as Exclude<AvatarSize, "responsive">] : undefined;
+  const fontSize = !isResponsive ? fontSizeMap[size as Exclude<AvatarSize, "responsive">] : "clamp(10px, 2vw, 16px)";
+  const statusSize = !isResponsive ? statusSizeMap[size as Exclude<AvatarSize, "responsive">] : 10;
+  const borderRadius = getVariantStyles(variant);
 
-  const initials =
-    fallback ||
-    alt
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
+  const initials = fallback || alt
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
 
-  const statusColor = isOnline
-    ? "#10b981"
-    : isOffline
-    ? "#6b7280"
-    : undefined;
+  const statusColor = isOnline ? "#10b981" : isOffline ? "#6b7280" : "";
+  const statusLabel = isOnline ? "Online" : isOffline ? "Offline" : "";
+
+  const showImage = src && !imageError;
+  const clickable = !!onClick;
 
   return (
     <div
       className={className}
+      role={clickable ? "button" : "img"}
+      tabIndex={clickable ? 0 : -1}
+      aria-label={alt}
       onClick={onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onKeyDown={(e) => {
+        if (clickable && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          onClick?.();
+        }
+      }}
       style={{
-        width: dimension,
-        height: dimension,
-        borderRadius: getVariantRadius(variant),
-        overflow: "hidden",
+        position: "relative",
+        width: isResponsive ? "100%" : dimension,
+        height: isResponsive ? "100%" : dimension,
+        borderRadius,
+        overflow: "visible",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        position: "relative",
-        cursor: onClick ? "pointer" : "default",
-        transition: "transform 0.2s ease, box-shadow 0.2s ease",
-        transform: hover && onClick ? "scale(1.05)" : "none",
+        flexShrink: 0,
+        cursor: clickable ? "pointer" : "default",
+        transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+        transform: isHovered && clickable ? "scale(1.05)" : "scale(1)",
         boxShadow: ring
-          ? `0 0 0 ${ringSize}px ${ringColor}`
-          : hover && onClick
-          ? "0 4px 12px rgba(0,0,0,0.15)"
-          : "0 1px 3px rgba(0,0,0,0.1)",
+          ? `0 0 0 3px ${ringColor}22, 0 0 0 1px ${ringColor}`
+          : isHovered && clickable
+          ? "0 6px 16px rgba(0, 0, 0, 0.15)"
+          : "0 1px 3px rgba(0, 0, 0, 0.1)",
         ...style,
       }}
-      role={onClick ? "button" : "img"}
-      tabIndex={onClick ? 0 : -1}
     >
-      {src && !error ? (
+      {showImage ? (
         <img
           src={src}
           alt={alt}
+          onError={() => setImageError(true)}
           loading="lazy"
-          onError={() => setError(true)}
           style={{
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            borderRadius: getVariantRadius(variant),
-            transition: "opacity 0.2s ease-in-out",
+            borderRadius,
+            transition: "opacity 0.3s ease-in-out",
           }}
         />
       ) : (
@@ -154,34 +194,34 @@ const Avatar: React.FC<AvatarProps> = ({
           style={{
             width: "100%",
             height: "100%",
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            color: "#fff",
+            fontSize,
+            fontWeight: 600,
+            borderRadius,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background:
-              "linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899, #f87171)",
-            color: "#fff",
-            fontWeight: 600,
-            fontSize,
-            userSelect: "none",
-            borderRadius: getVariantRadius(variant),
           }}
         >
-          {initials || <User size={18} />}
+          {initials || <User size={dimension ? dimension * 0.5 : 20} />}
         </div>
       )}
 
-      {statusColor && (
-        <span
+      {(isOnline || isOffline) && (
+        <div
           className={statusClassName}
+          aria-label={statusLabel}
+          title={statusLabel}
           style={{
             position: "absolute",
-            width: 10,
-            height: 10,
+            width: statusSize,
+            height: statusSize,
             borderRadius: "50%",
             backgroundColor: statusColor,
-            border: "2px solid #fff",
-            boxShadow: "0 0 4px rgba(0,0,0,0.15)",
-            ...getStatusPosition(statusPosition),
+            border: "2px solid white",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.12)",
+            ...getStatusPositionStyle(statusPosition, statusSize),
             ...statusStyle,
           }}
         />
@@ -190,73 +230,88 @@ const Avatar: React.FC<AvatarProps> = ({
   );
 };
 
-const AvatarGroup: React.FC<AvatarGroupProps> = ({
+// --- AvatarGroup Component ---
+export const AvatarGroup: React.FC<AvatarGroupProps> = ({
   avatars,
   max = 4,
   size = "md",
-  spacing = "normal",
-  direction = "left",
   className = "",
   style,
+  spacing = "normal",
+  direction = "left",
 }) => {
-const dimension = size === "responsive" ? "100%" : sizeMap[size as keyof typeof sizeMap] ?? 40;
-  const offset =
-    spacing === "tight"
-      ? -dimension * 0.5
-      : spacing === "loose"
-      ? -dimension * 0.15
-      : -dimension * 0.3;
-
-  const visible = avatars.slice(0, max);
-  const remaining = avatars.length - max;
+  const isResponsive = size === "responsive";
+  const dimension = !isResponsive ? sizeMap[size as Exclude<AvatarSize, "responsive">] : 40;
+  const fontSize = !isResponsive ? fontSizeMap[size as Exclude<AvatarSize, "responsive">] : "clamp(10px, 2vw, 14px)";
+  const spacingOffset = getSpacingOffset(spacing, dimension);
+  const visibleAvatars = avatars.slice(0, max);
+  const extraCount = avatars.length - max;
 
   return (
     <div
       className={className}
       style={{
         display: "flex",
-        flexDirection: direction === "right" ? "row-reverse" : "row",
         alignItems: "center",
+        flexDirection: direction === "right" ? "row-reverse" : "row",
+        flexWrap: "wrap",
         ...style,
       }}
+      role="group"
+      aria-label={`Avatar group with ${avatars.length} members`}
     >
-      {visible.map((a, i) => (
+      {visibleAvatars.map((avatar, i) => {
+        const isFirst = direction === "left" ? i === 0 : i === visibleAvatars.length - 1;
+        const zIndex = direction === "left" ? visibleAvatars.length - i : i + 1;
+
+        return (
+          <div
+            key={i}
+            style={{
+              marginLeft: direction === "left" && !isFirst ? spacingOffset : 0,
+              marginRight: direction === "right" && !isFirst ? spacingOffset : 0,
+              zIndex,
+              position: "relative",
+              transition: "transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = `translateY(-3px) scale(1.05)`;
+              e.currentTarget.style.zIndex = "100";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0) scale(1)";
+              e.currentTarget.style.zIndex = zIndex.toString();
+            }}
+          >
+            <Avatar {...avatar} size={size} />
+          </div>
+        );
+      })}
+
+      {extraCount > 0 && (
         <div
-          key={i}
           style={{
-            marginLeft: direction === "left" && i > 0 ? offset : 0,
-            marginRight: direction === "right" && i > 0 ? offset : 0,
-            position: "relative",
-            zIndex: visible.length - i,
-            transition: "transform 0.2s ease",
-          }}
-        >
-          <Avatar {...a} size={size} />
-        </div>
-      ))}
-      {remaining > 0 && (
-        <div
-          style={{
+            marginLeft: direction === "left" ? spacingOffset : 0,
+            marginRight: direction === "right" ? spacingOffset : 0,
             width: dimension,
             height: dimension,
             borderRadius: "50%",
-            background: "#f3f4f6",
+            background: "linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)",
             color: "#374151",
-            fontSize: 14,
+            fontSize,
             fontWeight: 600,
             display: "flex",
-            alignItems: "center",
             justifyContent: "center",
-            border: "2px solid white",
+            alignItems: "center",
+            border: "3px solid white",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
             userSelect: "none",
-            marginLeft: offset,
           }}
+          title={`${extraCount} more members`}
         >
-          +{remaining}
+          +{extraCount}
         </div>
       )}
     </div>
   );
 };
-
-export { Avatar, AvatarGroup };
