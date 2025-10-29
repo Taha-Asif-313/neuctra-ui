@@ -1,101 +1,124 @@
-// src/pages/docs/ButtonDocs.jsx
+"use client";
+
 import React from "react";
-
-
-import { Button } from "@neuctra/ui"; // Adjust import path
+import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
+import { Button } from "@neuctra/ui";
 import { Rocket, Zap } from "lucide-react";
-import CodeBlock from "../../components/Docs/CodeBlock";
 
 const ButtonDocs = () => {
-  const columns = [
-    { key: "prop", label: "Prop", sortable: true },
-    { key: "type", label: "Type", sortable: true },
-    { key: "default", label: "Default", sortable: true },
-    { key: "description", label: "Description", sortable: false },
-  ];
-
-  const data = [
+  const propsData = [
     { prop: "children", type: "React.ReactNode", default: "—", description: "Content inside the button." },
-    { prop: "variant", type: `"primary" | "secondary" | "outline" | "ghost"`, default: `"primary"`, description: "Visual style of the button." },
-    { prop: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Size of the button." },
-    { prop: "disabled", type: "boolean", default: "false", description: "Disable button interactions." },
-    { prop: "onClick", type: "() => void", default: "undefined", description: "Click event handler." },
-    { prop: "loading", type: "boolean", default: "false", description: "Show loading state with spinner." },
-    { prop: "fullWidth", type: "boolean", default: "false", description: "Make the button take full container width." },
-    { prop: "className", type: "string", default: `""`, description: "Custom CSS classes." },
-    { prop: "iconLeft", type: "React.ReactNode", default: "undefined", description: "Icon displayed before the text." },
-    { prop: "iconRight", type: "React.ReactNode", default: "undefined", description: "Icon displayed after the text." },
+    { prop: "type", type: `"button" | "submit" | "reset"`, default: `"button"`, description: "HTML button type." },
+    { prop: "onClick", type: "() => void", default: "undefined", description: "Callback fired when the button is clicked." },
+    { prop: "iconBefore", type: "React.ReactNode", default: "undefined", description: "Icon rendered before the text." },
+    { prop: "iconAfter", type: "React.ReactNode", default: "undefined", description: "Icon rendered after the text." },
+    { prop: "className", type: "string", default: `""`, description: "Custom Tailwind or CSS classes." },
+    { prop: "style", type: "CSSProperties", default: "undefined", description: "Inline styles applied to the button." },
+    { prop: "fullWidth", type: "boolean", default: "false", description: "Button takes full container width." },
+    { prop: "disabled", type: "boolean", default: "false", description: "Disables the button." },
+    { prop: "loading", type: "boolean", default: "false", description: "Shows spinner and disables interaction." },
+    { prop: "loadingText", type: "string", default: `"Loading..."`, description: "Text displayed during loading state." },
+    { prop: "darkMode", type: "boolean", default: "false", description: "Uses dark theme colors." },
+    { prop: "baseColor", type: "string", default: "undefined", description: "Custom base color for theme." },
+    { prop: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Button size." },
+    { prop: "rounded", type: "boolean", default: "true", description: "Enable rounded corners." },
   ];
-
-  const basicCode = `<Button>
-  Click Me
-</Button>`;
-
-  const styledCode = `<Button
-  variant="secondary"
-  size="lg"
-  iconLeft={<Rocket />}
-  iconRight={<Zap />}
-  onClick={() => alert('Button clicked!')}
->
-  Launch
-</Button>`;
 
   return (
-    <div className="py-10 max-w-5xl font-primary mx-auto bg-zinc-950 text-white">
-      {/* Page Title */}
-      <h1 className="flex items-center gap-2 text-4xl font-bold mb-8">
-        <Rocket className="w-8 h-8 text-purple-400" />
-        Button Component Documentation
-      </h1>
+    <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
+      <div className="max-w-5xl mx-auto px-4 space-y-10">
+        {/* Header */}
+        <header>
+          <h1 className="text-4xl font-extrabold mb-3 text-white flex items-center gap-2">
+            <Rocket className="text-primary w-8 h-8" />
+            Button Component
+          </h1>
+          <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+            The <span className="text-primary font-semibold">Button</span>{" "}
+            component is fully customizable and theme-aware, supporting icons, 
+            sizes, loading states, full-width layout, rounded corners, and custom colors.
+          </p>
+        </header>
 
-      {/* Import */}
-      <section className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Import</h2>
-        <CodeBlock
-          language="typescript"
-          code={`import { Button } from "@neuctra/ui";`}
-        />
-      </section>
+        {/* Basic Example */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">Basic Example</h2>
+          <CodePreviewBlock
+            language="tsx"
+            code={`<Button>Click Me</Button>
+<Button iconBefore={<Rocket />}>Launch</Button>
+<Button iconAfter={<Zap />}>Energy</Button>
+<Button disabled>Disabled</Button>
+<Button loading>Loading</Button>`}
+            previewContent={
+              <div className="space-y-4 bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                <Button>Click Me</Button>
+                <Button iconBefore={<Rocket />}>Launch</Button>
+                <Button iconAfter={<Zap />}>Energy</Button>
+                <Button disabled>Disabled</Button>
+                <Button loading>Loading</Button>
+              </div>
+            }
+          />
+        </section>
 
- 
+        {/* Props Table */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">Available Props</h2>
+          <div className="overflow-x-auto text-sm">
+            <table className="w-full border-collapse border border-zinc-800 text-gray-300">
+              <thead className="bg-zinc-900">
+                <tr>
+                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Prop</th>
+                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Type</th>
+                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Default</th>
+                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {propsData.map(({ prop, type, default: def, description }) => (
+                  <tr key={prop}>
+                    <td className="border border-zinc-800 px-4 py-2 font-medium text-white">{prop}</td>
+                    <td className="border border-zinc-800 px-4 py-2 font-mono text-primary">{type}</td>
+                    <td className="border border-zinc-800 px-4 py-2 font-mono text-gray-400">{def}</td>
+                    <td className="border border-zinc-800 px-4 py-2">{description}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      {/* Props Table */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-6">Props</h2>
-        <table className="w-full text-left text-xs text-gray-200 border-collapse">
-          <thead>
-            <tr className="bg-primary text-white">
-              {columns.map(({ label, key }) => (
-                <th key={key} className="px-3 py-2 border border-primary">{label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(({ prop, type, default: def, description }) => (
-              <tr key={prop} className="even:bg-zinc-800 odd:bg-zinc-900">
-                <td className="border border-primary px-3 py-2 font-mono">{prop}</td>
-                <td className="border border-primary px-3 py-2 font-mono">{type}</td>
-                <td className="border border-primary px-3 py-2 font-mono">{def}</td>
-                <td className="border border-primary px-3 py-2">{description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+        {/* Variants & Colors */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">Variants & Colors</h2>
+          <p className="text-gray-300 mb-4">
+            Buttons can use different colors, dark mode, and rounded styles.
+          </p>
+          <CodePreviewBlock
+            language="tsx"
+            code={`<Button baseColor="#2563eb">Primary</Button>
+<Button baseColor="#16a34a" rounded={false}>Success</Button>
+<Button darkMode baseColor="#dc2626">Danger (Dark)</Button>`}
+            previewContent={
+              <div className="flex flex-wrap gap-4 bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                <Button baseColor="#2563eb">Primary</Button>
+                <Button baseColor="#16a34a" rounded={false}>Success</Button>
+                <Button darkMode baseColor="#dc2626">Danger (Dark)</Button>
+              </div>
+            }
+          />
+        </section>
 
-      {/* Behavior */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-semibold mb-4">Behavior Notes</h2>
-        <ul className="list-disc list-inside space-y-2 text-gray-300">
-          <li>Supports multiple variants and sizes.</li>
-          <li>Hover, active, and disabled states handled internally.</li>
-          <li>Optional icons can be added on left or right.</li>
-          <li>Supports loading state with spinner.</li>
-          <li>Can be rendered as full-width button.</li>
-          <li>Fully customizable via <code>className</code> or style props.</li>
-        </ul>
-      </section>
+        {/* Footer */}
+        <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
+          <p>
+            Built with <span className="text-primary">React</span>,{" "}
+            <span className="text-primary">Tailwind CSS</span> &{" "}
+            <span className="text-primary">TypeScript</span>.
+          </p>
+        </footer>
+      </div>
     </div>
   );
 };
