@@ -63,7 +63,7 @@ const Sidebar = () => {
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => handleNavigation("/")}
         >
-          <div className="w-10 h-10 bg-green-600 rounded-full"></div>
+          <img src="/logo.png" className="w-10 h-10"/>
           <h2 className="text-lg font-semibold tracking-tight">
             Neuctra<span className="text-[#00c214]">UI</span>
           </h2>
@@ -87,7 +87,7 @@ const Sidebar = () => {
           onClick={() => handleNavigation("/")}
         >
           <div className="flex items-center gap-1">
-            <div className="w-10 h-10 bg-green-600 rounded-full"></div>
+               <img src="/logo.png" className="w-10 h-10"/>
             <h2 className="text-lg font-semibold tracking-tight">
               Neuctra<span className="text-[#00c214]">UI</span>
             </h2>

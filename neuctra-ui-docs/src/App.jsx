@@ -18,6 +18,7 @@ import PrivacyPolicyPage from "./pages/SitePages/PrivacyPolicyPage";
 // Docs Pages
 import GetStarted from "./pages/DocsPages/GetStarted";
 import ButtonDocs from "./pages/DocsPages/ButtonDocs";
+import TextDocs from "./pages/DocsPages/TextComponentDocs";
 
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
         {/* 📘 Documentation Layout */}
         <Route path="/docs" element={<DocsLayout />}>
           <Route index element={<GetStarted />} />
+                  <Route path="text" element={<TextDocs />} />
           <Route path="button" element={<ButtonDocs />} />
         </Route>
       </Routes>
