@@ -54,7 +54,7 @@ export { List } from "./components/basic/List"; // ✅ Finalized
 export { Modal } from "./components/basic/Modal"; // ✅ Finalized
 
 // Tables
-export { Table } from "./components/basic/Table"; // ✅ Finalized
+export { Table, TBody, TD, THead, TH, TRow } from "./components/basic/Table"; // ✅ Finalized
 
 // Tabs
 export { LeftTabs, RightTabs, TopTabs, Tabs } from "./components/basic/Tabs"; // ✅ Finalized

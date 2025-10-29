@@ -1,11 +1,11 @@
 import React, {
   useState,
-  forwardRef,
-  useImperativeHandle,
   useRef,
+  useImperativeHandle,
+  forwardRef,
   CSSProperties,
 } from "react";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 interface InputProps {
   type?:
@@ -17,8 +17,8 @@ interface InputProps {
     | "tel"
     | "url"
     | "textarea";
-  placeholder?: string;
   label?: string;
+  placeholder?: string;
   name?: string;
   value?: string;
   defaultValue?: string;
@@ -29,8 +29,11 @@ interface InputProps {
   error?: string;
   success?: boolean;
   autoFocus?: boolean;
+
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+
+  /** 🎨 Style customization */
   borderColor?: string;
   focusBorderColor?: string;
   hoverBorderColor?: string;
@@ -39,6 +42,8 @@ interface InputProps {
   errorColor?: string;
   successColor?: string;
   labelColor?: string;
+
+  /** 🧩 Layout customization */
   size?: "sm" | "md" | "lg";
   radius?: string;
   fontSize?: string;
@@ -47,6 +52,8 @@ interface InputProps {
   maxLength?: number;
   resize?: boolean;
   showCharacterCount?: boolean;
+
+  /** 🧱 External customization */
   className?: string;
   style?: CSSProperties;
 }
@@ -54,267 +61,250 @@ interface InputProps {
 export const Input = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
   InputProps
->(
-  (
-    {
-      type = "text",
-      placeholder = "",
-      label,
-      value,
-      defaultValue,
-      onChange,
-      name = "",
-      disabled = false,
-      readOnly = false,
-      required = false,
-      error,
-      success = false,
-      autoFocus = false,
-      iconLeft,
-      iconRight,
-      borderColor = "#ccc",
-      focusBorderColor = "#2563eb",
-      hoverBorderColor = "#4b5563",
-      backgroundColor = "#ffffff",
-      textColor = "#111827",
-      errorColor = "#dc2626",
-      successColor = "#16a34a",
-      labelColor = "#374151",
-      size = "md",
-      radius = "6px",
-      fontSize = "14px",
-      rows = 4,
-      cols,
-      maxLength,
-      resize = true,
-      showCharacterCount = true,
-      className,
-      style,
-    },
-    ref
+>((props, ref) => {
+  const {
+    type = "text",
+    label,
+    placeholder = "",
+    name = "",
+    value,
+    defaultValue,
+    onChange,
+    disabled = false,
+    readOnly = false,
+    required = false,
+    error,
+    success = false,
+    autoFocus = false,
+
+    iconLeft,
+    iconRight,
+
+    borderColor = "#d1d5db",
+    focusBorderColor = "#2563eb",
+    hoverBorderColor = "#9ca3af",
+    backgroundColor = "#fff",
+    textColor = "#111827",
+    errorColor = "#dc2626",
+    successColor = "#16a34a",
+    labelColor = "#374151",
+
+    size = "md",
+    radius = "8px",
+    fontSize = "14px",
+    rows = 4,
+    cols,
+    maxLength,
+    resize = true,
+    showCharacterCount = true,
+
+    className,
+    style,
+  } = props;
+
+  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  const [localValue, setLocalValue] = useState(defaultValue || "");
+  const [visible, setVisible] = useState(false);
+
+  useImperativeHandle(ref, () => inputRef.current!);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const internalRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-    const [inputValue, setInputValue] = useState<string>(defaultValue || "");
-    const [isPasswordVisible, setPasswordVisible] = useState<boolean>(false);
+    const newVal = e.target.value;
+    if (maxLength && newVal.length > maxLength) return;
+    setLocalValue(newVal);
+    onChange?.(name, newVal);
+  };
 
-    useImperativeHandle(ref, () => internalRef.current!);
+  const currentValue = value ?? localValue;
+  const currentBorderColor = error
+    ? errorColor
+    : success
+    ? successColor
+    : borderColor;
 
-    const handleChange = (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-      if (maxLength && e.target.value.length > maxLength) return;
-      setInputValue(e.target.value);
-      if (onChange) onChange(name, e.target.value);
-    };
+  const sizeTokens = {
+    sm: { padding: "6px 10px", font: "13px" },
+    md: { padding: "10px 14px", font: "14px" },
+    lg: { padding: "14px 18px", font: "16px" },
+  }[size];
 
-    const getPadding = () => {
-      switch (size) {
-        case "sm":
-          return "6px 12px";
-        case "lg":
-          return "12px 20px";
-        default:
-          return "10px 16px";
-      }
-    };
+  const baseInputStyle: CSSProperties = {
+    width: "100%",
+    border: `1px solid ${currentBorderColor}`,
+    borderRadius: radius,
+    backgroundColor,
+    color: textColor,
+    fontSize: fontSize || sizeTokens.font,
+    padding: sizeTokens.padding,
+    paddingLeft: iconLeft ? "40px" : sizeTokens.padding.split(" ")[1],
+    paddingRight:
+      iconRight || type === "password" ? "40px" : sizeTokens.padding.split(" ")[1],
+    outline: "none",
+    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+    resize: type === "textarea" && !resize ? "none" : undefined,
+    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+    ...style,
+  };
 
-    const getFontSize = () => {
-      switch (size) {
-        case "sm":
-          return "13px";
-        case "lg":
-          return "16px";
-        default:
-          return fontSize;
-      }
-    };
+  const applyDynamicBorder = (el: HTMLInputElement | HTMLTextAreaElement, color: string) => {
+    if (el) el.style.borderColor = color;
+  };
 
-    const currentBorderColor = error
-      ? errorColor
-      : success
-      ? successColor
-      : borderColor;
+  const commonEvents = {
+    onFocus: (e: any) => applyDynamicBorder(e.currentTarget, focusBorderColor),
+    onBlur: (e: any) => applyDynamicBorder(e.currentTarget, currentBorderColor),
+    onMouseEnter: (e: any) => applyDynamicBorder(e.currentTarget, hoverBorderColor),
+    onMouseLeave: (e: any) => applyDynamicBorder(e.currentTarget, currentBorderColor),
+  };
 
-    const sharedStyle: React.CSSProperties = {
-      width: "100%",
-      padding: getPadding(),
-      paddingLeft: iconLeft ? "40px" : getPadding().split(" ")[1],
-      paddingRight:
-        iconRight || type === "password" ? "40px" : getPadding().split(" ")[1],
-      border: `1px solid ${currentBorderColor}`,
-      borderRadius: radius,
-      backgroundColor,
-      color: textColor,
-      fontSize: getFontSize(),
-      outline: "none",
-      resize: type === "textarea" && !resize ? "none" : undefined,
-      ...style,
-    };
+  return (
+    <div
+      className={className}
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        fontFamily: "Inter, system-ui, sans-serif",
+      }}
+    >
+      {label && (
+        <label
+          htmlFor={name}
+          style={{
+            marginBottom: 6,
+            color: labelColor,
+            fontWeight: 500,
+            fontSize: "14px",
+          }}
+        >
+          {label}
+          {required && <span style={{ color: errorColor }}> *</span>}
+        </label>
+      )}
 
-    return (
-      <div
-        style={{ width: "100%", fontFamily: "sans-serif" }}
-        className={className}
-      >
-        {label && (
-          <label
-            htmlFor={name}
+      <div style={{ position: "relative", width: "100%" }}>
+        {/* Left icon */}
+        {iconLeft && (
+          <span
             style={{
-              display: "block",
-              marginBottom: "6px",
-              fontSize: "14px",
-              fontWeight: 500,
-              color: labelColor,
-            }}
-          >
-            {label} {required && <span style={{ color: errorColor }}>*</span>}
-          </label>
-        )}
-
-        <div style={{ position: "relative", width: "100%" }}>
-          {/* Icon Left */}
-          {iconLeft && (
-            <span
-              style={{
-                position: "absolute",
-                left: "12px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                pointerEvents: "none",
-                color: "#6b7280",
-              }}
-            >
-              {iconLeft}
-            </span>
-          )}
-
-          {/* Input or Textarea */}
-          {type === "textarea" ? (
-            <textarea
-              ref={internalRef as React.RefObject<HTMLTextAreaElement>}
-              name={name}
-              value={value ?? inputValue}
-              onChange={handleChange}
-              placeholder={placeholder}
-              rows={rows}
-              cols={cols}
-              maxLength={maxLength}
-              disabled={disabled}
-              readOnly={readOnly}
-              autoFocus={autoFocus}
-              style={sharedStyle}
-              onFocus={(e) => {
-                e.currentTarget.style.borderColor = focusBorderColor;
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderColor = currentBorderColor;
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = hoverBorderColor;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = currentBorderColor;
-              }}
-            />
-          ) : (
-            <input
-              ref={internalRef as React.RefObject<HTMLInputElement>}
-              id={name}
-              name={name}
-              type={
-                type === "password"
-                  ? isPasswordVisible
-                    ? "text"
-                    : "password"
-                  : type
-              }
-              value={value ?? inputValue}
-              onChange={handleChange}
-              placeholder={placeholder}
-              disabled={disabled}
-              readOnly={readOnly}
-              autoFocus={autoFocus}
-              style={sharedStyle}
-              onFocus={(e) => {
-                e.currentTarget.style.borderColor = focusBorderColor;
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.borderColor = currentBorderColor;
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = hoverBorderColor;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = currentBorderColor;
-              }}
-            />
-          )}
-
-          {/* Right Icon / Loading / Suffix */}
-          {type === "password" && (
-            <button
-              type="button"
-              onClick={() => setPasswordVisible(!isPasswordVisible)}
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                background: "transparent",
-                border: "none",
-                color: "#6b7280",
-                cursor: "pointer",
-                padding: 0,
-              }}
-            >
-              {isPasswordVisible ? <EyeOff size={18} /> : <Eye size={18} />}
-            </button>
-          )}
-
-          {iconRight && type !== "password" && (
-            <span
-              style={{
-                position: "absolute",
-                right: "12px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                pointerEvents: "none",
-                color: "#6b7280",
-              }}
-            >
-              {iconRight}
-            </span>
-          )}
-        </div>
-
-        {/* Character Count */}
-        {type === "textarea" && showCharacterCount && maxLength && (
-          <div
-            style={{
-              textAlign: "right",
-              fontSize: "12px",
+              position: "absolute",
+              left: 12,
+              top: "50%",
+              transform: "translateY(-50%)",
               color: "#6b7280",
-              marginTop: "4px",
+              pointerEvents: "none",
             }}
           >
-            {(value ?? inputValue).length}/{maxLength}
-          </div>
+            {iconLeft}
+          </span>
         )}
 
-        {/* Error Message */}
-        {error && (
-          <p
+        {/* Input / Textarea */}
+        {type === "textarea" ? (
+          <textarea
+            ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+            name={name}
+            value={currentValue}
+            placeholder={placeholder}
+            disabled={disabled}
+            readOnly={readOnly}
+            rows={rows}
+            cols={cols}
+            maxLength={maxLength}
+            autoFocus={autoFocus}
+            style={baseInputStyle}
+            onChange={handleChange}
+            {...commonEvents}
+          />
+        ) : (
+          <input
+            ref={inputRef as React.RefObject<HTMLInputElement>}
+            id={name}
+            type={
+              type === "password"
+                ? visible
+                  ? "text"
+                  : "password"
+                : type
+            }
+            name={name}
+            value={currentValue}
+            placeholder={placeholder}
+            disabled={disabled}
+            readOnly={readOnly}
+            autoFocus={autoFocus}
+            style={baseInputStyle}
+            onChange={handleChange}
+            {...commonEvents}
+          />
+        )}
+
+        {/* Password toggle */}
+        {type === "password" && (
+          <button
+            type="button"
+            onClick={() => setVisible(!visible)}
             style={{
-              color: errorColor,
-              fontSize: "12px",
-              marginTop: "4px",
-              lineHeight: "1.3",
+              position: "absolute",
+              right: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: "#6b7280",
+              padding: 0,
             }}
           >
-            {error}
-          </p>
+            {visible ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        )}
+
+        {/* Right icon */}
+        {iconRight && type !== "password" && (
+          <span
+            style={{
+              position: "absolute",
+              right: 12,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "#6b7280",
+              pointerEvents: "none",
+            }}
+          >
+            {iconRight}
+          </span>
         )}
       </div>
-    );
-  }
-);
+
+      {/* Character Counter */}
+      {type === "textarea" && showCharacterCount && maxLength && (
+        <div
+          style={{
+            textAlign: "right",
+            fontSize: "12px",
+            color: "#6b7280",
+            marginTop: 4,
+          }}
+        >
+          {currentValue.length}/{maxLength}
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <div
+          style={{
+            color: errorColor,
+            fontSize: "12px",
+            marginTop: 4,
+          }}
+        >
+          {error}
+        </div>
+      )}
+    </div>
+  );
+});
