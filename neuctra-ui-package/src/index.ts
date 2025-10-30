@@ -57,7 +57,7 @@ export { Modal } from "./components/basic/Modal"; // ✅ Finalized
 export { Table, TBody, TD, THead, TH, TRow } from "./components/basic/Table"; // ✅ Finalized
 
 // Tabs
-export { LeftTabs, RightTabs, TopTabs, Tabs } from "./components/basic/Tabs"; // ✅ Finalized
+export { Tabs } from "./components/basic/Tabs"; // ✅ Finalized
 
 // Text
 export { Text } from "./components/basic/Text"; // ✅ Finalized

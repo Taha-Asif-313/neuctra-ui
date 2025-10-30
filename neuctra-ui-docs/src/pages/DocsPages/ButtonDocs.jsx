@@ -1,110 +1,142 @@
-"use client";
-
 import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Button } from "@neuctra/ui";
-import { Rocket, Zap } from "lucide-react";
+import { ArrowRight, Rocket } from "lucide-react";
 
 const ButtonDocs = () => {
-  const propsData = [
-    { prop: "children", type: "React.ReactNode", default: "—", description: "Content inside the button." },
-    { prop: "type", type: `"button" | "submit" | "reset"`, default: `"button"`, description: "HTML button type." },
-    { prop: "onClick", type: "() => void", default: "undefined", description: "Callback fired when the button is clicked." },
-    { prop: "iconBefore", type: "React.ReactNode", default: "undefined", description: "Icon rendered before the text." },
-    { prop: "iconAfter", type: "React.ReactNode", default: "undefined", description: "Icon rendered after the text." },
-    { prop: "className", type: "string", default: `""`, description: "Custom Tailwind or CSS classes." },
-    { prop: "style", type: "CSSProperties", default: "undefined", description: "Inline styles applied to the button." },
-    { prop: "fullWidth", type: "boolean", default: "false", description: "Button takes full container width." },
-    { prop: "disabled", type: "boolean", default: "false", description: "Disables the button." },
-    { prop: "loading", type: "boolean", default: "false", description: "Shows spinner and disables interaction." },
-    { prop: "loadingText", type: "string", default: `"Loading..."`, description: "Text displayed during loading state." },
-    { prop: "darkMode", type: "boolean", default: "false", description: "Uses dark theme colors." },
-    { prop: "baseColor", type: "string", default: "undefined", description: "Custom base color for theme." },
-    { prop: "size", type: `"sm" | "md" | "lg"`, default: `"md"`, description: "Button size." },
-    { prop: "rounded", type: "boolean", default: "true", description: "Enable rounded corners." },
-  ];
-
   return (
     <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4 space-y-10">
         {/* Header */}
         <header>
-          <h1 className="text-4xl max-sm:flex-col font-extrabold mb-3 text-white flex items-center gap-2">
-            <Rocket className="text-primary w-8 h-8" />
+          <h1 className="text-4xl font-extrabold mb-3 text-white">
             Button Component
           </h1>
           <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
             The <span className="text-primary font-semibold">Button</span>{" "}
-            component is fully customizable and theme-aware, supporting icons, 
-            sizes, loading states, full-width layout, rounded corners, and custom colors.
+            component is a customizable and theme-aware element designed for all
+            types of user interactions. It supports multiple sizes, colors,
+            rounded corners, loading states, icons, and dark mode — making it
+            perfect for modern interfaces.
           </p>
         </header>
 
-        {/* Basic Example */}
+        {/* Example 1: Basic Button */}
         <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">Basic Example</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Basic Example
+          </h2>
           <CodePreviewBlock
-            language="tsx"
-            code={`<Button>Click Me</Button>
-<Button iconBefore={<Rocket />}>Launch</Button>
-<Button iconAfter={<Zap />}>Energy</Button>
-<Button disabled>Disabled</Button>
-<Button loading>Loading</Button>`}
+            language="jsx"
+            code={`<Button>Click Me</Button>`}
+            previewContent={<Button>Click Me</Button>}
+          />
+        </section>
+
+        {/* Example 2: Button Sizes */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Button Sizes
+          </h2>
+          <p className="text-gray-300 mb-3">
+            Adjust the button size with the{" "}
+            <code className="text-primary">size</code> prop. Available options:
+            <code className="text-primary mx-1">"sm"</code>,
+            <code className="text-primary mx-1">"md"</code>, and
+            <code className="text-primary mx-1">"lg"</code>.
+          </p>
+
+          <CodePreviewBlock
+            language="jsx"
+            code={`<>
+  <Button size="sm">Small</Button>
+  <Button size="md">Medium</Button>
+  <Button size="lg">Large</Button>
+</>`}
             previewContent={
-              <div className="space-y-4 bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-                <Button>Click Me</Button>
-                <Button iconBefore={<Rocket />}>Launch</Button>
-                <Button iconAfter={<Zap />}>Energy</Button>
-                <Button disabled>Disabled</Button>
-                <Button loading>Loading</Button>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button size="sm">Small</Button>
+                <Button size="md">Medium</Button>
+                <Button size="lg">Large</Button>
               </div>
             }
           />
         </section>
 
-        {/* Props Table */}
+        {/* Example 3: Loading State */}
         <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">Available Props</h2>
-          <div className="overflow-x-auto text-sm">
-            <table className="w-full border-collapse border border-zinc-800 text-gray-300">
-              <thead className="bg-zinc-900">
-                <tr>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Prop</th>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Type</th>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Default</th>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {propsData.map(({ prop, type, default: def, description }) => (
-                  <tr key={prop}>
-                    <td className="border border-zinc-800 px-4 py-2 font-medium text-white">{prop}</td>
-                    <td className="border border-zinc-800 px-4 py-2 font-mono text-primary">{type}</td>
-                    <td className="border border-zinc-800 px-4 py-2 font-mono text-gray-400">{def}</td>
-                    <td className="border border-zinc-800 px-4 py-2">{description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* Variants & Colors */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">Variants & Colors</h2>
-          <p className="text-gray-300 mb-4">
-            Buttons can use different colors, dark mode, and rounded styles.
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Loading State
+          </h2>
+          <p className="text-gray-300 mb-3">
+            Use the <code className="text-primary">loading</code> prop to show a
+            spinner and optional loading text while an action is in progress.
           </p>
           <CodePreviewBlock
-            language="tsx"
-            code={`<Button baseColor="#2563eb">Primary</Button>
-<Button baseColor="#16a34a" rounded={false}>Success</Button>
-<Button darkMode baseColor="#dc2626">Danger (Dark)</Button>`}
+            language="jsx"
+            code={`<Button loading>Processing...</Button>`}
+            previewContent={<Button loading>Processing...</Button>}
+          />
+        </section>
+
+        {/* Example 4: Icons */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Buttons with Icons
+          </h2>
+          <p className="text-gray-300 mb-3">
+            Add icons using <code className="text-primary">iconBefore</code> or{" "}
+            <code className="text-primary">iconAfter</code> props.
+          </p>
+
+          <CodePreviewBlock
+            language="jsx"
+            code={`<>
+  <Button iconBefore="🚀">Launch</Button>
+  <Button iconAfter="➡️">Continue</Button>
+</>`}
             previewContent={
-              <div className="flex flex-wrap gap-4 bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-                <Button baseColor="#2563eb">Primary</Button>
-                <Button baseColor="#16a34a" rounded={false}>Success</Button>
-                <Button darkMode baseColor="#dc2626">Danger (Dark)</Button>
+              <div className="flex flex-wrap gap-4">
+                <Button iconBefore={<Rocket size={16} />}>Launch</Button>
+                <Button iconAfter={<ArrowRight size={16} />}>Continue</Button>
+              </div>
+            }
+          />
+        </section>
+
+        {/* Example 5: Custom Theme */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Custom Theme Color
+          </h2>
+          <p className="text-gray-300 mb-3">
+            You can easily create custom-themed buttons using the{" "}
+            <code className="text-primary">baseColor</code> prop to generate a
+            new color palette automatically.
+          </p>
+
+          <CodePreviewBlock
+            language="jsx"
+            code={`<Button baseColor="#10b981">Success</Button>`}
+            previewContent={<Button baseColor="#10b981">Success</Button>}
+          />
+        </section>
+
+        {/* Example 6: Disabled and Full Width */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Disabled & Full Width
+          </h2>
+          <CodePreviewBlock
+            language="jsx"
+            code={`<>
+  <Button disabled>Disabled</Button>
+  <Button fullWidth>Full Width</Button>
+</>`}
+            previewContent={
+              <div className="flex flex-col gap-4 w-full max-w-sm">
+                <Button disabled>Disabled</Button>
+                <Button fullWidth>Full Width</Button>
               </div>
             }
           />

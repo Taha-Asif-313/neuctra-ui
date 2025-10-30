@@ -19,6 +19,10 @@ import PrivacyPolicyPage from "./pages/SitePages/PrivacyPolicyPage";
 import GetStarted from "./pages/DocsPages/GetStarted";
 import ButtonDocs from "./pages/DocsPages/ButtonDocs";
 import TextDocs from "./pages/DocsPages/TextDocs";
+import ImageDocs from "./pages/DocsPages/ImageDocs";
+import InputDocs from "./pages/DocsPages/InputDocs";
+import ListDocs from "./pages/DocsPages/ListDocs";
+import TabsDocs from "./pages/DocsPages/TabsDocs";
 
 const App = () => {
   return (
@@ -40,7 +44,11 @@ const App = () => {
         <Route path="/docs" element={<DocsLayout />}>
           <Route index element={<GetStarted />} />
           <Route path="text" element={<TextDocs />} />
+             <Route path="image" element={<ImageDocs />} />
           <Route path="button" element={<ButtonDocs />} />
+                <Route path="input" element={<InputDocs />} />
+                 <Route path="list" element={<ListDocs />} />
+                  <Route path="tabs" element={<TabsDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>

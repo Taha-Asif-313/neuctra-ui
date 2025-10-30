@@ -1,3 +1,4 @@
+"use client";
 import React, {
   useState,
   useRef,
@@ -7,7 +8,7 @@ import React, {
 } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-interface InputProps {
+export interface InputProps {
   type?:
     | "text"
     | "password"
@@ -33,25 +34,31 @@ interface InputProps {
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
 
-  /** 🎨 Style customization */
-  borderColor?: string;
-  focusBorderColor?: string;
-  hoverBorderColor?: string;
+  /** 🎨 Full Customization Options */
+  labelColor?: string;
+  placeholderColor?: string;
   backgroundColor?: string;
   textColor?: string;
+  borderColor?: string;
+  hoverBorderColor?: string;
+  focusBorderColor?: string;
   errorColor?: string;
   successColor?: string;
-  labelColor?: string;
+  iconColor?: string;
+  shadow?: string;
 
-  /** 🧩 Layout customization */
-  size?: "sm" | "md" | "lg";
-  radius?: string;
+  /** 🧩 Layout + Style Customization */
   fontSize?: string;
+  fontFamily?: string;
+  radius?: string;
+  size?: "sm" | "md" | "lg";
   rows?: number;
   cols?: number;
   maxLength?: number;
   resize?: boolean;
   showCharacterCount?: boolean;
+  paddingX?: string;
+  paddingY?: string;
 
   /** 🧱 External customization */
   className?: string;
@@ -80,23 +87,31 @@ export const Input = forwardRef<
     iconLeft,
     iconRight,
 
-    borderColor = "#d1d5db",
-    focusBorderColor = "#2563eb",
-    hoverBorderColor = "#9ca3af",
-    backgroundColor = "#fff",
+    /** 🎨 Styling props */
+    labelColor = "#374151",
+    placeholderColor = "#9ca3af",
+    backgroundColor = "#ffffff",
     textColor = "#111827",
+    borderColor = "#d1d5db",
+    hoverBorderColor = "#9ca3af",
+    focusBorderColor = "#2563eb",
     errorColor = "#dc2626",
     successColor = "#16a34a",
-    labelColor = "#374151",
+    iconColor = "#6b7280",
+    shadow = "0 1px 2px rgba(0,0,0,0.05)",
 
+    /** 📏 Layout + size */
     size = "md",
-    radius = "8px",
     fontSize = "14px",
+    fontFamily = "Inter, system-ui, sans-serif",
+    radius = "8px",
     rows = 4,
     cols,
     maxLength,
     resize = true,
     showCharacterCount = true,
+    paddingX,
+    paddingY,
 
     className,
     style,
@@ -108,55 +123,78 @@ export const Input = forwardRef<
 
   useImperativeHandle(ref, () => inputRef.current!);
 
+  /** ✅ Make it controlled properly */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const newVal = e.target.value;
-    if (maxLength && newVal.length > maxLength) return;
-    setLocalValue(newVal);
-    onChange?.(name, newVal);
+    const newValue = e.target.value;
+    if (maxLength && newValue.length > maxLength) return;
+    setLocalValue(newValue);
+    if (onChange) onChange(name, newValue);
   };
 
-  const currentValue = value ?? localValue;
+  const currentValue = value !== undefined ? value : localValue;
+
+  /** 🎯 Dynamic border colors */
   const currentBorderColor = error
     ? errorColor
     : success
     ? successColor
     : borderColor;
 
-  const sizeTokens = {
-    sm: { padding: "6px 10px", font: "13px" },
-    md: { padding: "10px 14px", font: "14px" },
-    lg: { padding: "14px 18px", font: "16px" },
+  /** 🧠 Size tokens */
+  const sizes = {
+    sm: { paddingY: "6px", paddingX: "10px", font: "13px" },
+    md: { paddingY: "10px", paddingX: "14px", font: "14px" },
+    lg: { paddingY: "14px", paddingX: "18px", font: "16px" },
   }[size];
 
+  const px = paddingX || sizes.paddingX;
+  const py = paddingY || sizes.paddingY;
+
+  /** 💅 Base input styles */
   const baseInputStyle: CSSProperties = {
     width: "100%",
     border: `1px solid ${currentBorderColor}`,
     borderRadius: radius,
     backgroundColor,
     color: textColor,
-    fontSize: fontSize || sizeTokens.font,
-    padding: sizeTokens.padding,
-    paddingLeft: iconLeft ? "40px" : sizeTokens.padding.split(" ")[1],
+    fontFamily,
+    fontSize,
+    padding: `${py} ${px}`,
+    paddingLeft: iconLeft ? "40px" : px,
     paddingRight:
-      iconRight || type === "password" ? "40px" : sizeTokens.padding.split(" ")[1],
+      iconRight || type === "password" ? "40px" : px,
     outline: "none",
-    transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+    transition: "border-color 0.25s ease, box-shadow 0.25s ease",
     resize: type === "textarea" && !resize ? "none" : undefined,
-    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+    boxShadow: shadow,
     ...style,
   };
 
-  const applyDynamicBorder = (el: HTMLInputElement | HTMLTextAreaElement, color: string) => {
+  /** 🧠 Placeholder dynamic color */
+  const dynamicPlaceholder = {
+    "::placeholder": {
+      color: placeholderColor,
+      opacity: 1,
+    },
+  } as any;
+
+  /** 🎨 Dynamic border behavior */
+  const applyDynamicBorder = (
+    el: HTMLInputElement | HTMLTextAreaElement,
+    color: string
+  ) => {
     if (el) el.style.borderColor = color;
   };
 
   const commonEvents = {
     onFocus: (e: any) => applyDynamicBorder(e.currentTarget, focusBorderColor),
     onBlur: (e: any) => applyDynamicBorder(e.currentTarget, currentBorderColor),
-    onMouseEnter: (e: any) => applyDynamicBorder(e.currentTarget, hoverBorderColor),
-    onMouseLeave: (e: any) => applyDynamicBorder(e.currentTarget, currentBorderColor),
+    onMouseEnter: (e: any) =>
+      applyDynamicBorder(e.currentTarget, hoverBorderColor),
+    onMouseLeave: (e: any) =>
+      applyDynamicBorder(e.currentTarget, currentBorderColor),
   };
 
   return (
@@ -166,9 +204,10 @@ export const Input = forwardRef<
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "Inter, system-ui, sans-serif",
+        fontFamily,
       }}
     >
+      {/* Label */}
       {label && (
         <label
           htmlFor={name}
@@ -193,7 +232,7 @@ export const Input = forwardRef<
               left: 12,
               top: "50%",
               transform: "translateY(-50%)",
-              color: "#6b7280",
+              color: iconColor,
               pointerEvents: "none",
             }}
           >
@@ -201,7 +240,7 @@ export const Input = forwardRef<
           </span>
         )}
 
-        {/* Input / Textarea */}
+        {/* Input or Textarea */}
         {type === "textarea" ? (
           <textarea
             ref={inputRef as React.RefObject<HTMLTextAreaElement>}
@@ -214,7 +253,7 @@ export const Input = forwardRef<
             cols={cols}
             maxLength={maxLength}
             autoFocus={autoFocus}
-            style={baseInputStyle}
+            style={{ ...baseInputStyle, ...dynamicPlaceholder }}
             onChange={handleChange}
             {...commonEvents}
           />
@@ -235,13 +274,13 @@ export const Input = forwardRef<
             disabled={disabled}
             readOnly={readOnly}
             autoFocus={autoFocus}
-            style={baseInputStyle}
+            style={{ ...baseInputStyle, ...dynamicPlaceholder }}
             onChange={handleChange}
             {...commonEvents}
           />
         )}
 
-        {/* Password toggle */}
+        {/* Password visibility toggle */}
         {type === "password" && (
           <button
             type="button"
@@ -254,7 +293,7 @@ export const Input = forwardRef<
               background: "transparent",
               border: "none",
               cursor: "pointer",
-              color: "#6b7280",
+              color: iconColor,
               padding: 0,
             }}
           >
@@ -270,7 +309,7 @@ export const Input = forwardRef<
               right: 12,
               top: "50%",
               transform: "translateY(-50%)",
-              color: "#6b7280",
+              color: iconColor,
               pointerEvents: "none",
             }}
           >
@@ -279,7 +318,7 @@ export const Input = forwardRef<
         )}
       </div>
 
-      {/* Character Counter */}
+      {/* Character counter */}
       {type === "textarea" && showCharacterCount && maxLength && (
         <div
           style={{
@@ -293,7 +332,7 @@ export const Input = forwardRef<
         </div>
       )}
 
-      {/* Error */}
+      {/* Error text */}
       {error && (
         <div
           style={{

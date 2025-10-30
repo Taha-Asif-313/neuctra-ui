@@ -1,5 +1,7 @@
-import React, { useState, CSSProperties, useEffect } from "react";
+"use client";
+import React, { useState, CSSProperties, useEffect, useRef } from "react";
 
+/** 🧩 Types */
 interface TabItem {
   label: React.ReactNode;
   content: React.ReactNode;
@@ -8,390 +10,309 @@ interface TabItem {
   ariaLabel?: string;
 }
 
-interface TabsBaseProps {
+interface TabsProps {
   tabs: TabItem[];
   defaultActive?: number;
-  activeTabClassName?: string;
-  inactiveTabClassName?: string;
-  tabContainerClassName?: string;
-  contentContainerClassName?: string;
-  className?: string;
-  activeTabStyle?: CSSProperties;
-  inactiveTabStyle?: CSSProperties;
-  tabContainerStyle?: CSSProperties;
-  contentContainerStyle?: CSSProperties;
-  style?: CSSProperties;
-  tabsWidth?: string | number;
-  tabGap?: number;
-  tabPadding?: string;
-  tabBorderRadius?: number;
+  position?: "top" | "left" | "right";
+  variant?: "solid" | "outline" | "underline";
+  fullWidth?: boolean;
+  gap?: number;
+  radius?: number;
+  padding?: string;
+  transitionDuration?: number;
+  elevation?: number;
+  bordered?: boolean;
+
+  /** 🎨 Colors */
   primaryColor?: string;
-  textColor?: string;
   backgroundColor?: string;
-  hoverTextColor?: string;
+  textColor?: string;
+  hoverColor?: string;
+  activeColor?: string;
+  borderColor?: string;
   disabledColor?: string;
+
+  /** 📱 Responsive */
   responsiveBreakpoint?: number;
   showDrawerLabel?: string;
   drawerIcon?: React.ReactNode;
-  transitionDuration?: number;
+
+  /** ⚙️ Callbacks */
   onTabChange?: (index: number) => void;
-  role?: string;
-  ariaOrientation?: "horizontal" | "vertical";
+
+  /** 🧱 Classes and Styles */
+  className?: string;
+  style?: CSSProperties;
+  tabClassName?: string;
+  contentClassName?: string;
+  activeTabStyle?: CSSProperties;
+  inactiveTabStyle?: CSSProperties;
+  contentStyle?: CSSProperties;
 }
 
-const BaseTabs: React.FC<
-  TabsBaseProps & { tabPosition: "left" | "top" | "right" }
-> = ({
+/** 💎 Modern, Fully Customizable Tabs */
+export const Tabs: React.FC<TabsProps> = ({
   tabs,
   defaultActive = 0,
-  tabPosition,
-  activeTabClassName = "",
-  inactiveTabClassName = "",
-  tabContainerClassName = "",
-  contentContainerClassName = "",
-  className = "",
-  activeTabStyle,
-  inactiveTabStyle,
-  tabContainerStyle,
-  contentContainerStyle,
-  style,
-  tabsWidth = "240px",
-  tabGap = 8,
-  tabPadding = "12px 16px",
-  tabBorderRadius = 8,
+  position = "top",
+  variant = "solid",
+  fullWidth = false,
+  gap = 8,
+  radius = 8,
+  padding = "12px 18px",
+  transitionDuration = 200,
+  elevation = 1,
+  bordered = false,
+
   primaryColor = "#2563eb",
+  backgroundColor = "transparent",
   textColor = "#374151",
-  backgroundColor = "#ffffff",
-  hoverTextColor = "#1e40af",
-  disabledColor = "#d1d5db",
+  hoverColor = "#1d4ed8",
+  activeColor = "#ffffff",
+  borderColor = "#e5e7eb",
+  disabledColor = "#9ca3af",
+
   responsiveBreakpoint = 768,
   showDrawerLabel = "Select Tab",
   drawerIcon = "☰",
-  transitionDuration = 200,
+
   onTabChange,
-  role = "tablist",
-  ariaOrientation = "horizontal",
+  className = "",
+  style,
+  tabClassName = "",
+  contentClassName = "",
+  activeTabStyle,
+  inactiveTabStyle,
+  contentStyle,
 }) => {
-  const [activeTab, setActiveTab] = useState(defaultActive);
-  const [hoveredTab, setHoveredTab] = useState<number | null>(null);
+  const [active, setActive] = useState(defaultActive);
+  const [hovered, setHovered] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
- useEffect(() => {
-  if (typeof window === "undefined") return; // skip on server
-
-  const checkViewport = () => {
-    setIsMobile(window.innerWidth <= responsiveBreakpoint);
-  };
-
-  checkViewport(); // set initial value on client
-  window.addEventListener("resize", checkViewport);
-  return () => window.removeEventListener("resize", checkViewport);
-}, [responsiveBreakpoint]);
-
+  /** 📱 Responsive detection */
   useEffect(() => {
-    if (defaultActive >= 0 && defaultActive < tabs.length) {
-      setActiveTab(defaultActive);
+    const check = () => setIsMobile(window.innerWidth <= responsiveBreakpoint);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [responsiveBreakpoint]);
+
+  /** 🎛 Handle tab change */
+  const handleChange = (i: number) => {
+    if (tabs[i].disabled) return;
+    setActive(i);
+    onTabChange?.(i);
+    if (isMobile) setDrawerOpen(false);
+  };
+
+  /** ⚡ Keyboard navigation */
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, i: number) => {
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      handleChange((i + 1) % tabs.length);
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      handleChange((i - 1 + tabs.length) % tabs.length);
     }
-  }, [defaultActive, tabs.length]);
-
-  const handleTabChange = (index: number) => {
-    if (tabs[index].disabled) return;
-    setActiveTab(index);
-    onTabChange?.(index);
   };
 
-  const isVertical = tabPosition === "left" || tabPosition === "right";
-  
-  // Mobile layout always uses vertical tabs in a drawer
-  const containerDirection = isMobile 
-    ? "column" 
-    : isVertical
-      ? tabPosition === "left"
-        ? "row"
-        : "row-reverse"
-      : "column";
-
-  const containerStyles: CSSProperties = {
-    display: "flex",
-    flexDirection: containerDirection,
-    width: "100%",
-    height: "100%",
-    backgroundColor,
-    ...style,
-  };
-
-  // Mobile tabs container is full width
-  const tabsContainerStyles: CSSProperties = {
-    width: isMobile ? "100%" : (isVertical ? tabsWidth : "100%"),
-    display: "flex",
-    flexDirection: isMobile ? "column" : (isVertical ? "column" : "row"),
-    gap: tabGap,
-    padding: isMobile ? "0" : "8px",
-    boxSizing: "border-box",
-    overflowX: isMobile ? "hidden" : "visible",
-    ...tabContainerStyle,
-  };
-
-  const contentStyles: CSSProperties = {
-    flexGrow: 1,
-    padding: isMobile ? "16px" : "24px",
-    background: "#f9fafb",
-    boxSizing: "border-box",
-    minWidth: 0,
-    width: isMobile ? "100%" : (isVertical ? `calc(100% - ${tabsWidth})` : "100%"),
-    ...contentContainerStyle,
-  };
-
-  const baseTabStyles: CSSProperties = {
+  /** 🎨 Base styles */
+  const baseTab: CSSProperties = {
+    padding,
+    borderRadius: radius,
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
     gap: 8,
-    padding: tabPadding,
-    borderRadius: tabBorderRadius,
-    border: "none",
-    backgroundColor: "transparent",
+    justifyContent: "center",
     fontWeight: 500,
     transition: `all ${transitionDuration}ms ease`,
-    width: isMobile || isVertical ? "100%" : "auto",
-    marginBottom: isMobile || isVertical ? tabGap : 0,
-    marginRight: !isVertical && !isMobile ? tabGap : 0,
-    justifyContent: "flex-start",
-    textAlign: "left",
-    fontSize: isMobile ? "14px" : "inherit",
+    background: "transparent",
+    border: variant === "outline" ? `1px solid ${borderColor}` : "none",
+    borderBottom:
+      variant === "underline" ? `2px solid transparent` : undefined,
+    color: textColor,
+    width: fullWidth ? "100%" : "auto",
+    userSelect: "none",
   };
 
-  const activeStyles: CSSProperties = {
-    backgroundColor: primaryColor,
-    color: "#fff",
-    fontWeight: 600,
-    boxShadow: `0 2px 10px ${primaryColor}33`,
+  const activeTab: CSSProperties = {
+    background: variant === "solid" ? primaryColor : "transparent",
+    color: activeColor,
+    borderBottom:
+      variant === "underline" ? `2px solid ${primaryColor}` : undefined,
+    boxShadow:
+      elevation > 0 ? `0 ${elevation}px ${elevation * 4}px ${primaryColor}33` : undefined,
     ...activeTabStyle,
   };
 
-  const inactiveStyles: CSSProperties = {
-    backgroundColor: "transparent",
-    color: textColor,
+  const inactiveTab: CSSProperties = {
+    ...(variant === "outline"
+      ? { borderColor }
+      : variant === "underline"
+      ? { borderBottomColor: "transparent" }
+      : {}),
     ...inactiveTabStyle,
   };
 
-  const hoverStyles: CSSProperties = {
-    backgroundColor: `${primaryColor}11`,
-    color: hoverTextColor,
+  const hoverTab: CSSProperties = {
+    color: hoverColor,
+    background:
+      variant === "solid"
+        ? `${primaryColor}11`
+        : variant === "outline"
+        ? `${primaryColor}11`
+        : "transparent",
   };
 
-  const disabledStyles: CSSProperties = {
-    cursor: "not-allowed",
+  const disabledTab: CSSProperties = {
     color: disabledColor,
-    opacity: 0.7,
+    cursor: "not-allowed",
+    opacity: 0.6,
   };
 
-  // Mobile drawer button styles
-  const drawerButtonStyles: CSSProperties = {
-    ...baseTabStyles,
-    ...activeStyles,
-    justifyContent: "space-between",
-    width: "100%",
-    marginBottom: tabGap,
-    fontSize: "16px",
+  const contentBox: CSSProperties = {
+    flexGrow: 1,
+    borderTop: bordered && position === "top" ? `1px solid ${borderColor}` : undefined,
+    borderLeft: bordered && position === "left" ? `1px solid ${borderColor}` : undefined,
+    borderRight: bordered && position === "right" ? `1px solid ${borderColor}` : undefined,
+    borderRadius: radius,
+    ...contentStyle,
   };
+
+  /** 🧱 Layout */
+  const isVertical = position === "left" || position === "right";
+  const layoutDir = isVertical ? "row" : "column";
 
   return (
-    <div 
-      className={`react-tabs ${className}`} 
-      style={containerStyles}
-      role={role}
-      aria-orientation={isMobile ? "vertical" : (isVertical ? "vertical" : ariaOrientation)}
+    <div
+      ref={containerRef}
+      className={`modern-tabs ${className}`}
+      style={{
+        display: "flex",
+        flexDirection: isVertical ? (position === "right" ? "row-reverse" : "row") : "column",
+        background: backgroundColor,
+        border: bordered ? `1px solid ${borderColor}` : undefined,
+        borderRadius: radius,
+        overflow: "hidden",
+        ...style,
+      }}
     >
-      {/* Inlined CSS for better performance and scoping */}
       <style>
         {`
-        .react-tabs {
-          --primary-color: ${primaryColor};
-          --text-color: ${textColor};
-          --bg-color: ${backgroundColor};
-          --hover-color: ${hoverTextColor};
-          --disabled-color: ${disabledColor};
-          --transition-duration: ${transitionDuration}ms;
-        }
-        
-        .react-tabs__mobile-drawer {
-          display: flex;
-          flex-direction: column;
-          gap: ${tabGap}px;
-          width: 100%;
-          animation: react-tabs-slideDown ${transitionDuration}ms ease-out;
-        }
-        
-        @keyframes react-tabs-slideDown {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .react-tabs [role="tab"][aria-selected="true"] {
-          background-color: var(--primary-color);
-          color: white;
-        }
-        
-        .react-tabs [role="tabpanel"] {
-          outline: none;
-        }
-        
-        @media (max-width: ${responsiveBreakpoint}px) {
-          .react-tabs__drawer-button {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: ${tabPadding};
-            border-radius: ${tabBorderRadius}px;
-            margin-bottom: ${tabGap}px;
+          @keyframes tab-fade {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
           }
-          
-          .react-tabs__nav {
-            padding: 0;
+          .modern-tabs__content {
+            animation: tab-fade ${transitionDuration}ms ease;
           }
-          
-          .react-tabs__content {
-            padding: 16px;
-          }
-        }
         `}
       </style>
 
-      {/* Mobile Drawer Implementation */}
+      {/* 📱 Mobile Drawer */}
       {isMobile ? (
-        <>
+        <div style={{ width: "100%", padding: 8 }}>
           <button
             onClick={() => setDrawerOpen(!drawerOpen)}
-            style={drawerButtonStyles}
-            className="react-tabs__drawer-button"
-            aria-expanded={drawerOpen}
-            aria-controls="mobile-tabs-drawer"
-            aria-haspopup="true"
+            style={{
+              ...baseTab,
+              ...activeTab,
+              justifyContent: "space-between",
+              width: "100%",
+              fontSize: 16,
+            }}
           >
-            <span>{showDrawerLabel}</span>
+            {showDrawerLabel}
             <span>{drawerIcon}</span>
           </button>
-          
           {drawerOpen && (
-            <div 
-              id="mobile-tabs-drawer"
-              className="react-tabs__mobile-drawer"
-              role="menu"
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                marginTop: 8,
+                gap,
+              }}
             >
-              {tabs.map((tab, idx) => {
-                const isActive = idx === activeTab;
-                const isHovered = hoveredTab === idx;
+              {tabs.map((tab, i) => {
+                const isActive = i === active;
+                const isHovered = hovered === i;
                 const isDisabled = tab.disabled;
-                
                 return (
                   <button
-                    key={idx}
-                    onClick={() => {
-                      handleTabChange(idx);
-                      setDrawerOpen(false);
-                    }}
-                    onMouseEnter={() => !isDisabled && setHoveredTab(idx)}
-                    onMouseLeave={() => setHoveredTab(null)}
-                    className={
-                      isActive ? activeTabClassName : inactiveTabClassName
-                    }
-                    style={{
-                      ...baseTabStyles,
-                      ...(isActive ? activeStyles : inactiveStyles),
-                      ...(isHovered && !isActive && !isDisabled ? hoverStyles : {}),
-                      ...(isDisabled ? disabledStyles : {}),
-                    }}
-                    role="menuitemradio"
-                    aria-checked={isActive}
-                    aria-disabled={isDisabled}
-                    aria-label={tab.ariaLabel || (typeof tab.label === 'string' ? tab.label : `Tab ${idx + 1}`)}
+                    key={i}
                     disabled={isDisabled}
+                    onClick={() => handleChange(i)}
+                    onKeyDown={(e) => handleKeyDown(e, i)}
+                    onMouseEnter={() => setHovered(i)}
+                    onMouseLeave={() => setHovered(null)}
+                    className={tabClassName}
+                    style={{
+                      ...baseTab,
+                      ...(isActive ? activeTab : inactiveTab),
+                      ...(isHovered && !isActive && !isDisabled ? hoverTab : {}),
+                      ...(isDisabled ? disabledTab : {}),
+                    }}
                   >
-                    {tab.icon && <span aria-hidden="true">{tab.icon}</span>}
-                    <span>{tab.label}</span>
+                    {tab.icon && <span>{tab.icon}</span>}
+                    {tab.label}
                   </button>
                 );
               })}
             </div>
           )}
-        </>
+        </div>
       ) : (
-        <nav
-          className={`react-tabs__nav ${tabContainerClassName}`}
-          style={tabsContainerStyles}
-          role={role}
-          aria-label="Tabs Navigation"
+        <div
+          style={{
+            display: "flex",
+            flexDirection: isVertical ? "column" : "row",
+            gap,
+            padding: 8,
+            minWidth: isVertical ? 200 : undefined,
+          }}
         >
-          {tabs.map((tab, idx) => {
-            const isActive = idx === activeTab;
-            const isHovered = hoveredTab === idx;
+          {tabs.map((tab, i) => {
+            const isActive = i === active;
+            const isHovered = hovered === i;
             const isDisabled = tab.disabled;
-            
             return (
               <button
-                key={idx}
-                onClick={() => handleTabChange(idx)}
-                onMouseEnter={() => !isDisabled && setHoveredTab(idx)}
-                onMouseLeave={() => setHoveredTab(null)}
-                className={
-                  isActive ? activeTabClassName : inactiveTabClassName
-                }
+                key={i}
+                disabled={isDisabled}
+                onClick={() => handleChange(i)}
+                onKeyDown={(e) => handleKeyDown(e, i)}
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                className={tabClassName}
                 style={{
-                  ...baseTabStyles,
-                  ...(isActive ? activeStyles : inactiveStyles),
-                  ...(isHovered && !isActive && !isDisabled ? hoverStyles : {}),
-                  ...(isDisabled ? disabledStyles : {}),
+                  ...baseTab,
+                  ...(isActive ? activeTab : inactiveTab),
+                  ...(isHovered && !isActive && !isDisabled ? hoverTab : {}),
+                  ...(isDisabled ? disabledTab : {}),
                 }}
                 role="tab"
                 aria-selected={isActive}
-                aria-disabled={isDisabled}
-                aria-controls={`tabpanel-${idx}`}
-                id={`tab-${idx}`}
-                tabIndex={isActive ? 0 : -1}
-                disabled={isDisabled}
               >
-                {tab.icon && <span aria-hidden="true">{tab.icon}</span>}
-                <span>{tab.label}</span>
+                {tab.icon && <span>{tab.icon}</span>}
+                {tab.label}
               </button>
             );
           })}
-        </nav>
+        </div>
       )}
 
-      {/* Tab Content */}
-      <section
-        className={`react-tabs__content ${contentContainerClassName}`}
-        style={contentStyles}
+      {/* 🧠 Tab Content */}
+      <div
+        className={`modern-tabs__content ${contentClassName}`}
+        style={contentBox}
         role="tabpanel"
-        id={`tabpanel-${activeTab}`}
-        aria-labelledby={`tab-${activeTab}`}
-        tabIndex={0}
       >
-        {tabs[activeTab]?.content}
-      </section>
+        {tabs[active]?.content}
+      </div>
     </div>
   );
-};
-
-// Exported Components with TypeScript
-export const LeftTabs: React.FC<TabsBaseProps> = (props) => (
-  <BaseTabs {...props} tabPosition="left" ariaOrientation="vertical" />
-);
-
-export const TopTabs: React.FC<TabsBaseProps> = (props) => (
-  <BaseTabs {...props} tabPosition="top" />
-);
-
-export const RightTabs: React.FC<TabsBaseProps> = (props) => (
-  <BaseTabs {...props} tabPosition="right" ariaOrientation="vertical" />
-);
-
-// Default export
-export const Tabs = {
-  Left: LeftTabs,
-  Top: TopTabs,
-  Right: RightTabs,
 };

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Text } from "@neuctra/ui";
@@ -139,7 +137,6 @@ const TextDocs = () => {
                 truncate
                 hoverable
                 darkMode
-                color="secondary"
                 style={{ maxWidth: "250px" }}
               >
                 This text will truncate when it's too long and will have a hover

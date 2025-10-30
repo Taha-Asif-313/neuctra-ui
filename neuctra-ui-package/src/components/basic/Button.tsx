@@ -29,7 +29,7 @@ const defaultColors = {
 
 /** 🎨 Adjust color shade utility */
 function adjustColor(color: string, amount: number): string {
-  if (!color.startsWith("#") || color.length !== 7) return color; // Prevent invalid hex
+  if (!color.startsWith("#") || color.length !== 7) return color;
   return (
     "#" +
     color
@@ -64,6 +64,9 @@ export interface ButtonProps {
   /** 🧩 Optional design tweaks */
   size?: "sm" | "md" | "lg";
   rounded?: boolean;
+
+  /** 🧱 Border visibility */
+  showBorder?: boolean; // ✅ new prop
 }
 
 /** 💎 Minimal customizable Button */
@@ -83,6 +86,7 @@ export const Button: FC<ButtonProps> = ({
   baseColor,
   size = "md",
   rounded = true,
+  showBorder = false, // ✅ default: no border
 }) => {
   const [hovered, setHovered] = useState(false);
 
@@ -127,7 +131,7 @@ export const Button: FC<ButtonProps> = ({
     fontSize: s.font,
     fontWeight: 500,
     borderRadius: rounded ? 8 : 3,
-    border: `1px solid ${theme.border}`,
+    border: showBorder ? `1px solid ${theme.border}` : "none", // ✅ conditional border
     width: fullWidth ? "100%" : "auto",
     backgroundColor: hovered && !disabled ? theme.hover : theme.primary,
     color: theme.text,
