@@ -153,7 +153,7 @@ const Button = ({ children, onClick, variant = "primary", icon }) => {
         flex items-center gap-2 overflow-hidden group
         ${
           isPrimary
-            ? "bg-primary text-black hover:bg-transparent hover:text-white"
+            ? "bg-primary hover:border hover:bg-transparent hover:text-white"
             : "bg-transparent text-white border-2 border-white hover:bg-white hover:text-black"
         }
         transition-all duration-300
@@ -235,10 +235,10 @@ const FeatureCard = ({ icon, title, description, delay }) => {
       className="relative group"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg blur-xl group-hover:blur-2xl transition-all duration-300" />
-      <div className="relative bg-zinc-900/80 backdrop-blur-sm border border-primary/30 rounded-lg p-6 hover:border-primary/60 transition-all duration-300">
+      <div className="relative bg-zinc-950/80 backdrop-blur-sm border border-primary/30 rounded-lg p-6 hover:border-primary/60 transition-all duration-300">
         <div className="text-primary mb-3">{icon}</div>
         <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-400 text-sm">{description}</p>
+        <p className="text-gray-400 text-xs">{description}</p>
       </div>
     </motion.div>
   );
@@ -268,8 +268,8 @@ const LandingPage = () => {
 
 
       {/* Hero Section */}
-      <div className="relative z-10 min-h-screen px-4 md:px-6 py-10 flex flex-col items-center justify-center">
-        <div className="max-w-6xl mx-auto w-full">
+      <div className="relative z-10 min-h-screen px-4 py-10 flex flex-col items-center justify-center">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-2 items-center">
             {/* Left Content */}
             <div>
@@ -288,7 +288,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-5xl md:text-5xl font-bold tracking-tight mb-2 leading-tight"
+                className="text-5xl md:text-6xl font-bold tracking-tight mb-2 leading-tight"
               >
                 Craft <GlitchText><span className="text-primary">Stunning</span></GlitchText> Interfaces with Ease
               </motion.h1>
@@ -412,7 +412,7 @@ const LandingPage = () => {
       </div>
 
       {/* Features */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

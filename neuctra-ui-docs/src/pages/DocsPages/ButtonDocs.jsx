@@ -29,7 +29,7 @@ const ButtonDocs = () => {
       <div className="max-w-5xl mx-auto px-4 space-y-10">
         {/* Header */}
         <header>
-          <h1 className="text-4xl font-extrabold mb-3 text-white flex items-center gap-2">
+          <h1 className="text-4xl max-sm:flex-col font-extrabold mb-3 text-white flex items-center gap-2">
             <Rocket className="text-primary w-8 h-8" />
             Button Component
           </h1>

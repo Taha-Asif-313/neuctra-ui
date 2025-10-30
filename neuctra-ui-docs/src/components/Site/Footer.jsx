@@ -5,7 +5,7 @@ import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="bg-zinc-950 border-t border-gray-800">
-      <div className="py-5 max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div className="py-5 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
         {/* Copyright */}
         <p className="text-gray-400 text-sm">
           &copy; {new Date().getFullYear()} Neuctra UI. All rights reserved.

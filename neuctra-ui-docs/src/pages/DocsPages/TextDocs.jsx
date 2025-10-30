@@ -15,160 +15,149 @@ const TextDocs = () => {
           </h1>
           <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
             The <span className="text-primary font-semibold">Text</span>{" "}
-            component provides a flexible, theme-aware way to render text
-            elements with responsive sizes, dynamic colors, and dark mode
-            support. It supports any valid HTML text tag using the{" "}
-            <code className="text-primary font-mono">as</code> prop.
+            component provides a theme-aware, flexible, and highly customizable
+            way to render text in any HTML tag. You can easily control size,
+            color, alignment, transformations, and more — all while supporting
+            dark mode and custom base colors.
           </p>
         </header>
 
-        {/* Example Preview */}
+        {/* Basic Example */}
         <section>
           <h2 className="text-2xl font-semibold mb-4 text-white">
             Basic Example
           </h2>
-
-          {/* Live Preview */}
           <CodePreviewBlock
             language="jsx"
-            code={`import { Text } from "@neuctra/ui";
-
-export default function Example() {
-  return (
-    <>
-      <Text as="h1" size="2xl" weight="bold" color="primary">
-        Welcome to Neuctra UI 🚀
-      </Text>
-      <Text as="p" size="md" color="muted">
-        Build beautiful, modern interfaces effortlessly using Neuctra’s React + Tailwind components.
-      </Text>
-    </>
-  );
-}`}
+            code={`<Text as="h1" size="xl" weight="bold" color="primary">
+  Welcome to Neuctra UI 🚀
+</Text>`}
             previewContent={
-              <div className="space-y-2 bg-zinc-900 p-6 rounded-xl border border-zinc-800">
-                <Text as="h1" size="2xl" weight="bold" color="var(--primary)">
-                  Welcome to Neuctra UI 🚀
-                </Text>
-                <Text as="p" size="md" color="muted">
-                  Build beautiful, modern interfaces effortlessly using
-                  Neuctra’s React + Tailwind components.
-                </Text>
-              </div>
+              <Text as="h1" size="xl" weight="bold" color="primary">
+                Welcome to Neuctra UI 🚀
+              </Text>
             }
           />
         </section>
 
-        {/* Props Overview */}
+        {/* Sizes */}
         <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            Available Props
-          </h2>
-          <div className="overflow-x-auto text-sm">
-            <table className="w-full border-collapse border border-zinc-800 text-gray-300">
-              <thead className="bg-zinc-900">
-                <tr>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">
-                    Prop
-                  </th>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">
-                    Type
-                  </th>
-                  <th className="border border-zinc-800 px-4 py-2 text-left text-white">
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  {
-                    name: "as",
-                    type: "HTML Tag",
-                    desc: "The element type to render (e.g. 'p', 'h1', 'span').",
-                  },
-                  {
-                    name: "color",
-                    type: "string",
-                    desc: "Text color (supports theme colors like 'primary', 'muted').",
-                  },
-                  {
-                    name: "size",
-                    type: `"xs" | "sm" | "md" | "lg" | "xl" | "2xl" | string`,
-                    desc: "Font size (or any custom CSS size value).",
-                  },
-                  {
-                    name: "weight",
-                    type: "CSS fontWeight",
-                    desc: "Font weight (e.g. 400, 600, bold).",
-                  },
-                  {
-                    name: "align",
-                    type: "CSS textAlign",
-                    desc: "Text alignment (e.g. left, center, right).",
-                  },
-                  {
-                    name: "italic",
-                    type: "boolean",
-                    desc: "Applies italic style.",
-                  },
-                  {
-                    name: "underline",
-                    type: "boolean",
-                    desc: "Adds underline decoration.",
-                  },
-                  {
-                    name: "strikethrough",
-                    type: "boolean",
-                    desc: "Adds line-through style.",
-                  },
-                  {
-                    name: "truncate",
-                    type: "boolean",
-                    desc: "Truncates overflow text with ellipsis.",
-                  },
-                  {
-                    name: "hoverable",
-                    type: "boolean",
-                    desc: "Adds hover fade animation.",
-                  },
-                  {
-                    name: "darkMode",
-                    type: "boolean",
-                    desc: "Uses dark palette variant.",
-                  },
-                  {
-                    name: "baseColor",
-                    type: "string",
-                    desc: "Custom base color for palette generation.",
-                  },
-                ].map((prop) => (
-                  <tr key={prop.name}>
-                    <td className="border border-zinc-800 px-4 py-2 font-medium text-white">
-                      {prop.name}
-                    </td>
-                    <td className="border border-zinc-800 px-4 py-2 text-primary font-mono">
-                      {prop.type}
-                    </td>
-                    <td className="border border-zinc-800 px-4 py-2">
-                      {prop.desc}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <h2 className="text-2xl font-semibold mb-4 text-white">Text Sizes</h2>
+          <CodePreviewBlock
+            language="jsx"
+            code={`<>
+  <Text size="xs">Extra Small Text</Text>
+  <Text size="sm">Small Text</Text>
+  <Text size="md">Medium Text</Text>
+  <Text size="lg">Large Text</Text>
+  <Text size="xl">Extra Large Text</Text>
+  <Text size="2xl" weight="bold">2XL Text</Text>
+</>`}
+            previewContent={
+              <>
+                <Text darkMode size="xs">Extra Small Text</Text>
+                <Text darkMode size="sm">Small Text</Text>
+                <Text darkMode size="md">Medium Text</Text>
+                <Text darkMode size="lg">Large Text</Text>
+                <Text darkMode size="xl">Extra Large Text</Text>
+                <Text darkMode size="2xl" weight="bold">
+                  2XL Text
+                </Text>
+              </>
+            }
+          />
         </section>
 
-        {/* Theming Example */}
+        {/* Colors */}
         <section>
           <h2 className="text-2xl font-semibold mb-4 text-white">
-            Custom Theme Colors
+            Color Variants
           </h2>
-          <p className="text-gray-300 mb-3">
-            You can define a <code className="text-primary">baseColor</code> prop
-            to automatically generate a palette for both light and dark modes.
-          </p>
+          <CodePreviewBlock
+            language="jsx"
+            code={`<>
+  <Text color="primary" weight="bold">Primary Text</Text>
+  <Text color="secondary">Secondary Text</Text>
+  <Text color="success">Success Text</Text>
+  <Text color="danger">Danger Text</Text>
+  <Text color="muted">Muted Text</Text>
+</>`}
+            previewContent={
+              <>
+                <Text color="primary" weight="bold">
+                  Primary Text
+                </Text>
+                <Text color="secondary">Secondary Text</Text>
+                <Text color="success">Success Text</Text>
+                <Text color="danger">Danger Text</Text>
+                <Text color="muted">Muted Text</Text>
+              </>
+            }
+          />
+        </section>
 
+        {/* Text Transformations */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Text Transformations
+          </h2>
+          <CodePreviewBlock
+            language="jsx"
+            code={`<>
+  <Text transform="uppercase">uppercase text</Text>
+  <Text transform="capitalize">capitalize text</Text>
+  <Text transform="lowercase">LOWERCASE TEXT</Text>
+  <Text italic>Italic Text Example</Text>
+  <Text underline>Underlined Text</Text>
+  <Text strikethrough>Strikethrough Text</Text>
+</>`}
+            previewContent={
+              <>
+                <Text darkMode transform="uppercase">uppercase text</Text>
+                <Text darkMode transform="capitalize">capitalize text</Text>
+                <Text darkMode transform="lowercase">LOWERCASE TEXT</Text>
+                <Text darkMode italic>Italic Text Example</Text>
+                <Text darkMode underline>Underlined Text</Text>
+                <Text darkMode strikethrough>Strikethrough Text</Text>
+              </>
+            }
+          />
+        </section>
+
+        {/* Truncate & Hover */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Truncate & Hover Effects
+          </h2>
+          <CodePreviewBlock
+            language="jsx"
+            code={`<Text truncate hoverable color="secondary" style={{ maxWidth: '250px' }}>
+  This text will truncate when it's too long and will have a hover effect.
+</Text>`}
+            previewContent={
+              <Text
+                truncate
+                hoverable
+                darkMode
+                color="secondary"
+                style={{ maxWidth: "250px" }}
+              >
+                This text will truncate when it's too long and will have a hover
+                effect.
+              </Text>
+            }
+          />
+        </section>
+
+        {/* Custom Theme Colors */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 text-white">
+            Custom Base Color
+          </h2>
+          <p className="text-gray-400 mb-3">
+            You can define a <code className="text-primary">baseColor</code> to
+            generate a palette automatically for light and dark modes.
+          </p>
           <CodePreviewBlock
             language="jsx"
             code={`<Text baseColor="#00c214" color="primary" size="xl" weight="bold">
@@ -187,7 +176,7 @@ export default function Example() {
           <p>
             Built with <span className="text-primary">React</span>,{" "}
             <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">JavaScript</span>.
+            <span className="text-primary">TypeScript</span>.
           </p>
         </footer>
       </div>
