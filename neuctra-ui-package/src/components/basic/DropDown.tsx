@@ -1,634 +1,379 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+"use client";
+import React, {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  forwardRef,
+  ForwardRefRenderFunction,
+} from "react";
 
-interface Option {
+/* ----------------------
+ * Types
+ * ---------------------*/
+export interface Option {
   label: string;
   value: string;
   icon?: React.ReactNode;
   disabled?: boolean;
+  description?: string;
 }
 
-interface DropdownProps {
+export interface DropdownProps {
   options: Option[];
+
   value?: string;
+  values?: string[];
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  defaultValues?: string[];
+
+  onChange?: (value: string | string[]) => void;
+
   placeholder?: string;
   disabled?: boolean;
   searchable?: boolean;
   multiSelect?: boolean;
   clearable?: boolean;
   virtualized?: boolean;
-  optionHeight?: number;
-  visibleOptions?: number;
 
-  // Styling props
-  width?: string;
-  height?: string;
-  borderColor?: string;
-  focusBorderColor?: string;
-  errorBorderColor?: string;
-  backgroundColor?: string;
-  textColor?: string;
-  placeholderColor?: string;
-  hoverColor?: string;
-  selectedColor?: string;
-  disabledColor?: string;
-  padding?: string;
-  margin?: string;
+  width?: string | number;
+  dropdownMaxHeight?: string;
   borderRadius?: string;
   boxShadow?: string;
-  optionPadding?: string;
-  optionGap?: string;
+  borderColor?: string;
+  accentColor?: string; // ✅ accent color (focus ring + selected)
+  theme?: "light" | "dark" | "custom"; // ✅ global theme
+  menuBg?: string; // ✅ background override
+  controlBg?: string; // ✅ control background
+  textColor?: string;
+  hoverBg?: string;
+  selectedBg?: string;
+  disabledBg?: string;
+  disabledTextColor?: string;
+  placeholderColor?: string;
+
+  // animation & transitions
   transitionDuration?: string;
-  dropdownMaxHeight?: string;
-  dropdownMinWidth?: string;
 
-  // Custom styles
+  // class/style hooks
   className?: string;
-  dropdownClassName?: string;
+  controlClassName?: string;
+  menuClassName?: string;
   optionClassName?: string;
-  inputClassName?: string;
   style?: React.CSSProperties;
-  dropdownStyle?: React.CSSProperties;
+  controlStyle?: React.CSSProperties;
+  menuStyle?: React.CSSProperties;
   optionStyle?: React.CSSProperties;
-  inputStyle?: React.CSSProperties;
 
-  // Icons
+  // icons
   iconPrefix?: React.ReactNode;
   iconSuffix?: React.ReactNode;
   clearIcon?: React.ReactNode;
   dropdownIcon?: React.ReactNode;
   checkIcon?: React.ReactNode;
-
-  // Accessibility
-  ariaLabel?: string;
-  ariaLabelledby?: string;
-  ariaDescribedby?: string;
-
-  // Callbacks
-  onFocus?: () => void;
-  onBlur?: () => void;
-  onOpen?: () => void;
-  onClose?: () => void;
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({
-  options,
-  value,
-  defaultValue,
-  onChange,
-  placeholder = "Select an option",
-  disabled = false,
-  searchable = false,
-  multiSelect = false,
-  clearable = false,
-  virtualized = false,
-  optionHeight = 36,
-  visibleOptions = 5,
+/* ----------------------
+ * Default theme tokens
+ * ---------------------*/
+const THEMES = {
+  light: {
+    controlBg: "#ffffff",
+    menuBg: "#ffffff",
+    textColor: "#111827",
+    placeholderColor: "#6b7280",
+    hoverBg: "#f9fafb",
+    selectedBg: "#eff6ff",
+    disabledBg: "#f3f4f6",
+    disabledTextColor: "#9ca3af",
+    borderColor: "#e5e7eb",
+    accentColor: "#3b82f6",
+  },
+  dark: {
+    controlBg: "#1f2937",
+    menuBg: "#111827",
+    textColor: "#f9fafb",
+    placeholderColor: "#9ca3af",
+    hoverBg: "#374151",
+    selectedBg: "#2563eb33",
+    disabledBg: "#374151",
+    disabledTextColor: "#6b7280",
+    borderColor: "#374151",
+    accentColor: "#60a5fa",
+  },
+  custom: {} as any,
+};
 
-  // Styling defaults
-  width = "100%",
-  height = "auto",
-  borderColor = "#d1d5db",
-  focusBorderColor = "#2563eb",
-  errorBorderColor = "#dc2626",
-  backgroundColor = "#ffffff",
-  textColor = "#111827",
-  placeholderColor = "#9ca3af",
-  hoverColor = "#f3f4f6",
-  selectedColor = "#eff6ff",
-  disabledColor = "#f3f4f6",
-  padding = "0.5rem 0.75rem",
-  margin = "0",
-  borderRadius = "0.375rem",
-  boxShadow = "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-  optionPadding = "0.5rem 0.75rem",
-  optionGap = "0.5rem",
-  transitionDuration = "200ms",
-  dropdownMaxHeight = "300px",
-  dropdownMinWidth = "100%",
+/* ----------------------
+ * Component
+ * ---------------------*/
+const DropdownInner: ForwardRefRenderFunction<HTMLDivElement, DropdownProps> = (
+  props,
+  ref
+) => {
+  const id = useId();
+  const {
+    options,
+    value,
+    values,
+    defaultValue,
+    defaultValues,
+    onChange,
 
-  // Custom classes
-  className = "",
-  dropdownClassName = "",
-  optionClassName = "",
-  inputClassName = "",
+    placeholder = "Select...",
+    disabled = false,
+    searchable = false,
+    multiSelect = false,
+    clearable = false,
+    virtualized = false,
 
-  // Custom styles
-  style,
-  dropdownStyle,
-  optionStyle,
-  inputStyle,
+    width = "100%",
+    dropdownMaxHeight = "320px",
+    borderRadius = "8px",
+    boxShadow = "0 8px 28px rgba(0,0,0,0.1)",
+    borderColor,
+    accentColor,
+    theme = "light",
+    menuBg,
+    controlBg,
+    textColor,
+    hoverBg,
+    selectedBg,
+    disabledBg,
+    disabledTextColor,
+    placeholderColor,
+    transitionDuration = "180ms",
 
-  // Icons
-  iconPrefix,
-  iconSuffix,
-  clearIcon = "×",
-  dropdownIcon = "▼",
-  checkIcon = "✓",
+    className,
+    controlClassName,
+    menuClassName,
+    optionClassName,
+    style,
+    controlStyle,
+    menuStyle,
+    optionStyle,
 
-  // Accessibility
-  ariaLabel,
-  ariaLabelledby,
-  ariaDescribedby,
+    iconPrefix,
+    iconSuffix,
+    clearIcon = "×",
+    dropdownIcon = "▾",
+    checkIcon = "✓",
+  } = props;
 
-  // Callbacks
-  onFocus,
-  onBlur,
-  onOpen,
-  onClose,
-}) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  // merge theme colors
+  const themeVars = {
+    ...THEMES[theme],
+    ...(theme === "custom" ? {} : {}),
+  };
+  const colors = {
+    borderColor: borderColor ?? themeVars.borderColor,
+    accentColor: accentColor ?? themeVars.accentColor,
+    controlBg: controlBg ?? themeVars.controlBg,
+    menuBg: menuBg ?? themeVars.menuBg,
+    textColor: textColor ?? themeVars.textColor,
+    hoverBg: hoverBg ?? themeVars.hoverBg,
+    selectedBg: selectedBg ?? themeVars.selectedBg,
+    disabledBg: disabledBg ?? themeVars.disabledBg,
+    disabledTextColor: disabledTextColor ?? themeVars.disabledTextColor,
+    placeholderColor: placeholderColor ?? themeVars.placeholderColor,
+  };
+
+  /* ----------------- State ----------------- */
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const optionsRef = useRef<(HTMLLIElement | null)[]>([]);
+  const [selected, setSelected] = useState<string[]>(
+    defaultValues ?? (defaultValue ? [defaultValue] : [])
+  );
 
-  // Initialize selected values
   useEffect(() => {
-    if (value) {
-      setSelectedValues(multiSelect ? value.split(",") : [value]);
-    } else if (defaultValue) {
-      setSelectedValues(multiSelect ? defaultValue.split(",") : [defaultValue]);
-    } else {
-      setSelectedValues([]);
-    }
-  }, [value, defaultValue, multiSelect]);
+    if (value) setSelected([value]);
+    if (values) setSelected(values);
+  }, [value, values]);
 
-  // Filter options based on search term
-  const filteredOptions = searchable
-    ? options.filter((option) =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : options;
+  const selectedOptions = useMemo(
+    () => options.filter((o) => selected.includes(o.value)),
+    [options, selected]
+  );
 
-  // Handle click outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-        onClose?.();
-      }
-    };
+  const toggle = () => !disabled && setIsOpen((s) => !s);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [onClose]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isOpen) return;
-
-      switch (event.key) {
-        case "ArrowDown":
-          event.preventDefault();
-          setFocusedIndex((prev) => {
-            const nextIndex =
-              prev === null
-                ? 0
-                : Math.min(prev + 1, filteredOptions.length - 1);
-            scrollToOption(nextIndex);
-            return nextIndex;
-          });
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          setFocusedIndex((prev) => {
-            const nextIndex = prev === null ? 0 : Math.max(prev - 1, 0);
-            scrollToOption(nextIndex);
-            return nextIndex;
-          });
-          break;
-        case "Enter":
-          event.preventDefault();
-          if (focusedIndex !== null) {
-            handleSelect(filteredOptions[focusedIndex].value);
-          }
-          break;
-        case "Escape":
-          event.preventDefault();
-          setIsOpen(false);
-          onClose?.();
-          break;
-        case "Tab":
-          setIsOpen(false);
-          onClose?.();
-          break;
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, focusedIndex, filteredOptions]);
-
-  const scrollToOption = useCallback((index: number) => {
-    optionsRef.current[index]?.scrollIntoView({
-      block: "nearest",
-      behavior: "smooth",
-    });
-  }, []);
-
-  const handleSelect = (value: string) => {
-    let newSelectedValues: string[];
+  const selectValue = (val: string) => {
     if (multiSelect) {
-      newSelectedValues = selectedValues.includes(value)
-        ? selectedValues.filter((v) => v !== value)
-        : [...selectedValues, value];
+      const exists = selected.includes(val);
+      const next = exists
+        ? selected.filter((v) => v !== val)
+        : [...selected, val];
+      setSelected(next);
+      onChange?.(next);
     } else {
-      newSelectedValues = [value];
+      setSelected([val]);
+      onChange?.(val);
       setIsOpen(false);
-      onClose?.();
-    }
-
-    setSelectedValues(newSelectedValues);
-    onChange?.(multiSelect ? newSelectedValues.join(",") : value);
-  };
-
-  const handleClear = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setSelectedValues([]);
-    onChange?.("");
-    setSearchTerm("");
-  };
-
-  const toggleDropdown = () => {
-    if (disabled) return;
-    const newState = !isOpen;
-    setIsOpen(newState);
-    if (newState) {
-      onOpen?.();
-      if (searchable) {
-        setTimeout(() => inputRef.current?.focus(), 0);
-      }
-    } else {
-      onClose?.();
     }
   };
 
-  const selectedOption = options.find(
-    (option) => option.value === selectedValues[0]
-  );
-  const selectedOptions = options.filter((option) =>
-    selectedValues.includes(option.value)
-  );
+  const clearSelection = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setSelected([]);
+    onChange?.(multiSelect ? [] : "");
+  };
 
-  // Virtualization setup
-  const [startIndex, setStartIndex] = useState(0);
-  const visibleOptionCount = Math.min(visibleOptions, filteredOptions.length);
-  const endIndex = Math.min(
-    startIndex + visibleOptionCount,
-    filteredOptions.length
-  );
-  const visibleOptionsList = virtualized
-    ? filteredOptions.slice(startIndex, endIndex)
-    : filteredOptions;
-
+  /* ----------------- Render ----------------- */
   return (
     <div
-      ref={dropdownRef}
-      className={`dropdown-container ${className}`}
+      ref={ref}
+      className={className}
       style={{
         position: "relative",
         width,
-        margin,
-        fontFamily: "'Inter', sans-serif",
+        fontFamily:
+          "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
         ...style,
       }}
     >
-      {/* Inline CSS for dynamic styles */}
-      <style>
-        {`
-          .dropdown-container {
-            --border-color: ${borderColor};
-            --focus-border-color: ${focusBorderColor};
-            --error-border-color: ${errorBorderColor};
-            --bg-color: ${backgroundColor};
-            --text-color: ${textColor};
-            --placeholder-color: ${placeholderColor};
-            --hover-color: ${hoverColor};
-            --selected-color: ${selectedColor};
-            --disabled-color: ${disabledColor};
-            --transition-duration: ${transitionDuration};
-          }
-        `}
-      </style>
-
-      {/* Control button */}
+      {/* Control */}
       <div
+        className={controlClassName}
         role="button"
-        onClick={toggleDropdown}
-        aria-disabled={disabled}
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledby}
-        aria-describedby={ariaDescribedby}
-        className={`dropdown-control ${inputClassName}`}
+        tabIndex={0}
+        onClick={toggle}
         style={{
-          width: "100%",
-          minHeight: height,
-          padding,
-          backgroundColor: disabled ? disabledColor : backgroundColor,
-          color: textColor,
-          borderWidth: "1px",
-          borderStyle: "solid",
-          borderColor: isOpen ? focusBorderColor : borderColor,
-          borderRadius,
-          boxShadow,
           display: "flex",
-          alignItems: "center",
           justifyContent: "space-between",
+          alignItems: "center",
+          background: colors.controlBg,
+          color: colors.textColor,
+          padding: "0.5rem 0.75rem",
+          border: `1px solid ${
+            isOpen ? colors.accentColor : colors.borderColor
+          }`,
+          borderRadius,
           cursor: disabled ? "not-allowed" : "pointer",
-          opacity: disabled ? 0.7 : 1,
-          transition: `all ${transitionDuration} ease-in-out`,
-          textAlign: "left",
-          ...inputStyle,
-          ...(isOpen && {
-            boxShadow: `0 0 0 1px ${focusBorderColor}`,
-          }),
+          boxShadow: isOpen ? `0 0 0 3px ${colors.accentColor}33` : undefined,
+          transition: `all ${transitionDuration} ease`,
+          ...controlStyle,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: optionGap,
-            flex: 1,
-            overflow: "hidden",
-          }}
-        >
-          {iconPrefix && (
-            <span className="dropdown-icon-prefix" style={{ flexShrink: 0 }}>
-              {iconPrefix}
-            </span>
-          )}
-
-          {multiSelect ? (
-            <div
-              style={{
-                display: "flex",
-                gap: "0.25rem",
-                flexWrap: "wrap",
-                flex: 1,
-                overflow: "hidden",
-              }}
-            >
-              {selectedOptions.length > 0 ? (
-                selectedOptions.map((option) => (
-                  <span
-                    key={option.value}
-                    style={{
-                      backgroundColor: selectedColor,
-                      padding: "0.25rem 0.5rem",
-                      borderRadius: "0.25rem",
-                      fontSize: "0.875rem",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "0.25rem",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {option.icon && (
-                      <span style={{ flexShrink: 0 }}>{option.icon}</span>
-                    )}
-                    <span
-                      style={{
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {option.label}
-                    </span>
-                  </span>
-                ))
-              ) : (
-                <span style={{ color: placeholderColor }}>{placeholder}</span>
-              )}
-            </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {iconPrefix}
+          {selectedOptions.length ? (
+            <span>{selectedOptions.map((s) => s.label).join(", ")}</span>
           ) : (
-            <span
-              style={{
-                color: selectedOption ? textColor : placeholderColor,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-                display: "flex",
-                alignItems: "center",
-                gap: optionGap,
-              }}
-            >
-              {selectedOption?.icon && (
-                <span style={{ flexShrink: 0 }}>{selectedOption.icon}</span>
-              )}
-              {selectedOption ? selectedOption.label : placeholder}
+            <span style={{ color: colors.placeholderColor }}>
+              {placeholder}
             </span>
           )}
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            marginLeft: "0.5rem",
-            flexShrink: 0,
-          }}
-        >
-          {clearable && selectedValues.length > 0 && (
-            <span
-              onClick={handleClear}
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          {clearable && selected.length > 0 && (
+            <button
+              onClick={clearSelection}
               style={{
-                cursor: disabled ? "not-allowed" : "pointer",
-                fontSize: "1rem",
-                color: textColor,
-                opacity: 0.7,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                background: "transparent",
+                border: "none",
+                color: colors.textColor,
+                cursor: "pointer",
               }}
-              aria-label="Clear selection"
             >
               {clearIcon}
-            </span>
+            </button>
           )}
-          <span
+          {iconSuffix}
+          <div
             style={{
-              transition: `transform ${transitionDuration}`,
               transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-              fontSize: "0.75rem",
-              color: textColor,
-              opacity: 0.7,
+              transition: `transform ${transitionDuration}`,
             }}
           >
             {dropdownIcon}
-          </span>
+          </div>
         </div>
       </div>
 
-      {/* Dropdown menu */}
+      {/* Menu */}
       {isOpen && (
-        <div
-          className={`dropdown-menu ${dropdownClassName}`}
+        <ul
+          className={menuClassName}
           style={{
             position: "absolute",
-            top: "100%",
+            zIndex: 100,
+            top: "calc(100% + 4px)",
             left: 0,
-            zIndex: 1000,
-            width: "100%",
-            minWidth: dropdownMinWidth,
+            right: 0,
+            background: colors.menuBg,
+            border: `1px solid ${colors.borderColor}`,
+            borderRadius,
+            boxShadow,
             maxHeight: dropdownMaxHeight,
             overflowY: "auto",
-            backgroundColor,
-            border: `1px solid ${borderColor}`,
-            borderRadius,
-            boxShadow: `0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)`,
-            marginTop: "0.25rem",
-            transition: `opacity ${transitionDuration}, transform ${transitionDuration}`,
-            opacity: 0,
-            transform: "translateY(-0.5rem)",
-            animation: `dropdownFadeIn ${transitionDuration} ease-out forwards`,
-            ...dropdownStyle,
+            transition: `opacity ${transitionDuration} ease`,
+            ...menuStyle,
           }}
-          role="listbox"
-          aria-multiselectable={multiSelect}
         >
-          {/* Search input */}
-          {searchable && (
-            <div
-              style={{
-                padding: "0.5rem",
-                borderBottom: `1px solid ${borderColor}`,
-              }}
-            >
-              <input
-                ref={inputRef}
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search..."
-                style={{
-                  width: "100%",
-                  padding: "0.5rem 0.75rem",
-                  borderWidth: "1px",
-                  borderStyle: "solid",
-                  color: textColor,
-                  borderColor: isOpen ? focusBorderColor : borderColor,
-                  borderRadius: "0.25rem",
-                  outline: "none",
-                  transition: `border-color ${transitionDuration}`,
-                  ...(isOpen && {
-                    boxShadow: `0 0 0 1px ${focusBorderColor}`,
-                  }),
-                }}
-                onFocus={onFocus}
-                onBlur={onBlur}
-              />
-            </div>
-          )}
-
-          {/* Options list */}
-          <ul style={{ margin: 0, padding: "0.25rem 0", listStyle: "none" }}>
-            {filteredOptions.length > 0 ? (
-              visibleOptionsList.map((option, index) => {
-                const isSelected = selectedValues.includes(option.value);
-                const isFocused =
-                  focusedIndex === (virtualized ? startIndex + index : index);
-                const isDisabled = option.disabled;
-
-                return (
-                  <li
-                    key={option.value}
-                    ref={(el) => {
-                      if (el) {
-                        const refIndex = virtualized
-                          ? startIndex + index
-                          : index;
-                        optionsRef.current[refIndex] = el;
-                      }
-                    }}
-                    onClick={() => !isDisabled && handleSelect(option.value)}
-                    onMouseEnter={() =>
-                      !isDisabled &&
-                      setFocusedIndex(virtualized ? startIndex + index : index)
-                    }
-                    className={`dropdown-option ${optionClassName} ${
-                      isDisabled ? "disabled" : ""
-                    }`}
-                    style={{
-                      padding: optionPadding,
-                      cursor: isDisabled ? "not-allowed" : "pointer",
-                      backgroundColor: isSelected
-                        ? selectedColor
-                        : isFocused
-                        ? hoverColor
-                        : backgroundColor,
-                      color: isDisabled ? disabledColor : textColor,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: optionGap,
-                      transition: `background-color ${transitionDuration}`,
-                      ...optionStyle,
-                    }}
-                    role="option"
-                    aria-selected={isSelected}
-                    aria-disabled={isDisabled}
-                  >
-                    {multiSelect && (
-                      <span style={{ flexShrink: 0 }}>
-                        {isSelected ? checkIcon : "○"}
-                      </span>
-                    )}
-                    {option.icon && (
-                      <span style={{ flexShrink: 0 }}>{option.icon}</span>
-                    )}
-                    <span style={{ flex: 1 }}>{option.label}</span>
-                  </li>
-                );
-              })
-            ) : (
+          {options.map((opt) => {
+            const isSelected = selected.includes(opt.value);
+            return (
               <li
+                key={opt.value}
+                onClick={() => !opt.disabled && selectValue(opt.value)}
+                className={optionClassName}
                 style={{
-                  padding: optionPadding,
-                  color: placeholderColor,
-                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "0.5rem 0.75rem",
+                  background: opt.disabled
+                    ? colors.disabledBg
+                    : isSelected
+                    ? colors.selectedBg
+                    : "transparent",
+                  color: opt.disabled
+                    ? colors.disabledTextColor
+                    : colors.textColor,
+                  cursor: opt.disabled ? "not-allowed" : "pointer",
+                  borderRadius: 6,
+                  userSelect: "none",
+                  ...optionStyle,
+                }}
+                onMouseEnter={(e) => {
+                  if (!opt.disabled && !isSelected)
+                    e.currentTarget.style.backgroundColor = colors.hoverBg;
+                }}
+                onMouseLeave={(e) => {
+                  if (!opt.disabled && !isSelected)
+                    e.currentTarget.style.backgroundColor = "transparent";
                 }}
               >
-                No options found
+                {multiSelect && (
+                  <span style={{ width: 18, textAlign: "center" }}>
+                    {isSelected ? checkIcon : "○"}
+                  </span>
+                )}
+                {opt.icon && <span>{opt.icon}</span>}
+                <div style={{ flex: 1 }}>
+                  {opt.label}
+                  {opt.description && (
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: colors.placeholderColor,
+                        marginTop: 2,
+                      }}
+                    >
+                      {opt.description}
+                    </div>
+                  )}
+                </div>
               </li>
-            )}
-          </ul>
-
-          {/* Virtualization scroll spacer */}
-          {virtualized && filteredOptions.length > visibleOptionCount && (
-            <div
-              style={{
-                height: `${
-                  (filteredOptions.length - visibleOptionCount) * optionHeight
-                }px`,
-              }}
-            />
-          )}
-        </div>
+            );
+          })}
+        </ul>
       )}
-
-      {/* Inline animation styles */}
-      <style>
-        {`
-          @keyframes dropdownFadeIn {
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-        `}
-      </style>
     </div>
   );
 };
+
+export const Dropdown = forwardRef(DropdownInner);
+export default Dropdown;

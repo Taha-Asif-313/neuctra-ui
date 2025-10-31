@@ -23,6 +23,20 @@ import ImageDocs from "./pages/DocsPages/ImageDocs";
 import InputDocs from "./pages/DocsPages/InputDocs";
 import ListDocs from "./pages/DocsPages/ListDocs";
 import TabsDocs from "./pages/DocsPages/TabsDocs";
+import BadgeDocs from "./pages/DocsPages/BadgeDocs";
+import AvatarDocs from "./pages/DocsPages/AvatarDocs";
+import RadioGroupDocs from "./pages/DocsPages/RadioGroupDocs";
+import CheckboxGroupDocs from "./pages/DocsPages/CheckboxGroupDocs";
+import SwitchGroupDocs from "./pages/DocsPages/SwitchGroupDocs";
+import DropdownDocs from "./pages/DocsPages/DropdownDocs";
+import ContainerDocs from "./pages/DocsPages/ContainerDocs";
+import GridViewDocs from "./pages/DocsPages/GridViewDocs";
+import FlexboxDocs from "./pages/DocsPages/FlexboxDocs";
+import StackDocs from "./pages/DocsPages/StackDocs";
+import DrawerDocs from "./pages/DocsPages/DrawerDocs";
+import CardDocs from "./pages/DocsPages/CardDocs";
+import AudioPlayerDocs from "./pages/DocsPages/AudioPlayerDocs";
+import AudioGalleryDocs from "./pages/DocsPages/AudioGalleryDocs";
 
 const App = () => {
   return (
@@ -44,11 +58,25 @@ const App = () => {
         <Route path="/docs" element={<DocsLayout />}>
           <Route index element={<GetStarted />} />
           <Route path="text" element={<TextDocs />} />
-             <Route path="image" element={<ImageDocs />} />
+          <Route path="image" element={<ImageDocs />} />
           <Route path="button" element={<ButtonDocs />} />
-                <Route path="input" element={<InputDocs />} />
-                 <Route path="list" element={<ListDocs />} />
-                  <Route path="tabs" element={<TabsDocs />} />
+          <Route path="input" element={<InputDocs />} />
+          <Route path="list" element={<ListDocs />} />
+          <Route path="tabs" element={<TabsDocs />} />
+          <Route path="badge" element={<BadgeDocs />} />
+          <Route path="avatar" element={<AvatarDocs />} />
+          <Route path="radio" element={<RadioGroupDocs />} />
+          <Route path="checkbox" element={<CheckboxGroupDocs />} />
+          <Route path="switch" element={<SwitchGroupDocs />} />
+          <Route path="dropdown" element={<DropdownDocs />} />
+          <Route path="container" element={<ContainerDocs />} />
+           <Route path="gridview" element={<GridViewDocs />} />
+              <Route path="flexbox" element={<FlexboxDocs />} />
+              <Route path="stack" element={<StackDocs />} />
+              <Route path="drawer" element={<DrawerDocs />} />
+                        <Route path="card" element={<CardDocs />} />
+                         <Route path="audioplayer" element={<AudioPlayerDocs />} />
+                           <Route path="audiogaller" element={<AudioGalleryDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>

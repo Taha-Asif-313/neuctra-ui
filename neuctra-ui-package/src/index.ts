@@ -26,8 +26,11 @@ export { Button } from "./components/basic/Button"; // ✅ Finalized
 // Cards
 export { Card } from "./components/basic/Card"; // ✅ Finalized
 
-// Checkboxes & Radios
-export { CheckRadio } from "./components/basic/CheckRadioInput"; // ✅ Finalized
+// ✅ Checkbox, Radio & Switch Components
+export { CheckboxGroup } from "./components/basic/CheckboxGroup";
+export { RadioGroup } from "./components/basic/RadioGroup";
+export { SwitchGroup } from "./components/basic/SwitchGroup";
+
 
 // Containers & Layout
 export { Container } from "./components/basic/Container"; // ✅ Finalized

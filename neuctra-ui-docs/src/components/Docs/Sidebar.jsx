@@ -29,7 +29,9 @@ const Sidebar = () => {
       category: "Form Components",
       subLinks: [
         { label: "Input", href: "/docs/input" },
-        { label: "CheckRadio", href: "/docs/checkradio" },
+        { label: "Radio", href: "/docs/radio" },
+        { label: "Check Box", href: "/docs/checkbox" },
+        { label: "Switch", href: "/docs/switch" },
         { label: "Dropdown", href: "/docs/dropdown" },
       ],
     },
@@ -39,6 +41,7 @@ const Sidebar = () => {
         { label: "Container", href: "/docs/container" },
         { label: "GridView", href: "/docs/gridview" },
         { label: "Flexbox", href: "/docs/flexbox" },
+                { label: "Stack", href: "/docs/stack" },
         { label: "Tabs", href: "/docs/tabs" },
         { label: "Drawer", href: "/docs/drawer" },
         { label: "Card", href: "/docs/card" },

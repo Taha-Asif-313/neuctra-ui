@@ -8,7 +8,8 @@ import React, {
   ComponentPropsWithoutRef,
 } from "react";
 
-type CardVariant = "elevated" | "outline" | "flat";
+// Allow any string for variant to support fully custom variants
+type CardVariant = string;
 
 type CardOwnProps = {
   as?: ElementType;
@@ -58,8 +59,8 @@ const CardInner = <T extends ElementType = "div">(
 ) => {
   const Component = as || "div";
 
-  // Default styling based on variant
-  const baseVariantStyles: Record<CardVariant, CSSProperties> = {
+  // Default styling for known variants; unknown variants can be customized
+  const baseVariantStyles: Record<string, CSSProperties> = {
     elevated: {
       boxShadow: boxShadow || "0 4px 12px rgba(0,0,0,0.08)",
       border: border || "none",
@@ -85,8 +86,22 @@ const CardInner = <T extends ElementType = "div">(
     transition: "all 0.25s ease",
     cursor: onClick ? "pointer" : undefined,
     boxSizing: "border-box",
-    ...baseVariantStyles[variant],
+    ...(baseVariantStyles[variant] || {}), // fallback if variant is custom
     ...style,
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+    Object.assign(
+      e.currentTarget.style,
+      hoverShadow ? { boxShadow: hoverShadow } : hoverStyle
+    );
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
+    Object.assign(e.currentTarget.style, {
+      ...cardStyle,
+      ...(baseVariantStyles[variant] || {}),
+    });
   };
 
   return (
@@ -95,18 +110,8 @@ const CardInner = <T extends ElementType = "div">(
       className={`ui-card ${className}`}
       style={cardStyle}
       onClick={onClick}
-      onMouseEnter={(e: React.MouseEvent<HTMLElement>) => {
-        Object.assign(
-          e.currentTarget.style,
-          hoverShadow ? { boxShadow: hoverShadow } : hoverStyle
-        );
-      }}
-      onMouseLeave={(e: React.MouseEvent<HTMLElement>) => {
-        Object.assign(e.currentTarget.style, {
-          ...baseVariantStyles[variant],
-          ...style,
-        });
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       {...rest}
     >
       {children}
