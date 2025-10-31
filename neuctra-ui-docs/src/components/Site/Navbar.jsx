@@ -35,7 +35,7 @@ const Navbar = () => {
         isOpen || isScrolled ? "bg-zinc-950" : "bg-transparent"
       } text-white border-b border-transparent`}
     >
-      <div className="max-w-6xl mx-auto flex items-center justify-between lg:px-0 px-4 py-3 lg:py-3">
+      <div className="max-w-6xl mx-auto flex items-center justify-between lg:px-0 md:px-8 px-4 py-3 lg:py-3">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-0.5">
           <img src="/logo.png" alt="Logo" className="w-10 object-cover" />

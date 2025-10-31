@@ -268,7 +268,7 @@ const LandingPage = () => {
 
 
       {/* Hero Section */}
-      <div className="relative z-10 min-h-screen px-4 py-10 flex flex-col items-center justify-center">
+      <div className="relative z-10 min-h-screen md:px-8 px-4 py-10 flex flex-col items-center justify-center">
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-2 items-center">
             {/* Left Content */}
@@ -412,7 +412,7 @@ const LandingPage = () => {
       </div>
 
       {/* Features */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-20">
+      <div className="relative z-10 max-w-6xl mx-auto md:px-8 px-4 py-20">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
