@@ -76,7 +76,7 @@ const App = () => {
               <Route path="drawer" element={<DrawerDocs />} />
                         <Route path="card" element={<CardDocs />} />
                          <Route path="audioplayer" element={<AudioPlayerDocs />} />
-                           <Route path="audiogaller" element={<AudioGalleryDocs />} />
+                           <Route path="audiogallery" element={<AudioGalleryDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>
