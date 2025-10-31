@@ -238,7 +238,7 @@ const FeatureCard = ({ icon, title, description, delay }) => {
       <div className="relative bg-zinc-950/80 backdrop-blur-sm border border-primary/30 rounded-lg p-6 hover:border-primary/60 transition-all duration-300">
         <div className="text-primary mb-3">{icon}</div>
         <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-400 text-xs">{description}</p>
+        <p className="text-gray-400 text-sm">{description}</p>
       </div>
     </motion.div>
   );
@@ -269,7 +269,7 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <div className="relative z-10 min-h-screen px-4 py-10 flex flex-col items-center justify-center">
-        <div className="max-w-7xl mx-auto w-full">
+        <div className="max-w-6xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-2 items-center">
             {/* Left Content */}
             <div>
@@ -412,7 +412,7 @@ const LandingPage = () => {
       </div>
 
       {/* Features */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 py-20">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
