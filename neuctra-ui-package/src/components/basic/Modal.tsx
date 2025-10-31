@@ -7,44 +7,21 @@ import React, {
 } from "react";
 import { X } from "lucide-react";
 
-/* -------------------------------------------------------------------------- */
-/*                                   Props                                    */
-/* -------------------------------------------------------------------------- */
-
 export interface ModalProps {
-  /** Controls whether the modal is visible */
   isOpen: boolean;
-
-  /** Callback fired when modal requests to close */
   onClose: () => void;
-
-  /** Modal content */
   children: ReactNode;
-
-  /** Optional ARIA label for accessibility */
   ariaLabel?: string;
-
-  /** Optional title for screen readers */
   title?: string;
-
-  /** Custom styles */
   overlayStyle?: CSSProperties;
   modalStyle?: CSSProperties;
   closeButtonStyle?: CSSProperties;
-
-  /** Enable/disable overlay click to close */
   disableOverlayClose?: boolean;
-
-  /** Animation duration (ms) */
   transitionDuration?: number;
-
-  /** Optional classNames for CSS frameworks like Tailwind */
   className?: string;
+  /** Dark mode toggle */
+  darkMode?: boolean;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                   Modal                                    */
-/* -------------------------------------------------------------------------- */
 
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
@@ -58,6 +35,7 @@ export const Modal: React.FC<ModalProps> = ({
   disableOverlayClose = false,
   transitionDuration = 200,
   className,
+  darkMode = false,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -86,14 +64,13 @@ export const Modal: React.FC<ModalProps> = ({
     if (!disableOverlayClose) onClose();
   }, [disableOverlayClose, onClose]);
 
-  /* ------------------------------ Early Return ----------------------------- */
   if (!isOpen) return null;
 
   /* ------------------------------- Base Styles ----------------------------- */
   const baseOverlay: CSSProperties = {
     position: "fixed",
     inset: 0,
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: darkMode ? "rgba(0,0,0,0.8)" : "rgba(0,0,0,0.6)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -105,14 +82,17 @@ export const Modal: React.FC<ModalProps> = ({
 
   const baseModal: CSSProperties = {
     position: "relative",
-    backgroundColor: "#fff",
+    backgroundColor: darkMode ? "#1f1f1f" : "#fff",
+    color: darkMode ? "#f5f5f5" : "#111",
     borderRadius: 12,
     width: "90vw",
     maxWidth: 700,
     maxHeight: "90vh",
     overflowY: "auto",
     padding: 24,
-    boxShadow: "0 10px 40px rgba(0,0,0,0.25)",
+    boxShadow: darkMode
+      ? "0 10px 40px rgba(0,0,0,0.7)"
+      : "0 10px 40px rgba(0,0,0,0.25)",
     transform: isOpen ? "scale(1)" : "scale(0.95)",
     transition: `transform ${transitionDuration}ms ease, opacity ${transitionDuration}ms ease`,
     ...modalStyle,
@@ -126,12 +106,11 @@ export const Modal: React.FC<ModalProps> = ({
     border: "none",
     cursor: "pointer",
     padding: 4,
-    color: "#444",
+    color: darkMode ? "#f5f5f5" : "#444",
     transition: "color 0.2s ease, transform 0.2s ease",
     ...closeButtonStyle,
   };
 
-  /* ----------------------------- Render Content ---------------------------- */
   return (
     <div
       role="dialog"
@@ -151,11 +130,11 @@ export const Modal: React.FC<ModalProps> = ({
           aria-label="Close modal"
           style={baseCloseBtn}
           onMouseEnter={(e) => {
-            e.currentTarget.style.color = "#000";
+            e.currentTarget.style.color = darkMode ? "#fff" : "#000";
             e.currentTarget.style.transform = "scale(1.1)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = "#444";
+            e.currentTarget.style.color = darkMode ? "#f5f5f5" : "#444";
             e.currentTarget.style.transform = "scale(1)";
           }}
         >

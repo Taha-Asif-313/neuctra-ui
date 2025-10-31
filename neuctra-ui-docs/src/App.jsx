@@ -37,6 +37,10 @@ import DrawerDocs from "./pages/DocsPages/DrawerDocs";
 import CardDocs from "./pages/DocsPages/CardDocs";
 import AudioPlayerDocs from "./pages/DocsPages/AudioPlayerDocs";
 import AudioGalleryDocs from "./pages/DocsPages/AudioGalleryDocs";
+import AlertDocs from "./pages/DocsPages/AlertDocs";
+import ModalDocs from "./pages/DocsPages/ModalDocs";
+import AccordionDocs from "./pages/DocsPages/AccordionDocs";
+import TableDocs from "./pages/DocsPages/TableDocs";
 
 const App = () => {
   return (
@@ -70,13 +74,17 @@ const App = () => {
           <Route path="switch" element={<SwitchGroupDocs />} />
           <Route path="dropdown" element={<DropdownDocs />} />
           <Route path="container" element={<ContainerDocs />} />
-           <Route path="gridview" element={<GridViewDocs />} />
-              <Route path="flexbox" element={<FlexboxDocs />} />
-              <Route path="stack" element={<StackDocs />} />
-              <Route path="drawer" element={<DrawerDocs />} />
-                        <Route path="card" element={<CardDocs />} />
-                         <Route path="audioplayer" element={<AudioPlayerDocs />} />
-                           <Route path="audiogallery" element={<AudioGalleryDocs />} />
+          <Route path="gridview" element={<GridViewDocs />} />
+          <Route path="flexbox" element={<FlexboxDocs />} />
+          <Route path="stack" element={<StackDocs />} />
+          <Route path="drawer" element={<DrawerDocs />} />
+          <Route path="card" element={<CardDocs />} />
+          <Route path="audioplayer" element={<AudioPlayerDocs />} />
+          <Route path="audiogallery" element={<AudioGalleryDocs />} />
+          <Route path="alert" element={<AlertDocs />} />
+                 <Route path="modal" element={<ModalDocs />} />
+                 <Route path="accordion" element={<AccordionDocs />} />
+                    <Route path="table" element={<TableDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>

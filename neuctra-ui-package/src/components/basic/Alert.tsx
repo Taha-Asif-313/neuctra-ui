@@ -70,7 +70,6 @@ const typeStyles: Record<AlertType, any> = {
   },
 };
 
-/** 📍 Dynamic position styles */
 const getPositionStyle = (position: AlertPosition): React.CSSProperties => {
   const base: React.CSSProperties = {
     position: "fixed",
@@ -95,7 +94,6 @@ const getPositionStyle = (position: AlertPosition): React.CSSProperties => {
   }
 };
 
-/** 🎯 Production-grade Alert Component */
 export const Alert: React.FC<AlertProps> = ({
   title,
   description,
@@ -120,23 +118,27 @@ export const Alert: React.FC<AlertProps> = ({
   className = "",
   style,
 }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [exiting, setExiting] = useState(false);
 
-  /** Auto-dismiss after duration */
   useEffect(() => {
+    setVisible(true);
+
     if (duration) {
       const timer = setTimeout(() => {
-        setVisible(false);
-        onClose?.();
+        setExiting(true);
+        setTimeout(() => {
+          setVisible(false);
+          onClose?.();
+        }, parseInt(animationDuration));
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [duration, onClose]);
+  }, [duration, onClose, animationDuration]);
 
   const { bg, border, iconColor, Icon } = typeStyles[type];
   const positionStyle = getPositionStyle(position);
 
-  /** Combine computed and custom styles */
   const containerStyle: React.CSSProperties = useMemo(
     () => ({
       ...positionStyle,
@@ -151,19 +153,20 @@ export const Alert: React.FC<AlertProps> = ({
       padding,
       maxWidth,
       width: "calc(100% - 2.5rem)",
-      opacity: visible ? 1 : 0,
-      transform: visible
-        ? position.includes("bottom")
-          ? "translateY(0)"
-          : "translateY(0)"
+      opacity: visible && !exiting ? 1 : 0,
+      transform: visible && !exiting
+        ? "translateY(0)"
         : position.includes("bottom")
         ? "translateY(20px)"
         : "translateY(-20px)",
       transition: `opacity ${animationDuration} ease, transform ${animationDuration} ease`,
+      fontWeight,
+      fontSize,
       ...style,
     }),
     [
       visible,
+      exiting,
       bg,
       border,
       borderColor,
@@ -176,63 +179,76 @@ export const Alert: React.FC<AlertProps> = ({
       backgroundColor,
       animationDuration,
       style,
+      fontSize,
+      fontWeight,
     ]
   );
 
   if (!visible) return null;
 
   return (
-    <div className={className} style={containerStyle} role="alert">
-      {/* Icon */}
-      <div style={{ color: iconColor, marginTop: "2px" }}>
-        {icon || Icon}
-      </div>
+    <>
+      <style>
+        {`
+          @keyframes alert-slide-in-top {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes alert-slide-in-bottom {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}
+      </style>
+      <div
+        className={className}
+        style={{
+          ...containerStyle,
+          animation: `${position.includes("bottom") ? "alert-slide-in-bottom" : "alert-slide-in-top"} ${animationDuration} ease`,
+        }}
+        role="alert"
+      >
+        <div style={{ color: iconColor, marginTop: "2px" }}>{icon || Icon}</div>
 
-      {/* Text content */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        {title && (
-          <div style={{ fontWeight: 600, fontSize, marginBottom: "4px" }}>
-            {title}
-          </div>
-        )}
-        {description && (
-          <div
-            style={{
-              fontSize: "0.875rem",
-              color: descriptionColor,
-              lineHeight: 1.4,
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {title && (
+            <div style={{ fontWeight: 600, fontSize, marginBottom: "4px" }}>
+              {title}
+            </div>
+          )}
+          {description && (
+            <div style={{ fontSize: "0.875rem", color: descriptionColor, lineHeight: 1.4 }}>
+              {description}
+            </div>
+          )}
+          {actionButton && <div style={{ marginTop: "8px" }}>{actionButton}</div>}
+        </div>
+
+        {dismissible && (
+          <button
+            onClick={() => {
+              setExiting(true);
+              setTimeout(() => {
+                setVisible(false);
+                onClose?.();
+              }, parseInt(animationDuration));
             }}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#6b7280",
+              cursor: "pointer",
+              marginLeft: "8px",
+              padding: 0,
+              lineHeight: 0,
+            }}
+            aria-label="Close alert"
           >
-            {description}
-          </div>
-        )}
-        {actionButton && (
-          <div style={{ marginTop: "8px" }}>{actionButton}</div>
+            <X size={16} />
+          </button>
         )}
       </div>
-
-      {/* Dismiss button */}
-      {dismissible && (
-        <button
-          onClick={() => {
-            setVisible(false);
-            onClose?.();
-          }}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "#6b7280",
-            cursor: "pointer",
-            marginLeft: "8px",
-            padding: 0,
-            lineHeight: 0,
-          }}
-          aria-label="Close alert"
-        >
-          <X size={16} />
-        </button>
-      )}
-    </div>
+    </>
   );
 };
 

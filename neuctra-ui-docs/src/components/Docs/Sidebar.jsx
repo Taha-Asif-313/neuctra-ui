@@ -59,7 +59,7 @@ const Sidebar = () => {
       subLinks: [
         { label: "Alert", href: "/docs/alert" },
         { label: "Modal", href: "/docs/modal" },
-        { label: "Accordation", href: "/docs/accordation" },
+        { label: "Accordion", href: "/docs/accordion" },
       ],
     },
     {
