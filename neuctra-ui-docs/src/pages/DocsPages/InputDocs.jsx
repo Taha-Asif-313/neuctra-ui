@@ -4,9 +4,24 @@ import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Input } from "@neuctra/ui";
 import { Mail, Lock } from "lucide-react";
+import Metadata from "../../MetaData";
 
 const InputDocs = () => {
   return (
+    <>
+    <Metadata
+  title="Input Component — Neuctra UI"
+  description="Learn how to use the Input component from Neuctra UI — a customizable, accessible, and theme-ready React input field with icons, password visibility, textarea mode, and validation states."
+  keywords="Neuctra UI Input, React input component, password field, textarea, form input, Tailwind CSS input, custom input styles, input validation, UI components, Neuctra library"
+  image="https://ui.neuctra.com/og/input-docs-preview.png"
+  ogTitle="Input Component — Neuctra UI"
+  ogDescription="A fully customizable React input field with icons, password toggle, validation states, and Tailwind theming — from Neuctra UI."
+  twitterTitle="Input Component | Neuctra UI"
+  twitterDescription="Modern, accessible input fields for React — with icons, password visibility, and full Tailwind customization. Learn more on Neuctra UI docs."
+  canonical="https://ui.neuctra.com/docs/input"
+/>
+
+    
     <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4 space-y-10">
         {/* Header */}
@@ -192,6 +207,7 @@ const InputDocs = () => {
         </footer>
       </div>
     </div>
+    </>
   );
 };
 

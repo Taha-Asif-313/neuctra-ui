@@ -3,9 +3,22 @@ import React from "react";
 import { Card } from "@neuctra/ui"; // adjust import path
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
+import Metadata from "../../MetaData";
 
 const CardDocs = () => {
   return (
+    <>
+     <Metadata
+        title="Card Component — Neuctra UI"
+        description="Explore the Card component in Neuctra UI. A flexible, theme-aware container supporting variants, shadows, hover effects, and full customization for modern React interfaces."
+        keywords="Neuctra UI Card, React Card component, Tailwind UI Card, custom Card, Card variants, elevated Card, outline Card, flat Card, hover shadow, Neuctra design system"
+        image="https://ui.neuctra.com/og/card-docs-preview.png"
+        ogTitle="Card Component — Neuctra UI"
+        ogDescription="Build elegant and interactive UI containers using the Card component from Neuctra UI. Designed for flexibility, dark mode, and developer simplicity."
+        twitterTitle="Card Component | Neuctra UI"
+        twitterDescription="Fully customizable, theme-aware Card component for React apps. Explore examples, variants, hover effects, and custom styling with Neuctra UI."
+      />
+    
     <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4 space-y-10">
         {/* Header */}
@@ -189,6 +202,7 @@ const CardDocs = () => {
         <DocsFooter />
       </div>
     </div>
+    </>
   );
 };
 

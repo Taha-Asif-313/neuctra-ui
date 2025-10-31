@@ -82,9 +82,9 @@ const App = () => {
           <Route path="audioplayer" element={<AudioPlayerDocs />} />
           <Route path="audiogallery" element={<AudioGalleryDocs />} />
           <Route path="alert" element={<AlertDocs />} />
-                 <Route path="modal" element={<ModalDocs />} />
-                 <Route path="accordion" element={<AccordionDocs />} />
-                    <Route path="table" element={<TableDocs />} />
+          <Route path="modal" element={<ModalDocs />} />
+          <Route path="accordion" element={<AccordionDocs />} />
+          <Route path="table" element={<TableDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>

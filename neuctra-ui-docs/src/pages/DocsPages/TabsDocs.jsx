@@ -5,6 +5,7 @@ import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Tabs } from "@neuctra/ui";
 import { LayoutPanelTop, Star, Settings, Info } from "lucide-react";
 import DocsFooter from "../../components/Docs/DocsFooter";
+import Metadata from "../../MetaData";
 
 const TabsDocs = () => {
   const sampleTabs = [
@@ -44,66 +45,79 @@ const TabsDocs = () => {
   ];
 
   return (
-    <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-      <div className="max-w-5xl mx-auto px-4 space-y-10">
-        {/* Header */}
-        <header>
-          <h1 className="text-4xl font-extrabold mb-3 text-white">
-            Tabs Component
-          </h1>
-          <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-            The <span className="text-primary font-semibold">Tabs</span>{" "}
-            component offers a modern, accessible, and fully customizable tab
-            interface. It supports multiple variants, responsive drawers, and
-            smooth transitions — perfect for dashboards, admin panels, and
-            modular UIs.
-          </p>
-        </header>
+    <>
+      <Metadata
+        title="Tabs Component — Neuctra UI"
+        description="Discover the Tabs component in Neuctra UI — a fully customizable, accessible React tab system with variants, positions, and theming support for dashboards and modern interfaces."
+        keywords="Neuctra UI Tabs, React tabs, tab component, UI navigation, tabbed interface, dashboard tabs, React UI library, Tailwind CSS tabs, themed tabs, accessible tabs, Neuctra components"
+        image="https://ui.neuctra.com/og/tabs-docs-preview.png"
+        ogTitle="Tabs Component — Neuctra UI"
+        ogDescription="Build beautiful, flexible tab interfaces using Neuctra UI’s Tabs component — supports custom theming, variants, and alignment for modern web apps."
+        twitterTitle="Tabs Component | Neuctra UI"
+        twitterDescription="Explore Neuctra UI’s Tabs component — modern, responsive, and theme-ready tab navigation for React dashboards, admin panels, and modular interfaces."
+        canonical="https://ui.neuctra.com/docs/tabs"
+      />
 
-        {/* Example Preview */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            Basic Example
-          </h2>
+      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
+        <div className="max-w-5xl mx-auto px-4 space-y-10">
+          {/* Header */}
+          <header>
+            <h1 className="text-4xl font-extrabold mb-3 text-white">
+              Tabs Component
+            </h1>
+            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+              The <span className="text-primary font-semibold">Tabs</span>{" "}
+              component offers a modern, accessible, and fully customizable tab
+              interface. It supports multiple variants, responsive drawers, and
+              smooth transitions — perfect for dashboards, admin panels, and
+              modular UIs.
+            </p>
+          </header>
 
-          <CodePreviewBlock
-            filename="Tabs.tsx"
-            language="jsx"
-            code={`<Tabs
+          {/* Example Preview */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Example
+            </h2>
+
+            <CodePreviewBlock
+              filename="Tabs.tsx"
+              language="jsx"
+              code={`<Tabs
   tabs={[
     { label: "Overview", content: <p>This is the overview tab.</p> },
     { label: "Settings", content: <p>Manage your preferences here.</p> },
     { label: "Favorites", content: <p>Starred items appear here.</p> },
   ]}
 />`}
-            previewContent={
-              <Tabs
-                textColor="#fff"
-                primaryColor="var(--primary)"
-                hoverColor="var(--primary)"
-                tabs={sampleTabs}
-              />
-            }
-          />
-        </section>
+              previewContent={
+                <Tabs
+                  textColor="#fff"
+                  primaryColor="var(--primary)"
+                  hoverColor="var(--primary)"
+                  tabs={sampleTabs}
+                />
+              }
+            />
+          </section>
 
-        {/* Variants & Position */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            Variants & Position
-          </h2>
-          <p className="text-gray-300 mb-3">
-            Switch between <code className="text-primary">solid</code>,{" "}
-            <code className="text-primary">outline</code>, and{" "}
-            <code className="text-primary">underline</code> variants. You can
-            also change the tab alignment using the{" "}
-            <code className="text-primary">position</code> prop.
-          </p>
+          {/* Variants & Position */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Variants & Position
+            </h2>
+            <p className="text-gray-300 mb-3">
+              Switch between <code className="text-primary">solid</code>,{" "}
+              <code className="text-primary">outline</code>, and{" "}
+              <code className="text-primary">underline</code> variants. You can
+              also change the tab alignment using the{" "}
+              <code className="text-primary">position</code> prop.
+            </p>
 
-          <CodePreviewBlock
-            filename="TabsVariants.tsx"
-            language="jsx"
-            code={`<Tabs
+            <CodePreviewBlock
+              filename="TabsVariants.tsx"
+              language="jsx"
+              code={`<Tabs
   tabs={[
     { label: "Left", content: <p>Tabs on the left side.</p> },
     { label: "Right", content: <p>Tabs on the right side.</p> },
@@ -111,45 +125,45 @@ const TabsDocs = () => {
   variant="underline"
   position="left"
 />`}
-            previewContent={
-              <Tabs
-                tabs={[
-                  {
-                    label: "Left",
-                    content: <p className="p-10">Tabs on the left side.</p>,
-                  },
-                  {
-                    label: "Right",
-                    content: <p className="p-10">Tabs on the right side.</p>,
-                  },
-                ]}
-                position="left"
-                variant="underline"
-                textColor="#fff"
-                primaryColor="var(--primary)"
-                hoverColor="var(--primary)"
-              />
-            }
-          />
-        </section>
+              previewContent={
+                <Tabs
+                  tabs={[
+                    {
+                      label: "Left",
+                      content: <p className="p-10">Tabs on the left side.</p>,
+                    },
+                    {
+                      label: "Right",
+                      content: <p className="p-10">Tabs on the right side.</p>,
+                    },
+                  ]}
+                  position="left"
+                  variant="underline"
+                  textColor="#fff"
+                  primaryColor="var(--primary)"
+                  hoverColor="var(--primary)"
+                />
+              }
+            />
+          </section>
 
-        {/* Custom Theming */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4 text-white">
-            Custom Theming
-          </h2>
-          <p className="text-gray-300 mb-3">
-            The <span className="text-primary font-semibold">Tabs</span>{" "}
-            component can be themed to match your brand colors using props like{" "}
-            <code className="text-primary">primaryColor</code>,{" "}
-            <code className="text-primary">backgroundColor</code>, and{" "}
-            <code className="text-primary">hoverColor</code>.
-          </p>
+          {/* Custom Theming */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Custom Theming
+            </h2>
+            <p className="text-gray-300 mb-3">
+              The <span className="text-primary font-semibold">Tabs</span>{" "}
+              component can be themed to match your brand colors using props
+              like <code className="text-primary">primaryColor</code>,{" "}
+              <code className="text-primary">backgroundColor</code>, and{" "}
+              <code className="text-primary">hoverColor</code>.
+            </p>
 
-          <CodePreviewBlock
-            filename="TabsTheme.tsx"
-            language="jsx"
-            code={`<Tabs
+            <CodePreviewBlock
+              filename="TabsTheme.tsx"
+              language="jsx"
+              code={`<Tabs
   tabs={[
     { label: "Design", content: <p>UI customization tools</p> },
     { label: "Code", content: <p>Developer utilities</p> },
@@ -161,26 +175,27 @@ const TabsDocs = () => {
   hoverColor="#00e05c"
   bordered
 />`}
-            previewContent={
-              <Tabs
-                tabs={[
-                  { label: "Design", content: <p>UI customization tools</p> },
-                  { label: "Code", content: <p>Developer utilities</p> },
-                ]}
-                variant="outline"
-                primaryColor="#00c214"
-                backgroundColor="#0a0a0a"
-                textColor="#fff"
-                hoverColor="#00e05c"
-                bordered
-              />
-            }
-          />
-        </section>
+              previewContent={
+                <Tabs
+                  tabs={[
+                    { label: "Design", content: <p>UI customization tools</p> },
+                    { label: "Code", content: <p>Developer utilities</p> },
+                  ]}
+                  variant="outline"
+                  primaryColor="#00c214"
+                  backgroundColor="#0a0a0a"
+                  textColor="#fff"
+                  hoverColor="#00e05c"
+                  bordered
+                />
+              }
+            />
+          </section>
 
-       <DocsFooter/>
+          <DocsFooter />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

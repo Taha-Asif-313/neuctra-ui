@@ -127,7 +127,7 @@ const Sidebar = () => {
               <div key={link.category} className="space-y-1">
                 <button
                   onClick={() => toggleDropdown(link.category)}
-                  className={`flex items-center justify-between border-l-2 w-full px-3 py-2 text-sm font-medium rounded-lg transition
+                  className={`flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-lg transition
                   ${
                     activeDropdown === link.category
                       ? "bg-[var(--primary)] !font-bold border-[#00c214]"
@@ -166,7 +166,7 @@ const Sidebar = () => {
               <div
                 key={link.href}
                 onClick={() => handleNavigation(link.href)}
-                className={`block px-3 py-2 text-sm font-medium rounded-lg border-l-2 cursor-pointer transition
+                className={`block px-3 py-2 text-sm font-medium rounded-lg cursor-pointer transition
                 ${
                   isActive(link.href)
                     ? "text-primary font-bold border-[#00c214]"

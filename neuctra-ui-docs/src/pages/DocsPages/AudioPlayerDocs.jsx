@@ -3,9 +3,23 @@ import React from "react";
 import { AudioPlayer } from "@neuctra/ui"; // adjust import path
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
+import Metadata from "../../MetaData";
 
 const AudioPlayerDocs = () => {
   return (
+    <>
+    
+   <Metadata
+    title="AudioPlayer Component — Neuctra UI"
+    description="Learn how to use the AudioPlayer component in Neuctra UI — a customizable, modern React audio player with controls, thumbnails, themes, and auto-play options."
+    keywords="Neuctra UI AudioPlayer, React audio player, custom audio component, React UI library, Neuctra components, media player, Neuctra docs"
+    image="https://ui.neuctra.com/og/audio-player-docs.png"
+    ogTitle="AudioPlayer Component — Neuctra UI"
+    ogDescription="Discover Neuctra UI’s fully customizable AudioPlayer component with play, loop, thumbnail, and theme controls for React developers."
+    twitterTitle="AudioPlayer Component — Neuctra UI"
+    twitterDescription="Explore the AudioPlayer component from Neuctra UI — customizable, responsive, and built for modern React apps."
+    canonical="https://ui.neuctra.com/docs/audioplayer"
+  />   
     <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
       <div className="max-w-5xl mx-auto px-4 space-y-10">
         {/* Header */}
@@ -148,6 +162,7 @@ const AudioPlayerDocs = () => {
         <DocsFooter />
       </div>
     </div>
+    </>
   );
 };
 

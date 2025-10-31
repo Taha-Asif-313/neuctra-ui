@@ -1,14 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 
-:root{
-    --primary: #00c214;
+:root {
+  --primary: #00c214;
 }
 
 @theme {
-    --color-primary: var(--primary);
+  --color-primary: var(--primary);
 }
 
-body{
-    font-family: "Poppins";
+body {
+  font-family: "Poppins";
+}
+
+/* For WebKit browsers (Chrome, Safari, Edge) */
+.customscroll{
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--primary) transparent; /* Firefox: thumb and track */
+  overflow-y: auto; /* Enable vertical scroll */
+}
+
+/* WebKit scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px; /* width of vertical scrollbar */
+  height: 6px; /* height of horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* or any track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary); /* scrollbar thumb color */
+  border-radius: 3px; /* rounded edges */
+  border: 1px solid transparent; /* optional for some padding effect */
+}
+
+/* Optional: thumb hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
 }
