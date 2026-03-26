@@ -37,10 +37,13 @@ const Navbar = () => {
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between lg:px-0 md:px-8 px-4 py-3 lg:py-3">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-0.5">
-          <img src="/logo.png" alt="Logo" className="w-10 object-cover" />
-          <h2 className="text-lg font-semibold">
-            Neuctra<span className="text-primary">Ui</span>
+            <Link
+          className="flex items-center gap-2 cursor-pointer"
+        to={"/"}
+        >
+          <img src="/logo.png" className="w-10 h-10" alt="logo" />
+          <h2 className="text-lg font-semibold tracking-tight">
+            Neuctra<span className="text-[#00c214]">UI</span>
           </h2>
         </Link>
 

@@ -41,6 +41,9 @@ import AlertDocs from "./pages/DocsPages/AlertDocs";
 import ModalDocs from "./pages/DocsPages/ModalDocs";
 import AccordionDocs from "./pages/DocsPages/AccordionDocs";
 import TableDocs from "./pages/DocsPages/TableDocs";
+import TemplatesLayout from "./layouts/TemplatesLayout";
+import TemplateHomePage from "./pages/TemplatePages/TemplateHomePage";
+import TemplatePage from "./pages/TemplatePages/TemplatePage";
 
 const App = () => {
   return (
@@ -85,6 +88,11 @@ const App = () => {
           <Route path="modal" element={<ModalDocs />} />
           <Route path="accordion" element={<AccordionDocs />} />
           <Route path="table" element={<TableDocs />} />
+        </Route>
+
+          <Route path="/templates" element={<TemplatesLayout />}>
+          <Route index element={<TemplateHomePage />} />
+          <Route path=":slug" element={<TemplatePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
