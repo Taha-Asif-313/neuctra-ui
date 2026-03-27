@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// import "@neuctra/ui/dist/ui.css";
+
 // Components
 import GoToTop from "./components/GoToTop";
 

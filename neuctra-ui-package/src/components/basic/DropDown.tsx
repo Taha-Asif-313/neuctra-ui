@@ -1,379 +1,254 @@
 "use client";
+
 import React, {
-  useCallback,
   useEffect,
-  useId,
-  useMemo,
   useRef,
   useState,
   forwardRef,
-  ForwardRefRenderFunction,
+  useImperativeHandle,
+  CSSProperties,
 } from "react";
+import { ChevronDown } from "lucide-react";
 
-/* ----------------------
- * Types
- * ---------------------*/
-export interface Option {
+export interface SelectOption {
   label: string;
   value: string;
   icon?: React.ReactNode;
-  disabled?: boolean;
-  description?: string;
 }
 
 export interface DropdownProps {
-  options: Option[];
+  label?: string;
+  name?: string;
 
   value?: string;
-  values?: string[];
   defaultValue?: string;
-  defaultValues?: string[];
+  onChange?: (name: string, value: string) => void;
 
-  onChange?: (value: string | string[]) => void;
+  options?: SelectOption[];
 
   placeholder?: string;
+  required?: boolean;
   disabled?: boolean;
-  searchable?: boolean;
-  multiSelect?: boolean;
-  clearable?: boolean;
-  virtualized?: boolean;
 
-  width?: string | number;
-  dropdownMaxHeight?: string;
-  borderRadius?: string;
-  boxShadow?: string;
-  borderColor?: string;
-  accentColor?: string; // ✅ accent color (focus ring + selected)
-  theme?: "light" | "dark" | "custom"; // ✅ global theme
-  menuBg?: string; // ✅ background override
-  controlBg?: string; // ✅ control background
-  textColor?: string;
-  hoverBg?: string;
-  selectedBg?: string;
-  disabledBg?: string;
-  disabledTextColor?: string;
-  placeholderColor?: string;
+  error?: string | boolean;
+  success?: boolean;
+  helperText?: string;
 
-  // animation & transitions
-  transitionDuration?: string;
+  labelIcon?: React.ElementType;
+  prefixIcon?: React.ElementType;
 
-  // class/style hooks
-  className?: string;
-  controlClassName?: string;
-  menuClassName?: string;
+  variant?: "dark" | "light";
+
+  /** 🎨 NEW: primary color override */
+  primaryColor?: string;
+
+  containerClassName?: string;
+  labelClassName?: string;
+  triggerClassName?: string;
+  dropdownClassName?: string;
   optionClassName?: string;
-  style?: React.CSSProperties;
-  controlStyle?: React.CSSProperties;
-  menuStyle?: React.CSSProperties;
-  optionStyle?: React.CSSProperties;
 
-  // icons
-  iconPrefix?: React.ReactNode;
-  iconSuffix?: React.ReactNode;
-  clearIcon?: React.ReactNode;
-  dropdownIcon?: React.ReactNode;
-  checkIcon?: React.ReactNode;
+  className?: string;
 }
 
-/* ----------------------
- * Default theme tokens
- * ---------------------*/
-const THEMES = {
-  light: {
-    controlBg: "#ffffff",
-    menuBg: "#ffffff",
-    textColor: "#111827",
-    placeholderColor: "#6b7280",
-    hoverBg: "#f9fafb",
-    selectedBg: "#eff6ff",
-    disabledBg: "#f3f4f6",
-    disabledTextColor: "#9ca3af",
-    borderColor: "#e5e7eb",
-    accentColor: "#3b82f6",
-  },
-  dark: {
-    controlBg: "#1f2937",
-    menuBg: "#111827",
-    textColor: "#f9fafb",
-    placeholderColor: "#9ca3af",
-    hoverBg: "#374151",
-    selectedBg: "#2563eb33",
-    disabledBg: "#374151",
-    disabledTextColor: "#6b7280",
-    borderColor: "#374151",
-    accentColor: "#60a5fa",
-  },
-  custom: {} as any,
-};
+export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
+  (props, ref) => {
+    const {
+      label,
+      name = "",
+      value,
+      defaultValue,
+      onChange,
+      options = [],
+      placeholder = "Select an option",
+      required,
+      disabled,
+      error,
+      success,
+      helperText,
 
-/* ----------------------
- * Component
- * ---------------------*/
-const DropdownInner: ForwardRefRenderFunction<HTMLDivElement, DropdownProps> = (
-  props,
-  ref
-) => {
-  const id = useId();
-  const {
-    options,
-    value,
-    values,
-    defaultValue,
-    defaultValues,
-    onChange,
+      labelIcon: LabelIcon,
+      prefixIcon: PrefixIcon,
 
-    placeholder = "Select...",
-    disabled = false,
-    searchable = false,
-    multiSelect = false,
-    clearable = false,
-    virtualized = false,
+      variant = "dark",
+      primaryColor,
 
-    width = "100%",
-    dropdownMaxHeight = "320px",
-    borderRadius = "8px",
-    boxShadow = "0 8px 28px rgba(0,0,0,0.1)",
-    borderColor,
-    accentColor,
-    theme = "light",
-    menuBg,
-    controlBg,
-    textColor,
-    hoverBg,
-    selectedBg,
-    disabledBg,
-    disabledTextColor,
-    placeholderColor,
-    transitionDuration = "180ms",
+      containerClassName = "",
+      labelClassName = "",
+      triggerClassName = "",
+      dropdownClassName = "",
+      optionClassName = "",
 
-    className,
-    controlClassName,
-    menuClassName,
-    optionClassName,
-    style,
-    controlStyle,
-    menuStyle,
-    optionStyle,
+      className = "",
+    } = props;
 
-    iconPrefix,
-    iconSuffix,
-    clearIcon = "×",
-    dropdownIcon = "▾",
-    checkIcon = "✓",
-  } = props;
+    const containerRef = useRef<HTMLDivElement>(null);
+    useImperativeHandle(ref, () => containerRef.current!);
 
-  // merge theme colors
-  const themeVars = {
-    ...THEMES[theme],
-    ...(theme === "custom" ? {} : {}),
-  };
-  const colors = {
-    borderColor: borderColor ?? themeVars.borderColor,
-    accentColor: accentColor ?? themeVars.accentColor,
-    controlBg: controlBg ?? themeVars.controlBg,
-    menuBg: menuBg ?? themeVars.menuBg,
-    textColor: textColor ?? themeVars.textColor,
-    hoverBg: hoverBg ?? themeVars.hoverBg,
-    selectedBg: selectedBg ?? themeVars.selectedBg,
-    disabledBg: disabledBg ?? themeVars.disabledBg,
-    disabledTextColor: disabledTextColor ?? themeVars.disabledTextColor,
-    placeholderColor: placeholderColor ?? themeVars.placeholderColor,
-  };
+    const [open, setOpen] = useState(false);
+    const [localValue, setLocalValue] = useState(defaultValue || "");
 
-  /* ----------------- State ----------------- */
-  const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string[]>(
-    defaultValues ?? (defaultValue ? [defaultValue] : [])
-  );
+    const currentValue = value !== undefined ? value : localValue;
+    const selectedOption = options.find((o) => o.value === currentValue);
 
-  useEffect(() => {
-    if (value) setSelected([value]);
-    if (values) setSelected(values);
-  }, [value, values]);
+    /** Close outside */
+    useEffect(() => {
+      const handler = (e: MouseEvent) => {
+        if (
+          containerRef.current &&
+          !containerRef.current.contains(e.target as Node)
+        ) {
+          setOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handler);
+      return () => document.removeEventListener("mousedown", handler);
+    }, []);
 
-  const selectedOptions = useMemo(
-    () => options.filter((o) => selected.includes(o.value)),
-    [options, selected]
-  );
+    const handleSelect = (option: SelectOption) => {
+      setLocalValue(option.value);
+      onChange?.(name, option.value);
+      setOpen(false);
+    };
 
-  const toggle = () => !disabled && setIsOpen((s) => !s);
+    /** 🎨 Theme */
+    const theme = {
+      dark: {
+        bg: "bg-zinc-900",
+        text: "text-white",
+        border: "border-zinc-800",
+        dropdown: "bg-black border-zinc-800",
+        option: "text-zinc-300 hover:bg-zinc-800",
+      },
+      light: {
+        bg: "bg-white",
+        text: "text-gray-900",
+        border: "border-gray-300",
+        dropdown: "bg-white border-gray-200",
+        option: "text-gray-700 hover:bg-gray-100",
+      },
+    }[variant];
 
-  const selectValue = (val: string) => {
-    if (multiSelect) {
-      const exists = selected.includes(val);
-      const next = exists
-        ? selected.filter((v) => v !== val)
-        : [...selected, val];
-      setSelected(next);
-      onChange?.(next);
-    } else {
-      setSelected([val]);
-      onChange?.(val);
-      setIsOpen(false);
-    }
-  };
+    /** 🎨 Dynamic primary color style */
+    const primaryStyle: CSSProperties = primaryColor
+      ? {
+          "--primary": primaryColor,
+        } as React.CSSProperties
+      : {};
 
-  const clearSelection = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setSelected([]);
-    onChange?.(multiSelect ? [] : "");
-  };
+    /** Border state */
+    const borderState = error
+      ? "border-rose-500"
+      : success
+      ? "border-emerald-500"
+      : theme.border;
 
-  /* ----------------- Render ----------------- */
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        position: "relative",
-        width,
-        fontFamily:
-          "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
-        ...style,
-      }}
-    >
-      {/* Control */}
+    const paddingLeft = PrefixIcon ? "pl-12 pr-10" : "px-4";
+
+    return (
       <div
-        className={controlClassName}
-        role="button"
-        tabIndex={0}
-        onClick={toggle}
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: colors.controlBg,
-          color: colors.textColor,
-          padding: "0.5rem 0.75rem",
-          border: `1px solid ${
-            isOpen ? colors.accentColor : colors.borderColor
-          }`,
-          borderRadius,
-          cursor: disabled ? "not-allowed" : "pointer",
-          boxShadow: isOpen ? `0 0 0 3px ${colors.accentColor}33` : undefined,
-          transition: `all ${transitionDuration} ease`,
-          ...controlStyle,
-        }}
+        ref={containerRef}
+        style={primaryStyle}
+        className={`w-full space-y-1 ${containerClassName} ${className}`}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {iconPrefix}
-          {selectedOptions.length ? (
-            <span>{selectedOptions.map((s) => s.label).join(", ")}</span>
-          ) : (
-            <span style={{ color: colors.placeholderColor }}>
-              {placeholder}
-            </span>
-          )}
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {clearable && selected.length > 0 && (
-            <button
-              onClick={clearSelection}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: colors.textColor,
-                cursor: "pointer",
-              }}
-            >
-              {clearIcon}
-            </button>
-          )}
-          {iconSuffix}
-          <div
-            style={{
-              transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-              transition: `transform ${transitionDuration}`,
-            }}
+        {/* Label */}
+        {label && (
+          <label
+            className={`flex items-center gap-2 text-[13px] font-medium ${labelClassName}`}
           >
-            {dropdownIcon}
-          </div>
+            {LabelIcon && (
+              <LabelIcon className="w-4 h-4 text-primary" />
+            )}
+            {label}
+            {required && <span className="text-rose-500">*</span>}
+          </label>
+        )}
+
+        <div className="relative group">
+          {/* Prefix Icon */}
+          {PrefixIcon && (
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+              <PrefixIcon className="w-4 h-4 text-zinc-500 group-focus-within:text-primary" />
+            </div>
+          )}
+
+          {/* Trigger */}
+          <button
+            type="button"
+            disabled={disabled}
+            onClick={() => setOpen((p) => !p)}
+            className={`
+              w-full py-2.5 rounded-lg text-left text-sm
+              border transition-all duration-200
+              ${theme.bg} ${theme.text}
+              ${paddingLeft}
+              ${borderState}
+              focus:ring-2 focus:ring-primary/30 focus:border-primary
+              disabled:opacity-50 disabled:cursor-not-allowed
+              ${triggerClassName}
+            `}
+          >
+            <span className={selectedOption ? theme.text : "text-zinc-500"}>
+              {selectedOption ? selectedOption.label : placeholder}
+            </span>
+
+            <ChevronDown
+              className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-transform ${
+                open ? "rotate-180" : ""
+              } text-zinc-400`}
+            />
+          </button>
+
+          {/* Dropdown */}
+          {open && (
+            <div
+              className={`
+                absolute z-50 mt-2 w-full rounded-xl border shadow-xl overflow-hidden
+                ${theme.dropdown}
+                ${dropdownClassName}
+              `}
+            >
+              <ul className="max-h-60 overflow-y-auto">
+                {options.map((opt) => (
+                  <li
+                    key={opt.value}
+                    onClick={() => handleSelect(opt)}
+                    className={`
+                      px-4 py-3 cursor-pointer text-sm flex items-center gap-2
+                      ${
+                        currentValue === opt.value
+                          ? "bg-primary/15 text-primary"
+                          : theme.option
+                      }
+                      ${optionClassName}
+                    `}
+                  >
+                    {opt.icon && <span>{opt.icon}</span>}
+                    {opt.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
+
+        {/* Helper */}
+        {(helperText || error) && (
+          <p
+            className={`text-xs ${
+              error
+                ? "text-rose-500"
+                : success
+                ? "text-emerald-500"
+                : "text-zinc-500"
+            }`}
+          >
+            {typeof error === "string" ? error : helperText}
+          </p>
+        )}
       </div>
+    );
+  }
+);
 
-      {/* Menu */}
-      {isOpen && (
-        <ul
-          className={menuClassName}
-          style={{
-            position: "absolute",
-            zIndex: 100,
-            top: "calc(100% + 4px)",
-            left: 0,
-            right: 0,
-            background: colors.menuBg,
-            border: `1px solid ${colors.borderColor}`,
-            borderRadius,
-            boxShadow,
-            maxHeight: dropdownMaxHeight,
-            overflowY: "auto",
-            transition: `opacity ${transitionDuration} ease`,
-            ...menuStyle,
-          }}
-        >
-          {options.map((opt) => {
-            const isSelected = selected.includes(opt.value);
-            return (
-              <li
-                key={opt.value}
-                onClick={() => !opt.disabled && selectValue(opt.value)}
-                className={optionClassName}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "0.5rem 0.75rem",
-                  background: opt.disabled
-                    ? colors.disabledBg
-                    : isSelected
-                    ? colors.selectedBg
-                    : "transparent",
-                  color: opt.disabled
-                    ? colors.disabledTextColor
-                    : colors.textColor,
-                  cursor: opt.disabled ? "not-allowed" : "pointer",
-                  borderRadius: 6,
-                  userSelect: "none",
-                  ...optionStyle,
-                }}
-                onMouseEnter={(e) => {
-                  if (!opt.disabled && !isSelected)
-                    e.currentTarget.style.backgroundColor = colors.hoverBg;
-                }}
-                onMouseLeave={(e) => {
-                  if (!opt.disabled && !isSelected)
-                    e.currentTarget.style.backgroundColor = "transparent";
-                }}
-              >
-                {multiSelect && (
-                  <span style={{ width: 18, textAlign: "center" }}>
-                    {isSelected ? checkIcon : "○"}
-                  </span>
-                )}
-                {opt.icon && <span>{opt.icon}</span>}
-                <div style={{ flex: 1 }}>
-                  {opt.label}
-                  {opt.description && (
-                    <div
-                      style={{
-                        fontSize: 12,
-                        color: colors.placeholderColor,
-                        marginTop: 2,
-                      }}
-                    >
-                      {opt.description}
-                    </div>
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
-};
-
-export const Dropdown = forwardRef(DropdownInner);
-export default Dropdown;
+Dropdown.displayName = "Dropdown";

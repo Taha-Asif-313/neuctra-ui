@@ -1,266 +1,174 @@
 "use client";
+
 import React, {
-  useState,
-  useRef,
-  useImperativeHandle,
   forwardRef,
-  CSSProperties,
+  useState,
+  useImperativeHandle,
+  useRef,
 } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-export interface InputProps {
-  type?:
-    | "text"
-    | "password"
-    | "email"
-    | "number"
-    | "search"
-    | "tel"
-    | "url"
-    | "textarea";
+export interface InputFieldProps {
   label?: string;
-  placeholder?: string;
   name?: string;
+  type?: "text" | "password" | "email" | "number" | "textarea";
+  placeholder?: string;
+
   value?: string;
   defaultValue?: string;
   onChange?: (name: string, value: string) => void;
+
+  required?: boolean;
   disabled?: boolean;
   readOnly?: boolean;
-  required?: boolean;
-  error?: string;
+
+  error?: string | boolean;
   success?: boolean;
-  autoFocus?: boolean;
+  helperText?: string;
 
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
+  /** Icons */
+  icon?: React.ElementType;
+  prefix?: string;
+  prefixIcon?: React.ElementType;
+  suffixIcon?: React.ReactNode;
 
-  /** 🎨 Full Customization Options */
-  labelColor?: string;
-  placeholderColor?: string;
-  backgroundColor?: string;
-  textColor?: string;
-  borderColor?: string;
-  hoverBorderColor?: string;
-  focusBorderColor?: string;
-  errorColor?: string;
-  successColor?: string;
-  iconColor?: string;
-  shadow?: string;
+  /** Number props */
+  min?: number;
+  max?: number;
+  step?: number;
 
-  /** 🧩 Layout + Style Customization */
-  fontSize?: string;
-  fontFamily?: string;
-  radius?: string;
-  size?: "sm" | "md" | "lg";
+  /** Textarea */
   rows?: number;
-  cols?: number;
-  maxLength?: number;
-  resize?: boolean;
-  showCharacterCount?: boolean;
-  paddingX?: string;
-  paddingY?: string;
 
-  /** 🧱 External customization */
+  /** Styling */
   className?: string;
-  style?: CSSProperties;
 }
 
 export const Input = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
-  InputProps
+  InputFieldProps
 >((props, ref) => {
   const {
-    type = "text",
     label,
-    placeholder = "",
     name = "",
+    type = "text",
+    placeholder = "",
     value,
     defaultValue,
     onChange,
-    disabled = false,
-    readOnly = false,
-    required = false,
+    required,
+    disabled,
+    readOnly,
+
     error,
-    success = false,
-    autoFocus = false,
+    success,
+    helperText,
 
-    iconLeft,
-    iconRight,
+    icon: LabelIcon,
+    prefix,
+    prefixIcon: PrefixIcon,
+    suffixIcon,
 
-    /** 🎨 Styling props */
-    labelColor = "#374151",
-    placeholderColor = "#9ca3af",
-    backgroundColor = "#ffffff",
-    textColor = "#111827",
-    borderColor = "#d1d5db",
-    hoverBorderColor = "#9ca3af",
-    focusBorderColor = "#2563eb",
-    errorColor = "#dc2626",
-    successColor = "#16a34a",
-    iconColor = "#6b7280",
-    shadow = "0 1px 2px rgba(0,0,0,0.05)",
+    min,
+    max,
+    step,
 
-    /** 📏 Layout + size */
-    size = "md",
-    fontSize = "14px",
-    fontFamily = "Inter, system-ui, sans-serif",
-    radius = "8px",
     rows = 4,
-    cols,
-    maxLength,
-    resize = true,
-    showCharacterCount = true,
-    paddingX,
-    paddingY,
-
-    className,
-    style,
+    className = "",
   } = props;
 
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  useImperativeHandle(ref, () => inputRef.current!);
+
   const [localValue, setLocalValue] = useState(defaultValue || "");
   const [visible, setVisible] = useState(false);
 
-  useImperativeHandle(ref, () => inputRef.current!);
-
-  /** ✅ Make it controlled properly */
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const newValue = e.target.value;
-    if (maxLength && newValue.length > maxLength) return;
-    setLocalValue(newValue);
-    if (onChange) onChange(name, newValue);
-  };
+  const hasPrefixIcon = Boolean(PrefixIcon);
+  const hasPrefixText = Boolean(prefix);
+  const hasPrefix = hasPrefixIcon || hasPrefixText;
 
   const currentValue = value !== undefined ? value : localValue;
 
-  /** 🎯 Dynamic border colors */
-  const currentBorderColor = error
-    ? errorColor
-    : success
-    ? successColor
-    : borderColor;
-
-  /** 🧠 Size tokens */
-  const sizes = {
-    sm: { paddingY: "6px", paddingX: "10px", font: "13px" },
-    md: { paddingY: "10px", paddingX: "14px", font: "14px" },
-    lg: { paddingY: "14px", paddingX: "18px", font: "16px" },
-  }[size];
-
-  const px = paddingX || sizes.paddingX;
-  const py = paddingY || sizes.paddingY;
-
-  /** 💅 Base input styles */
-  const baseInputStyle: CSSProperties = {
-    width: "100%",
-    border: `1px solid ${currentBorderColor}`,
-    borderRadius: radius,
-    backgroundColor,
-    color: textColor,
-    fontFamily,
-    fontSize,
-    padding: `${py} ${px}`,
-    paddingLeft: iconLeft ? "40px" : px,
-    paddingRight:
-      iconRight || type === "password" ? "40px" : px,
-    outline: "none",
-    transition: "border-color 0.25s ease, box-shadow 0.25s ease",
-    resize: type === "textarea" && !resize ? "none" : undefined,
-    boxShadow: shadow,
-    ...style,
-  };
-
-  /** 🧠 Placeholder dynamic color */
-  const dynamicPlaceholder = {
-    "::placeholder": {
-      color: placeholderColor,
-      opacity: 1,
-    },
-  } as any;
-
-  /** 🎨 Dynamic border behavior */
-  const applyDynamicBorder = (
-    el: HTMLInputElement | HTMLTextAreaElement,
-    color: string
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if (el) el.style.borderColor = color;
+    const val = e.target.value;
+    setLocalValue(val);
+    onChange?.(name, val);
   };
 
-  const commonEvents = {
-    onFocus: (e: any) => applyDynamicBorder(e.currentTarget, focusBorderColor),
-    onBlur: (e: any) => applyDynamicBorder(e.currentTarget, currentBorderColor),
-    onMouseEnter: (e: any) =>
-      applyDynamicBorder(e.currentTarget, hoverBorderColor),
-    onMouseLeave: (e: any) =>
-      applyDynamicBorder(e.currentTarget, currentBorderColor),
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (type === "number" && e.key === "-") e.preventDefault();
   };
+
+  /** Dynamic padding (same logic as your original) */
+  const getPadding = () => {
+    if (!hasPrefix) return "px-4";
+    if (hasPrefixIcon && hasPrefixText) return "pl-20 pr-4";
+    if (hasPrefixText) return "pl-14 pr-4";
+    if (hasPrefixIcon) return "pl-10 pr-4";
+    return "px-4";
+  };
+
+  const borderStyle = error
+    ? "border-red-500"
+    : success
+    ? "border-emerald-500"
+    : "border-zinc-300 dark:border-zinc-800";
 
   return (
-    <div
-      className={className}
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        fontFamily,
-      }}
-    >
+    <div className={`w-full space-y-1 ${className}`}>
       {/* Label */}
       {label && (
-        <label
-          htmlFor={name}
-          style={{
-            marginBottom: 6,
-            color: labelColor,
-            fontWeight: 500,
-            fontSize: "14px",
-          }}
-        >
+        <label className="flex items-center gap-2 text-[12px] font-medium text-gray-700 dark:text-zinc-100">
+          {LabelIcon && <LabelIcon size={16} className="text-primary" />}
           {label}
-          {required && <span style={{ color: errorColor }}> *</span>}
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
 
-      <div style={{ position: "relative", width: "100%" }}>
-        {/* Left icon */}
-        {iconLeft && (
-          <span
-            style={{
-              position: "absolute",
-              left: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: iconColor,
-              pointerEvents: "none",
-            }}
-          >
-            {iconLeft}
-          </span>
+      {/* Input Wrapper */}
+      <div className="relative">
+        {/* Prefix */}
+        {hasPrefix && (
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 gap-2 text-sm text-zinc-400 pointer-events-none">
+            {PrefixIcon && <PrefixIcon size={14} />}
+            {hasPrefixText && (
+              <>
+                <span className="font-medium text-zinc-600 dark:text-zinc-200">
+                  {prefix}
+                </span>
+                <span className="h-4 w-px bg-zinc-300 dark:bg-zinc-700" />
+              </>
+            )}
+          </div>
         )}
 
-        {/* Input or Textarea */}
+        {/* Input / Textarea */}
         {type === "textarea" ? (
           <textarea
             ref={inputRef as React.RefObject<HTMLTextAreaElement>}
             name={name}
             value={currentValue}
+            onChange={handleChange}
             placeholder={placeholder}
+            required={required}
             disabled={disabled}
             readOnly={readOnly}
             rows={rows}
-            cols={cols}
-            maxLength={maxLength}
-            autoFocus={autoFocus}
-            style={{ ...baseInputStyle, ...dynamicPlaceholder }}
-            onChange={handleChange}
-            {...commonEvents}
+            className={`
+              w-full rounded-lg text-sm
+              bg-white dark:bg-zinc-900 border
+              text-gray-900 dark:text-white
+              placeholder:text-zinc-400
+              py-2.5 outline-none
+              ${getPadding()}
+              ${borderStyle}
+            `}
           />
         ) : (
           <input
             ref={inputRef as React.RefObject<HTMLInputElement>}
-            id={name}
             type={
               type === "password"
                 ? visible
@@ -270,79 +178,60 @@ export const Input = forwardRef<
             }
             name={name}
             value={currentValue}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
             placeholder={placeholder}
+            required={required}
             disabled={disabled}
             readOnly={readOnly}
-            autoFocus={autoFocus}
-            style={{ ...baseInputStyle, ...dynamicPlaceholder }}
-            onChange={handleChange}
-            {...commonEvents}
+            min={type === "number" ? min ?? 0 : undefined}
+            max={max}
+            step={step}
+            className={`
+              w-full rounded-lg text-sm
+              bg-white dark:bg-zinc-900 border
+              text-gray-900 dark:text-white
+              placeholder:text-zinc-400
+              py-2.5 outline-none
+              disabled:opacity-50 disabled:cursor-not-allowed
+              ${getPadding()}
+              ${borderStyle}
+            `}
           />
         )}
 
-        {/* Password visibility toggle */}
+        {/* Password toggle */}
         {type === "password" && (
           <button
             type="button"
             onClick={() => setVisible(!visible)}
-            style={{
-              position: "absolute",
-              right: 10,
-              top: "50%",
-              transform: "translateY(-50%)",
-              background: "transparent",
-              border: "none",
-              cursor: "pointer",
-              color: iconColor,
-              padding: 0,
-            }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400"
           >
             {visible ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         )}
 
-        {/* Right icon */}
-        {iconRight && type !== "password" && (
-          <span
-            style={{
-              position: "absolute",
-              right: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: iconColor,
-              pointerEvents: "none",
-            }}
-          >
-            {iconRight}
+        {/* Suffix Icon */}
+        {suffixIcon && type !== "password" && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
+            {suffixIcon}
           </span>
         )}
       </div>
 
-      {/* Character counter */}
-      {type === "textarea" && showCharacterCount && maxLength && (
-        <div
-          style={{
-            textAlign: "right",
-            fontSize: "12px",
-            color: "#6b7280",
-            marginTop: 4,
-          }}
+      {/* Helper / Error */}
+      {(helperText || error) && (
+        <p
+          className={`text-xs ${
+            error
+              ? "text-red-500"
+              : success
+              ? "text-emerald-500"
+              : "text-zinc-500"
+          }`}
         >
-          {currentValue.length}/{maxLength}
-        </div>
-      )}
-
-      {/* Error text */}
-      {error && (
-        <div
-          style={{
-            color: errorColor,
-            fontSize: "12px",
-            marginTop: 4,
-          }}
-        >
-          {error}
-        </div>
+          {error && typeof error === "string" ? error : helperText}
+        </p>
       )}
     </div>
   );
