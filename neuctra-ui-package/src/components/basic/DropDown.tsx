@@ -39,7 +39,8 @@ export interface DropdownProps {
 
   variant?: "dark" | "light";
 
-  /** 🎨 NEW: primary color override */
+  /** 🔥 THEME SYSTEM */
+  primaryTheme?: boolean;
   primaryColor?: string;
 
   containerClassName?: string;
@@ -71,7 +72,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       prefixIcon: PrefixIcon,
 
       variant = "dark",
-      primaryColor,
+
+      primaryTheme = true,
+      primaryColor = "#3b82f6",
 
       containerClassName = "",
       labelClassName = "",
@@ -111,7 +114,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       setOpen(false);
     };
 
-    /** 🎨 Theme */
+    /** 🎨 Theme base */
     const theme = {
       dark: {
         bg: "bg-zinc-900",
@@ -129,11 +132,17 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       },
     }[variant];
 
-    /** 🎨 Dynamic primary color style */
-    const primaryStyle: CSSProperties = primaryColor
-      ? {
-          "--primary": primaryColor,
-        } as React.CSSProperties
+    /** 🎨 Dynamic styles */
+    const dynamicPrimary: CSSProperties = !primaryTheme
+      ? { color: primaryColor }
+      : {};
+
+    const dynamicBorder: CSSProperties = !primaryTheme
+      ? { borderColor: primaryColor }
+      : {};
+
+    const dynamicBgActive: CSSProperties = !primaryTheme
+      ? { backgroundColor: `${primaryColor}20` } // light tint
       : {};
 
     /** Border state */
@@ -148,7 +157,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     return (
       <div
         ref={containerRef}
-        style={primaryStyle}
         className={`w-full space-y-1 ${containerClassName} ${className}`}
       >
         {/* Label */}
@@ -157,7 +165,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             className={`flex items-center gap-2 text-[13px] font-medium ${labelClassName}`}
           >
             {LabelIcon && (
-              <LabelIcon className="w-4 h-4 text-primary" />
+              <LabelIcon
+                className={
+                  primaryTheme ? "w-4 h-4 text-[var(--primary)]" : "w-4 h-4"
+                }
+                style={!primaryTheme ? dynamicPrimary : undefined}
+              />
             )}
             {label}
             {required && <span className="text-rose-500">*</span>}
@@ -168,7 +181,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           {/* Prefix Icon */}
           {PrefixIcon && (
             <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
-              <PrefixIcon className="w-4 h-4 text-zinc-500 group-focus-within:text-primary" />
+              <PrefixIcon
+                className={
+                  primaryTheme
+                    ? "w-4 h-4 text-zinc-500 group-focus-within:text-[var(--primary)]"
+                    : "w-4 h-4 text-zinc-500"
+                }
+                style={!primaryTheme ? dynamicPrimary : undefined}
+              />
             </div>
           )}
 
@@ -177,13 +197,19 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             type="button"
             disabled={disabled}
             onClick={() => setOpen((p) => !p)}
+            style={!primaryTheme ? dynamicBorder : undefined}
             className={`
               w-full py-2.5 rounded-lg text-left text-sm
               border transition-all duration-200
               ${theme.bg} ${theme.text}
               ${paddingLeft}
               ${borderState}
-              focus:ring-2 focus:ring-primary/30 focus:border-primary
+              focus:ring-2
+              ${
+                primaryTheme
+                  ? "focus:ring-[var(--primary)]/30 focus:border-[var(--primary)]"
+                  : ""
+              }
               disabled:opacity-50 disabled:cursor-not-allowed
               ${triggerClassName}
             `}
@@ -209,24 +235,33 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               `}
             >
               <ul className="max-h-60 overflow-y-auto">
-                {options.map((opt) => (
-                  <li
-                    key={opt.value}
-                    onClick={() => handleSelect(opt)}
-                    className={`
-                      px-4 py-3 cursor-pointer text-sm flex items-center gap-2
-                      ${
-                        currentValue === opt.value
-                          ? "bg-primary/15 text-primary"
-                          : theme.option
+                {options.map((opt) => {
+                  const isActive = currentValue === opt.value;
+
+                  return (
+                    <li
+                      key={opt.value}
+                      onClick={() => handleSelect(opt)}
+                      style={
+                        !primaryTheme && isActive ? dynamicBgActive : undefined
                       }
-                      ${optionClassName}
-                    `}
-                  >
-                    {opt.icon && <span>{opt.icon}</span>}
-                    {opt.label}
-                  </li>
-                ))}
+                      className={`
+                        px-4 py-3 cursor-pointer text-sm flex items-center gap-2
+                        ${
+                          isActive
+                            ? primaryTheme
+                              ? "bg-[var(--primary)]/15 text-[var(--primary)]"
+                              : ""
+                            : theme.option
+                        }
+                        ${optionClassName}
+                      `}
+                    >
+                      {opt.icon && <span>{opt.icon}</span>}
+                      {opt.label}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}

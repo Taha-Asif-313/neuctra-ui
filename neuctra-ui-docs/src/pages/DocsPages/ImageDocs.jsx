@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Image } from "@neuctra/ui";
@@ -29,17 +31,20 @@ const ImageDocs = () => {
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
               The <span className="text-primary font-semibold">Image</span>{" "}
               component provides a flexible, accessible, and SEO-friendly way to
-              display images, SVGs, and overlays with built-in hover effects,
-              borders, shadows, and responsive support. Perfect for product
-              displays, UI galleries, and dynamic media elements.
+              display images, SVGs, and overlays. Built-in features include
+              hover effects, shadows, borders, rounded corners, and responsive
+              layouts.
             </p>
           </header>
 
-          {/* Example 1: Basic Image */}
+          {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
+              Basic Usage
             </h2>
+            <p className="text-gray-300 mb-3">
+              Display a standard image with a fixed width and height.
+            </p>
             <CodePreviewBlock
               language="jsx"
               code={`<Image
@@ -59,15 +64,14 @@ const ImageDocs = () => {
             />
           </section>
 
-          {/* Example 2: Rounded and Shadowed */}
+          {/* Rounded Corners & Shadow */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Rounded Corners & Shadow
             </h2>
             <p className="text-gray-300 mb-3">
-              Customize border radius and shadows for a more aesthetic look.
+              Customize the border radius and add shadows for a polished look.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<Image
@@ -75,7 +79,7 @@ const ImageDocs = () => {
   alt="Mountains"
   width={320}
   height={200}
-  borderRadius="16px"
+  rounded="16px"
   shadow
 />`}
               previewContent={
@@ -84,26 +88,21 @@ const ImageDocs = () => {
                   alt="Mountains"
                   width={320}
                   height={200}
-                  borderRadius="16px"
+                  rounded="16px"
                   shadow
                 />
               }
             />
           </section>
 
-          {/* Example 3: Hover Interactions */}
+          {/* Hover Effects */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Hover Effects
             </h2>
             <p className="text-gray-300 mb-3">
-              Use hover props like{" "}
-              <code className="text-primary">hoverOpacity</code>,{" "}
-              <code className="text-primary">hoverScale</code>, and{" "}
-              <code className="text-primary">hoverShadow</code> to create
-              smooth, modern animations.
+              Add smooth animations on hover using <code className="text-primary">hoverScale</code>, <code className="text-primary">hoverOpacity</code>, <code className="text-primary">hoverRotate</code>, and <code className="text-primary">hoverShadow</code>.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<Image
@@ -131,21 +130,18 @@ const ImageDocs = () => {
             />
           </section>
 
-          {/* Example 4: Overlay Text */}
+          {/* Overlay Text */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Overlay Text
             </h2>
             <p className="text-gray-300 mb-3">
-              Add a text overlay with background color using{" "}
-              <code className="text-primary">overlayText</code> and{" "}
-              <code className="text-primary">overlayColor</code>.
+              Add a text overlay with a semi-transparent background using <code className="text-primary">overlayText</code> and <code className="text-primary">overlayColor</code>.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<Image
-  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+  src="https://cdn.pixabay.com/photo/2016/11/21/06/53/beautiful-natural-image-1844362_640.jpg"
   alt="Team"
   width={320}
   height={200}
@@ -165,16 +161,14 @@ const ImageDocs = () => {
             />
           </section>
 
-          {/* Example 5: Responsive */}
+          {/* Responsive Images */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Responsive Layout
+              Responsive Images
             </h2>
             <p className="text-gray-300 mb-3">
-              Enable responsiveness by setting{" "}
-              <code className="text-primary">responsive</code> to true.
+              Set <code className="text-primary">responsive</code> to true for fluid images that adapt to parent width.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<Image
@@ -194,22 +188,18 @@ const ImageDocs = () => {
             />
           </section>
 
-          {/* Example 6: SVG Icon Mode */}
+          {/* SVG & Placeholder Mode */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               SVG or Placeholder Mode
             </h2>
             <p className="text-gray-300 mb-3">
-              You can also pass an SVG or React element instead of an image.
+              Render an SVG icon or React element instead of a standard image using <code className="text-primary">svgIcon</code>.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<Image
-  svgIcon={<svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-    <circle cx="12" cy="12" r="10" stroke="#60a5fa" strokeWidth="2"/>
-    <path d="M8 12h8" stroke="#60a5fa" strokeWidth="2"/>
-  </svg>}
+  svgIcon={<CircuitBoard size={50} />}
 />`}
               previewContent={<Image svgIcon={<CircuitBoard size={50} />} />}
             />
@@ -219,7 +209,7 @@ const ImageDocs = () => {
           <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
             <p>
               Built with <span className="text-primary">React</span>,{" "}
-              <span className="text-primary">Tailwind CSS</span> &{" "}
+              <span className="text-primary">Tailwind CSS</span>, &{" "}
               <span className="text-primary">TypeScript</span>.
             </p>
           </footer>

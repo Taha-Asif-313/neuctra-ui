@@ -1,7 +1,8 @@
-import React, { CSSProperties, ReactNode } from "react";
+import React, { ReactNode, CSSProperties } from "react";
+import clsx from "clsx";
 
 /* -------------------------------------------------------------------------- */
-/*                                🧩 Interfaces                               */
+/*                                🧩 Types                                    */
 /* -------------------------------------------------------------------------- */
 
 export interface ListItemType {
@@ -18,106 +19,104 @@ export interface ListProps {
 
   type?: "unordered" | "ordered" | "inline";
 
-  bulletColor?: string;
-  textColor?: string;
-  backgroundColor?: string;
-  borderColor?: string;
-
-  fontSize?: string;
-  fontWeight?: string | number;
-  borderRadius?: string;
-  padding?: string;
-  spacing?: string;
+  // 🔥 THEME CONTROL
+  primaryTheme?: boolean; // use CSS var
+  primaryColor?: string; // fallback color
 
   className?: string;
-  style?: CSSProperties;
+  itemClassName?: string;
+  titleClassName?: string;
+  bulletClassName?: string;
 }
 
 /* -------------------------------------------------------------------------- */
 /*                               🪶 ListItem                                  */
 /* -------------------------------------------------------------------------- */
 
-export interface ListItemProps extends ListItemType {
-  bulletColor?: string;
-  textColor?: string;
-  fontSize?: string;
-  fontWeight?: string | number;
-  spacing?: string;
+interface ListItemProps extends ListItemType {
   isInline?: boolean;
+  isOrdered?: boolean;
+
+  primaryTheme?: boolean;
+  primaryColor?: string;
+
+  itemClassName?: string;
+  bulletClassName?: string;
 }
 
-export const ListItem: React.FC<ListItemProps> = ({
+const ListItem: React.FC<ListItemProps> = ({
   text,
   icon,
   onClick,
   subItems,
-  bulletColor = "#2563eb",
-  textColor = "#111827",
-  fontSize = "15px",
-  fontWeight = 500,
-  spacing = "12px",
-  isInline = false,
+  isInline,
+  isOrdered,
+  primaryTheme = true,
+  primaryColor = "#3b82f6",
+  itemClassName,
+  bulletClassName,
 }) => {
-  const itemContainerStyle: CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px",
-    marginBottom: isInline ? "0" : spacing,
-  };
+  // ✅ Dynamic style for primary color
+  const dynamicStyle: CSSProperties = !primaryTheme
+    ? { color: primaryColor }
+    : {};
 
-  const contentStyle: CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    fontSize,
-    fontWeight,
-    color: textColor,
-    cursor: onClick ? "pointer" : "default",
-    transition: "color 0.2s ease, transform 0.2s ease",
-  };
-
-  const bulletStyle: CSSProperties = {
-    width: "8px",
-    height: "8px",
-    backgroundColor: bulletColor,
-    borderRadius: "50%",
-    flexShrink: 0,
-  };
-
-  const subListStyle: CSSProperties = {
-    listStyleType: "disc",
-    paddingLeft: "20px",
-    margin: 0,
-  };
+  const bulletStyle: CSSProperties = !primaryTheme
+    ? { backgroundColor: primaryColor }
+    : {};
 
   return (
-    <li style={itemContainerStyle}>
+    <li className={clsx(!isInline && "mb-3")}>
       <div
-        style={contentStyle}
         onClick={onClick}
-        onMouseEnter={(e) => (e.currentTarget.style.color = bulletColor)}
-        onMouseLeave={(e) => (e.currentTarget.style.color = textColor)}
-      >
-        {icon ? (
-          <span style={{ fontSize: "16px", color: textColor }}>{icon}</span>
-        ) : (
-          !isInline && <span style={bulletStyle}></span>
+        style={!primaryTheme ? dynamicStyle : undefined}
+        className={clsx(
+          "flex items-center gap-2 text-sm text-zinc-800 dark:text-zinc-200 transition-all",
+          onClick &&
+            (primaryTheme
+              ? "cursor-pointer hover:text-[var(--primary)]"
+              : "cursor-pointer"),
+          itemClassName
         )}
+      >
+        {/* ICON */}
+        {icon ? (
+          <span className="text-base">{icon}</span>
+        ) : (
+          !isInline &&
+          !isOrdered && (
+            <span
+              style={!primaryTheme ? bulletStyle : undefined}
+              className={clsx(
+                "w-2 h-2 rounded-full",
+                primaryTheme && "bg-[var(--primary)]",
+                bulletClassName
+              )}
+            />
+          )
+        )}
+
         <span>{text}</span>
       </div>
 
+      {/* Nested */}
       {subItems && subItems.length > 0 && (
-        <ul style={subListStyle}>
-          {subItems.map((sub, index) => (
+        <ul
+          className={clsx(
+            "pl-5 mt-2 space-y-2",
+            isOrdered ? "list-decimal" : "list-none"
+          )}
+        >
+          {subItems.map((sub, i) => (
             <ListItem
-              key={index}
+              key={i}
               {...sub}
-              bulletColor={bulletColor}
-              textColor={textColor}
-              fontSize={fontSize}
-              fontWeight={fontWeight}
-              spacing={spacing}
               isInline={false}
+              isOrdered={isOrdered}
+              primaryTheme={primaryTheme}
+              primaryColor={primaryColor}
+              itemClassName={itemClassName}
+              bulletClassName={bulletClassName}
             />
           ))}
         </ul>
@@ -136,79 +135,57 @@ export const List: React.FC<ListProps> = ({
   items,
   type = "unordered",
 
-  bulletColor = "#2563eb",
-  textColor = "#111827",
-  backgroundColor = "#fff",
-  borderColor = "#e5e7eb",
-
-  fontSize = "15px",
-  fontWeight = 500,
-  borderRadius = "12px",
-  padding = "16px",
-  spacing = "12px",
+  primaryTheme = true,
+  primaryColor = "#3b82f6",
 
   className,
-  style,
+  itemClassName,
+  titleClassName,
+  bulletClassName,
 }) => {
   const isOrdered = type === "ordered";
   const isInline = type === "inline";
 
-  const containerStyle: CSSProperties = {
-    backgroundColor,
-    borderColor,
-    color: textColor,
-    borderWidth: borderColor ? "1px" : "0px",
-    borderStyle: "solid",
-    borderRadius,
-    padding,
-    ...style,
-  };
-
-  const listStyle: CSSProperties = isInline
-    ? {
-        display: "flex",
-        gap: spacing,
-        paddingLeft: 0,
-        listStyleType: "none",
-        margin: 0,
-      }
-    : {
-        listStyleType: isOrdered ? "decimal" : "none",
-        paddingLeft: isOrdered ? "20px" : "0",
-        margin: 0,
-      };
-
   const ListTag = isOrdered ? "ol" : "ul";
 
   return (
-    <div className={className} style={containerStyle}>
+    <div
+      className={clsx(
+        "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4",
+        className
+      )}
+    >
       {title && (
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            fontSize: "17px",
-            fontWeight: 600,
-            marginBottom: "10px",
-            gap: "8px",
-          }}
+          className={clsx(
+            "flex items-center gap-2 mb-3 text-base font-semibold text-zinc-900 dark:text-white",
+            titleClassName
+          )}
         >
-          {titleIcon && <span style={{ fontSize: "18px" }}>{titleIcon}</span>}
+          {titleIcon && <span>{titleIcon}</span>}
           <span>{title}</span>
         </div>
       )}
 
-      <ListTag style={listStyle}>
-        {items.map((item, index) => (
+      <ListTag
+        className={clsx(
+          isInline
+            ? "flex flex-wrap gap-4"
+            : isOrdered
+            ? "list-decimal pl-5 space-y-2"
+            : "list-none p-0"
+        )}
+      >
+        {items.map((item, i) => (
           <ListItem
-            key={index}
+            key={i}
             {...item}
-            bulletColor={bulletColor}
-            textColor={textColor}
-            fontSize={fontSize}
-            fontWeight={fontWeight}
-            spacing={spacing}
             isInline={isInline}
+            isOrdered={isOrdered}
+            primaryTheme={primaryTheme}
+            primaryColor={primaryColor}
+            itemClassName={itemClassName}
+            bulletClassName={bulletClassName}
           />
         ))}
       </ListTag>

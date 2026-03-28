@@ -1,6 +1,7 @@
 "use client";
+
 import React from "react";
-import { GridView } from "@neuctra/ui"; // adjust path to your component
+import { GridView } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
@@ -10,17 +11,15 @@ const GridViewDocs = () => {
     <>
       <Metadata
         title="GridView Component — Neuctra UI"
-        description="Master the GridView component in Neuctra UI — a responsive, prop-driven grid layout system for React. Control columns, spacing, alignment, and adaptive layouts with ease using simple props."
-        keywords="Neuctra UI GridView, React grid layout, CSS grid React, responsive grid, grid system, Neuctra components, React UI library, Tailwind grid, adaptive layout, Neuctra UI documentation"
+        description="Learn how to use the GridView component in Neuctra UI — a responsive, prop-driven grid layout system for React."
+        keywords="Neuctra UI GridView, React grid layout, CSS grid React, responsive grid, Tailwind grid, Neuctra components"
         image="https://ui.neuctra.com/og/gridview-docs-preview.png"
-        ogTitle="GridView Component — Neuctra UI"
-        ogDescription="Create responsive, flexible grid layouts in React using Neuctra UI’s GridView component. Perfect for dashboards, galleries, and adaptive layouts."
-        twitterTitle="GridView Component | Neuctra UI"
-        twitterDescription="Learn to build adaptive, responsive layouts with the GridView component from Neuctra UI — a prop-driven grid system for modern React apps."
+        canonical="https://ui.neuctra.com/docs/gridview"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
         <div className="max-w-5xl mx-auto px-4 space-y-10">
+
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
@@ -28,10 +27,9 @@ const GridViewDocs = () => {
             </h1>
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
               The <span className="text-primary font-semibold">GridView</span>{" "}
-              component provides a flexible and responsive grid layout system.
-              It supports custom columns, adaptive breakpoints, spacing, and
-              alignment similar to CSS Grid — all managed directly through
-              props.
+              component is a simple and powerful way to build responsive layouts
+              using CSS Grid. You can control columns, spacing, padding, and alignment
+              directly with props — no complex CSS required.
             </p>
           </header>
 
@@ -41,38 +39,26 @@ const GridViewDocs = () => {
               Basic Example
             </h2>
             <p className="text-gray-300 mb-3">
-              Create a simple grid with three columns using{" "}
-              <code className="text-primary">columns</code> and{" "}
-              <code className="text-primary">gap</code>.
+              Create a grid with a fixed number of columns using{" "}
+              <code className="text-primary">columns</code>.
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<GridView columns={3} gap={12} backgroundColor="#111827" padding={16}>
+              code={`<GridView columns={3} gap={4}>
   {[1, 2, 3, 4, 5, 6].map(i => (
-    <div key={i} style={{
-      backgroundColor: "#2563eb",
-      color: "white",
-      padding: "1rem",
-      borderRadius: 8,
-      textAlign: "center"
-    }}>
+    <div key={i} className="bg-blue-600 text-white p-4 rounded-lg text-center">
       Item {i}
     </div>
   ))}
 </GridView>`}
               previewContent={
                 <div className="p-6 bg-zinc-900 rounded-xl">
-                  <GridView
-                    columns={3}
-                    gap={12}
-                    backgroundColor="#111827"
-                    padding={16}
-                  >
+                  <GridView columns={3} gap={4}>
                     {[1, 2, 3, 4, 5, 6].map((i) => (
                       <div
                         key={i}
-                        className="bg-blue-600 text-white rounded-lg p-4 text-center"
+                        className="bg-blue-600 text-white p-4 rounded-lg text-center"
                       >
                         Item {i}
                       </div>
@@ -89,42 +75,26 @@ const GridViewDocs = () => {
               Responsive Layout
             </h2>
             <p className="text-gray-300 mb-3">
-              You can define different column counts per screen size using{" "}
-              <code className="text-primary">{`{ sm, md, lg }`}</code>.
+              You can define different column counts for different screen sizes
+              using an object: <code>{`{ sm, md, lg }`}</code>.
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<GridView
-  columns={{ sm: 1, md: 2, lg: 4 }}
-  gap={20}
-  padding="1rem"
-  backgroundColor="#1e293b"
->
+              code={`<GridView columns={{ sm: 1, md: 2, lg: 4 }} gap={4}>
   {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-    <div key={i} style={{
-      backgroundColor: "#334155",
-      color: "white",
-      padding: "1rem",
-      borderRadius: 6,
-      textAlign: "center"
-    }}>
+    <div key={i} className="bg-slate-700 text-white p-4 rounded text-center">
       Box {i}
     </div>
   ))}
 </GridView>`}
               previewContent={
                 <div className="p-6 bg-zinc-900 rounded-xl">
-                  <GridView
-                    columns={{ sm: 1, md: 2, lg: 4 }}
-                    gap={20}
-                    padding="1rem"
-                    backgroundColor="#1e293b"
-                  >
+                  <GridView columns={{ sm: 1, md: 2, lg: 4 }} gap={4}>
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                       <div
                         key={i}
-                        className="bg-slate-700 text-white rounded-md p-4 text-center"
+                        className="bg-slate-700 text-white p-4 rounded text-center"
                       >
                         Box {i}
                       </div>
@@ -135,15 +105,40 @@ const GridViewDocs = () => {
             />
           </section>
 
-          {/* Alignment Example */}
+          {/* Gap & Padding */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Alignment & Justification
+              Gap & Padding
             </h2>
             <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">alignItems</code> and{" "}
-              <code className="text-primary">justifyItems</code> to control the
-              placement of grid children.
+              Control spacing between items using <code>gap</code> and inner spacing using <code>padding</code>.
+            </p>
+
+            <CodePreviewBlock
+              language="jsx"
+              code={`<GridView columns={2} gap={6} padding={6}>
+  <div className="bg-indigo-500 text-white p-4 rounded">A</div>
+  <div className="bg-indigo-500 text-white p-4 rounded">B</div>
+</GridView>`}
+              previewContent={
+                <div className="p-6 bg-zinc-900 rounded-xl">
+                  <GridView columns={2} gap={6} padding={6}>
+                    <div className="bg-indigo-500 text-white p-4 rounded">A</div>
+                    <div className="bg-indigo-500 text-white p-4 rounded">B</div>
+                  </GridView>
+                </div>
+              }
+            />
+          </section>
+
+          {/* Alignment */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Alignment
+            </h2>
+            <p className="text-gray-300 mb-3">
+              Control how items are aligned inside the grid using{" "}
+              <code>alignItems</code> and <code>justifyItems</code>.
             </p>
 
             <CodePreviewBlock
@@ -152,18 +147,11 @@ const GridViewDocs = () => {
   columns={3}
   alignItems="center"
   justifyItems="center"
-  height="200px"
-  backgroundColor="#0f172a"
-  gap={10}
+  className="h-40 bg-zinc-800"
 >
   {[1, 2, 3].map(i => (
-    <div key={i} style={{
-      backgroundColor: "#22c55e",
-      color: "white",
-      padding: "1rem 2rem",
-      borderRadius: 8
-    }}>
-      Centered {i}
+    <div key={i} className="bg-green-500 text-white px-4 py-2 rounded">
+      Center {i}
     </div>
   ))}
 </GridView>`}
@@ -173,16 +161,14 @@ const GridViewDocs = () => {
                     columns={3}
                     alignItems="center"
                     justifyItems="center"
-                    height="200px"
-                    backgroundColor="#0f172a"
-                    gap={10}
+                    className=" bg-zinc-800"
                   >
                     {[1, 2, 3].map((i) => (
                       <div
                         key={i}
-                        className="bg-green-500 text-white rounded-lg px-6 py-3"
+                        className="bg-green-500 text-white px-4 py-2 rounded"
                       >
-                        Centered {i}
+                        Center {i}
                       </div>
                     ))}
                   </GridView>
@@ -197,40 +183,28 @@ const GridViewDocs = () => {
               Custom Styling
             </h2>
             <p className="text-gray-300 mb-3">
-              You can fully style the grid using{" "}
-              <code className="text-primary">style</code> or{" "}
-              <code className="text-primary">className</code> props.
+              Use <code>className</code> to fully customize the grid container.
             </p>
 
             <CodePreviewBlock
               language="jsx"
               code={`<GridView
   columns={2}
-  gap="1.5rem"
-  style={{
-    background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-    padding: "2rem",
-    borderRadius: "16px",
-  }}
+  className="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 rounded-xl"
 >
-  <div style={{ backgroundColor: "white", color: "#111", padding: "1rem", borderRadius: 8 }}>Custom 1</div>
-  <div style={{ backgroundColor: "white", color: "#111", padding: "1rem", borderRadius: 8 }}>Custom 2</div>
+  <div className="bg-white text-black p-4 rounded">Card 1</div>
+  <div className="bg-white text-black p-4 rounded">Card 2</div>
 </GridView>`}
               previewContent={
                 <GridView
                   columns={2}
-                  gap="1.5rem"
-                  style={{
-                    background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-                    padding: "2rem",
-                    borderRadius: "16px",
-                  }}
+                  className="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 rounded-xl"
                 >
-                  <div className="bg-white text-black rounded-lg p-4 text-center font-medium">
-                    Custom 1
+                  <div className="bg-white text-black p-4 rounded text-center">
+                    Card 1
                   </div>
-                  <div className="bg-white text-black rounded-lg p-4 text-center font-medium">
-                    Custom 2
+                  <div className="bg-white text-black p-4 rounded text-center">
+                    Card 2
                   </div>
                 </GridView>
               }
@@ -253,68 +227,55 @@ const GridViewDocs = () => {
                   <tr>
                     <td className="px-4 py-2 text-primary">columns</td>
                     <td className="px-4 py-2">
-                      number | Record&lt;ScreenSize, number&gt;
+                      number | {`{ sm, md, lg }`}
                     </td>
                     <td className="px-4 py-2">
-                      Number of columns or responsive mapping for sm, md, lg.
+                      Number of columns (supports responsive values).
                     </td>
                   </tr>
                   <tr>
                     <td className="px-4 py-2 text-primary">gap</td>
-                    <td className="px-4 py-2">number | string</td>
-                    <td className="px-4 py-2">Grid spacing between items.</td>
+                    <td className="px-4 py-2">number | responsive</td>
+                    <td className="px-4 py-2">
+                      Space between grid items.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-2 text-primary">padding</td>
+                    <td className="px-4 py-2">number | responsive</td>
+                    <td className="px-4 py-2">
+                      Padding inside the grid container.
+                    </td>
                   </tr>
                   <tr>
                     <td className="px-4 py-2 text-primary">alignItems</td>
                     <td className="px-4 py-2">
                       "start" | "center" | "end" | "stretch"
                     </td>
-                    <td className="px-4 py-2">
-                      Vertical alignment of grid children.
-                    </td>
+                    <td className="px-4 py-2">Vertical alignment.</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-2 text-primary">justifyItems</td>
                     <td className="px-4 py-2">
                       "start" | "center" | "end" | "stretch"
                     </td>
-                    <td className="px-4 py-2">
-                      Horizontal alignment of grid children.
-                    </td>
+                    <td className="px-4 py-2">Horizontal alignment.</td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 text-primary">backgroundColor</td>
+                    <td className="px-4 py-2 text-primary">className</td>
                     <td className="px-4 py-2">string</td>
-                    <td className="px-4 py-2">Grid background color.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">width</td>
-                    <td className="px-4 py-2">string</td>
-                    <td className="px-4 py-2">Width of the grid container.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">maxWidth</td>
-                    <td className="px-4 py-2">string</td>
-                    <td className="px-4 py-2">
-                      Maximum width of grid container.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">style</td>
-                    <td className="px-4 py-2">React.CSSProperties</td>
-                    <td className="px-4 py-2">Custom inline styles.</td>
+                    <td className="px-4 py-2">Custom Tailwind classes.</td>
                   </tr>
                   <tr>
                     <td className="px-4 py-2 text-primary">children</td>
                     <td className="px-4 py-2">ReactNode</td>
-                    <td className="px-4 py-2">Grid content elements.</td>
+                    <td className="px-4 py-2">Grid content.</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </section>
 
-          {/* Footer */}
           <DocsFooter />
         </div>
       </div>

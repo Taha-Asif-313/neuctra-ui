@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import clsx from "clsx";
 
 interface Option {
   label: string;
@@ -23,6 +24,7 @@ interface SwitchGroupProps {
   switchBgColor?: string;
   textColor?: string;
   errorStyle?: React.CSSProperties;
+  darkMode?: boolean;
 }
 
 export const SwitchGroup: React.FC<SwitchGroupProps> = ({
@@ -34,7 +36,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
   readOnly = false,
   required = false,
   error,
-  className = "",
+  className,
   style,
   labelStyle,
   iconSize = 20,
@@ -42,39 +44,79 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
   switchBgColor = "#d1d5db",
   textColor = "#374151",
   errorStyle,
+  darkMode = false,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+
   const handleChange = (value: string) => {
-    if (!onChange) return;
+    if (!onChange || disabled || readOnly) return;
     const updatedValues = selectedValues.includes(value)
       ? selectedValues.filter((v) => v !== value)
       : [...selectedValues, value];
     onChange(updatedValues);
   };
 
+  // Keyboard navigation
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (disabled) return;
+
+      if (focusedIndex === null) return;
+      const currentIndex = focusedIndex;
+
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        const nextIndex = (currentIndex + 1) % options.length;
+        setFocusedIndex(nextIndex);
+      }
+
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        const prevIndex = (currentIndex - 1 + options.length) % options.length;
+        setFocusedIndex(prevIndex);
+      }
+
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        handleChange(options[currentIndex].value);
+      }
+    };
+
+    container.addEventListener("keydown", handleKeyDown);
+    return () => container.removeEventListener("keydown", handleKeyDown);
+  }, [focusedIndex, options, selectedValues, disabled]);
+
   return (
     <div
-      className={className}
-      style={{ display: "flex", flexDirection: "column", gap: 8, ...style }}
+      ref={containerRef}
       role="group"
       aria-disabled={disabled}
+      aria-invalid={!!error}
+      tabIndex={0}
+      className={clsx("flex flex-col gap-2", className)}
+      style={{ ...style }}
     >
-      {options.map((option) => {
+      {options.map((option, index) => {
         const isChecked = selectedValues.includes(option.value);
+        const isFocused = focusedIndex === index;
+
         return (
           <label
             key={option.value}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              cursor: disabled ? "not-allowed" : "pointer",
-              opacity: disabled ? 0.6 : 1,
-              gap: 8,
-              userSelect: "none",
-              ...labelStyle,
-            }}
+            className={clsx(
+              "flex items-center justify-between cursor-pointer select-none transition-opacity",
+              disabled ? "opacity-50 cursor-not-allowed" : "opacity-100",
+              isFocused ? "ring-2 ring-blue-400" : ""
+            )}
+            style={{ ...labelStyle }}
+            onFocus={() => setFocusedIndex(index)}
           >
             <span style={{ color: textColor, fontSize: 14 }}>{option.label}</span>
+
             <input
               type="checkbox"
               name={name}
@@ -85,14 +127,18 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
               onChange={() => handleChange(option.value)}
               style={{ display: "none" }}
             />
+
+            {/* Switch */}
             <span
+              className={clsx("relative inline-flex rounded-full transition-colors")}
               style={{
-                position: "relative",
                 width: iconSize * 2,
                 height: iconSize * 1.1,
-                borderRadius: 9999,
-                backgroundColor: isChecked ? iconCheckedBgColor : switchBgColor,
+                backgroundColor: isChecked
+                  ? iconCheckedBgColor
+                  : switchBgColor,
                 transition: "background-color 0.25s ease",
+                borderRadius: 9999,
               }}
             >
               <span
@@ -115,6 +161,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
           </label>
         );
       })}
+
       {error && (
         <p
           role="alert"

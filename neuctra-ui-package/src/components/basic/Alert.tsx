@@ -1,255 +1,89 @@
-import React, { useEffect, useState, useMemo } from "react";
-import {
-  X,
-  Info,
-  CheckCircle,
-  AlertCircle,
-  AlertTriangle,
-} from "lucide-react";
+"use client";
+
+import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
 
 type AlertType = "success" | "error" | "warning" | "info";
-type AlertPosition =
-  | "top-left"
-  | "top-center"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-center"
-  | "bottom-right";
 
-export interface AlertProps {
+interface Toast {
+  id: number;
   title?: string;
   description?: string;
   type?: AlertType;
-  dismissible?: boolean;
   duration?: number;
-  onClose?: () => void;
-
-  /** Customization */
-  icon?: React.ReactNode;
-  actionButton?: React.ReactNode;
-  position?: AlertPosition;
-  backgroundColor?: string;
-  borderColor?: string;
-  textColor?: string;
-  borderRadius?: string | number;
-  shadow?: string;
-  padding?: string | number;
-  fontSize?: string | number;
-  fontWeight?: number | string;
-  descriptionColor?: string;
-  animationDuration?: string;
-  maxWidth?: string;
-  className?: string;
-  style?: React.CSSProperties;
 }
 
-const typeStyles: Record<AlertType, any> = {
-  success: {
-    bg: "#ecfdf5",
-    border: "#34d399",
-    iconColor: "#059669",
-    Icon: <CheckCircle size={20} />,
-  },
-  error: {
-    bg: "#fef2f2",
-    border: "#f87171",
-    iconColor: "#dc2626",
-    Icon: <AlertCircle size={20} />,
-  },
-  warning: {
-    bg: "#fffbeb",
-    border: "#facc15",
-    iconColor: "#d97706",
-    Icon: <AlertTriangle size={20} />,
-  },
-  info: {
-    bg: "#eff6ff",
-    border: "#3b82f6",
-    iconColor: "#2563eb",
-    Icon: <Info size={20} />,
-  },
+interface ToastContextProps {
+  addToast: (toast: Omit<Toast, "id">) => void;
+}
+
+const ToastContext = createContext<ToastContextProps | undefined>(undefined);
+
+export const useToast = () => {
+  const context = useContext(ToastContext);
+  if (!context) throw new Error("useToast must be used within ToastProvider");
+  return context;
 };
 
-const getPositionStyle = (position: AlertPosition): React.CSSProperties => {
-  const base: React.CSSProperties = {
-    position: "fixed",
-    zIndex: 9999,
-    pointerEvents: "auto",
-  };
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [toasts, setToasts] = useState<Toast[]>([]);
 
-  switch (position) {
-    case "top-left":
-      return { ...base, top: "1.25rem", left: "1.25rem" };
-    case "top-center":
-      return { ...base, top: "1.25rem", left: "50%", transform: "translateX(-50%)" };
-    case "top-right":
-      return { ...base, top: "1.25rem", right: "1.25rem" };
-    case "bottom-left":
-      return { ...base, bottom: "1.25rem", left: "1.25rem" };
-    case "bottom-center":
-      return { ...base, bottom: "1.25rem", left: "50%", transform: "translateX(-50%)" };
-    case "bottom-right":
-    default:
-      return { ...base, bottom: "1.25rem", right: "1.25rem" };
-  }
-};
+  const removeToast = useCallback((id: number) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
 
-export const Alert: React.FC<AlertProps> = ({
-  title,
-  description,
-  type = "info",
-  dismissible = true,
-  duration,
-  onClose,
-  icon,
-  actionButton,
-  position = "top-right",
-  backgroundColor,
-  borderColor,
-  textColor = "#111827",
-  borderRadius = "0.75rem",
-  shadow = "0 4px 14px rgba(0,0,0,0.1)",
-  padding = "1rem",
-  fontSize = "0.95rem",
-  fontWeight = 500,
-  descriptionColor = "#374151",
-  animationDuration = "300ms",
-  maxWidth = "480px",
-  className = "",
-  style,
-}) => {
-  const [visible, setVisible] = useState(false);
-  const [exiting, setExiting] = useState(false);
-
-  useEffect(() => {
-    setVisible(true);
-
-    if (duration) {
-      const timer = setTimeout(() => {
-        setExiting(true);
-        setTimeout(() => {
-          setVisible(false);
-          onClose?.();
-        }, parseInt(animationDuration));
-      }, duration);
-      return () => clearTimeout(timer);
+  const addToast = useCallback((toast: Omit<Toast, "id">) => {
+    const id = Date.now() + Math.random();
+    setToasts((prev) => [...prev, { ...toast, id }]);
+    if (toast.duration !== 0) {
+      setTimeout(() => removeToast(id), toast.duration ?? 4000);
     }
-  }, [duration, onClose, animationDuration]);
-
-  const { bg, border, iconColor, Icon } = typeStyles[type];
-  const positionStyle = getPositionStyle(position);
-
-  const containerStyle: React.CSSProperties = useMemo(
-    () => ({
-      ...positionStyle,
-      display: "flex",
-      alignItems: "flex-start",
-      gap: "0.75rem",
-      backgroundColor: backgroundColor ?? bg,
-      borderLeft: `4px solid ${borderColor ?? border}`,
-      borderRadius,
-      color: textColor,
-      boxShadow: shadow,
-      padding,
-      maxWidth,
-      width: "calc(100% - 2.5rem)",
-      opacity: visible && !exiting ? 1 : 0,
-      transform: visible && !exiting
-        ? "translateY(0)"
-        : position.includes("bottom")
-        ? "translateY(20px)"
-        : "translateY(-20px)",
-      transition: `opacity ${animationDuration} ease, transform ${animationDuration} ease`,
-      fontWeight,
-      fontSize,
-      ...style,
-    }),
-    [
-      visible,
-      exiting,
-      bg,
-      border,
-      borderColor,
-      borderRadius,
-      position,
-      shadow,
-      padding,
-      textColor,
-      maxWidth,
-      backgroundColor,
-      animationDuration,
-      style,
-      fontSize,
-      fontWeight,
-    ]
-  );
-
-  if (!visible) return null;
+  }, [removeToast]);
 
   return (
-    <>
-      <style>
-        {`
-          @keyframes alert-slide-in-top {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes alert-slide-in-bottom {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-        `}
-      </style>
-      <div
-        className={className}
-        style={{
-          ...containerStyle,
-          animation: `${position.includes("bottom") ? "alert-slide-in-bottom" : "alert-slide-in-top"} ${animationDuration} ease`,
-        }}
-        role="alert"
-      >
-        <div style={{ color: iconColor, marginTop: "2px" }}>{icon || Icon}</div>
-
-        <div style={{ flex: 1, minWidth: 0 }}>
-          {title && (
-            <div style={{ fontWeight: 600, fontSize, marginBottom: "4px" }}>
-              {title}
-            </div>
-          )}
-          {description && (
-            <div style={{ fontSize: "0.875rem", color: descriptionColor, lineHeight: 1.4 }}>
-              {description}
-            </div>
-          )}
-          {actionButton && <div style={{ marginTop: "8px" }}>{actionButton}</div>}
-        </div>
-
-        {dismissible && (
-          <button
-            onClick={() => {
-              setExiting(true);
-              setTimeout(() => {
-                setVisible(false);
-                onClose?.();
-              }, parseInt(animationDuration));
-            }}
-            style={{
-              background: "transparent",
-              border: "none",
-              color: "#6b7280",
-              cursor: "pointer",
-              marginLeft: "8px",
-              padding: 0,
-              lineHeight: 0,
-            }}
-            aria-label="Close alert"
-          >
-            <X size={16} />
-          </button>
-        )}
+    <ToastContext.Provider value={{ addToast }}>
+      {children}
+      {/* Toast container */}
+      <div className="fixed top-5 right-5 flex flex-col gap-3 z-50">
+        {toasts.map((toast) => (
+          <ToastItem key={toast.id} toast={toast} onClose={() => removeToast(toast.id)} />
+        ))}
       </div>
-    </>
+    </ToastContext.Provider>
   );
 };
 
-Alert.displayName = "Alert";
+const typeStyles: Record<AlertType, { bg: string; border: string; icon: ReactNode }> = {
+  success: { bg: "bg-green-50", border: "border-green-400", icon: <CheckCircle size={20} className="text-green-600" /> },
+  error: { bg: "bg-red-50", border: "border-red-400", icon: <AlertCircle size={20} className="text-red-600" /> },
+  warning: { bg: "bg-yellow-50", border: "border-yellow-400", icon: <AlertTriangle size={20} className="text-yellow-600" /> },
+  info: { bg: "bg-blue-50", border: "border-blue-400", icon: <Info size={20} className="text-blue-600" /> },
+};
+
+const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({ toast, onClose }) => {
+  const { title, description, type = "info" } = toast;
+  const { bg, border, icon } = typeStyles[type];
+
+  return (
+    <div
+      className={`flex items-start gap-3 p-4 border-l-4 rounded shadow ${bg} ${border} animate-slide-in-right`}
+      role="alert"
+    >
+      <div>{icon}</div>
+      <div className="flex-1 min-w-0">
+        {title && <div className="font-semibold text-sm mb-1">{title}</div>}
+        {description && <div className="text-sm text-gray-700">{description}</div>}
+      </div>
+      <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+        <X size={16} />
+      </button>
+    </div>
+  );
+};
+
+// Add this animation to your global CSS (Tailwind + @layer utilities)
+// @keyframes slide-in-right {
+//   0% { transform: translateX(100%); opacity: 0; }
+//   100% { transform: translateX(0); opacity: 1; }
+// }
+// .animate-slide-in-right { animation: slide-in-right 0.3s ease forwards; }

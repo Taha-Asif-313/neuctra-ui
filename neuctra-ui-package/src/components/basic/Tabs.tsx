@@ -131,8 +131,7 @@ export const Tabs: React.FC<TabsProps> = ({
     transition: `all ${transitionDuration}ms ease`,
     background: "transparent",
     border: variant === "outline" ? `1px solid ${borderColor}` : "none",
-    borderBottom:
-      variant === "underline" ? `2px solid transparent` : undefined,
+    borderBottom: variant === "underline" ? `2px solid transparent` : undefined,
     color: textColor,
     width: fullWidth ? "100%" : "auto",
     userSelect: "none",
@@ -141,19 +140,15 @@ export const Tabs: React.FC<TabsProps> = ({
   const activeTab: CSSProperties = {
     background: variant === "solid" ? primaryColor : "transparent",
     color: activeColor,
-    borderBottom:
-      variant === "underline" ? `2px solid ${primaryColor}` : undefined,
+    borderBottom: variant === "underline" ? `2px solid ${primaryColor}` : undefined,
     boxShadow:
       elevation > 0 ? `0 ${elevation}px ${elevation * 4}px ${primaryColor}33` : undefined,
     ...activeTabStyle,
   };
 
   const inactiveTab: CSSProperties = {
-    ...(variant === "outline"
-      ? { borderColor }
-      : variant === "underline"
-      ? { borderBottomColor: "transparent" }
-      : {}),
+    ...(variant === "outline" ? { borderColor } : {}),
+    ...(variant === "underline" ? { borderBottomColor: "transparent" } : {}),
     ...inactiveTabStyle,
   };
 
@@ -184,7 +179,6 @@ export const Tabs: React.FC<TabsProps> = ({
 
   /** 🧱 Layout */
   const isVertical = position === "left" || position === "right";
-  const layoutDir = isVertical ? "row" : "column";
 
   return (
     <div
@@ -229,14 +223,7 @@ export const Tabs: React.FC<TabsProps> = ({
             <span>{drawerIcon}</span>
           </button>
           {drawerOpen && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginTop: 8,
-                gap,
-              }}
-            >
+            <div style={{ display: "flex", flexDirection: "column", marginTop: 8, gap }}>
               {tabs.map((tab, i) => {
                 const isActive = i === active;
                 const isHovered = hovered === i;

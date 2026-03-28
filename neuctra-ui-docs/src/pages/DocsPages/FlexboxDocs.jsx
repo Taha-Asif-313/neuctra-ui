@@ -1,36 +1,33 @@
 "use client";
+
 import React from "react";
-import { Flexbox } from "@neuctra/ui"; // adjust import path
+import { FlexView } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
 
-const FlexboxDocs = () => {
+const FlexViewDocs = () => {
   return (
     <>
       <Metadata
-        title="Flexbox Component — Neuctra UI"
-        description="Master responsive layouts with Neuctra UI’s Flexbox component — a flexible and powerful layout utility for React. Control direction, alignment, spacing, wrapping, and more with simple props."
-        keywords="Neuctra UI Flexbox, React Flexbox component, responsive layout, CSS Flexbox, UI components, layout system, Neuctra components, Tailwind layout, align justify, React UI library"
-        image="https://ui.neuctra.com/og/flexbox-docs-preview.png"
-        ogTitle="Flexbox Component — Neuctra UI"
-        ogDescription="Design responsive layouts in React effortlessly using Neuctra UI’s Flexbox component with alignment, spacing, and wrapping controls."
-        twitterTitle="Flexbox Component | Neuctra UI"
-        twitterDescription="Build flexible, responsive layouts in React with Neuctra UI’s Flexbox component — direction, alignment, and spacing made easy."
+        title="FlexView Component — Neuctra UI"
+        description="Learn how to use the FlexView component in Neuctra UI — a responsive flexbox layout system for React. Control direction, alignment, spacing, and wrapping with simple props."
+        keywords="Neuctra UI FlexView, React flexbox layout, responsive flex layout, Tailwind flex utilities, UI layout system, Neuctra components"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
         <div className="max-w-5xl mx-auto px-4 space-y-10">
+          
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
-              Flexbox Component
+              FlexView Component
             </h1>
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Flexbox</span>{" "}
-              component is a responsive layout wrapper that provides full
-              control over direction, alignment, spacing, and wrapping behavior
-              — all dynamically adjustable across screen sizes.
+              <span className="text-primary font-semibold">FlexView</span> is a
+              responsive flexbox wrapper that helps you build layouts easily.
+              You can control direction, alignment, spacing, and wrapping using
+              simple props — no need to write Tailwind classes manually.
             </p>
           </header>
 
@@ -40,172 +37,234 @@ const FlexboxDocs = () => {
               Basic Example
             </h2>
             <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">Flexbox</code> to arrange
-              elements in a row or column. It automatically adapts to screen
-              sizes if configured with responsive props.
+              By default, items are arranged in a responsive layout (column on
+              small screens, row on larger screens).
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Flexbox gap={16} backgroundColor="#111" padding={16}>
-  <div style={{ background: "#2563eb", padding: "12px 24px", borderRadius: 8 }}>Item 1</div>
-  <div style={{ background: "#22c55e", padding: "12px 24px", borderRadius: 8 }}>Item 2</div>
-  <div style={{ background: "#eab308", padding: "12px 24px", borderRadius: 8 }}>Item 3</div>
-</Flexbox>`}
+              code={`<FlexView gap={4} padding={4}>
+  <div className="bg-blue-600 text-white px-4 py-2 rounded">Item 1</div>
+  <div className="bg-green-500 text-white px-4 py-2 rounded">Item 2</div>
+  <div className="bg-yellow-500 text-black px-4 py-2 rounded">Item 3</div>
+</FlexView>`}
               previewContent={
                 <div className="p-6 bg-zinc-900 rounded-xl">
-                  <Flexbox gap={16} backgroundColor="#111" padding={16}>
-                    <div className="bg-blue-600 rounded-lg px-6 py-3">
+                  <FlexView gap={4} padding={4}>
+                    <div className="bg-blue-600 text-white px-4 py-2 rounded">
                       Item 1
                     </div>
-                    <div className="bg-green-500 rounded-lg px-6 py-3">
+                    <div className="bg-green-500 text-white px-4 py-2 rounded">
                       Item 2
                     </div>
-                    <div className="bg-yellow-500 rounded-lg px-6 py-3">
+                    <div className="bg-yellow-500 text-black px-4 py-2 rounded">
                       Item 3
                     </div>
-                  </Flexbox>
+                  </FlexView>
                 </div>
               }
             />
           </section>
 
-          {/* Responsive Example */}
+          {/* Responsive Direction */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Responsive Direction
             </h2>
             <p className="text-gray-300 mb-3">
-              The <code className="text-primary">direction</code> prop accepts
-              an object to define layout per breakpoint — <code>sm</code>,{" "}
-              <code>md</code>, and <code>lg</code>.
+              Use responsive values to change layout based on screen size.
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Flexbox
-  direction={{ sm: "column", md: "row", lg: "row" }}
-  gap={12}
-  backgroundColor="#1f2937"
-  padding={12}
+              code={`<FlexView
+  direction={{ sm: "column", md: "row" }}
+  gap={4}
 >
-  <div style={{ background: "#3b82f6", padding: "12px 24px", borderRadius: 8 }}>Mobile → Column</div>
-  <div style={{ background: "#10b981", padding: "12px 24px", borderRadius: 8 }}>Desktop → Row</div>
-</Flexbox>`}
+  <div className="bg-blue-500 text-white px-4 py-2 rounded">Column on mobile</div>
+  <div className="bg-emerald-500 text-white px-4 py-2 rounded">Row on desktop</div>
+</FlexView>`}
               previewContent={
                 <div className="p-6 bg-zinc-900 rounded-xl">
-                  <Flexbox
-                    direction={{ sm: "column", md: "row", lg: "row" }}
-                    gap={12}
-                    backgroundColor="#1f2937"
-                    padding={12}
+                  <FlexView
+                    direction={{ sm: "column", md: "row" }}
+                    gap={4}
                   >
-                    <div className="bg-blue-500 rounded-lg px-6 py-3">
-                      Mobile → Column
+                    <div className="bg-blue-500 text-white px-4 py-2 rounded">
+                      Column on mobile
                     </div>
-                    <div className="bg-emerald-500 rounded-lg px-6 py-3">
-                      Desktop → Row
+                    <div className="bg-emerald-500 text-white px-4 py-2 rounded">
+                      Row on desktop
                     </div>
-                  </Flexbox>
+                  </FlexView>
                 </div>
               }
             />
           </section>
 
-          {/* Alignment Example */}
+          {/* Alignment */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Alignment & Justification
             </h2>
             <p className="text-gray-300 mb-3">
-              Control layout alignment using{" "}
-              <code className="text-primary">align</code> and{" "}
-              <code className="text-primary">justify</code> props.
+              Control how items align and distribute inside the container.
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Flexbox
-  align="center"
-  justify="space-around"
-  height="120px"
-  backgroundColor="#0f172a"
->
-  <div style={{ background: "#f87171", padding: "12px 24px", borderRadius: 8 }}>Left</div>
-  <div style={{ background: "#60a5fa", padding: "12px 24px", borderRadius: 8 }}>Center</div>
-  <div style={{ background: "#34d399", padding: "12px 24px", borderRadius: 8 }}>Right</div>
-</Flexbox>`}
+              code={`<FlexView align="center" justify="center" gap={4}>
+  <div className="bg-red-400 px-4 py-2 rounded">A</div>
+  <div className="bg-blue-400 px-4 py-2 rounded">B</div>
+  <div className="bg-green-400 px-4 py-2 rounded">C</div>
+</FlexView>`}
               previewContent={
                 <div className="p-6 bg-zinc-900 rounded-xl">
-                  <Flexbox
-                    align="center"
-                    justify="space-around"
-                    height="120px"
-                    backgroundColor="#0f172a"
-                  >
-                    <div className="bg-red-400 rounded-lg px-6 py-3">Left</div>
-                    <div className="bg-blue-400 rounded-lg px-6 py-3">
-                      Center
-                    </div>
-                    <div className="bg-green-400 rounded-lg px-6 py-3">
-                      Right
-                    </div>
-                  </Flexbox>
+                  <FlexView align="center" justify="center" gap={4}>
+                    <div className="bg-red-400 px-4 py-2 rounded">A</div>
+                    <div className="bg-blue-400 px-4 py-2 rounded">B</div>
+                    <div className="bg-green-400 px-4 py-2 rounded">C</div>
+                  </FlexView>
                 </div>
               }
             />
           </section>
 
-          {/* Custom Styling Example */}
+          {/* Wrap */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Styling & Shadows
+              Wrapping Items
             </h2>
             <p className="text-gray-300 mb-3">
-              Apply borders, shadows, or overflow behavior to create card
-              layouts or scrollable flex containers.
+              Use <code className="text-primary">wrap</code> to control how items
+              behave when they overflow.
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Flexbox
-  gap={10}
-  padding={16}
-  border="1px solid #333"
-  borderRadius="12px"
-  boxShadow="0 4px 12px rgba(0,0,0,0.2)"
-  overflow="auto"
-  height="160px"
->
-  {Array.from({ length: 6 }).map((_, i) => (
-    <div key={i} style={{ background: "#22d3ee", padding: "12px 24px", borderRadius: 8 }}>
+              code={`<FlexView wrap="wrap" gap={4}>
+  {Array.from({ length: 8 }).map((_, i) => (
+    <div key={i} className="bg-cyan-500 text-black px-4 py-2 rounded">
       Item {i + 1}
     </div>
   ))}
-</Flexbox>`}
+</FlexView>`}
               previewContent={
                 <div className="p-6 bg-zinc-900 rounded-xl">
-                  <Flexbox
-                    gap={10}
-                    padding={16}
-                    border="1px solid #333"
-                    borderRadius="12px"
-                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
-                    overflow="auto"
-                    height="160px"
-                  >
-                    {Array.from({ length: 6 }).map((_, i) => (
+                  <FlexView wrap="wrap" gap={4}>
+                    {Array.from({ length: 8 }).map((_, i) => (
                       <div
                         key={i}
-                        className="bg-cyan-400 text-black rounded-lg px-6 py-3"
+                        className="bg-cyan-500 text-black px-4 py-2 rounded"
                       >
                         Item {i + 1}
                       </div>
                     ))}
-                  </Flexbox>
+                  </FlexView>
                 </div>
               }
             />
+          </section>
+
+          {/* Props Table */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Props
+            </h2>
+
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-left border border-zinc-800 text-sm">
+                <thead className="bg-zinc-900 text-gray-300">
+                  <tr>
+                    <th className="px-4 py-2">Prop</th>
+                    <th className="px-4 py-2">Type</th>
+                    <th className="px-4 py-2">Description</th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-zinc-800">
+                  <tr>
+                    <td className="px-4 py-2 text-primary">direction</td>
+                    <td className="px-4 py-2">
+                      "row" | "column" | responsive object
+                    </td>
+                    <td className="px-4 py-2">
+                      Layout direction (supports breakpoints).
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">align</td>
+                    <td className="px-4 py-2">
+                      "start" | "center" | "end" | "stretch"
+                    </td>
+                    <td className="px-4 py-2">
+                      Vertical alignment of items.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">justify</td>
+                    <td className="px-4 py-2">
+                      "start" | "center" | "end" | "between" | "around" | "evenly"
+                    </td>
+                    <td className="px-4 py-2">
+                      Horizontal spacing between items.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">wrap</td>
+                    <td className="px-4 py-2">
+                      "wrap" | "nowrap" | "wrap-reverse"
+                    </td>
+                    <td className="px-4 py-2">
+                      Controls wrapping behavior.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">gap</td>
+                    <td className="px-4 py-2">number | responsive</td>
+                    <td className="px-4 py-2">
+                      Space between items.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">padding</td>
+                    <td className="px-4 py-2">number | responsive</td>
+                    <td className="px-4 py-2">
+                      Inner spacing of container.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">margin</td>
+                    <td className="px-4 py-2">number | responsive</td>
+                    <td className="px-4 py-2">
+                      Outer spacing of container.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">className</td>
+                    <td className="px-4 py-2">string</td>
+                    <td className="px-4 py-2">
+                      Additional Tailwind classes.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">children</td>
+                    <td className="px-4 py-2">ReactNode</td>
+                    <td className="px-4 py-2">
+                      Content inside FlexView.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
 
           {/* Footer */}
@@ -216,4 +275,4 @@ const FlexboxDocs = () => {
   );
 };
 
-export default FlexboxDocs;
+export default FlexViewDocs;

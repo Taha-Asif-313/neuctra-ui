@@ -5,13 +5,13 @@ import "./style.css"; // 🔹 Global styles import (keep this as the only CSS im
 // ==============================
 
 // Alerts & Notifications
-export { Alert } from "./components/basic/Alert"; // ✅ Finalized
+export { ToastProvider, useToast } from "./components/basic/Alert"; // ✅ Modern ShadCN-style toast
 
 // Accordions
 export { Accordion } from "./components/basic/Accordation"; // ✅ Finalized
 
 // Avatars
-export { Avatar, AvatarGroup } from "./components/basic/Avatar"; // ✅ Finalized
+export { Avatar } from "./components/basic/Avatar"; // ✅ Finalized
 
 // Audio Components
 export { AudioPlayer } from "./components/basic/AudioPlayer"; // ✅ Finalized
@@ -23,9 +23,6 @@ export { Badge } from "./components/basic/Badge"; // ✅ Finalized
 // Buttons
 export { Button } from "./components/basic/Button"; // ✅ Finalized
 
-// Cards
-export { Card } from "./components/basic/Card"; // ✅ Finalized
-
 // ✅ Checkbox, Radio & Switch Components
 export { CheckboxGroup } from "./components/basic/CheckboxGroup";
 export { RadioGroup } from "./components/basic/RadioGroup";
@@ -34,7 +31,7 @@ export { SwitchGroup } from "./components/basic/SwitchGroup";
 
 // Containers & Layout
 export { Container } from "./components/basic/Container"; // ✅ Finalized
-export { Flexbox } from "./components/basic/Flexbox"; // ✅ Finalized
+export { FlexView } from "./components/basic/FlexView"; // ✅ Finalized
 export { Stack, HStack, VStack } from "./components/basic/Stack"; // ✅ Finalized
 export { GridView } from "./components/basic/GridView"; // ✅ Finalized
 

@@ -1,5 +1,8 @@
+"use client";
 import React, { ReactNode, CSSProperties } from "react";
+import clsx from "clsx";
 
+/* ---------------------------- Types ---------------------------- */
 interface TableProps {
   children: ReactNode;
   style?: CSSProperties;
@@ -21,20 +24,15 @@ interface TableCellProps {
 /* ---------------------------- Table Container ---------------------------- */
 export const Table: React.FC<TableProps> = ({ children, style, className }) => (
   <div
+    className={clsx("overflow-x-auto rounded-lg shadow-sm border border-gray-200", className)}
     style={{
-      overflowX: "auto",
       background: "#ffffff",
-      borderRadius: 12,
-      boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
-      border: "1px solid #e5e7eb",
       ...style,
     }}
-    className={className}
   >
     <table
+      className="w-full border-collapse"
       style={{
-        width: "100%",
-        borderCollapse: "collapse",
         borderSpacing: 0,
         borderRadius: 12,
         overflow: "hidden",
@@ -52,11 +50,8 @@ export const THead: React.FC<TableSectionProps> = ({
   className,
 }) => (
   <thead
-    className={className}
+    className={clsx("bg-gray-100 text-gray-900 font-semibold", className)}
     style={{
-      backgroundColor: "#f3f4f6",
-      color: "#111827",
-      fontWeight: 600,
       ...style,
     }}
   >
@@ -65,42 +60,42 @@ export const THead: React.FC<TableSectionProps> = ({
 );
 
 /* ---------------------------- Table Body ---------------------------- */
-export const TBody: React.FC<TableSectionProps> = ({
-  children,
-  style,
-  className,
-}) => (
-  <tbody
-    className={className}
-    style={{
-      backgroundColor: "#ffffff",
-      ...style,
-    }}
-  >
+export const TBody: React.FC<TableSectionProps> = ({ children, style, className }) => (
+  <tbody className={clsx("bg-white", className)} style={{ ...style }}>
     {children}
   </tbody>
 );
 
 /* ---------------------------- Table Row ---------------------------- */
-export const TRow: React.FC<TableSectionProps> = ({
+interface TRowProps extends TableSectionProps {
+  onClick?: () => void;
+  hoverBgColor?: string;
+  darkMode?: boolean;
+}
+
+export const TRow: React.FC<TRowProps> = ({
   children,
   style,
   className,
+  onClick,
+  hoverBgColor = "#f9fafb",
+  darkMode = false,
 }) => (
   <tr
-    className={className}
-    style={{
-      borderBottom: "1px solid #e5e7eb",
-      transition: "background 0.2s ease",
-      cursor: "default",
-      ...style,
+    className={clsx(
+      "transition-colors duration-200 cursor-default",
+      onClick ? "hover:cursor-pointer" : "",
+      className
+    )}
+    style={{ borderBottom: "1px solid #e5e7eb", ...style }}
+    onClick={onClick}
+    onMouseEnter={(e) => {
+      if (!darkMode) e.currentTarget.style.backgroundColor = hoverBgColor;
+      else e.currentTarget.style.backgroundColor = "#1f2937";
     }}
-    onMouseEnter={(e) =>
-      (e.currentTarget.style.backgroundColor = "#f9fafb")
-    }
-    onMouseLeave={(e) =>
-      (e.currentTarget.style.backgroundColor = "transparent")
-    }
+    onMouseLeave={(e) => {
+      e.currentTarget.style.backgroundColor = "transparent";
+    }}
   >
     {children}
   </tr>
@@ -109,15 +104,8 @@ export const TRow: React.FC<TableSectionProps> = ({
 /* ---------------------------- Table Head Cell ---------------------------- */
 export const TH: React.FC<TableCellProps> = ({ children, style, className }) => (
   <th
-    className={className}
-    style={{
-      textAlign: "left",
-      padding: "12px 16px",
-      fontSize: "0.875rem",
-      color: "#374151",
-      borderBottom: "2px solid #e5e7eb",
-      ...style,
-    }}
+    className={clsx("text-left px-4 py-3 text-sm text-gray-700 border-b-2 border-gray-200", className)}
+    style={{ ...style }}
   >
     {children}
   </th>
@@ -126,13 +114,8 @@ export const TH: React.FC<TableCellProps> = ({ children, style, className }) => 
 /* ---------------------------- Table Data Cell ---------------------------- */
 export const TD: React.FC<TableCellProps> = ({ children, style, className }) => (
   <td
-    className={className}
-    style={{
-      padding: "12px 16px",
-      fontSize: "0.875rem",
-      color: "#4b5563",
-      ...style,
-    }}
+    className={clsx("px-4 py-3 text-sm text-gray-600", className)}
+    style={{ ...style }}
   >
     {children}
   </td>

@@ -14,33 +14,29 @@ body {
   font-family: "Poppins";
 }
 
-/* For WebKit browsers (Chrome, Safari, Edge) */
-.customscroll{
-  /* Firefox */
-  scrollbar-color: var(--primary) transparent; /* Firefox: thumb and track */
-  overflow-y: auto; /* Enable vertical scroll */
-}
-
-/* WebKit scrollbar styling */
+/* ===== Custom Scrollbar ===== */
+/* Thin scrollbar for both vertical and horizontal */
 ::-webkit-scrollbar {
-  width: 6px; /* width of vertical scrollbar */
-  height: 6px; /* height of horizontal scrollbar */
+  width: 3px;
+  height: 3px;
 }
 
+/* Scrollbar track (background behind the thumb) */
 ::-webkit-scrollbar-track {
-  background: transparent; /* or any track color */
+  background-color: #000; /* Black track */
 }
 
+/* Scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-  background-color: var(--primary); /* scrollbar thumb color */
-  border-radius: 3px; /* rounded edges */
-  border: 1px solid transparent; /* optional for some padding effect */
+  background-color: var(--primary); /* Primary color */
+  border-radius: 9999px; /* Fully rounded */
 }
 
-/* Optional: thumb hover */
+/* Hover effect for the thumb */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary);
+  background-color: var(--primary); /* Slightly darker on hover */
 }
+
 
 button{
   cursor: pointer;

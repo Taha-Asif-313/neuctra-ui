@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Stack, HStack, VStack } from "@neuctra/ui"; // adjust import path
+import { Stack, HStack, VStack } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
@@ -9,58 +9,53 @@ const StackDocs = () => {
   return (
     <>
       <Metadata
-        title="Stack, HStack & VStack Components — Neuctra UI"
-        description="Learn how to use the Stack, HStack, and VStack components from Neuctra UI — create responsive layouts with flexible alignment, spacing, and direction in React using Tailwind CSS."
-        keywords="Neuctra UI Stack, React Stack component, VStack, HStack, layout components, responsive flexbox, Tailwind CSS layout, Neuctra UI library, React UI components, spacing and alignment"
-        image="https://ui.neuctra.com/og/stack-docs-preview.png"
-        ogTitle="Stack, HStack & VStack Components — Neuctra UI"
-        ogDescription="Design responsive layouts effortlessly with Stack, HStack, and VStack components in Neuctra UI — perfect for flexible alignment and clean spacing in React apps."
-        twitterTitle="Stack, HStack & VStack Components | Neuctra UI"
-        twitterDescription="Build elegant responsive layouts in React using Neuctra UI’s Stack components — simple, powerful, and Tailwind-based for modern UI design."
-        canonical="https://ui.neuctra.com/docs/stack"
+        title="Stack, HStack & VStack — Neuctra UI"
+        description="Learn how to use Stack, HStack, and VStack in Neuctra UI. Build responsive layouts with simple, flexible flexbox utilities."
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+      <div className="bg-zinc-950 text-gray-200 min-h-screen py-10">
+        <div className="max-w-5xl mx-auto px-4 space-y-12">
+          
           {/* Header */}
           <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-white">
+            <h1 className="text-4xl font-bold text-white mb-3">
               Stack Components
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Stack</span>,{" "}
-              <span className="text-primary font-semibold">HStack</span>, and{" "}
-              <span className="text-primary font-semibold">VStack</span>{" "}
-              components are responsive flex layout wrappers. They allow easy
-              control over direction, spacing, alignment, and wrapping behavior,
-              and support responsive properties for different screen sizes.
+            <p className="text-gray-400 max-w-3xl">
+              <span className="text-primary font-medium">Stack</span>,{" "}
+              <span className="text-primary font-medium">HStack</span>, and{" "}
+              <span className="text-primary font-medium">VStack</span> are
+              flexible layout primitives built on top of flexbox. They simplify
+              spacing, alignment, and responsive direction handling.
             </p>
           </header>
 
-          {/* Basic Stack Example */}
+          {/* Basic Stack */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
+            <h2 className="text-2xl font-semibold text-white mb-4">
               Basic Stack
             </h2>
-            <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">Stack</code> to layout items
-              either vertically or horizontally. The default direction is
-              responsive: vertical on mobile, horizontal on larger screens.
+            <p className="text-gray-400 mb-4">
+              By default, Stack is vertical on small screens and horizontal on
+              medium screens and above.
             </p>
+
             <CodePreviewBlock
-              language="jsx"
-              code={`<Stack gap={16} padding={16} backgroundColor="#111">
-  <div style={{ background: "#2563eb", padding: "12px 24px", borderRadius: 8 }}>Item 1</div>
-  <div style={{ background: "#22c55e", padding: "12px 24px", borderRadius: 8 }}>Item 2</div>
-  <div style={{ background: "#eab308", padding: "12px 24px", borderRadius: 8 }}>Item 3</div>
+              language="tsx"
+              code={`<Stack gap={4}>
+  <div className="bg-blue-500 p-4 rounded">Item 1</div>
+  <div className="bg-green-500 p-4 rounded">Item 2</div>
+  <div className="bg-yellow-500 p-4 rounded">Item 3</div>
 </Stack>`}
               previewContent={
-                <Stack gap={16} padding={16} backgroundColor="#111">
-                  <div className="bg-blue-600 rounded-lg px-6 py-3">Item 1</div>
-                  <div className="bg-green-500 rounded-lg px-6 py-3">
+                <Stack gap={4}>
+                  <div className="bg-blue-500 p-4 rounded text-white">
+                    Item 1
+                  </div>
+                  <div className="bg-green-500 p-4 rounded text-white">
                     Item 2
                   </div>
-                  <div className="bg-yellow-500 rounded-lg px-6 py-3">
+                  <div className="bg-yellow-500 p-4 rounded text-white">
                     Item 3
                   </div>
                 </Stack>
@@ -68,27 +63,29 @@ const StackDocs = () => {
             />
           </section>
 
-          {/* HStack Example */}
+          {/* HStack */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">HStack</h2>
-            <p className="text-gray-300 mb-3">
-              <code className="text-primary">HStack</code> is a shortcut for{" "}
-              <code>Stack</code> with horizontal layout.
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              HStack (Horizontal)
+            </h2>
+            <p className="text-gray-400 mb-4">
+              A shortcut for horizontal layout.
             </p>
+
             <CodePreviewBlock
-              language="jsx"
-              code={`<HStack gap={12} padding={12} backgroundColor="#1f2937">
-  <div style={{ background: "#3b82f6", padding: "12px 24px", borderRadius: 8 }}>Left</div>
-  <div style={{ background: "#10b981", padding: "12px 24px", borderRadius: 8 }}>Center</div>
-  <div style={{ background: "#facc15", padding: "12px 24px", borderRadius: 8 }}>Right</div>
+              language="tsx"
+              code={`<HStack gap={4}>
+  <div className="bg-blue-500 p-4 rounded">Left</div>
+  <div className="bg-green-500 p-4 rounded">Center</div>
+  <div className="bg-yellow-500 p-4 rounded">Right</div>
 </HStack>`}
               previewContent={
-                <HStack gap={12} padding={12} backgroundColor="#1f2937">
-                  <div className="bg-blue-500 rounded-lg px-6 py-3">Left</div>
-                  <div className="bg-green-500 rounded-lg px-6 py-3">
+                <HStack gap={4}>
+                  <div className="bg-blue-500 p-4 rounded text-white">Left</div>
+                  <div className="bg-green-500 p-4 rounded text-white">
                     Center
                   </div>
-                  <div className="bg-yellow-400 rounded-lg px-6 py-3">
+                  <div className="bg-yellow-500 p-4 rounded text-white">
                     Right
                   </div>
                 </HStack>
@@ -96,25 +93,29 @@ const StackDocs = () => {
             />
           </section>
 
-          {/* VStack Example */}
+          {/* VStack */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">VStack</h2>
-            <p className="text-gray-300 mb-3">
-              <code className="text-primary">VStack</code> is a shortcut for{" "}
-              <code>Stack</code> with vertical layout.
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              VStack (Vertical)
+            </h2>
+            <p className="text-gray-400 mb-4">
+              A shortcut for vertical stacking.
             </p>
+
             <CodePreviewBlock
-              language="jsx"
-              code={`<VStack gap={10} padding={12} backgroundColor="#111">
-  <div style={{ background: "#f87171", padding: "12px 24px", borderRadius: 8 }}>Top</div>
-  <div style={{ background: "#60a5fa", padding: "12px 24px", borderRadius: 8 }}>Middle</div>
-  <div style={{ background: "#34d399", padding: "12px 24px", borderRadius: 8 }}>Bottom</div>
+              language="tsx"
+              code={`<VStack gap={3}>
+  <div className="bg-red-500 p-4 rounded">Top</div>
+  <div className="bg-blue-500 p-4 rounded">Middle</div>
+  <div className="bg-green-500 p-4 rounded">Bottom</div>
 </VStack>`}
               previewContent={
-                <VStack gap={10} padding={12} backgroundColor="#111">
-                  <div className="bg-red-400 rounded-lg px-6 py-3">Top</div>
-                  <div className="bg-blue-400 rounded-lg px-6 py-3">Middle</div>
-                  <div className="bg-green-400 rounded-lg px-6 py-3">
+                <VStack gap={3}>
+                  <div className="bg-red-500 p-4 rounded text-white">Top</div>
+                  <div className="bg-blue-500 p-4 rounded text-white">
+                    Middle
+                  </div>
+                  <div className="bg-green-500 p-4 rounded text-white">
                     Bottom
                   </div>
                 </VStack>
@@ -122,47 +123,154 @@ const StackDocs = () => {
             />
           </section>
 
-          {/* Responsive Example */}
+          {/* Alignment */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Responsive Gap & Direction
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Alignment & Justification
             </h2>
-            <p className="text-gray-300 mb-3">
-              All props support responsive values using objects per breakpoint:{" "}
-              <code>sm</code>, <code>md</code>, and <code>lg</code>.
+            <p className="text-gray-400 mb-4">
+              Control how items are aligned and spaced.
             </p>
+
             <CodePreviewBlock
-              language="jsx"
+              language="tsx"
+              code={`<HStack align="center" justify="between" gap={4}>
+  <div className="bg-blue-500 p-4 rounded">A</div>
+  <div className="bg-green-500 p-4 rounded">B</div>
+  <div className="bg-yellow-500 p-4 rounded">C</div>
+</HStack>`}
+              previewContent={
+                <HStack align="center" justify="between" gap={4}>
+                  <div className="bg-blue-500 p-4 rounded text-white">A</div>
+                  <div className="bg-green-500 p-4 rounded text-white">B</div>
+                  <div className="bg-yellow-500 p-4 rounded text-white">C</div>
+                </HStack>
+              }
+            />
+          </section>
+
+          {/* Responsive */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Responsive Layout
+            </h2>
+            <p className="text-gray-400 mb-4">
+              All props support responsive values using{" "}
+              <code>{`{ sm, md, lg }`}</code>.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
               code={`<Stack
   direction={{ sm: "vertical", md: "horizontal" }}
-  gap={{ sm: 8, md: 16 }}
-  padding={12}
-  backgroundColor="#1e293b"
+  gap={{ sm: 2, md: 6 }}
 >
-  <div style={{ background: "#3b82f6", padding: "12px 24px", borderRadius: 8 }}>Item A</div>
-  <div style={{ background: "#10b981", padding: "12px 24px", borderRadius: 8 }}>Item B</div>
-  <div style={{ background: "#facc15", padding: "12px 24px", borderRadius: 8 }}>Item C</div>
+  <div className="bg-blue-500 p-4 rounded">Item 1</div>
+  <div className="bg-green-500 p-4 rounded">Item 2</div>
+  <div className="bg-yellow-500 p-4 rounded">Item 3</div>
 </Stack>`}
               previewContent={
                 <Stack
                   direction={{ sm: "vertical", md: "horizontal" }}
-                  gap={{ sm: 8, md: 16 }}
-                  padding={12}
-                  backgroundColor="#1e293b"
+                  gap={{ sm: 2, md: 6 }}
                 >
-                  <div className="bg-blue-500 rounded-lg px-6 py-3">Item A</div>
-                  <div className="bg-green-500 rounded-lg px-6 py-3">
-                    Item B
+                  <div className="bg-blue-500 p-4 rounded text-white">
+                    Item 1
                   </div>
-                  <div className="bg-yellow-400 rounded-lg px-6 py-3">
-                    Item C
+                  <div className="bg-green-500 p-4 rounded text-white">
+                    Item 2
+                  </div>
+                  <div className="bg-yellow-500 p-4 rounded text-white">
+                    Item 3
                   </div>
                 </Stack>
               }
             />
           </section>
 
-          {/* Footer */}
+          {/* Props Table */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">Props</h2>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border border-zinc-800">
+                <thead className="bg-zinc-900 text-gray-300">
+                  <tr>
+                    <th className="px-4 py-2 text-left">Prop</th>
+                    <th className="px-4 py-2 text-left">Type</th>
+                    <th className="px-4 py-2 text-left">Description</th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-zinc-800">
+                  <tr>
+                    <td className="px-4 py-2 text-primary">direction</td>
+                    <td className="px-4 py-2">
+                      "vertical" | "horizontal" | responsive
+                    </td>
+                    <td className="px-4 py-2">
+                      Layout direction (flex-col / flex-row)
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">gap</td>
+                    <td className="px-4 py-2">number | responsive</td>
+                    <td className="px-4 py-2">
+                      Space between children
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">align</td>
+                    <td className="px-4 py-2">
+                      start | center | end | stretch
+                    </td>
+                    <td className="px-4 py-2">
+                      Align items (cross-axis)
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">justify</td>
+                    <td className="px-4 py-2">
+                      start | center | end | between | around | evenly
+                    </td>
+                    <td className="px-4 py-2">
+                      Justify content (main-axis)
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">wrap</td>
+                    <td className="px-4 py-2">
+                      nowrap | wrap | wrap-reverse
+                    </td>
+                    <td className="px-4 py-2">
+                      Control wrapping behavior
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">className</td>
+                    <td className="px-4 py-2">string</td>
+                    <td className="px-4 py-2">
+                      Additional Tailwind classes
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">children</td>
+                    <td className="px-4 py-2">ReactNode</td>
+                    <td className="px-4 py-2">
+                      Elements inside stack
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           <DocsFooter />
         </div>
       </div>

@@ -5,6 +5,7 @@ import React, {
   useState,
   useImperativeHandle,
   useRef,
+  CSSProperties,
 } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -40,6 +41,10 @@ export interface InputFieldProps {
   /** Textarea */
   rows?: number;
 
+  /** 🔥 Theme */
+  primaryTheme?: boolean;
+  primaryColor?: string;
+
   /** Styling */
   className?: string;
 }
@@ -74,6 +79,10 @@ export const Input = forwardRef<
     step,
 
     rows = 4,
+
+    primaryTheme = true,
+    primaryColor = "#3b82f6",
+
     className = "",
   } = props;
 
@@ -101,7 +110,7 @@ export const Input = forwardRef<
     if (type === "number" && e.key === "-") e.preventDefault();
   };
 
-  /** Dynamic padding (same logic as your original) */
+  /** Padding logic */
   const getPadding = () => {
     if (!hasPrefix) return "px-4";
     if (hasPrefixIcon && hasPrefixText) return "pl-20 pr-4";
@@ -110,6 +119,19 @@ export const Input = forwardRef<
     return "px-4";
   };
 
+  /** 🔥 Theme Styles */
+  const dynamicFocusStyle: CSSProperties = !primaryTheme
+    ? {
+        borderColor: primaryColor,
+        boxShadow: `0 0 0 1px ${primaryColor}`,
+      }
+    : {};
+
+  const dynamicColorStyle: CSSProperties = !primaryTheme
+    ? { color: primaryColor }
+    : {};
+
+  /** Border */
   const borderStyle = error
     ? "border-red-500"
     : success
@@ -121,7 +143,13 @@ export const Input = forwardRef<
       {/* Label */}
       {label && (
         <label className="flex items-center gap-2 text-[12px] font-medium text-gray-700 dark:text-zinc-100">
-          {LabelIcon && <LabelIcon size={16} className="text-primary" />}
+          {LabelIcon && (
+            <LabelIcon
+              size={16}
+              className={primaryTheme ? "text-[var(--primary)]" : ""}
+              style={!primaryTheme ? dynamicColorStyle : undefined}
+            />
+          )}
           {label}
           {required && <span className="text-red-500">*</span>}
         </label>
@@ -156,12 +184,15 @@ export const Input = forwardRef<
             disabled={disabled}
             readOnly={readOnly}
             rows={rows}
+            style={!primaryTheme ? dynamicFocusStyle : undefined}
             className={`
               w-full rounded-lg text-sm
               bg-white dark:bg-zinc-900 border
               text-gray-900 dark:text-white
               placeholder:text-zinc-400
               py-2.5 outline-none
+              focus:ring-1
+              ${primaryTheme && "focus:ring-[var(--primary)] focus:border-[var(--primary)]"}
               ${getPadding()}
               ${borderStyle}
             `}
@@ -187,13 +218,16 @@ export const Input = forwardRef<
             min={type === "number" ? min ?? 0 : undefined}
             max={max}
             step={step}
+            style={!primaryTheme ? dynamicFocusStyle : undefined}
             className={`
               w-full rounded-lg text-sm
               bg-white dark:bg-zinc-900 border
               text-gray-900 dark:text-white
               placeholder:text-zinc-400
               py-2.5 outline-none
+              focus:ring-1
               disabled:opacity-50 disabled:cursor-not-allowed
+              ${primaryTheme && "focus:ring-[var(--primary)] focus:border-[var(--primary)]"}
               ${getPadding()}
               ${borderStyle}
             `}
@@ -211,7 +245,7 @@ export const Input = forwardRef<
           </button>
         )}
 
-        {/* Suffix Icon */}
+        {/* Suffix */}
         {suffixIcon && type !== "password" && (
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
             {suffixIcon}

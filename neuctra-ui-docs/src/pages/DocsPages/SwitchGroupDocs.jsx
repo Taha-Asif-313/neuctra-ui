@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { SwitchGroup } from "@neuctra/ui"; // adjust import path
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
@@ -31,24 +32,16 @@ const SwitchGroupDocs = () => {
               SwitchGroup Component
             </h1>
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The{" "}
-              <span className="text-primary font-semibold">SwitchGroup</span>{" "}
-              component provides a simple and customizable way to render
-              multiple toggle switches. Ideal for feature controls, preferences,
-              and on/off states in forms or dashboards.
+              The <span className="text-primary font-semibold">SwitchGroup</span> component lets you render multiple toggle switches for features, settings, or preferences. Fully accessible, keyboard-friendly, and highly customizable.
             </p>
           </header>
 
           {/* Basic Example */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Basic Example</h2>
             <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">SwitchGroup</code> to create a
-              list of toggles that can be independently turned on or off.
+              Use <code className="text-primary">SwitchGroup</code> to create toggles that users can turn on or off independently.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<SwitchGroup
@@ -70,6 +63,7 @@ const SwitchGroupDocs = () => {
                       { label: "Auto Updates", value: "auto-updates" },
                       { label: "Dark Mode", value: "dark-mode" },
                     ]}
+                    textColor="#fff"
                     selectedValues={enabledFeatures}
                     onChange={setEnabledFeatures}
                   />
@@ -80,14 +74,10 @@ const SwitchGroupDocs = () => {
 
           {/* Disabled Example */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Disabled State
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Disabled State</h2>
             <p className="text-gray-300 mb-3">
-              Add <code className="text-primary">disabled</code> to make the
-              entire group non-interactive.
+              Use <code className="text-primary">disabled</code> to make the group non-interactive.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<SwitchGroup
@@ -117,14 +107,10 @@ const SwitchGroupDocs = () => {
 
           {/* Error Example */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Validation & Error States
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Validation & Error States</h2>
             <p className="text-gray-300 mb-3">
-              Use the <code className="text-primary">error</code> prop to
-              display form validation messages.
+              Display validation messages using the <code className="text-primary">error</code> prop.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<SwitchGroup
@@ -152,17 +138,10 @@ const SwitchGroupDocs = () => {
 
           {/* Customization Example */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Styling & Customization
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Styling & Customization</h2>
             <p className="text-gray-300 mb-3">
-              Modify switch appearance using{" "}
-              <code className="text-primary">iconSize</code>,{" "}
-              <code className="text-primary">iconCheckedBgColor</code>,{" "}
-              <code className="text-primary">switchBgColor</code>, and{" "}
-              <code className="text-primary">textColor</code>.
+              Customize appearance with <code className="text-primary">iconSize</code>, <code className="text-primary">iconCheckedBgColor</code>, <code className="text-primary">switchBgColor</code>, and <code className="text-primary">textColor</code>.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<SwitchGroup

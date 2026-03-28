@@ -1,6 +1,7 @@
 "use client";
+
 import React, { useState } from "react";
-import { CheckboxGroup } from "@neuctra/ui"; // adjust import path
+import { CheckboxGroup } from "@neuctra/ui"; // adjust path
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
@@ -30,11 +31,8 @@ const CheckboxGroupDocs = () => {
               CheckboxGroup Component
             </h1>
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The{" "}
-              <span className="text-primary font-semibold">CheckboxGroup</span>{" "}
-              component allows users to select multiple options from a list.
-              It’s ideal for use cases like choosing preferences, skills, or
-              filters in forms. Fully customizable and accessible.
+              The <span className="text-primary font-semibold">CheckboxGroup</span>{" "}
+              component allows users to select multiple options from a list. Perfect for preferences, filters, skills, and more. Fully accessible, keyboard-friendly, and customizable.
             </p>
           </header>
 
@@ -44,10 +42,8 @@ const CheckboxGroupDocs = () => {
               Basic Example
             </h2>
             <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">CheckboxGroup</code> to let
-              users select multiple values.
+              Select multiple values easily with <code className="text-primary">CheckboxGroup</code>.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<CheckboxGroup
@@ -69,6 +65,7 @@ const CheckboxGroupDocs = () => {
                       { label: "Traveling", value: "traveling" },
                       { label: "Gaming", value: "gaming" },
                     ]}
+                    textColor="#e2e8f0"
                     selectedValues={selectedHobbies}
                     onChange={setSelectedHobbies}
                   />
@@ -83,10 +80,8 @@ const CheckboxGroupDocs = () => {
               Disabled State
             </h2>
             <p className="text-gray-300 mb-3">
-              Add <code className="text-primary">disabled</code> to prevent user
-              interaction with the entire group.
+              Disable interaction using the <code className="text-primary">disabled</code> prop.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<CheckboxGroup
@@ -108,6 +103,7 @@ const CheckboxGroupDocs = () => {
                       { label: "Figma", value: "figma" },
                       { label: "Notion", value: "notion" },
                     ]}
+                    textColor="#e2e8f0"
                     selectedValues={selectedTools}
                     disabled
                   />
@@ -122,11 +118,8 @@ const CheckboxGroupDocs = () => {
               Validation & Error States
             </h2>
             <p className="text-gray-300 mb-3">
-              Display feedback by passing an{" "}
-              <code className="text-primary">error</code> message when the user
-              misses a required selection.
+              Show error messages using the <code className="text-primary">error</code> prop.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<CheckboxGroup
@@ -147,6 +140,7 @@ const CheckboxGroupDocs = () => {
                       { label: "Next.js", value: "next" },
                       { label: "Tailwind", value: "tailwind" },
                     ]}
+                    textColor="#e2e8f0"
                     error="Please select at least one skill."
                   />
                 </div>
@@ -160,14 +154,8 @@ const CheckboxGroupDocs = () => {
               Customization
             </h2>
             <p className="text-gray-300 mb-3">
-              You can customize the appearance with props such as{" "}
-              <code className="text-primary">iconSize</code>,{" "}
-              <code className="text-primary">iconCheckedBgColor</code>, and{" "}
-              <code className="text-primary">textColor</code>. You can also pass
-              a custom icon component using{" "}
-              <code className="text-primary">customIcon</code>.
+              Customize size, colors, and even the icon with <code className="text-primary">iconSize</code>, <code className="text-primary">iconCheckedBgColor</code>, <code className="text-primary">textColor</code>, or <code className="text-primary">customIcon</code>.
             </p>
-
             <CodePreviewBlock
               language="jsx"
               code={`<CheckboxGroup

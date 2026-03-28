@@ -1,17 +1,22 @@
-import React, { useState, useRef, useEffect, memo } from "react";
+"use client";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  memo,
+  ReactNode,
+  CSSProperties,
+} from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export interface AccordionItem {
-  title: string;
-  content: React.ReactNode;
+  title: string | ReactNode;
+  content: ReactNode;
 }
 
 export interface AccordionProps {
   items: AccordionItem[];
-
-  /** Allow multiple open items */
   allowMultiple?: boolean;
-
-  /** Default open indexes */
   defaultOpen?: number[];
 
   /** Appearance */
@@ -36,21 +41,20 @@ export interface AccordionProps {
   contentFontSize?: string | number;
   contentFontWeight?: string | number;
 
-  /** Icon customization */
-  iconOpen?: React.ReactNode;
-  iconClose?: React.ReactNode;
+  /** Icon */
+  iconOpen?: ReactNode;
+  iconClose?: ReactNode;
   iconSize?: string | number;
 
-  /** Motion & style */
+  /** Motion */
   transitionDuration?: string;
   shadow?: string;
+
+  /** Class overrides */
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
-/**
- * 🧠 Industry-standard, minimal, and fully customizable Accordion
- */
 export const Accordion: React.FC<AccordionProps> = memo(
   ({
     items,
@@ -59,21 +63,21 @@ export const Accordion: React.FC<AccordionProps> = memo(
     borderColor = "#e5e7eb",
     backgroundColor = "#fff",
     textColor = "#111827",
-    hoverBgColor = "#f9fafb",
+    hoverBgColor = "#f3f4f6",
     hoverTextColor = "#111827",
     contentBgColor = "#fff",
     contentTextColor = "#374151",
     paddingY = "1rem",
     paddingX = "1rem",
-    marginY = "0.75rem",
+    marginY = "0.5rem",
     borderRadius = "0.5rem",
     contentPadding = "1rem",
     fontSize = "1rem",
     fontWeight = 600,
     contentFontSize = "0.95rem",
     contentFontWeight = 400,
-    iconOpen = "−",
-    iconClose = "+",
+    iconOpen,
+    iconClose,
     iconSize = "1.25rem",
     transitionDuration = "300ms",
     shadow = "0 1px 4px rgba(0,0,0,0.08)",
@@ -100,45 +104,51 @@ export const Accordion: React.FC<AccordionProps> = memo(
             ? prev.filter((i) => i !== index)
             : [...prev, index]
           : prev.includes(index)
-          ? []
-          : [index]
+            ? []
+            : [index],
       );
     };
 
+    // Helper to normalize CSS values (number -> px)
+    const toCssValue = (value: string | number | undefined) =>
+      value !== undefined
+        ? typeof value === "number"
+          ? `${value}px`
+          : value
+        : undefined;
+
     return (
-      <div className={className} style={{ width: "100%", ...style }}>
+      <div
+        className={`space-y-2 ${className}`}
+        style={{ width: "100%", ...style }}
+      >
         {items.map((item, index) => {
           const isOpen = openIndexes.includes(index);
 
           return (
             <div
               key={index}
+              className="border shadow-sm overflow-hidden transition-all duration-300"
               style={{
-                border: `1px solid ${borderColor}`,
-                borderRadius,
-                margin: `${marginY} 0`,
+                borderColor,
+                borderRadius: toCssValue(borderRadius),
+                margin: `${toCssValue(marginY)} 0`,
                 boxShadow: shadow,
-                overflow: "hidden",
-                transition: `all ${transitionDuration} ease`,
               }}
             >
-              {/* Header Button */}
+              {/* Header */}
               <button
                 onClick={() => toggleItem(index)}
+                className="w-full flex justify-between items-center transition-colors duration-300"
                 style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
                   backgroundColor,
                   color: textColor,
-                  padding: `${paddingY} ${paddingX}`,
+                  padding: `${toCssValue(paddingY)} ${toCssValue(paddingX)}`,
                   fontWeight,
-                  fontSize,
+                  fontSize: toCssValue(fontSize),
                   cursor: "pointer",
                   border: "none",
                   outline: "none",
-                  transition: `all ${transitionDuration}`,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = hoverBgColor;
@@ -150,8 +160,10 @@ export const Accordion: React.FC<AccordionProps> = memo(
                 }}
               >
                 <span>{item.title}</span>
-                <span style={{ fontSize: iconSize }}>
-                  {isOpen ? iconOpen : iconClose}
+                <span style={{ fontSize: toCssValue(iconSize) }}>
+                  {isOpen
+                    ? iconOpen || <ChevronUp size={16} />
+                    : iconClose || <ChevronDown size={16} />}
                 </span>
               </button>
 
@@ -160,10 +172,10 @@ export const Accordion: React.FC<AccordionProps> = memo(
                 ref={(el) => {
                   contentRefs.current[index] = el;
                 }}
+                className="overflow-hidden transition-all duration-300"
                 style={{
-                  overflow: "hidden",
                   maxHeight: isOpen
-                    ? `${contentRefs.current[index]?.scrollHeight}px`
+                    ? `${contentRefs.current[index]?.scrollHeight ?? 0}px`
                     : "0px",
                   transition: `max-height ${transitionDuration} ease-in-out`,
                 }}
@@ -173,8 +185,8 @@ export const Accordion: React.FC<AccordionProps> = memo(
                     borderTop: `1px solid ${borderColor}`,
                     backgroundColor: contentBgColor,
                     color: contentTextColor,
-                    padding: contentPadding,
-                    fontSize: contentFontSize,
+                    padding: toCssValue(contentPadding),
+                    fontSize: toCssValue(contentFontSize),
                     fontWeight: contentFontWeight,
                   }}
                 >
@@ -186,7 +198,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
         })}
       </div>
     );
-  }
+  },
 );
 
 Accordion.displayName = "Accordion";

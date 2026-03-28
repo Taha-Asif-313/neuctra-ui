@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useState, useEffect } from "react";
 import {
   Play,
@@ -30,11 +32,11 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   thumbnail,
   autoPlay = false,
   loop = false,
-  backgroundColor = "#000000",
+  backgroundColor = "#0a0a0a",
   primaryColor = "#10b981",
   secondaryColor = "#ffffff",
   borderRadius = "12px",
-  padding = "16px",
+  padding = "12px",
   width = "100%",
   className,
 }) => {
@@ -43,7 +45,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(0.5);
+  const [volume, setVolume] = useState(0.7);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isLooping, setIsLooping] = useState(loop);
 
@@ -68,12 +70,11 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
   };
 
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !e.currentTarget) return;
+    if (!audioRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const percent = (e.clientX - rect.left) / rect.width;
-    const time = percent * duration;
-    audioRef.current.currentTime = time;
-    setCurrentTime(time);
+    audioRef.current.currentTime = percent * duration;
+    setCurrentTime(percent * duration);
   };
 
   const skip = (seconds: number) => {
@@ -99,16 +100,17 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
       ref={playerRef}
       className={className}
       style={{
-        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        gap: "12px",
         width,
         backgroundColor,
         borderRadius,
-        color: secondaryColor,
-        boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-        overflow: "hidden",
         padding,
         boxSizing: "border-box",
-        maxWidth: "100%",
+        color: secondaryColor,
+        boxShadow: "0 6px 16px rgba(0,0,0,0.2)",
+        flexWrap: "wrap",
       }}
     >
       <audio
@@ -120,16 +122,17 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
         onLoadedMetadata={handleTimeUpdate}
       />
 
+      {/* Thumbnail / Avatar */}
       {thumbnail && (
         <img
           src={thumbnail}
           alt="Audio Thumbnail"
           style={{
-            width: "100%",
+            width: "60px",
+            height: "60px",
+            borderRadius: "50%",
             objectFit: "cover",
-            borderRadius,
-            marginBottom: "16px",
-            maxHeight: "150px",
+            flexShrink: 0,
           }}
         />
       )}
@@ -139,66 +142,64 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          gap: "10px",
-          flexShrink: 0,
-          marginTop: "10px",
+          gap: "12px",
+          flex: 1,
+          minWidth: "0",
         }}
       >
-        <button onClick={() => skip(-10)} aria-label="Skip Back 10s">
+        <button
+          onClick={() => skip(-10)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: secondaryColor,
+            cursor: "pointer",
+          }}
+          aria-label="Skip Back 10s"
+        >
           <SkipBack size={20} />
         </button>
+
         <button
           onClick={togglePlayPause}
           style={{
             background: primaryColor,
-            borderRadius: "9999px",
+            borderRadius: "50%",
             padding: "10px",
-            color: "#fff",
             border: "none",
             cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           {isPlaying ? <Pause size={20} /> : <Play size={20} />}
         </button>
-        <button onClick={() => skip(10)} aria-label="Skip Forward 10s">
+
+        <button
+          onClick={() => skip(10)}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: secondaryColor,
+            cursor: "pointer",
+          }}
+          aria-label="Skip Forward 10s"
+        >
           <SkipForward size={20} />
         </button>
-      </div>
-
-      {/* Time & Seek */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "12px",
-          width: "100%",
-        }}
-      >
-        {/* Time Info */}
-        <div style={{ flexShrink: 0, minWidth: "60px", textAlign: "center" }}>
-          <span style={{ fontSize: "14px", marginRight: "4px" }}>
-            {formatTime(currentTime)}
-          </span>
-          <span style={{ fontSize: "14px", color: "#aaa" }}>
-            / {formatTime(duration)}
-          </span>
-        </div>
 
         {/* Seek Bar */}
         <div
           onClick={handleSeek}
           style={{
             flex: 1,
-            height: "8px",
+            height: "6px",
             background: "#444",
-            borderRadius: "4px",
+            borderRadius: "3px",
             cursor: "pointer",
             position: "relative",
-            minWidth: "100px",
           }}
         >
           <div
@@ -206,33 +207,54 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
               width: `${(currentTime / duration) * 100 || 0}%`,
               height: "100%",
               background: primaryColor,
-              borderRadius: "4px",
+              borderRadius: "3px",
             }}
           />
         </div>
 
+        {/* Time */}
+        <div style={{ minWidth: "70px", textAlign: "right", fontSize: "0.8rem" }}>
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </div>
+
         {/* Extra Controls */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            flexShrink: 0,
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <button
             onClick={() => setIsLooping(!isLooping)}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: isLooping ? primaryColor : secondaryColor,
+            }}
             aria-label="Toggle Loop"
           >
-            <RotateCcw size={18} color={isLooping ? primaryColor : undefined} />
+            <RotateCcw size={18} />
           </button>
+
           <button
-            onClick={() => setVolume(volume > 0 ? 0 : 0.5)}
+            onClick={() => setVolume(volume > 0 ? 0 : 0.7)}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: secondaryColor,
+            }}
             aria-label="Toggle Mute"
           >
             {volume > 0 ? <Volume2 size={18} /> : <VolumeX size={18} />}
           </button>
-          <button onClick={toggleFullscreen} aria-label="Toggle Fullscreen">
+
+          <button
+            onClick={toggleFullscreen}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              color: secondaryColor,
+            }}
+            aria-label="Toggle Fullscreen"
+          >
             {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
           </button>
         </div>

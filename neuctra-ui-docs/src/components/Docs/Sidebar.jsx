@@ -103,7 +103,7 @@ const Sidebar = () => {
 
       {/* 🧭 Sidebar */}
       <aside
-        className={`fixed z-50 overflow-y-scroll top-0 left-0 h-full w-64 bg-gradient-to-b from-[#0a0a0a] to-[#111] border-r border-[#1a1a1a] text-gray-200 shadow-xl transform transition-transform duration-300 ease-in-out rounded-r-2xl
+        className={`fixed z-50 overflow-y-scroll top-0 left-0 h-full w-64 bg-gradient-to-b from-[#0a0a0a] to-[#111] border-r border-[#1a1a1a] shadow-xl transform transition-transform duration-300 ease-in-out rounded-r-2xl
         ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         {/* Logo Header */}
@@ -127,10 +127,10 @@ const Sidebar = () => {
               <div key={link.category} className="space-y-1">
                 <button
                   onClick={() => toggleDropdown(link.category)}
-                  className={`flex items-center justify-between w-full px-3 py-2 text-sm font-medium rounded-lg transition
+                  className={`flex items-center justify-between w-full px-3 py-2 text-sm rounded-lg transition
                   ${
                     activeDropdown === link.category
-                      ? "bg-[var(--primary)] !font-bold border-[#00c214]"
+                      ? "bg-[var(--primary)] text-white font-bold border-[#00c214]"
                       : "border-[#1a1a1a] hover:border-primary hover:bg-[var(--primary)]"
                   }`}
                 >
@@ -153,7 +153,7 @@ const Sidebar = () => {
                         ${
                           isActive(sub.href)
                             ? "text-primary font-bold"
-                            : "text-gray-400 hover:text-primary"
+                            : "text-gray-200 hover:text-primary"
                         }`}
                       >
                         {sub.label}
@@ -170,7 +170,7 @@ const Sidebar = () => {
                 ${
                   isActive(link.href)
                     ? "text-primary font-bold border-[#00c214]"
-                    : "text-gray-300 border-[#1a1a1a] hover:border-primary hover:bg-[var(--primary)]"
+                    : "border-[#1a1a1a] hover:border-primary hover:bg-[var(--primary)]"
                 }`}
               >
                 {link.label}

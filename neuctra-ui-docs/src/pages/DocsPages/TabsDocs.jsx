@@ -1,195 +1,259 @@
 "use client";
-
 import React from "react";
-import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Tabs } from "@neuctra/ui";
-import { LayoutPanelTop, Star, Settings, Info } from "lucide-react";
+import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
+import { LayoutPanelTop, Settings, Star } from "lucide-react";
 
 const TabsDocs = () => {
-  const sampleTabs = [
+  const tabs = [
     {
-      label: (
-        <>
-          <LayoutPanelTop size={16} /> Overview
-        </>
-      ),
-      content: <p className="p-10">This is the overview tab content.</p>,
+      label: "Overview",
+      icon: <LayoutPanelTop size={16} />,
+      content: <div className="p-6">Overview content</div>,
     },
     {
-      label: (
-        <>
-          <Settings size={16} /> Settings
-        </>
-      ),
-      content: <p className="p-10">Here you can manage your settings.</p>,
+      label: "Settings",
+      icon: <Settings size={16} />,
+      content: <div className="p-6">Settings content</div>,
     },
     {
-      label: (
-        <>
-          <Star size={16} /> Favorites
-        </>
-      ),
-      content: <p className="p-10">Your starred items will appear here.</p>,
-    },
-    {
-      label: (
-        <>
-          <Info size={16} /> About
-        </>
-      ),
-      content: <p className="p-10">Learn more about this component.</p>,
-      disabled: true,
+      label: "Favorites",
+      icon: <Star size={16} />,
+      content: <div className="p-6">Favorites content</div>,
     },
   ];
 
   return (
     <>
-      <Metadata
-        title="Tabs Component — Neuctra UI"
-        description="Discover the Tabs component in Neuctra UI — a fully customizable, accessible React tab system with variants, positions, and theming support for dashboards and modern interfaces."
-        keywords="Neuctra UI Tabs, React tabs, tab component, UI navigation, tabbed interface, dashboard tabs, React UI library, Tailwind CSS tabs, themed tabs, accessible tabs, Neuctra components"
-        image="https://ui.neuctra.com/og/tabs-docs-preview.png"
-        ogTitle="Tabs Component — Neuctra UI"
-        ogDescription="Build beautiful, flexible tab interfaces using Neuctra UI’s Tabs component — supports custom theming, variants, and alignment for modern web apps."
-        twitterTitle="Tabs Component | Neuctra UI"
-        twitterDescription="Explore Neuctra UI’s Tabs component — modern, responsive, and theme-ready tab navigation for React dashboards, admin panels, and modular interfaces."
-        canonical="https://ui.neuctra.com/docs/tabs"
-      />
+      <Metadata title="Tabs — Neuctra UI" />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+      <div className="bg-zinc-950 text-gray-200 min-h-screen py-10">
+        <div className="max-w-5xl mx-auto px-4 space-y-12">
+
           {/* Header */}
           <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-white">
+            <h1 className="text-4xl font-bold text-white mb-3">
               Tabs Component
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Tabs</span>{" "}
-              component offers a modern, accessible, and fully customizable tab
-              interface. It supports multiple variants, responsive drawers, and
-              smooth transitions — perfect for dashboards, admin panels, and
-              modular UIs.
+            <p className="text-gray-400 max-w-3xl">
+              A fully customizable tab system with support for variants,
+              vertical layouts, theming, keyboard navigation, and a built-in
+              mobile drawer mode.
             </p>
           </header>
 
-          {/* Example Preview */}
+          {/* Basic */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Basic Usage
             </h2>
 
             <CodePreviewBlock
-              filename="Tabs.tsx"
-              language="jsx"
+              language="tsx"
               code={`<Tabs
   tabs={[
-    { label: "Overview", content: <p>This is the overview tab.</p> },
-    { label: "Settings", content: <p>Manage your preferences here.</p> },
-    { label: "Favorites", content: <p>Starred items appear here.</p> },
+    { label: "Overview", content: <div>Overview</div> },
+    { label: "Settings", content: <div>Settings</div> },
   ]}
 />`}
-              previewContent={
-                <Tabs
-                  textColor="#fff"
-                  primaryColor="var(--primary)"
-                  hoverColor="var(--primary)"
-                  tabs={sampleTabs}
-                />
-              }
+              previewContent={<Tabs tabs={tabs} />}
             />
           </section>
 
-          {/* Variants & Position */}
+          {/* Variants */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Variants & Position
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Variants
             </h2>
-            <p className="text-gray-300 mb-3">
-              Switch between <code className="text-primary">solid</code>,{" "}
-              <code className="text-primary">outline</code>, and{" "}
-              <code className="text-primary">underline</code> variants. You can
-              also change the tab alignment using the{" "}
-              <code className="text-primary">position</code> prop.
-            </p>
 
             <CodePreviewBlock
-              filename="TabsVariants.tsx"
-              language="jsx"
+              language="tsx"
               code={`<Tabs
-  tabs={[
-    { label: "Left", content: <p>Tabs on the left side.</p> },
-    { label: "Right", content: <p>Tabs on the right side.</p> },
-  ]}
+  tabs={tabs}
   variant="underline"
+/>`}
+              previewContent={<Tabs tabs={tabs} variant="underline" />}
+            />
+          </section>
+
+          {/* Position */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Position (Vertical Tabs)
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Tabs
+  tabs={tabs}
   position="left"
 />`}
               previewContent={
-                <Tabs
-                  tabs={[
-                    {
-                      label: "Left",
-                      content: <p className="p-10">Tabs on the left side.</p>,
-                    },
-                    {
-                      label: "Right",
-                      content: <p className="p-10">Tabs on the right side.</p>,
-                    },
-                  ]}
-                  position="left"
-                  variant="underline"
-                  textColor="#fff"
-                  primaryColor="var(--primary)"
-                  hoverColor="var(--primary)"
-                />
+                <div className="h-[250px]">
+                  <Tabs tabs={tabs} position="left" />
+                </div>
               }
             />
           </section>
 
-          {/* Custom Theming */}
+          {/* Theming */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Theming
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Theming
             </h2>
-            <p className="text-gray-300 mb-3">
-              The <span className="text-primary font-semibold">Tabs</span>{" "}
-              component can be themed to match your brand colors using props
-              like <code className="text-primary">primaryColor</code>,{" "}
-              <code className="text-primary">backgroundColor</code>, and{" "}
-              <code className="text-primary">hoverColor</code>.
-            </p>
 
             <CodePreviewBlock
-              filename="TabsTheme.tsx"
-              language="jsx"
+              language="tsx"
               code={`<Tabs
-  tabs={[
-    { label: "Design", content: <p>UI customization tools</p> },
-    { label: "Code", content: <p>Developer utilities</p> },
-  ]}
-  variant="outline"
-  primaryColor="#00c214"
-  backgroundColor="#0a0a0a"
-  textColor="#fff"
-  hoverColor="#00e05c"
+  tabs={tabs}
+  primaryColor="#22c55e"
+  hoverColor="#16a34a"
+  activeColor="#fff"
   bordered
 />`}
               previewContent={
                 <Tabs
-                  tabs={[
-                    { label: "Design", content: <p>UI customization tools</p> },
-                    { label: "Code", content: <p>Developer utilities</p> },
-                  ]}
-                  variant="outline"
-                  primaryColor="#00c214"
-                  backgroundColor="#0a0a0a"
-                  textColor="#fff"
-                  hoverColor="#00e05c"
+                  tabs={tabs}
+                  primaryColor="#22c55e"
+                  hoverColor="#16a34a"
+                  activeColor="#fff"
                   bordered
                 />
               }
             />
+          </section>
+
+          {/* Controlled Behavior */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Default Active & Callback
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Tabs
+  tabs={tabs}
+  defaultActive={1}
+  onTabChange={(i) => console.log(i)}
+/>`}
+              previewContent={
+                <Tabs
+                  tabs={tabs}
+                  defaultActive={1}
+                  onTabChange={(i) => console.log(i)}
+                />
+              }
+            />
+          </section>
+
+          {/* Responsive */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Mobile Drawer Mode
+            </h2>
+            <p className="text-gray-400 mb-4">
+              On small screens, Tabs automatically convert into a dropdown
+              drawer for better usability.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Tabs
+  tabs={tabs}
+  responsiveBreakpoint={768}
+  showDrawerLabel="Select Tab"
+/>`}
+              previewContent={<Tabs tabs={tabs} />}
+            />
+          </section>
+
+          {/* Props */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Props
+            </h2>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border border-zinc-800">
+                <thead className="bg-zinc-900">
+                  <tr>
+                    <th className="px-4 py-2 text-left">Prop</th>
+                    <th className="px-4 py-2 text-left">Type</th>
+                    <th className="px-4 py-2 text-left">Description</th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-zinc-800">
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">tabs</td>
+                    <td className="px-4 py-2">TabItem[]</td>
+                    <td className="px-4 py-2">List of tab objects</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">defaultActive</td>
+                    <td className="px-4 py-2">number</td>
+                    <td className="px-4 py-2">Initial active tab index</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">variant</td>
+                    <td className="px-4 py-2">
+                      solid | outline | underline
+                    </td>
+                    <td className="px-4 py-2">Visual style</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">position</td>
+                    <td className="px-4 py-2">
+                      top | left | right
+                    </td>
+                    <td className="px-4 py-2">Tab placement</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">primaryColor</td>
+                    <td className="px-4 py-2">string</td>
+                    <td className="px-4 py-2">Active tab color</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">hoverColor</td>
+                    <td className="px-4 py-2">string</td>
+                    <td className="px-4 py-2">Hover color</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">gap</td>
+                    <td className="px-4 py-2">number</td>
+                    <td className="px-4 py-2">Spacing between tabs</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">radius</td>
+                    <td className="px-4 py-2">number</td>
+                    <td className="px-4 py-2">Border radius</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">responsiveBreakpoint</td>
+                    <td className="px-4 py-2">number</td>
+                    <td className="px-4 py-2">Switch to drawer mode</td>
+                  </tr>
+
+                  <tr>
+                    <td className="px-4 py-2 text-primary">onTabChange</td>
+                    <td className="px-4 py-2">(index) ={'>'} void</td>
+                    <td className="px-4 py-2">Tab change callback</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
           </section>
 
           <DocsFooter />

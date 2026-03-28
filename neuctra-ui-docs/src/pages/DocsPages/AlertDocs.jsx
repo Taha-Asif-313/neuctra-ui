@@ -1,140 +1,180 @@
 "use client";
+
 import React, { useState } from "react";
-import { Alert } from "@neuctra/ui"; // adjust path if needed
+import { useToast, ToastProvider } from "@neuctra/ui"; // adjust import if needed
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
 
-const AlertDocs = () => {
-  const [alerts, setAlerts] = useState([]);
-
-  const addAlert = (type, title, description, duration) => {
-    const id = Date.now();
-    setAlerts((prev) => [...prev, { id, type, title, description }]);
-    if (duration) {
-      setTimeout(() => {
-        setAlerts((prev) => prev.filter((a) => a.id !== id));
-      }, duration);
-    }
-  };
-
-  const removeAlert = (id) => {
-    setAlerts((prev) => prev.filter((a) => a.id !== id));
-  };
+const AlertDocsContent = () => {
+  const { addToast } = useToast();
 
   return (
     <>
-      <Metadata
-        title="Alert Component — Neuctra UI"
-        description="Discover the Alert component in Neuctra UI — a dynamic, customizable React notification system for success, error, warning, and info messages with smooth animations and dismissible alerts."
-        keywords="Neuctra UI Alert, React Alert component, notifications, toast messages, UI library, Neuctra UI docs, success alert, error alert, warning alert, info alert"
-        image="https://ui.neuctra.com/og-images/alert.png"
-        ogTitle="Alert Component — Neuctra UI"
-        ogDescription="Learn how to create beautiful, flexible alerts in Neuctra UI. Perfect for showing success, error, warning, and info notifications in your React applications."
-        twitterTitle="Alert Component — Neuctra UI"
-        twitterDescription="Explore the Alert component in Neuctra UI — elegant, customizable alerts for React developers with flexible styles and behavior."
-        canonical="https://ui.neuctra.com/docs/alert"
-      />
+      {/* Interactive Example */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Trigger Alerts
+        </h2>
+        <p className="text-gray-300 mb-3">
+          Click a button to show an alert. Alerts will automatically disappear after a few seconds.
+        </p>
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
-          {/* Header */}
-          <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-white">
-              Alert Component
-            </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Alert</span>{" "}
-              component provides a flexible notification system for success,
-              error, warning, and info messages.
-            </p>
-          </header>
-
-          {/* Example 1: Interactive Buttons */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Interactive Example
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Click a button to trigger an alert with a specific type.
-            </p>
-
-            <CodePreviewBlock
-              language="jsx"
-              code={`<>
-  <button onClick={() => addAlert('success', 'Success!', 'Your action was successful.', 3000)}>Show Success</button>
-  <button onClick={() => addAlert('error', 'Error!', 'Something went wrong.', 3000)}>Show Error</button>
-  <button onClick={() => addAlert('warning', 'Warning!', 'Please check your input.', 3000)}>Show Warning</button>
-  <button onClick={() => addAlert('info', 'Info!', 'Here is some information.', 3000)}>Show Info</button>
+        <CodePreviewBlock
+          language="jsx"
+          code={`<>
+  <button onClick={() => addToast({ type: 'success', title: 'Success!', description: 'Your action worked.' })}>
+    Show Success
+  </button>
+  <button onClick={() => addToast({ type: 'error', title: 'Error!', description: 'Something went wrong.' })}>
+    Show Error
+  </button>
 </>`}
-              previewContent={
-                <div className="flex flex-wrap gap-4 mb-6">
-                  <button
-                    onClick={() =>
-                      addAlert("success", "Success!", "Your changes have been saved.", 3000)
-                    }
-                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
-                  >
-                    Show Success
-                  </button>
-                  <button
-                    onClick={() =>
-                      addAlert("error", "Error!", "Something went wrong.", 3000)
-                    }
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Show Error
-                  </button>
-                  <button
-                    onClick={() =>
-                      addAlert("warning", "Warning!", "Be careful with this action.", 3000)
-                    }
-                    className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500 transition"
-                  >
-                    Show Warning
-                  </button>
-                  <button
-                    onClick={() =>
-                      addAlert("info", "Info!", "Here is some information.", 3000)
-                    }
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                  >
-                    Show Info
-                  </button>
-                </div>
-              }
-            />
-          </section>
-
-          {/* Example 2: Live Alerts */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Live Alerts
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Active alerts will appear below. You can dismiss them individually.
-            </p>
-
-            <div className="space-y-4">
-              {alerts.map((alert) => (
-                <Alert
-                  key={alert.id}
-                  title={alert.title}
-                  description={alert.description}
-                  type={alert.type}
-                  dismissible
-                  onClose={() => removeAlert(alert.id)}
-                  position="top-left"
-                />
-              ))}
+          previewContent={
+            <div className="flex flex-wrap gap-4 mb-6">
+              <button
+                onClick={() =>
+                  addToast({
+                    type: "success",
+                    title: "Success!",
+                    description: "Your action worked.",
+                    duration: 4000,
+                  })
+                }
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+              >
+                Show Success
+              </button>
+              <button
+                onClick={() =>
+                  addToast({
+                    type: "error",
+                    title: "Error!",
+                    description: "Something went wrong.",
+                    duration: 4000,
+                  })
+                }
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+              >
+                Show Error
+              </button>
+              <button
+                onClick={() =>
+                  addToast({
+                    type: "warning",
+                    title: "Warning!",
+                    description: "Check this carefully.",
+                  })
+                }
+                className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500 transition"
+              >
+                Show Warning
+              </button>
+              <button
+                onClick={() =>
+                  addToast({
+                    type: "info",
+                    title: "Info",
+                    description: "Here is some information.",
+                  })
+                }
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              >
+                Show Info
+              </button>
             </div>
-          </section>
+          }
+        />
+      </section>
 
-          {/* Footer */}
-          <DocsFooter />
+      {/* Props Table */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">All Props (Explained Simply)</h2>
+        <p className="text-gray-400 mb-3">
+          Use these options to control how alerts look and behave.
+        </p>
+        <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+          <table className="w-full text-sm">
+            <thead className="bg-zinc-900 text-gray-400">
+              <tr>
+                <th className="p-3 text-left">Prop</th>
+                <th className="p-3 text-left">Type</th>
+                <th className="p-3 text-left">What it does</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800">
+              <tr>
+                <td className="p-3">title</td>
+                <td className="p-3">string</td>
+                <td>Heading text for the alert</td>
+              </tr>
+              <tr>
+                <td className="p-3">description</td>
+                <td className="p-3">string</td>
+                <td>Extra text or message below the title</td>
+              </tr>
+              <tr>
+                <td className="p-3">type</td>
+                <td className="p-3">"success" | "error" | "warning" | "info"</td>
+                <td>Choose the alert type which changes color and icon</td>
+              </tr>
+              <tr>
+                <td className="p-3">duration</td>
+                <td className="p-3">number</td>
+                <td>Time in milliseconds before alert disappears automatically (0 = never auto-close)</td>
+              </tr>
+              <tr>
+                <td className="p-3">dismissible</td>
+                <td className="p-3">boolean</td>
+                <td>If true, shows a close button for manual dismissal</td>
+              </tr>
+              <tr>
+                <td className="p-3">onClose</td>
+                <td className="p-3">function</td>
+                <td>Function to run when the alert is closed</td>
+              </tr>
+              <tr>
+                <td className="p-3">position</td>
+                <td className="p-3">string</td>
+                <td>Where the alert appears on the screen (top-left, top-right, bottom-left, bottom-right)</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
+      </section>
     </>
+  );
+};
+
+const AlertDocs = () => {
+  return (
+    <ToastProvider>
+      <>
+        <Metadata
+          title="Alert Component — Neuctra UI"
+          description="Learn how to create alerts in Neuctra UI — for success, error, warning, and info messages."
+          keywords="Neuctra UI Alert, React Alert component, notifications, toast messages, UI library"
+          image="https://ui.neuctra.com/og-images/alert.png"
+        />
+
+        <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
+          <div className="max-w-5xl mx-auto px-4 space-y-10">
+            {/* Header */}
+            <header>
+              <h1 className="text-4xl font-extrabold mb-3 text-white">Alert / Toast Component</h1>
+              <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+                The <span className="text-primary font-semibold">Alert</span> component allows you to show messages to users in a beautiful, animated way. Supports success, error, warning, and info messages.
+              </p>
+            </header>
+
+            <AlertDocsContent />
+
+            {/* Footer */}
+            <DocsFooter />
+          </div>
+        </div>
+      </>
+    </ToastProvider>
   );
 };
 

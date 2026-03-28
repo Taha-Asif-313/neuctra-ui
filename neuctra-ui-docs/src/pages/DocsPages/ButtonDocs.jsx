@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Button } from "@neuctra/ui";
@@ -9,37 +11,30 @@ const ButtonDocs = () => {
     <>
       <Metadata
         title="Button Component — Neuctra UI"
-        description="Explore the Button component in Neuctra UI — a modern, theme-aware React button with support for icons, loading states, custom colors, and responsive designs."
-        keywords="Neuctra UI Button, React button component, custom button, UI library, Neuctra components, button with icon, loading button, Tailwind React UI, Neuctra docs"
-        image="https://ui.neuctra.com/og/button-docs.png"
-        ogTitle="Button Component — Neuctra UI"
-        ogDescription="Learn how to use the powerful Button component from Neuctra UI — customizable, theme-aware, and perfect for any React interface."
-        twitterTitle="Button Component — Neuctra UI"
-        twitterDescription="Build modern interfaces with Neuctra UI’s Button component — supports icons, themes, full width, loading states, and more."
-        canonical="https://ui.neuctra.com/docs/button"
+        description="Learn how to use the Button component in Neuctra UI — a flexible React button with icons, loading states, custom colors, and full-width layouts."
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="max-w-5xl mx-auto px-4 space-y-12">
+          
           {/* Header */}
           <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-white">
-              Button Component
+            <h1 className="text-4xl font-extrabold text-white mb-3">
+              Button
             </h1>
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Button</span>{" "}
-              component is a customizable and theme-aware element designed for
-              all types of user interactions. It supports multiple sizes,
-              colors, rounded corners, loading states, icons, and dark mode —
-              making it perfect for modern interfaces.
+              The <span className="text-primary font-semibold">Button</span> component is a flexible UI element used to trigger actions. 
+              It can show loading states, icons, custom colors, and expand to full width if needed.
             </p>
           </header>
 
-          {/* Example 1: Basic Button */}
+          {/* Basic */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">Basic Usage</h2>
+            <p className="text-gray-400 mb-3">
+              A simple button with text. This is the most basic usage.
+            </p>
+
             <CodePreviewBlock
               language="jsx"
               code={`<Button>Click Me</Button>`}
@@ -47,18 +42,11 @@ const ButtonDocs = () => {
             />
           </section>
 
-          {/* Example 2: Button Sizes */}
+          {/* Sizes */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Button Sizes
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Adjust the button size with the{" "}
-              <code className="text-primary">size</code> prop. Available
-              options:
-              <code className="text-primary mx-1">"sm"</code>,
-              <code className="text-primary mx-1">"md"</code>, and
-              <code className="text-primary mx-1">"lg"</code>.
+            <h2 className="text-2xl font-semibold text-white mb-4">Sizes</h2>
+            <p className="text-gray-400 mb-3">
+              Adjust the <code className="text-primary">size</code> prop to control padding and font size.
             </p>
 
             <CodePreviewBlock
@@ -69,7 +57,7 @@ const ButtonDocs = () => {
   <Button size="lg">Large</Button>
 </>`}
               previewContent={
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex gap-4">
                   <Button size="sm">Small</Button>
                   <Button size="md">Medium</Button>
                   <Button size="lg">Large</Button>
@@ -78,41 +66,37 @@ const ButtonDocs = () => {
             />
           </section>
 
-          {/* Example 3: Loading State */}
+          {/* Loading */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Loading State
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Use the <code className="text-primary">loading</code> prop to show
-              a spinner and optional loading text while an action is in
-              progress.
+            <h2 className="text-2xl font-semibold text-white mb-4">Loading State</h2>
+            <p className="text-gray-400 mb-3">
+              Show a spinner and disable the button automatically while an action is processing.
             </p>
+
             <CodePreviewBlock
               language="jsx"
-              code={`<Button loading>Processing...</Button>`}
-              previewContent={<Button loading>Processing...</Button>}
+              code={`<Button loading loadingText="Processing...">Submit</Button>`}
+              previewContent={
+                <Button loading loadingText="Processing...">Submit</Button>
+              }
             />
           </section>
 
-          {/* Example 4: Icons */}
+          {/* Icons */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Buttons with Icons
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Add icons using <code className="text-primary">iconBefore</code>{" "}
-              or <code className="text-primary">iconAfter</code> props.
+            <h2 className="text-2xl font-semibold text-white mb-4">Icons</h2>
+            <p className="text-gray-400 mb-3">
+              Add an icon before or after the text using <code className="text-primary">iconBefore</code> or <code className="text-primary">iconAfter</code>.
             </p>
 
             <CodePreviewBlock
               language="jsx"
               code={`<>
-  <Button iconBefore="🚀">Launch</Button>
-  <Button iconAfter="➡️">Continue</Button>
+  <Button iconBefore={<Rocket size={16} />}>Launch</Button>
+  <Button iconAfter={<ArrowRight size={16} />}>Continue</Button>
 </>`}
               previewContent={
-                <div className="flex flex-wrap gap-4">
+                <div className="flex gap-4">
                   <Button iconBefore={<Rocket size={16} />}>Launch</Button>
                   <Button iconAfter={<ArrowRight size={16} />}>Continue</Button>
                 </div>
@@ -120,51 +104,131 @@ const ButtonDocs = () => {
             />
           </section>
 
-          {/* Example 5: Custom Theme */}
+          {/* Theme & Colors */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Theme Color
-            </h2>
-            <p className="text-gray-300 mb-3">
-              You can easily create custom-themed buttons using the{" "}
-              <code className="text-primary">baseColor</code> prop to generate a
-              new color palette automatically.
+            <h2 className="text-2xl font-semibold text-white mb-4">Theme & Colors</h2>
+            <p className="text-gray-400 mb-3">
+              By default, the button uses your global <code className="text-primary">--primary</code> color.
+              You can disable the theme and use a custom color with <code className="text-primary">primaryTheme</code> and <code className="text-primary">primaryColor</code>.
             </p>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Button baseColor="#10b981">Success</Button>`}
-              previewContent={<Button baseColor="#10b981">Success</Button>}
-            />
-          </section>
-
-          {/* Example 6: Disabled and Full Width */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Disabled & Full Width
-            </h2>
-            <CodePreviewBlock
-              language="jsx"
               code={`<>
-  <Button disabled>Disabled</Button>
-  <Button fullWidth>Full Width</Button>
+  <Button>Primary</Button>
+  <Button primaryTheme={false} primaryColor="#10b981">Success</Button>
 </>`}
               previewContent={
-                <div className="flex flex-col gap-4 w-full max-w-sm">
-                  <Button disabled>Disabled</Button>
-                  <Button fullWidth>Full Width</Button>
+                <div className="flex gap-4">
+                  <Button>Primary</Button>
+                  <Button primaryTheme={false} primaryColor="#10b981">Success</Button>
                 </div>
               }
             />
           </section>
 
-          {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            <p>
-              Built with <span className="text-primary">React</span>,{" "}
-              <span className="text-primary">Tailwind CSS</span> &{" "}
-              <span className="text-primary">TypeScript</span>.
+          {/* Full Width */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">Full Width</h2>
+            <p className="text-gray-400 mb-3">
+              Expand the button to take the full width of its container using <code className="text-primary">fullWidth</code>.
             </p>
+
+            <CodePreviewBlock
+              language="jsx"
+              code={`<Button fullWidth>Continue</Button>`}
+              previewContent={
+                <div className="max-w-sm">
+                  <Button fullWidth>Continue</Button>
+                </div>
+              }
+            />
+          </section>
+
+          {/* Disabled */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">Disabled</h2>
+            <p className="text-gray-400 mb-3">
+              Disable a button using the <code className="text-primary">disabled</code> prop.
+            </p>
+
+            <CodePreviewBlock
+              language="jsx"
+              code={`<Button disabled>Disabled</Button>`}
+              previewContent={<Button disabled>Disabled</Button>}
+            />
+          </section>
+
+          {/* Props Table */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
+            <p className="text-gray-400 mb-3">
+              All available props for the Button component.
+            </p>
+
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-zinc-900 text-gray-400">
+                  <tr>
+                    <th className="text-left p-3">Prop</th>
+                    <th className="text-left p-3">Type</th>
+                    <th className="text-left p-3">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800">
+                  <tr>
+                    <td className="p-3">size</td>
+                    <td className="p-3">"sm" | "md" | "lg"</td>
+                    <td className="p-3">Controls padding & font size</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">loading</td>
+                    <td className="p-3">boolean</td>
+                    <td>Shows spinner & disables button</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">loadingText</td>
+                    <td className="p-3">string</td>
+                    <td>Text displayed while loading</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">iconBefore</td>
+                    <td className="p-3">ReactNode</td>
+                    <td>Icon displayed before text</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">iconAfter</td>
+                    <td className="p-3">ReactNode</td>
+                    <td>Icon displayed after text</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">primaryTheme</td>
+                    <td className="p-3">boolean</td>
+                    <td>Use theme color from CSS variable</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">primaryColor</td>
+                    <td className="p-3">string</td>
+                    <td>Custom background color when theme is disabled</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">fullWidth</td>
+                    <td className="p-3">boolean</td>
+                    <td>Expand button to full width of container</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">disabled</td>
+                    <td className="p-3">boolean</td>
+                    <td>Disable button interaction</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="pt-10 border-t border-zinc-800 text-gray-500 text-sm">
+            Built with React, Tailwind CSS, and TypeScript. Designed to be accessible, responsive, and fully customizable.
           </footer>
         </div>
       </div>

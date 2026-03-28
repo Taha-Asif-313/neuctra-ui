@@ -1,20 +1,13 @@
-import React, { useState, useEffect, useMemo, CSSProperties, ReactNode } from "react";
+"use client";
+import React, { useState, useEffect, useMemo, ReactNode } from "react";
 import { X } from "lucide-react";
 
 /* ---------------- 🧩 Drawer Button ---------------- */
-
-export interface DrawerButtonProps {
+interface DrawerButtonProps {
   label?: string;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
   onClick?: () => void;
-  color?: string;
-  textColor?: string;
-  borderRadius?: string;
-  padding?: string;
-  fontSize?: string;
-  gap?: string;
-  style?: CSSProperties;
   className?: string;
 }
 
@@ -23,88 +16,54 @@ export const DrawerButton: React.FC<DrawerButtonProps> = ({
   icon,
   iconPosition = "left",
   onClick,
-  color = "#2563eb",
-  textColor = "#fff",
-  borderRadius = "6px",
-  padding = "10px 16px",
-  fontSize = "14px",
-  gap = "8px",
-  style,
   className = "",
-}) => (
-  <button
-    onClick={onClick}
-    style={{
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: color,
-      color: textColor,
-      border: "none",
-      borderRadius,
-      padding,
-      fontSize,
-      gap,
-      cursor: "pointer",
-      fontWeight: 500,
-      transition: "all 0.2s ease",
-      boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-      ...style,
-    }}
-    className={className}
-  >
-    {icon && iconPosition === "left" && icon}
-    {label}
-    {icon && iconPosition === "right" && icon}
-  </button>
-);
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 ${className}`}
+    >
+      {icon && iconPosition === "left" && icon}
+      {label}
+      {icon && iconPosition === "right" && icon}
+    </button>
+  );
+};
 
 /* ---------------- 🧱 Drawer ---------------- */
-
-export interface DrawerProps {
+interface DrawerProps {
   open: boolean;
   onClose?: () => void;
   position?: "left" | "right" | "top" | "bottom";
-  width?: string;
-  height?: string;
-  backgroundColor?: string;
-  backdropColor?: string;
-  transitionDuration?: number;
-  style?: CSSProperties;
+  size?: string; // width for left/right, height for top/bottom
   className?: string;
+  overlayClassName?: string;
   children?: ReactNode;
   showCloseButton?: boolean;
-  closeIconColor?: string;
-  closeButtonStyle?: CSSProperties;
+  closeButtonClassName?: string;
 }
 
 export const Drawer: React.FC<DrawerProps> = ({
   open,
   onClose,
   position = "right",
-  width = "320px",
-  height = "320px",
-  backgroundColor = "#fff",
-  backdropColor = "rgba(0,0,0,0.5)",
-  transitionDuration = 300,
-  style,
-  className = "",
+  size = "320px",
   children,
   showCloseButton = true,
-  closeIconColor = "#000",
-  closeButtonStyle,
+  className = "",
+  overlayClassName = "",
+  closeButtonClassName = "",
 }) => {
-  const [visible, setVisible] = useState(open);
+  const [mounted, setMounted] = useState(open);
 
-  // Handle mount/unmount delay for smooth fade-out
   useEffect(() => {
-    if (open) setVisible(true);
-    else setTimeout(() => setVisible(false), transitionDuration);
-  }, [open, transitionDuration]);
+    if (open) setMounted(true);
+    else setTimeout(() => setMounted(false), 300); // smooth exit
+  }, [open]);
 
-  // Drawer transform direction
   const transform = useMemo(() => {
-    if (open) return "translate(0, 0)";
+    if (open) return "translate(0,0)";
     switch (position) {
       case "left":
         return "translateX(-100%)";
@@ -115,84 +74,46 @@ export const Drawer: React.FC<DrawerProps> = ({
       case "bottom":
         return "translateY(100%)";
       default:
-        return "translate(0, 0)";
+        return "translate(0,0)";
     }
   }, [open, position]);
 
-  const drawerStyle: CSSProperties = {
-    position: "fixed",
-    backgroundColor,
-    transition: `transform ${transitionDuration}ms ease, opacity ${transitionDuration}ms ease`,
-    transform,
-    opacity: open ? 1 : 0,
-    zIndex: 1001,
-    ...style,
-    ...(position === "left" || position === "right"
-      ? { top: 0, bottom: 0, [position]: 0, width, height: "100%" }
-      : { left: 0, right: 0, [position]: 0, height, width: "100%" }),
-  };
-
-  const overlayStyle: CSSProperties = {
-    position: "fixed",
-    inset: 0,
-    backgroundColor: backdropColor,
-    opacity: open ? 1 : 0,
-    transition: `opacity ${transitionDuration}ms ease`,
-    zIndex: 1000,
-    display: visible ? "block" : "none",
-    pointerEvents: open ? "auto" : "none",
-  };
-
-  const defaultCloseButtonStyle: CSSProperties = {
-    position: "absolute",
-    top: "12px",
-    right: "12px",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "transform 0.2s ease, opacity 0.2s ease",
-  };
+  if (!mounted && !open) return null;
 
   return (
     <>
       {/* Overlay */}
-      <div style={overlayStyle} onClick={onClose} />
+      <div
+        onClick={onClose}
+        className={`fixed inset-0 bg-black/50 transition-opacity ${
+          open ? "opacity-100" : "opacity-0"
+        } ${overlayClassName}`}
+      />
 
       {/* Drawer Panel */}
       <div
+        className={`fixed bg-white shadow-lg flex flex-col transition-transform duration-300 ${className}`}
         style={{
-          ...drawerStyle,
-          display: "flex",
-          flexDirection: "column",
-          visibility: visible ? "visible" : "hidden",
-          pointerEvents: open ? "auto" : "none",
-          boxShadow: "0 0 20px rgba(0,0,0,0.15)",
+          width: position === "left" || position === "right" ? size : "100%",
+          height: position === "top" || position === "bottom" ? size : "100%",
+          top: position === "bottom" || position === "top" ? (position === "bottom" ? "auto" : 0) : 0,
+          bottom: position === "bottom" ? 0 : "auto",
+          left: position === "left" ? 0 : position === "right" ? "auto" : 0,
+          right: position === "right" ? 0 : position === "left" ? "auto" : 0,
+          transform,
         }}
-        className={className}
       >
         {showCloseButton && (
           <button
             onClick={onClose}
-            style={{ ...defaultCloseButtonStyle, ...closeButtonStyle }}
+            className={`absolute top-4 right-4 p-1 rounded-full hover:bg-gray-200 transition-colors ${closeButtonClassName}`}
             aria-label="Close drawer"
           >
-            <X size={22} color={closeIconColor} />
+            <X size={20} />
           </button>
         )}
 
-        <div
-          style={{
-            flex: 1,
-            overflowY: "auto",
-            padding: "16px",
-            scrollbarWidth: "thin",
-          }}
-        >
-          {children}
-        </div>
+        <div className="flex-1 overflow-auto p-4">{children}</div>
       </div>
     </>
   );

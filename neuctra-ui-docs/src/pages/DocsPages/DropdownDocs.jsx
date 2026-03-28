@@ -2,7 +2,14 @@
 
 import React, { useState } from "react";
 import { Dropdown } from "@neuctra/ui"; // adjust path if needed
-import { User, Mail, Globe, Shield, Briefcase, GraduationCap } from "lucide-react";
+import {
+  User,
+  Mail,
+  Globe,
+  Shield,
+  Briefcase,
+  GraduationCap,
+} from "lucide-react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
@@ -439,9 +446,7 @@ const DropdownDocs = () => {
                   <Dropdown
                     label="Disabled Dropdown"
                     disabled
-                    options={[
-                      { label: "Can't select", value: "nope" },
-                    ]}
+                    options={[{ label: "Can't select", value: "nope" }]}
                   />
                 </div>
               }
@@ -479,12 +484,12 @@ const DropdownDocs = () => {
                     containerClassName="max-w-sm"
                     triggerClassName="border-2 border-blue-500"
                     dropdownClassName="border-blue-500 text-black"
-                   primaryColor="255 0 0"
+                    primaryTheme = {false}
+                    primaryColor = {"#FFFFFF"}
                     options={[
                       { label: "Custom", value: "custom" },
                       { label: "Style", value: "style" },
                     ]}
-                   
                     value="custom"
                     onChange={(name, value) => console.log(value)}
                   />
@@ -494,9 +499,7 @@ const DropdownDocs = () => {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Variant
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Variant</h2>
             <p className="text-gray-300 mb-3">
               Choose between <code className="text-primary">dark</code> and{" "}
               <code className="text-primary">light</code> themes using the{" "}
@@ -575,8 +578,8 @@ type DropdownProps = {
                 <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 text-sm text-zinc-300 space-y-2">
                   <p>
                     <span className="text-white font-medium">onChange:</span>{" "}
-                    receives both <code className="text-primary">name</code>{" "}
-                    and selected <code className="text-primary">value</code>.
+                    receives both <code className="text-primary">name</code> and
+                    selected <code className="text-primary">value</code>.
                   </p>
                   <p>
                     <span className="text-white font-medium">value:</span>{" "}
