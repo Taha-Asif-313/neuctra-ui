@@ -5,25 +5,20 @@
     "lib": ["DOM", "ESNext"],
     "jsx": "react-jsx",
 
-    /* Type Declarations */
     "declaration": true,
     "declarationDir": "dist/types",
-    "emitDeclarationOnly": false, // ✅ Let Vite handle declarations via vite-plugin-dts
 
-    /* Module Resolution */
     "moduleResolution": "bundler",
-    "types": ["node"], // ✅ Fixes "Cannot find module 'node:url'"
+    "types": ["node"],
     "resolveJsonModule": true,
 
-    /* Strictness & Compatibility */
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
 
-    /* Output */
     "outDir": "dist"
   },
-  "include": ["src", "vite.config.ts"], // ✅ Include Vite config for Node imports
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

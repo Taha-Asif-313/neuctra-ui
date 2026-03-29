@@ -97,7 +97,7 @@ const ButtonDocs = () => {
 </>`}
               previewContent={
                 <div className="flex gap-4">
-                  <Button iconBefore={<Rocket size={16} />}>Launch</Button>
+                  <Button size={'sm'} iconBefore={<Rocket size={16} />}>Launch</Button>
                   <Button iconAfter={<ArrowRight size={16} />}>Continue</Button>
                 </div>
               }

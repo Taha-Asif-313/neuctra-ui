@@ -4,7 +4,7 @@ import React, { forwardRef } from "react";
 import clsx from "clsx";
 
 /* -------------------------------------------------------------------------- */
-/*                                🧩 Types                                    */
+/* 🧩 Types                                                                  */
 /* -------------------------------------------------------------------------- */
 
 export interface ButtonProps
@@ -19,22 +19,21 @@ export interface ButtonProps
 
   fullWidth?: boolean;
 
-  /** 🎨 Theme */
-  primaryTheme?: boolean;
-  primaryColor?: string;
-
-  /** 📏 Sizes */
+  variant?: "default" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
+
+  weight?: React.CSSProperties["fontWeight"];
+  primaryColor?: string;
 
   className?: string;
 }
 
 /* -------------------------------------------------------------------------- */
-/*                               🔘 Button                                    */
+/* 🔘 Button                                                                 */
 /* -------------------------------------------------------------------------- */
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
+  function Button(
     {
       children,
       iconBefore,
@@ -42,68 +41,103 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       loading = false,
       loadingText = "Loading...",
       fullWidth = false,
-
-      primaryTheme = true,
-      primaryColor = "#3b82f6",
-
+      variant = "default",
       size = "md",
-
+      weight = 400,
+      primaryColor = "#3b82f6",
       disabled,
       className,
-      ...props
+      type = "button",
+      style,
+      ...rest
     },
     ref
-  ) => {
-    /** 📏 Sizes */
+  ) {
+    const isDisabled = disabled || loading;
+    const color = primaryColor;
+
+    /* 📏 Sizes */
     const sizeClasses = {
-      sm: "px-3 py-1.5 text-sm",
-      md: "px-5 py-2.5 text-sm",
-      lg: "px-6 py-3 text-base",
+      sm: "h-8 px-3 text-sm",
+      md: "h-10 px-4 text-sm",
+      lg: "h-12 px-6 text-base",
+    } as const;
+
+    /* 🎨 Variants */
+    const variantStyles: Record<
+      NonNullable<ButtonProps["variant"]>,
+      React.CSSProperties
+    > = {
+      default: {
+        backgroundColor: color,
+        color: "#fff",
+      },
+      outline: {
+        border: `1px solid ${color}`,
+        color,
+        backgroundColor: "transparent",
+      },
+      ghost: {
+        color,
+        backgroundColor: "transparent",
+      },
     };
 
-    /** 🎨 Theme styles */
-    const themeClasses = primaryTheme
-      ? "bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90 focus:ring-[var(--primary)]/30"
-      : "";
+    /* 🔘 Icon sizes */
+    const iconSizes = {
+      sm: 16,
+      md: 20,
+      lg: 24,
+    } as const;
 
-    /** 🎨 Dynamic fallback for non-primary theme */
-    const dynamicStyle = !primaryTheme
-      ? {
-          backgroundColor: primaryColor,
-          color: "#fff",
-        }
-      : {};
+    const iconStyle: React.CSSProperties = {
+      width: iconSizes[size],
+      height: iconSizes[size],
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0, // ✅ prevents icon collapse
+    };
 
     return (
       <button
         ref={ref}
-        disabled={disabled || loading}
-        style={!primaryTheme ? dynamicStyle : undefined}
+        type={type}
+        disabled={isDisabled}
         className={clsx(
-          "inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-200",
-          "focus:outline-none focus:ring-2 focus:ring-offset-1",
+          "inline-flex items-center justify-center gap-2 rounded-lg",
+          "transition-all duration-200",
           sizeClasses[size],
-          themeClasses,
           fullWidth && "w-full",
-          (disabled || loading) && "opacity-60 cursor-not-allowed",
+          isDisabled && "opacity-60 cursor-not-allowed pointer-events-none",
           className
         )}
-        {...props}
+        style={{
+          fontWeight: weight,
+          ...variantStyles[variant],
+          ...style,
+        }}
+        {...rest}
       >
         {loading ? (
-          <>
-            <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+          <span className="inline-flex items-center gap-2">
+            <span
+              className="border-2 border-current border-t-transparent rounded-full animate-spin"
+              style={{
+                width: iconSizes[size],
+                height: iconSizes[size],
+                flexShrink: 0,
+              }}
+            />
             <span>{loadingText}</span>
-          </>
+          </span>
         ) : (
           <>
-            {iconBefore && (
-              <span className="flex items-center justify-center">{iconBefore}</span>
-            )}
-            <span>{children}</span>
-            {iconAfter && (
-              <span className="flex items-center justify-center">{iconAfter}</span>
-            )}
+            {iconBefore && <span style={iconStyle}>{iconBefore}</span>}
+
+            <span className="whitespace-nowrap">{children}</span>
+
+            {iconAfter && <span style={iconStyle}>{iconAfter}</span>}
           </>
         )}
       </button>

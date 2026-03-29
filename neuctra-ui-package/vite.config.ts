@@ -11,26 +11,25 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      include: ["src"], // generate .d.ts files for your src folder
+      include: ["src"],
+      outDir: "dist/types",
+      insertTypesEntry: true,
     }),
   ],
+
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
-      name: "NeuctraUi", // ✅ fixed typo: "NeutraUi" → "NeuctraUi"
+      name: "NeuctraUi",
       fileName: (format) => `index.${format}.js`,
       formats: ["es", "cjs"],
     },
+
     rollupOptions: {
       external: ["react", "react-dom"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
-      },
     },
-    sourcemap: true, // optional but helpful for debugging your library
-    emptyOutDir: true, // cleans old builds
+
+    sourcemap: true,
+    emptyOutDir: true,
   },
 });

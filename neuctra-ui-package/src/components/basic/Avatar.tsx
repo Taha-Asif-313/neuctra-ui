@@ -25,7 +25,7 @@ interface AvatarProps {
   statusStyle?: CSSProperties;
 }
 
-// --- Base maps ---
+// Size maps with proper pixel values for status dots
 const sizeMap: Record<Exclude<AvatarSize, "responsive">, number> = {
   xs: 24,
   sm: 32,
@@ -60,13 +60,38 @@ const variantMap: Record<AvatarVariant, string> = {
 };
 
 const statusPositionMap: Record<StatusPosition, string> = {
-  "top-left": "top-0 left-0",
-  "top-right": "top-0 right-0",
-  "bottom-left": "bottom-0 left-0",
-  "bottom-right": "bottom-0 right-0",
+  "top-left": "-top-0.5 -left-0.5",
+  "top-right": "-top-0.5 -right-0.5",
+  "bottom-left": "-bottom-0.5 -left-0.5",
+  "bottom-right": "-bottom-0.5 -right-0.5",
 };
 
-// --- Avatar Component ---
+// Get status dot size based on avatar size
+const getStatusDotSize = (size: Exclude<AvatarSize, "responsive">): string => {
+  const sizes: Record<Exclude<AvatarSize, "responsive">, string> = {
+    xs: "w-2 h-2",
+    sm: "w-2.5 h-2.5",
+    md: "w-3 h-3",
+    lg: "w-3.5 h-3.5",
+    xl: "w-4 h-4",
+    "2xl": "w-4.5 h-4.5",
+  };
+  return sizes[size];
+};
+
+// Get status border width based on avatar size
+const getStatusBorderWidth = (size: Exclude<AvatarSize, "responsive">): string => {
+  const borders: Record<Exclude<AvatarSize, "responsive">, string> = {
+    xs: "border",
+    sm: "border",
+    md: "border-2",
+    lg: "border-2",
+    xl: "border-[3px]",
+    "2xl": "border-[3px]",
+  };
+  return borders[size];
+};
+
 export const Avatar: React.FC<AvatarProps> = ({
   src,
   alt = "User avatar",
@@ -86,6 +111,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 }) => {
   const [imageError, setImageError] = useState(false);
   const clickable = !!onClick;
+  const resolvedSize = size === "responsive" ? "md" : size;
 
   const initials =
     fallback ||
@@ -96,10 +122,14 @@ export const Avatar: React.FC<AvatarProps> = ({
       .toUpperCase()
       .slice(0, 2);
 
-  const statusColor = isOnline ? "bg-green-500" : isOffline ? "bg-gray-400" : "";
+  const statusColor = isOnline 
+    ? "bg-green-500" 
+    : isOffline 
+      ? "bg-gray-400" 
+      : "";
 
-  // Width/height for inline styles
-  const dimensionPx = sizeMap[size as Exclude<AvatarSize, "responsive">];
+  const statusDotSize = getStatusDotSize(resolvedSize);
+  const statusBorderWidth = getStatusBorderWidth(resolvedSize);
 
   return (
     <div
@@ -107,12 +137,16 @@ export const Avatar: React.FC<AvatarProps> = ({
       tabIndex={clickable ? 0 : -1}
       aria-label={alt}
       onClick={onClick}
-      className={`relative inline-flex items-center justify-center overflow-hidden ${dimensionMap[size as Exclude<AvatarSize, "responsive">]} ${variantMap[variant]} transition-all duration-200 ${
-        clickable ? "cursor-pointer hover:scale-105" : ""
-      } ${ring ? "ring-2" : ""} ${className}`}
+      className={`relative inline-flex items-center justify-center overflow-hidden 
+        ${dimensionMap[resolvedSize]} 
+        ${variantMap[variant]} 
+        transition-all duration-200 
+        ${clickable ? "cursor-pointer hover:scale-105 active:scale-95" : ""} 
+        ${ring ? "ring-2 ring-offset-2" : ""} 
+        ${className}`}
       style={{
         ...style,
-        ...(ring ? { boxShadow: `0 0 0 2px ${ringColor}` } : {}),
+        ...(ring ? { ringColor: ringColor } : {}),
       }}
       onKeyDown={(e) => {
         if (clickable && (e.key === "Enter" || e.key === " ")) {
@@ -126,28 +160,46 @@ export const Avatar: React.FC<AvatarProps> = ({
           src={src}
           alt={alt}
           onError={() => setImageError(true)}
-          className={`w-full h-full object-cover ${variantMap[variant]} transition-opacity duration-300`}
+          className={`w-full h-full object-cover ${variantMap[variant]}`}
         />
       ) : (
         <div
-          className={`w-full h-full flex items-center justify-center bg-gradient-to-tr from-purple-500 to-blue-500 text-white font-semibold ${fontSizeMap[size as Exclude<AvatarSize, "responsive">]} ${variantMap[variant]}`}
+          className={`w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 via-purple-600 to-blue-600 text-white font-semibold 
+            ${fontSizeMap[resolvedSize]} 
+            ${variantMap[variant]}`}
         >
-          {initials || <User className="text-white" />}
+          {initials || <User className="w-1/2 h-1/2" />}
         </div>
       )}
 
+      {/* Status Dot - Now properly visible */}
       {(isOnline || isOffline) && (
         <span
           aria-label={isOnline ? "Online" : "Offline"}
           title={isOnline ? "Online" : "Offline"}
-          className={`absolute ${statusPositionMap[statusPosition]} ${statusColor} border-2 border-white rounded-full shadow-sm ${statusClassName}`}
+          className={`
+            absolute 
+            ${statusPositionMap[statusPosition]} 
+            ${statusColor} 
+            ${statusDotSize} 
+            ${statusBorderWidth} 
+            border-white 
+            rounded-full 
+            shadow-md 
+            z-10
+            ${statusClassName}
+          `}
           style={{
-            width: dimensionPx / 3,
-            height: dimensionPx / 3,
             ...statusStyle,
           }}
         />
       )}
     </div>
   );
+};
+
+// Export additional helper for responsive sizing
+export const getAvatarSize = (size: AvatarSize): number => {
+  if (size === "responsive") return 40;
+  return sizeMap[size];
 };

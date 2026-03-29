@@ -13,8 +13,7 @@ export interface BadgeProps {
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
 
-  /** 🎨 Theme */
-  primaryTheme?: boolean;
+  /** Custom color */
   primaryColor?: string;
 
   /** 📏 Sizes */
@@ -43,7 +42,6 @@ export const Badge: React.FC<BadgeProps> = memo(
     icon,
     iconPosition = "left",
 
-    primaryTheme = true,
     primaryColor = "#3b82f6",
 
     size = "md",
@@ -64,28 +62,20 @@ export const Badge: React.FC<BadgeProps> = memo(
       lg: "px-4 py-1.5 text-sm",
     };
 
-    /** 🎨 Theme */
-    const themeClasses = primaryTheme
-      ? "bg-[var(--primary)] text-white"
-      : "";
-
-    const dynamicStyle = !primaryTheme
-      ? {
-          backgroundColor: primaryColor,
-          color: "#fff",
-        }
-      : {};
+    const dynamicStyle = {
+      backgroundColor: primaryColor,
+      color: "#fff",
+    };
 
     return (
       <span
         onClick={onClick}
-        style={!primaryTheme ? dynamicStyle : undefined}
+        style={dynamicStyle}
         className={clsx(
           "relative inline-flex items-center justify-center gap-1 font-medium",
           "transition-all duration-200 select-none",
           rounded ? "rounded-full" : "rounded-md",
           sizes[size],
-          themeClasses,
           onClick && "cursor-pointer hover:opacity-90",
           className
         )}
@@ -93,11 +83,10 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* 🔴 Dot */}
         {notificationDot && (
           <span
-            style={!primaryTheme ? { backgroundColor: dotColor } : undefined}
+            style={{ backgroundColor: dotColor }}
             className={clsx(
               "absolute -top-1 -right-1 w-2 h-2 rounded-full",
-              pulse && "animate-ping",
-              primaryTheme ? "bg-red-500" : ""
+              pulse && "animate-ping"
             )}
           />
         )}
@@ -105,12 +94,8 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* 🔢 Count */}
         {count !== undefined && (
           <span
-            style={!primaryTheme ? { backgroundColor: dotColor } : undefined}
-            className={clsx(
-              "absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px]",
-              "flex items-center justify-center rounded-full text-white",
-              primaryTheme ? "bg-red-500" : ""
-            )}
+            style={{ backgroundColor: dotColor }}
+            className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px] flex items-center justify-center rounded-full text-white"
           >
             {count}
           </span>

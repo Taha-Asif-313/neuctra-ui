@@ -17,7 +17,7 @@ const sizeMap: Record<ContainerSize, string> = {
   lg: "max-w-lg",
   xl: "max-w-xl",
   "2xl": "max-w-2xl",
-  full: "w-full",
+  full: "w-full h-full",
 };
 
 const paddingMap: Record<NonNullable<ContainerProps["padding"]>, string> = {
@@ -33,8 +33,8 @@ const paddingMap: Record<NonNullable<ContainerProps["padding"]>, string> = {
  * Fully responsive, Tailwind-first layout wrapper
  */
 export const Container: React.FC<ContainerProps> = ({
-  size = "lg",
-  padding = "md",
+  size = "full",
+  padding = "none",
   center = true,
   className = "",
   children,
@@ -44,7 +44,7 @@ export const Container: React.FC<ContainerProps> = ({
     sizeMap[size],
     paddingMap[padding],
     center && "mx-auto",
-    className
+    className,
   );
 
   return <div className={classes}>{children}</div>;

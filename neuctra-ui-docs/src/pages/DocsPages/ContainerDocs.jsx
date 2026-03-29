@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Container } from "@neuctra/ui"; // adjust import path
+import { Container } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
@@ -11,220 +11,273 @@ const ContainerDocs = () => {
     <>
       <Metadata
         title="Container Component — Neuctra UI"
-        description="Learn how to use the Container component in Neuctra UI — a responsive, customizable layout wrapper inspired by Tailwind’s container utility."
-        keywords="Neuctra UI Container, React container component, Tailwind container, responsive layout, layout wrapper, React UI components"
-        image="https://ui.neuctra.com/og/container-docs-preview.png"
-        ogTitle="Container Component — Neuctra UI"
-        ogDescription="Build clean and consistent layouts with the Container component from Neuctra UI. Control width, padding, alignment, and background effortlessly."
-        twitterTitle="Container Component | Neuctra UI"
-        twitterDescription="A flexible and responsive layout wrapper for React apps. Learn how to use the Neuctra UI Container for consistent designs."
-        canonical="https://ui.neuctra.com/docs/container"
+        description="Learn how to use the Container component — a responsive layout wrapper powered by Tailwind className."
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
-          {/* Header */}
-          <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-white">
+      <div className="bg-zinc-950 text-gray-200 min-h-screen py-12">
+        <div className="max-w-5xl mx-auto px-4 space-y-14">
+
+          {/* ---------------- Header ---------------- */}
+          <header className="space-y-4">
+            <h1 className="text-4xl font-extrabold text-white">
               Container Component
             </h1>
             <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Container</span>{" "}
-              component is a flexible, responsive wrapper inspired by Tailwind’s
-              container utility. It helps manage width, padding, alignment, and layout consistently across your app.
+              The <span className="text-primary font-semibold">Container</span> is a
+              simple wrapper that controls <strong>width, padding, and centering</strong>.
+              <br /><br />
+              For layouts like <strong>flex, grid, spacing, and responsiveness</strong>,
+              you use Tailwind classes via <code>className</code>.
             </p>
           </header>
 
-          {/* Basic Example */}
+          {/* ---------------- Key Concept ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
+            <h2 className="text-2xl font-semibold text-white mb-3">
+              💡 Key Concept
             </h2>
-            <p className="text-gray-300 mb-3">
-              By default, the container is centered and uses the <code className="text-primary">lg</code> size.
-            </p>
+            <div className="bg-zinc-900 p-5 rounded-xl text-gray-400 leading-relaxed">
+              Container behaves exactly like a <code>&lt;div&gt;</code>.
+              <br /><br />
+              👉 You control layout using <code>className</code>  
+              👉 Container only manages width & spacing  
+            </div>
+          </section>
+
+          {/* ---------------- Basic ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Basic Usage
+            </h2>
 
             <CodePreviewBlock
-              language="jsx"
-              code={`<Container size="lg" padding="1.5rem">
+              language="tsx"
+              code={`<Container>
   <h2>Hello from Container</h2>
-  <p>This is a simple content box.</p>
 </Container>`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <Container center size="full" padding="md">
-                    <h2 className="text-white text-lg font-medium">
+                <div className="bg-zinc-900 p-6 rounded-xl">
+                  <Container>
+                    <h2 className="text-white">
                       Hello from Container
                     </h2>
-                    <p className="text-gray-400 text-sm">
-                      This is a simple content box.
-                    </p>
                   </Container>
                 </div>
               }
             />
           </section>
 
-          {/* Container Sizes */}
+          {/* ---------------- Sizes ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Container Sizes
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Sizes
             </h2>
-            <p className="text-gray-300 mb-3">
-              Choose from predefined sizes: <code>sm</code>, <code>md</code>, <code>lg</code>, <code>xl</code>, <code>2xl</code>, or <code>full</code>.
-            </p>
 
             <CodePreviewBlock
-              language="jsx"
-              code={`<>
-  <Container size="sm" padding="1rem">Small</Container>
-  <Container size="md" padding="1rem">Medium</Container>
-  <Container size="xl" padding="1rem">Extra Large</Container>
-</>`}
+              language="tsx"
+              code={`<Container size="sm" />
+<Container size="lg" />
+<Container size="full" />`}
               previewContent={
                 <div className="space-y-4">
-                  <Container center className="bg-red-500" size="sm" padding="md">
-                    <p className="text-gray-200">Small Container (sm)</p>
+                  <Container size="sm" className="bg-red-500 p-4">
+                    Small
                   </Container>
-                  <Container center className="bg-amber-500" size="md" padding="md">
-                    <p className="text-gray-200">Medium Container (md)</p>
+                  <Container size="lg" className="bg-blue-500 p-4">
+                    Large
                   </Container>
-                  <Container center className="bg-teal-500" size="xl" padding="md">
-                    <p className="text-gray-200">Extra Large Container (xl)</p>
-                  </Container>
-                </div>
-              }
-            />
-          </section>
-
-          {/* Custom Width & Center */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Width & Centering
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Override width manually and control centering with <code>center</code>.
-            </p>
-
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Container width="80%" center={false} padding="1.5rem">
-  <p>This container takes 80% width and isn’t centered.</p>
-</Container>`}
-              previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <Container width="80%" center={false} padding="1.5rem">
-                    <p className="text-white">
-                      This container takes 80% width and isn’t centered.
-                    </p>
+                  <Container size="full" className="bg-green-500 p-4">
+                    Full Width
                   </Container>
                 </div>
               }
             />
           </section>
 
-          {/* Custom Styling */}
+          {/* ---------------- Flex ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Styling
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Flex Layout (like div)
             </h2>
-            <p className="text-gray-300 mb-3">
-              Use <code>style</code> and <code>className</code> for full control.
-            </p>
 
             <CodePreviewBlock
-              language="jsx"
+              language="tsx"
               code={`<Container
-  className="shadow-lg hover:shadow-xl transition-all"
-  style={{
-    background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-    color: "white",
-    padding: "2rem",
-    borderRadius: "12px",
-  }}
+  className="flex flex-col md:flex-row items-center justify-between gap-4 bg-zinc-900 rounded-xl"
 >
-  <h3>Gradient Container</h3>
+  <div>Left</div>
+  <div>Right</div>
 </Container>`}
               previewContent={
-                <Container
-                  className="shadow-lg hover:shadow-xl transition-all"
-                  style={{
-                    background: "linear-gradient(135deg, #3b82f6, #06b6d4)",
-                    color: "white",
-                    padding: "2rem",
-                    borderRadius: "12px",
-                  }}
-                >
-                  <h3 className="font-semibold">Gradient Container</h3>
+                <Container className="flex flex-col md:flex-row items-center justify-between gap-4 bg-zinc-900 rounded-xl">
+                  <div className="bg-primary px-4 py-2 rounded">Left</div>
+                  <div className="bg-primary px-4 py-2 rounded">Right</div>
                 </Container>
               }
             />
           </section>
 
-          {/* Props Table */}
+          {/* ---------------- Grid ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Props</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Grid Layout
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Container
+  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-zinc-900 rounded-xl"
+>
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+</Container>`}
+              previewContent={
+                <Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-zinc-900 rounded-xl">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="bg-primary p-4 rounded">
+                      {i}
+                    </div>
+                  ))}
+                </Container>
+              }
+            />
+          </section>
+
+          {/* ---------------- Responsive ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Fully Responsive Layout
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Container
+  size="2xl"
+  className="flex flex-col md:flex-row gap-6 p-4 md:p-8"
+>
+  <div className="w-full md:w-1/3">Sidebar</div>
+  <div className="w-full md:w-2/3">Content</div>
+</Container>`}
+              previewContent={
+                <Container
+                  size="2xl"
+                  className="flex flex-col md:flex-row gap-6 p-4 md:p-8"
+                >
+                  <div className="bg-zinc-800 p-6 rounded w-full md:w-1/3">
+                    Sidebar
+                  </div>
+                  <div className="bg-zinc-700 p-6 rounded w-full md:w-2/3">
+                    Content
+                  </div>
+                </Container>
+              }
+            />
+          </section>
+
+          {/* ---------------- Div Behavior ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Works Just Like a div
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Container className="bg-blue-500 p-6 rounded-xl shadow-lg">
+  <h2>Just like a div</h2>
+</Container>`}
+              previewContent={
+                <Container className="bg-blue-500 p-6 rounded-xl shadow-lg">
+                  <h2 className="text-white font-semibold">
+                    Just like a div
+                  </h2>
+                </Container>
+              }
+            />
+          </section>
+
+          {/* ---------------- Mistakes ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              ❗ Common Mistakes
+            </h2>
+
+            <div className="bg-zinc-900 p-5 rounded-xl space-y-4 text-sm">
+              <div className="text-red-400">
+                ❌ {"<Container padding=\"1.5rem\" />"}
+              </div>
+              <div className="text-red-400">
+                ❌ {"<Container width=\"80%\" />"}
+              </div>
+
+              <div className="text-green-400 mt-3">
+                ✅ {"<Container className=\"p-6 w-[80%]\" />"}
+              </div>
+            </div>
+          </section>
+
+          {/* ---------------- Props ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Props
+            </h2>
+
             <div className="overflow-x-auto">
-              <table className="min-w-full text-left border border-zinc-800 text-sm">
-                <thead className="bg-zinc-900 text-gray-300">
+              <table className="min-w-full text-sm border border-zinc-800">
+                <thead className="bg-zinc-900">
                   <tr>
-                    <th className="px-4 py-2 border-r border-zinc-800">Prop</th>
-                    <th className="px-4 py-2 border-r border-zinc-800">Type</th>
-                    <th className="px-4 py-2">Description</th>
+                    <th className="p-3 border">Prop</th>
+                    <th className="p-3 border">Type</th>
+                    <th className="p-3 border">Description</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800">
                   <tr>
-                    <td className="px-4 py-2 text-primary">size</td>
-                    <td className="px-4 py-2">"sm" | "md" | "lg" | "xl" | "2xl" | "full"</td>
-                    <td className="px-4 py-2">Predefined container width size.</td>
+                    <td className="p-3 text-primary">size</td>
+                    <td className="p-3">
+                      sm | md | lg | xl | 2xl | full
+                    </td>
+                    <td className="p-3">
+                      Controls max-width
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 text-primary">padding</td>
-                    <td className="px-4 py-2">string | number</td>
-                    <td className="px-4 py-2">Padding inside the container.</td>
+                    <td className="p-3 text-primary">padding</td>
+                    <td className="p-3">
+                      none | sm | md | lg | xl
+                    </td>
+                    <td className="p-3">
+                      Internal spacing
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 text-primary">center</td>
-                    <td className="px-4 py-2">boolean</td>
-                    <td className="px-4 py-2">Centers container horizontally if true.</td>
+                    <td className="p-3 text-primary">center</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">
+                      Adds mx-auto
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 text-primary">width</td>
-                    <td className="px-4 py-2">string</td>
-                    <td className="px-4 py-2">Custom width override.</td>
+                    <td className="p-3 text-primary">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">
+                      Tailwind layout (flex, grid, etc.)
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-4 py-2 text-primary">height</td>
-                    <td className="px-4 py-2">string</td>
-                    <td className="px-4 py-2">Optional height.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">borderRadius</td>
-                    <td className="px-4 py-2">string | number</td>
-                    <td className="px-4 py-2">Border radius of the container.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">style</td>
-                    <td className="px-4 py-2">React.CSSProperties</td>
-                    <td className="px-4 py-2">Inline styles for customization.</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">className</td>
-                    <td className="px-4 py-2">string</td>
-                    <td className="px-4 py-2">Extra class names (Tailwind utilities).</td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-2 text-primary">children</td>
-                    <td className="px-4 py-2">ReactNode</td>
-                    <td className="px-4 py-2">Content inside the container.</td>
+                    <td className="p-3 text-primary">children</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">
+                      Content
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </section>
 
-          {/* Footer */}
+          {/* ---------------- Footer ---------------- */}
           <DocsFooter />
         </div>
       </div>

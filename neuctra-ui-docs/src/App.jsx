@@ -32,12 +32,9 @@ import CheckboxGroupDocs from "./pages/DocsPages/CheckboxGroupDocs";
 import SwitchGroupDocs from "./pages/DocsPages/SwitchGroupDocs";
 import DropdownDocs from "./pages/DocsPages/DropdownDocs";
 import ContainerDocs from "./pages/DocsPages/ContainerDocs";
-import GridViewDocs from "./pages/DocsPages/GridViewDocs";
-import FlexboxDocs from "./pages/DocsPages/FlexboxDocs";
-import StackDocs from "./pages/DocsPages/StackDocs";
+
 import DrawerDocs from "./pages/DocsPages/DrawerDocs";
-import AudioPlayerDocs from "./pages/DocsPages/AudioPlayerDocs";
-import AudioGalleryDocs from "./pages/DocsPages/AudioGalleryDocs";
+
 import AlertDocs from "./pages/DocsPages/AlertDocs";
 import ModalDocs from "./pages/DocsPages/ModalDocs";
 import AccordionDocs from "./pages/DocsPages/AccordionDocs";
@@ -78,13 +75,8 @@ const App = () => {
           <Route path="switch" element={<SwitchGroupDocs />} />
           <Route path="dropdown" element={<DropdownDocs />} />
           <Route path="container" element={<ContainerDocs />} />
-          <Route path="gridview" element={<GridViewDocs />} />
-          <Route path="flexbox" element={<FlexboxDocs />} />
-          <Route path="stack" element={<StackDocs />} />
           <Route path="drawer" element={<DrawerDocs />} />
-    
-          <Route path="audioplayer" element={<AudioPlayerDocs />} />
-          <Route path="audiogallery" element={<AudioGalleryDocs />} />
+  
           <Route path="alert" element={<AlertDocs />} />
           <Route path="modal" element={<ModalDocs />} />
           <Route path="accordion" element={<AccordionDocs />} />

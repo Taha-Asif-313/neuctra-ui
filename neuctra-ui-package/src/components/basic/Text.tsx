@@ -1,176 +1,95 @@
-import React, { useMemo } from "react";
+"use client";
 
-/** 🎯 Limit to only HTML elements to avoid SVG union explosion */
+import React from "react";
+import clsx from "clsx";
+
 type HTMLElementTag = keyof HTMLElementTagNameMap;
 
 type TextProps<T extends HTMLElementTag = "p"> = {
   as?: T;
   children: React.ReactNode;
-  color?: string;
+
+  /** Minimal styling */
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | string;
   weight?: React.CSSProperties["fontWeight"];
   align?: React.CSSProperties["textAlign"];
-  transform?: React.CSSProperties["textTransform"];
+
+  /** Text styles */
+  transform?: "uppercase" | "lowercase" | "capitalize";
   italic?: boolean;
   underline?: boolean;
   strikethrough?: boolean;
+
   truncate?: boolean;
-  selectable?: boolean;
-  hoverable?: boolean;
-  darkMode?: boolean;
-  baseColor?: string;
+
   className?: string;
   style?: React.CSSProperties;
-  onClick?: () => void;
-} & Omit<React.HTMLAttributes<HTMLElementTagNameMap[HTMLElementTag]>, "color" | "style">;
+} & Omit<
+  React.HTMLAttributes<HTMLElementTagNameMap[T]>,
+  "style"
+>;
 
-/** 🎨 Utility: generate lighter/darker shades */
-function adjustColor(color: string, amount: number): string {
-  return (
-    "#" +
-    color
-      .replace(/^#/, "")
-      .replace(/../g, (hex) =>
-        (
-          "0" +
-          Math.min(255, Math.max(0, parseInt(hex, 16) + amount)).toString(16)
-        ).slice(-2)
-      )
-  );
-}
-
-/** 🌈 Default color palettes */
-const defaultColors = {
-  light: {
-    default: "#111",
-    primary: "#2563eb",
-    secondary: "#64748b",
-    success: "#16a34a",
-    danger: "#dc2626",
-    white: "#ffffff",
-    muted: "#6b7280",
-  },
-  dark: {
-    default: "#f8fafc",
-    primary: "#60a5fa",
-    secondary: "#94a3b8",
-    success: "#22c55e",
-    danger: "#f87171",
-    white: "#ffffff",
-    muted: "#9ca3af",
-  },
+const sizeClasses: Record<string, string> = {
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+  "2xl": "text-2xl",
 };
 
-/** 💬 Main Component (HTML-only tags) */
+const transformClasses = {
+  uppercase: "uppercase",
+  lowercase: "lowercase",
+  capitalize: "capitalize",
+};
+
 export function Text<T extends HTMLElementTag = "p">({
   as,
   children,
-  color = "default",
   size = "md",
-  weight = "normal",
+  weight = 400,
   align = "left",
-  transform = "none",
+
+  transform,
   italic = false,
   underline = false,
   strikethrough = false,
+
   truncate = false,
-  selectable = true,
-  hoverable = false,
-  onClick,
-  darkMode = false,
-  baseColor,
-  className = "",
-  style = {},
+
+  className,
+  style,
   ...rest
 }: TextProps<T>) {
-  // element type as provided (constrained to HTML tags)
-  const Element = (as || ("p" as T)) as T;
+  const Element = (as || "p") as T;
 
-  /** 🎨 Dynamic color palette generation */
-  const theme = useMemo(() => {
-    if (!baseColor) return defaultColors[darkMode ? "dark" : "light"];
+  return React.createElement(
+    Element,
+    {
+      className: clsx(
+        "text-inherit",
+        sizeClasses[size] || "",
 
-    const lightMode = {
-      default: "#111",
-      primary: baseColor,
-      secondary: adjustColor(baseColor, -50),
-      success: adjustColor(baseColor, -30),
-      danger: "#dc2626",
-      white: "#ffffff",
-      muted: "#6b7280",
-    };
-    const darkModeTheme = {
-      default: "#f8fafc",
-      primary: adjustColor(baseColor, 80),
-      secondary: adjustColor(baseColor, 120),
-      success: adjustColor(baseColor, 100),
-      danger: "#f87171",
-      white: "#ffffff",
-      muted: "#9ca3af",
-    };
-    return darkMode ? darkModeTheme : lightMode;
-  }, [baseColor, darkMode]);
+        // ✅ text styles
+        transform && transformClasses[transform],
+        italic && "italic",
+        underline && "underline",
+        strikethrough && "line-through",
 
-  /** 📏 Font sizes */
-  const sizes: Record<string, string> = {
-    xs: "0.75rem",
-    sm: "0.875rem",
-    md: "1rem",
-    lg: "1.25rem",
-    xl: "1.5rem",
-    "2xl": "2rem",
-  };
+        truncate && "truncate",
 
-  /** 💅 Computed styles */
-  const computedStyle: React.CSSProperties = {
-    color: (theme as any)[color] || color,
-    fontSize: sizes[size] || size,
-    fontWeight: weight,
-    textAlign: align,
-    textTransform: transform,
-    fontStyle: italic ? "italic" : "normal",
-    textDecoration: underline ? "underline" : strikethrough ? "line-through" : "none",
-    userSelect: selectable ? "text" : "none",
-    overflow: truncate ? "hidden" : undefined,
-    whiteSpace: truncate ? "nowrap" : undefined,
-    textOverflow: truncate ? "ellipsis" : undefined,
-    cursor: onClick ? "pointer" : "default",
-    transition: "all 0.25s ease-in-out",
-    ...style,
-  };
-
-  /** 🧠 Hover events (narrow to HTMLElement at runtime) */
-  const handleMouseEnter = (e: React.MouseEvent) => {
-    if (!hoverable) return;
-    const target = e.currentTarget;
-    if (target instanceof HTMLElement) {
-      target.style.opacity = "0.8";
-    }
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent) => {
-    if (!hoverable) return;
-    const target = e.currentTarget;
-    if (target instanceof HTMLElement) {
-      target.style.opacity = "1";
-    }
-  };
-
-  /**
-   * Build props object. We cast only once to the correct intrinsic props type.
-   * This prevents TypeScript from having to compute giant unions for event types.
-   */
-  const props = {
-    className,
-    style: computedStyle,
-    onClick,
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave,
-    ...rest,
-  } as React.ComponentPropsWithoutRef<T>;
-
-  // Use React.createElement to avoid JSX generic complexity
-  return React.createElement(Element as any, props, children);
+        className
+      ),
+      style: {
+        fontWeight: weight,
+        textAlign: align,
+        ...style,
+      },
+      ...rest,
+    },
+    children
+  );
 }
 
 export default Text;

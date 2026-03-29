@@ -187,6 +187,7 @@ const InputDocs = () => {
 />`}
               previewContent={
                 <Input
+                
                   label="Custom Field"
                   placeholder="Stylish input ✨"
                   primaryTheme={false}

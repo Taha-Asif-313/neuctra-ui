@@ -1,12 +1,19 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect,
+} from "react";
 import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
 
 type AlertType = "success" | "error" | "warning" | "info";
 
 interface Toast {
-  id: number;
+  id: string;
   title?: string;
   description?: string;
   type?: AlertType;
@@ -14,7 +21,8 @@ interface Toast {
 }
 
 interface ToastContextProps {
-  addToast: (toast: Omit<Toast, "id">) => void;
+  toast: (options: Omit<Toast, "id">) => void;
+  dismiss: (id?: string) => void;
 }
 
 const ToastContext = createContext<ToastContextProps | undefined>(undefined);
@@ -25,65 +33,150 @@ export const useToast = () => {
   return context;
 };
 
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const removeToast = useCallback((id: number) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+  const dismiss = useCallback((id?: string) => {
+    if (id) {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    } else {
+      setToasts([]);
+    }
   }, []);
 
-  const addToast = useCallback((toast: Omit<Toast, "id">) => {
-    const id = Date.now() + Math.random();
-    setToasts((prev) => [...prev, { ...toast, id }]);
-    if (toast.duration !== 0) {
-      setTimeout(() => removeToast(id), toast.duration ?? 4000);
-    }
-  }, [removeToast]);
+  const toast = useCallback(
+    ({
+      title,
+      description,
+      type = "info",
+      duration = 4000,
+    }: Omit<Toast, "id">) => {
+      const id = Math.random().toString(36).substring(2, 9);
+      setToasts((prev) => [
+        ...prev,
+        { id, title, description, type, duration },
+      ]);
+
+      if (duration !== 0) {
+        setTimeout(() => dismiss(id), duration);
+      }
+    },
+    [dismiss],
+  );
 
   return (
-    <ToastContext.Provider value={{ addToast }}>
+    <ToastContext.Provider value={{ toast, dismiss }}>
       {children}
-      {/* Toast container */}
-      <div className="fixed top-5 right-5 flex flex-col gap-3 z-50">
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 sm:bottom-6 sm:right-6">
         {toasts.map((toast) => (
-          <ToastItem key={toast.id} toast={toast} onClose={() => removeToast(toast.id)} />
+          <ToastItem
+            key={toast.id}
+            toast={toast}
+            onClose={() => dismiss(toast.id)}
+          />
         ))}
       </div>
     </ToastContext.Provider>
   );
 };
 
-const typeStyles: Record<AlertType, { bg: string; border: string; icon: ReactNode }> = {
-  success: { bg: "bg-green-50", border: "border-green-400", icon: <CheckCircle size={20} className="text-green-600" /> },
-  error: { bg: "bg-red-50", border: "border-red-400", icon: <AlertCircle size={20} className="text-red-600" /> },
-  warning: { bg: "bg-yellow-50", border: "border-yellow-400", icon: <AlertTriangle size={20} className="text-yellow-600" /> },
-  info: { bg: "bg-blue-50", border: "border-blue-400", icon: <Info size={20} className="text-blue-600" /> },
+const typeConfig: Record<
+  AlertType,
+  {
+    bg: string;
+    border: string;
+    text: string;
+    iconColor: string;
+    icon: React.ElementType;
+  }
+> = {
+  success: {
+    bg: "bg-white dark:bg-zinc-900",
+    border: "border-green-500",
+    text: "text-green-600 dark:text-green-500",
+    iconColor: "text-green-500",
+    icon: CheckCircle,
+  },
+  error: {
+    bg: "bg-white dark:bg-zinc-900",
+    border: "border-red-500",
+    text: "text-red-600 dark:text-red-500",
+    iconColor: "text-red-500",
+    icon: AlertCircle,
+  },
+  warning: {
+    bg: "bg-white dark:bg-zinc-900",
+    border: "border-yellow-500",
+    text: "text-yellow-600 dark:text-yellow-500",
+    iconColor: "text-yellow-500",
+    icon: AlertTriangle,
+  },
+  info: {
+    bg: "bg-white dark:bg-zinc-900",
+    border: "border-blue-500",
+    text: "text-blue-600 dark:text-blue-500",
+    iconColor: "text-blue-500",
+    icon: Info,
+  },
 };
 
-const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({ toast, onClose }) => {
+const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
+  toast,
+  onClose,
+}) => {
   const { title, description, type = "info" } = toast;
-  const { bg, border, icon } = typeStyles[type];
+  const config = typeConfig[type];
+  const Icon = config.icon;
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
 
   return (
     <div
-      className={`flex items-start gap-3 p-4 border-l-4 rounded shadow ${bg} ${border} animate-slide-in-right`}
+      className={`
+        group relative flex w-full max-w-sm items-start gap-3 rounded-lg border shadow-lg
+        ${config.bg} ${config.border}
+        p-4 pr-8
+        transition-all duration-300 ease-out
+        animate-in slide-in-from-right-full fade-in
+        hover:shadow-xl hover:scale-105
+        dark:border-zinc-800
+      `}
       role="alert"
     >
-      <div>{icon}</div>
-      <div className="flex-1 min-w-0">
-        {title && <div className="font-semibold text-sm mb-1">{title}</div>}
-        {description && <div className="text-sm text-gray-700">{description}</div>}
+      <Icon className={`h-5 w-5 flex-shrink-0 ${config.iconColor}`} />
+
+      <div className="flex-1 space-y-1">
+        {title && (
+          <div className={`text-sm font-semibold ${config.text}`}>{title}</div>
+        )}
+        {description && (
+          <div className="text-sm text-zinc-600 dark:text-zinc-400">
+            {description}
+          </div>
+        )}
       </div>
-      <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-        <X size={16} />
+
+      <button
+        onClick={onClose}
+        className={`
+          absolute right-2 top-2 rounded-md p-1
+          text-zinc-400 hover:text-zinc-700
+          dark:text-zinc-600 dark:hover:text-zinc-300
+          transition-colors
+          focus:outline-none focus:ring-2 focus:ring-zinc-400
+        `}
+        aria-label="Close toast"
+      >
+        <X className="h-4 w-4" />
       </button>
     </div>
   );
 };
-
-// Add this animation to your global CSS (Tailwind + @layer utilities)
-// @keyframes slide-in-right {
-//   0% { transform: translateX(100%); opacity: 0; }
-//   100% { transform: translateX(0); opacity: 1; }
-// }
-// .animate-slide-in-right { animation: slide-in-right 0.3s ease forwards; }
