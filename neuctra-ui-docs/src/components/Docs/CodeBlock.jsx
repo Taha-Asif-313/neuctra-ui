@@ -62,22 +62,22 @@ const CodeBlock = ({
       python: <Code2 className="w-5 h-5 text-blue-400" />,
       html: <FileCode2 className="w-5 h-5 text-orange-400" />,
       css: <Palette className="w-5 h-5 text-pink-400" />,
-      shell: <TerminalSquare className="w-5 h-5 text-gray-300" />,
+      shell: <TerminalSquare className="w-5 h-5 text-zinc-300" />,
       json: <FileJson className="w-5 h-5 text-amber-300" />,
     };
-    return icons[lang] || <FileCode className="w-5 h-5 text-gray-400" />;
+    return icons[lang] || <FileCode className="w-5 h-5 text-zinc-400" />;
   };
 
   return (
     <div
-      className={`relative group rounded-xl overflow-hidden bg-gray-900/60 backdrop-blur-sm border border-gray-800/60 ${className}`}
+      className={`relative group rounded-xl overflow-hidden bg-zinc-900/60 backdrop-blur-sm border border-zinc-800/60 ${className}`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between bg-gradient-to-r from-gray-900 to-gray-950 border-b border-gray-800/80">
+      <div className="flex items-center justify-between bg-zinc-900 border-b border-zinc-800/80">
         {/* Tabs or Language Display */}
         <div className="flex items-center flex-1 min-w-0">
           {/* Traffic lights */}
-          <div className="flex gap-1.5 px-4 py-3 border-r border-gray-800/60">
+          <div className="flex gap-1.5 px-4 py-3 border-r border-zinc-800/60">
             <div className="w-3 h-3 rounded-full bg-red-500"></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -92,7 +92,7 @@ const CodeBlock = ({
                   className={`flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     activeTab === index
                       ? "text-[#00c420] "
-                      : "text-gray-400 hover:text-gray-300 hover:bg-gray-800/40"
+                      : "text-zinc-400 hover:text-zinc-300 hover:bg-zinc-800/40"
                   }`}
                 >
                   <FileCode size={14} />
@@ -103,7 +103,7 @@ const CodeBlock = ({
           ) : (
             <div className="flex items-center gap-2 px-4 py-3">
               {getLanguageIcon(currentLanguage)}
-              <span className="text-sm font-medium text-gray-400">
+              <span className="text-sm font-medium text-zinc-400">
                 {currentLanguage.toUpperCase()}
               </span>
             </div>
@@ -114,7 +114,7 @@ const CodeBlock = ({
         <div className="flex items-center gap-2 px-4 py-3">
           <button
             onClick={copyToClipboard}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white transition-all duration-200"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-all duration-200"
           >
             {copied ? (
               <>
@@ -164,7 +164,7 @@ const CodeBlock = ({
         </SyntaxHighlighter>
 
         {/* Gradient overlay */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-transparent to-gray-900/20 opacity-50"></div>
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-transparent to-zinc-900/20 opacity-50"></div>
       </div>
 
       {/* Hover border animation */}

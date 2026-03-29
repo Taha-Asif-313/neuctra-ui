@@ -22,7 +22,7 @@ export default function CodePreviewBlock({
   return (
     <div
       className="
-        border border-gray-800 bg-[#0d1117] rounded-xl shadow-lg
+        border border-zinc-800 bg-zinc-900 rounded-xl shadow-lg
         relative overflow-visible
       "
     >
@@ -31,7 +31,7 @@ export default function CodePreviewBlock({
         className="
           flex items-center justify-between px-3 py-2
           rounded-t-xl
-          border-b border-gray-800 bg-[#161b22]
+          border-b border-zinc-800 bg-zinc-900
           max-md:flex-col max-md:items-start max-md:gap-2
         "
       >
@@ -45,13 +45,13 @@ export default function CodePreviewBlock({
         {/* Tabs + Copy */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* Tabs */}
-          <div className="flex rounded-md overflow-hidden border border-gray-800">
+          <div className="flex rounded-md overflow-hidden border border-zinc-800">
             <button
               onClick={() => setView("preview")}
               className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
                 view === "preview"
-                  ? "bg-gray-800 text-white"
-                  : "text-gray-400 hover:bg-gray-800"
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-400 hover:bg-zinc-800"
               }`}
             >
               <Eye size={12} /> Preview
@@ -60,8 +60,8 @@ export default function CodePreviewBlock({
               onClick={() => setView("code")}
               className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
                 view === "code"
-                  ? "bg-gray-800 text-white"
-                  : "text-gray-400 hover:bg-gray-800"
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-400 hover:bg-zinc-800"
               }`}
             >
               <FileCode size={12} /> Code
@@ -73,7 +73,7 @@ export default function CodePreviewBlock({
             onClick={copyCode}
             className="
               flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium
-              text-gray-400 hover:text-white hover:bg-gray-800
+              text-zinc-400 hover:text-white hover:bg-zinc-800
               rounded-md transition-colors
             "
           >
@@ -94,14 +94,14 @@ export default function CodePreviewBlock({
       {/* Main Content Area */}
       <div
         className="
-          relative bg-zinc-950 text-gray-200 font-poppins
+          relative bg-zinc-950 text-zinc-200 font-poppins
           p-4 sm:p-6 overflow-visible rounded-b-xl
         "
       >
         {view === "preview" ? (
           <div className="relative z-10">
             {previewContent || (
-              <div className="text-center text-gray-500 py-10">
+              <div className="text-center text-zinc-500 py-10">
                 🧩 No preview available
               </div>
             )}

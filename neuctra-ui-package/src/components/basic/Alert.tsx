@@ -7,6 +7,7 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
 } from "react";
 import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
 
@@ -21,9 +22,17 @@ interface Toast {
 }
 
 interface ToastContextProps {
-  toast: (options: Omit<Toast, "id">) => void;
+  toast: ToastFunction;
   dismiss: (id?: string) => void;
 }
+
+type ToastFunction = {
+  (options: Omit<Toast, "id"> | string): void;
+  success: (message: string, options?: Partial<Toast>) => void;
+  error: (message: string, options?: Partial<Toast>) => void;
+  warning: (message: string, options?: Partial<Toast>) => void;
+  info: (message: string, options?: Partial<Toast>) => void;
+};
 
 const ToastContext = createContext<ToastContextProps | undefined>(undefined);
 
@@ -46,25 +55,49 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
     }
   }, []);
 
-  const toast = useCallback(
-    ({
-      title,
-      description,
-      type = "info",
-      duration = 4000,
-    }: Omit<Toast, "id">) => {
+  const createToast = useCallback(
+    (options: Omit<Toast, "id">) => {
       const id = Math.random().toString(36).substring(2, 9);
-      setToasts((prev) => [
-        ...prev,
-        { id, title, description, type, duration },
-      ]);
 
-      if (duration !== 0) {
-        setTimeout(() => dismiss(id), duration);
+      const toastData: Toast = {
+        id,
+        type: "info",
+        duration: 4000,
+        ...options,
+      };
+
+      setToasts((prev) => [...prev, toastData]);
+
+      if (toastData.duration !== 0) {
+        setTimeout(() => dismiss(id), toastData.duration);
       }
     },
     [dismiss],
   );
+
+  const toast = useMemo(() => {
+    const base = ((input: Omit<Toast, "id"> | string) => {
+      if (typeof input === "string") {
+        createToast({ description: input });
+      } else {
+        createToast(input);
+      }
+    }) as ToastFunction;
+
+    base.success = (message, options) =>
+      createToast({ title: message, type: "success", ...options });
+
+    base.error = (message, options) =>
+      createToast({ title: message, type: "error", ...options });
+
+    base.warning = (message, options) =>
+      createToast({ title: message, type: "warning", ...options });
+
+    base.info = (message, options) =>
+      createToast({ title: message, type: "info", ...options });
+
+    return base;
+  }, [createToast]);
 
   return (
     <ToastContext.Provider value={{ toast, dismiss }}>
@@ -93,30 +126,30 @@ const typeConfig: Record<
   }
 > = {
   success: {
-    bg: "bg-white dark:bg-zinc-900",
-    border: "border-green-500",
-    text: "text-green-600 dark:text-green-500",
+    bg: "bg-white dark:bg-green-950/70",
+    border: "border-green-500/40",
+    text: "text-green-600 dark:text-green-400",
     iconColor: "text-green-500",
     icon: CheckCircle,
   },
   error: {
-    bg: "bg-white dark:bg-zinc-900",
-    border: "border-red-500",
-    text: "text-red-600 dark:text-red-500",
+    bg: "bg-white dark:bg-red-950/80",
+    border: "border-red-500/40",
+    text: "text-red-600 dark:text-red-400",
     iconColor: "text-red-500",
     icon: AlertCircle,
   },
   warning: {
-    bg: "bg-white dark:bg-zinc-900",
-    border: "border-yellow-500",
-    text: "text-yellow-600 dark:text-yellow-500",
+    bg: "bg-white dark:bg-yellow-950/80",
+    border: "border-yellow-500/40",
+    text: "text-yellow-600 dark:text-yellow-400",
     iconColor: "text-yellow-500",
     icon: AlertTriangle,
   },
   info: {
-    bg: "bg-white dark:bg-zinc-900",
-    border: "border-blue-500",
-    text: "text-blue-600 dark:text-blue-500",
+    bg: "bg-white dark:bg-blue-950/80",
+    border: "border-blue-500/40",
+    text: "text-blue-600 dark:text-blue-400",
     iconColor: "text-blue-500",
     icon: Info,
   },
@@ -141,37 +174,45 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
   return (
     <div
       className={`
-        group relative flex w-full max-w-sm items-start gap-3 rounded-lg border shadow-lg
-        ${config.bg} ${config.border}
-        p-4 pr-8
+        group relative flex min-w-sm max-w-sm items-start gap-3 rounded-xl
+        ${config.bg} p-4 pr-10
+        shadow-md dark:shadow-black/40
         transition-all duration-300 ease-out
         animate-in slide-in-from-right-full fade-in
-        hover:shadow-xl hover:scale-105
-        dark:border-zinc-800
+        hover:scale-[1.03] hover:shadow-lg
       `}
       role="alert"
     >
-      <Icon className={`h-5 w-5 flex-shrink-0 ${config.iconColor}`} />
+      <Icon className={`h-6 w-6 flex-shrink-0 ${config.iconColor}`} />
 
-      <div className="flex-1 space-y-1">
-        {title && (
-          <div className={`text-sm font-semibold ${config.text}`}>{title}</div>
-        )}
-        {description && (
-          <div className="text-sm text-zinc-600 dark:text-zinc-400">
-            {description}
-          </div>
-        )}
-      </div>
+    <div className="flex-1 space-y-1">
+  {title && (
+    <div
+      className={`text-sm font-medium ${
+        description
+          ? config.text // normal colored title
+          : "text-zinc-900 dark:text-white" // simple toast = white/neutral
+      }`}
+    >
+      {title}
+    </div>
+  )}
+
+  {description && (
+    <div className="text-sm text-zinc-500 dark:text-zinc-300">
+      {description}
+    </div>
+  )}
+</div>
 
       <button
         onClick={onClose}
         className={`
-          absolute right-2 top-2 rounded-md p-1
+          absolute top-3 right-3 rounded-full p-1
           text-zinc-400 hover:text-zinc-700
-          dark:text-zinc-600 dark:hover:text-zinc-300
+          dark:text-zinc-500 dark:hover:text-zinc-200
           transition-colors
-          focus:outline-none focus:ring-2 focus:ring-zinc-400
+          focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500
         `}
         aria-label="Close toast"
       >
@@ -180,3 +221,5 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
     </div>
   );
 };
+
+export default ToastItem;

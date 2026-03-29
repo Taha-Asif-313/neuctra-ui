@@ -49,7 +49,7 @@ const BadgeDocs = () => {
 <Badge text="Success" primaryTheme={false} primaryColor="#16a34a" />
 <Badge text="Alert" primaryTheme={false} primaryColor="#dc2626" />`}
               previewContent={
-                <div className="flex flex-wrap gap-3 p-6 bg-zinc-900 rounded-xl">
+                <div className="flex flex-wrap gap-3">
                   <Badge text="New" />
                   <Badge text="Success" primaryTheme={false} primaryColor="#16a34a" />
                   <Badge text="Alert" primaryTheme={false} primaryColor="#dc2626" />
@@ -70,7 +70,7 @@ const BadgeDocs = () => {
               code={`<Badge text="Info" icon={<Info size={14} />} />
 <Badge text="Starred" primaryTheme={false} primaryColor="#facc15" icon={<Star size={14} />} iconPosition="right" />`}
               previewContent={
-                <div className="flex flex-wrap gap-3 p-6 bg-zinc-900 rounded-xl">
+                <div className="flex flex-wrap gap-3">
                   <Badge text="Info" icon={<Info size={14} />} />
                   <Badge
                     text="Starred"
@@ -96,7 +96,7 @@ const BadgeDocs = () => {
               code={`<Badge text="Inbox" icon={<Bell size={14} />} notificationDot />
 <Badge icon={<Heart size={14} />} count={3} primaryTheme={false} primaryColor="#ef4444" />`}
               previewContent={
-                <div className="flex flex-wrap gap-3 p-6 bg-zinc-900 rounded-xl">
+                <div className="flex flex-wrap gap-3">
                   <Badge text="Inbox" icon={<Bell size={14} />} notificationDot />
                   <Badge icon={<Heart size={14} />} count={3} primaryTheme={false} primaryColor="#ef4444" />
                 </div>
@@ -119,7 +119,7 @@ const BadgeDocs = () => {
   <Badge text="Large" size="lg" />
 </>`}
               previewContent={
-                <div className="flex flex-wrap gap-3 p-6 bg-zinc-900 rounded-xl">
+                <div className="flex flex-wrap gap-3">
                   <Badge text="Small" size="sm" />
                   <Badge text="Medium" size="md" />
                   <Badge text="Large" size="lg" />
@@ -140,7 +140,7 @@ const BadgeDocs = () => {
               code={`<Badge text="Rounded" rounded />
 <Badge text="Rectangular" rounded={false} />`}
               previewContent={
-                <div className="flex flex-wrap gap-3 p-6 bg-zinc-900 rounded-xl">
+                <div className="flex flex-wrap gap-3">
                   <Badge text="Rounded" rounded />
                   <Badge text="Rectangular" rounded={false} />
                 </div>

@@ -73,9 +73,9 @@ const ListItem: React.FC<ListItemProps> = ({
         className={clsx(
           "flex items-center gap-2 text-sm text-zinc-800 dark:text-zinc-200 transition-all",
           onClick &&
-            (primaryTheme
-              ? "cursor-pointer hover:text-[var(--primary)]"
-              : "cursor-pointer"),
+          (primaryTheme
+            ? "cursor-pointer hover:text-[var(--primary)]"
+            : "cursor-pointer"),
           itemClassName
         )}
       >
@@ -151,7 +151,6 @@ export const List: React.FC<ListProps> = ({
   return (
     <div
       className={clsx(
-        "bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4",
         className
       )}
     >
@@ -172,8 +171,8 @@ export const List: React.FC<ListProps> = ({
           isInline
             ? "flex flex-wrap gap-4"
             : isOrdered
-            ? "list-decimal pl-5 space-y-2"
-            : "list-none p-0"
+              ? "list-decimal pl-5 space-y-2"
+              : "list-none p-0"
         )}
       >
         {items.map((item, i) => (

@@ -19,10 +19,17 @@ const Sidebar = () => {
       subLinks: [
         { label: "Text", href: "/docs/text" },
         { label: "Button", href: "/docs/button" },
+        { label: "Image", href: "/docs/image" },
+        { label: "Container", href: "/docs/container" },
+        { label: "List", href: "/docs/list" },
         { label: "Badge", href: "/docs/badge" },
         { label: "Avatar", href: "/docs/avatar" },
-        { label: "Image", href: "/docs/image" },
-        { label: "List", href: "/docs/list" },
+        { label: "Tabs", href: "/docs/tabs" },
+        { label: "Drawer", href: "/docs/drawer" },
+        { label: "Table", href: "/docs/table" },
+        { label: "Alert", href: "/docs/alert" },
+        { label: "Modal", href: "/docs/modal" },
+        { label: "Accordion", href: "/docs/accordion" },
       ],
     },
     {
@@ -35,38 +42,8 @@ const Sidebar = () => {
         { label: "Dropdown", href: "/docs/dropdown" },
       ],
     },
-    {
-      category: "Layout Components",
-      subLinks: [
-        { label: "Container", href: "/docs/container" },
-        { label: "GridView", href: "/docs/gridview" },
-        { label: "Flexbox", href: "/docs/flexbox" },
-                { label: "Stack", href: "/docs/stack" },
-        { label: "Tabs", href: "/docs/tabs" },
-        { label: "Drawer", href: "/docs/drawer" },
-        { label: "Card", href: "/docs/card" },
-      ],
-    },
-    {
-      category: "Media Components",
-      subLinks: [
-        { label: "AudioPlayer", href: "/docs/audioplayer" },
-        { label: "AudioGallery", href: "/docs/audiogallery" },
-      ],
-    },
-    {
-      category: "Feedback Components",
-      subLinks: [
-        { label: "Alert", href: "/docs/alert" },
-        { label: "Modal", href: "/docs/modal" },
-        { label: "Accordion", href: "/docs/accordion" },
-      ],
-    },
-    {
-      category: "Data Display",
-      subLinks: [{ label: "Table", href: "/docs/table" }],
-    },
-    { label: "About", href: "/docs/about" },
+
+    { label: "About", href: "/about" },
   ];
 
   // 🔄 Handlers
@@ -175,7 +152,7 @@ const Sidebar = () => {
               >
                 {link.label}
               </div>
-            )
+            ),
           )}
         </nav>
       </aside>

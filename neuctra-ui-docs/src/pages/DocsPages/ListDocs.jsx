@@ -44,8 +44,6 @@ const ListDocs = () => {
             <CodePreviewBlock
               language="jsx"
               code={`<List
-
-
 title="Main Features"
 titleIcon={<CheckCircle />}
 items={[
@@ -214,7 +212,7 @@ items={[
 { text: "Dark UI ready" },
 { text: "Fully customizable" },
 ]}
-className="bg-zinc-900 border-zinc-700"
+className="bg-zinc-900 border-zinc-700 p-4 rounded-lg"
 itemClassName="text-zinc-300 hover:text-blue-400"
 bulletClassName="bg-blue-500"
 />`}
@@ -225,7 +223,7 @@ bulletClassName="bg-blue-500"
                     { text: "Dark UI ready" },
                     { text: "Fully customizable" },
                   ]}
-                  className="bg-zinc-900 border-zinc-700"
+                  className="bg-zinc-900 border-zinc-700 p-4 rounded-lg"
                   itemClassName="text-zinc-300 hover:text-blue-400"
                   bulletClassName="bg-blue-500"
                 />

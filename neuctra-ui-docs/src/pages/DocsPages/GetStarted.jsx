@@ -7,13 +7,7 @@ const GetStarted = () => {
     <>
       <Metadata
         title="Get Started — Neuctra UI"
-        description="Get started with Neuctra UI — a modern, customizable React component library built with Tailwind CSS v4 and TypeScript. Learn how to install, theme, and use components effortlessly."
-        keywords="Neuctra UI, React UI library, Tailwind CSS components, TypeScript UI kit, install Neuctra UI, React component library setup, Tailwind v4, modern UI library, React design system"
-        image="https://ui.neuctra.com/og/get-started-docs-preview.png"
-        ogTitle="Get Started with Neuctra UI"
-        ogDescription="Learn how to install and use Neuctra UI — a modern React + Tailwind CSS component library designed for speed, customization, and scalability."
-        twitterTitle="Get Started | Neuctra UI"
-        twitterDescription="Start building beautiful React apps with Neuctra UI — a Tailwind CSS v4 powered, TypeScript-based component library."
+        description="Get started with Neuctra UI — a modern, customizable React component library built with Tailwind CSS and TypeScript."
       />
 
       <div className="bg-zinc-950 font-primary text-gray-200 min-h-screen py-10">
@@ -21,41 +15,12 @@ const GetStarted = () => {
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
-              Get started with{" "}
-              <span className="text-primary font-semibold">Neuctra</span> UI
+              Get started with <span className="text-primary">Neuctra</span> UI
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              A modern, customizable <span className="text-primary">React</span>{" "}
-              component library (
-              <span className="text-primary">Tailwind CSS</span> +{" "}
-              <span className="text-primary">TypeScript</span>) designed for
-              building scalable and maintainable user interfaces.
+            <p className="text-lg text-gray-400 max-w-3xl">
+              A modern React component library powered by Tailwind CSS.
             </p>
           </header>
-
-          {/* Prerequisites */}
-          <section>
-            <h2 className="text-3xl font-semibold mb-4 text-white">
-              Prerequisites
-            </h2>
-            <ul className="list-disc list-inside space-y-2 text-sm text-gray-300 max-w-xl">
-              <li>
-                <span className="text-primary font-semibold">Node.js</span> (LTS
-                recommended) and a package manager like npm, yarn, or pnpm.
-              </li>
-              <li>
-                A <span className="text-primary font-semibold">React</span>{" "}
-                project — frameworks like Next.js or build tools like Vite work
-                best.
-              </li>
-              <li>
-                <span className="text-primary font-semibold">
-                  Tailwind CSS v4
-                </span>{" "}
-                for modern, config-free utility-first styling.
-              </li>
-            </ul>
-          </section>
 
           {/* Install */}
           <section>
@@ -64,121 +29,86 @@ const GetStarted = () => {
             </h2>
             <CodeBlock
               language="bash"
-              code={`# npm
-npm install @neuctra/ui tailwindcss
-
-# yarn
-yarn add @neuctra/ui tailwindcss
-
-# pnpm
-pnpm add @neuctra/ui tailwindcss
-
-# bun
-bun add @neuctra/ui tailwindcss`}
+              code={`npm install @neuctra/ui`}
             />
           </section>
 
-          {/* Tailwind setup - Vite */}
+          {/* Tailwind v3 */}
           <section>
             <h2 className="text-3xl font-semibold mb-4 text-white">
-              2. Setup Tailwind (Vite + React)
+              2. Tailwind CSS v3 or below
             </h2>
+            <p className="text-gray-300 mb-3">
+              Add Neuctra UI to your Tailwind config content paths:
+            </p>
             <CodeBlock
-              language="bash"
-              code={`npm create vite@latest my-app --template react
-cd my-app
-npm install tailwindcss`}
+              language="js"
+              code={`/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@neuctra/ui/**/*.{js,ts,jsx,tsx}" // ✅ required
+  ],
+  theme: {
+    extend: {
+      boxShadow: {
+        material: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+      },
+    },
+  },
+  plugins: [],
+}`}
             />
-            <p className="mt-4 mb-3 text-gray-300 max-w-xl">
-              In <code className="text-primary font-mono">index.css</code>,
-              import Tailwind’s new layer directives:
+          </section>
+
+          {/* Tailwind v4 */}
+          <section>
+            <h2 className="text-3xl font-semibold mb-4 text-white">
+              3. Tailwind CSS v4 or above
+            </h2>
+            <p className="text-gray-300 mb-3">
+              In your global CSS file:
             </p>
             <CodeBlock
               language="css"
               code={`@import "tailwindcss";
-
-@theme {
-  --color-primary: #00c214;
-  --color-secondary: #ec4899;
-}`}
+@source "../node_modules/@neuctra/ui";`}
             />
-            <p className="text-gray-400 mt-2 text-sm">
-              That’s it — no <code>tailwind.config.js</code> needed in Tailwind
-              v4!
-            </p>
           </section>
 
-          {/* Theming */}
+          {/* Theme */}
           <section>
             <h2 className="text-3xl font-semibold mb-4 text-white">
-              3. Theming
+              4. Theme Setup
             </h2>
-            <p className="text-gray-300 mb-4">
-              The <code className="text-primary">@neuctra/ui</code> library uses
-              Tailwind CSS variables for theme customization. Add or override
-              them inside your `@theme` block:
+            <p className="text-gray-300 mb-3">
+              Define your primary color using CSS variables:
             </p>
             <CodeBlock
               language="css"
-              code={`@theme {
-  --color-primary: #00c214;
-  --color-secondary: #ec4899;
-}
-
-@media (prefers-color-scheme: dark) {
-  @theme {
-    --color-primary: #60a5fa;
-    --color-secondary: #f472b6;
-  }
+              code={`:root {
+  --primary: #00c214;
 }`}
             />
           </section>
 
           {/* Usage */}
           <section>
-            <h2 className="text-3xl font-semibold mb-4 text-white">4. Usage</h2>
-            <p className="text-gray-300 mb-3">
-              Import and use any Neuctra UI component directly:
-            </p>
+            <h2 className="text-3xl font-semibold mb-4 text-white">
+              5. Usage
+            </h2>
             <CodeBlock
               language="tsx"
-              code={`import { Button, Modal, Table } from "@neuctra/ui";
+              code={`import { Button } from "@neuctra/ui";
 
 export default function App() {
   return (
-    <div className="p-10">
-      <Button variant="primary">Get Started</Button>
-    </div>
+    <Button>Click me</Button>
   );
 }`}
             />
           </section>
-
-          {/* Troubleshooting */}
-          <section>
-            <h2 className="text-3xl font-semibold mb-4 text-white">
-              5. Troubleshooting
-            </h2>
-            <ul className="list-disc list-inside space-y-2 text-sm text-gray-300 max-w-xl">
-              <li>Ensure you’re using Tailwind CSS v4 or newer.</li>
-              <li>
-                Add <code>@import "tailwindcss";</code> at the top of your CSS.
-              </li>
-              <li>Restart the dev server after installing dependencies.</li>
-              <li>
-                Make sure PostCSS is automatically configured (Vite does this).
-              </li>
-            </ul>
-          </section>
-
-          {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            <p>
-              Built with <span className="text-primary">React</span>,{" "}
-              <span className="text-primary">Tailwind CSS v4</span> &{" "}
-              <span className="text-primary">TypeScript</span>.
-            </p>
-          </footer>
         </div>
       </div>
     </>
