@@ -38,10 +38,10 @@ const TemplatesSidebar = () => {
       category: "Neuctra UI Blocks",
       icon: Blocks,
       subLinks: [
-        { label: "Hero Sections", href: "/templates/ui/hero" },
-        { label: "Pricing", href: "/templates/ui/pricing" },
-        { label: "Testimonials", href: "/templates/ui/testimonials" },
-        { label: "Footers", href: "/templates/ui/footer" },
+        { label: "Auth Pages", href: "/templates/auth" },
+        { label: "Login Pages", href: "/templates/loginPages" },
+        { label: "Testimonials", href: "/templates/testimonials" },
+        { label: "Footers", href: "/templates/footer" },
       ],
     },
   ];

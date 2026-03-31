@@ -8,7 +8,7 @@ import React, {
   useImperativeHandle,
   CSSProperties,
 } from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
 
 export interface SelectOption {
   label: string;
@@ -16,13 +16,14 @@ export interface SelectOption {
   icon?: React.ReactNode;
 }
 
-export interface DropdownProps {
+export interface SelectProps {
   label?: string;
   name?: string;
 
-  value?: string;
-  defaultValue?: string;
-  onChange?: (name: string, value: string) => void;
+  /** 🔥 VALUE */
+  value?: string | string[];
+  defaultValue?: string | string[];
+  onValueChange?: (value: string | string[], name?: string) => void;
 
   options?: SelectOption[];
 
@@ -34,12 +35,15 @@ export interface DropdownProps {
   success?: boolean;
   helperText?: string;
 
+  /** 🔥 MODE */
+  multiple?: boolean;
+
   labelIcon?: React.ElementType;
   prefixIcon?: React.ElementType;
 
   variant?: "dark" | "light";
 
-  /** 🔥 THEME SYSTEM */
+  /** 🎨 THEME */
   primaryTheme?: boolean;
   primaryColor?: string;
 
@@ -47,26 +51,27 @@ export interface DropdownProps {
   labelClassName?: string;
   triggerClassName?: string;
   dropdownClassName?: string;
-  optionClassName?: string;
+  itemClassName?: string;
 
   className?: string;
 }
 
-export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
+export const Select = forwardRef<HTMLDivElement, SelectProps>(
   (props, ref) => {
     const {
       label,
-      name = "",
+      name,
       value,
       defaultValue,
-      onChange,
+      onValueChange,
       options = [],
-      placeholder = "Select an option",
+      placeholder = "Select...",
       required,
       disabled,
       error,
       success,
       helperText,
+      multiple = false,
 
       labelIcon: LabelIcon,
       prefixIcon: PrefixIcon,
@@ -76,23 +81,31 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       primaryTheme = true,
       primaryColor = "#3b82f6",
 
-      containerClassName = "",
-      labelClassName = "",
-      triggerClassName = "",
-      dropdownClassName = "",
-      optionClassName = "",
-
-      className = "",
+      containerClassName,
+      labelClassName,
+      triggerClassName,
+      dropdownClassName,
+      itemClassName,
+      className,
     } = props;
 
     const containerRef = useRef<HTMLDivElement>(null);
     useImperativeHandle(ref, () => containerRef.current!);
 
     const [open, setOpen] = useState(false);
-    const [localValue, setLocalValue] = useState(defaultValue || "");
+    const [internalValue, setInternalValue] = useState<
+      string | string[] | undefined
+    >(defaultValue);
 
-    const currentValue = value !== undefined ? value : localValue;
-    const selectedOption = options.find((o) => o.value === currentValue);
+    const isControlled = value !== undefined;
+    const currentValue = isControlled ? value : internalValue;
+
+    /** Normalize */
+    const selectedValues = multiple
+      ? (currentValue as string[]) || []
+      : currentValue
+      ? [currentValue as string]
+      : [];
 
     /** Close outside */
     useEffect(() => {
@@ -108,31 +121,47 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       return () => document.removeEventListener("mousedown", handler);
     }, []);
 
+    /** Handle select */
     const handleSelect = (option: SelectOption) => {
-      setLocalValue(option.value);
-      onChange?.(name, option.value);
-      setOpen(false);
+      let newValue: string | string[];
+
+      if (multiple) {
+        const exists = selectedValues.includes(option.value);
+        newValue = exists
+          ? selectedValues.filter((v) => v !== option.value)
+          : [...selectedValues, option.value];
+      } else {
+        newValue = option.value;
+        setOpen(false);
+      }
+
+      if (!isControlled) setInternalValue(newValue);
+      onValueChange?.(newValue, name);
     };
 
-    /** 🎨 Theme base */
+    /** Selected label */
+    const selectedLabels = options
+      .filter((o) => selectedValues.includes(o.value))
+      .map((o) => o.label);
+
+    /** Theme */
     const theme = {
       dark: {
         bg: "bg-zinc-900",
         text: "text-white",
         border: "border-zinc-800",
         dropdown: "bg-black border-zinc-800",
-        option: "text-zinc-300 hover:bg-zinc-800",
+        item: "text-zinc-300 hover:bg-zinc-800",
       },
       light: {
         bg: "bg-white",
         text: "text-gray-900",
         border: "border-gray-300",
         dropdown: "bg-white border-gray-200",
-        option: "text-gray-700 hover:bg-gray-100",
+        item: "text-gray-700 hover:bg-gray-100",
       },
     }[variant];
 
-    /** 🎨 Dynamic styles */
     const dynamicPrimary: CSSProperties = !primaryTheme
       ? { color: primaryColor }
       : {};
@@ -142,17 +171,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       : {};
 
     const dynamicBgActive: CSSProperties = !primaryTheme
-      ? { backgroundColor: `${primaryColor}20` } // light tint
+      ? { backgroundColor: `${primaryColor}20` }
       : {};
 
-    /** Border state */
     const borderState = error
       ? "border-rose-500"
       : success
       ? "border-emerald-500"
       : theme.border;
-
-    const paddingLeft = PrefixIcon ? "pl-12 pr-10" : "px-4";
 
     return (
       <div
@@ -166,9 +192,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           >
             {LabelIcon && (
               <LabelIcon
-                className={
-                  primaryTheme ? "w-4 h-4 text-[var(--primary)]" : "w-4 h-4"
-                }
+                className="w-4 h-4"
                 style={!primaryTheme ? dynamicPrimary : undefined}
               />
             )}
@@ -178,15 +202,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         )}
 
         <div className="relative group">
-          {/* Prefix Icon */}
+          {/* Prefix */}
           {PrefixIcon && (
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2">
               <PrefixIcon
-                className={
-                  primaryTheme
-                    ? "w-4 h-4 text-zinc-500 group-focus-within:text-[var(--primary)]"
-                    : "w-4 h-4 text-zinc-500"
-                }
+                className="w-4 h-4 text-zinc-500"
                 style={!primaryTheme ? dynamicPrimary : undefined}
               />
             </div>
@@ -199,29 +219,25 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             onClick={() => setOpen((p) => !p)}
             style={!primaryTheme ? dynamicBorder : undefined}
             className={`
-              w-full py-2.5 rounded-lg text-left text-sm
-              border transition-all duration-200
+              w-full py-2.5 px-4 rounded-lg text-left text-sm
+              border transition-all
               ${theme.bg} ${theme.text}
-              ${paddingLeft}
               ${borderState}
-              focus:ring-2
-              ${
-                primaryTheme
-                  ? "focus:ring-[var(--primary)]/30 focus:border-[var(--primary)]"
-                  : ""
-              }
-              disabled:opacity-50 disabled:cursor-not-allowed
               ${triggerClassName}
             `}
           >
-            <span className={selectedOption ? theme.text : "text-zinc-500"}>
-              {selectedOption ? selectedOption.label : placeholder}
+            <span className={!selectedLabels.length ? "text-zinc-500" : ""}>
+              {selectedLabels.length
+                ? multiple
+                  ? selectedLabels.join(", ")
+                  : selectedLabels[0]
+                : placeholder}
             </span>
 
             <ChevronDown
-              className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 transition-transform ${
+              className={`absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 ${
                 open ? "rotate-180" : ""
-              } text-zinc-400`}
+              }`}
             />
           </button>
 
@@ -236,29 +252,31 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             >
               <ul className="max-h-60 overflow-y-auto">
                 {options.map((opt) => {
-                  const isActive = currentValue === opt.value;
+                  const isActive = selectedValues.includes(opt.value);
 
                   return (
                     <li
                       key={opt.value}
                       onClick={() => handleSelect(opt)}
                       style={
-                        !primaryTheme && isActive ? dynamicBgActive : undefined
+                        !primaryTheme && isActive
+                          ? dynamicBgActive
+                          : undefined
                       }
                       className={`
-                        px-4 py-3 cursor-pointer text-sm flex items-center gap-2
-                        ${
-                          isActive
-                            ? primaryTheme
-                              ? "bg-[var(--primary)]/15 text-[var(--primary)]"
-                              : ""
-                            : theme.option
-                        }
-                        ${optionClassName}
+                        px-4 py-3 cursor-pointer text-sm flex items-center justify-between
+                        ${isActive ? "font-medium" : theme.item}
+                        ${itemClassName}
                       `}
                     >
-                      {opt.icon && <span>{opt.icon}</span>}
-                      {opt.label}
+                      <div className="flex items-center gap-2">
+                        {opt.icon && <span>{opt.icon}</span>}
+                        {opt.label}
+                      </div>
+
+                      {multiple && isActive && (
+                        <Check className="w-4 h-4" />
+                      )}
                     </li>
                   );
                 })}
@@ -286,4 +304,4 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   }
 );
 
-Dropdown.displayName = "Dropdown";
+Select.displayName = "Select";

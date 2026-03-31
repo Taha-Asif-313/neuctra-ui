@@ -32,10 +32,11 @@ export { Container } from "./components/basic/Container"; // ✅ Finalized
 export { Drawer, DrawerButton } from "./components/basic/Drawer"; // ✅ Finalized
 
 // Dropdowns
-export { Dropdown } from "./components/basic/DropDown"; // ✅ Finalized
+export { Select } from "./components/basic/Select"; // ✅ Finalized
 
 // Forms & Inputs
 export { Input } from "./components/basic/Input"; // ✅ Finalized
+export { Textarea } from "./components/basic/Textarea"; // ✅ Finalized
 
 // Images
 export { Image } from "./components/basic/Image"; // ✅ Finalized
@@ -44,7 +45,13 @@ export { Image } from "./components/basic/Image"; // ✅ Finalized
 export { List } from "./components/basic/List"; // ✅ Finalized
 
 // Modals
-export { Modal } from "./components/basic/Modal"; // ✅ Finalized
+export {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "./components/basic/Modal"; // ✅ Finalized
 
 // Tables
 export { Table, TBody, TD, THead, TH, TRow } from "./components/basic/Table"; // ✅ Finalized
