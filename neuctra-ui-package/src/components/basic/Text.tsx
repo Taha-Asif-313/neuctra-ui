@@ -24,10 +24,7 @@ type TextProps<T extends HTMLElementTag = "p"> = {
 
   className?: string;
   style?: React.CSSProperties;
-} & Omit<
-  React.HTMLAttributes<HTMLElementTagNameMap[T]>,
-  "style"
->;
+} & Omit<React.HTMLAttributes<HTMLElementTagNameMap[T]>, "style">;
 
 const sizeClasses: Record<string, string> = {
   xs: "text-xs",
@@ -64,21 +61,19 @@ export function Text<T extends HTMLElementTag = "p">({
 }: TextProps<T>) {
   const Element = (as || "p") as T;
 
+  // Special default classes if it's a link
+  const isLink = Element === "a";
+
   return React.createElement(
     Element,
     {
       className: clsx(
-        "text-inherit",
         sizeClasses[size] || "",
-
-        // ✅ text styles
         transform && transformClasses[transform],
         italic && "italic",
-        underline && "underline",
         strikethrough && "line-through",
-
         truncate && "truncate",
-
+        isLink ? "text-blue-600 hover:text-blue-800 underline" : underline && "underline",
         className
       ),
       style: {
