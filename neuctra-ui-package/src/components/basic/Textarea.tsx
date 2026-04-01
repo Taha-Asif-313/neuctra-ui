@@ -33,7 +33,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => {
-    const showCount = maxLength && typeof value === "string";
+    const showCount = typeof value === "string" && maxLength;
 
     return (
       <div className="w-full space-y-1.5">
@@ -84,7 +84,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           />
 
           {/* Character Count */}
-          {showCount && (
+          {showCount && typeof value === "string" && (
             <span className="absolute bottom-2 right-3 text-[11px] text-zinc-500">
               {value.length}/{maxLength}
             </span>
@@ -109,3 +109,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     );
   }
 );
+
+// Helpful for debugging in React DevTools
+Textarea.displayName = "Textarea";
