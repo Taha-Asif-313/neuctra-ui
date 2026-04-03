@@ -8,6 +8,7 @@ import {
   Palette,
   Layout,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // Enhanced Circuit Line Component with animated nodes
@@ -32,7 +33,12 @@ const CircuitLine = ({
       className="absolute pointer-events-none"
       style={{ top, left }}
     >
-      <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} fill="none">
+      <svg
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+        fill="none"
+      >
         <motion.path
           d={`M0 ${height / 2} H${width} M${width / 2} 0 V${height}`}
           stroke={color}
@@ -118,61 +124,6 @@ const GlitchText = ({ children, className = "" }) => {
         </>
       )}
     </span>
-  );
-};
-
-// Copy Button Component
-const CopyButton = ({ code }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <button
-      onClick={handleCopy}
-      className="absolute top-3 right-3 px-3 py-1 bg-primary text-black text-xs font-semibold rounded hover:bg-primary/80 transition-all"
-    >
-      {copied ? "Copied!" : "Copy"}
-    </button>
-  );
-};
-
-// Custom Button Component
-const Button = ({ children, onClick, variant = "primary", icon }) => {
-  const isPrimary = variant === "primary";
-
-  return (
-    <motion.button
-      onClick={onClick}
-      className={`
-        relative px-8 py-3 text-sm font-semibold rounded-md
-        flex items-center gap-2 overflow-hidden group
-        ${
-          isPrimary
-            ? "bg-primary hover:border hover:bg-transparent hover:text-white"
-            : "bg-transparent text-white border-2 border-white hover:bg-white hover:text-black"
-        }
-        transition-all duration-300
-      `}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <span className="relative z-10 flex items-center gap-2">
-        {children}
-        {icon}
-      </span>
-      {isPrimary && (
-        <motion.div
-          className="absolute inset-0 border-2 border-white"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-        />
-      )}
-    </motion.button>
   );
 };
 
@@ -265,8 +216,6 @@ const LandingPage = () => {
       <CircuitLine top="45%" left="0%" delay={1.5} width={200} height={100} />
       <CircuitLine top="45%" left="92%" delay={2.0} width={200} height={100} />
 
-
-
       {/* Hero Section */}
       <div className="relative z-10 min-h-screen md:px-8 px-4 py-10 flex flex-col items-center justify-center">
         <div className="max-w-6xl mx-auto w-full">
@@ -290,7 +239,11 @@ const LandingPage = () => {
                 transition={{ duration: 1, delay: 0.1 }}
                 className="text-5xl md:text-6xl font-bold tracking-tight mb-2 leading-tight"
               >
-                Craft <GlitchText><span className="text-primary">Stunning</span></GlitchText> Interfaces with Ease
+                Craft{" "}
+                <GlitchText>
+                  <span className="text-primary">Stunning</span>
+                </GlitchText>{" "}
+                Interfaces with Ease
               </motion.h1>
 
               <motion.p
@@ -311,21 +264,29 @@ const LandingPage = () => {
                 className="relative group"
               >
                 <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:blur-2xl transition-all duration-300" />
-                
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
-                className="flex flex-wrap gap-4"
+                className="flex flex-wrap gap-4 text-sm"
               >
-                <Button variant="primary" icon={<ArrowRight className="h-5 w-5" />}>
+                <Link
+                  to={"/docs"}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-all duration-200 font-medium"
+                >
                   Get Started
-                </Button>
-                <Button variant="secondary" icon={<Code className="h-5 w-5" />}>
-                  View on GitHub
-                </Button>
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+
+                <Link
+                  to={"/templates"}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                >
+                  <Code className="h-5 w-5" />
+                  View Templates
+                </Link>
               </motion.div>
 
               <motion.div
@@ -360,12 +321,20 @@ const LandingPage = () => {
                 <motion.div
                   className="absolute inset-0 border-2 border-primary/30 rounded-full"
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
                 />
                 <motion.div
                   className="absolute inset-8 border-2 border-primary/20 rounded-full"
                   animate={{ rotate: -360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  transition={{
+                    duration: 15,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <motion.div
@@ -379,7 +348,10 @@ const LandingPage = () => {
                     }}
                     transition={{ duration: 4, repeat: Infinity }}
                   >
-                    <img src={"/logo.png"} className="w-16 z-20 h-16 text-black" />
+                    <img
+                      src={"/logo.png"}
+                      className="w-16 z-20 h-16 text-black"
+                    />
                   </motion.div>
                 </div>
 
