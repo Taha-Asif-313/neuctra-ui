@@ -99,7 +99,7 @@ export const Input = forwardRef<
     if (value === undefined) {
       setLocalValue(e.target.value);
     }
-    onChange?.(e); // ✅ pass event directly
+    onChange?.(e); //   pass event directly
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -131,7 +131,7 @@ export const Input = forwardRef<
   return (
     <div className={`w-full space-y-1 ${className}`}>
       {label && (
-        <label className="flex items-center gap-2 text-[12px] font-medium text-gray-700 dark:text-zinc-100">
+        <label className="flex items-center gap-2 text-[12px] font-medium text-black dark:text-zinc-100">
           {LabelIcon && (
             <LabelIcon
               size={16}
@@ -177,7 +177,6 @@ export const Input = forwardRef<
               text-gray-900 dark:text-white
               placeholder:text-zinc-400
               py-2.5 outline-none
-              focus:ring-1
               ${primaryTheme && "focus:ring-[var(--primary)] focus:border-[var(--primary)]"}
               ${getPadding()}
               ${borderStyle}
@@ -205,7 +204,6 @@ export const Input = forwardRef<
               text-gray-900 dark:text-white
               placeholder:text-zinc-400
               py-2.5 outline-none
-              focus:ring-1
               disabled:opacity-50 disabled:cursor-not-allowed
               ${primaryTheme && "focus:ring-[var(--primary)] focus:border-[var(--primary)]"}
               ${getPadding()}

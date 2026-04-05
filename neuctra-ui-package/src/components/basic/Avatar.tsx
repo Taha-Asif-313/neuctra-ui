@@ -84,7 +84,7 @@ const getStatusBorderWidth = (size: Exclude<AvatarSize, "responsive">): string =
   const borders: Record<Exclude<AvatarSize, "responsive">, string> = {
     xs: "border",
     sm: "border",
-    md: "border-2",
+    md: "border",
     lg: "border-2",
     xl: "border-[3px]",
     "2xl": "border-[3px]",
@@ -137,7 +137,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       tabIndex={clickable ? 0 : -1}
       aria-label={alt}
       onClick={onClick}
-      className={`relative inline-flex items-center justify-center overflow-hidden 
+      className={`relative inline-flex items-center justify-center 
         ${dimensionMap[resolvedSize]} 
         ${variantMap[variant]} 
         transition-all duration-200 
@@ -164,7 +164,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         />
       ) : (
         <div
-          className={`w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-500 via-purple-600 to-blue-600 text-white font-semibold 
+          className={`w-full h-full flex items-center justify-center bg-[var(--primary)] text-white font-semibold 
             ${fontSizeMap[resolvedSize]} 
             ${variantMap[variant]}`}
         >

@@ -2,208 +2,308 @@
 
 import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
-import { Input } from "@neuctra/ui";
-import { Mail, Lock } from "lucide-react";
 import Metadata from "../../MetaData";
+import CodeBlock from "../../components/Docs/CodeBlock";
+import { Check, X } from "lucide-react";
+import { Input } from "@neuctra/ui";
 
 const InputDocs = () => {
   return (
     <>
       <Metadata
         title="Input Component — Neuctra UI"
-        description="Learn how to use the Input component from Neuctra UI — a customizable, accessible, and theme-ready React input field with icons, password visibility, textarea mode, and validation states."
-        keywords="Neuctra UI Input, React input component, password field, textarea, form input, Tailwind CSS input, custom input styles, input validation, UI components, Neuctra library"
-        image="https://ui.neuctra.com/og/input-docs-preview.png"
-        ogTitle="Input Component — Neuctra UI"
-        ogDescription="A fully customizable React input field with icons, password toggle, validation states, and Tailwind theming — from Neuctra UI."
-        twitterTitle="Input Component | Neuctra UI"
-        twitterDescription="Modern, accessible input fields for React — with icons, password visibility, and full Tailwind customization. Learn more on Neuctra UI docs."
-        canonical="https://ui.neuctra.com/docs/input"
+        description="Learn how to use the Input component in Neuctra UI — supports text, password, number, email, and textarea inputs, with prefix/suffix icons, validation, and custom theming."
+        keywords="Neuctra UI Input, React input component, Tailwind input, UI library, input validation, prefix suffix icons"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="mx-auto px-4 space-y-10">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Input Component
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+            <p className="text-lg text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Input</span>{" "}
-              component is a flexible, modern, and accessible input field. 
-              Features include:
+              component is a flexible form input primitive. Supports multiple
+              types including text, password, email, number, and textarea. Also
+              supports prefix/suffix icons, validation messages, helper text,
+              custom colors, and password visibility toggle.
             </p>
-            <ul className="list-disc list-inside text-gray-400 mt-2 space-y-1">
-              <li>Password visibility toggle</li>
-              <li>Icons on label, prefix, or suffix</li>
-              <li>Textarea support</li>
-              <li>Validation states (error/success)</li>
-              <li>Full style and theme customization</li>
-            </ul>
           </header>
 
-          {/* Basic Input */}
+          {/* Import */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Input
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component From Library
             </h2>
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Input label="Username" placeholder="Enter your username" />`}
-              previewContent={
-                <Input
-                  label="Username"
-                  placeholder="Enter your username"
-                />
-              }
+            <CodeBlock
+              language="react"
+              code={`import { Input } from "@neuctra/ui";`}
+              previewContent={<Input placeholder="Enter text..." />}
             />
           </section>
 
-          {/* Input with Icons */}
+          {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Input with Icons
+              Basic Example
             </h2>
-            <p className="text-gray-400 mb-3">
-              Add icons on the label, prefix, or suffix for better UI.
-            </p>
             <CodePreviewBlock
               language="jsx"
-              code={`<Input
+              code={`<Input label="Name" placeholder="Enter your name" />`}
+              previewContent={<Input label="Name" placeholder="Enter your name" />}
+            />
+          </section>
+
+          {/* Advanced Examples */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Advanced Usage
+            </h2>
+            <div className="space-y-6">
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
+  type="password"
+  label="Password"
+  placeholder="Enter password"
+  suffixIcon={<Eye />}
+/>`}
+                previewContent={<Input type="password" label="Password" placeholder="Enter password" />}
+              />
+
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
+  type="number"
+  label="Age"
+  min={1}
+  max={100}
+  defaultValue="18"
+/>`}
+                previewContent={<Input type="number" label="Age" min={1} max={100} defaultValue="18" />}
+              />
+
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
+  type="textarea"
+  label="Message"
+  placeholder="Enter your message"
+  rows={6}
+  helperText="Write something nice..."
+/>`}
+                previewContent={<Input type="textarea" label="Message" placeholder="Enter your message" rows={6} helperText="Write something nice..." />}
+              />
+
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
   label="Email"
   type="email"
-  placeholder="you@example.com"
-  prefixIcon={Mail}
+  prefix="+"
+  prefixIcon={MailIcon}
+  error="Invalid email"
 />`}
-              previewContent={
-                <Input
-                  label="Email"
-                  type="email"
-                  placeholder="you@example.com"
-                  prefixIcon={Mail}
-                />
-              }
-            />
+                previewContent={<Input label="Email" type="email" prefix="+" error="Invalid email" />}
+              />
+            </div>
           </section>
 
-          {/* Password Input */}
+          {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Password Input
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Props Table
             </h2>
             <p className="text-gray-400 mb-3">
-              Password fields include a toggle to show or hide the password.
+              All available props for the Input component.
             </p>
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Input
-  label="Password"
-  type="password"
-  placeholder="Enter your password"
-/>`}
-              previewContent={
-                <Input
-                  label="Password"
-                  type="password"
-                  placeholder="Enter your password"
-                />
-              }
-            />
+
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-zinc-900 text-gray-200">
+                  <tr>
+                    <th className="text-left p-3">Prop</th>
+                    <th className="text-left p-3">Type</th>
+                    <th className="text-left p-3">Default</th>
+                    <th className="text-left p-3">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr>
+                    <td className="p-3">label</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Label text for the input field.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">type</td>
+                    <td className="p-3">"text" | "password" | "email" | "number" | "textarea"</td>
+                    <td className="p-3">"text"</td>
+                    <td className="p-3">Input type.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">value</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Controlled input value.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">defaultValue</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">""</td>
+                    <td className="p-3">Initial input value for uncontrolled usage.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">onChange</td>
+                    <td className="p-3">(event) ={`>`} void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Callback fired on input change.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">required</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Marks the input as required.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">disabled</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Disables the input.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">readOnly</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Makes input read-only.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">error</td>
+                    <td className="p-3">string | boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Error message or flag to show error styling.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">success</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Displays success state.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">helperText</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Text to show below the input.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">prefix</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Text shown before input content.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">prefixIcon</td>
+                    <td className="p-3">React.ElementType</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Icon shown before input content.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">suffixIcon</td>
+                    <td className="p-3">React.ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Icon shown after input content (password toggle overrides).</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">min / max / step</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Number input constraints.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">rows</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">4</td>
+                    <td className="p-3">Number of rows for textarea.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">primaryTheme</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">true</td>
+                    <td className="p-3">Enable default primary theme styling.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">primaryColor</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">#3b82f6</td>
+                    <td className="p-3">Primary color for borders or labels when theme is disabled.</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom Tailwind or CSS classes for container.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
 
-          {/* Textarea Example */}
+          {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Textarea
-            </h2>
-            <p className="text-gray-400 mb-3">
-              Switch to textarea mode for multi-line input.
-            </p>
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Input
-  label="Message"
-  type="textarea"
-  placeholder="Write something..."
-  rows={5}
-/>`}
-              previewContent={
-                <Input
-                  label="Message"
-                  type="textarea"
-                  placeholder="Write something..."
-                  rows={5}
-                />
-              }
-            />
-          </section>
-
-          {/* Validation States */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Validation States
-            </h2>
-            <p className="text-gray-400 mb-3">
-              Show errors or success messages to guide users.
-            </p>
-            <CodePreviewBlock
-              language="jsx"
-              code={`<>
-  <Input label="Email" placeholder="Invalid email" error="Invalid format" />
-  <Input label="Username" placeholder="Valid username" success />
-</>`}
-              previewContent={
-                <div className="space-y-4">
-                  <Input
-                    label="Email"
-                    placeholder="Invalid email"
-                    error="Invalid format"
-                  />
-                  <Input
-                    label="Username"
-                    placeholder="Valid username"
-                    success
-                  />
+            <h2 className="text-2xl font-semibold text-white mb-4">Common Mistakes</h2>
+            <div className="space-y-4 text-sm text-gray-300">
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{'<Input type="textarea" rows={0} />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Rows must be greater than 0.
+                  </p>
                 </div>
-              }
-            />
+              </div>
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{'<Input type="number" min={10} max={5} />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Ensure min is less than max.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 text-green-500">
+                <Check size={16} className="mt-1" />
+                <div>
+                  <code>{'<Input className="w-full" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Use className for custom sizing or spacing.
+                  </p>
+                </div>
+              </div>
+            </div>
           </section>
 
-          {/* Custom Styling */}
+          {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Styles & Theme
-            </h2>
-            <p className="text-gray-400 mb-3">
-              Fully customize colors, borders, and shadows to match your UI.
-            </p>
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Input
-  label="Custom Field"
-  placeholder="Stylish input ✨"
-  primaryTheme={false}
-  primaryColor="#9333ea"
-/>`}
-              previewContent={
-                <Input
-                
-                  label="Custom Field"
-                  placeholder="Stylish input ✨"
-                  primaryTheme={false}
-                  primaryColor="#9333ea"
-                />
-              }
-            />
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+            <div className="text-gray-200 space-y-3">
+              <ul className="list-disc list-inside space-y-1">
+                <li>Use prefix/prefixIcon/suffixIcon for enhanced UX.</li>
+                <li>Combine with flex/grid for form layouts.</li>
+                <li>Use type="password" with suffixIcon for visibility toggle.</li>
+                <li>Use error/success/helperText for validation feedback.</li>
+                <li>Controlled vs uncontrolled usage: value vs defaultValue.</li>
+                <li>Use primaryTheme and primaryColor for custom design.</li>
+              </ul>
+            </div>
           </section>
 
           {/* Footer */}
           <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            <p>
-              Built with <span className="text-primary">React</span>,{" "}
-              <span className="text-primary">Tailwind CSS</span>, and{" "}
-              <span className="text-primary">Lucide Icons</span>.
-            </p>
+            Built with <span className="text-primary">React</span>,{" "}
+            <span className="text-primary">Tailwind CSS</span> &{" "}
+            <span className="text-primary">TypeScript</span>.
           </footer>
         </div>
       </div>

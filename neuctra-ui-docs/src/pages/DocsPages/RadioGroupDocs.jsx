@@ -1,203 +1,308 @@
 "use client";
+
 import React, { useState } from "react";
-import { RadioGroup } from "@neuctra/ui"; // adjust import path
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
-import DocsFooter from "../../components/Docs/DocsFooter";
+import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";
+import { RadioGroup } from "@neuctra/ui";
+import { Check, X } from "lucide-react";
+
+const options = [
+  { label: "Option One", value: "one" },
+  { label: "Option Two", value: "two" },
+  { label: "Option Three", value: "three" },
+];
 
 const RadioGroupDocs = () => {
-  const [selectedTheme, setSelectedTheme] = useState("light");
-  const [selectedPlan, setSelectedPlan] = useState("basic");
+  const [value, setValue] = useState("one");
 
   return (
     <>
       <Metadata
-        title="Radio Component — Neuctra UI"
-        description="Learn how to use the RadioGroup component from Neuctra UI — build accessible, customizable, and responsive radio input groups for selecting options in your React app."
-        keywords="Neuctra UI RadioGroup, React radio group, radio buttons, form controls, UI library, Tailwind CSS form components, React UI, Neuctra components, accessible radio input, React forms"
-        image="https://ui.neuctra.com/og/radiogroup-docs-preview.png"
-        ogTitle="Radio Component — Neuctra UI"
-        ogDescription="Create elegant and accessible radio groups in React with Neuctra UI. Perfect for theme selection, plans, and option lists — fully customizable and easy to use."
-        twitterTitle="Radio Component | Neuctra UI"
-        twitterDescription="Build flexible and accessible radio input groups with Neuctra UI — modern React components for effortless form design."
-        canonical="https://ui.neuctra.com/docs/radio"
+        title="RadioGroup Component — Neuctra UI"
+        description="A fully customizable, headless RadioGroup component with keyboard navigation, styling control, and render overrides."
+        keywords="RadioGroup React, headless radio group, Tailwind radio component, customizable radio buttons, Neuctra UI"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="mx-auto px-4 space-y-10">
+
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               RadioGroup Component
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
+            <p className="text-lg text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">RadioGroup</span>{" "}
-              component provides an accessible and customizable way to create
-              single-selection radio lists. It’s perfect for choosing themes,
-              options, or subscription tiers in your app.
+              is a fully customizable and headless selection component. It
+              supports keyboard navigation, complete styling control via
+              className and style props, and even custom rendering using
+              render props.
             </p>
           </header>
 
-          {/* Basic Example */}
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component
+            </h2>
+            <CodeBlock
+              language="tsx"
+              code={`import { RadioGroup } from "@neuctra/ui";`}
+              previewContent={
+                <RadioGroup
+                  options={options}
+                  selectedValue={value}
+                  onChange={setValue}
+                />
+              }
+            />
+          </section>
+
+          {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
-            <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">RadioGroup</code> to allow
-              users to select one option from a list.
-            </p>
-
             <CodePreviewBlock
-              language="jsx"
-              code={`<RadioGroup
-  name="theme"
-  options={[
-    { label: "Light Mode", value: "light" },
-    { label: "Dark Mode", value: "dark" },
-    { label: "System", value: "system" },
-  ]}
-  selectedValue="light"
-  onChange={(value) => console.log(value)}
+              language="tsx"
+              code={`const [value, setValue] = useState("one");
+
+<RadioGroup
+  options={options}
+  selectedValue={value}
+  onChange={setValue}
 />`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <RadioGroup
-                    name="theme"
-                    options={[
-                      { label: "Light Mode", value: "light" },
-                      { label: "Dark Mode", value: "dark" },
-                      { label: "System", value: "system" },
-                    ]}
-                    selectedValue={selectedTheme}
-                    onChange={setSelectedTheme}
-                  />
-                </div>
+                <RadioGroup
+                  options={options}
+                  selectedValue={value}
+                  onChange={setValue}
+                />
               }
             />
           </section>
 
-          {/* Disabled Example */}
+          {/* Custom Styling */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Disabled Options
+              Custom Styling
             </h2>
-            <p className="text-gray-300 mb-3">
-              Add <code className="text-primary">disabled</code> to prevent
-              interaction with the entire group.
-            </p>
 
             <CodePreviewBlock
-              language="jsx"
+              language="tsx"
               code={`<RadioGroup
-  name="plan"
-  options={[
-    { label: "Basic", value: "basic" },
-    { label: "Pro", value: "pro" },
-    { label: "Enterprise", value: "enterprise" },
-  ]}
-  selectedValue="basic"
-  disabled
+  options={options}
+  selectedValue={value}
+  onChange={setValue}
+  itemClassName="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2"
+  labelClassName="text-lg font-medium"
+  iconClassName="border-2 border-primary"
+  indicatorClassName="bg-primary"
 />`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <RadioGroup
-                    name="plan"
-                    options={[
-                      { label: "Basic", value: "basic" },
-                      { label: "Pro", value: "pro" },
-                      { label: "Enterprise", value: "enterprise" },
-                    ]}
-                    selectedValue={selectedPlan}
-                    disabled
-                  />
-                </div>
+                <RadioGroup
+                  options={options}
+                  selectedValue={value}
+                  onChange={setValue}
+                  itemClassName="bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-2"
+                  labelClassName="text-lg font-medium"
+                  iconClassName="border-2 border-primary"
+                  indicatorClassName="bg-primary"
+                />
               }
             />
           </section>
 
-          {/* Error Example */}
+          {/* Render Custom UI */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Validation & Error States
+              Custom Render (Headless Mode)
             </h2>
-            <p className="text-gray-300 mb-3">
-              You can display validation feedback using the{" "}
-              <code className="text-primary">error</code> prop.
-            </p>
 
             <CodePreviewBlock
-              language="jsx"
+              language="tsx"
               code={`<RadioGroup
-  name="subscription"
-  options={[
-    { label: "Free", value: "free" },
-    { label: "Premium", value: "premium" },
-  ]}
-  error="Please select a plan before continuing."
+  options={options}
+  selectedValue={value}
+  onChange={setValue}
+  renderItem={({ option, checked, onSelect }) => (
+    <div
+      onClick={onSelect}
+      className={\`p-4 rounded-xl border cursor-pointer transition
+        \${checked ? "bg-primary text-white" : "bg-zinc-800"}\`}
+    >
+      {option.label}
+    </div>
+  )}
 />`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <RadioGroup
-                    name="subscription"
-                    options={[
-                      { label: "Free", value: "free" },
-                      { label: "Premium", value: "premium" },
-                    ]}
-                    error="Please select a plan before continuing."
-                  />
-                </div>
+                <RadioGroup
+                  options={options}
+                  selectedValue={value}
+                  onChange={setValue}
+                  renderItem={({ option, checked, onSelect }) => (
+                    <div
+                      onClick={onSelect}
+                      className={`p-4 rounded-xl border cursor-pointer transition ${
+                        checked
+                          ? "bg-primary text-white"
+                          : "bg-zinc-800"
+                      }`}
+                    >
+                      {option.label}
+                    </div>
+                  )}
+                />
               }
             />
           </section>
 
-          {/* Customization Example */}
+          {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Styling & Customization
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Props Table
             </h2>
-            <p className="text-gray-300 mb-3">
-              Adjust size, colors, and layout using props such as{" "}
-              <code className="text-primary">iconSize</code>,{" "}
-              <code className="text-primary">iconCheckedBgColor</code>, and{" "}
-              <code className="text-primary">textColor</code>.
-            </p>
 
-            <CodePreviewBlock
-              language="jsx"
-              code={`<RadioGroup
-  name="accent"
-  options={[
-    { label: "Blue", value: "blue" },
-    { label: "Green", value: "green" },
-    { label: "Red", value: "red" },
-  ]}
-  selectedValue="green"
-  iconSize={24}
-  iconCheckedBgColor="#22c55e"
-  textColor="#e2e8f0"
-/>`}
-              previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <RadioGroup
-                    name="accent"
-                    options={[
-                      { label: "Blue", value: "blue" },
-                      { label: "Green", value: "green" },
-                      { label: "Red", value: "red" },
-                    ]}
-                    selectedValue="green"
-                    iconSize={24}
-                    iconCheckedBgColor="#22c55e"
-                    textColor="#e2e8f0"
-                  />
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-zinc-900 text-gray-200">
+                  <tr>
+                    <th className="p-3 text-left">Prop</th>
+                    <th className="p-3 text-left">Type</th>
+                    <th className="p-3 text-left">Default</th>
+                    <th className="p-3 text-left">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+
+                  <tr>
+                    <td className="p-3">options</td>
+                    <td className="p-3">Option[]</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">List of radio options.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">selectedValue</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Currently selected value.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">onChange</td>
+                    <td className="p-3">(value: string) → void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Triggered when selection changes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">renderItem</td>
+                    <td className="p-3">function</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom render for each item.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Style each item container.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">labelClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Style label text.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Style outer radio icon.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">indicatorClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Style inner dot.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">error</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Error message display.</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Common Mistakes */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Common Mistakes
+            </h2>
+
+            <div className="space-y-4 text-sm text-gray-300">
+              <div className="flex gap-2 text-red-500">
+                <X size={16} />
+                <div>
+                  <code>{`<RadioGroup options={[]} />`}</code>
+                  <p className="text-gray-500 text-xs">
+                    Always provide valid options.
+                  </p>
                 </div>
-              }
-            />
+              </div>
+
+              <div className="flex gap-2 text-red-500">
+                <X size={16} />
+                <div>
+                  <code>{`renderItem without onSelect`}</code>
+                  <p className="text-gray-500 text-xs">
+                    Always call onSelect in custom UI.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>{`use className for customization`}</code>
+                  <p className="text-gray-500 text-xs">
+                    Prefer className over inline styles when possible.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Pro Tips */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">
+              Pro Tips
+            </h2>
+
+            <ul className="list-disc list-inside space-y-1 text-gray-200">
+              <li>Use renderItem for full UI control (cards, pills, etc).</li>
+              <li>Combine with grid/flex for layout systems.</li>
+              <li>Use Tailwind dark classes for theme support.</li>
+              <li>Keep accessibility intact with keyboard navigation.</li>
+              <li>Use CSS variables for design system theming.</li>
+            </ul>
           </section>
 
           {/* Footer */}
-          <DocsFooter />
+          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
+            Built with React, Tailwind CSS & TypeScript.
+          </footer>
+
         </div>
       </div>
     </>

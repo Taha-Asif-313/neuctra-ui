@@ -42,7 +42,7 @@ export const Badge: React.FC<BadgeProps> = memo(
     icon,
     iconPosition = "left",
 
-    primaryColor = "#3b82f6",
+    primaryColor = "var(--primary)",
 
     size = "md",
     rounded = true,

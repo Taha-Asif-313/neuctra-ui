@@ -5,117 +5,170 @@ import clsx from "clsx";
 /* ---------------------------- Types ---------------------------- */
 interface TableProps {
   children: ReactNode;
-  style?: CSSProperties;
+
+  /** Root wrapper */
   className?: string;
+  style?: CSSProperties;
+
+  /** Table */
+  tableClassName?: string;
+  tableStyle?: CSSProperties;
+
+  /** Responsive */
+  responsive?: boolean;
 }
 
 interface TableSectionProps {
   children: ReactNode;
-  style?: CSSProperties;
   className?: string;
+  style?: CSSProperties;
 }
 
 interface TableCellProps {
   children: ReactNode;
-  style?: CSSProperties;
   className?: string;
+  style?: CSSProperties;
 }
 
-/* ---------------------------- Table Container ---------------------------- */
-export const Table: React.FC<TableProps> = ({ children, style, className }) => (
-  <div
-    className={clsx("overflow-x-auto rounded-lg shadow-sm border border-gray-200", className)}
-    style={{
-      background: "#ffffff",
-      ...style,
-    }}
-  >
-    <table
-      className="w-full border-collapse"
+interface TRowProps extends TableSectionProps {
+  onClick?: () => void;
+
+  /** Styling */
+  hoverClassName?: string;
+  hoverStyle?: CSSProperties;
+}
+
+/* ---------------------------- Table ---------------------------- */
+export const Table: React.FC<TableProps> = ({
+  children,
+  className,
+  style,
+  tableClassName,
+  tableStyle,
+  responsive = true,
+}) => {
+  return (
+    <div
+      className={clsx(
+        "w-full rounded-lg border",
+        "border-gray-200 dark:border-zinc-800",
+        responsive && "overflow-x-auto",
+        className
+      )}
       style={{
-        borderSpacing: 0,
-        borderRadius: 12,
-        overflow: "hidden",
+        background: "var(--table-bg, transparent)",
+        ...style,
       }}
     >
-      {children}
-    </table>
-  </div>
-);
+      <table
+        className={clsx(
+          "w-full border-collapse text-sm",
+          "min-w-[600px]", // responsive fallback
+          tableClassName
+        )}
+        style={{
+          borderSpacing: 0,
+          ...tableStyle,
+        }}
+      >
+        {children}
+      </table>
+    </div>
+  );
+};
 
-/* ---------------------------- Table Head ---------------------------- */
+/* ---------------------------- Head ---------------------------- */
 export const THead: React.FC<TableSectionProps> = ({
   children,
-  style,
   className,
+  style,
 }) => (
   <thead
-    className={clsx("bg-gray-100 text-gray-900 font-semibold", className)}
-    style={{
-      ...style,
-    }}
+    className={clsx(
+      "bg-gray-100 text-gray-900",
+      "dark:bg-zinc-900 dark:text-gray-100",
+      className
+    )}
+    style={style}
   >
     {children}
   </thead>
 );
 
-/* ---------------------------- Table Body ---------------------------- */
-export const TBody: React.FC<TableSectionProps> = ({ children, style, className }) => (
-  <tbody className={clsx("bg-white", className)} style={{ ...style }}>
+/* ---------------------------- Body ---------------------------- */
+export const TBody: React.FC<TableSectionProps> = ({
+  children,
+  className,
+  style,
+}) => (
+  <tbody
+    className={clsx(
+      "bg-white dark:bg-zinc-950",
+      className
+    )}
+    style={style}
+  >
     {children}
   </tbody>
 );
 
-/* ---------------------------- Table Row ---------------------------- */
-interface TRowProps extends TableSectionProps {
-  onClick?: () => void;
-  hoverBgColor?: string;
-  darkMode?: boolean;
-}
-
+/* ---------------------------- Row ---------------------------- */
 export const TRow: React.FC<TRowProps> = ({
   children,
-  style,
   className,
+  style,
   onClick,
-  hoverBgColor = "#f9fafb",
-  darkMode = false,
+  hoverClassName,
+  hoverStyle,
 }) => (
   <tr
+    onClick={onClick}
     className={clsx(
-      "transition-colors duration-200 cursor-default",
-      onClick ? "hover:cursor-pointer" : "",
+      "transition-colors duration-200",
+      "border-b border-gray-200 dark:border-zinc-800",
+      onClick && "cursor-pointer",
+      "hover:bg-gray-50 dark:hover:bg-zinc-900",
+      hoverClassName,
       className
     )}
-    style={{ borderBottom: "1px solid #e5e7eb", ...style }}
-    onClick={onClick}
-    onMouseEnter={(e) => {
-      if (!darkMode) e.currentTarget.style.backgroundColor = hoverBgColor;
-      else e.currentTarget.style.backgroundColor = "#1f2937";
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.backgroundColor = "transparent";
-    }}
+    style={hoverStyle ? { ...style } : style}
   >
     {children}
   </tr>
 );
 
-/* ---------------------------- Table Head Cell ---------------------------- */
-export const TH: React.FC<TableCellProps> = ({ children, style, className }) => (
+/* ---------------------------- TH ---------------------------- */
+export const TH: React.FC<TableCellProps> = ({
+  children,
+  className,
+  style,
+}) => (
   <th
-    className={clsx("text-left px-4 py-3 text-sm text-gray-700 border-b-2 border-gray-200", className)}
-    style={{ ...style }}
+    className={clsx(
+      "text-left px-4 py-3 font-medium",
+      "text-gray-700 dark:text-gray-300",
+      "border-b border-gray-200 dark:border-zinc-800",
+      className
+    )}
+    style={style}
   >
     {children}
   </th>
 );
 
-/* ---------------------------- Table Data Cell ---------------------------- */
-export const TD: React.FC<TableCellProps> = ({ children, style, className }) => (
+/* ---------------------------- TD ---------------------------- */
+export const TD: React.FC<TableCellProps> = ({
+  children,
+  className,
+  style,
+}) => (
   <td
-    className={clsx("px-4 py-3 text-sm text-gray-600", className)}
-    style={{ ...style }}
+    className={clsx(
+      "px-4 py-3",
+      "text-gray-600 dark:text-gray-400",
+      className
+    )}
+    style={style}
   >
     {children}
   </td>

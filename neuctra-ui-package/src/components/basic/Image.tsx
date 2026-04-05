@@ -1,162 +1,152 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { forwardRef, useMemo } from "react";
 
-interface ImageProps {
+type Responsive<T> =
+  | T
+  | {
+      base?: T;
+      sm?: T;
+      md?: T;
+      lg?: T;
+      xl?: T;
+    };
+
+interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;
   alt?: string;
   title?: string;
-  /** Tailwind width/height classes or numbers */
-  width?: string | number;
-  height?: string | number;
-  /** Tailwind rounded classes */
-  rounded?: string;
-  borderColor?: string;
-  borderWidth?: string | number;
+
+  /** Layout */
+  width?: Responsive<number | string>;
+  height?: Responsive<number | string>;
+  aspectRatio?: number;
+
+  /** Styling */
+  radius?: number | string;
+  border?: string;
   shadow?: boolean;
   opacity?: number;
-  objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
-  overlayText?: string;
+  objectFit?: React.CSSProperties["objectFit"];
+
+  /** Overlay */
+  overlay?: React.ReactNode;
   overlayColor?: string;
-  svgIcon?: React.ReactNode;
-  responsive?: boolean;
-  p?: string;
-  m?: string;
-  /** Hover Effects */
-  hoverScale?: number;
-  hoverRotate?: number;
-  hoverOpacity?: number;
-  hoverShadow?: boolean;
-  transitionDuration?: string;
-  overflow?: "hidden" | "scroll" | "auto" | "visible" | "x" | "y";
-  /** Custom Tailwind classes */
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: (e: React.MouseEvent<HTMLDivElement | HTMLImageElement>) => void;
-  onLoad?: () => void;
-  onError?: () => void;
+
+  /** Interaction */
+  clickable?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+
+  /** States */
+  fallback?: React.ReactNode;
+
+  /** Behavior */
+  loading?: "lazy" | "eager";
 }
 
-export const Image: React.FC<ImageProps> = ({
-  src,
-  alt = "Image",
-  title,
-  width = "w-full",
-  height = "h-auto",
-  rounded = "rounded-lg",
-  borderColor = "transparent",
-  borderWidth = "0",
-  shadow = false,
-  opacity = 1,
-  objectFit = "cover",
-  overlayText,
-  overlayColor = "rgba(0,0,0,0.5)",
-  svgIcon,
-  responsive = false,
-  p,
-  m,
-  hoverScale = 1.05,
-  hoverRotate = 0,
-  hoverOpacity,
-  hoverShadow = false,
-  transitionDuration = "300ms",
-  overflow = "hidden",
-  className = "",
-  style,
-  onClick,
-  onLoad,
-  onError,
-}) => {
-  /** Base Tailwind classes */
-  const baseClasses = useMemo(() => {
-    const classes = [
-      "relative inline-block transition-all",
-      shadow ? "shadow-md" : "",
-      rounded,
-      p ?? "",
-      m ?? "",
-      responsive ? "w-full h-auto" : "",
-      className,
-    ];
-    return classes.join(" ");
-  }, [shadow, rounded, p, m, responsive, className]);
+/** Utility: resolve responsive prop (mobile-first) */
+const resolveResponsive = <T,>(value: Responsive<T> | undefined): T | undefined => {
+  if (!value) return undefined;
+  if (typeof value !== "object" || !('base' in value)) return value as T;
+  return value.base;
+};
 
-  /** Inline styles for custom widths, hover, borders, etc. */
-  const inlineStyles: React.CSSProperties = useMemo(
+export const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
+  const {
+    src,
+    alt = "",
+    title,
+    width = "100%",
+    height,
+    aspectRatio,
+    radius,
+    border,
+    shadow,
+    opacity = 1,
+    objectFit = "cover",
+    overlay,
+    overlayColor = "rgba(0,0,0,0.4)",
+    clickable,
+    onClick,
+    fallback,
+    loading = "lazy",
+    style,
+    className,
+    ...rest
+  } = props;
+
+  const resolvedWidth = resolveResponsive(width);
+  const resolvedHeight = resolveResponsive(height);
+
+  const wrapperStyles: React.CSSProperties = useMemo(
     () => ({
-      width: typeof width === "number" ? width : undefined,
-      height: typeof height === "number" ? height : undefined,
-      objectFit,
-      opacity,
-      borderColor,
-      borderWidth,
-      transition: `all ${transitionDuration} ease`,
+      width: resolvedWidth,
+      height: resolvedHeight,
+      aspectRatio,
+      borderRadius: radius,
+      border,
+      overflow: "hidden",
+      position: "relative",
+      display: "inline-block",
+      cursor: clickable ? "pointer" : undefined,
+      boxShadow: shadow ? "0 4px 12px rgba(0,0,0,0.15)" : undefined,
       ...style,
     }),
-    [width, height, objectFit, opacity, borderColor, borderWidth, transitionDuration, style]
+    [resolvedWidth, resolvedHeight, aspectRatio, radius, border, shadow, clickable, style]
   );
 
-  /** Overflow handling */
-  const overflowStyles: React.CSSProperties = useMemo(() => {
-    switch (overflow) {
-      case "x":
-        return { overflowX: "hidden" };
-      case "y":
-        return { overflowY: "hidden" };
-      default:
-        return { overflow };
-    }
-  }, [overflow]);
-
-  /** Hover effects */
-  const handleMouseEnter = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (hoverOpacity !== undefined) e.currentTarget.style.opacity = hoverOpacity.toString();
-    e.currentTarget.style.transform = `scale(${hoverScale}) rotate(${hoverRotate}deg)`;
-    if (hoverShadow) e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.3)";
+  const imageStyles: React.CSSProperties = {
+    width: "100%",
+    height: "100%",
+    objectFit,
+    opacity,
+    display: "block",
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLImageElement>) => {
-    e.currentTarget.style.opacity = opacity.toString();
-    e.currentTarget.style.transform = "scale(1) rotate(0deg)";
-    if (hoverShadow) e.currentTarget.style.boxShadow = "";
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!clickable) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick?.(e as any);
+    }
   };
 
   return (
     <div
-      role="img"
+      ref={ref}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
       aria-label={alt}
-      title={title || alt}
-      onClick={onClick}
-      className={baseClasses}
-      style={{ position: "relative", cursor: onClick ? "pointer" : "default", ...overflowStyles }}
+      title={title}
+      onClick={clickable ? onClick : undefined}
+      onKeyDown={handleKeyDown}
+      style={wrapperStyles}
+      className={className}
+      {...rest}
     >
-      {/* SVG fallback */}
-      {svgIcon ? (
-        <div className="w-full h-full flex items-center justify-center">{svgIcon}</div>
+      {src ? (
+        <img src={src} alt={alt} loading={loading} style={imageStyles} />
       ) : (
-        <img
-          src={src}
-          alt={alt}
-          title={title || alt}
-          loading="lazy"
-          style={inlineStyles}
-          className="block"
-          onLoad={onLoad}
-          onError={onError}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        />
+        fallback || <div style={{ padding: 16 }}>No Image</div>
       )}
 
-      {/* Overlay */}
-      {overlayText && (
+      {overlay && (
         <div
-          style={{ backgroundColor: overlayColor }}
-          className="absolute inset-0 flex items-center justify-center text-white font-bold text-center p-4"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: overlayColor,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+          }}
         >
-          {overlayText}
+          {overlay}
         </div>
       )}
     </div>
   );
-};
+});
+
+Image.displayName = "Image";

@@ -42,7 +42,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   style,
   labelStyle,
   iconSize = 20,
-  iconCheckedBgColor = "#2563eb",
+  iconCheckedBgColor = "var(--primary)",
   iconUncheckedBorderColor = "#9ca3af",
   textColor = "#374151",
   errorStyle,

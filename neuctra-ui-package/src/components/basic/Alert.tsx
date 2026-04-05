@@ -174,36 +174,36 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
   return (
     <div
       className={`
-        group relative flex min-w-sm max-w-sm items-start gap-3 rounded-xl
-        ${config.bg} p-4 pr-10
-        shadow-md dark:shadow-black/40
-        transition-all duration-300 ease-out
-        animate-in slide-in-from-right-full fade-in
-        hover:scale-[1.03] hover:shadow-lg
-      `}
+  group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-3 rounded-xl
+  ${config.bg} p-4 pr-10
+  shadow-md dark:shadow-black/40
+  transition-all duration-300 ease-out
+  animate-in slide-in-from-right-full fade-in
+  hover:scale-[1.03] hover:shadow-lg
+`}
       role="alert"
     >
       <Icon className={`h-6 w-6 flex-shrink-0 ${config.iconColor}`} />
 
-    <div className="flex-1 space-y-1">
-  {title && (
-    <div
-      className={`text-sm font-medium ${
-        description
-          ? config.text // normal colored title
-          : "text-zinc-900 dark:text-white" // simple toast = white/neutral
-      }`}
-    >
-      {title}
-    </div>
-  )}
+      <div className="flex-1 space-y-1">
+        {title && (
+          <div
+            className={`text-sm font-medium ${
+              description
+                ? config.text // normal colored title
+                : "text-zinc-900 dark:text-white" // simple toast = white/neutral
+            }`}
+          >
+            {title}
+          </div>
+        )}
 
-  {description && (
-    <div className="text-sm text-zinc-500 dark:text-zinc-300">
-      {description}
-    </div>
-  )}
-</div>
+        {description && (
+          <div className="text-sm text-zinc-500 dark:text-zinc-300">
+            {description}
+          </div>
+        )}
+      </div>
 
       <button
         onClick={onClose}

@@ -1,199 +1,122 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-} from "@neuctra/ui";
-import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
-import DocsFooter from "../../components/Docs/DocsFooter";
+import React from "react";
 import Metadata from "../../MetaData";
+import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
+import CodeBlock from "../../components/Docs/CodeBlock";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@neuctra/ui";
+import { X } from "lucide-react";
 
 const ModalDocs = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <Metadata
         title="Modal Component — Neuctra UI"
-        description="Learn how to use the Modal component from Neuctra UI — a responsive, accessible, and customizable dialog system for React apps."
+        description="Learn how to use the Modal component in Neuctra UI — overlay dialogs with headers, body, footer, and customizable close behavior."
+        keywords="Neuctra UI Modal, React Modal component, overlay dialog, popup, UI library, ModalHeader, ModalBody, ModalFooter"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="mx-auto px-4 space-y-10">
+
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Modal Component
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              A flexible, composable modal system built for modern apps. Fully
-              responsive, accessible, and easy to customize using compound
-              components.
+            <p className="text-lg text-gray-200 leading-relaxed">
+              The <span className="text-primary font-semibold">Modal</span> component provides an overlay dialog system with 
+              optional header, body, and footer sections. Supports keyboard escape, overlay click dismissal, and accessibility.
             </p>
           </header>
 
-          {/* Basic Example */}
+          {/* Import */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Usage
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component
             </h2>
+            <CodeBlock
+              language="react"
+              code={`import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@neuctra/ui";`}
+            />
+          </section>
 
-            <p className="text-gray-400 mb-4">
-              Use <code>Modal</code> as the wrapper and compose your UI with{" "}
-              <code>ModalContent</code>, <code>ModalHeader</code>,{" "}
-              <code>ModalBody</code>, and <code>ModalFooter</code>.
-            </p>
-
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Basic Example</h2>
             <CodePreviewBlock
               language="jsx"
-              code={`const [open, setOpen] = useState(false);
-
-<Button onClick={() => setOpen(true)}>Open Modal</Button>
-
-<Modal isOpen={open} onClose={() => setOpen(false)}>
-  <ModalContent onClose={() => setOpen(false)}>
-    <ModalHeader title="Demo Modal" />
-
+              code={`
+<Modal isOpen={true} onClose={() => alert("Closed!")}>
+  <ModalContent>
+    <ModalHeader title="Modal Title" icon={<X />} />
     <ModalBody>
-      This is a demo modal. You can place any content here.
+      This is the content of the modal.
     </ModalBody>
-
     <ModalFooter>
-      <Button variant="ghost" onClick={() => setOpen(false)}>
-        Cancel
-      </Button>
-      <Button onClick={() => alert("Action!")}>
-        Confirm
-      </Button>
+      <button onClick={() => alert("Action!")}>Action</button>
     </ModalFooter>
   </ModalContent>
-</Modal>`}
+</Modal>
+              `}
               previewContent={
-                <>
-                  <Button onClick={() => setIsOpen(true)}>
-                    Open Modal
-                  </Button>
-
-                  <Modal
-                    isOpen={isOpen}
-                    onClose={() => setIsOpen(false)}
-                  >
-                    <ModalContent onClose={() => setIsOpen(false)}>
-                      <ModalHeader title="Demo Modal" />
-
-                      <ModalBody>
-                        This is a modern modal built with Neuctra UI.
-                      </ModalBody>
-
-                      <ModalFooter>
-                        <Button
-                          variant="ghost"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          onClick={() => alert("Action executed!")}
-                        >
-                          Confirm
-                        </Button>
-                      </ModalFooter>
-                    </ModalContent>
-                  </Modal>
-                </>
+                <Modal isOpen={false} onClose={() => alert("Closed!")}>
+                  <ModalContent>
+                    <ModalHeader title="Modal Title" icon={<X />} />
+                    <ModalBody>
+                      This is the content of the modal.
+                    </ModalBody>
+                    <ModalFooter>
+                      <button className="px-4 py-2 bg-primary text-white rounded" onClick={() => alert("Action!")}>Action</button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
               }
             />
           </section>
 
-          {/* Structure */}
+          {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Component Structure
-            </h2>
-
-            <p className="text-gray-400 mb-4">
-              The modal is built using composable parts:
-            </p>
-
-            <ul className="list-disc pl-5 space-y-2 text-gray-400">
-              <li>
-                <code>Modal</code> — Handles overlay, escape key, and state
-              </li>
-              <li>
-                <code>ModalContent</code> — Main container (size, layout)
-              </li>
-              <li>
-                <code>ModalHeader</code> — Title and optional icon
-              </li>
-              <li>
-                <code>ModalBody</code> — Main content area
-              </li>
-              <li>
-                <code>ModalFooter</code> — Actions (buttons)
-              </li>
-            </ul>
-          </section>
-
-          {/* Features */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Features
-            </h2>
-
-            <ul className="list-disc pl-5 space-y-2 text-gray-400">
-              <li>Overlay click to close</li>
-              <li>Escape key support</li>
-              <li>Scroll lock when open</li>
-              <li>Fully responsive design</li>
-              <li>Dark mode support</li>
-              <li>Composable architecture</li>
-              <li>Smooth animations</li>
-            </ul>
-          </section>
-
-          {/* Props */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Modal Props
-            </h2>
-
-            <div className="overflow-x-auto border border-zinc-800 rounded-lg">
+            <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-zinc-900 text-gray-400">
+                <thead className="bg-zinc-900 text-gray-200">
                   <tr>
-                    <th className="p-3 text-left">Prop</th>
-                    <th className="p-3 text-left">Type</th>
-                    <th className="p-3 text-left">Description</th>
+                    <th className="text-left p-3">Prop</th>
+                    <th className="text-left p-3">Type</th>
+                    <th className="text-left p-3">Default</th>
+                    <th className="text-left p-3">Description</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800">
-                  <tr>
-                    <td className="p-3">isOpen</td>
-                    <td className="p-3">boolean</td>
-                    <td>Controls modal visibility</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">onClose</td>
-                    <td className="p-3">() =&gt; void</td>
-                    <td>Called when modal closes</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">disableOverlayClose</td>
-                    <td className="p-3">boolean</td>
-                    <td>Disable closing on overlay click</td>
-                  </tr>
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr><td className="p-3">isOpen</td><td className="p-3">boolean</td><td className="p-3">false</td><td className="p-3">Controls visibility of modal</td></tr>
+                  <tr><td className="p-3">onClose</td><td className="p-3">() ={`>`} void</td><td className="p-3">—</td><td className="p-3">Function called when modal closes (Escape or overlay)</td></tr>
+                  <tr><td className="p-3">disableOverlayClose</td><td className="p-3">boolean</td><td className="p-3">false</td><td className="p-3">Prevent closing modal by clicking overlay</td></tr>
+                  <tr><td className="p-3">children</td><td className="p-3">ReactNode</td><td className="p-3">—</td><td className="p-3">Modal content, typically <code>ModalContent</code></td></tr>
                 </tbody>
               </table>
             </div>
           </section>
 
+          {/* Notes */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">Usage Notes</h2>
+            <ul className="list-disc list-inside text-gray-200 space-y-1">
+              <li>Use <code>ModalContent</code> to wrap content and stop overlay click propagation.</li>
+              <li><code>ModalHeader</code>, <code>ModalBody</code>, and <code>ModalFooter</code> provide structured layout.</li>
+              <li>Modal automatically locks scroll when open.</li>
+              <li>Supports Escape key to close modal.</li>
+              <li>Overlay click closes modal unless <code>disableOverlayClose</code> is true.</li>
+            </ul>
+          </section>
+
           {/* Footer */}
-          <DocsFooter />
+          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
+            Built with <span className="text-primary">React</span>,{" "}
+            <span className="text-primary">Tailwind CSS</span> &{" "}
+            <span className="text-primary">TypeScript</span>.
+          </footer>
+
         </div>
       </div>
     </>

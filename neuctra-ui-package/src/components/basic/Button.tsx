@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "default",
       size = "md",
       weight = 400,
-      primaryColor = "#3b82f6",
+      primaryColor = "var(--primary)",
       disabled,
       className,
       type = "button",
@@ -57,11 +57,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const color = primaryColor;
 
     /* 📏 Sizes */
-    const sizeClasses = {
-      sm: "h-8 px-3 text-sm",
-      md: "h-10 px-4 text-sm",
-      lg: "h-12 px-6 text-base",
-    } as const;
+const sizeClasses = {
+  sm: "px-3 py-1.5 text-sm",
+  md: "px-4 py-2 text-base",
+  lg: "px-6 py-3 text-lg",
+} as const;
 
     /* 🎨 Variants */
     const variantStyles: Record<
@@ -105,7 +105,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         disabled={isDisabled}
         className={clsx(
-          "inline-flex items-center justify-center gap-2 rounded-lg",
+          "inline-flex items-center justify-center gap-2 rounded-md",
           "transition-all duration-200",
           sizeClasses[size],
           fullWidth && "w-full",

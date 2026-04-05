@@ -1,4 +1,5 @@
 "use client";
+
 import React, {
   useState,
   useRef,
@@ -7,8 +8,10 @@ import React, {
   ReactNode,
   CSSProperties,
 } from "react";
+import clsx from "clsx";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
+/* ---------------- Types ---------------- */
 export interface AccordionItem {
   title: string | ReactNode;
   content: ReactNode;
@@ -16,179 +19,223 @@ export interface AccordionItem {
 
 export interface AccordionProps {
   items: AccordionItem[];
+
   allowMultiple?: boolean;
   defaultOpen?: number[];
 
-  /** Appearance */
-  borderColor?: string;
-  backgroundColor?: string;
-  textColor?: string;
-  hoverBgColor?: string;
-  hoverTextColor?: string;
-  contentBgColor?: string;
-  contentTextColor?: string;
-
-  /** Layout & spacing */
-  paddingY?: string | number;
-  paddingX?: string | number;
-  marginY?: string | number;
-  borderRadius?: string | number;
-  contentPadding?: string | number;
-
-  /** Typography */
-  fontSize?: string | number;
-  fontWeight?: string | number;
-  contentFontSize?: string | number;
-  contentFontWeight?: string | number;
-
-  /** Icon */
-  iconOpen?: ReactNode;
-  iconClose?: ReactNode;
-  iconSize?: string | number;
-
-  /** Motion */
-  transitionDuration?: string;
-  shadow?: string;
-
-  /** Class overrides */
+  /* Root */
   className?: string;
   style?: CSSProperties;
+
+  /* Item */
+  itemClassName?: string;
+  itemStyle?: CSSProperties;
+
+  /* Header */
+  headerClassName?: string;
+  headerStyle?: CSSProperties;
+
+  /* Title */
+  titleClassName?: string;
+  titleStyle?: CSSProperties;
+
+  /* Icon */
+  iconClassName?: string;
+  iconStyle?: CSSProperties;
+
+  /* Content wrapper */
+  contentWrapperClassName?: string;
+  contentWrapperStyle?: CSSProperties;
+
+  /* Content */
+  contentClassName?: string;
+  contentStyle?: CSSProperties;
+
+  /* Hover (optional override) */
+  hoverClassName?: string;
+  hoverStyle?: CSSProperties;
+
+  /* Defaults (fallback design system) */
+  borderColor?: string;
+  radius?: string | number;
+  shadow?: string;
+
+  /* Motion */
+  duration?: number;
+
+  /* Icon */
+  iconOpen?: ReactNode;
+  iconClose?: ReactNode;
+
+  /* Render override */
+  renderItem?: (params: {
+    item: AccordionItem;
+    index: number;
+    open: boolean;
+    toggle: () => void;
+  }) => ReactNode;
 }
 
+/* ---------------- Component ---------------- */
 export const Accordion: React.FC<AccordionProps> = memo(
   ({
     items,
     allowMultiple = false,
     defaultOpen = [],
+
+    className,
+    style,
+
+    itemClassName,
+    itemStyle,
+
+    headerClassName,
+    headerStyle,
+
+    titleClassName,
+    titleStyle,
+
+    iconClassName,
+    iconStyle,
+
+    contentWrapperClassName,
+    contentWrapperStyle,
+
+    contentClassName,
+    contentStyle,
+
+    hoverClassName,
+    hoverStyle,
+
     borderColor = "#e5e7eb",
-    backgroundColor = "#fff",
-    textColor = "#111827",
-    hoverBgColor = "#f3f4f6",
-    hoverTextColor = "#111827",
-    contentBgColor = "#fff",
-    contentTextColor = "#374151",
-    paddingY = "1rem",
-    paddingX = "1rem",
-    marginY = "0.5rem",
-    borderRadius = "0.5rem",
-    contentPadding = "1rem",
-    fontSize = "1rem",
-    fontWeight = 600,
-    contentFontSize = "0.95rem",
-    contentFontWeight = 400,
+    radius = "0.5rem",
+    shadow = "0 1px 4px rgba(0,0,0,0.08)",
+
+    duration = 300,
+
     iconOpen,
     iconClose,
-    iconSize = "1.25rem",
-    transitionDuration = "300ms",
-    shadow = "0 1px 4px rgba(0,0,0,0.08)",
-    className = "",
-    style,
+
+    renderItem,
   }) => {
     const [openIndexes, setOpenIndexes] = useState<number[]>(defaultOpen);
     const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+    const toCss = (v?: string | number) =>
+      typeof v === "number" ? `${v}px` : v;
+
     useEffect(() => {
-      contentRefs.current.forEach((el, index) => {
-        if (el) {
-          el.style.maxHeight = openIndexes.includes(index)
-            ? `${el.scrollHeight}px`
-            : "0px";
-        }
+      contentRefs.current.forEach((el, i) => {
+        if (!el) return;
+        el.style.maxHeight = openIndexes.includes(i)
+          ? `${el.scrollHeight}px`
+          : "0px";
       });
     }, [openIndexes]);
 
-    const toggleItem = (index: number) => {
+    const toggle = (i: number) => {
       setOpenIndexes((prev) =>
         allowMultiple
-          ? prev.includes(index)
-            ? prev.filter((i) => i !== index)
-            : [...prev, index]
-          : prev.includes(index)
-            ? []
-            : [index],
+          ? prev.includes(i)
+            ? prev.filter((x) => x !== i)
+            : [...prev, i]
+          : prev.includes(i)
+          ? []
+          : [i]
       );
     };
 
-    // Helper to normalize CSS values (number -> px)
-    const toCssValue = (value: string | number | undefined) =>
-      value !== undefined
-        ? typeof value === "number"
-          ? `${value}px`
-          : value
-        : undefined;
-
     return (
       <div
-        className={`space-y-2 ${className}`}
-        style={{ width: "100%", ...style }}
+        className={clsx("w-full space-y-2", className)}
+        style={style}
       >
         {items.map((item, index) => {
-          const isOpen = openIndexes.includes(index);
+          const open = openIndexes.includes(index);
+
+          if (renderItem) {
+            return (
+              <React.Fragment key={index}>
+                {renderItem({
+                  item,
+                  index,
+                  open,
+                  toggle: () => toggle(index),
+                })}
+              </React.Fragment>
+            );
+          }
 
           return (
             <div
               key={index}
-              className="border shadow-sm overflow-hidden transition-all duration-300"
+              className={clsx(
+                "border overflow-hidden transition-all",
+                "bg-white text-gray-900 dark:bg-zinc-900 dark:text-gray-100",
+                itemClassName
+              )}
               style={{
                 borderColor,
-                borderRadius: toCssValue(borderRadius),
-                margin: `${toCssValue(marginY)} 0`,
+                borderRadius: toCss(radius),
                 boxShadow: shadow,
+                ...itemStyle,
               }}
             >
               {/* Header */}
               <button
-                onClick={() => toggleItem(index)}
-                className="w-full flex justify-between items-center transition-colors duration-300"
+                onClick={() => toggle(index)}
+                className={clsx(
+                  "w-full flex items-center justify-between",
+                  "px-4 py-3 text-left transition-colors",
+                  "hover:bg-gray-100 dark:hover:bg-zinc-800",
+                  headerClassName,
+                  hoverClassName
+                )}
                 style={{
-                  backgroundColor,
-                  color: textColor,
-                  padding: `${toCssValue(paddingY)} ${toCssValue(paddingX)}`,
-                  fontWeight,
-                  fontSize: toCssValue(fontSize),
-                  cursor: "pointer",
-                  border: "none",
-                  outline: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = hoverBgColor;
-                  e.currentTarget.style.color = hoverTextColor;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = backgroundColor;
-                  e.currentTarget.style.color = textColor;
+                  ...headerStyle,
+                  ...hoverStyle,
                 }}
               >
-                <span>{item.title}</span>
-                <span style={{ fontSize: toCssValue(iconSize) }}>
-                  {isOpen
-                    ? iconOpen || <ChevronUp size={16} />
-                    : iconClose || <ChevronDown size={16} />}
+                <span
+                  className={clsx("font-medium", titleClassName)}
+                  style={titleStyle}
+                >
+                  {item.title}
+                </span>
+
+                <span
+                  className={iconClassName}
+                  style={iconStyle}
+                >
+                  {open
+                    ? iconOpen || <ChevronUp size={18} />
+                    : iconClose || <ChevronDown size={18} />}
                 </span>
               </button>
 
-              {/* Content */}
+              {/* Content Wrapper */}
               <div
-                ref={(el) => {
-                  contentRefs.current[index] = el;
-                }}
-                className="overflow-hidden transition-all duration-300"
+                ref={(el) => { contentRefs.current[index] = el; }}
+                className={clsx(
+                  "overflow-hidden transition-all",
+                  contentWrapperClassName
+                )}
                 style={{
-                  maxHeight: isOpen
-                    ? `${contentRefs.current[index]?.scrollHeight ?? 0}px`
+                  maxHeight: open
+                    ? `${contentRefs.current[index]?.scrollHeight || 0}px`
                     : "0px",
-                  transition: `max-height ${transitionDuration} ease-in-out`,
+                  transition: `max-height ${duration}ms ease`,
+                  ...contentWrapperStyle,
                 }}
               >
+                {/* Content */}
                 <div
-                  style={{
-                    borderTop: `1px solid ${borderColor}`,
-                    backgroundColor: contentBgColor,
-                    color: contentTextColor,
-                    padding: toCssValue(contentPadding),
-                    fontSize: toCssValue(contentFontSize),
-                    fontWeight: contentFontWeight,
-                  }}
+                  className={clsx(
+                    "px-4 py-3 border-t",
+                    "border-gray-200 dark:border-zinc-800",
+                    contentClassName
+                  )}
+                  style={contentStyle}
                 >
                   {item.content}
                 </div>
@@ -198,7 +245,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
         })}
       </div>
     );
-  },
+  }
 );
 
 Accordion.displayName = "Accordion";

@@ -1,62 +1,59 @@
 "use client";
+
 import React from "react";
-import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
-import { Table, THead, TBody, TRow, TH, TD } from "@neuctra/ui";
 import Metadata from "../../MetaData";
+import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
+import CodeBlock from "../../components/Docs/CodeBlock";
+import { Table, THead, TBody, TRow, TH, TD } from "@neuctra/ui";
 
 const TableDocs = () => {
   return (
     <>
       <Metadata
         title="Table Component — Neuctra UI"
-        description="Learn how to use the Table component in Neuctra UI — a flexible and composable system for building responsive tables in React."
+        description="Fully customizable, responsive table component with dark/light support, className overrides, and inline styles."
+        keywords="Neuctra UI Table, React Table component, responsive table, customizable table, Tailwind table"
       />
 
-      <div className="bg-zinc-950 text-gray-200 min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+      <div className="bg-white dark:bg-zinc-950 text-gray-900 dark:text-gray-200 font-primary min-h-screen py-10">
+        <div className="mx-auto px-4 space-y-10">
+
           {/* Header */}
           <header>
-            <h1 className="text-4xl font-extrabold text-white mb-3">
+            <h1 className="text-4xl font-extrabold mb-3 text-gray-900 dark:text-white">
               Table Component
             </h1>
-            <p className="text-gray-400 max-w-3xl">
-              The <span className="text-primary font-semibold">Table</span>{" "}
-              component is a fully composable system for displaying structured
-              data. It provides separate building blocks like <code>THead</code>
-              , <code>TBody</code>, <code>TRow</code>, <code>TH</code>, and{" "}
-              <code>TD</code> — giving you complete control over layout and
-              styling.
+            <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+              The <span className="text-primary font-semibold">Table</span> component provides a fully responsive and highly customizable data table system. 
+              Supports dark/light mode, inline styles, className overrides, and flexible structure using head, body, rows, and cells.
             </p>
           </header>
 
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2">Import Component</h2>
+            <CodeBlock
+              language="tsx"
+              code={`import { Table, THead, TBody, TRow, TH, TD } from "@neuctra/ui";`}
+            />
+          </section>
+
           {/* Basic Example */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Basic Example
-            </h2>
-
+            <h2 className="text-2xl font-semibold mb-4">Basic Example</h2>
             <CodePreviewBlock
-              language="jsx"
+              language="tsx"
               code={`<Table>
   <THead>
     <TRow>
       <TH>Name</TH>
-      <TH>Role</TH>
-      <TH>Status</TH>
+      <TH>Email</TH>
     </TRow>
   </THead>
-
   <TBody>
     <TRow>
-      <TD>John Doe</TD>
-      <TD>Developer</TD>
-      <TD>Active</TD>
-    </TRow>
-
-    <TRow>
-      <TD>Jane Smith</TD>
-      <TD>Designer</TD>
-      <TD>Inactive</TD>
+      <TD>John</TD>
+      <TD>john@example.com</TD>
     </TRow>
   </TBody>
 </Table>`}
@@ -65,22 +62,42 @@ const TableDocs = () => {
                   <THead>
                     <TRow>
                       <TH>Name</TH>
-                      <TH>Role</TH>
+                      <TH>Email</TH>
+                    </TRow>
+                  </THead>
+                  <TBody>
+                    <TRow>
+                      <TD>John</TD>
+                      <TD>john@example.com</TD>
+                    </TRow>
+                  </TBody>
+                </Table>
+              }
+            />
+          </section>
+
+          {/* Responsive Example */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">Responsive Table</h2>
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Table responsive>
+  {/* content */}
+</Table>`}
+              previewContent={
+                <Table responsive>
+                  <THead>
+                    <TRow>
+                      <TH>Product</TH>
+                      <TH>Price</TH>
                       <TH>Status</TH>
                     </TRow>
                   </THead>
-
                   <TBody>
                     <TRow>
-                      <TD>John Doe</TD>
-                      <TD>Developer</TD>
-                      <TD>Active</TD>
-                    </TRow>
-
-                    <TRow>
-                      <TD>Jane Smith</TD>
-                      <TD>Designer</TD>
-                      <TD>Inactive</TD>
+                      <TD>MacBook</TD>
+                      <TD>$2000</TD>
+                      <TD>Available</TD>
                     </TRow>
                   </TBody>
                 </Table>
@@ -88,31 +105,37 @@ const TableDocs = () => {
             />
           </section>
 
-          {/* Clickable Rows */}
+          {/* Custom Styling */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Clickable Rows
-            </h2>
-
-            <p className="text-gray-400 mb-3">
-              You can make rows interactive using{" "}
-              <code className="text-primary">onClick</code>.
-            </p>
-
+            <h2 className="text-2xl font-semibold mb-4">Custom Styling</h2>
             <CodePreviewBlock
-              language="jsx"
-              code={`<TRow onClick={() => alert("Row clicked!")}>
-  <TD>John Doe</TD>
-  <TD>Developer</TD>
-  <TD>Active</TD>
-</TRow>`}
+              language="tsx"
+              code={`<Table className="rounded-xl" style={{ borderColor: "red" }}>
+  <THead className="bg-black text-white">
+    <TRow>
+      <TH>Custom</TH>
+      <TH>Styled</TH>
+    </TRow>
+  </THead>
+  <TBody>
+    <TRow hoverClassName="hover:bg-blue-100">
+      <TD>Row</TD>
+      <TD>Style</TD>
+    </TRow>
+  </TBody>
+</Table>`}
               previewContent={
-                <Table>
+                <Table className="rounded-xl" style={{ borderColor: "red" }}>
+                  <THead className="bg-black text-white">
+                    <TRow>
+                      <TH>Custom</TH>
+                      <TH>Styled</TH>
+                    </TRow>
+                  </THead>
                   <TBody>
-                    <TRow onClick={() => alert("Row clicked!")}>
-                      <TD>Click Me</TD>
-                      <TD>Interactive</TD>
+                    <TRow hoverClassName="hover:bg-blue-100">
                       <TD>Row</TD>
+                      <TD>Style</TD>
                     </TRow>
                   </TBody>
                 </Table>
@@ -120,141 +143,47 @@ const TableDocs = () => {
             />
           </section>
 
-          {/* Hover Customization */}
+          {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Hover Effects
-            </h2>
-
-            <CodePreviewBlock
-              language="jsx"
-              code={`<TRow hoverBgColor="#e0f2fe">
-  <TD>Custom Hover</TD>
-  <TD>Row</TD>
-  <TD>Effect</TD>
-</TRow>`}
-              previewContent={
-                <Table>
-                  <TBody>
-                    <TRow hoverBgColor="#e0f2fe">
-                      <TD>Hover Me</TD>
-                      <TD>Custom</TD>
-                      <TD>Color</TD>
-                    </TRow>
-                  </TBody>
-                </Table>
-              }
-            />
-          </section>
-
-          {/* Dark Mode */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Dark Mode Rows
-            </h2>
-
-            <p className="text-gray-400 mb-3">
-              Enable dark hover behavior using{" "}
-              <code className="text-primary">darkMode</code>.
-            </p>
-
-            <CodePreviewBlock
-              language="jsx"
-              code={`<TRow darkMode>
-  <TD>Dark Mode</TD>
-  <TD>Row</TD>
-  <TD>Hover</TD>
-</TRow>`}
-              previewContent={
-                <div className="bg-zinc-900 p-4 rounded-lg">
-                  <Table className="border-gray-700">
-                    <TBody>
-                      <TRow darkMode>
-                        <TD className="text-gray-300">Dark</TD>
-                        <TD className="text-gray-300">Mode</TD>
-                        <TD className="text-gray-300">Row</TD>
-                      </TRow>
-                    </TBody>
-                  </Table>
-                </div>
-              }
-            />
-          </section>
-
-          {/* Composition Guide */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Component Structure
-            </h2>
-
-            <div className="bg-zinc-900 p-4 rounded-lg text-sm text-gray-300">
-              <pre>{`Table
- ├── THead
- │    └── TRow
- │         └── TH
- └── TBody
-      └── TRow
-           └── TD`}</pre>
-            </div>
-          </section>
-
-          {/* Props */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Props Overview
-            </h2>
-
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm border border-zinc-800">
-                <thead className="bg-zinc-900 text-gray-300">
+            <h2 className="text-2xl font-semibold mb-4">Props Table</h2>
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-zinc-900 text-gray-200">
                   <tr>
-                    <th className="px-4 py-2 border-r border-zinc-800">
-                      Component
-                    </th>
-                    <th className="px-4 py-2 border-r border-zinc-800">Prop</th>
-                    <th className="px-4 py-2">Description</th>
+                    <th className="text-left p-3">Prop</th>
+                    <th className="text-left p-3">Type</th>
+                    <th className="text-left p-3">Default</th>
+                    <th className="text-left p-3">Description</th>
                   </tr>
                 </thead>
-
-                <tbody className="divide-y divide-zinc-800">
-                  <tr>
-                    <td className="px-4 py-2 text-primary">TRow</td>
-                    <td className="px-4 py-2">onClick</td>
-                    <td>Makes row clickable</td>
-                  </tr>
-
-                  <tr>
-                    <td className="px-4 py-2 text-primary">TRow</td>
-                    <td className="px-4 py-2">hoverBgColor</td>
-                    <td>Custom hover background</td>
-                  </tr>
-
-                  <tr>
-                    <td className="px-4 py-2 text-primary">TRow</td>
-                    <td className="px-4 py-2">darkMode</td>
-                    <td>Enables dark hover style</td>
-                  </tr>
-
-                  <tr>
-                    <td className="px-4 py-2 text-primary">All</td>
-                    <td className="px-4 py-2">className</td>
-                    <td>Custom Tailwind classes</td>
-                  </tr>
-
-                  <tr>
-                    <td className="px-4 py-2 text-primary">All</td>
-                    <td className="px-4 py-2">style</td>
-                    <td>Inline custom styles</td>
-                  </tr>
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr><td className="p-3">responsive</td><td className="p-3">boolean</td><td className="p-3">true</td><td className="p-3">Enable horizontal scrolling</td></tr>
+                  <tr><td className="p-3">className</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Wrapper class</td></tr>
+                  <tr><td className="p-3">style</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Wrapper styles</td></tr>
+                  <tr><td className="p-3">tableClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Table class</td></tr>
+                  <tr><td className="p-3">tableStyle</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Table styles</td></tr>
                 </tbody>
               </table>
             </div>
           </section>
 
+          {/* Tips */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-3">Pro Tips</h2>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Use <code>responsive</code> for mobile-friendly tables.</li>
+              <li>Override styles using <code>className</code> or inline styles.</li>
+              <li>Use <code>hoverClassName</code> for row interactions.</li>
+              <li>Combine with pagination or virtualization for large data.</li>
+              <li>Keep columns minimal for better UX on small screens.</li>
+            </ul>
+          </section>
+
           {/* Footer */}
-          <footer className="pt-8 border-t border-zinc-800 text-sm text-gray-400">
-            Built with React + Tailwind CSS
+          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
+            Built with React, Tailwind CSS & TypeScript.
           </footer>
+
         </div>
       </div>
     </>

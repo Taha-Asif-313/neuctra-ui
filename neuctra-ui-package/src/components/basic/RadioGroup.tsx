@@ -12,19 +12,49 @@ interface RadioGroupProps {
   options: Option[];
   selectedValue?: string;
   onChange?: (value: string) => void;
+
   disabled?: boolean;
   readOnly?: boolean;
   required?: boolean;
   error?: string;
+
+  /** Root */
   className?: string;
   style?: React.CSSProperties;
+
+  /** Item (label wrapper) */
+  itemClassName?: string;
+  itemStyle?: React.CSSProperties;
+
+  /** Label text */
+  labelClassName?: string;
   labelStyle?: React.CSSProperties;
+
+  /** Radio icon wrapper */
+  iconClassName?: string;
+  iconStyle?: React.CSSProperties;
+
+  /** Inner dot */
+  indicatorClassName?: string;
+  indicatorStyle?: React.CSSProperties;
+
+  /** Error */
+  errorClassName?: string;
+  errorStyle?: React.CSSProperties;
+
+  /** Sizes & colors (optional fallback) */
   iconSize?: number;
   iconCheckedBgColor?: string;
   iconUncheckedBorderColor?: string;
-  textColor?: string;
-  errorStyle?: React.CSSProperties;
-  darkMode?: boolean;
+
+  /** 🔥 Render override (ultimate customization) */
+  renderItem?: (params: {
+    option: Option;
+    checked: boolean;
+    focused: boolean;
+    disabled: boolean;
+    onSelect: () => void;
+  }) => React.ReactNode;
 }
 
 export const RadioGroup: React.FC<RadioGroupProps> = ({
@@ -32,19 +62,35 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   options,
   selectedValue,
   onChange,
+
   disabled = false,
   readOnly = false,
   required = false,
   error,
+
   className,
   style,
+
+  itemClassName,
+  itemStyle,
+
+  labelClassName,
   labelStyle,
-  iconSize = 20,
-  iconCheckedBgColor = "#2563eb",
-  iconUncheckedBorderColor = "#9ca3af",
-  textColor = "#374151",
+
+  iconClassName,
+  iconStyle,
+
+  indicatorClassName,
+  indicatorStyle,
+
+  errorClassName,
   errorStyle,
-  darkMode = false,
+
+  iconSize = 20,
+  iconCheckedBgColor,
+  iconUncheckedBorderColor,
+
+  renderItem,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
@@ -56,19 +102,23 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (disabled) return;
-      const currentIndex = focusedIndex ?? options.findIndex((o) => o.value === selectedValue) ?? 0;
+
+      const currentIndex =
+        focusedIndex ??
+        options.findIndex((o) => o.value === selectedValue) ??
+        0;
 
       if (e.key === "ArrowDown" || e.key === "ArrowRight") {
         e.preventDefault();
         const nextIndex = (currentIndex + 1) % options.length;
-        onChange && onChange(options[nextIndex].value);
+        onChange?.(options[nextIndex].value);
         setFocusedIndex(nextIndex);
       }
 
       if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
         e.preventDefault();
         const prevIndex = (currentIndex - 1 + options.length) % options.length;
-        onChange && onChange(options[prevIndex].value);
+        onChange?.(options[prevIndex].value);
         setFocusedIndex(prevIndex);
       }
     };
@@ -81,56 +131,101 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     <div
       ref={containerRef}
       role="radiogroup"
+      tabIndex={0}
       aria-disabled={disabled}
       aria-invalid={!!error}
       className={clsx("flex flex-col gap-2", className)}
-      style={{ ...style }}
-      tabIndex={0} // allow keyboard focus
+      style={style}
     >
       {options.map((option, index) => {
-        const isChecked = selectedValue === option.value;
-        const isFocused = focusedIndex === index;
+        const checked = selectedValue === option.value;
+        const focused = focusedIndex === index;
 
+        const onSelect = () => {
+          if (disabled || readOnly) return;
+          onChange?.(option.value);
+          setFocusedIndex(index);
+        };
+
+        // 🔥 FULL CUSTOM RENDER
+        if (renderItem) {
+          return (
+            <React.Fragment key={option.value}>
+              {renderItem({
+                option,
+                checked,
+                focused,
+                disabled,
+                onSelect,
+              })}
+            </React.Fragment>
+          );
+        }
+
+        // Default UI (can be fully overridden via classNames/styles)
         return (
           <label
             key={option.value}
             className={clsx(
-              "flex items-center justify-between cursor-pointer select-none gap-2",
-              disabled ? "opacity-50 cursor-not-allowed" : "opacity-100",
-              isFocused ? "ring-2 ring-blue-400" : "",
+              "flex items-center justify-between gap-2 cursor-pointer select-none rounded-md px-2 py-1 transition",
+              "text-gray-700 dark:text-gray-200",
+              "hover:bg-gray-100 dark:hover:bg-zinc-800",
+              disabled && "opacity-50 cursor-not-allowed",
+              itemClassName
             )}
-            style={{ ...labelStyle }}
+            style={itemStyle}
+            onClick={onSelect}
           >
-            <span style={{ color: textColor, fontSize: 14 }}>{option.label}</span>
+            {/* Label */}
+            <span
+              className={clsx("text-sm", labelClassName)}
+              style={labelStyle}
+            >
+              {option.label}
+            </span>
 
+            {/* Hidden input */}
             <input
               type="radio"
               name={name}
               value={option.value}
-              checked={isChecked}
+              checked={checked}
               disabled={disabled || readOnly}
               required={required}
-              onChange={() => onChange && onChange(option.value)}
-              style={{ display: "none" }}
+              onChange={onSelect}
+              className="hidden"
             />
 
+            {/* Icon */}
             <span
-              className={clsx("inline-flex items-center justify-center rounded-full transition-all")}
+              className={clsx(
+                "inline-flex items-center justify-center rounded-full transition-all",
+                iconClassName
+              )}
               style={{
                 width: iconSize,
                 height: iconSize,
-                border: `2px solid ${isChecked ? iconCheckedBgColor : iconUncheckedBorderColor}`,
-                backgroundColor: isChecked ? iconCheckedBgColor : "transparent",
-                transition: "all 0.2s ease",
+                border: `2px solid ${
+                  checked
+                    ? iconCheckedBgColor || "#2563eb"
+                    : iconUncheckedBorderColor || "#9ca3af"
+                }`,
+                backgroundColor: checked
+                  ? iconCheckedBgColor || "#2563eb"
+                  : "transparent",
+                ...iconStyle,
               }}
             >
-              {isChecked && (
+              {checked && (
                 <span
+                  className={clsx(
+                    "rounded-full bg-white dark:bg-black",
+                    indicatorClassName
+                  )}
                   style={{
                     width: iconSize / 2,
                     height: iconSize / 2,
-                    borderRadius: "50%",
-                    backgroundColor: darkMode ? "#fff" : "#fff",
+                    ...indicatorStyle,
                   }}
                 />
               )}
@@ -142,12 +237,11 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       {error && (
         <p
           role="alert"
-          style={{
-            color: "#dc2626",
-            fontSize: 12,
-            marginTop: 4,
-            ...errorStyle,
-          }}
+          className={clsx(
+            "text-xs text-red-600 dark:text-red-400 mt-1",
+            errorClassName
+          )}
+          style={errorStyle}
         >
           {error}
         </p>

@@ -9,7 +9,7 @@ const DocsLayout = () => {
       <Sidebar />
 
       {/* Main content with left margin = sidebar width */}
-      <main className="ml-52 max-sm:ml-0 max-sm:pt-14 px-3">
+      <main className="ml-60 max-sm:ml-0 max-sm:pt-14 px-3 lg:px-6">
         {/* React Router will render nested routes here */}
         <Outlet />
       </main>

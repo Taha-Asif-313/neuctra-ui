@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState("Basic Components");
-
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  // 🌈 Categorized Navigation Links
-  const navLinks = [
-    { label: "Getting Started", href: "/docs" },
-
+  const navSections = [
     {
-      category: "Basic Components",
-      subLinks: [
+      title: "Getting Started",
+      links: [{ label: "Overview", href: "/docs" }],
+    },
+    {
+      title: "Basic Components",
+      links: [
         { label: "Text", href: "/docs/text" },
         { label: "Button", href: "/docs/button" },
         { label: "Image", href: "/docs/image" },
@@ -33,8 +32,8 @@ const Sidebar = () => {
       ],
     },
     {
-      category: "Form Components",
-      subLinks: [
+      title: "Form Components",
+      links: [
         { label: "Input", href: "/docs/input" },
         { label: "Radio", href: "/docs/radio" },
         { label: "Check Box", href: "/docs/checkbox" },
@@ -42,13 +41,11 @@ const Sidebar = () => {
         { label: "Dropdown", href: "/docs/dropdown" },
       ],
     },
-
-    { label: "About", href: "/about" },
+    {
+      title: "Resources",
+      links: [{ label: "About", href: "/about" }],
+    },
   ];
-
-  // 🔄 Handlers
-  const toggleDropdown = (label) =>
-    setActiveDropdown((prev) => (prev === label ? null : label));
 
   const handleNavigation = (href) => {
     navigate(href);
@@ -59,101 +56,88 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* 📱 Mobile Navbar */}
-      <nav className="fixed w-full flex items-center justify-between z-50 lg:hidden py-4 px-4 bg-[#0a0a0a] text-white shadow-md border-b border-[#1a1a1a]">
+      <nav className="fixed w-full flex items-center justify-between z-50 lg:hidden py-4 px-4 bg-zinc-950 text-white shadow-sm border-b border-zinc-800">
         <div
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => handleNavigation("/")}
         >
           <img src="/logo.png" className="w-10 h-10" alt="logo" />
           <h2 className="text-lg font-semibold tracking-tight">
-            Neuctra<span className="text-[#00c214]">UI</span>
+            Neuctra<span className="text-primary">UI</span>
           </h2>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-md hover:bg-[#1a1a1a] transition"
+          className="p-2 rounded-md hover:bg-zinc-800 transition"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
-      {/* 🧭 Sidebar */}
       <aside
-        className={`fixed z-50 overflow-y-scroll top-0 left-0 h-full w-64 bg-gradient-to-b from-[#0a0a0a] to-[#111] border-r border-[#1a1a1a] shadow-xl transform transition-transform duration-300 ease-in-out rounded-r-2xl
-        ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+        className={`fixed z-50 top-0 left-0 h-full w-64 bg-zinc-950 border-r border-zinc-800 shadow-[0_18px_55px_rgba(0,0,0,0.28)] overflow-y-auto transition-transform duration-300 lg:translate-x-0 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        {/* Logo Header */}
-        <div
-          className="p-5 flex items-center justify-between border-b border-[#1a1a1a] cursor-pointer"
-          onClick={() => handleNavigation("/")}
-        >
-          <div className="flex items-center gap-1">
-            <img src="/logo.png" className="w-10 h-10" alt="logo" />
-            <h2 className="text-lg font-semibold tracking-tight">
-              Neuctra<span className="text-[#00c214]">UI</span>
-            </h2>
-            <span className="ml-1 text-sm text-gray-500">Docs</span>
+        <div className="px-5 pt-6 pb-4 border-b border-zinc-800">
+          <div className="flex items-center gap-3">
+            {/* Logo */}
+            <img
+              src="/logo.png"
+              className="h-10 w-10 object-contain flex-shrink-0"
+              alt="logo"
+            />
+
+            {/* Text */}
+            <div className="flex flex-col justify-center">
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-white leading-none">
+                  Neuctra<span className="text-primary">UI</span>
+                </span>
+
+                {/* Divider */}
+                <div className="h-4 w-px bg-zinc-700 rounded-full" />
+
+                <span className="text-xs text-gray-400">v1.0</span>
+              </div>
+
+              <span className="text-[11px] text-gray-400 tracking-wide">
+                Documentation
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* 🔗 Navigation Links */}
-        <nav className="p-4 space-y-3">
-          {navLinks.map((link) =>
-            link.subLinks ? (
-              <div key={link.category} className="space-y-1">
-                <button
-                  onClick={() => toggleDropdown(link.category)}
-                  className={`flex items-center justify-between w-full px-3 py-2 text-sm rounded-lg transition
-                  ${
-                    activeDropdown === link.category
-                      ? "bg-[var(--primary)] text-white font-bold border-[#00c214]"
-                      : "border-[#1a1a1a] hover:border-primary hover:bg-[var(--primary)]"
-                  }`}
-                >
-                  {link.category}
-                  {activeDropdown === link.category ? (
-                    <ChevronUp size={16} />
-                  ) : (
-                    <ChevronDown size={16} />
-                  )}
-                </button>
-
-                {/* Dropdown Items */}
-                {activeDropdown === link.category && (
-                  <div className="ml-3 mt-1 space-y-1 border-l border-[#1a1a1a] pl-3">
-                    {link.subLinks.map((sub) => (
-                      <div
-                        key={sub.href}
-                        onClick={() => handleNavigation(sub.href)}
-                        className={`block px-2 py-1.5 text-sm rounded-md transition cursor-pointer
-                        ${
-                          isActive(sub.href)
-                            ? "text-primary font-bold"
-                            : "text-gray-200 hover:text-primary"
-                        }`}
-                      >
-                        {sub.label}
-                      </div>
-                    ))}
-                  </div>
-                )}
+        <nav className="px-3 pb-8 pt-5 space-y-6">
+          {navSections.map((section) => (
+            <div key={section.title} className="space-y-2">
+              <div className="px-4 text-[11px] capitalize tracking-[0.24em] text-zinc-100">
+                {section.title}
               </div>
-            ) : (
-              <div
-                key={link.href}
-                onClick={() => handleNavigation(link.href)}
-                className={`block px-3 py-2 text-sm font-medium rounded-lg cursor-pointer transition
-                ${
-                  isActive(link.href)
-                    ? "text-primary font-bold border-[#00c214]"
-                    : "border-[#1a1a1a] hover:border-primary hover:bg-[var(--primary)]"
-                }`}
-              >
-                {link.label}
+              <div className="space-y-1">
+                {section.links.map((link) => (
+                  <button
+                    key={link.href}
+                    onClick={() => handleNavigation(link.href)}
+                    className={`group flex w-full items-center gap-3 rounded-2xl px-4 py-2 text-sm text-left transition ${
+                      isActive(link.href)
+                        ? "bg-primary/10 text-primary shadow-sm shadow-primary/10"
+                        : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+                    }`}
+                  >
+                    <span
+                      className={`block h-2.5 w-2.5 rounded-full transition ${
+                        isActive(link.href)
+                          ? "bg-primary"
+                          : "bg-zinc-600 group-hover:bg-primary"
+                      }`}
+                    />
+                    <span>{link.label}</span>
+                  </button>
+                ))}
               </div>
-            ),
-          )}
+            </div>
+          ))}
         </nav>
       </aside>
     </>

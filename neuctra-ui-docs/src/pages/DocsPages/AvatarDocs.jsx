@@ -1,374 +1,170 @@
 "use client";
 
 import React from "react";
-import { Avatar } from "@neuctra/ui"; // adjust import path
-import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
-import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
+import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
+import CodeBlock from "../../components/Docs/CodeBlock";
+import { Avatar } from "@neuctra/ui";
+import { User } from "lucide-react";
 
 const AvatarDocs = () => {
-  const sampleAvatars = [
-    {
-      src: "https://randomuser.me/api/portraits/men/32.jpg",
-      alt: "James Carter",
-      isOnline: true,
-    },
-    {
-      src: "https://randomuser.me/api/portraits/women/44.jpg",
-      alt: "Ava Smith",
-    },
-    {
-      src: "https://randomuser.me/api/portraits/men/45.jpg",
-      alt: "Daniel Brown",
-      isOffline: true,
-    },
-    {
-      src: "https://randomuser.me/api/portraits/women/36.jpg",
-      alt: "Sofia Miller",
-    },
-    {
-      src: "https://randomuser.me/api/portraits/men/78.jpg",
-      alt: "Michael Adams",
-    },
-  ];
-
   return (
     <>
       <Metadata
         title="Avatar Component — Neuctra UI"
-        description="Learn how to use the Avatar component in Neuctra UI — display user profiles, online/offline status, rings, and groups with modern React UI."
-        keywords="Neuctra UI Avatar, React avatar component, user profile UI, online offline avatar, React UI library, Neuctra components"
-        image="https://ui.neuctra.com/og/avatar-docs.png"
-        ogTitle="Avatar Component — Neuctra UI"
-        ogDescription="Display elegant user profile images, initials, and groups using the Avatar component from Neuctra UI — built for modern React developers."
-        twitterTitle="Avatar Component — Neuctra UI"
-        twitterDescription="Explore the Avatar component from Neuctra UI — customizable, responsive, and perfect for modern React interfaces."
-        canonical="https://ui.neuctra.com/docs/avatar"
+        description="Learn how to use the Avatar component in Neuctra UI — customizable sizes, variants, online/offline status, rings, and fallbacks."
+        keywords="Neuctra UI Avatar, React Avatar component, profile image, user avatar, status dot, UI library"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="mx-auto px-4 space-y-10">
+
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Avatar Component
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">Avatar</span>{" "}
-              component displays user profile images, initials, or placeholders.
-              It supports online/offline indicators, shapes, rings, sizes, and
-              fallback options.
+            <p className="text-lg text-gray-200 leading-relaxed">
+              The <span className="text-primary font-semibold">Avatar</span> component displays profile images, user initials, 
+              or fallback icons. Supports multiple sizes, variants, online/offline status, rings, and click interactions.
             </p>
           </header>
 
-          {/* Basic Example */}
+          {/* Import */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Usage
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component
             </h2>
-            <p className="text-gray-300 mb-3">
-              Display a simple avatar with an image, initials, or fallback.
-            </p>
-
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Avatar src="https://randomuser.me/api/portraits/men/45.jpg" alt="John Doe" />
-<Avatar fallback="JD" size="lg" />
-<Avatar alt="Emily Watson" />`}
-              previewContent={
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/45.jpg"
-                    alt="John Doe"
-                  />
-                  <Avatar fallback="JD" size="lg" />
-                  <Avatar alt="Emily Watson" />
-                </div>
-              }
+            <CodeBlock
+              language="react"
+              code={`import { Avatar } from "@neuctra/ui";`}
             />
           </section>
 
-          {/* Shape Variants */}
+          {/* Basic Usage */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Shape Variants
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Change the avatar shape using{" "}
-              <code className="text-primary">variant</code>:{" "}
-              <code>circular</code>, <code>rounded</code>, or{" "}
-              <code>square</code>.
-            </p>
-
+            <h2 className="text-2xl font-semibold mb-4 text-white">Basic Example</h2>
             <CodePreviewBlock
               language="jsx"
-              code={`<Avatar src="..." variant="circular" />
-<Avatar src="..." variant="rounded" />
-<Avatar src="..." variant="square" />`}
-              previewContent={
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/34.jpg"
-                    variant="circular"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/50.jpg"
-                    variant="rounded"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/23.jpg"
-                    variant="square"
-                  />
-                </div>
-              }
+              code={`<Avatar src="https://i.pravatar.cc/150?img=1" alt="User" />`}
+              previewContent={<Avatar src="https://i.pravatar.cc/150?img=1" alt="User" />}
             />
           </section>
 
-          {/* Sizes */}
+          {/* Advanced Examples */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Sizes</h2>
-            <p className="text-gray-300 mb-3">
-              Control avatar size using the{" "}
-              <code className="text-primary">size</code> prop: <code>xs</code>,{" "}
-              <code>sm</code>, <code>md</code>, <code>lg</code>, <code>xl</code>
-              , <code>2xl</code>.
-            </p>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Advanced Usage</h2>
+            <div className="space-y-6">
 
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Avatar src="..." size="xs" />
-<Avatar src="..." size="sm" />
-<Avatar src="..." size="md" />
-<Avatar src="..." size="lg" />
-<Avatar src="..." size="xl" />
-<Avatar src="..." size="2xl" />`}
-              previewContent={
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/11.jpg"
-                    size="xs"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/12.jpg"
-                    size="sm"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/13.jpg"
-                    size="md"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/14.jpg"
-                    size="lg"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/15.jpg"
-                    size="xl"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/16.jpg"
-                    size="2xl"
-                  />
-                </div>
-              }
-            />
-          </section>
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Avatar size="lg" variant="rounded" isOnline />`}
+                previewContent={<Avatar size="lg" variant="rounded" isOnline />}
+              />
 
-          {/* Status */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Online & Offline Status
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Show user status using{" "}
-              <code className="text-primary">isOnline</code> or{" "}
-              <code className="text-primary">isOffline</code>. Control position
-              with <code>statusPosition</code>.
-            </p>
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Avatar fallback="JS" ring ringColor="#10b981" />`}
+                previewContent={<Avatar fallback="JS" ring ringColor="#10b981" />}
+              />
 
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Avatar src="..." isOnline statusPosition="top-right" />
-<Avatar src="..." isOffline statusPosition="bottom-left" />`}
-              previewContent={
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/60.jpg"
-                    isOnline
-                    statusPosition="top-right"
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/72.jpg"
-                    isOffline
-                    statusPosition="bottom-left"
-                  />
-                </div>
-              }
-            />
-          </section>
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Avatar src="https://i.pravatar.cc/150?img=3" statusPosition="top-left" isOffline />`}
+                previewContent={<Avatar src="https://i.pravatar.cc/150?img=3" statusPosition="top-left" isOffline />}
+              />
 
-          {/* Ring & Hover Effects */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Ring & Clickable Avatars
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Highlight avatars with <code className="text-primary">ring</code>{" "}
-              and <code className="text-primary">ringColor</code>. Add{" "}
-              <code>onClick</code> for interactive avatars.
-            </p>
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Avatar size="2xl" fallback="CR" onClick={() => alert("Avatar clicked")} />`}
+                previewContent={<Avatar size="2xl" fallback="CR" onClick={() => alert("Avatar clicked")} />}
+              />
 
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Avatar src="..." ring ringColor="#22c55e" onClick={() => alert("Clicked!")} />
-<Avatar src="..." ring ringColor="#3b82f6" />`}
-              previewContent={
-                <div className="flex items-center gap-4">
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/43.jpg"
-                    ring
-                    ringColor="#22c55e"
-                    onClick={() => alert("Clicked!")}
-                  />
-                  <Avatar
-                    src="https://randomuser.me/api/portraits/men/38.jpg"
-                    ring
-                    ringColor="#3b82f6"
-                  />
-                </div>
-              }
-            />
-          </section>
-
-          {/* Fallback Initials */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Fallback Initials
-            </h2>
-            <p className="text-gray-300 mb-3">
-              Display user initials or custom fallback if image fails to load or
-              is missing.
-            </p>
-
-            <CodePreviewBlock
-              language="jsx"
-              code={`<Avatar alt="Jane Doe" />
-<Avatar fallback="JD" />
-<Avatar fallback="A" size="xl" />`}
-              previewContent={
-                <div className="flex items-center gap-4">
-                  <Avatar alt="Jane Doe" />
-                  <Avatar fallback="JD" />
-                  <Avatar fallback="A" size="xl" />
-                </div>
-              }
-            />
+            </div>
           </section>
 
           {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Props Table
-            </h2>
-            <p className="text-gray-300 mb-3">
-              All available props for the Avatar component.
-            </p>
-
+            <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-zinc-900 text-gray-400">
+                <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="text-left p-3">Prop</th>
                     <th className="text-left p-3">Type</th>
+                    <th className="text-left p-3">Default</th>
                     <th className="text-left p-3">Description</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-800">
-                  <tr>
-                    <td className="p-3">src</td>
-                    <td className="p-3">string</td>
-                    <td>Image URL for avatar</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">alt</td>
-                    <td className="p-3">string</td>
-                    <td>Alt text for accessibility</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">fallback</td>
-                    <td className="p-3">string</td>
-                    <td>Initials or fallback text if image fails</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">size</td>
-                    <td className="p-3">
-                      xs | sm | md | lg | xl | 2xl | responsive
-                    </td>
-                    <td>Avatar dimensions</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">variant</td>
-                    <td className="p-3">circular | rounded | square</td>
-                    <td>Avatar shape</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">isOnline</td>
-                    <td className="p-3">boolean</td>
-                    <td>Show green online indicator</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">isOffline</td>
-                    <td className="p-3">boolean</td>
-                    <td>Show gray offline indicator</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">statusPosition</td>
-                    <td className="p-3">
-                      top-left | top-right | bottom-left | bottom-right
-                    </td>
-                    <td>Position of status dot</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">ring</td>
-                    <td className="p-3">boolean</td>
-                    <td>Show accent ring around avatar</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">ringColor</td>
-                    <td className="p-3">string</td>
-                    <td>Custom ring color</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">onClick</td>
-                    <td className="p-3">() ={">"} void</td>
-                    <td>Click handler for avatar</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td>Custom container class</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">statusClassName</td>
-                    <td className="p-3">string</td>
-                    <td>Custom class for status dot</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">style</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td>Inline styles for avatar</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">statusStyle</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td>Inline styles for status dot</td>
-                  </tr>
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr><td className="p-3">src</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Image URL for avatar</td></tr>
+                  <tr><td className="p-3">alt</td><td className="p-3">string</td><td className="p-3">"User avatar"</td><td className="p-3">Alt text for image / accessibility label</td></tr>
+                  <tr><td className="p-3">size</td><td className="p-3">"xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive"</td><td className="p-3">"md"</td><td className="p-3">Avatar size</td></tr>
+                  <tr><td className="p-3">variant</td><td className="p-3">"circular" | "rounded" | "square"</td><td className="p-3">"circular"</td><td className="p-3">Avatar shape</td></tr>
+                  <tr><td className="p-3">isOnline</td><td className="p-3">boolean</td><td className="p-3">false</td><td className="p-3">Show green status dot</td></tr>
+                  <tr><td className="p-3">isOffline</td><td className="p-3">boolean</td><td className="p-3">false</td><td className="p-3">Show gray status dot</td></tr>
+                  <tr><td className="p-3">ring</td><td className="p-3">boolean</td><td className="p-3">false</td><td className="p-3">Add a ring around avatar</td></tr>
+                  <tr><td className="p-3">ringColor</td><td className="p-3">string</td><td className="p-3">"#3b82f6"</td><td className="p-3">Color of ring</td></tr>
+                  <tr><td className="p-3">fallback</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Initials or letters if image fails</td></tr>
+                  <tr><td className="p-3">onClick</td><td className="p-3">() ={`>`} void</td><td className="p-3">—</td><td className="p-3">Click handler</td></tr>
+                  <tr><td className="p-3">statusPosition</td><td className="p-3">"top-left" | "top-right" | "bottom-left" | "bottom-right"</td><td className="p-3">"bottom-right"</td><td className="p-3">Position of status dot</td></tr>
+                  <tr><td className="p-3">className</td><td className="p-3">string</td><td className="p-3">""</td><td className="p-3">Custom class for avatar wrapper</td></tr>
+                  <tr><td className="p-3">statusClassName</td><td className="p-3">string</td><td className="p-3">""</td><td className="p-3">Custom class for status dot</td></tr>
+                  <tr><td className="p-3">style</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Custom inline styles for avatar</td></tr>
+                  <tr><td className="p-3">statusStyle</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Custom inline styles for status dot</td></tr>
                 </tbody>
               </table>
             </div>
           </section>
 
+          {/* Common Mistakes */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">Common Mistakes</h2>
+            <div className="space-y-4 text-sm text-gray-300">
+              <div className="flex items-start gap-2 text-red-500">
+                <span className="font-bold">⚠</span>
+                <div>
+                  <code>{'<Avatar size="2xl" fallback="AB" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">Ensure fallback initials are short; too many letters will overflow.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 text-red-500">
+                <span className="font-bold">⚠</span>
+                <div>
+                  <code>{'<Avatar isOnline isOffline />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">Avoid using both online and offline simultaneously; choose one status.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 text-green-500">
+                <span className="font-bold">✔</span>
+                <div>
+                  <code>{'<Avatar ring ringColor="#10b981" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">Custom ring colors can highlight important avatars.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Pro Tips */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+            <ul className="list-disc list-inside text-gray-200 space-y-1">
+              <li>Use <code>fallback</code> to show user initials if image fails.</li>
+              <li>Combine <code>ring</code> and <code>ringColor</code> for attention.</li>
+              <li>Use <code>isOnline</code> or <code>isOffline</code> for presence indicators.</li>
+              <li>Clickable avatars should have <code>tabIndex</code> and proper ARIA roles.</li>
+              <li>Pick the right <code>variant</code> for design context: circular, rounded, or square.</li>
+              <li>Responsive avatars can default to "md" but scale with CSS or parent container.</li>
+            </ul>
+          </section>
+
           {/* Footer */}
-          <DocsFooter />
+          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
+            Built with <span className="text-primary">React</span>,{" "}
+            <span className="text-primary">Tailwind CSS</span> &{" "}
+            <span className="text-primary">TypeScript</span>.
+          </footer>
+
         </div>
       </div>
     </>

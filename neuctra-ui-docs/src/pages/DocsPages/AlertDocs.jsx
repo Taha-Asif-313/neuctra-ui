@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useToast, ToastProvider } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
@@ -20,8 +22,7 @@ const AlertDocsContent = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Setup</h2>
         <p className="text-gray-400 mb-3">
-          Wrap your app with <code>ToastProvider</code> to enable toasts
-          globally.
+          Wrap your app with <code>ToastProvider</code> to enable toasts globally.
         </p>
 
         <CodeBlock
@@ -41,7 +42,6 @@ export default function App() {
       {/* Basic Usage */}
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Basic Usage</h2>
-
         <p className="text-gray-400 mb-3">
           Use the <code>useToast()</code> hook anywhere in your app.
         </p>
@@ -50,16 +50,13 @@ export default function App() {
           language="jsx"
           code={`const { toast } = useToast();
 
-toast("Hello world");`}
+toast("Hello world!");`}
         />
       </section>
 
       {/* Shorthand Methods */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">
-          Shorthand Methods
-        </h2>
-
+        <h2 className="text-2xl font-semibold mb-4 text-white">Shorthand Methods</h2>
         <p className="text-gray-400 mb-3">
           Quickly trigger styled toasts using helper methods:
         </p>
@@ -67,7 +64,7 @@ toast("Hello world");`}
         <CodeBlock
           language="jsx"
           code={`toast.success("Saved successfully!");
-toast.error("Something went wrong");
+toast.error("Something went wrong!");
 toast.warning("Be careful!");
 toast.info("Some information");`}
         />
@@ -75,10 +72,7 @@ toast.info("Some information");`}
 
       {/* Advanced Usage */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">
-          Advanced Usage
-        </h2>
-
+        <h2 className="text-2xl font-semibold mb-4 text-white">Advanced Usage</h2>
         <p className="text-gray-400 mb-3">
           Use full control with the object API:
         </p>
@@ -89,17 +83,14 @@ toast.info("Some information");`}
   type: "success",
   title: "Success!",
   description: "Your changes have been saved.",
-  duration: 5000,
+  duration: 5000, // in ms, 0 = never auto dismiss
 });`}
         />
       </section>
 
-      {/* With Options */}
+      {/* Shorthand with Options */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">
-          Shorthand with Options
-        </h2>
-
+        <h2 className="text-2xl font-semibold mb-4 text-white">Shorthand with Options</h2>
         <CodeBlock
           language="jsx"
           code={`toast.success("Saved!", {
@@ -111,9 +102,7 @@ toast.info("Some information");`}
 
       {/* Interactive Example */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">
-          Interactive Example
-        </h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Interactive Example</h2>
 
         <CodePreviewBlock
           language="jsx"
@@ -127,28 +116,28 @@ toast.info("Some information");`}
             <div className="flex flex-wrap gap-4 mb-6">
               <button
                 onClick={() => toast.success("Success!")}
-                className="px-4 py-2 bg-green-500 text-white rounded-lg"
+                className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
               >
                 Success
               </button>
 
               <button
                 onClick={() => toast.error("Error!")}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
               >
                 Error
               </button>
 
               <button
                 onClick={() => toast.warning("Warning!")}
-                className="px-4 py-2 bg-yellow-400 text-black rounded-lg"
+                className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 transition"
               >
                 Warning
               </button>
 
               <button
                 onClick={() => toast.info("Info!")}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
               >
                 Info
               </button>
