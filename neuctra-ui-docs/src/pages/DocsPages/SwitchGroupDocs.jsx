@@ -1,177 +1,145 @@
 "use client";
 
 import React, { useState } from "react";
-import { SwitchGroup } from "@neuctra/ui"; // adjust import path
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
-import DocsFooter from "../../components/Docs/DocsFooter";
-import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
+import Metadata from "../../MetaData";
+import { SwitchGroup } from "@neuctra/ui";
+import { Check, X } from "lucide-react";
 
 const SwitchGroupDocs = () => {
-  const [enabledFeatures, setEnabledFeatures] = useState(["notifications"]);
-  const [disabledSwitches] = useState(["dark-mode"]);
+  const [values, setValues] = useState(["react"]);
+
+  const options = [
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Angular", value: "angular" },
+  ];
 
   return (
     <>
       <Metadata
-        title="SwitchGroup Component — Neuctra UI"
-        description="Learn how to use the SwitchGroup component in Neuctra UI — a flexible and accessible toggle group for managing feature settings, preferences, and on/off states in React applications."
-        keywords="Neuctra UI SwitchGroup, React toggle group, switch component, feature toggles, UI switches, Neuctra UI components, form controls, Tailwind CSS UI, accessibility, React settings"
-        image="https://ui.neuctra.com/og/switchgroup-docs-preview.png"
-        ogTitle="SwitchGroup Component — Neuctra UI"
-        ogDescription="Create customizable toggle switch groups for settings and preferences using Neuctra UI’s SwitchGroup component — elegant, responsive, and built for modern React apps."
-        twitterTitle="SwitchGroup Component | Neuctra UI"
-        twitterDescription="Discover how to implement beautiful and accessible toggle switch groups in React using Neuctra UI’s SwitchGroup component — perfect for settings, forms, and dashboards."
-        canonical="https://ui.neuctra.com/docs/switch"
+        title="Switch Group Component — Neuctra UI"
+        description="Fully customizable Switch Group component with Tailwind-based styling, keyboard navigation, and full design system control."
+        keywords="SwitchGroup, React switch toggle, UI library, Tailwind switch, multi select toggle"
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="mx-auto px-4 space-y-10">
+
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
-              SwitchGroup Component
+              Switch Group
             </h1>
-            <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-              The <span className="text-primary font-semibold">SwitchGroup</span> component lets you render multiple toggle switches for features, settings, or preferences. Fully accessible, keyboard-friendly, and highly customizable.
+            <p className="text-lg text-gray-200 leading-relaxed">
+              A flexible and fully customizable switch group component. Built to
+              follow your design system using Tailwind classes — no hardcoded
+              colors, full control over layout, styling, and behavior.
             </p>
           </header>
 
-          {/* Basic Example */}
+          {/* Import */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Basic Example</h2>
-            <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">SwitchGroup</code> to create toggles that users can turn on or off independently.
-            </p>
-            <CodePreviewBlock
-              language="jsx"
-              code={`<SwitchGroup
-  name="features"
-  options={[
-    { label: "Email Notifications", value: "notifications" },
-    { label: "Auto Updates", value: "auto-updates" },
-    { label: "Dark Mode", value: "dark-mode" },
-  ]}
-  selectedValues={["notifications"]}
-  onChange={(values) => console.log(values)}
-/>`}
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component From Library
+            </h2>
+
+            <CodeBlock
+              language="tsx"
+              code={`import { SwitchGroup } from "@neuctra/ui";`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <SwitchGroup
-                    name="features"
-                    options={[
-                      { label: "Email Notifications", value: "notifications" },
-                      { label: "Auto Updates", value: "auto-updates" },
-                      { label: "Dark Mode", value: "dark-mode" },
-                    ]}
-                    textColor="#fff"
-                    selectedValues={enabledFeatures}
-                    onChange={setEnabledFeatures}
-                  />
-                </div>
+                <SwitchGroup
+                  options={options}
+                  selectedValues={values}
+                  onChange={setValues}
+                />
               }
             />
           </section>
 
-          {/* Disabled Example */}
+          {/* Basic Usage */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Disabled State</h2>
-            <p className="text-gray-300 mb-3">
-              Use <code className="text-primary">disabled</code> to make the group non-interactive.
-            </p>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Example
+            </h2>
+
             <CodePreviewBlock
-              language="jsx"
-              code={`<SwitchGroup
-  name="preferences"
+              language="tsx"
+              code={`const [values, setValues] = useState([]);
+
+<SwitchGroup
   options={[
-    { label: "Dark Mode", value: "dark-mode" },
-    { label: "Compact Layout", value: "compact" },
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" }
   ]}
-  selectedValues={["dark-mode"]}
-  disabled
+  selectedValues={values}
+  onChange={setValues}
 />`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <SwitchGroup
-                    name="preferences"
-                    options={[
-                      { label: "Dark Mode", value: "dark-mode" },
-                      { label: "Compact Layout", value: "compact" },
-                    ]}
-                    selectedValues={disabledSwitches}
-                    disabled
-                  />
-                </div>
+                <SwitchGroup
+                  options={options}
+                  selectedValues={values}
+                  onChange={setValues}
+                />
               }
             />
           </section>
 
-          {/* Error Example */}
+          {/* Custom Styling */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Validation & Error States</h2>
-            <p className="text-gray-300 mb-3">
-              Display validation messages using the <code className="text-primary">error</code> prop.
-            </p>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Custom Styling
+            </h2>
+
             <CodePreviewBlock
-              language="jsx"
+              language="tsx"
               code={`<SwitchGroup
-  name="permissions"
-  options={[
-    { label: "Location Access", value: "location" },
-    { label: "Camera Access", value: "camera" },
-  ]}
-  error="You must enable at least one permission."
+  options={options}
+  selectedValues={values}
+  onChange={setValues}
+  className="bg-zinc-900 p-4 rounded-xl"
+  itemClassName="hover:bg-zinc-800 p-2 rounded"
+  textClassName="text-sm font-medium text-blue-400"
+  switchClassName="bg-green-500 data-[checked=true]:bg-blue-500"
 />`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
-                  <SwitchGroup
-                    name="permissions"
-                    options={[
-                      { label: "Location Access", value: "location" },
-                      { label: "Camera Access", value: "camera" },
-                    ]}
-                    error="You must enable at least one permission."
-                  />
-                </div>
+                <SwitchGroup
+                  options={options}
+                  selectedValues={values}
+                  onChange={setValues}
+                  className="bg-zinc-900 p-4 rounded-xl"
+                  itemClassName="hover:bg-zinc-800 p-2 rounded"
+                  textClassName="text-sm font-medium"
+                  switchClassName="bg-zinc-700"
+                />
               }
             />
           </section>
 
-          {/* Customization Example */}
+          {/* Sizes */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Styling & Customization</h2>
-            <p className="text-gray-300 mb-3">
-              Customize appearance with <code className="text-primary">iconSize</code>, <code className="text-primary">iconCheckedBgColor</code>, <code className="text-primary">switchBgColor</code>, and <code className="text-primary">textColor</code>.
-            </p>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Sizes
+            </h2>
+
             <CodePreviewBlock
-              language="jsx"
-              code={`<SwitchGroup
-  name="themes"
-  options={[
-    { label: "Ocean", value: "ocean" },
-    { label: "Forest", value: "forest" },
-    { label: "Desert", value: "desert" },
-  ]}
-  selectedValues={["forest"]}
-  iconSize={24}
-  iconCheckedBgColor="#10b981"
-  switchBgColor="#4b5563"
-  textColor="#e2e8f0"
-/>`}
+              language="tsx"
+              code={`<SwitchGroup iconSize={16} />
+<SwitchGroup iconSize={24} />`}
               previewContent={
-                <div className="p-6 bg-zinc-900 rounded-xl">
+                <div className="space-y-4">
                   <SwitchGroup
-                    name="themes"
-                    options={[
-                      { label: "Ocean", value: "ocean" },
-                      { label: "Forest", value: "forest" },
-                      { label: "Desert", value: "desert" },
-                    ]}
-                    selectedValues={["forest"]}
-                    iconSize={24}
-                    iconCheckedBgColor="#10b981"
-                    switchBgColor="#4b5563"
-                    textColor="#e2e8f0"
+                    options={options}
+                    selectedValues={values}
+                    onChange={setValues}
+                    iconSize={16}
+                  />
+                  <SwitchGroup
+                    options={options}
+                    selectedValues={values}
+                    onChange={setValues}
+                    iconSize={26}
                   />
                 </div>
               }
@@ -180,130 +148,138 @@ const SwitchGroupDocs = () => {
 
           {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Props Table</h2>
-            <p className="text-gray-400 mb-3">
-              All available props for the SwitchGroup component.
-            </p>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Props Table
+            </h2>
+
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
-                    <th className="text-left p-3">Prop</th>
-                    <th className="text-left p-3">Type</th>
-                    <th className="text-left p-3">Default</th>
-                    <th className="text-left p-3">Description</th>
+                    <th className="p-3 text-left">Prop</th>
+                    <th className="p-3 text-left">Type</th>
+                    <th className="p-3 text-left">Default</th>
+                    <th className="p-3 text-left">Description</th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
-                    <td className="p-3">name</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Name attribute for the group.</td>
-                  </tr>
-                  <tr>
                     <td className="p-3">options</td>
-                    <td className="p-3">Array&lt;{`{ label: string; value: string }`}&gt;</td>
+                    <td className="p-3">Option[]</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Switch options with labels and values.</td>
+                    <td className="p-3">List of switch items.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">selectedValues</td>
                     <td className="p-3">string[]</td>
                     <td className="p-3">[]</td>
-                    <td className="p-3">Currently selected switches.</td>
+                    <td className="p-3">Controlled selected values.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">onChange</td>
-                    <td className="p-3">(values: string[]) =&gt; void</td>
+                    <td className="p-3">(values) ⇒ void</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Callback fired on change.</td>
+                    <td className="p-3">Callback when values change.</td>
                   </tr>
-                  <tr>
-                    <td className="p-3">disabled</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Disable all switches.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">readOnly</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Make switches read-only.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">required</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Mark switches as required.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">error</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Validation or error message.</td>
-                  </tr>
+
                   <tr>
                     <td className="p-3">iconSize</td>
                     <td className="p-3">number</td>
                     <td className="p-3">20</td>
-                    <td className="p-3">Size of the switch toggle.</td>
+                    <td className="p-3">Size of the switch.</td>
                   </tr>
-                  <tr>
-                    <td className="p-3">iconCheckedBgColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">"#2563eb"</td>
-                    <td className="p-3">Background color of the toggle when checked.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">switchBgColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">"#d1d5db"</td>
-                    <td className="p-3">Background color of the switch when unchecked.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">textColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">"#374151"</td>
-                    <td className="p-3">Color of the option label text.</td>
-                  </tr>
+
                   <tr>
                     <td className="p-3">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Custom CSS or Tailwind classes.</td>
+                    <td className="p-3">Wrapper classes.</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">style</td>
-                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">itemClassName</td>
+                    <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline style overrides.</td>
+                    <td className="p-3">Each item wrapper styling.</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">labelStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">textClassName</td>
+                    <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for each label.</td>
+                    <td className="p-3">Text styling.</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">errorStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">switchClassName</td>
+                    <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for error message.</td>
+                    <td className="p-3">Switch background styling.</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">darkMode</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Adjust switch styles for dark mode.</td>
+                    <td className="p-3">thumbClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Thumb styling.</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </section>
 
+          {/* Common Mistakes */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Common Mistakes
+            </h2>
+
+            <div className="space-y-4 text-sm">
+              <div className="flex gap-2 text-red-500">
+                <X size={16} />
+                <div>
+                  <code>{`selectedValues="react"`}</code>
+                  <p className="text-gray-500 text-xs">
+                    Must be an array.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>{`selectedValues={["react"]}`}</code>
+                  <p className="text-gray-500 text-xs">
+                    Correct usage.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Pro Tips */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">
+              Pro Tips
+            </h2>
+
+            <ul className="list-disc list-inside space-y-1 text-gray-300">
+              <li>Use Tailwind classes instead of inline colors.</li>
+              <li>Control states via className instead of props.</li>
+              <li>Combine with dark mode utilities.</li>
+              <li>Keep design tokens consistent across components.</li>
+            </ul>
+          </section>
+
           {/* Footer */}
-          <DocsFooter />
+          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
+            Built with <span className="text-primary">React</span>,{" "}
+            <span className="text-primary">Tailwind CSS</span> &{" "}
+            <span className="text-primary">TypeScript</span>.
+          </footer>
         </div>
       </div>
     </>

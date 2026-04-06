@@ -38,7 +38,8 @@ const Sidebar = () => {
         { label: "Radio", href: "/docs/radio" },
         { label: "Check Box", href: "/docs/checkbox" },
         { label: "Switch", href: "/docs/switch" },
-        { label: "Dropdown", href: "/docs/dropdown" },
+        { label: "Select", href: "/docs/select" },
+        { label: "Textarea", href: "/docs/textarea" }
       ],
     },
     {

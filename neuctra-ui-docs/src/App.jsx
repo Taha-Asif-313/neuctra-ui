@@ -30,7 +30,6 @@ import AvatarDocs from "./pages/DocsPages/AvatarDocs";
 import RadioGroupDocs from "./pages/DocsPages/RadioGroupDocs";
 import CheckboxGroupDocs from "./pages/DocsPages/CheckboxGroupDocs";
 import SwitchGroupDocs from "./pages/DocsPages/SwitchGroupDocs";
-import DropdownDocs from "./pages/DocsPages/DropdownDocs";
 import ContainerDocs from "./pages/DocsPages/ContainerDocs";
 
 import DrawerDocs from "./pages/DocsPages/DrawerDocs";
@@ -42,6 +41,8 @@ import TableDocs from "./pages/DocsPages/TableDocs";
 import TemplatesLayout from "./layouts/TemplatesLayout";
 import TemplateHomePage from "./pages/TemplatePages/TemplateHomePage";
 import TemplatePage from "./pages/TemplatePages/TemplatePage";
+import SelectDocs from "./pages/DocsPages/SelectDocs";
+import TextareaDocs from "./pages/DocsPages/TextareaDocs";
 
 const App = () => {
   return (
@@ -73,10 +74,10 @@ const App = () => {
           <Route path="radio" element={<RadioGroupDocs />} />
           <Route path="checkbox" element={<CheckboxGroupDocs />} />
           <Route path="switch" element={<SwitchGroupDocs />} />
-          <Route path="dropdown" element={<DropdownDocs />} />
+          <Route path="select" element={<SelectDocs />} />
           <Route path="container" element={<ContainerDocs />} />
           <Route path="drawer" element={<DrawerDocs />} />
-  
+  <Route path="textarea" element={<TextareaDocs />} />
           <Route path="alert" element={<AlertDocs />} />
           <Route path="modal" element={<ModalDocs />} />
           <Route path="accordion" element={<AccordionDocs />} />
