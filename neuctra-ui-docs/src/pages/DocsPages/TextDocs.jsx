@@ -18,7 +18,6 @@ const TextDocs = () => {
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
         <div className="mx-auto px-4 space-y-12 max-w-6xl">
-          
           {/* ---------------- Header ---------------- */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
@@ -35,9 +34,7 @@ const TextDocs = () => {
 
           {/* ---------------- Import ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-white">
-              Import
-            </h2>
+            <h2 className="text-2xl font-semibold mb-3 text-white">Import</h2>
             <CodeBlock
               language="tsx"
               code={`import { Text } from "@neuctra/ui";`}
@@ -160,6 +157,172 @@ const TextDocs = () => {
             />
           </section>
 
+          {/* ---------------- Props Table ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Props Table
+            </h2>
+            <p className="text-gray-400 mb-3">
+              Detailed list of all available props for the <code>Text</code>{" "}
+              component.
+            </p>
+
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-zinc-900 text-gray-200">
+                  <tr>
+                    <th className="text-left p-3">Prop</th>
+                    <th className="text-left p-3">Type</th>
+                    <th className="text-left p-3">Default</th>
+                    <th className="text-left p-3">Description</th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  {/* Core */}
+                  <tr>
+                    <td className="p-3">as</td>
+                    <td className="p-3">HTMLElementTag</td>
+                    <td className="p-3">"span"</td>
+                    <td className="p-3">
+                      Element type to render (e.g., "p", "span", "h1", "a").
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">children</td>
+                    <td className="p-3">React.ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Content inside the Text component.</td>
+                  </tr>
+
+                  {/* Typography */}
+                  <tr>
+                    <td className="p-3">size</td>
+                    <td className="p-3">Responsive&lt;string&gt;</td>
+                    <td className="p-3">"md"</td>
+                    <td className="p-3">
+                      Font size. Can use Tailwind keys ("sm", "lg") or CSS
+                      values like "14px", "1rem".
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">weight</td>
+                    <td className="p-3">Responsive&lt;number | string&gt;</td>
+                    <td className="p-3">400</td>
+                    <td className="p-3">
+                      Font weight (400, 500, 600, 700 or custom).
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">align</td>
+                    <td className="p-3">
+                      Responsive&lt;"left" | "center" | "right"&gt;
+                    </td>
+                    <td className="p-3">"left"</td>
+                    <td className="p-3">Text alignment.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">transform</td>
+                    <td className="p-3">
+                      Responsive&lt;"uppercase" | "lowercase" | "capitalize"&gt;
+                    </td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Text transformation.</td>
+                  </tr>
+
+                  {/* Decorations */}
+                  <tr>
+                    <td className="p-3">italic</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Applies italic style.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">underline</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Adds underline. Ignored for anchors (already underlined).
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">strikethrough</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Applies line-through decoration.</td>
+                  </tr>
+
+                  {/* Truncate */}
+                  <tr>
+                    <td className="p-3">truncate</td>
+                    <td className="p-3">boolean | number</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Truncate text: <code>true</code> = single line,{" "}
+                      <code>number</code> = multi-line clamp.
+                    </td>
+                  </tr>
+
+                  {/* Color */}
+                  <tr>
+                    <td className="p-3">color</td>
+                    <td className="p-3">
+                      "default" | "muted" | "primary" | string
+                    </td>
+                    <td className="p-3">"default"</td>
+                    <td className="p-3">
+                      Text color. Can use preset or custom CSS value.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">darkMode</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Enable dark mode colors if theme supports it.
+                    </td>
+                  </tr>
+
+                  {/* Styling */}
+                  <tr>
+                    <td className="p-3">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom Tailwind or CSS classes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">style</td>
+                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Inline styles override defaults (fontSize, fontWeight,
+                      etc).
+                    </td>
+                  </tr>
+
+                  {/* System */}
+                  <tr>
+                    <td className="p-3">...rest</td>
+                    <td className="p-3">ComponentPropsWithoutRef&lt;T&gt;</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      All native props of the rendered element (href, target,
+                      onClick, etc.).
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
           {/* ---------------- Mistakes ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
@@ -167,13 +330,13 @@ const TextDocs = () => {
             </h2>
 
             <div className="space-y-4 text-sm text-gray-300">
-              
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
-                  <code>{'<Text size={18} />'}</code>
+                  <code>{"<Text size={18} />"}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Size must be string ("18px", "1rem") or predefined key ("lg")
+                    Size must be string ("18px", "1rem") or predefined key
+                    ("lg")
                   </p>
                 </div>
               </div>
@@ -212,12 +375,9 @@ const TextDocs = () => {
 
           {/* ---------------- Pro Tips ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Pro Tips
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
 
             <div className="text-gray-200 space-y-3">
-              
               <p>
                 Use <code>as</code> to keep semantic HTML:
               </p>
@@ -255,152 +415,6 @@ const TextDocs = () => {
               </p>
             </div>
           </section>
-
-          {/* ---------------- Props Table ---------------- */}
-<section>
-  <h2 className="text-2xl font-semibold text-white mb-4">
-    Props Table
-  </h2>
-  <p className="text-gray-400 mb-3">
-    Detailed list of all available props for the <code>Text</code> component.
-  </p>
-
-  <div className="border border-zinc-800 rounded-xl overflow-hidden">
-    <table className="w-full text-sm">
-      <thead className="bg-zinc-900 text-gray-200">
-        <tr>
-          <th className="text-left p-3">Prop</th>
-          <th className="text-left p-3">Type</th>
-          <th className="text-left p-3">Default</th>
-          <th className="text-left p-3">Description</th>
-        </tr>
-      </thead>
-
-      <tbody className="divide-y divide-zinc-800 text-gray-300">
-        {/* Core */}
-        <tr>
-          <td className="p-3">as</td>
-          <td className="p-3">HTMLElementTag</td>
-          <td className="p-3">"span"</td>
-          <td className="p-3">
-            Element type to render (e.g., "p", "span", "h1", "a").
-          </td>
-        </tr>
-
-        <tr>
-          <td className="p-3">children</td>
-          <td className="p-3">React.ReactNode</td>
-          <td className="p-3">—</td>
-          <td className="p-3">Content inside the Text component.</td>
-        </tr>
-
-        {/* Typography */}
-        <tr>
-          <td className="p-3">size</td>
-          <td className="p-3">Responsive&lt;string&gt;</td>
-          <td className="p-3">"md"</td>
-          <td className="p-3">
-            Font size. Can use Tailwind keys ("sm", "lg") or CSS values
-            like "14px", "1rem".
-          </td>
-        </tr>
-
-        <tr>
-          <td className="p-3">weight</td>
-          <td className="p-3">Responsive&lt;number | string&gt;</td>
-          <td className="p-3">400</td>
-          <td className="p-3">Font weight (400, 500, 600, 700 or custom).</td>
-        </tr>
-
-        <tr>
-          <td className="p-3">align</td>
-          <td className="p-3">Responsive&lt;"left" | "center" | "right"&gt;</td>
-          <td className="p-3">"left"</td>
-          <td className="p-3">Text alignment.</td>
-        </tr>
-
-        <tr>
-          <td className="p-3">transform</td>
-          <td className="p-3">Responsive&lt;"uppercase" | "lowercase" | "capitalize"&gt;</td>
-          <td className="p-3">—</td>
-          <td className="p-3">Text transformation.</td>
-        </tr>
-
-        {/* Decorations */}
-        <tr>
-          <td className="p-3">italic</td>
-          <td className="p-3">boolean</td>
-          <td className="p-3">false</td>
-          <td className="p-3">Applies italic style.</td>
-        </tr>
-
-        <tr>
-          <td className="p-3">underline</td>
-          <td className="p-3">boolean</td>
-          <td className="p-3">false</td>
-          <td className="p-3">Adds underline. Ignored for anchors (already underlined).</td>
-        </tr>
-
-        <tr>
-          <td className="p-3">strikethrough</td>
-          <td className="p-3">boolean</td>
-          <td className="p-3">false</td>
-          <td className="p-3">Applies line-through decoration.</td>
-        </tr>
-
-        {/* Truncate */}
-        <tr>
-          <td className="p-3">truncate</td>
-          <td className="p-3">boolean | number</td>
-          <td className="p-3">false</td>
-          <td className="p-3">
-            Truncate text: <code>true</code> = single line, <code>number</code> = multi-line clamp.
-          </td>
-        </tr>
-
-        {/* Color */}
-        <tr>
-          <td className="p-3">color</td>
-          <td className="p-3">"default" | "muted" | "primary" | string</td>
-          <td className="p-3">"default"</td>
-          <td className="p-3">Text color. Can use preset or custom CSS value.</td>
-        </tr>
-
-        <tr>
-          <td className="p-3">darkMode</td>
-          <td className="p-3">boolean</td>
-          <td className="p-3">false</td>
-          <td className="p-3">Enable dark mode colors if theme supports it.</td>
-        </tr>
-
-        {/* Styling */}
-        <tr>
-          <td className="p-3">className</td>
-          <td className="p-3">string</td>
-          <td className="p-3">—</td>
-          <td className="p-3">Custom Tailwind or CSS classes.</td>
-        </tr>
-
-        <tr>
-          <td className="p-3">style</td>
-          <td className="p-3">React.CSSProperties</td>
-          <td className="p-3">—</td>
-          <td className="p-3">Inline styles override defaults (fontSize, fontWeight, etc).</td>
-        </tr>
-
-        {/* System */}
-        <tr>
-          <td className="p-3">...rest</td>
-          <td className="p-3">ComponentPropsWithoutRef&lt;T&gt;</td>
-          <td className="p-3">—</td>
-          <td className="p-3">
-            All native props of the rendered element (href, target, onClick, etc.).
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
           {/* ---------------- Footer ---------------- */}
           <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">

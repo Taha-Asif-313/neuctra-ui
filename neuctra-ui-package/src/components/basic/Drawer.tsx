@@ -32,9 +32,7 @@ export const DrawerButton: React.FC<DrawerButtonProps> = ({
     style={style}
     className={clsx(
       "inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md font-medium transition-all",
-      "bg-blue-600 text-white hover:bg-blue-700",
-      "focus:outline-none focus:ring-2 focus:ring-blue-400",
-      "dark:bg-blue-500 dark:hover:bg-blue-600",
+      "bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90",
       className
     )}
   >

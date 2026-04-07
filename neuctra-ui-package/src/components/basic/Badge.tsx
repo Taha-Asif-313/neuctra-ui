@@ -1,6 +1,6 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, CSSProperties } from "react";
 import clsx from "clsx";
 
 /* -------------------------------------------------------------------------- */
@@ -28,7 +28,16 @@ export interface BadgeProps {
   count?: number | string;
   pulse?: boolean;
 
+  /** 🎨 Customization */
   className?: string;
+  style?: CSSProperties;
+  dotClassName?: string;
+  dotStyle?: CSSProperties;
+  countClassName?: string;
+  countStyle?: CSSProperties;
+  iconClassName?: string;
+  iconStyle?: CSSProperties;
+
   onClick?: () => void;
 }
 
@@ -53,6 +62,14 @@ export const Badge: React.FC<BadgeProps> = memo(
     pulse = false,
 
     className,
+    style,
+    dotClassName,
+    dotStyle,
+    countClassName,
+    countStyle,
+    iconClassName,
+    iconStyle,
+
     onClick,
   }) => {
     /** 📏 Sizes */
@@ -62,15 +79,17 @@ export const Badge: React.FC<BadgeProps> = memo(
       lg: "px-4 py-1.5 text-sm",
     };
 
-    const dynamicStyle = {
+    /** 🎨 Base style */
+    const baseStyle: CSSProperties = {
       backgroundColor: primaryColor,
       color: "#fff",
+      ...style, // 🔥 allow override
     };
 
     return (
       <span
         onClick={onClick}
-        style={dynamicStyle}
+        style={baseStyle}
         className={clsx(
           "relative inline-flex items-center justify-center gap-1 font-medium",
           "transition-all duration-200 select-none",
@@ -83,10 +102,14 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* 🔴 Dot */}
         {notificationDot && (
           <span
-            style={{ backgroundColor: dotColor }}
+            style={{
+              backgroundColor: dotColor,
+              ...dotStyle,
+            }}
             className={clsx(
               "absolute -top-1 -right-1 w-2 h-2 rounded-full",
-              pulse && "animate-ping"
+              pulse && "animate-ping",
+              dotClassName
             )}
           />
         )}
@@ -94,8 +117,15 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* 🔢 Count */}
         {count !== undefined && (
           <span
-            style={{ backgroundColor: dotColor }}
-            className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px] flex items-center justify-center rounded-full text-white"
+            style={{
+              backgroundColor: dotColor,
+              ...countStyle,
+            }}
+            className={clsx(
+              "absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px]",
+              "flex items-center justify-center rounded-full text-white",
+              countClassName
+            )}
           >
             {count}
           </span>
@@ -103,7 +133,12 @@ export const Badge: React.FC<BadgeProps> = memo(
 
         {/* Icon Left */}
         {icon && iconPosition === "left" && (
-          <span className="flex items-center">{icon}</span>
+          <span
+            style={iconStyle}
+            className={clsx("flex items-center", iconClassName)}
+          >
+            {icon}
+          </span>
         )}
 
         {/* Text */}
@@ -111,7 +146,12 @@ export const Badge: React.FC<BadgeProps> = memo(
 
         {/* Icon Right */}
         {icon && iconPosition === "right" && (
-          <span className="flex items-center">{icon}</span>
+          <span
+            style={iconStyle}
+            className={clsx("flex items-center", iconClassName)}
+          >
+            {icon}
+          </span>
         )}
       </span>
     );
