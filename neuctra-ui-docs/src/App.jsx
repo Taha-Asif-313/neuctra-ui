@@ -43,6 +43,8 @@ import TemplateHomePage from "./pages/TemplatePages/TemplateHomePage";
 import TemplatePage from "./pages/TemplatePages/TemplatePage";
 import SelectDocs from "./pages/DocsPages/SelectDocs";
 import TextareaDocs from "./pages/DocsPages/TextareaDocs";
+import UICreationBotDocs from "./pages/DocsPages/UICreationBotDocs";
+import NeuctraUiChatBotPage from "./pages/NeuctraUIBot/NeuctraUiChatBot";
 
 const App = () => {
   return (
@@ -77,17 +79,20 @@ const App = () => {
           <Route path="select" element={<SelectDocs />} />
           <Route path="container" element={<ContainerDocs />} />
           <Route path="drawer" element={<DrawerDocs />} />
-  <Route path="textarea" element={<TextareaDocs />} />
+          <Route path="textarea" element={<TextareaDocs />} />
           <Route path="alert" element={<AlertDocs />} />
           <Route path="modal" element={<ModalDocs />} />
           <Route path="accordion" element={<AccordionDocs />} />
           <Route path="table" element={<TableDocs />} />
+          <Route path="ui-creation-bot" element={<UICreationBotDocs />} />
         </Route>
 
-          <Route path="/templates" element={<TemplatesLayout />}>
+        <Route path="/templates" element={<TemplatesLayout />}>
           <Route index element={<TemplateHomePage />} />
           <Route path=":slug" element={<TemplatePage />} />
         </Route>
+
+        <Route path="/neuctra-ui-chatbot" element={<NeuctraUiChatBotPage />} />
       </Routes>
     </BrowserRouter>
   );

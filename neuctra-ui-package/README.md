@@ -1,96 +1,197 @@
-
 # @neuctra/ui
 
 A modern, customizable, and fully responsive React UI component library built with Tailwind CSS, TypeScript, and Vite.
 
-> ⚡ Rapidly build accessible and beautiful interfaces using clean, developer-friendly components.
+> ⚡ Build production-ready, accessible interfaces faster with beautifully designed components.
+
+---
+
+## 🚀 Why Neuctra UI?
+
+- ⚡ **Fast Development** — Prebuilt components with minimal setup
+- 🎨 **Fully Customizable** — Tailwind + CSS variables powered theming
+- ♿ **Accessible by Default** — Built with a11y best practices
+- 🧩 **Composable API** — Flexible and scalable component patterns
+- 🌙 **Dark Mode Ready** — Easy theme switching via CSS variables
 
 ---
 
 ## 📦 Installation
 
-### Using npm
+Install the library using your preferred package manager:
 
+### npm
 ```bash
 npm install @neuctra/ui
 ````
 
-### Using yarn
+### yarn
 
 ```bash
 yarn add @neuctra/ui
-````
+```
 
+### pnpm
 
+```bash
+pnpm add @neuctra/ui
+```
+
+> ⚠️ Make sure Tailwind CSS is installed in your project.
+
+---
+
+## ⚙️ Tailwind Configuration
+
+### Tailwind v3
+
+```js
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@neuctra/ui/**/*.{js,ts,jsx,tsx}',
+  ],
+};
+```
+
+### Tailwind v4
+
+```css
+@import "tailwindcss";
+@source "../node_modules/@neuctra/ui";
+```
+
+---
 
 ## 🧱 Usage
 
-Import and use any component:
+Import and use components in your app:
 
 ```tsx
 import { Button, Dropdown, Input } from '@neuctra/ui';
 
 export default function App() {
   return (
-    <div className="p-4">
-      <Button>Click Me</Button>
+    <main className="p-6 space-y-4">
+      <Button onClick={() => alert('Hello')} className="rounded-xl shadow-lg">
+        Primary
+      </Button>
+
+      <Input placeholder="Type here..." />
 
       <Dropdown
         options={[
-          { label: 'Option 1', value: '1' },
-          { label: 'Option 2', value: '2' },
+          { label: 'Yes', value: '1' },
+          { label: 'No', value: '0' }
         ]}
-        placeholder="Select an option"
+        placeholder="Choose"
       />
-
-      <Input placeholder="Type here..." />
-    </div>
+    </main>
   );
 }
 ```
 
 ---
 
-## 🎨 Customization
+## 🎨 Theming
 
-Components support rich props like:
+Customize your design system using CSS variables:
 
-* `className` for Tailwind overrides
-* Color, padding, margin, radius, shadow via props
-* Icon support (via `lucide-react` or `react-icons`)
-* Controlled or uncontrolled components
-* Transition and animation props
+```css
+:root {
+  --primary: #00c214;
+  --primary-content: #ffffff;
+}
 
-Each component is designed with flexibility and accessibility in mind.
+[data-theme='dark'] {
+  --primary: #1fb6ff;
+  --primary-content: #0f172a;
+}
+```
+
+> 💡 Easily extend tokens for colors, spacing, radius, and more.
 
 ---
 
-## 📚 Components
+## 🧩 Components
 
-> Full documentation coming soon
+> Growing component ecosystem
 
 * `Button`
 * `Input`
 * `TextArea`
 * `Dropdown`
-* `AudioPlayer`
-* `VideoPlayer`
 * `Accordion`
 * `Drawer`
 * `Alert`
-* More coming...
+* `AudioPlayer`
+* `VideoPlayer`
+* More coming soon...
 
 ---
 
+## ⚡ Next.js / SSR Support
 
-## 📄 License
+For Next.js (App Router), add styles in:
 
-MIT © [Taha Asif](https://github.com/Taha-Asif-313)
+```css
+@import 'tailwindcss';
+@source '../node_modules/@neuctra/ui';
+```
+
+> Ensure interactive components use `"use client"`.
+
+---
+
+## 🚀 Production Checklist
+
+* Run lint & type checks
+* Build before deploy
+* Configure environment variables
+* Enable security headers (CSP, etc.)
+* Monitor bundle size
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## 🛠 Troubleshooting
+
+**Styles not applying?**
+Ensure Tailwind includes:
+
+```
+./node_modules/@neuctra/ui/**/*.{js,ts,jsx,tsx}
+```
+
+**SSR errors?**
+Wrap interactive components with `"use client"`
+
+**Module not found?**
+
+```bash
+rm -rf node_modules package-lock.json && npm install
+```
+
+---
+
+## 📚 Documentation
+
+👉 [https://neuctra-ui.vercel.app](https://neuctra-ui.vercel.app)
 
 ---
 
 ## 🌐 Links
 
-* [GitHub Repository](https://github.com/Taha-Asif-313/neuctra-ui)
-* [NPM Package](https://www.npmjs.com/package/@neuctra/ui)
-* [Documentation (coming soon)](https://neuctra-ui.vercel.app)
+* GitHub: [https://github.com/Taha-Asif-313/neuctra-ui](https://github.com/Taha-Asif-313/neuctra-ui)
+* NPM: [https://www.npmjs.com/package/@neuctra/ui](https://www.npmjs.com/package/@neuctra/ui)
+
+---
+
+## 📄 License
+
+MIT © Taha Asif

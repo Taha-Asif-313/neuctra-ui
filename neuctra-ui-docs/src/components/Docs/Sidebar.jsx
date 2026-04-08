@@ -44,7 +44,10 @@ const Sidebar = () => {
     },
     {
       title: "Resources",
-      links: [{ label: "About", href: "/about" }],
+      links: [
+        { label: "UI Creation Bot", href: "/docs/ui-creation-bot" },
+        { label: "About", href: "/about" },
+      ],
     },
   ];
 
