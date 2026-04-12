@@ -108,7 +108,7 @@ export default function CodePreviewBlock({
         "
       >
         {view === "preview" ? (
-          <div className="relative z-10">
+          <div className="relative z-10 p-4">
             {previewContent || (
               <div className="text-center text-zinc-500 py-10">
                 🧩 No preview available
