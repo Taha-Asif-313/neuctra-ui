@@ -2,6 +2,10 @@
 
 import React, { forwardRef, useMemo } from "react";
 
+/* -------------------------------------------------------------------------- */
+/* 🧩 Types                                                                  */
+/* -------------------------------------------------------------------------- */
+
 type Responsive<T> =
   | T
   | {
@@ -12,7 +16,7 @@ type Responsive<T> =
       xl?: T;
     };
 
-interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
   src?: string;
   alt?: string;
   title?: string;
@@ -42,111 +46,178 @@ interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /** Behavior */
   loading?: "lazy" | "eager";
+
+  /** 🔥 Full Customization */
+  className?: string;
+  imageClassName?: string;
+  overlayClassName?: string;
+  fallbackClassName?: string;
+
+  style?: React.CSSProperties;
+  imageStyle?: React.CSSProperties;
+  overlayStyle?: React.CSSProperties;
+  fallbackStyle?: React.CSSProperties;
 }
 
-/** Utility: resolve responsive prop (mobile-first) */
-const resolveResponsive = <T,>(value: Responsive<T> | undefined): T | undefined => {
+/* -------------------------------------------------------------------------- */
+/* 🛠 Utility                                                                 */
+/* -------------------------------------------------------------------------- */
+
+const resolveResponsive = <T,>(
+  value: Responsive<T> | undefined
+): T | undefined => {
   if (!value) return undefined;
-  if (typeof value !== "object" || !('base' in value)) return value as T;
+  if (typeof value !== "object" || !("base" in value)) return value as T;
   return value.base;
 };
 
-export const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
-  const {
-    src,
-    alt = "",
-    title,
-    width = "100%",
-    height,
-    aspectRatio,
-    radius,
-    border,
-    shadow,
-    opacity = 1,
-    objectFit = "cover",
-    overlay,
-    overlayColor = "rgba(0,0,0,0.4)",
-    clickable,
-    onClick,
-    fallback,
-    loading = "lazy",
-    style,
-    className,
-    ...rest
-  } = props;
+/* -------------------------------------------------------------------------- */
+/* 🖼 Image Component                                                         */
+/* -------------------------------------------------------------------------- */
 
-  const resolvedWidth = resolveResponsive(width);
-  const resolvedHeight = resolveResponsive(height);
-
-  const wrapperStyles: React.CSSProperties = useMemo(
-    () => ({
-      width: resolvedWidth,
-      height: resolvedHeight,
+export const Image = forwardRef<HTMLDivElement, ImageProps>(
+  (props, ref) => {
+    const {
+      src,
+      alt = "",
+      title,
+      width = "100%",
+      height,
       aspectRatio,
-      borderRadius: radius,
+      radius,
       border,
-      overflow: "hidden",
-      position: "relative",
-      display: "inline-block",
-      cursor: clickable ? "pointer" : undefined,
-      boxShadow: shadow ? "0 4px 12px rgba(0,0,0,0.15)" : undefined,
-      ...style,
-    }),
-    [resolvedWidth, resolvedHeight, aspectRatio, radius, border, shadow, clickable, style]
-  );
+      shadow,
+      opacity = 1,
+      objectFit = "cover",
 
-  const imageStyles: React.CSSProperties = {
-    width: "100%",
-    height: "100%",
-    objectFit,
-    opacity,
-    display: "block",
-  };
+      overlay,
+      overlayColor = "rgba(0,0,0,0.4)",
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (!clickable) return;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onClick?.(e as any);
-    }
-  };
+      clickable,
+      onClick,
 
-  return (
-    <div
-      ref={ref}
-      role={clickable ? "button" : undefined}
-      tabIndex={clickable ? 0 : undefined}
-      aria-label={alt}
-      title={title}
-      onClick={clickable ? onClick : undefined}
-      onKeyDown={handleKeyDown}
-      style={wrapperStyles}
-      className={className}
-      {...rest}
-    >
-      {src ? (
-        <img src={src} alt={alt} loading={loading} style={imageStyles} />
-      ) : (
-        fallback || <div style={{ padding: 16 }}>No Image</div>
-      )}
+      fallback,
+      loading = "lazy",
 
-      {overlay && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: overlayColor,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-          }}
-        >
-          {overlay}
-        </div>
-      )}
-    </div>
-  );
-});
+      className,
+      imageClassName,
+      overlayClassName,
+      fallbackClassName,
+
+      style,
+      imageStyle,
+      overlayStyle,
+      fallbackStyle,
+
+      ...rest
+    } = props;
+
+    const resolvedWidth = resolveResponsive(width);
+    const resolvedHeight = resolveResponsive(height);
+
+    /* Wrapper styles */
+    const wrapperStyles: React.CSSProperties = useMemo(
+      () => ({
+        width: resolvedWidth,
+        height: resolvedHeight,
+        aspectRatio,
+        borderRadius: radius,
+        border,
+        overflow: "hidden",
+        position: "relative",
+        display: "inline-block",
+        cursor: clickable ? "pointer" : undefined,
+        boxShadow: shadow ? "0 4px 12px rgba(0,0,0,0.15)" : undefined,
+        ...style,
+      }),
+      [
+        resolvedWidth,
+        resolvedHeight,
+        aspectRatio,
+        radius,
+        border,
+        shadow,
+        clickable,
+        style,
+      ]
+    );
+
+    /* Image styles */
+    const imageStyles: React.CSSProperties = {
+      width: "100%",
+      height: "100%",
+      objectFit,
+      opacity,
+      display: "block",
+      ...imageStyle,
+    };
+
+    /* Overlay styles */
+    const overlayStyles: React.CSSProperties = {
+      position: "absolute",
+      inset: 0,
+      background: overlayColor,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#fff",
+      ...overlayStyle,
+    };
+
+    /* Fallback styles */
+    const fallbackStyles: React.CSSProperties = {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 16,
+      ...fallbackStyle,
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!clickable) return;
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onClick?.(e as any);
+      }
+    };
+
+    return (
+      <div
+        ref={ref}
+        role={clickable ? "button" : undefined}
+        tabIndex={clickable ? 0 : undefined}
+        aria-label={alt}
+        title={title}
+        onClick={clickable ? onClick : undefined}
+        onKeyDown={handleKeyDown}
+        style={wrapperStyles}
+        className={className}
+        {...rest}
+      >
+        {src ? (
+          <img
+            src={src}
+            alt={alt}
+            loading={loading}
+            style={imageStyles}
+            className={imageClassName}
+          />
+        ) : (
+          <div style={fallbackStyles} className={fallbackClassName}>
+            {fallback || "No Image"}
+          </div>
+        )}
+
+        {overlay && (
+          <div style={overlayStyles} className={overlayClassName}>
+            {overlay}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
 
 Image.displayName = "Image";

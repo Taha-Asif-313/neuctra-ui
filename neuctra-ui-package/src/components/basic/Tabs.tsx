@@ -68,7 +68,8 @@ const TabsContext = createContext<TabsContextValue | null>(null);
 
 function useTabsContext() {
   const ctx = useContext(TabsContext);
-  if (!ctx) throw new Error("<Tab>, <TabList>, <TabPanel> must be inside <Tabs>");
+  if (!ctx)
+    throw new Error("<Tab>, <TabList>, <TabPanel> must be inside <Tabs>");
   return ctx;
 }
 
@@ -118,10 +119,10 @@ export const Tabs: React.FC<TabsProps> = ({
   mobileBreakpoint = 768,
   mobileVariant = "scroll",
 
-  primaryColor = "#2563eb",
+  primaryColor = "var(--primary)",
   activeColor = "#ffffff",
-  textColor = "#374151",
-  hoverColor = "#1d4ed8",
+  textColor = "",
+  hoverColor = "var(--primary)",
   borderColor = "#e5e7eb",
   disabledColor = "#9ca3af",
   backgroundColor = "transparent",
@@ -141,7 +142,7 @@ export const Tabs: React.FC<TabsProps> = ({
   useEffect(() => {
     if (!tabCount && containerRef.current) {
       setResolvedCount(
-        containerRef.current.querySelectorAll("[data-tab-button]").length
+        containerRef.current.querySelectorAll("[data-tab-button]").length,
       );
     }
   });
@@ -197,7 +198,7 @@ export const Tabs: React.FC<TabsProps> = ({
           effectivePosition === "right" && "flex-row-reverse",
           effectivePosition === "bottom" && "flex-col-reverse",
           bordered && "border border-gray-200",
-          className
+          className,
         )}
         style={{
           background: backgroundColor,
@@ -301,7 +302,9 @@ export const TabList: React.FC<TabListProps> = ({
   /* ---- MOBILE: Drawer ---- */
   if (isMobile && mobileVariant === "drawer") {
     const tabArray = React.Children.toArray(children);
-    const activeTabEl = tabArray[active] as React.ReactElement<TabProps> | undefined;
+    const activeTabEl = tabArray[active] as
+      | React.ReactElement<TabProps>
+      | undefined;
     const activeLabel = activeTabEl?.props?.children ?? drawerLabel;
 
     return (
@@ -374,6 +377,26 @@ export const TabList: React.FC<TabListProps> = ({
     );
   }
 
+  /* ---- MOBILE: Collapse (fix) ---- */
+  if (isMobile && mobileVariant === "collapse") {
+    return (
+      <div
+        role="tablist"
+        className={clsx(
+          "flex flex-row flex-wrap w-full", // 🔥 wrap enabled
+          className,
+        )}
+        style={{
+          gap,
+          padding: 8,
+          ...style,
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
   /* ---- Default: desktop / collapse ---- */
   return (
     <div
@@ -382,7 +405,7 @@ export const TabList: React.FC<TabListProps> = ({
         "flex",
         isVertical ? "flex-col" : "flex-row",
         isVertical ? "min-w-[160px]" : "w-full",
-        className
+        className,
       )}
       style={{ gap, padding: 8, ...style }}
     >
@@ -469,19 +492,27 @@ export const Tab: React.FC<TabProps> = ({
     variant === "outline"
       ? { border: `1px solid ${borderColor}` }
       : variant === "underline"
-      ? { borderBottom: `2px solid transparent`, borderRadius: 0 }
-      : variant === "pill"
-      ? { borderRadius: 999 }
-      : { border: "none" };
+        ? { borderBottom: `2px solid transparent`, borderRadius: 0 }
+        : variant === "pill"
+          ? { borderRadius: 999 }
+          : { border: "none" };
 
   const variantActive: CSSProperties =
     variant === "solid" || variant === "pill"
-      ? { background: primaryColor, color: activeColor, boxShadow: `0 2px 8px ${primaryColor}44` }
+      ? {
+          background: primaryColor,
+          color: activeColor,
+          boxShadow: `0 2px 8px ${primaryColor}44`,
+        }
       : variant === "outline"
-      ? { borderColor: primaryColor, color: primaryColor, background: `${primaryColor}11` }
-      : variant === "underline"
-      ? { borderBottomColor: primaryColor, color: primaryColor }
-      : {};
+        ? {
+            borderColor: primaryColor,
+            color: primaryColor,
+            background: `${primaryColor}11`,
+          }
+        : variant === "underline"
+          ? { borderBottomColor: primaryColor, color: primaryColor }
+          : {};
 
   const variantHover: CSSProperties =
     variant === "underline"
@@ -490,7 +521,10 @@ export const Tab: React.FC<TabProps> = ({
 
   // Full-width in stack/drawer/collapse mobile modes
   const forceFullWidth =
-    isMobile && (mobileVariant === "stack" || mobileVariant === "drawer" || mobileVariant === "collapse");
+    isMobile &&
+    (mobileVariant === "stack" ||
+      mobileVariant === "drawer" ||
+      mobileVariant === "collapse");
 
   return (
     <button
@@ -507,14 +541,20 @@ export const Tab: React.FC<TabProps> = ({
       className={clsx(
         "flex items-center justify-center gap-2 font-medium select-none transition-all",
         (fullWidth || forceFullWidth) && "w-full",
+
+        // ✅ THEME-AWARE INACTIVE COLORS
+        !isActive && "text-zinc-500 dark:text-zinc-400",
+
+        // optional subtle bg
+        !isActive && "bg-transparent dark:bg-white/5",
+
         disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer",
-        className
+        className,
       )}
       style={{
         padding: "10px 16px",
         borderRadius: radius,
-        background: "transparent",
-        color: textColor,
+        ...(isActive ? { color: activeColor } : {}),
         transitionDuration: `${transitionDuration}ms`,
         fontSize: 14,
         whiteSpace: "nowrap", // prevents wrapping in scroll strip
@@ -547,14 +587,10 @@ export const TabPanels: React.FC<TabPanelsProps> = ({
   style,
   className,
 }) => {
-  const { borderColor, position } = useTabsContext();
-  const isVertical = position === "left" || position === "right";
-
   return (
     <div
       className={clsx("flex-1 min-w-0", className)} // min-w-0 prevents flex overflow blowout
       style={{
-     
         ...style,
       }}
     >
@@ -570,7 +606,6 @@ export const TabPanels: React.FC<TabPanelsProps> = ({
 export interface TabPanelProps {
   children: ReactNode;
   index: number;
-  /** Keep panel in DOM when inactive — useful for forms, editors */
   keepMounted?: boolean;
   style?: CSSProperties;
   className?: string;

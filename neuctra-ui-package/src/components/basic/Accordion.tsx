@@ -170,7 +170,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
             <div
               key={index}
               className={clsx(
-                "border overflow-hidden transition-all",
+                "overflow-hidden transition-all",
                 "bg-white text-gray-900 dark:bg-zinc-900 dark:text-gray-100",
                 itemClassName
               )}

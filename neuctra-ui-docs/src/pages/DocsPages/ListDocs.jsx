@@ -124,35 +124,174 @@ const ListDocs = () => {
             </div>
           </section>
 
-          {/* Props Table */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
-            <p className="text-gray-400 mb-3">All available props for the List component.</p>
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-zinc-900 text-gray-200">
-                  <tr>
-                    <th className="text-left p-3">Prop</th>
-                    <th className="text-left p-3">Type</th>
-                    <th className="text-left p-3">Default</th>
-                    <th className="text-left p-3">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-800 text-gray-300">
-                  <tr><td className="p-3">title</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Optional list title</td></tr>
-                  <tr><td className="p-3">titleIcon</td><td className="p-3">ReactNode</td><td className="p-3">—</td><td className="p-3">Icon displayed next to title</td></tr>
-                  <tr><td className="p-3">items</td><td className="p-3">ListItemType[]</td><td className="p-3">—</td><td className="p-3">Array of list items, each can have text, icon, onClick, or subItems</td></tr>
-                  <tr><td className="p-3">type</td><td className="p-3">"unordered" | "ordered" | "inline"</td><td className="p-3">"unordered"</td><td className="p-3">List style</td></tr>
-                  <tr><td className="p-3">primaryTheme</td><td className="p-3">boolean</td><td className="p-3">true</td><td className="p-3">Use CSS variable for primary color</td></tr>
-                  <tr><td className="p-3">primaryColor</td><td className="p-3">string</td><td className="p-3">"#3b82f6"</td><td className="p-3">Fallback color if primaryTheme=false</td></tr>
-                  <tr><td className="p-3">className</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Custom container class</td></tr>
-                  <tr><td className="p-3">itemClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Custom class for list items</td></tr>
-                  <tr><td className="p-3">titleClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Custom class for title</td></tr>
-                  <tr><td className="p-3">bulletClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Custom class for bullets</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+        {/* Props Table */}
+<section>
+  <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
+  <p className="text-gray-400 mb-3">
+    All available props for the List component.
+  </p>
+
+  <div className="border border-zinc-800 rounded-xl overflow-hidden">
+    <table className="w-full text-sm">
+      <thead className="bg-zinc-900 text-gray-200">
+        <tr>
+          <th className="text-left p-3">Prop</th>
+          <th className="text-left p-3">Type</th>
+          <th className="text-left p-3">Default</th>
+          <th className="text-left p-3">Description</th>
+        </tr>
+      </thead>
+
+      <tbody className="divide-y divide-zinc-800 text-gray-300">
+        {/* Core */}
+        <tr>
+          <td className="p-3">title</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Optional list title</td>
+        </tr>
+        <tr>
+          <td className="p-3">titleIcon</td>
+          <td className="p-3">ReactNode</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Icon displayed next to title</td>
+        </tr>
+        <tr>
+          <td className="p-3">items</td>
+          <td className="p-3">ListItemType[]</td>
+          <td className="p-3">—</td>
+          <td className="p-3">
+            Array of items (text, icon, onClick, nested subItems)
+          </td>
+        </tr>
+        <tr>
+          <td className="p-3">type</td>
+          <td className="p-3">"unordered" | "ordered" | "inline"</td>
+          <td className="p-3">"unordered"</td>
+          <td className="p-3">Controls list layout and style</td>
+        </tr>
+
+        {/* Theme */}
+        <tr>
+          <td className="p-3">primaryTheme</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">true</td>
+          <td className="p-3">
+            Uses CSS variable (--primary) for colors
+          </td>
+        </tr>
+        <tr>
+          <td className="p-3">primaryColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">"#3b82f6"</td>
+          <td className="p-3">
+            Custom color when primaryTheme is disabled
+          </td>
+        </tr>
+
+        {/* Class Customization */}
+        <tr>
+          <td className="p-3">className</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Wrapper container class</td>
+        </tr>
+        <tr>
+          <td className="p-3">listClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for ul/ol element</td>
+        </tr>
+        <tr>
+          <td className="p-3">itemClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for each list item wrapper</td>
+        </tr>
+        <tr>
+          <td className="p-3">titleClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for title container</td>
+        </tr>
+        <tr>
+          <td className="p-3">bulletClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for bullet indicator</td>
+        </tr>
+        <tr>
+          <td className="p-3">textClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for item text</td>
+        </tr>
+        <tr>
+          <td className="p-3">iconClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for icons (title + item)</td>
+        </tr>
+        <tr>
+          <td className="p-3">subListClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Class for nested sub-lists</td>
+        </tr>
+
+        {/* Style Customization */}
+        <tr>
+          <td className="p-3">style</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for container</td>
+        </tr>
+        <tr>
+          <td className="p-3">listStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for ul/ol</td>
+        </tr>
+        <tr>
+          <td className="p-3">itemStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for each item row</td>
+        </tr>
+        <tr>
+          <td className="p-3">titleStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for title</td>
+        </tr>
+        <tr>
+          <td className="p-3">bulletStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for bullets</td>
+        </tr>
+        <tr>
+          <td className="p-3">textStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for item text</td>
+        </tr>
+        <tr>
+          <td className="p-3">iconStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for icons</td>
+        </tr>
+        <tr>
+          <td className="p-3">subListStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for nested lists</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
           {/* Common Mistakes */}
           <section>

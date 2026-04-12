@@ -40,7 +40,7 @@ const ButtonDocs = () => {
               language="react"
               code={`import { Button } from "@neuctra/ui";`}
               previewContent={
-                <Button>Click Me</Button>
+                <Button >Click Me</Button>
               }
             />
           </section>
@@ -52,8 +52,16 @@ const ButtonDocs = () => {
             </h2>
             <CodePreviewBlock
               language="jsx"
-              code={`<Button>Click Me</Button>`}
-              previewContent={<Button>Click Me</Button>}
+              code={`<Button size="xs" >Click Me</Button>
+<Button size="sm" >Click Me</Button>
+<Button size="md" >Click Me</Button>
+<Button size="lg" >Click Me</Button>`}
+              previewContent={<div className="space-x-2">
+              <Button size="xs" >Click Me</Button>
+              <Button size="sm" >Click Me</Button>
+              <Button size="md" >Click Me</Button>
+              <Button size="lg" >Click Me</Button>
+              </div>}
             />
           </section>
 
@@ -109,84 +117,161 @@ const ButtonDocs = () => {
                     <th className="text-left p-3">Description</th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  {/* Content */}
                   <tr>
                     <td className="p-3">children</td>
                     <td className="p-3">ReactNode</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Content inside the button.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">iconBefore</td>
                     <td className="p-3">ReactNode</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Icon displayed before the text.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">iconAfter</td>
                     <td className="p-3">ReactNode</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Icon displayed after the text.</td>
                   </tr>
+
+                  {/* States */}
                   <tr>
                     <td className="p-3">loading</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Show loading spinner instead of text.</td>
+                    <td className="p-3">Shows loading spinner and replaces content.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">loadingText</td>
                     <td className="p-3">string</td>
                     <td className="p-3">"Loading..."</td>
-                    <td className="p-3">Text to display when loading.</td>
+                    <td className="p-3">Text shown during loading state.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">fullWidth</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Button takes full container width.</td>
+                    <td className="p-3">Makes button take full width.</td>
                   </tr>
+
+                  {/* Variants */}
                   <tr>
                     <td className="p-3">variant</td>
                     <td className="p-3">"default" | "outline" | "ghost"</td>
                     <td className="p-3">"default"</td>
-                    <td className="p-3">Visual style of the button.</td>
+                    <td className="p-3">Visual style variant.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">size</td>
-                    <td className="p-3">"sm" | "md" | "lg"</td>
+                    <td className="p-3">"xs" | "sm" | "md" | "lg"</td>
                     <td className="p-3">"md"</td>
-                    <td className="p-3">Button size.</td>
+                    <td className="p-3">Controls padding and font size.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">weight</td>
                     <td className="p-3">number | string</td>
                     <td className="p-3">400</td>
-                    <td className="p-3">Font weight of the text.</td>
+                    <td className="p-3">Font weight of button text.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">primaryColor</td>
                     <td className="p-3">string</td>
                     <td className="p-3">"var(--primary)"</td>
-                    <td className="p-3">Primary color for background or border.</td>
+                    <td className="p-3">Main color for variants (background, border, text).</td>
                   </tr>
+
+                  {/* 🔥 Custom Classes */}
                   <tr>
                     <td className="p-3">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Custom Tailwind or CSS classes.</td>
+                    <td className="p-3">Classes for root button.</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3">contentClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for inner content wrapper.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">textClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for text content.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes applied to both icons.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">loaderClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for loading spinner.</td>
+                  </tr>
+
+                  {/* 🎨 Styles */}
                   <tr>
                     <td className="p-3">style</td>
                     <td className="p-3">React.CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline style overrides.</td>
+                    <td className="p-3">Inline styles for root button.</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3">contentStyle</td>
+                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for content wrapper.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">textStyle</td>
+                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for text.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">iconStyle</td>
+                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for icons.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">loaderStyle</td>
+                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for loader spinner.</td>
+                  </tr>
+
+                  {/* Native */}
                   <tr>
                     <td className="p-3">...rest</td>
                     <td className="p-3">ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">All native button props like onClick, type, disabled, etc.</td>
+                    <td className="p-3">
+                      All native button props (onClick, type, disabled, etc).
+                    </td>
                   </tr>
                 </tbody>
               </table>

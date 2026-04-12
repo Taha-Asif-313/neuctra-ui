@@ -111,144 +111,255 @@ const InputDocs = () => {
             </div>
           </section>
 
-          {/* Props Table */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Props Table
-            </h2>
-            <p className="text-gray-400 mb-3">
-              All available props for the Input component.
-            </p>
+        {/* Props Table */}
+<section>
+  <h2 className="text-2xl font-semibold text-white mb-4">
+    Props Table
+  </h2>
+  <p className="text-gray-400 mb-3">
+    All available props for the Input component.
+  </p>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-zinc-900 text-gray-200">
-                  <tr>
-                    <th className="text-left p-3">Prop</th>
-                    <th className="text-left p-3">Type</th>
-                    <th className="text-left p-3">Default</th>
-                    <th className="text-left p-3">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-800 text-gray-300">
-                  <tr>
-                    <td className="p-3">label</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Label text for the input field.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">type</td>
-                    <td className="p-3">"text" | "password" | "email" | "number" | "textarea"</td>
-                    <td className="p-3">"text"</td>
-                    <td className="p-3">Input type.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">value</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Controlled input value.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">defaultValue</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">""</td>
-                    <td className="p-3">Initial input value for uncontrolled usage.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">onChange</td>
-                    <td className="p-3">(event) ={`>`} void</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Callback fired on input change.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">required</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Marks the input as required.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">disabled</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Disables the input.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">readOnly</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Makes input read-only.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">error</td>
-                    <td className="p-3">string | boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Error message or flag to show error styling.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">success</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Displays success state.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">helperText</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Text to show below the input.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">prefix</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Text shown before input content.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">prefixIcon</td>
-                    <td className="p-3">React.ElementType</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Icon shown before input content.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">suffixIcon</td>
-                    <td className="p-3">React.ReactNode</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Icon shown after input content (password toggle overrides).</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">min / max / step</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Number input constraints.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">rows</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">4</td>
-                    <td className="p-3">Number of rows for textarea.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">primaryTheme</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">true</td>
-                    <td className="p-3">Enable default primary theme styling.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">primaryColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">#3b82f6</td>
-                    <td className="p-3">Primary color for borders or labels when theme is disabled.</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom Tailwind or CSS classes for container.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+  <div className="border border-zinc-800 rounded-xl overflow-hidden">
+    <table className="w-full text-sm">
+      <thead className="bg-zinc-900 text-gray-200">
+        <tr>
+          <th className="text-left p-3">Prop</th>
+          <th className="text-left p-3">Type</th>
+          <th className="text-left p-3">Default</th>
+          <th className="text-left p-3">Description</th>
+        </tr>
+      </thead>
+
+      <tbody className="divide-y divide-zinc-800 text-gray-300">
+        <tr>
+          <td className="p-3">label</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Label text for the input field.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">name</td>
+          <td className="p-3">string</td>
+          <td className="p-3">""</td>
+          <td className="p-3">Input name attribute.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">type</td>
+          <td className="p-3">"text" | "password" | "email" | "number" | "textarea"</td>
+          <td className="p-3">"text"</td>
+          <td className="p-3">Input type.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">placeholder</td>
+          <td className="p-3">string</td>
+          <td className="p-3">""</td>
+          <td className="p-3">Placeholder text inside the input.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">value</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Controlled input value.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">defaultValue</td>
+          <td className="p-3">string</td>
+          <td className="p-3">""</td>
+          <td className="p-3">Initial value for uncontrolled usage.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">onChange</td>
+          <td className="p-3">(event) ={`>`} void</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Triggered when input value changes.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">required</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Marks field as required.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">disabled</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Disables the input.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">readOnly</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Makes input read-only.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">error</td>
+          <td className="p-3">string | boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Shows error state or message.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">success</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Displays success state.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">helperText</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Helper text below the input.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">icon</td>
+          <td className="p-3">React.ElementType</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Icon displayed inside the label.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">prefix</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Text shown before input value.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">prefixIcon</td>
+          <td className="p-3">React.ElementType</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Icon before input content.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">suffixIcon</td>
+          <td className="p-3">React.ReactNode</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Icon after input (ignored for password toggle).</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">min / max / step</td>
+          <td className="p-3">number</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Constraints for number input.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">rows</td>
+          <td className="p-3">number</td>
+          <td className="p-3">4</td>
+          <td className="p-3">Textarea rows.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">primaryTheme</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">true</td>
+          <td className="p-3">Enable default theme styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">primaryColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">#3b82f6</td>
+          <td className="p-3">Custom color when theme disabled.</td>
+        </tr>
+
+        {/* 🔥 Customization Props */}
+        <tr>
+          <td className="p-3">wrapperClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for wrapper.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">labelClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for label.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">inputClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for input.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">textareaClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for textarea.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">prefixClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for prefix.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">suffixClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for suffix.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">helperTextClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom classes for helper text.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">wrapperStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for wrapper.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">inputStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for input/textarea.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">labelStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for label.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">className</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Fallback wrapper class.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
           {/* Common Mistakes */}
           <section>

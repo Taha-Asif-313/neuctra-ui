@@ -209,75 +209,244 @@ const CheckboxDocs = () => {
           </section>
 
           {/* Props Table */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Props Table
-            </h2>
+         <section>
+  <h2 className="text-2xl font-semibold text-white mb-4">
+    Props Table
+  </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-zinc-900">
-                  <tr>
-                    <th className="p-3 text-left">Prop</th>
-                    <th className="p-3 text-left">Type</th>
-                    <th className="p-3 text-left">Default</th>
-                    <th className="p-3 text-left">Description</th>
-                  </tr>
-                </thead>
+  <div className="border border-zinc-800 rounded-xl overflow-hidden">
+    <table className="w-full text-sm">
+      <thead className="bg-zinc-900">
+        <tr>
+          <th className="p-3 text-left">Prop</th>
+          <th className="p-3 text-left">Type</th>
+          <th className="p-3 text-left">Default</th>
+          <th className="p-3 text-left">Description</th>
+        </tr>
+      </thead>
 
-                <tbody className="divide-y divide-zinc-800 text-gray-300">
-                  <tr>
-                    <td className="p-3">options</td>
-                    <td className="p-3">Option[]</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">List of checkbox options.</td>
-                  </tr>
+      <tbody className="divide-y divide-zinc-800 text-gray-300">
+        <tr>
+          <td className="p-3">name</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Name attribute for checkbox inputs.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">selectedValues</td>
-                    <td className="p-3">string[]</td>
-                    <td className="p-3">[]</td>
-                    <td className="p-3">Selected values.</td>
-                  </tr>
+        <tr>
+          <td className="p-3">options</td>
+          <td className="p-3">Option[]</td>
+          <td className="p-3">—</td>
+          <td className="p-3">List of checkbox options (label, value, disabled).</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">onChange</td>
-                    <td className="p-3">(values) ⇒ void</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Triggered on selection change.</td>
-                  </tr>
+        <tr>
+          <td className="p-3">selectedValues</td>
+          <td className="p-3">string[]</td>
+          <td className="p-3">[]</td>
+          <td className="p-3">Currently selected values.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">customIcon</td>
-                    <td className="p-3">function</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom checkbox UI.</td>
-                  </tr>
+        <tr>
+          <td className="p-3">onChange</td>
+          <td className="p-3">(values: string[]) =&gt; void</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Triggered when selection changes.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">renderItem</td>
-                    <td className="p-3">function</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Full control over item rendering.</td>
-                  </tr>
+        <tr>
+          <td className="p-3">disabled</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Disables all checkboxes.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">darkMode</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Enable dark styling.</td>
-                  </tr>
+        <tr>
+          <td className="p-3">readOnly</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Prevents changing selection.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom container classes.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+        <tr>
+          <td className="p-3">required</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Marks inputs as required.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">error</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Error message shown below group.</td>
+        </tr>
+
+        {/* 🎨 Customization */}
+        <tr>
+          <td className="p-3">className</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Wrapper classes.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">containerClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Container classes (same as wrapper, extended).</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">itemClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for each checkbox item.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">labelClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for label wrapper.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">textClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for label text.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">iconClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for checkbox icon.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">errorClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for error message.</td>
+        </tr>
+
+        {/* 🎨 Styles */}
+        <tr>
+          <td className="p-3">style</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for wrapper.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">containerStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for container.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">itemStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for items.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">labelStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for labels.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">textStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for text.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">iconStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for icon.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">errorStyle</td>
+          <td className="p-3">CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for error text.</td>
+        </tr>
+
+        {/* 🎨 Icons */}
+        <tr>
+          <td className="p-3">customIcon</td>
+          <td className="p-3">(checked, option) =&gt; ReactNode</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom checkbox renderer.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">iconSize</td>
+          <td className="p-3">number</td>
+          <td className="p-3">20</td>
+          <td className="p-3">Size of checkbox icon.</td>
+        </tr>
+
+        {/* 🎯 Colors */}
+        <tr>
+          <td className="p-3">checkedColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Color when checked.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">uncheckedColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Color when unchecked.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">checkmarkColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">#ffffff</td>
+          <td className="p-3">Color of checkmark.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">textColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom text color.</td>
+        </tr>
+
+        {/* 🌙 Dark Mode */}
+        <tr>
+          <td className="p-3">darkMode</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Enables dark mode styles.</td>
+        </tr>
+
+        {/* 🧠 Advanced */}
+        <tr>
+          <td className="p-3">renderItem</td>
+          <td className="p-3">
+            ({`{ option, checked, focused, toggle }`}) =&gt; ReactNode
+          </td>
+          <td className="p-3">—</td>
+          <td className="p-3">Fully customize each checkbox item.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
           {/* Mistakes */}
           <section>

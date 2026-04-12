@@ -41,7 +41,20 @@ export interface InputFieldProps {
   primaryTheme?: boolean;
   primaryColor?: string;
 
-  className?: string;
+  /** 🔥 Customization */
+  wrapperClassName?: string;
+  labelClassName?: string;
+  inputClassName?: string;
+  textareaClassName?: string;
+  prefixClassName?: string;
+  suffixClassName?: string;
+  helperTextClassName?: string;
+
+  wrapperStyle?: CSSProperties;
+  inputStyle?: CSSProperties;
+  labelStyle?: CSSProperties;
+
+  className?: string; // fallback
 }
 
 export const Input = forwardRef<
@@ -78,6 +91,18 @@ export const Input = forwardRef<
     primaryTheme = true,
     primaryColor = "#3b82f6",
 
+    wrapperClassName = "",
+    labelClassName = "",
+    inputClassName = "",
+    textareaClassName = "",
+    prefixClassName = "",
+    suffixClassName = "",
+    helperTextClassName = "",
+
+    wrapperStyle,
+    inputStyle,
+    labelStyle,
+
     className = "",
   } = props;
 
@@ -96,10 +121,8 @@ export const Input = forwardRef<
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if (value === undefined) {
-      setLocalValue(e.target.value);
-    }
-    onChange?.(e); //   pass event directly
+    if (value === undefined) setLocalValue(e.target.value);
+    onChange?.(e);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -114,12 +137,8 @@ export const Input = forwardRef<
     return "px-4";
   };
 
-  const dynamicFocusStyle: CSSProperties = !primaryTheme
+  const dynamicStyle: CSSProperties = !primaryTheme
     ? { borderColor: primaryColor, boxShadow: `0 0 0 1px ${primaryColor}` }
-    : {};
-
-  const dynamicColorStyle: CSSProperties = !primaryTheme
-    ? { color: primaryColor }
     : {};
 
   const borderStyle = error
@@ -129,16 +148,16 @@ export const Input = forwardRef<
     : "border-zinc-300 dark:border-zinc-800";
 
   return (
-    <div className={`w-full space-y-1 ${className}`}>
+    <div
+      className={`w-full space-y-1 ${wrapperClassName || className}`}
+      style={wrapperStyle}
+    >
       {label && (
-        <label className="flex items-center gap-2 text-[12px] font-medium text-black dark:text-zinc-100">
-          {LabelIcon && (
-            <LabelIcon
-              size={16}
-              className={primaryTheme ? "text-[var(--primary)]" : ""}
-              style={!primaryTheme ? dynamicColorStyle : undefined}
-            />
-          )}
+        <label
+          className={`flex items-center gap-2 text-[13px] font-medium ${labelClassName}`}
+          style={labelStyle}
+        >
+          {LabelIcon && <LabelIcon size={16} />}
           {label}
           {required && <span className="text-red-500">*</span>}
         </label>
@@ -146,16 +165,11 @@ export const Input = forwardRef<
 
       <div className="relative">
         {hasPrefix && (
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 gap-2 text-sm text-zinc-400 pointer-events-none">
+          <div
+            className={`absolute inset-y-0 left-0 flex items-center pl-3 gap-2 text-sm pointer-events-none ${prefixClassName}`}
+          >
             {PrefixIcon && <PrefixIcon size={14} />}
-            {hasPrefixText && (
-              <>
-                <span className="font-medium text-zinc-600 dark:text-zinc-200">
-                  {prefix}
-                </span>
-                <span className="h-4 w-px bg-zinc-300 dark:bg-zinc-700" />
-              </>
-            )}
+            {hasPrefixText && <span>{prefix}</span>}
           </div>
         )}
 
@@ -166,20 +180,15 @@ export const Input = forwardRef<
             value={currentValue}
             onChange={handleChange}
             placeholder={placeholder}
-            required={required}
+            rows={rows}
             disabled={disabled}
             readOnly={readOnly}
-            rows={rows}
-            style={!primaryTheme ? dynamicFocusStyle : undefined}
+            style={{ ...dynamicStyle, ...inputStyle }}
             className={`
-              w-full rounded-lg text-sm
-              bg-white dark:bg-zinc-900 border
-              text-gray-900 dark:text-white
-              placeholder:text-zinc-400
-              py-2.5 outline-none
-              ${primaryTheme && "focus:ring-[var(--primary)] focus:border-[var(--primary)]"}
+              w-full rounded-lg text-sm border outline-none py-2.5
               ${getPadding()}
               ${borderStyle}
+              ${textareaClassName}
             `}
           />
         ) : (
@@ -191,23 +200,17 @@ export const Input = forwardRef<
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            required={required}
             disabled={disabled}
             readOnly={readOnly}
             min={type === "number" ? min ?? 0 : undefined}
             max={max}
             step={step}
-            style={!primaryTheme ? dynamicFocusStyle : undefined}
+            style={{ ...dynamicStyle, ...inputStyle }}
             className={`
-              w-full rounded-lg text-sm
-              bg-white dark:bg-zinc-900 border
-              text-gray-900 dark:text-white
-              placeholder:text-zinc-400
-              py-2.5 outline-none
-              disabled:opacity-50 disabled:cursor-not-allowed
-              ${primaryTheme && "focus:ring-[var(--primary)] focus:border-[var(--primary)]"}
+              w-full rounded-lg text-sm border outline-none py-2.5
               ${getPadding()}
               ${borderStyle}
+              ${inputClassName}
             `}
           />
         )}
@@ -216,14 +219,16 @@ export const Input = forwardRef<
           <button
             type="button"
             onClick={() => setVisible(!visible)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            className={`absolute right-3 top-1/2 -translate-y-1/2 ${suffixClassName}`}
           >
             {visible ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         )}
 
         {suffixIcon && type !== "password" && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
+          <span
+            className={`absolute right-3 top-1/2 -translate-y-1/2 ${suffixClassName}`}
+          >
             {suffixIcon}
           </span>
         )}
@@ -236,8 +241,8 @@ export const Input = forwardRef<
               ? "text-red-500"
               : success
               ? "text-emerald-500"
-              : "text-zinc-500"
-          }`}
+              : ""
+          } ${helperTextClassName}`}
         >
           {error && typeof error === "string" ? error : helperText}
         </p>

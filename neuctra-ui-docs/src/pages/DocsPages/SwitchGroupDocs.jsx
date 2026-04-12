@@ -146,90 +146,187 @@ const SwitchGroupDocs = () => {
             />
           </section>
 
-          {/* Props Table */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Props Table
-            </h2>
+    {/* Props Table */}
+<section>
+  <h2 className="text-2xl font-semibold text-white mb-4">
+    Props Table
+  </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-zinc-900 text-gray-200">
-                  <tr>
-                    <th className="p-3 text-left">Prop</th>
-                    <th className="p-3 text-left">Type</th>
-                    <th className="p-3 text-left">Default</th>
-                    <th className="p-3 text-left">Description</th>
-                  </tr>
-                </thead>
+  <div className="border border-zinc-800 rounded-xl overflow-hidden">
+    <table className="w-full text-sm">
+      <thead className="bg-zinc-900 text-gray-200">
+        <tr>
+          <th className="p-3 text-left">Prop</th>
+          <th className="p-3 text-left">Type</th>
+          <th className="p-3 text-left">Default</th>
+          <th className="p-3 text-left">Description</th>
+        </tr>
+      </thead>
 
-                <tbody className="divide-y divide-zinc-800 text-gray-300">
-                  <tr>
-                    <td className="p-3">options</td>
-                    <td className="p-3">Option[]</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">List of switch items.</td>
-                  </tr>
+      <tbody className="divide-y divide-zinc-800 text-gray-300">
 
-                  <tr>
-                    <td className="p-3">selectedValues</td>
-                    <td className="p-3">string[]</td>
-                    <td className="p-3">[]</td>
-                    <td className="p-3">Controlled selected values.</td>
-                  </tr>
+        {/* CORE */}
+        <tr>
+          <td className="p-3 font-mono">options</td>
+          <td className="p-3">Option[]</td>
+          <td className="p-3">—</td>
+          <td className="p-3">List of switch items.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">onChange</td>
-                    <td className="p-3">(values) ⇒ void</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Callback when values change.</td>
-                  </tr>
+        <tr>
+          <td className="p-3 font-mono">selectedValues</td>
+          <td className="p-3">string[]</td>
+          <td className="p-3">[]</td>
+          <td className="p-3">Controlled selected values.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">iconSize</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">20</td>
-                    <td className="p-3">Size of the switch.</td>
-                  </tr>
+        <tr>
+          <td className="p-3 font-mono">onChange</td>
+          <td className="p-3">(values: string[]) =&gt; void</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Callback when selection changes.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Wrapper classes.</td>
-                  </tr>
+        <tr>
+          <td className="p-3 font-mono">iconSize</td>
+          <td className="p-3">number</td>
+          <td className="p-3">20</td>
+          <td className="p-3">Size of switch thumb.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">itemClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Each item wrapper styling.</td>
-                  </tr>
+        {/* STATES */}
+        <tr>
+          <td className="p-3 font-mono">disabled</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Disables all interactions.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">textClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Text styling.</td>
-                  </tr>
+        <tr>
+          <td className="p-3 font-mono">readOnly</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Prevents state changes.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">switchClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Switch background styling.</td>
-                  </tr>
+        <tr>
+          <td className="p-3 font-mono">required</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Marks field as required.</td>
+        </tr>
 
-                  <tr>
-                    <td className="p-3">thumbClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Thumb styling.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+        <tr>
+          <td className="p-3 font-mono">error</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Error message display.</td>
+        </tr>
+
+        {/* CLASS CUSTOMIZATION */}
+        <tr>
+          <td className="p-3 font-mono">className</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Root wrapper class.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">itemClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Each item wrapper class.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">labelClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Label wrapper class.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">textClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Text styling class.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">switchClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Switch track styling.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">thumbClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Switch thumb styling.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">errorClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Error message styling.</td>
+        </tr>
+
+        {/* STYLE CUSTOMIZATION */}
+        <tr>
+          <td className="p-3 font-mono">style</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Root inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">itemStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Item wrapper inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">labelStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Label inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">textStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Text inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">switchStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Switch track inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">thumbStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Switch thumb inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3 font-mono">errorStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Error text inline styles.</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>
 
           {/* Common Mistakes */}
           <section>

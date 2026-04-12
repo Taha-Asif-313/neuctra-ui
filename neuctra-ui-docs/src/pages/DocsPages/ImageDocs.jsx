@@ -41,7 +41,7 @@ const ImageDocs = () => {
               language="react"
               code={`import { Image } from "@neuctra/ui";`}
               previewContent={
-                <Image src="https://via.placeholder.com/150" alt="Sample" />
+                <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-s9nPXndo9oLdDN5TyeS9UqRkx6--aqP_oA&s" alt="Sample" />
               }
             />
           </section>
@@ -55,7 +55,7 @@ const ImageDocs = () => {
               language="jsx"
               code={`<Image src="https://via.placeholder.com/300" alt="Sample Image" width={300} height={200} />`}
               previewContent={
-                <Image src="https://via.placeholder.com/300" alt="Sample Image" width={300} height={200} />
+                <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-s9nPXndo9oLdDN5TyeS9UqRkx6--aqP_oA&s" alt="Sample Image" width={300} height={200} />
               }
             />
           </section>
@@ -79,7 +79,7 @@ const ImageDocs = () => {
 />`}
                 previewContent={
                   <Image
-                    src="https://via.placeholder.com/400"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-s9nPXndo9oLdDN5TyeS9UqRkx6--aqP_oA&s"
                     alt="Overlay Example"
                     width={400}
                     height={250}
@@ -103,7 +103,7 @@ const ImageDocs = () => {
 />`}
                 previewContent={
                   <Image
-                    src="https://via.placeholder.com/350"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-s9nPXndo9oLdDN5TyeS9UqRkx6--aqP_oA&s"
                     alt="Rounded Shadow"
                     width={350}
                     height={200}
@@ -125,145 +125,213 @@ const ImageDocs = () => {
             </div>
           </section>
 
-          {/* Props Table */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
-            <p className="text-gray-400 mb-3">All available props for the Image component.</p>
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-zinc-900 text-gray-200">
-                  <tr>
-                    <th className="text-left p-3">Prop</th>
-                    <th className="text-left p-3">Type</th>
-                    <th className="text-left p-3">Default</th>
-                    <th className="text-left p-3">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-800 text-gray-300">
-                  <tr>
-                    <td className="p-3">src</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Image URL</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">alt</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">""</td>
-                    <td className="p-3">Alternative text for accessibility</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">title</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Tooltip text</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">width</td>
-                    <td className="p-3">Responsive&lt;number | string&gt;</td>
-                    <td className="p-3">"100%"</td>
-                    <td className="p-3">Width of the image</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">height</td>
-                    <td className="p-3">Responsive&lt;number | string&gt;</td>
-                    <td className="p-3">undefined</td>
-                    <td className="p-3">Height of the image</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">aspectRatio</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">undefined</td>
-                    <td className="p-3">Maintain a specific width/height ratio</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">radius</td>
-                    <td className="p-3">number | string</td>
-                    <td className="p-3">undefined</td>
-                    <td className="p-3">Border radius</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">border</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">undefined</td>
-                    <td className="p-3">Border CSS value</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">shadow</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Enable box shadow</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">opacity</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">1</td>
-                    <td className="p-3">Image opacity</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">objectFit</td>
-                    <td className="p-3">React.CSSProperties["objectFit"]</td>
-                    <td className="p-3">"cover"</td>
-                    <td className="p-3">How the image fits within its box</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">overlay</td>
-                    <td className="p-3">ReactNode</td>
-                    <td className="p-3">undefined</td>
-                    <td className="p-3">Overlay content above the image</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">overlayColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">"rgba(0,0,0,0.4)"</td>
-                    <td className="p-3">Background color of overlay</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">clickable</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Enable click interactions</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">onClick</td>
-                    <td className="p-3">(e: MouseEvent) ={'>'} void</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Click handler</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">fallback</td>
-                    <td className="p-3">ReactNode</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Fallback content when no src is provided</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">loading</td>
-                    <td className="p-3">"lazy" | "eager"</td>
-                    <td className="p-3">"lazy"</td>
-                    <td className="p-3">Native image loading strategy</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom CSS classes</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">style</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline style overrides</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">...rest</td>
-                    <td className="p-3">HTMLDivElement attributes</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">All other native div props</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+        {/* Props Table */}
+<section>
+  <h2 className="text-2xl font-semibold text-white mb-4">Props Table</h2>
+  <p className="text-gray-400 mb-3">
+    All available props for the Image component.
+  </p>
+
+  <div className="border border-zinc-800 rounded-xl overflow-hidden">
+    <table className="w-full text-sm">
+      <thead className="bg-zinc-900 text-gray-200">
+        <tr>
+          <th className="text-left p-3">Prop</th>
+          <th className="text-left p-3">Type</th>
+          <th className="text-left p-3">Default</th>
+          <th className="text-left p-3">Description</th>
+        </tr>
+      </thead>
+
+      <tbody className="divide-y divide-zinc-800 text-gray-300">
+        <tr>
+          <td className="p-3">src</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Image source URL.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">alt</td>
+          <td className="p-3">string</td>
+          <td className="p-3">""</td>
+          <td className="p-3">Alternative text for accessibility.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">title</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Tooltip text.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">width</td>
+          <td className="p-3">Responsive&lt;number | string&gt;</td>
+          <td className="p-3">"100%"</td>
+          <td className="p-3">Width of the image (responsive supported).</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">height</td>
+          <td className="p-3">Responsive&lt;number | string&gt;</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Height of the image.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">aspectRatio</td>
+          <td className="p-3">number</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Maintain a fixed width/height ratio.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">radius</td>
+          <td className="p-3">number | string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Border radius for wrapper.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">border</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Custom border CSS value.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">shadow</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Enable shadow around image.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">opacity</td>
+          <td className="p-3">number</td>
+          <td className="p-3">1</td>
+          <td className="p-3">Opacity of the image.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">objectFit</td>
+          <td className="p-3">React.CSSProperties["objectFit"]</td>
+          <td className="p-3">"cover"</td>
+          <td className="p-3">Controls how the image fits.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">overlay</td>
+          <td className="p-3">ReactNode</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Content displayed on top of the image.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">overlayColor</td>
+          <td className="p-3">string</td>
+          <td className="p-3">"rgba(0,0,0,0.4)"</td>
+          <td className="p-3">Overlay background color.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">clickable</td>
+          <td className="p-3">boolean</td>
+          <td className="p-3">false</td>
+          <td className="p-3">Makes image interactive (button-like).</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">onClick</td>
+          <td className="p-3">(e: MouseEvent) =&gt; void</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Click event handler.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">fallback</td>
+          <td className="p-3">ReactNode</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Content shown when no image is available.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">loading</td>
+          <td className="p-3">"lazy" | "eager"</td>
+          <td className="p-3">"lazy"</td>
+          <td className="p-3">Image loading behavior.</td>
+        </tr>
+
+        {/* 🔥 Customization */}
+        <tr>
+          <td className="p-3">className</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Wrapper container classes.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">imageClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for the &lt;img&gt; element.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">overlayClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for overlay container.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">fallbackClassName</td>
+          <td className="p-3">string</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Classes for fallback container.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">style</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Wrapper inline styles.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">imageStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for image element.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">overlayStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for overlay.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">fallbackStyle</td>
+          <td className="p-3">React.CSSProperties</td>
+          <td className="p-3">—</td>
+          <td className="p-3">Inline styles for fallback container.</td>
+        </tr>
+
+        <tr>
+          <td className="p-3">...rest</td>
+          <td className="p-3">HTMLDivElement attributes</td>
+          <td className="p-3">—</td>
+          <td className="p-3">
+            All native div props (id, data-*, aria-*, etc).
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
 
           {/* Common Mistakes */}
           <section>

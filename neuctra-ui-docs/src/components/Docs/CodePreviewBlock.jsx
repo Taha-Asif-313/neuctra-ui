@@ -22,7 +22,9 @@ export default function CodePreviewBlock({
   return (
     <div
       className="
-        border border-zinc-800 bg-zinc-900 rounded-xl shadow-lg
+        border border-zinc-200 dark:border-zinc-800
+        bg-white dark:bg-zinc-900
+        rounded-xl shadow-lg
         relative overflow-visible
       "
     >
@@ -31,7 +33,8 @@ export default function CodePreviewBlock({
         className="
           flex items-center justify-between px-3 py-2
           rounded-t-xl
-          border-b border-zinc-800 bg-zinc-900
+          border-b border-zinc-200 dark:border-zinc-800
+          bg-zinc-50 dark:bg-zinc-900
           max-md:flex-col max-md:items-start max-md:gap-2
         "
       >
@@ -45,23 +48,24 @@ export default function CodePreviewBlock({
         {/* Tabs + Copy */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* Tabs */}
-          <div className="flex rounded-md overflow-hidden border border-zinc-800">
+          <div className="flex rounded-md overflow-hidden border border-zinc-200 dark:border-zinc-800">
             <button
               onClick={() => setView("preview")}
               className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
                 view === "preview"
-                  ? "bg-zinc-800 text-white"
-                  : "text-zinc-400 hover:bg-zinc-800"
+                  ? "bg-zinc-200 dark:bg-zinc-800 text-black dark:text-white"
+                  : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
               }`}
             >
               <Eye size={12} /> Preview
             </button>
+
             <button
               onClick={() => setView("code")}
               className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
                 view === "code"
-                  ? "bg-zinc-800 text-white"
-                  : "text-zinc-400 hover:bg-zinc-800"
+                  ? "bg-zinc-200 dark:bg-zinc-800 text-black dark:text-white"
+                  : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
               }`}
             >
               <FileCode size={12} /> Code
@@ -73,13 +77,15 @@ export default function CodePreviewBlock({
             onClick={copyCode}
             className="
               flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium
-              text-zinc-400 hover:text-white hover:bg-zinc-800
+              text-zinc-500 dark:text-zinc-400
+              hover:text-black dark:hover:text-white
+              hover:bg-zinc-200 dark:hover:bg-zinc-800
               rounded-md transition-colors
             "
           >
             {copied ? (
               <>
-                <Check size={12} className="text-green-400" />
+                <Check size={12} className="text-green-500" />
                 Copied
               </>
             ) : (
@@ -94,8 +100,11 @@ export default function CodePreviewBlock({
       {/* Main Content Area */}
       <div
         className="
-          relative bg-zinc-950 text-zinc-200 font-poppins
-          p-4 sm:p-6 overflow-visible rounded-b-xl
+          relative
+          bg-zinc-100 dark:bg-zinc-950
+          text-zinc-900 dark:text-zinc-200
+          font-poppins
+           overflow-visible rounded-b-xl
         "
       >
         {view === "preview" ? (
@@ -107,10 +116,10 @@ export default function CodePreviewBlock({
             )}
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-md">
+          <div className="overflow-x-auto rounded-md bg-black border-zinc-200 dark:border-zinc-800 border">
             <SyntaxHighlighter
               language={language}
-              style={nightOwl}
+              style={nightOwl} // 🔥 unchanged (dark theme kept)
               showLineNumbers
               customStyle={{
                 background: "transparent",
@@ -121,7 +130,7 @@ export default function CodePreviewBlock({
                   '"Fira Code", "Cascadia Code", "Monaco", monospace',
               }}
               lineNumberStyle={{
-                color: "#6B7280",
+                color: "#9CA3AF", // ✅ better for light mode
                 minWidth: "2em",
                 textAlign: "right",
               }}

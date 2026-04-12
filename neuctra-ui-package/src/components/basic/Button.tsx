@@ -7,8 +7,7 @@ import clsx from "clsx";
 /* 🧩 Types                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 
   iconBefore?: React.ReactNode;
@@ -20,12 +19,23 @@ export interface ButtonProps
   fullWidth?: boolean;
 
   variant?: "default" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
 
   weight?: React.CSSProperties["fontWeight"];
   primaryColor?: string;
 
+  /** 🔥 Full Customization */
   className?: string;
+  contentClassName?: string;
+  iconClassName?: string;
+  loaderClassName?: string;
+  textClassName?: string;
+
+  style?: React.CSSProperties;
+  contentStyle?: React.CSSProperties;
+  iconStyle?: React.CSSProperties;
+  loaderStyle?: React.CSSProperties;
+  textStyle?: React.CSSProperties;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -46,24 +56,36 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       weight = 400,
       primaryColor = "var(--primary)",
       disabled,
+
       className,
-      type = "button",
+      contentClassName,
+      iconClassName,
+      loaderClassName,
+      textClassName,
+
       style,
+      contentStyle,
+      iconStyle,
+      loaderStyle,
+      textStyle,
+
+      type = "button",
       ...rest
     },
-    ref
+    ref,
   ) {
     const isDisabled = disabled || loading;
     const color = primaryColor;
 
     /* 📏 Sizes */
-const sizeClasses = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-base",
-  lg: "px-6 py-3 text-lg",
-} as const;
+    const sizeClasses = {
+      xs: "px-4 py-1 text-xs",
+      sm: "px-5 py-1.5 text-sm",
+      md: "px-6 py-2 text-[15px]",
+      lg: "px-7 py-2.5 text-base",
+    } as const;
 
-    /* 🎨 Variants */
+    /* 🎨 Variants (no hard lock, still override-able) */
     const variantStyles: Record<
       NonNullable<ButtonProps["variant"]>,
       React.CSSProperties
@@ -85,19 +107,11 @@ const sizeClasses = {
 
     /* 🔘 Icon sizes */
     const iconSizes = {
+      xs: 12,
       sm: 16,
       md: 20,
       lg: 24,
     } as const;
-
-    const iconStyle: React.CSSProperties = {
-      width: iconSizes[size],
-      height: iconSizes[size],
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 0, // ✅ prevents icon collapse
-    };
 
     return (
       <button
@@ -105,12 +119,11 @@ const sizeClasses = {
         type={type}
         disabled={isDisabled}
         className={clsx(
-          "inline-flex items-center justify-center gap-2 rounded-md",
-          "transition-all duration-200",
+          "inline-flex items-center justify-center rounded-lg transition-all duration-200",
           sizeClasses[size],
           fullWidth && "w-full",
           isDisabled && "opacity-60 cursor-not-allowed pointer-events-none",
-          className
+          className,
         )}
         style={{
           fontWeight: weight,
@@ -119,30 +132,83 @@ const sizeClasses = {
         }}
         {...rest}
       >
-        {loading ? (
-          <span className="inline-flex items-center gap-2">
-            <span
-              className="border-2 border-current border-t-transparent rounded-full animate-spin"
-              style={{
-                width: iconSizes[size],
-                height: iconSizes[size],
-                flexShrink: 0,
-              }}
-            />
-            <span>{loadingText}</span>
-          </span>
-        ) : (
-          <>
-            {iconBefore && <span style={iconStyle}>{iconBefore}</span>}
+        {/* 🔥 CONTENT WRAPPER */}
+        <span
+          className={clsx("inline-flex items-center gap-2", contentClassName)}
+          style={contentStyle}
+        >
+          {loading ? (
+            <>
+              {/* Loader */}
+              <span
+                className={clsx(
+                  "border-2 border-current border-t-transparent rounded-full animate-spin",
+                  loaderClassName,
+                )}
+                style={{
+                  width: iconSizes[size],
+                  height: iconSizes[size],
+                  flexShrink: 0,
+                  ...loaderStyle,
+                }}
+              />
 
-            <span className="whitespace-nowrap">{children}</span>
+              {/* Loading Text */}
+              <span
+                className={clsx("whitespace-nowrap", textClassName)}
+                style={textStyle}
+              >
+                {loadingText}
+              </span>
+            </>
+          ) : (
+            <>
+              {iconBefore && (
+                <span
+                  className={clsx(iconClassName)}
+                  style={{
+                    width: iconSizes[size],
+                    height: iconSizes[size],
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    ...iconStyle,
+                  }}
+                >
+                  {iconBefore}
+                </span>
+              )}
 
-            {iconAfter && <span style={iconStyle}>{iconAfter}</span>}
-          </>
-        )}
+              <span
+                className={clsx("whitespace-nowrap", textClassName)}
+                style={textStyle}
+              >
+                {children}
+              </span>
+
+              {iconAfter && (
+                <span
+                  className={clsx(iconClassName)}
+                  style={{
+                    width: iconSizes[size],
+                    height: iconSizes[size],
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    ...iconStyle,
+                  }}
+                >
+                  {iconAfter}
+                </span>
+              )}
+            </>
+          )}
+        </span>
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

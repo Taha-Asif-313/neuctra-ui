@@ -1,8 +1,54 @@
 "use client";
 
-import React, { useEffect, useCallback, type ReactNode } from "react";
+import React, {
+  useEffect,
+  useCallback,
+  type ReactNode,
+  CSSProperties,
+  useState,
+} from "react";
 import { X } from "lucide-react";
 import clsx from "clsx";
+import { Button, type ButtonProps } from "./Button";
+
+/* =========================
+   ModalButton
+========================= */
+interface ModalButtonProps extends ButtonProps {
+  onClose?: () => void;
+  closeOnClick?: boolean;
+  action?: () => void | Promise<void>;
+}
+
+export function ModalButton({
+  onClose,
+  closeOnClick = false,
+  action,
+  onClick,
+  loading,
+  ...rest
+}: ModalButtonProps) {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      // run custom click first
+      if (onClick) onClick(e);
+
+      // run async action if provided
+      if (action) {
+        await action();
+      }
+
+      // close modal if required
+      if (closeOnClick && onClose) {
+        onClose();
+      }
+    } catch (err) {
+      console.error("ModalButton action error:", err);
+    }
+  };
+
+  return <Button size="sm" {...rest} loading={loading} onClick={handleClick} />;
+}
 
 /* =========================
    Modal (Overlay Controller)
@@ -12,6 +58,12 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   disableOverlayClose?: boolean;
+
+  /** 🔥 Customization */
+  className?: string;
+  style?: CSSProperties;
+  overlayClassName?: string;
+  overlayStyle?: CSSProperties;
 }
 
 export function Modal({
@@ -19,23 +71,21 @@ export function Modal({
   onClose,
   children,
   disableOverlayClose = false,
+  className,
+  style,
+  overlayClassName,
+  overlayStyle,
 }: ModalProps) {
-  /* Escape key */
   useEffect(() => {
     const handleEsc = (e: globalThis.KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
-    if (isOpen) {
-      document.addEventListener("keydown", handleEsc);
-    }
+    if (isOpen) document.addEventListener("keydown", handleEsc);
 
-    return () => {
-      document.removeEventListener("keydown", handleEsc);
-    };
+    return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
-  /* Scroll lock */
   useEffect(() => {
     if (!isOpen) return;
 
@@ -57,10 +107,16 @@ export function Modal({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in"
       onClick={handleOverlayClick}
+      className={clsx(
+        "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in",
+        overlayClassName,
+      )}
+      style={overlayStyle}
     >
-      {children}
+      <div className={className} style={style}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -71,41 +127,53 @@ export function Modal({
 interface ModalContentProps {
   children: ReactNode;
   onClose?: () => void;
+
+  /** 🔥 Customization */
   className?: string;
+  style?: CSSProperties;
+  closeButtonClassName?: string;
+  closeButtonStyle?: CSSProperties;
+  contentClassName?: string;
+  contentStyle?: CSSProperties;
 }
 
 export function ModalContent({
   children,
   onClose,
   className,
+  style,
+  closeButtonClassName,
+  closeButtonStyle,
+  contentClassName,
+  contentStyle,
 }: ModalContentProps) {
   return (
     <div
-      onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
       className={clsx(
-        `
-        relative w-[95vw] sm:w-full max-w-lg
-        max-h-[90vh] overflow-y-auto
-        rounded-2xl border border-white/10
-        bg-white dark:bg-zinc-900
-        p-6 shadow-xl
-        animate-in zoom-in-95 slide-in-from-bottom-4
-        `,
-        className
+        "relative overflow-y-auto rounded-2xl border dark:border-zinc-900 border-zinc-200 bg-white dark:bg-zinc-950 p-6 shadow-xl animate-in zoom-in-95 slide-in-from-bottom-4",
+        className,
       )}
+      style={{ ...style }}
     >
       {onClose && (
         <button
           type="button"
           onClick={onClose}
           aria-label="Close modal"
-          className="absolute top-4 right-4 p-1 rounded-full text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition"
+          className={clsx(
+            "absolute top-4 right-4 p-1 rounded-full text-red-500 hover:text-zinc-900 dark:hover:text-white transition",
+            closeButtonClassName,
+          )}
+          style={closeButtonStyle}
         >
           <X size={20} />
         </button>
       )}
 
-      {children}
+      <div className={contentClassName} style={contentStyle}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -116,20 +184,46 @@ export function ModalContent({
 interface ModalHeaderProps {
   title?: string;
   icon?: ReactNode;
+
+  /** 🔥 Customization */
   className?: string;
+  style?: CSSProperties;
+  titleClassName?: string;
+  titleStyle?: CSSProperties;
+  iconClassName?: string;
+  iconStyle?: CSSProperties;
 }
 
 export function ModalHeader({
   title,
   icon,
   className,
+  style,
+  titleClassName,
+  titleStyle,
+  iconClassName,
+  iconStyle,
 }: ModalHeaderProps) {
   if (!title) return null;
 
   return (
-    <div className={clsx("flex items-center gap-2 mb-4", className)}>
-      {icon && <span>{icon}</span>}
-      <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">
+    <div
+      className={clsx("flex items-center gap-2 mb-4", className)}
+      style={style}
+    >
+      {icon && (
+        <span className={iconClassName} style={iconStyle}>
+          {icon}
+        </span>
+      )}
+
+      <h2
+        className={clsx(
+          "text-lg font-semibold text-zinc-900 dark:text-white",
+          titleClassName,
+        )}
+        style={titleStyle}
+      >
         {title}
       </h2>
     </div>
@@ -141,16 +235,17 @@ export function ModalHeader({
 ========================= */
 interface ModalBodyProps {
   children: ReactNode;
+
+  /** 🔥 Customization */
   className?: string;
+  style?: CSSProperties;
 }
 
-export function ModalBody({ children, className }: ModalBodyProps) {
+export function ModalBody({ children, className, style }: ModalBodyProps) {
   return (
     <div
-      className={clsx(
-        "text-sm text-zinc-600 dark:text-zinc-300",
-        className
-      )}
+      className={clsx("text-sm text-zinc-600 dark:text-zinc-300", className)}
+      style={style}
     >
       {children}
     </div>
@@ -162,13 +257,58 @@ export function ModalBody({ children, className }: ModalBodyProps) {
 ========================= */
 interface ModalFooterProps {
   children: ReactNode;
+
+  /** 🔥 Customization */
   className?: string;
+  style?: CSSProperties;
 }
 
-export function ModalFooter({ children, className }: ModalFooterProps) {
+export function ModalFooter({ children, className, style }: ModalFooterProps) {
   return (
-    <div className={clsx("flex justify-end gap-2 mt-6", className)}>
+    <div
+      className={clsx("flex justify-end gap-2 mt-6", className)}
+      style={style}
+    >
       {children}
     </div>
+  );
+}
+
+/* =========================
+   Modal Trigger Button
+========================= */
+interface ModalTriggerButtonProps extends ButtonProps {
+  children: React.ReactNode;
+
+  /** Modal content */
+  modalContent: (props: { close: () => void }) => React.ReactNode;
+
+  /** optional control */
+  defaultOpen?: boolean;
+}
+
+export function ModalTriggerButton({
+  children,
+  modalContent,
+  defaultOpen = false,
+  ...buttonProps
+}: ModalTriggerButtonProps) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  const close = () => setOpen(false);
+  const openModal = () => setOpen(true);
+
+  return (
+    <>
+      {/* Trigger Button */}
+      <Button size="sm" {...buttonProps} onClick={openModal}>
+        {children}
+      </Button>
+
+      {/* Modal */}
+      <Modal isOpen={open} onClose={close}>
+        {modalContent({ close })}
+      </Modal>
+    </>
   );
 }

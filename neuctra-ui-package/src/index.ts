@@ -47,6 +47,8 @@ export { List } from "./components/basic/List"; // ✅ Finalized
 // Modals
 export {
   Modal,
+  ModalTriggerButton,
+  ModalButton,
   ModalContent,
   ModalHeader,
   ModalBody,

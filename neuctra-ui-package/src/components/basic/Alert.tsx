@@ -174,7 +174,7 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
   return (
     <div
       className={`
-  group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-3 rounded-xl
+  group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-2 rounded-xl
   ${config.bg} p-4 pr-10
   shadow-md dark:shadow-black/40
   transition-all duration-300 ease-out
@@ -183,12 +183,12 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
 `}
       role="alert"
     >
-      <Icon className={`h-6 w-6 flex-shrink-0 ${config.iconColor}`} />
+      <Icon className={`h-5 w-5 shrink-0 ${config.iconColor}`} />
 
-      <div className="flex-1 space-y-1">
+      <div className="flex-1">
         {title && (
           <div
-            className={`text-sm font-medium ${
+            className={`text-sm font-normal ${
               description
                 ? config.text // normal colored title
                 : "text-zinc-900 dark:text-white" // simple toast = white/neutral
@@ -199,7 +199,7 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
         )}
 
         {description && (
-          <div className="text-sm text-zinc-500 dark:text-zinc-300">
+          <div className="text-sm mt-1 text-zinc-500 dark:text-zinc-300">
             {description}
           </div>
         )}

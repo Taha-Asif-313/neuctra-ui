@@ -1,6 +1,7 @@
 // lib/agent.js
 import { generateCompletion } from "./llm.js";
 import { createUITool } from "./uiTool.js";
+import { createRagTool } from "./tools.js";
 import { components } from "./components.js";
 
 const normalize = (value) => String(value || "").toLowerCase();
@@ -29,15 +30,21 @@ const selectRelevantComponents = (query, limit = 8) => {
 
 export const createAgent = async () => {
   const uiTool = createUITool(generateCompletion);
+  const ragTool = await createRagTool();
 
   return {
     call: async ({ input }) => {
-      const relevant = selectRelevantComponents(input);
-      const componentContext = JSON.stringify(relevant, null, 2);
+      let componentContext = await ragTool.func(input);
+
+      if (!componentContext) {
+        const relevant = selectRelevantComponents(input);
+        componentContext = JSON.stringify(relevant, null, 2);
+      }
+
       const generationInput = `
 Use the component metadata below to generate the UI. Prefer these components if relevant.
 
-Available Components:
+Retrieved Component Docs:
 ${componentContext}
 
 User Request:
