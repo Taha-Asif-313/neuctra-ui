@@ -141,32 +141,27 @@ export const Input = forwardRef<
     ? { borderColor: primaryColor, boxShadow: `0 0 0 1px ${primaryColor}` }
     : {};
 
-  const borderStyle = error
-    ? "border-red-500"
-    : success
-    ? "border-emerald-500"
-    : "border-zinc-300 dark:border-zinc-800";
 
   return (
     <div
-      className={`w-full space-y-1 ${wrapperClassName || className}`}
+      className={`w-full space-y-1 text-foreground ${wrapperClassName || className}`}
       style={wrapperStyle}
     >
       {label && (
         <label
-          className={`flex items-center gap-2 text-[13px] font-medium ${labelClassName}`}
+          className={`flex items-center gap-2 text-sm font-medium text-foreground ${labelClassName}`}
           style={labelStyle}
         >
           {LabelIcon && <LabelIcon size={16} />}
           {label}
-          {required && <span className="text-red-500">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </label>
       )}
 
       <div className="relative">
         {hasPrefix && (
           <div
-            className={`absolute inset-y-0 left-0 flex items-center pl-3 gap-2 text-sm pointer-events-none ${prefixClassName}`}
+            className={`absolute inset-y-0 left-0 flex items-center pl-3 gap-2 text-sm text-muted-foreground pointer-events-none ${prefixClassName}`}
           >
             {PrefixIcon && <PrefixIcon size={14} />}
             {hasPrefixText && <span>{prefix}</span>}
@@ -185,9 +180,9 @@ export const Input = forwardRef<
             readOnly={readOnly}
             style={{ ...dynamicStyle, ...inputStyle }}
             className={`
-              w-full rounded-lg text-sm border outline-none py-2.5
+              w-full rounded-lg text-sm border border-border bg-background text-foreground outline-none py-2.5
               ${getPadding()}
-              ${borderStyle}
+              focus:ring-2 focus:ring-primary/20
               ${textareaClassName}
             `}
           />
@@ -207,9 +202,9 @@ export const Input = forwardRef<
             step={step}
             style={{ ...dynamicStyle, ...inputStyle }}
             className={`
-              w-full rounded-lg text-sm border outline-none py-2.5
+              w-full rounded-lg text-sm border border-border bg-background text-foreground outline-none py-2.5
               ${getPadding()}
-              ${borderStyle}
+              focus:ring-2 focus:ring-primary/20
               ${inputClassName}
             `}
           />
@@ -219,7 +214,7 @@ export const Input = forwardRef<
           <button
             type="button"
             onClick={() => setVisible(!visible)}
-            className={`absolute right-3 top-1/2 -translate-y-1/2 ${suffixClassName}`}
+            className={`absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground ${suffixClassName}`}
           >
             {visible ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
@@ -227,7 +222,7 @@ export const Input = forwardRef<
 
         {suffixIcon && type !== "password" && (
           <span
-            className={`absolute right-3 top-1/2 -translate-y-1/2 ${suffixClassName}`}
+            className={`absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground ${suffixClassName}`}
           >
             {suffixIcon}
           </span>
@@ -238,10 +233,10 @@ export const Input = forwardRef<
         <p
           className={`text-xs ${
             error
-              ? "text-red-500"
+              ? "text-destructive"
               : success
-              ? "text-emerald-500"
-              : ""
+              ? "text-primary"
+              : "text-muted-foreground"
           } ${helperTextClassName}`}
         >
           {error && typeof error === "string" ? error : helperText}

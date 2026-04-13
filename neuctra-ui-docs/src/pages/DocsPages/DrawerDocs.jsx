@@ -16,25 +16,61 @@ const DrawerExample = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div className="flex items-center justify-center">
       <DrawerButton
         label={label}
-        icon={<Menu size={16} />}
+        className="gap-2"
+        icon={<Menu size={20} />}
         onClick={() => setOpen(true)}
       />
+
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
-        className="z-2000!"
         position={position}
+        className="z-[2000]"
       >
-        {children ?? (
-          <div className="p-6 text-lg font-semibold">
-            Hello from {position} Drawer 👋
+        {children ? (
+          children
+        ) : (
+          <div className="p-6">
+            <h2 className="text-lg font-semibold mb-2">{position} Drawer</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Hello from {position} drawer 👋
+            </p>
           </div>
         )}
       </Drawer>
-    </>
+    </div>
+  );
+};
+
+const HeadlessDrawerExample = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="flex items-center justify-center">
+      <DrawerButton label="Open Headless Drawer" onClick={() => setOpen(true)} />
+
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        showCloseButton={false}
+        position="right"
+        renderContent={(close) => (
+          <div className="p-6">
+            <p className="mb-4 text-lg font-semibold">Fully custom content</p>
+
+            <button
+              onClick={close}
+              className="px-4 py-2 rounded bg-primary text-white hover:opacity-90"
+            >
+              Close Drawer
+            </button>
+          </div>
+        )}
+      />
+    </div>
   );
 };
 
@@ -73,160 +109,78 @@ const DrawerDocs = () => {
             />
           </section>
 
-          {/* Basic Usage */}
+          {/* ---------------- Basic Usage ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
+
             <CodePreviewBlock
               language="tsx"
-              code={`const [open, setOpen] = useState(false);
+              code={`// 1. Control drawer state
+const [open, setOpen] = useState(false);
 
-<DrawerButton label="Open Drawer" onClick={() => setOpen(true)} />
-<Drawer open={open} onClose={() => setOpen(false)}>
-  <div className="p-6 text-lg font-semibold">Hello from Drawer 👋</div>
+// 2. Trigger button
+<DrawerButton
+  label="Open Drawer"
+  onClick={() => setOpen(true)}
+/>
+
+// 3. Drawer component
+<Drawer
+  open={open}
+  onClose={() => setOpen(false)}
+  position="right"
+>
+  <div className="p-6 text-lg font-semibold">
+    Hello from Drawer 👋
+  </div>
 </Drawer>`}
               previewContent={<DrawerExample />}
             />
           </section>
 
-          {/* Positions */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Positions
-            </h2>
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Drawer position="left"   open={open} onClose={...}>...</Drawer>
-<Drawer position="right"  open={open} onClose={...}>...</Drawer>
-<Drawer position="top"    open={open} onClose={...}>...</Drawer>
-<Drawer position="bottom" open={open} onClose={...}>...</Drawer>`}
-              previewContent={
-                <div className="flex gap-3 flex-wrap">
-                  <DrawerExample label="Left Drawer" position="left" />
-                  <DrawerExample label="Right Drawer" position="right" />
-                  <DrawerExample label="Top Drawer" position="top" />
-                  <DrawerExample label="Bottom Drawer" position="bottom" />
-                </div>
-              }
-            />
-          </section>
-
-          {/* Custom Size */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Size
-            </h2>
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Drawer position="right" size="500px" open={open} onClose={...}>
-  <div className="p-6">Wide Drawer</div>
-</Drawer>`}
-              previewContent={
-                <>
-                  {(() => {
-                    const [open, setOpen] = useState(false);
-                    return (
-                      <>
-                        <DrawerButton
-                          label="Wide Drawer (500px)"
-                          onClick={() => setOpen(true)}
-                        />
-                        <Drawer
-                          open={open}
-                          onClose={() => setOpen(false)}
-                          position="right"
-                          size="500px"
-                        >
-                          <div className="p-6 text-lg font-semibold">
-                            Wide Drawer (500px) 📐
-                          </div>
-                        </Drawer>
-                      </>
-                    );
-                  })()}
-                </>
-              }
-            />
-          </section>
-
-          {/* Custom Styling */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Styling
-            </h2>
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Drawer
-  open={open}
-  onClose={() => setOpen(false)}
-  position="right"
-  panelClassName="bg-zinc-900 border-l border-zinc-700"
-  contentClassName="p-8"
->
-  <div className="text-red-500 text-lg font-bold">Custom Styled Drawer</div>
-</Drawer>`}
-              previewContent={
-                <DrawerExample label="Custom Styled" position="right">
-                  <div className="bg-zinc-900 border-l border-zinc-700 p-8 h-full text-red-500 text-lg font-bold">
-                    Custom Styled Drawer
-                  </div>
-                </DrawerExample>
-              }
-            />
-          </section>
-
-          {/* Headless Mode */}
+          {/* ---------------- Headless Mode ----------------  */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Headless Mode (renderContent)
             </h2>
+
             <CodePreviewBlock
               language="tsx"
-              code={`<Drawer
+              code={`// Headless = you control everything inside
+const [open, setOpen] = useState(false);
+
+<DrawerButton
+  label="Headless Drawer"
+  onClick={() => setOpen(true)}
+/>
+
+<Drawer
   open={open}
   onClose={() => setOpen(false)}
   showCloseButton={false}
+  position="right"
   renderContent={(close) => (
     <div className="p-6">
-      <p className="mb-4">Fully custom content</p>
-      <button onClick={close} className="px-3 py-1 bg-primary text-white rounded">
-        Close
+      <p className="mb-4 text-lg font-semibold">
+        Fully custom content
+      </p>
+
+      <button
+        onClick={close}
+        className="px-4 py-2 rounded bg-primary text-white hover:opacity-90"
+      >
+        Close Drawer
       </button>
     </div>
   )}
 />`}
-              previewContent={(() => {
-                const [open, setOpen] = useState(false);
-                return (
-                  <>
-                    <DrawerButton
-                      label="Headless Drawer"
-                      onClick={() => setOpen(true)}
-                    />
-                    <Drawer
-                      open={open}
-                      onClose={() => setOpen(false)}
-                      showCloseButton={false}
-                      renderContent={(close) => (
-                        <div className="p-6">
-                          <p className="mb-4 text-lg font-semibold">
-                            Fully custom content
-                          </p>
-                          <button
-                            onClick={close}
-                            className="px-3 py-1 bg-primary text-white rounded"
-                          >
-                            Close
-                          </button>
-                        </div>
-                      )}
-                    />
-                  </>
-                );
-              })()}
+              previewContent={<HeadlessDrawerExample />}
             />
           </section>
+
+          {/* ---------------- Helper for Headless Preview ---------------- */}
 
           {/* Props Table — Drawer */}
           <section>
@@ -465,47 +419,47 @@ const DrawerDocs = () => {
               Common Mistakes
             </h2>
             <div className="space-y-4 text-sm text-gray-300">
-              <div className="flex gap-2 items-start text-red-400">
+              <div className="flex gap-2 items-start text-red-500">
                 <X size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-red-300">{`<Drawer open />`}</code>
+                  <code className="text-red-500">{`<Drawer open />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Always bind open to a state variable and provide onClose.
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2 items-start text-red-400">
+              <div className="flex gap-2 items-start text-red-500">
                 <X size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-red-300">{`<Drawer open={open} />`}</code>
+                  <code className="text-red-500">{`<Drawer open={open} />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Missing onClose means overlay clicks won't close the drawer.
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2 items-start text-red-400">
+              <div className="flex gap-2 items-start text-red-500">
                 <X size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-red-300">{`<Drawer open={open} onClose={...} />`}</code>
+                  <code className="text-red-500">{`<Drawer open={open} onClose={...} />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Missing position prop — defaults to "right". Be explicit
                     when using other positions.
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2 items-start text-green-400">
+              <div className="flex gap-2 items-start text-green-500">
                 <Check size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-green-300">{`<Drawer open={open} onClose={() => setOpen(false)} position="left" />`}</code>
+                  <code className="text-green-500">{`<Drawer open={open} onClose={() => setOpen(false)} position="left" />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Correct — state, close handler, and position all explicit.
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2 items-start text-green-400">
+              <div className="flex gap-2 items-start text-green-500">
                 <Check size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-green-300">{`use zIndex when stacking modals`}</code>
+                  <code className="text-green-500">{`use zIndex when stacking modals`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Avoid layering issues with multiple overlays.
                   </p>

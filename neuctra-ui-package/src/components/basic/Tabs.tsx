@@ -138,7 +138,6 @@ export const Tabs: React.FC<TabsProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useBreakpoint(mobileBreakpoint);
 
-  // Auto-count <Tab> buttons
   useEffect(() => {
     if (!tabCount && containerRef.current) {
       setResolvedCount(
@@ -147,7 +146,6 @@ export const Tabs: React.FC<TabsProps> = ({
     }
   });
 
-  // Close drawer when resizing to desktop
   useEffect(() => {
     if (!isMobile) setDrawerOpen(false);
   }, [isMobile]);
@@ -158,7 +156,6 @@ export const Tabs: React.FC<TabsProps> = ({
     if (isMobile && mobileVariant === "drawer") setDrawerOpen(false);
   };
 
-  // Vertical positions collapse to "top" on mobile
   const effectivePosition: Position =
     isMobile && (position === "left" || position === "right")
       ? "top"
@@ -194,14 +191,15 @@ export const Tabs: React.FC<TabsProps> = ({
         ref={containerRef}
         className={clsx(
           "modern-tabs",
+          "bg-background text-foreground",
           isVertical ? "flex flex-row" : "flex flex-col",
           effectivePosition === "right" && "flex-row-reverse",
           effectivePosition === "bottom" && "flex-col-reverse",
-          bordered && "border border-gray-200",
+          bordered && "border border-border",
           className,
         )}
         style={{
-          background: backgroundColor,
+          background: "bg-background",
           borderRadius: radius,
           overflow: "hidden",
           ...style,
@@ -222,7 +220,6 @@ export const Tabs: React.FC<TabsProps> = ({
           .tab-drawer-menu {
             animation: tab-drawer-open ${transitionDuration}ms ease;
           }
-          /* scroll strip: hide scrollbar, enable snap */
           .tab-scroll-strip {
             overflow-x: auto;
             scrollbar-width: none;
@@ -309,19 +306,19 @@ export const TabList: React.FC<TabListProps> = ({
 
     return (
       <div
-        className={clsx("relative w-full", className)}
+        className={clsx(
+          "relative w-full bg-background text-foreground",
+          className,
+        )}
         style={{ padding: 8, ...style }}
       >
         {/* Trigger */}
         <button
           onClick={() => setDrawerOpen(!drawerOpen)}
-          className="flex items-center justify-between w-full font-medium"
+          className="flex items-center justify-between w-full font-medium border border-border bg-background text-foreground hover:bg-accent transition-colors"
           style={{
             padding: "10px 16px",
             borderRadius: radius,
-            background: primaryColor,
-            color: activeColor,
-            border: "none",
             cursor: "pointer",
             fontSize: 14,
           }}
@@ -333,11 +330,9 @@ export const TabList: React.FC<TabListProps> = ({
         {/* Dropdown */}
         {drawerOpen && (
           <div
-            className="tab-drawer-menu absolute left-0 right-0 z-50 flex flex-col"
+            className="tab-drawer-menu absolute left-0 right-0 z-50 flex flex-col bg-background text-foreground border border-border"
             style={{
               top: "calc(100% + 4px)",
-              background: "#fff",
-              border: "1px solid #e5e7eb",
               borderRadius: radius,
               boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
               gap: 4,
@@ -356,7 +351,10 @@ export const TabList: React.FC<TabListProps> = ({
     return (
       <div
         role="tablist"
-        className={clsx("tab-scroll-strip flex flex-row w-full", className)}
+        className={clsx(
+          "tab-scroll-strip flex flex-row w-full bg-background text-foreground",
+          className,
+        )}
         style={{ gap, padding: 8, ...style }}
       >
         {children}
@@ -369,7 +367,10 @@ export const TabList: React.FC<TabListProps> = ({
     return (
       <div
         role="tablist"
-        className={clsx("flex flex-col w-full", className)}
+        className={clsx(
+          "flex flex-col w-full bg-background text-foreground",
+          className,
+        )}
         style={{ gap, padding: 8, ...style }}
       >
         {children}
@@ -383,7 +384,7 @@ export const TabList: React.FC<TabListProps> = ({
       <div
         role="tablist"
         className={clsx(
-          "flex flex-row flex-wrap w-full", // 🔥 wrap enabled
+          "flex flex-row flex-wrap w-full bg-background text-foreground",
           className,
         )}
         style={{
@@ -402,7 +403,7 @@ export const TabList: React.FC<TabListProps> = ({
     <div
       role="tablist"
       className={clsx(
-        "flex",
+        "flex bg-background text-foreground",
         isVertical ? "flex-col" : "flex-row",
         isVertical ? "min-w-[160px]" : "w-full",
         className,
@@ -487,12 +488,11 @@ export const Tab: React.FC<TabProps> = ({
     }
   };
 
-  /* ---- Variant base styles ---- */
   const variantBase: CSSProperties =
     variant === "outline"
-      ? { border: `1px solid ${borderColor}` }
+      ? { border: "1px solid hsl(var(--border))" }
       : variant === "underline"
-        ? { borderBottom: `2px solid transparent`, borderRadius: 0 }
+        ? { borderBottom: "2px solid transparent", borderRadius: 0 }
         : variant === "pill"
           ? { borderRadius: 999 }
           : { border: "none" };
@@ -500,26 +500,31 @@ export const Tab: React.FC<TabProps> = ({
   const variantActive: CSSProperties =
     variant === "solid" || variant === "pill"
       ? {
-          background: primaryColor,
-          color: activeColor,
-          boxShadow: `0 2px 8px ${primaryColor}44`,
+          background: "hsl(var(--primary))",
+          color: "hsl(var(--primary-foreground))",
+          boxShadow: "0 2px 8px hsl(var(--primary) / 0.25)",
         }
       : variant === "outline"
         ? {
-            borderColor: primaryColor,
-            color: primaryColor,
-            background: `${primaryColor}11`,
+            borderColor: "hsl(var(--primary))",
+            color: "hsl(var(--primary))",
+            background: "hsl(var(--accent))",
           }
         : variant === "underline"
-          ? { borderBottomColor: primaryColor, color: primaryColor }
+          ? {
+              borderBottomColor: "hsl(var(--primary))",
+              color: "hsl(var(--primary))",
+            }
           : {};
 
   const variantHover: CSSProperties =
     variant === "underline"
-      ? { color: hoverColor }
-      : { background: `${primaryColor}11`, color: hoverColor };
+      ? { color: "hsl(var(--foreground))" }
+      : {
+          background: "hsl(var(--accent))",
+          color: "hsl(var(--foreground))",
+        };
 
-  // Full-width in stack/drawer/collapse mobile modes
   const forceFullWidth =
     isMobile &&
     (mobileVariant === "stack" ||
@@ -541,28 +546,23 @@ export const Tab: React.FC<TabProps> = ({
       className={clsx(
         "flex items-center justify-center gap-2 font-medium select-none transition-all",
         (fullWidth || forceFullWidth) && "w-full",
-
-        // ✅ THEME-AWARE INACTIVE COLORS
-        !isActive && "text-zinc-500 dark:text-zinc-400",
-
-        // optional subtle bg
-        !isActive && "bg-transparent dark:bg-white/5",
-
-        disabled ? "opacity-60 cursor-not-allowed" : "cursor-pointer",
+        "text-muted-foreground",
+        isActive && "text-foreground",
+        disabled && "opacity-60 cursor-not-allowed",
+        !disabled && "cursor-pointer",
         className,
       )}
       style={{
         padding: "10px 16px",
         borderRadius: radius,
-        ...(isActive ? { color: activeColor } : {}),
         transitionDuration: `${transitionDuration}ms`,
         fontSize: 14,
-        whiteSpace: "nowrap", // prevents wrapping in scroll strip
+        whiteSpace: "nowrap",
         ...variantBase,
         ...(isActive ? variantActive : {}),
         ...(isActive ? activeStyle : inactiveStyle),
         ...(hovered && !isActive && !disabled ? variantHover : {}),
-        ...(disabled ? { color: disabledColor } : {}),
+        ...(disabled ? { color: "hsl(var(--muted-foreground))" } : {}),
         ...style,
       }}
     >
@@ -589,7 +589,10 @@ export const TabPanels: React.FC<TabPanelsProps> = ({
 }) => {
   return (
     <div
-      className={clsx("flex-1 min-w-0", className)} // min-w-0 prevents flex overflow blowout
+      className={clsx(
+        "flex-1 min-w-0 bg-background text-foreground",
+        className,
+      )}
       style={{
         ...style,
       }}
@@ -627,7 +630,11 @@ export const TabPanel: React.FC<TabPanelProps> = ({
     <div
       role="tabpanel"
       hidden={!isActive}
-      className={clsx(isActive && "tab-panel-active", className)}
+      className={clsx(
+        isActive && "tab-panel-active",
+        "bg-background text-foreground",
+        className,
+      )}
       style={{ display: isActive ? undefined : "none", ...style }}
     >
       {children}

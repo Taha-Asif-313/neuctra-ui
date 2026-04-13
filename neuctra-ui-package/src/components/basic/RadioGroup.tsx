@@ -134,7 +134,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       tabIndex={0}
       aria-disabled={disabled}
       aria-invalid={!!error}
-      className={clsx("flex flex-col gap-2", className)}
+      className={clsx("flex flex-col gap-2 text-foreground", className)}
       style={style}
     >
       {options.map((option, index) => {
@@ -162,14 +162,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           );
         }
 
-        // Default UI (can be fully overridden via classNames/styles)
+        // Default UI (shadcn-like)
         return (
           <label
             key={option.value}
             className={clsx(
-              "flex items-center justify-between gap-2 cursor-pointer select-none rounded-md px-2 py-1 transition",
-              "text-gray-700 dark:text-gray-200",
-              "hover:bg-gray-100 dark:hover:bg-zinc-800",
+              "flex items-center justify-between gap-2 cursor-pointer select-none rounded-md px-2 py-1 transition-colors",
+              "text-foreground hover:bg-accent",
+              focused && "ring-2 ring-border",
               disabled && "opacity-50 cursor-not-allowed",
               itemClassName
             )}
@@ -178,7 +178,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           >
             {/* Label */}
             <span
-              className={clsx("text-sm", labelClassName)}
+              className={clsx("text-sm text-foreground", labelClassName)}
               style={labelStyle}
             >
               {option.label}
@@ -199,19 +199,17 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
             {/* Icon */}
             <span
               className={clsx(
-                "inline-flex items-center justify-center rounded-full transition-all",
+                "inline-flex items-center justify-center rounded-full transition-all border border-border bg-background",
                 iconClassName
               )}
               style={{
                 width: iconSize,
                 height: iconSize,
-                border: `2px solid ${
-                  checked
-                    ? iconCheckedBgColor || "#2563eb"
-                    : iconUncheckedBorderColor || "#9ca3af"
-                }`,
+                borderColor: checked
+                  ? "hsl(var(--primary))"
+                  : "hsl(var(--border))",
                 backgroundColor: checked
-                  ? iconCheckedBgColor || "#2563eb"
+                  ? "hsl(var(--primary))"
                   : "transparent",
                 ...iconStyle,
               }}
@@ -219,7 +217,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
               {checked && (
                 <span
                   className={clsx(
-                    "rounded-full bg-white dark:bg-black",
+                    "rounded-full bg-background",
                     indicatorClassName
                   )}
                   style={{
@@ -238,7 +236,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
         <p
           role="alert"
           className={clsx(
-            "text-xs text-red-600 dark:text-red-400 mt-1",
+            "text-xs text-destructive mt-1",
             errorClassName
           )}
           style={errorStyle}

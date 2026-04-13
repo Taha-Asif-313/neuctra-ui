@@ -75,7 +75,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) {
     const isDisabled = disabled || loading;
-    const color = primaryColor;
 
     /* 📏 Sizes */
     const sizeClasses = {
@@ -85,24 +84,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "px-7 py-2.5 text-base",
     } as const;
 
-    /* 🎨 Variants (no hard lock, still override-able) */
-    const variantStyles: Record<
+    /* 🎨 VARIANTS (SHADCN STYLE) */
+    const variantClasses: Record<
       NonNullable<ButtonProps["variant"]>,
-      React.CSSProperties
+      string
     > = {
-      default: {
-        backgroundColor: color,
-        color: "#fff",
-      },
-      outline: {
-        border: `1px solid ${color}`,
-        color,
-        backgroundColor: "transparent",
-      },
-      ghost: {
-        color,
-        backgroundColor: "transparent",
-      },
+      default:
+        "bg-primary text-primary-foreground hover:opacity-90",
+      outline:
+        "border border-border bg-background text-foreground hover:bg-accent",
+      ghost:
+        "bg-transparent text-foreground hover:bg-accent",
     };
 
     /* 🔘 Icon sizes */
@@ -121,13 +113,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={clsx(
           "inline-flex items-center justify-center rounded-lg transition-all duration-200",
           sizeClasses[size],
+          variantClasses[variant],
           fullWidth && "w-full",
           isDisabled && "opacity-60 cursor-not-allowed pointer-events-none",
           className,
         )}
         style={{
           fontWeight: weight,
-          ...variantStyles[variant],
           ...style,
         }}
         {...rest}
@@ -155,7 +147,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
               {/* Loading Text */}
               <span
-                className={clsx("whitespace-nowrap", textClassName)}
+                className={clsx(
+                  "whitespace-nowrap text-foreground",
+                  textClassName,
+                )}
                 style={textStyle}
               >
                 {loadingText}
@@ -165,14 +160,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <>
               {iconBefore && (
                 <span
-                  className={clsx(iconClassName)}
+                  className={clsx(
+                    "inline-flex items-center justify-center flex-shrink-0",
+                    "text-current",
+                    iconClassName,
+                  )}
                   style={{
                     width: iconSizes[size],
                     height: iconSizes[size],
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
                     ...iconStyle,
                   }}
                 >
@@ -181,7 +176,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               )}
 
               <span
-                className={clsx("whitespace-nowrap", textClassName)}
+                className={clsx(
+                  "whitespace-nowrap text-current",
+                  textClassName,
+                )}
                 style={textStyle}
               >
                 {children}
@@ -189,14 +187,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
               {iconAfter && (
                 <span
-                  className={clsx(iconClassName)}
+                  className={clsx(
+                    "inline-flex items-center justify-center flex-shrink-0",
+                    "text-current",
+                    iconClassName,
+                  )}
                   style={{
                     width: iconSizes[size],
                     height: iconSizes[size],
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
                     ...iconStyle,
                   }}
                 >

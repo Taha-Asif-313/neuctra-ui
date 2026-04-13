@@ -107,9 +107,9 @@ export const Accordion: React.FC<AccordionProps> = memo(
     hoverClassName,
     hoverStyle,
 
-    borderColor = "#e5e7eb",
+    borderColor = "hsl(var(--border))",
     radius = "0.5rem",
-    shadow = "0 1px 4px rgba(0,0,0,0.08)",
+    shadow = "none",
 
     duration = 300,
 
@@ -147,7 +147,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
 
     return (
       <div
-        className={clsx("w-full space-y-2", className)}
+        className={clsx("w-full space-y-2 text-foreground", className)}
         style={style}
       >
         {items.map((item, index) => {
@@ -170,8 +170,8 @@ export const Accordion: React.FC<AccordionProps> = memo(
             <div
               key={index}
               className={clsx(
-                "overflow-hidden transition-all",
-                "bg-white text-gray-900 dark:bg-zinc-900 dark:text-gray-100",
+                "overflow-hidden transition-all border border-border bg-background text-foreground",
+                "rounded-md",
                 itemClassName
               )}
               style={{
@@ -187,7 +187,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
                 className={clsx(
                   "w-full flex items-center justify-between",
                   "px-4 py-3 text-left transition-colors",
-                  "hover:bg-gray-100 dark:hover:bg-zinc-800",
+                  "hover:bg-accent",
                   headerClassName,
                   hoverClassName
                 )}
@@ -197,14 +197,14 @@ export const Accordion: React.FC<AccordionProps> = memo(
                 }}
               >
                 <span
-                  className={clsx("font-medium", titleClassName)}
+                  className={clsx("font-medium text-foreground", titleClassName)}
                   style={titleStyle}
                 >
                   {item.title}
                 </span>
 
                 <span
-                  className={iconClassName}
+                  className={clsx("text-muted-foreground", iconClassName)}
                   style={iconStyle}
                 >
                   {open
@@ -215,7 +215,9 @@ export const Accordion: React.FC<AccordionProps> = memo(
 
               {/* Content Wrapper */}
               <div
-                ref={(el) => { contentRefs.current[index] = el; }}
+                ref={(el) => {
+                  contentRefs.current[index] = el;
+                }}
                 className={clsx(
                   "overflow-hidden transition-all",
                   contentWrapperClassName
@@ -231,8 +233,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
                 {/* Content */}
                 <div
                   className={clsx(
-                    "px-4 py-3 border-t",
-                    "border-gray-200 dark:border-zinc-800",
+                    "px-4 py-3 border-t border-border text-muted-foreground",
                     contentClassName
                   )}
                   style={contentStyle}

@@ -17,7 +17,7 @@ interface DrawerButtonProps {
 }
 
 export const DrawerButton: React.FC<DrawerButtonProps> = ({
-  label = "Open Drawer",
+  label = "",
   icon,
   iconPosition = "left",
   onClick,
@@ -31,8 +31,7 @@ export const DrawerButton: React.FC<DrawerButtonProps> = ({
     onClick={onClick}
     style={style}
     className={clsx(
-      "inline-flex items-center justify-center gap-2 px-4 py-2 rounded-md font-medium transition-all",
-      "bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90",
+      "inline-flex items-center justify-centertransition-all",
       className
     )}
   >

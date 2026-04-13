@@ -71,10 +71,12 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
           : padding === "lg"
           ? 32
           : 48,
+      backgroundColor: "bg-background",
+      color: "text-foreground",
     };
 
     const classes = clsx(
-      "w-full box-border",
+      "w-full box-border bg-background text-foreground",
       sizeMap[size],
       paddingMap[padding],
       center && "mx-auto",

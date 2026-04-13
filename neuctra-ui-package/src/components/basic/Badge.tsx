@@ -51,13 +51,10 @@ export const Badge: React.FC<BadgeProps> = memo(
     icon,
     iconPosition = "left",
 
-    primaryColor = "var(--primary)",
-
     size = "md",
     rounded = true,
 
     notificationDot = false,
-    dotColor = "#ef4444",
     count,
     pulse = false,
 
@@ -79,37 +76,35 @@ export const Badge: React.FC<BadgeProps> = memo(
       lg: "px-4 py-1.5 text-sm",
     };
 
-    /** 🎨 Base style */
-    const baseStyle: CSSProperties = {
-      backgroundColor: primaryColor,
-      color: "#fff",
-      ...style, // 🔥 allow override
-    };
-
     return (
       <span
         onClick={onClick}
-        style={baseStyle}
+        style={style}
         className={clsx(
           "relative inline-flex items-center justify-center gap-1 font-medium",
           "transition-all duration-200 select-none",
+          "bg-accent text-primary-foreground border border-border",
+
+          // shape
           rounded ? "rounded-full" : "rounded-md",
+
+          // size
           sizes[size],
-          onClick && "cursor-pointer hover:opacity-90",
-          className
+
+          // hover (shadcn-like subtle)
+          onClick && "cursor-pointer hover:bg-accent/80",
+
+          className,
         )}
       >
         {/* 🔴 Dot */}
         {notificationDot && (
           <span
-            style={{
-              backgroundColor: dotColor,
-              ...dotStyle,
-            }}
+            style={dotStyle}
             className={clsx(
-              "absolute -top-1 -right-1 w-2 h-2 rounded-full",
+              "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-accent",
               pulse && "animate-ping",
-              dotClassName
+              dotClassName,
             )}
           />
         )}
@@ -117,14 +112,12 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* 🔢 Count */}
         {count !== undefined && (
           <span
-            style={{
-              backgroundColor: dotColor,
-              ...countStyle,
-            }}
+            style={countStyle}
             className={clsx(
               "absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px]",
-              "flex items-center justify-center rounded-full text-white",
-              countClassName
+              "flex items-center justify-center rounded-full",
+              "bg-accent text-primary-foreground",
+              countClassName,
             )}
           >
             {count}
@@ -155,7 +148,7 @@ export const Badge: React.FC<BadgeProps> = memo(
         )}
       </span>
     );
-  }
+  },
 );
 
 Badge.displayName = "Badge";

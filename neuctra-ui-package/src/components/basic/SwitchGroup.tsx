@@ -118,7 +118,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
       tabIndex={0}
       aria-disabled={disabled}
       aria-invalid={!!error}
-      className={clsx("flex flex-col gap-2", className)}
+      className={clsx("flex flex-col gap-2 text-foreground", className)}
       style={style}
     >
       {options.map((option, index) => {
@@ -130,17 +130,19 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
             key={option.value}
             onFocus={() => setFocusedIndex(index)}
             className={clsx(
-              "flex items-center justify-between cursor-pointer transition",
+              "flex items-center justify-between cursor-pointer transition-colors",
+              "text-foreground",
+              "hover:bg-accent/40",
               disabled && "opacity-50 cursor-not-allowed",
-              focused && "ring-2 ring-primary",
+              focused && "ring-2 ring-border",
               itemClassName,
               labelClassName
             )}
             style={{ ...itemStyle, ...labelStyle }}
           >
-            {/* TEXT (no default color) */}
+            {/* TEXT */}
             <span
-              className={clsx("text-sm", textClassName)}
+              className={clsx("text-sm text-foreground", textClassName)}
               style={textStyle}
             >
               {option.label}
@@ -161,9 +163,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
             <span
               className={clsx(
                 "relative inline-flex rounded-full transition-colors",
-                checked
-                  ? "bg-primary"
-                  : "bg-zinc-300 dark:bg-zinc-700",
+                checked ? "bg-primary" : "bg-muted",
                 switchClassName
               )}
               style={{
@@ -175,11 +175,14 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
               {/* THUMB */}
               <span
                 className={clsx(
-                  "absolute top-1/2 -translate-y-1/2 rounded-full bg-white shadow",
+                  "absolute top-1/2 -translate-y-1/2 rounded-full shadow",
+                  "bg-background",
                   thumbClassName
                 )}
                 style={{
-                  left: checked ? `calc(100% - ${iconSize - 4}px - 2px)` : "2px",
+                  left: checked
+                    ? `calc(100% - ${iconSize - 4}px - 2px)`
+                    : "2px",
                   width: iconSize - 4,
                   height: iconSize - 4,
                   transition: "left 0.25s ease",
@@ -194,7 +197,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
       {error && (
         <p
           role="alert"
-          className={clsx("text-sm text-red-500", errorClassName)}
+          className={clsx("text-sm text-destructive", errorClassName)}
           style={errorStyle}
         >
           {error}

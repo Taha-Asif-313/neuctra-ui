@@ -104,9 +104,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
   const [systemDarkMode, setSystemDarkMode] = useState(false);
   const [open, setOpen] = useState(false);
-  const [internalValue, setInternalValue] = useState<string | string[] | undefined>(
-    defaultValue
-  );
+  const [internalValue, setInternalValue] = useState<
+    string | string[] | undefined
+  >(defaultValue);
 
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
@@ -124,7 +124,10 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   // Close on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -155,7 +158,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         if (!disabled) setOpen((p) => !p);
       }
     },
-    [disabled]
+    [disabled],
   );
 
   const handleSelect = (opt: SelectOption) => {
@@ -222,13 +225,13 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         scrollbar: "[&::-webkit-scrollbar-track]:bg-gray-50",
       };
 
+  // REMOVE: darkMode + system theme logic completely
+
   const ringColor = hasError
     ? "#ef4444"
     : success
       ? "#22c55e"
-      : finalDarkMode
-        ? "rgba(255,255,255,0.12)"
-        : "rgba(0,0,0,0.1)";
+      : "rgba(0,0,0,0.1)";
 
   return (
     <div
@@ -240,13 +243,13 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         <label
           className={clsx(
             "flex items-center gap-1.5 text-sm font-medium select-none",
-            theme.labelText,
-            labelClassName
+            "text-gray-700 dark:text-zinc-300",
+            labelClassName,
           )}
         >
           {LabelIcon && <LabelIcon className="w-4 h-4 shrink-0" />}
           {label}
-          {required && <span className="text-red-500 leading-none">*</span>}
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
 
@@ -255,8 +258,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           <div
             className={clsx(
               "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2",
-              finalDarkMode ? "text-zinc-400" : "text-gray-400",
-              iconClassName
+              "text-gray-400 dark:text-zinc-400",
+              iconClassName,
             )}
           >
             <PrefixIcon className="w-4 h-4" />
@@ -268,21 +271,20 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           disabled={disabled}
           onClick={() => !disabled && setOpen((p) => !p)}
           onKeyDown={handleKeyDown}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          aria-disabled={disabled}
-          aria-required={required}
-          aria-invalid={hasError}
           className={clsx(
             "w-full flex items-center justify-between gap-2",
-            "rounded-xl text-sm transition-all duration-150 outline-none px-3 py-2.5",
+            "rounded-lg text-sm px-3 py-2 transition-all outline-none border border-zinc-200 dark:border-zinc-900",
             PrefixIcon && "pl-9",
-            theme.triggerBg,
-            theme.triggerText,
-            !disabled && theme.triggerHover,
-            theme.triggerFocus,
+
+            // LIGHT + DARK
+            "bg-white text-zinc-950 hover:bg-gray-50",
+            "dark:bg-zinc-950 dark:text-zinc-50 dark:hover:bg-zinc-700",
+
+            "focus-visible:ring-2 focus-visible:ring-offset-2",
+            "focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-900",
+
             disabled && "opacity-50 cursor-not-allowed pointer-events-none",
-            triggerClassName
+            triggerClassName,
           )}
           style={{
             boxShadow: `0 0 0 1.5px ${ringColor}`,
@@ -292,9 +294,11 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         >
           <span
             className={clsx(
-              "truncate text-left flex-1",
-              hasValue ? theme.triggerText : theme.placeholder,
-              valueClassName
+              "truncate flex-1 text-left",
+              hasValue
+                ? "text-gray-900 dark:text-zinc-100"
+                : "text-gray-400 dark:text-zinc-500",
+              valueClassName,
             )}
           >
             {hasValue
@@ -306,35 +310,27 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
           <DropdownIcon
             className={clsx(
-              "w-4 h-4 shrink-0 transition-transform duration-200",
+              "w-4 h-4 transition-transform",
               open && "rotate-180",
-              finalDarkMode ? "text-zinc-400" : "text-gray-400",
-              iconClassName
+              "text-gray-400 dark:text-zinc-400",
+              iconClassName,
             )}
           />
         </button>
 
         {open && (
           <div
-            role="listbox"
-            aria-multiselectable={multiple}
             className={clsx(
-              "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden",
-              theme.dropdownBg,
-              theme.dropdownBorder,
-              theme.dropdownShadow,
-              dropdownClassName
+              "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden shadow-xl",
+              "bg-white ring-1 ring-gray-200",
+              "dark:bg-zinc-800 dark:ring-zinc-700 dark:shadow-2xl",
+              dropdownClassName,
             )}
             style={dropdownStyle}
           >
-            <ul className={clsx("max-h-60 overflow-y-auto", theme.scrollbar)}>
+            <ul className="max-h-60 overflow-y-auto">
               {options.length === 0 ? (
-                <li
-                  className={clsx(
-                    "px-3 py-2.5 text-sm select-none text-center",
-                    theme.placeholder
-                  )}
-                >
+                <li className="px-3 py-2.5 text-sm text-gray-400 dark:text-zinc-500 text-center">
                   No options available
                 </li>
               ) : (
@@ -343,29 +339,36 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                   return (
                     <li
                       key={opt.value}
-                      role="option"
-                      aria-selected={active}
                       onClick={() => handleSelect(opt)}
                       className={clsx(
-                        "flex items-center justify-between px-3 py-2.5 text-sm cursor-pointer transition-colors duration-100 select-none",
-                        theme.itemText,
-                        !active && theme.itemHover,
-                        itemClassName
+                        "flex items-center justify-between px-3 py-2 text-sm cursor-pointer transition-colors duration-150",
+
+                        // LIGHT
+                        "text-zinc-950 hover:bg-zinc-50 active:bg-gray-100",
+
+                        // DARK
+                        "dark:text-zinc-100 dark:bg-zinc-950 dark:hover:bg-zinc-700 dark:active:bg-zinc-600",
+
+                        itemClassName,
                       )}
                       style={{
                         backgroundColor: active
                           ? `color-mix(in srgb, ${primaryColor} 15%, transparent)`
                           : undefined,
-                        color: active ? primaryColor : undefined,
                         ...itemStyle,
                       }}
                     >
                       <div className="flex items-center gap-2 truncate">
-                        {opt.icon && <span className="shrink-0">{opt.icon}</span>}
-                        <span className="truncate">{opt.label}</span>
+                        {opt.icon && <span>{opt.icon}</span>}
+                        <span>{opt.label}</span>
                       </div>
 
-                      {active && <Check className="w-4 h-4 shrink-0 ml-2" style={{ color: primaryColor }} />}
+                      {active && (
+                        <Check
+                          className="w-4 h-4 ml-2"
+                          style={{ color: primaryColor }}
+                        />
+                      )}
                     </li>
                   );
                 })
@@ -378,13 +381,16 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       {(helperText || error) && (
         <p
           className={clsx(
-            "text-xs leading-snug",
-            hasError ? "text-red-500" : success ? "text-green-500" : theme.helperMuted,
-            helperClassName
+            "text-xs",
+            hasError
+              ? "text-red-500"
+              : success
+                ? "text-green-500"
+                : "text-gray-400 dark:text-zinc-500",
+            helperClassName,
           )}
-          role={hasError ? "alert" : undefined}
         >
-          {typeof error === "string" && error.length > 0 ? error : helperText}
+          {typeof error === "string" ? error : helperText}
         </p>
       )}
     </div>

@@ -30,15 +30,12 @@ export function ModalButton({
 }: ModalButtonProps) {
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {
-      // run custom click first
       if (onClick) onClick(e);
 
-      // run async action if provided
       if (action) {
         await action();
       }
 
-      // close modal if required
       if (closeOnClick && onClose) {
         onClose();
       }
@@ -59,7 +56,6 @@ interface ModalProps {
   children: ReactNode;
   disableOverlayClose?: boolean;
 
-  /** 🔥 Customization */
   className?: string;
   style?: CSSProperties;
   overlayClassName?: string;
@@ -109,7 +105,8 @@ export function Modal({
       aria-modal="true"
       onClick={handleOverlayClick}
       className={clsx(
-        "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in",
+        "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm",
+        "text-foreground",
         overlayClassName,
       )}
       style={overlayStyle}
@@ -128,7 +125,6 @@ interface ModalContentProps {
   children: ReactNode;
   onClose?: () => void;
 
-  /** 🔥 Customization */
   className?: string;
   style?: CSSProperties;
   closeButtonClassName?: string;
@@ -151,7 +147,8 @@ export function ModalContent({
     <div
       onClick={(e) => e.stopPropagation()}
       className={clsx(
-        "relative overflow-y-auto rounded-2xl border dark:border-zinc-900 border-zinc-200 bg-white dark:bg-zinc-950 p-6 shadow-xl animate-in zoom-in-95 slide-in-from-bottom-4",
+        "relative overflow-y-auto rounded-2xl border border-border bg-background text-foreground p-6 shadow-xl",
+        "animate-in zoom-in-95 slide-in-from-bottom-4",
         className,
       )}
       style={{ ...style }}
@@ -162,7 +159,8 @@ export function ModalContent({
           onClick={onClose}
           aria-label="Close modal"
           className={clsx(
-            "absolute top-4 right-4 p-1 rounded-full text-red-500 hover:text-zinc-900 dark:hover:text-white transition",
+            "absolute top-4 right-4 p-1 rounded-full text-muted-foreground",
+            "hover:bg-accent hover:text-foreground transition-colors",
             closeButtonClassName,
           )}
           style={closeButtonStyle}
@@ -185,7 +183,6 @@ interface ModalHeaderProps {
   title?: string;
   icon?: ReactNode;
 
-  /** 🔥 Customization */
   className?: string;
   style?: CSSProperties;
   titleClassName?: string;
@@ -208,7 +205,10 @@ export function ModalHeader({
 
   return (
     <div
-      className={clsx("flex items-center gap-2 mb-4", className)}
+      className={clsx(
+        "flex items-center gap-2 mb-4 text-foreground",
+        className,
+      )}
       style={style}
     >
       {icon && (
@@ -219,7 +219,7 @@ export function ModalHeader({
 
       <h2
         className={clsx(
-          "text-lg font-semibold text-zinc-900 dark:text-white",
+          "text-lg font-semibold text-foreground",
           titleClassName,
         )}
         style={titleStyle}
@@ -236,7 +236,6 @@ export function ModalHeader({
 interface ModalBodyProps {
   children: ReactNode;
 
-  /** 🔥 Customization */
   className?: string;
   style?: CSSProperties;
 }
@@ -244,7 +243,7 @@ interface ModalBodyProps {
 export function ModalBody({ children, className, style }: ModalBodyProps) {
   return (
     <div
-      className={clsx("text-sm text-zinc-600 dark:text-zinc-300", className)}
+      className={clsx("text-sm text-muted-foreground", className)}
       style={style}
     >
       {children}
@@ -258,7 +257,6 @@ export function ModalBody({ children, className, style }: ModalBodyProps) {
 interface ModalFooterProps {
   children: ReactNode;
 
-  /** 🔥 Customization */
   className?: string;
   style?: CSSProperties;
 }
@@ -280,10 +278,8 @@ export function ModalFooter({ children, className, style }: ModalFooterProps) {
 interface ModalTriggerButtonProps extends ButtonProps {
   children: React.ReactNode;
 
-  /** Modal content */
   modalContent: (props: { close: () => void }) => React.ReactNode;
 
-  /** optional control */
   defaultOpen?: boolean;
 }
 
@@ -300,12 +296,10 @@ export function ModalTriggerButton({
 
   return (
     <>
-      {/* Trigger Button */}
       <Button size="sm" {...buttonProps} onClick={openModal}>
         {children}
       </Button>
 
-      {/* Modal */}
       <Modal isOpen={open} onClose={close}>
         {modalContent({ close })}
       </Modal>

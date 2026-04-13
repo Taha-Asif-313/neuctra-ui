@@ -50,20 +50,17 @@ export const Table: React.FC<TableProps> = ({
   return (
     <div
       className={clsx(
-        "w-full rounded-lg border",
-        "border-gray-200 dark:border-zinc-800",
+        "w-full rounded-lg border border-border bg-background text-foreground",
         responsive && "overflow-x-auto",
         className
       )}
       style={{
-        background: "var(--table-bg, transparent)",
         ...style,
       }}
     >
       <table
         className={clsx(
-          "w-full border-collapse text-sm",
-          "min-w-[600px]", // responsive fallback
+          "w-full border-collapse text-sm min-w-[600px]",
           tableClassName
         )}
         style={{
@@ -85,8 +82,7 @@ export const THead: React.FC<TableSectionProps> = ({
 }) => (
   <thead
     className={clsx(
-      "bg-gray-100 text-gray-900",
-      "dark:bg-zinc-900 dark:text-gray-100",
+      "bg-muted text-foreground",
       className
     )}
     style={style}
@@ -103,7 +99,7 @@ export const TBody: React.FC<TableSectionProps> = ({
 }) => (
   <tbody
     className={clsx(
-      "bg-white dark:bg-zinc-950",
+      "bg-background text-foreground",
       className
     )}
     style={style}
@@ -124,10 +120,9 @@ export const TRow: React.FC<TRowProps> = ({
   <tr
     onClick={onClick}
     className={clsx(
-      "transition-colors duration-200",
-      "border-b border-gray-200 dark:border-zinc-800",
+      "transition-colors duration-200 border-b border-border",
       onClick && "cursor-pointer",
-      "hover:bg-gray-50 dark:hover:bg-zinc-900",
+      "hover:bg-accent",
       hoverClassName,
       className
     )}
@@ -145,9 +140,7 @@ export const TH: React.FC<TableCellProps> = ({
 }) => (
   <th
     className={clsx(
-      "text-left px-4 py-3 font-medium",
-      "text-gray-700 dark:text-gray-300",
-      "border-b border-gray-200 dark:border-zinc-800",
+      "text-left px-4 py-3 font-medium text-foreground border-b border-border",
       className
     )}
     style={style}
@@ -164,8 +157,7 @@ export const TD: React.FC<TableCellProps> = ({
 }) => (
   <td
     className={clsx(
-      "px-4 py-3",
-      "text-gray-600 dark:text-gray-400",
+      "px-4 py-3 text-muted-foreground",
       className
     )}
     style={style}

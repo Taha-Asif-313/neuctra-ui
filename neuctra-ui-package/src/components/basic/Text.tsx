@@ -19,7 +19,6 @@ type TextProps<T extends HTMLElementTag = "p"> = {
   as?: T;
   children: React.ReactNode;
 
-  /** Tailwind size key or custom value (px, rem, etc) */
   size?: Responsive<string>;
   weight?: Responsive<number | string>;
   align?: Responsive<"left" | "center" | "right">;
@@ -30,7 +29,6 @@ type TextProps<T extends HTMLElementTag = "p"> = {
   strikethrough?: boolean;
   truncate?: boolean | number;
 
-  darkMode?: boolean;
   color?: "default" | "muted" | "primary" | string;
 
   className?: string;
@@ -67,10 +65,12 @@ const transformMap = {
   capitalize: "capitalize",
 };
 
+/* ------------------ SHADCN COLOR SYSTEM ------------------ */
+
 const colorMap: Record<string, string> = {
-  default: "text-black dark:text-white",
-  muted: "text-gray-500 dark:text-gray-400",
-  primary: "text-blue-600 dark:text-blue-400",
+  default: "text-foreground",
+  muted: "text-muted-foreground",
+  primary: "text-primary",
 };
 
 /* ------------------ RESOLVER ------------------ */
@@ -118,7 +118,6 @@ export function Text<T extends HTMLElementTag = "p">({
   underline,
   strikethrough,
   truncate,
-  darkMode = false,
   color = "default",
   className,
   style,
@@ -126,7 +125,6 @@ export function Text<T extends HTMLElementTag = "p">({
 }: TextProps<T>) {
   const Element = (as || "span") as any;
 
-  // ✅ pass fallbackProp="fontSize" to allow custom px/rem sizes
   const sizeRes = resolveResponsive(size, sizeMap, "fontSize");
   const alignRes = resolveResponsive(align, alignMap);
   const weightRes = resolveResponsive(weight, weightMap, "fontWeight");
@@ -150,7 +148,8 @@ export function Text<T extends HTMLElementTag = "p">({
           }
         : {};
 
-  const resolvedColor = colorMap[color] || color;
+  const resolvedColor =
+    colorMap[color] || color || "text-foreground";
 
   return (
     <Element
@@ -159,10 +158,14 @@ export function Text<T extends HTMLElementTag = "p">({
         alignRes.className,
         weightRes.className,
         transformRes.className,
+
         italic && "italic",
         strikethrough && "line-through",
-        underline && !isAnchor && "underline",
-        isAnchor && "text-blue-600 hover:opacity-80 underline",
+        underline && "underline",
+
+        // anchor styling (still theme-aware)
+        isAnchor && "text-primary hover:opacity-80 underline",
+
         resolvedColor,
         className,
       )}

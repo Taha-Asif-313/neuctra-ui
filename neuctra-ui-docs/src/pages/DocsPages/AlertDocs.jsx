@@ -15,7 +15,7 @@ const AlertDocsContent = () => {
       {/* Installation */}
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Installation</h2>
-        <CodePreviewBlock language="bash" code={`npm install @neuctra/ui`} />
+        <CodeBlock language="bash" code={`npm install @neuctra/ui`} />
       </section>
 
       {/* Setup */}

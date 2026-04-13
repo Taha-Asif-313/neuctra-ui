@@ -36,12 +36,12 @@ const sizeMap: Record<Exclude<AvatarSize, "responsive">, number> = {
 };
 
 const fontSizeMap: Record<Exclude<AvatarSize, "responsive">, string> = {
-  xs: "text-[10px]",
-  sm: "text-[12px]",
-  md: "text-[14px]",
-  lg: "text-[16px]",
-  xl: "text-[18px]",
-  "2xl": "text-[20px]",
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+  "2xl": "text-2xl",
 };
 
 const dimensionMap: Record<Exclude<AvatarSize, "responsive">, string> = {
@@ -122,10 +122,10 @@ export const Avatar: React.FC<AvatarProps> = ({
       .toUpperCase()
       .slice(0, 2);
 
-  const statusColor = isOnline 
-    ? "bg-green-500" 
-    : isOffline 
-      ? "bg-gray-400" 
+  const statusColor = isOnline
+    ? "bg-primary"
+    : isOffline
+      ? "bg-muted"
       : "";
 
   const statusDotSize = getStatusDotSize(resolvedSize);
@@ -140,13 +140,14 @@ export const Avatar: React.FC<AvatarProps> = ({
       className={`relative inline-flex items-center justify-center 
         ${dimensionMap[resolvedSize]} 
         ${variantMap[variant]} 
+        bg-background text-foreground
         transition-all duration-200 
         ${clickable ? "cursor-pointer hover:scale-105 active:scale-95" : ""} 
-        ${ring ? "ring-2 ring-offset-2" : ""} 
+        ${ring ? "ring-2 ring-border ring-offset-2" : ""} 
         ${className}`}
       style={{
         ...style,
-        ...(ring ? { ringColor: ringColor } : {}),
+        ...(ring ? { ringColor: "hsl(var(--border))" } : {}),
       }}
       onKeyDown={(e) => {
         if (clickable && (e.key === "Enter" || e.key === " ")) {
@@ -164,11 +165,11 @@ export const Avatar: React.FC<AvatarProps> = ({
         />
       ) : (
         <div
-          className={`w-full h-full flex items-center justify-center bg-[var(--primary)] text-white font-semibold 
+          className={`w-full h-full flex items-center justify-center bg-muted text-foreground font-semibold 
             ${fontSizeMap[resolvedSize]} 
             ${variantMap[variant]}`}
         >
-          {initials || <User className="w-1/2 h-1/2" />}
+          {initials || <User className="w-1/2 h-1/2 text-muted-foreground" />}
         </div>
       )}
 
@@ -183,7 +184,7 @@ export const Avatar: React.FC<AvatarProps> = ({
             ${statusColor} 
             ${statusDotSize} 
             ${statusBorderWidth} 
-            border-white 
+            border-border 
             rounded-full 
             shadow-md 
             z-10

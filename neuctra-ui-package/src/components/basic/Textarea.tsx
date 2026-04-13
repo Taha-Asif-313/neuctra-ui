@@ -7,7 +7,8 @@ import React, {
   CSSProperties,
 } from "react";
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   icon?: React.ElementType;
   error?: boolean;
@@ -68,7 +69,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     const [systemDarkMode, setSystemDarkMode] = useState(false);
 
-    // Detect system dark mode
     useEffect(() => {
       if (typeof window === "undefined") return;
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -82,48 +82,25 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     const finalDarkMode = darkMode !== undefined ? darkMode : systemDarkMode;
     const showCount = typeof value === "string" && maxLength;
 
-    // Theme tokens
-    const theme = finalDarkMode
-      ? {
-          containerBg: "bg-zinc-900/80",
-          border: "border-zinc-700",
-          text: "text-white",
-          placeholder: "placeholder-zinc-500",
-          label: "text-zinc-300",
-          helper: "text-zinc-400",
-          count: "text-zinc-500",
-          focusRing: "focus:ring-primary/30",
-        }
-      : {
-          containerBg: "bg-white/80",
-          border: "border-gray-300",
-          text: "text-gray-900",
-          placeholder: "placeholder-gray-400",
-          label: "text-gray-700",
-          helper: "text-gray-500",
-          count: "text-gray-500",
-          focusRing: "focus:ring-primary/30",
-        };
-
     return (
       <div
         className={`w-full space-y-1.5 ${containerClassName}`}
         style={containerStyle}
       >
-        {/* Label */}
         {label && (
           <label
             htmlFor={name}
-            className={`flex items-center gap-2 text-[13px] font-medium ${theme.label} ${labelClassName}`}
+            className={`flex items-center gap-2 text-[13px] font-medium text-foreground ${labelClassName}`}
             style={labelStyle}
           >
             {Icon && <Icon size={16} className="text-primary" />}
             {label}
-            {required && <span className="text-red-500">*</span>}
+            {required && (
+              <span className="text-destructive">*</span>
+            )}
           </label>
         )}
 
-        {/* Textarea */}
         <div className="relative">
           <textarea
             ref={ref}
@@ -139,21 +116,23 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             className={`
               w-full px-4 py-2.5 text-sm rounded-xl
               resize-none transition-all duration-200
-              focus:outline-none ${theme.focusRing}
+              outline-none border
+              bg-background text-foreground placeholder:text-muted-foreground
+              border-border
+              focus:bg-accent
+              focus:border-border
               disabled:opacity-50 disabled:cursor-not-allowed
-              ${theme.containerBg} ${theme.border} ${theme.text} ${theme.placeholder}
-              ${error ? "border-red-500/40 focus:border-red-500" : ""}
-              ${success ? "border-emerald-500/40 focus:border-emerald-500" : ""}
+              ${error ? "border-destructive focus:border-destructive" : ""}
+              ${success ? "border-primary focus:border-primary" : ""}
               ${className}
             `}
             style={style}
             {...props}
           />
 
-          {/* Character Count */}
           {showCount && typeof value === "string" && (
             <span
-              className={`absolute bottom-2 right-3 text-[11px] ${theme.count} ${countClassName}`}
+              className={`absolute bottom-2 right-3 text-[11px] text-muted-foreground ${countClassName}`}
               style={countStyle}
             >
               {value.length}/{maxLength}
@@ -161,11 +140,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           )}
         </div>
 
-        {/* Helper / Error Text */}
         {helperText && (
           <p
             className={`text-xs ${
-              error ? "text-red-400" : success ? "text-emerald-400" : theme.helper
+              error
+                ? "text-destructive"
+                : success
+                ? "text-primary"
+                : "text-muted-foreground"
             } ${helperClassName}`}
             style={helperStyle}
           >

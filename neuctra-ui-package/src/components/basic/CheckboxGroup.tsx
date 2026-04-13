@@ -44,15 +44,6 @@ interface CheckboxGroupProps {
   customIcon?: (checked: boolean, option: Option) => React.ReactNode;
   iconSize?: number;
 
-  /** 🎯 Colors */
-  checkedColor?: string;
-  uncheckedColor?: string;
-  checkmarkColor?: string;
-  textColor?: string;
-
-  /** 🌙 Dark Mode */
-  darkMode?: boolean;
-
   /** 🧠 Advanced render override */
   renderItem?: (params: {
     option: Option;
@@ -95,30 +86,10 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   customIcon,
   iconSize = 20,
 
-  checkedColor,
-  uncheckedColor,
-  checkmarkColor,
-  textColor,
-
-  darkMode = false,
-
   renderItem,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
-
-  const isDark = darkMode;
-
-  /* =========================
-     Theme Defaults
-  ========================= */
-  const colors = {
-    checked: checkedColor || (isDark ? "#6366f1" : "var(--primary)"),
-    unchecked: uncheckedColor || (isDark ? "#4b5563" : "#9ca3af"),
-    text: textColor,
-    checkmark: checkmarkColor || "#ffffff",
-    error: "#dc2626",
-  };
 
   /* =========================
      Toggle
@@ -150,9 +121,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 
       if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
         e.preventDefault();
-        setFocusedIndex(
-          (prev) => (prev! - 1 + options.length) % options.length,
-        );
+        setFocusedIndex((prev) => (prev! - 1 + options.length) % options.length);
       }
 
       if (e.key === " " || e.key === "Enter") {
@@ -170,22 +139,22 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   ========================= */
   const DefaultIcon = (checked: boolean) => (
     <span
-      className={clsx("inline-flex items-center justify-center", iconClassName)}
+      className={clsx(
+        "inline-flex items-center justify-center rounded border border-border bg-background transition-colors",
+        iconClassName
+      )}
       style={{
         width: iconSize,
         height: iconSize,
-        borderRadius: 4,
-        border: `2px solid ${checked ? colors.checked : colors.unchecked}`,
-        background: checked ? colors.checked : "transparent",
-        transition: "all 0.2s ease",
         ...iconStyle,
       }}
     >
       {checked && (
         <svg
           viewBox="0 0 24 24"
-          stroke={colors.checkmark}
+          className="text-primary"
           fill="none"
+          stroke="currentColor"
           strokeWidth={3}
           style={{ width: iconSize * 0.6, height: iconSize * 0.6 }}
         >
@@ -205,7 +174,11 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
       tabIndex={0}
       aria-disabled={disabled}
       aria-invalid={!!error}
-      className={clsx("flex flex-col gap-2", className, containerClassName)}
+      className={clsx(
+        "flex flex-col gap-2 text-foreground",
+        className,
+        containerClassName
+      )}
       style={{ ...style, ...containerStyle }}
     >
       {options.map((option, index) => {
@@ -228,20 +201,18 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
             key={option.value}
             onFocus={() => setFocusedIndex(index)}
             className={clsx(
-              "flex items-center justify-between cursor-pointer transition",
+              "flex items-center justify-between cursor-pointer transition-colors",
+              "text-foreground hover:bg-accent",
               disabled && "opacity-50 cursor-not-allowed",
-              focused && "ring-2 ring-blue-400",
+              focused && "ring-2 ring-border",
               itemClassName,
-              labelClassName,
+              labelClassName
             )}
             style={{ ...itemStyle, ...labelStyle }}
           >
             <span
-              className={clsx("text-sm", textClassName)}
-              style={{
-                ...(textColor ? { color: textColor } : {}),
-                ...textStyle,
-              }}
+              className={clsx("text-sm text-foreground", textClassName)}
+              style={textStyle}
             >
               {option.label}
             </span>
@@ -265,13 +236,8 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
       {error && (
         <p
           role="alert"
-          className={errorClassName}
-          style={{
-            color: colors.error,
-            fontSize: 12,
-            marginTop: 4,
-            ...errorStyle,
-          }}
+          className={clsx("text-sm text-destructive mt-1", errorClassName)}
+          style={errorStyle}
         >
           {error}
         </p>
