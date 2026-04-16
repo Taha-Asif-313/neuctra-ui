@@ -405,7 +405,7 @@ export const TabList: React.FC<TabListProps> = ({
       className={clsx(
         "flex bg-background text-foreground",
         isVertical ? "flex-col" : "flex-row",
-        isVertical ? "min-w-[160px]" : "w-full",
+        isVertical ? "min-w-40" : "w-full",
         className,
       )}
       style={{ gap, padding: 8, ...style }}
@@ -490,7 +490,7 @@ export const Tab: React.FC<TabProps> = ({
 
   const variantBase: CSSProperties =
     variant === "outline"
-      ? { border: "1px solid hsl(var(--border))" }
+      ? { border: "1px solid var(--border)" }
       : variant === "underline"
         ? { borderBottom: "2px solid transparent", borderRadius: 0 }
         : variant === "pill"
@@ -500,29 +500,29 @@ export const Tab: React.FC<TabProps> = ({
   const variantActive: CSSProperties =
     variant === "solid" || variant === "pill"
       ? {
-          background: "hsl(var(--primary))",
-          color: "hsl(var(--primary-foreground))",
-          boxShadow: "0 2px 8px hsl(var(--primary) / 0.25)",
+          background: "var(--primary)",
+          color: "var(--primary-foreground)",
+          boxShadow: "0 2px 8px var(--primary) / 0.25",
         }
       : variant === "outline"
         ? {
-            borderColor: "hsl(var(--primary))",
-            color: "hsl(var(--primary))",
-            background: "hsl(var(--accent))",
+            borderColor: "var(--primary)",
+            color: "var(--primary)",
+            background: "var(--accent)",
           }
         : variant === "underline"
           ? {
-              borderBottomColor: "hsl(var(--primary))",
-              color: "hsl(var(--primary))",
+              borderBottomColor: "var(--primary)",
+              color: "var(--primary)",
             }
           : {};
 
   const variantHover: CSSProperties =
     variant === "underline"
-      ? { color: "hsl(var(--foreground))" }
+      ? { color: "var(--foreground)" }
       : {
-          background: "hsl(var(--accent))",
-          color: "hsl(var(--foreground))",
+          background: "var(--accent)",
+          color: "var(--foreground)",
         };
 
   const forceFullWidth =
@@ -562,11 +562,11 @@ export const Tab: React.FC<TabProps> = ({
         ...(isActive ? variantActive : {}),
         ...(isActive ? activeStyle : inactiveStyle),
         ...(hovered && !isActive && !disabled ? variantHover : {}),
-        ...(disabled ? { color: "hsl(var(--muted-foreground))" } : {}),
+        ...(disabled ? { color: "var(--muted-foreground)" } : {}),
         ...style,
       }}
     >
-      {icon && <span className="flex-shrink-0">{icon}</span>}
+      {icon && <span className="shrink-0">{icon}</span>}
       {children}
     </button>
   );

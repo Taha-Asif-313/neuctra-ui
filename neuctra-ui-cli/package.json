@@ -1,0 +1,74 @@
+{
+  "name": "@neuctra/ui-cli",
+  "version": "0.1.1",
+  "type": "module",
+  "description": "Official CLI for Neuctra UI - Instantly setup React projects with automatic theme configuration, CSS initialization, and ThemeProvider wrapping for seamless dark mode support",
+  "author": {
+    "name": "Neuctra",
+    "email": "contact@neuctra.dev",
+    "url": "https://neuctra.dev"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/neuctra/ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neuctra/ui.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/neuctra/ui/issues",
+    "email": "bugs@neuctra.dev"
+  },
+  "main": "./bin/index.js",
+  "bin": {
+    "neuctra-ui": "./bin/index.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "templates",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "cli",
+    "neuctra",
+    "ui",
+    "setup",
+    "initialization",
+    "theme",
+    "dark-mode",
+    "dark-theme",
+    "theme-provider",
+    "react-cli",
+    "css-in-js",
+    "tailwindcss",
+    "react",
+    "component-library",
+    "design-system",
+    "vite",
+    "create-react-app",
+    "cra",
+    "auto-setup",
+    "project-scaffolding"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "prepublishOnly": "node -e \"console.log('✅ Publishing @neuctra/ui-cli to npm')\""
+  },
+  "dependencies": {
+    "fs-extra": "^11.3.4"
+  },
+  "devDependencies": {},
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/neuctra"
+  }
+}

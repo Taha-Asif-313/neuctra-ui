@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+import fs from "fs-extra";
 
-@import "tailwindcss";
-@source "../node_modules/@neuctra/ui";
+const THEME_MARKER_START = "/* NEUCTRA_THEME_START */";
+const THEME_MARKER_END = "/* NEUCTRA_THEME_END */";
 
-
-/* NEUCTRA_THEME_START */
+const themeSnippet = `
+${THEME_MARKER_START}
 
 /* =============================
    BASE THEME (LIGHT)
@@ -98,37 +98,58 @@
   --color-destructive-foreground: var(--destructive-foreground);
 }
 
-/* NEUCTRA_THEME_END */
+${THEME_MARKER_END}
+`;
 
+export const updateCssFile = async (cssFile) => {
+  let content = await fs.readFile(cssFile, "utf-8");
+  let updated = false;
 
-body {
-  font-family: "Poppins";
-}
+  // =============================
+  // ENSURE TAILWIND IMPORT
+  // =============================
+  if (!content.includes('@import "tailwindcss"')) {
+    content = `@import "tailwindcss";\n` + content;
+    updated = true;
+  }
 
-/* ===== Custom Scrollbar ===== */
-/* Thin scrollbar for both vertical and horizontal */
-::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-}
+  // =============================
+  // ENSURE @SOURCE
+  // =============================
+  if (!content.includes("@source")) {
+    content = content.replace(
+      /@import\s+["']tailwindcss["'];?/,
+      (match) => `${match}\n@source "../node_modules/@neuctra/ui";`
+    );
 
-/* Scrollbar track (background behind the thumb) */
-::-webkit-scrollbar-track {
-  background-color: #000; /* Black track */
-}
+    if (!content.includes("@source")) {
+      content = `@source "../node_modules/@neuctra/ui";\n` + content;
+    }
 
-/* Scrollbar thumb (the draggable part) */
-::-webkit-scrollbar-thumb {
-  background-color: var(--primary); /* Primary color */
-  border-radius: 9999px; /* Fully rounded */
-}
+    updated = true;
+  }
 
-/* Hover effect for the thumb */
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary); /* Slightly darker on hover */
-}
+  // =============================
+  // REMOVE OLD THEME (FULL RESET APPROACH)
+  // =============================
+  const themeRegex =
+    /\/\* NEUCTRA_THEME_START \*\/[\s\S]*?\/\* NEUCTRA_THEME_END \*\//g;
 
+  content = content.replace(themeRegex, "");
 
-button{
-  cursor: pointer;
-}
+  // =============================
+  // ADD CLEAN THEME ALWAYS (NO DUP CHECK NEEDED)
+  // =============================
+  content = content.trim() + "\n\n" + themeSnippet;
+
+  updated = true;
+
+  // =============================
+  // WRITE FILE
+  // =============================
+  if (updated) {
+    await fs.writeFile(cssFile, content);
+  }
+
+  return { updated, content };
+};

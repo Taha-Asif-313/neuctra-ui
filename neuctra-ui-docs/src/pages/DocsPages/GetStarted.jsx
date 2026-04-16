@@ -141,30 +141,178 @@ import "@neuctra/ui/dist/ui.css";`}
       ),
     },
 
-    theme: {
-      title: "Theme",
-      icon: Palette,
-      description:
-        "Create consistent colors, spacing, and dark mode with CSS variables.",
-      content: (
-        <>
-          <CodeBlock
-            language="css"
-            code={`:root {
+   theme: {
+  title: "Theme",
+  icon: Palette,
+  description:
+    "Set up a complete theming system with CSS variables, dark mode, and Tailwind integration.",
+  content: (
+    <>
+      {/* ================= THEME VARIABLES ================= */}
+      <CodeBlock
+        language="css"
+        code={`/* -----------------------------
+   BASE THEME (LIGHT)
+------------------------------*/
+:root {
+  /* Primary */
   --primary: #00c214;
+  --primary-foreground: #ffffff;
+
+  /* Background */
+  --background: #ffffff;
+  --foreground: #0f172a;
+
+  /* Muted */
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+
+  /* Accent */
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+
+  /* Borders & Inputs */
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0f172a;
+
+  /* Semantic */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
 }
 
-[data-theme='dark'] {
-  --primary: #1fb6ff;
+/* -----------------------------
+   DARK THEME (OVERRIDES ONLY)
+------------------------------*/
+.dark {
+  --primary: #00c214;
+  --primary-foreground: #ffffff;
+
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+
+  --accent: #1f2937;
+  --accent-foreground: #ffffff;
+
+  --border: #1f2937;
+  --input: #1f2937;
+  --ring: #ffffff;
+
+  --destructive: #7f1d1d;
+  --destructive-foreground: #ffffff;
+}
+
+/* -----------------------------
+   SYSTEM DARK MODE (AUTO)
+------------------------------*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ffffff;
+  }
 }`}
-          />
-          <p className="text-gray-400">
-            Keeping your brand tokens in variables makes it easy to update the
-            look across buttons, cards, and layouts.
-          </p>
-        </>
-      ),
-    },
+      />
+
+      <p className="text-gray-400 mt-3">
+        Define all your design tokens using CSS variables. This allows every
+        component (buttons, cards, inputs) to stay consistent and easy to theme.
+      </p>
+
+      {/* ================= TAILWIND V4 ================= */}
+      <CodeBlock
+        language="css"
+        code={`/* -----------------------------
+   TAILWIND v4 THEME TOKENS
+------------------------------*/
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+}`}
+      />
+
+      <p className="text-gray-400 mt-2">
+        Map your CSS variables into Tailwind tokens so you can use utility
+        classes like{" "}
+        <code className="text-white">bg-primary</code>,{" "}
+        <code className="text-white">text-foreground</code>, and more.
+      </p>
+
+      {/* ================= SYSTEM THEME ================= */}
+      <CodeBlock
+        language="js"
+        code={`// Apply system theme on load
+const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+if (isDark) {
+  document.documentElement.classList.add("dark");
+}`}
+      />
+
+      {/* ================= TOGGLE ================= */}
+      <CodeBlock
+        language="js"
+        code={`// Toggle dark mode manually
+export const toggleTheme = () => {
+  document.documentElement.classList.toggle("dark");
+};`}
+      />
+
+      {/* ================= PERSIST ================= */}
+      <CodeBlock
+        language="js"
+        code={`// Save theme preference
+const setTheme = (theme) => {
+  localStorage.setItem("theme", theme);
+
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+};
+
+// Load theme on startup
+const saved = localStorage.getItem("theme");
+
+if (saved) {
+  setTheme(saved);
+}`}
+      />
+
+      <p className="text-gray-400 mt-2">
+        This setup gives you a complete theming system with:
+      </p>
+
+      <ul className="text-gray-400 list-disc ml-5 mt-2 space-y-1">
+        <li>Centralized design tokens</li>
+        <li>Full light & dark theme support</li>
+        <li>Automatic system theme detection</li>
+        <li>Manual toggle support</li>
+        <li>Persistent theme (localStorage)</li>
+        <li>Seamless Tailwind v4 integration</li>
+      </ul>
+    </>
+  ),
+},
 
     usage: {
       title: "Usage",
