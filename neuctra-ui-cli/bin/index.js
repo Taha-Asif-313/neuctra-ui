@@ -19,7 +19,7 @@ const showHelp = () => {
   console.log("  -h, --help        Show this help message");
   console.log("  -v, --version     Show version\n");
   console.log("Examples:");
-  console.log("  npx @neuctra/cli init");
+  console.log("  npx @neuctra/ui-cli init");
   console.log("  neuctra-ui init\n");
 };
 

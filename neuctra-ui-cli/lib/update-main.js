@@ -16,6 +16,9 @@ const ENTRY_CANDIDATES = [
 const hasThemeImport = (content) =>
   /ThemeProvider\s*from\s*["']\.\/contexts\/ThemeContext["']/.test(content);
 
+const hasToastImport = (content) =>
+  /ToastProvider\s*from\s*["']@neuctra\/ui["']/.test(content);
+
 // =============================
 // INSERT IMPORT SAFELY
 // =============================
@@ -35,11 +38,26 @@ const insertThemeImport = (content) => {
   return importStatement + content;
 };
 
+const insertToastImport = (content) => {
+  if (hasToastImport(content)) return content;
+
+  const importStatement = 'import { ToastProvider } from "@neuctra/ui";\n';
+
+  const importMatch = content.match(/^(?:import[^\n]*\n)+/);
+
+  if (importMatch) {
+    const index = importMatch[0].length;
+    return content.slice(0, index) + importStatement + content.slice(index);
+  }
+
+  return importStatement + content;
+};
+
 // =============================
 // CHECK WRAP ALREADY EXISTS
 // =============================
 const isAlreadyWrapped = (content) =>
-  content.includes("<ThemeProvider>");
+  content.includes("<ToastProvider>") && content.includes("<ThemeProvider>");
 
 // =============================
 // WRAP ROOT SAFE (MULTI PATTERN)
@@ -57,7 +75,7 @@ const wrapRenderTree = (content) => {
     /(root\.render\s*\(\s*)(<[^>]+>[\s\S]*<\/[^>]+>|<[^>]+\/>)(\s*\))/,
     (match, start, app) => {
       updated = true;
-      return `${start}<ThemeProvider>${app}</ThemeProvider>)`;
+      return `${start}<ToastProvider><ThemeProvider>${app}</ThemeProvider></ToastProvider>)`;
     }
   );
 
@@ -65,9 +83,9 @@ const wrapRenderTree = (content) => {
   newContent = newContent.replace(
     /(<StrictMode>)([\s\S]*?)(<\/StrictMode>)/,
     (match, open, inner, close) => {
-      if (inner.includes("<ThemeProvider>")) return match;
+      if (inner.includes("<ToastProvider>") || inner.includes("<ThemeProvider>")) return match;
       updated = true;
-      return `${open}<ThemeProvider>${inner}</ThemeProvider>${close}`;
+      return `${open}<ToastProvider><ThemeProvider>${inner}</ThemeProvider></ToastProvider>${close}`;
     }
   );
 
@@ -76,7 +94,7 @@ const wrapRenderTree = (content) => {
     /(render\s*\(\s*)(<App\b[\s\S]*?<\/App>|<App\b[^>]*\/>)(\s*\))/,
     (match, start, app) => {
       updated = true;
-      return `${start}<ThemeProvider>${app}</ThemeProvider>)`;
+      return `${start}<ToastProvider><ThemeProvider>${app}</ThemeProvider></ToastProvider>)`;
     }
   );
 
@@ -112,12 +130,13 @@ export const updateMainEntryFile = async (srcPath) => {
     return {
       updated: false,
       filePath: entryFile,
-      reason: "ThemeProvider already exists",
+      reason: "ToastProvider and ThemeProvider already exist",
     };
   }
 
-  // inject import
+  // inject imports
   content = insertThemeImport(content);
+  content = insertToastImport(content);
 
   // wrap app
   const wrapped = wrapRenderTree(content);

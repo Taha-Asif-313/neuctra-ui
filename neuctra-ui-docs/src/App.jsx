@@ -45,6 +45,9 @@ import SelectDocs from "./pages/DocsPages/SelectDocs";
 import TextareaDocs from "./pages/DocsPages/TextareaDocs";
 import UICreationBotDocs from "./pages/DocsPages/UICreationBotDocs";
 import NeuctraUiChatBotPage from "./pages/NeuctraUIBot/NeuctraUiChatBot";
+import IntroductionDocPage from "./pages/DocsPages/Introduction";
+import QuickStartDocsPage from "./pages/DocsPages/QuickStartDocsPage";
+import FullSetupDocPage from "./pages/DocsPages/FullSetupDocPage";
 
 const App = () => {
   return (
@@ -64,7 +67,9 @@ const App = () => {
 
         {/* 📘 Documentation Layout */}
         <Route path="/docs" element={<DocsLayout />}>
-          <Route index element={<GetStarted />} />
+          <Route index element={<IntroductionDocPage />} />
+          <Route path="quick-start" element={<QuickStartDocsPage />} />
+          <Route path="full-setup" element={<FullSetupDocPage />} />
           <Route path="text" element={<TextDocs />} />
           <Route path="image" element={<ImageDocs />} />
           <Route path="button" element={<ButtonDocs />} />

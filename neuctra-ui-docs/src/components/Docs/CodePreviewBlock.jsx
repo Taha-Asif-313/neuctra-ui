@@ -14,47 +14,68 @@ export default function CodePreviewBlock({
   const [copied, setCopied] = useState(false);
 
   const copyCode = async () => {
-    await navigator.clipboard.writeText(code.trim());
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (view !== "code") return; // prevent copying in preview mode
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(code.trim());
+      } else {
+        // fallback for older browsers / non-https
+        const textarea = document.createElement("textarea");
+        textarea.value = code.trim();
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch (err) {
+      console.error("Copy failed:", err);
+      setCopied(false);
+    }
   };
 
   return (
     <div
       className="
-        border border-zinc-200 dark:border-zinc-800
-        bg-white dark:bg-zinc-900
+        border border-zinc-800
+        bg-zinc-900 text-white
         rounded-xl shadow-lg
         relative overflow-visible
       "
     >
-      {/* Terminal Header */}
+      {/* Header */}
       <div
         className="
           flex items-center justify-between px-3 py-2
           rounded-t-xl
-          border-b border-zinc-200 dark:border-zinc-800
-          bg-zinc-50 dark:bg-zinc-900
+          border-b border-zinc-800
+          bg-zinc-900
           max-md:flex-col max-md:items-start max-md:gap-2
         "
       >
         {/* macOS Dots */}
         <div className="flex items-center gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <div className="w-3 h-3 rounded-full bg-red-500" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500" />
+          <div className="w-3 h-3 rounded-full bg-green-500" />
         </div>
 
-        {/* Tabs + Copy */}
+        {/* Controls */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* Tabs */}
-          <div className="flex rounded-md overflow-hidden border border-zinc-200 dark:border-zinc-800">
+          <div className="flex rounded-md overflow-hidden border border-zinc-800">
             <button
               onClick={() => setView("preview")}
-              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition ${
                 view === "preview"
-                  ? "bg-zinc-200 dark:bg-zinc-800 text-black dark:text-white"
-                  : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-400 hover:bg-zinc-800"
               }`}
             >
               <Eye size={12} /> Preview
@@ -62,26 +83,29 @@ export default function CodePreviewBlock({
 
             <button
               onClick={() => setView("code")}
-              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition ${
                 view === "code"
-                  ? "bg-zinc-200 dark:bg-zinc-800 text-black dark:text-white"
-                  : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800"
+                  ? "bg-zinc-800 text-white"
+                  : "text-zinc-400 hover:bg-zinc-800"
               }`}
             >
               <FileCode size={12} /> Code
             </button>
           </div>
 
-          {/* Copy Button */}
+          {/* Copy */}
           <button
             onClick={copyCode}
-            className="
-              flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium
-              text-zinc-500 dark:text-zinc-400
-              hover:text-black dark:hover:text-white
-              hover:bg-zinc-200 dark:hover:bg-zinc-800
-              rounded-md transition-colors
-            "
+            disabled={view !== "code"}
+            className={`
+    flex items-center gap-2 px-2.5 py-1.5 text-xs font-medium
+    rounded-md transition
+    ${
+      view !== "code"
+        ? "text-zinc-600 cursor-not-allowed"
+        : "text-zinc-200 hover:text-white hover:bg-zinc-800"
+    }
+  `}
           >
             {copied ? (
               <>
@@ -90,25 +114,18 @@ export default function CodePreviewBlock({
               </>
             ) : (
               <>
-                <Copy size={12} /> Copy
+                <Copy size={12} />
+                Copy
               </>
             )}
           </button>
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div
-        className="
-          relative
-          bg-zinc-100 dark:bg-zinc-950
-          text-zinc-900 dark:text-zinc-200
-          font-poppins
-           overflow-visible rounded-b-xl
-        "
-      >
+      {/* Content */}
+      <div className="relative bg-zinc-950 text-zinc-200 font-poppins rounded-b-xl">
         {view === "preview" ? (
-          <div className="relative z-10 p-4">
+          <div className="p-4">
             {previewContent || (
               <div className="text-center text-zinc-500 py-10">
                 🧩 No preview available
@@ -116,21 +133,20 @@ export default function CodePreviewBlock({
             )}
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-md bg-black border-zinc-200 dark:border-zinc-800 border">
+          <div className="overflow-x-auto rounded-md bg-black border border-zinc-800">
             <SyntaxHighlighter
               language={language}
-              style={nightOwl} // 🔥 unchanged (dark theme kept)
+              style={nightOwl}
               showLineNumbers
               customStyle={{
                 background: "transparent",
                 margin: 0,
                 padding: "16px",
                 fontSize: "16px",
-                fontFamily:
-                  '"Fira Code", "Cascadia Code", "Monaco", monospace',
+                fontFamily: '"Fira Code", "Cascadia Code", "Monaco", monospace',
               }}
               lineNumberStyle={{
-                color: "#9CA3AF", // ✅ better for light mode
+                color: "#9CA3AF",
                 minWidth: "2em",
                 textAlign: "right",
               }}

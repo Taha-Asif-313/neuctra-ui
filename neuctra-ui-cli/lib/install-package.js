@@ -1,11 +1,19 @@
 import { execSync } from "child_process";
+import ora from "ora";
+import kleur from "kleur";
 
 export const installPackage = async (packageName) => {
+  const spinner = ora({
+    text: `Installing ${kleur.bold(packageName)}...`,
+    spinner: "dots",
+  }).start();
+
   try {
-    console.log(`📦 Installing ${packageName}...`);
-    execSync(`npm install ${packageName}`, { stdio: "inherit" });
-    console.log(`✅ ${packageName} installed\n`);
+    execSync(`npm install ${packageName}`, { stdio: "ignore" });
+
+    spinner.succeed(kleur.green(`${packageName} installed`));
   } catch (error) {
-    console.warn(`⚠️  Could not install ${packageName}. Please install manually: npm install ${packageName}`);
+    spinner.fail(kleur.red(`Failed to install ${packageName}`));
+    console.log(kleur.gray(`Run manually: npm install ${packageName}`));
   }
 };

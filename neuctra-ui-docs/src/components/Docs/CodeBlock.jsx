@@ -45,12 +45,32 @@ const CodeBlock = ({
   const currentLanguage = tabs ? tabs[activeTab]?.language : language;
 
   const copyToClipboard = async () => {
+    const text = currentCode?.trim?.();
+
+    if (!text) return;
+
     try {
-      await navigator.clipboard.writeText(currentCode.trim());
+      // Modern clipboard API (secure context)
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // Fallback for older browsers
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 1800);
     } catch (err) {
       console.error("Failed to copy text: ", err);
+      setCopied(false);
     }
   };
 
@@ -115,16 +135,19 @@ const CodeBlock = ({
         <div className="flex items-center gap-2 px-4 py-2">
           <button
             onClick={copyToClipboard}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-all duration-200"
+            disabled={!currentCode}
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg 
+  bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white 
+  transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {copied ? (
               <>
-                <Check size={14} className="text-[#00c420]" />
-                <span className="text-[#00c420]">Copied!</span>
+                <Check size={12} className="text-green-500" />
+                Copied
               </>
             ) : (
               <>
-                <Copy size={14} />
+                <Copy size={12} />
                 <span>Copy</span>
               </>
             )}

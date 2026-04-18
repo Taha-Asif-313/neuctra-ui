@@ -127,11 +127,11 @@ const TextDocs = () => {
 
             <CodePreviewBlock
               language="tsx"
-              code={`<Text as="a" href="https://neuctra.com" target="_blank">
+              code={`<Text as="a" href="https://www.neuctra.com" target="_blank">
   Visit Neuctra
 </Text>`}
               previewContent={
-                <Text as="a" href="#" target="_blank">
+                <Text as="a" href="https://www.neuctra.com" target="_blank">
                   Visit Neuctra
                 </Text>
               }

@@ -23,7 +23,7 @@ const ListDocs = () => {
       />
 
       <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-10">
+        <div className="mx-auto space-y-10">
 
           {/* Header */}
           <header>

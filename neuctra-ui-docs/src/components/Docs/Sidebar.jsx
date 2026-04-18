@@ -11,7 +11,11 @@ const Sidebar = () => {
   const navSections = [
     {
       title: "Getting Started",
-      links: [{ label: "Overview", href: "/docs" }],
+      links: [
+        { label: "Overview", href: "/docs" },
+        { label: "Quick Start", href: "/docs/quick-start" },
+        { label: "Full Setup Guide", href: "/docs/full-setup" },
+      ],
     },
     {
       title: "Basic Components",
@@ -39,7 +43,7 @@ const Sidebar = () => {
         { label: "Check Box", href: "/docs/checkbox" },
         { label: "Switch", href: "/docs/switch" },
         { label: "Select", href: "/docs/select" },
-        { label: "Textarea", href: "/docs/textarea" }
+        { label: "Textarea", href: "/docs/textarea" },
       ],
     },
     {

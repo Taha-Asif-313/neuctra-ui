@@ -4,7 +4,7 @@ import Sidebar from "../components/Docs/Sidebar";
 
 const DocsLayout = () => {
   return (
-    <div className="bg-white text-zinc-800 dark:bg-zinc-950 dark:text-white w-full min-h-screen">
+    <div className="bg-black text-white w-full min-h-screen">
       {/* Sidebar is fixed */}
       <Sidebar />
 
