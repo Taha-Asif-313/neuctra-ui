@@ -50,7 +50,10 @@ const HeadlessDrawerExample = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <DrawerButton label="Open Headless Drawer" onClick={() => setOpen(true)} />
+      <DrawerButton
+        label="Open Headless Drawer"
+        onClick={() => setOpen(true)}
+      />
 
       <Drawer
         open={open}
@@ -83,8 +86,8 @@ const DrawerDocs = () => {
         keywords="Drawer React, sidebar panel, modal drawer, headless drawer, Neuctra UI"
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-10">
+      <div className="font-primary min-h-screen">
+        <div className="space-y-10">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">

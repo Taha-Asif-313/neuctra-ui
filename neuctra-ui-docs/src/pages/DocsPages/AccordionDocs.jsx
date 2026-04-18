@@ -31,18 +31,18 @@ const AccordionDocs = () => {
         keywords="Neuctra UI Accordion, React accordion component, collapsible UI, customizable accordion, UI library"
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-10">
-
+      <div className="font-primary min-h-screen">
+        <div className="space-y-10">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Accordion Component
             </h1>
             <p className="text-lg text-gray-200 leading-relaxed">
-              The <span className="text-primary font-semibold">Accordion</span> component is a flexible,
-              fully customizable collapsible UI element. Supports multiple open items, custom rendering,
-              className overrides, inline styles, and smooth animations.
+              The <span className="text-primary font-semibold">Accordion</span>{" "}
+              component is a flexible, fully customizable collapsible UI
+              element. Supports multiple open items, custom rendering, className
+              overrides, inline styles, and smooth animations.
             </p>
           </header>
 
@@ -76,11 +76,12 @@ const AccordionDocs = () => {
             </h2>
 
             <div className="space-y-6">
-
               <CodePreviewBlock
                 language="jsx"
                 code={`<Accordion items={items} allowMultiple defaultOpen={[0]} />`}
-                previewContent={<Accordion items={items} allowMultiple defaultOpen={[0]} />}
+                previewContent={
+                  <Accordion items={items} allowMultiple defaultOpen={[0]} />
+                }
               />
 
               <CodePreviewBlock
@@ -118,7 +119,6 @@ const AccordionDocs = () => {
                   />
                 }
               />
-
             </div>
           </section>
 
@@ -139,30 +139,108 @@ const AccordionDocs = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr>
+                    <td className="p-3">items</td>
+                    <td className="p-3">AccordionItem[]</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">List of accordion items</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">allowMultiple</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Allow multiple open items</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">defaultOpen</td>
+                    <td className="p-3">number[]</td>
+                    <td className="p-3">[]</td>
+                    <td className="p-3">Indexes open by default</td>
+                  </tr>
 
-                  <tr><td className="p-3">items</td><td className="p-3">AccordionItem[]</td><td className="p-3">—</td><td className="p-3">List of accordion items</td></tr>
-                  <tr><td className="p-3">allowMultiple</td><td className="p-3">boolean</td><td className="p-3">false</td><td className="p-3">Allow multiple open items</td></tr>
-                  <tr><td className="p-3">defaultOpen</td><td className="p-3">number[]</td><td className="p-3">[]</td><td className="p-3">Indexes open by default</td></tr>
+                  <tr>
+                    <td className="p-3">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Root class</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Root inline styles</td>
+                  </tr>
 
-                  <tr><td className="p-3">className</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Root class</td></tr>
-                  <tr><td className="p-3">style</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Root inline styles</td></tr>
+                  <tr>
+                    <td className="p-3">itemClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Item wrapper class</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">headerClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Header class</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">contentClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Content class</td>
+                  </tr>
 
-                  <tr><td className="p-3">itemClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Item wrapper class</td></tr>
-                  <tr><td className="p-3">headerClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Header class</td></tr>
-                  <tr><td className="p-3">contentClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Content class</td></tr>
+                  <tr>
+                    <td className="p-3">headerStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Header inline styles</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">contentStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Content inline styles</td>
+                  </tr>
 
-                  <tr><td className="p-3">headerStyle</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Header inline styles</td></tr>
-                  <tr><td className="p-3">contentStyle</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Content inline styles</td></tr>
+                  <tr>
+                    <td className="p-3">hoverClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom hover classes</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">hoverStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom hover inline styles</td>
+                  </tr>
 
-                  <tr><td className="p-3">hoverClassName</td><td className="p-3">string</td><td className="p-3">—</td><td className="p-3">Custom hover classes</td></tr>
-                  <tr><td className="p-3">hoverStyle</td><td className="p-3">CSSProperties</td><td className="p-3">—</td><td className="p-3">Custom hover inline styles</td></tr>
+                  <tr>
+                    <td className="p-3">duration</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">300</td>
+                    <td className="p-3">Animation duration (ms)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">iconOpen</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom open icon</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">iconClose</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom close icon</td>
+                  </tr>
 
-                  <tr><td className="p-3">duration</td><td className="p-3">number</td><td className="p-3">300</td><td className="p-3">Animation duration (ms)</td></tr>
-                  <tr><td className="p-3">iconOpen</td><td className="p-3">ReactNode</td><td className="p-3">—</td><td className="p-3">Custom open icon</td></tr>
-                  <tr><td className="p-3">iconClose</td><td className="p-3">ReactNode</td><td className="p-3">—</td><td className="p-3">Custom close icon</td></tr>
-
-                  <tr><td className="p-3">renderItem</td><td className="p-3">function</td><td className="p-3">—</td><td className="p-3">Fully custom render logic</td></tr>
-
+                  <tr>
+                    <td className="p-3">renderItem</td>
+                    <td className="p-3">function</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Fully custom render logic</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -175,11 +253,10 @@ const AccordionDocs = () => {
             </h2>
 
             <div className="space-y-4 text-sm text-gray-300">
-
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
-                  <code>{'<Accordion defaultOpen={1} />'}</code>
+                  <code>{"<Accordion defaultOpen={1} />"}</code>
                   <p className="text-gray-500 text-xs mt-1">
                     defaultOpen must be an array of indexes.
                   </p>
@@ -189,7 +266,7 @@ const AccordionDocs = () => {
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
-                  <code>{'<Accordion items={[]} />'}</code>
+                  <code>{"<Accordion items={[]} />"}</code>
                   <p className="text-gray-500 text-xs mt-1">
                     Ensure items array is not empty.
                   </p>
@@ -205,19 +282,20 @@ const AccordionDocs = () => {
                   </p>
                 </div>
               </div>
-
             </div>
           </section>
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Pro Tips
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
 
             <ul className="list-disc list-inside text-gray-200 space-y-1">
-              <li>Use <code>allowMultiple</code> for FAQ-style layouts.</li>
-              <li>Use <code>renderItem</code> for full custom UI control.</li>
+              <li>
+                Use <code>allowMultiple</code> for FAQ-style layouts.
+              </li>
+              <li>
+                Use <code>renderItem</code> for full custom UI control.
+              </li>
               <li>Combine className + style for maximum flexibility.</li>
               <li>Keep content lightweight for better performance.</li>
               <li>Use Tailwind dark classes for automatic dark mode.</li>
@@ -230,7 +308,6 @@ const AccordionDocs = () => {
             <span className="text-primary">Tailwind CSS</span> &{" "}
             <span className="text-primary">TypeScript</span>.
           </footer>
-
         </div>
       </div>
     </>

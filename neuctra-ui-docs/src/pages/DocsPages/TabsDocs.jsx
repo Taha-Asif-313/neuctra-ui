@@ -68,8 +68,8 @@ const TabsDocs = () => {
     <>
       <Metadata title="Tabs — Neuctra UI" />
 
-      <div className="bg-zinc-950 text-gray-200 min-h-screen py-10">
-        <div className="max-w-5xl mx-auto px-4 space-y-12">
+      <div className="min-h-screen">
+        <div className="space-y-12">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-bold text-white mb-3">

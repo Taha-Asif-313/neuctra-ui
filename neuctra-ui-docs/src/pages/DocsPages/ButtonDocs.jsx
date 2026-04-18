@@ -16,14 +16,14 @@ const ButtonDocs = () => {
         keywords="Neuctra UI Button, React button component, Tailwind button, responsive button, UI library, React button variants"
       />
 
-      <div className="bg-white text-gray-900 dark:bg-zinc-950 dark:text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-10">
+      <div className="font-primary min-h-screen">
+        <div className="space-y-10">
           {/* Header */}
           <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-gray-900 dark:text-white">
+            <h1 className="text-4xl font-extrabold mb-3 text-white">
               Button Component
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-200 leading-relaxed">
+            <p className="text-lg text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Button</span>{" "}
               component is a flexible, responsive button primitive. Supports
               variants, sizes, icons, loading states, full-width mode, and
@@ -33,7 +33,7 @@ const ButtonDocs = () => {
 
           {/* Import */}
           <section>
-            <h2 className="text-2xl font-semibold mb-2 text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-semibold mb-2 text-white">
               Import Component From Library
             </h2>
             <CodeBlock
@@ -47,7 +47,7 @@ const ButtonDocs = () => {
 
           {/* Basic Usage */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock
@@ -67,7 +67,7 @@ const ButtonDocs = () => {
 
           {/* Advanced Examples */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Advanced Usage
             </h2>
 
@@ -100,16 +100,16 @@ const ButtonDocs = () => {
 
           {/* Props Table */}
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-semibold text-white mb-4">
               Props Table
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-3">
+            <p className="text-gray-400 mb-3">
               All available props for the Button component.
             </p>
 
-            <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden">
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-zinc-100 dark:bg-zinc-900 text-gray-900 dark:text-gray-200">
+                <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="text-left p-3">Prop</th>
                     <th className="text-left p-3">Type</th>
@@ -118,7 +118,7 @@ const ButtonDocs = () => {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200 dark:divide-zinc-800 text-gray-700 dark:text-gray-300">
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
                   {/* Content */}
                   <tr>
                     <td className="p-3">children</td>
@@ -280,13 +280,13 @@ const ButtonDocs = () => {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Common Mistakes</h2>
-            <div className="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+            <h2 className="text-2xl font-semibold text-white mb-4">Common Mistakes</h2>
+            <div className="space-y-4 text-sm text-gray-300">
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
                   <code>{'<Button size="15px" />'}</code>
-                  <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
+                  <p className="text-gray-400 text-xs mt-1">
                     Use predefined sizes: sm, md, lg.
                   </p>
                 </div>
@@ -295,7 +295,7 @@ const ButtonDocs = () => {
                 <X size={16} className="mt-1" />
                 <div>
                   <code>{'<Button variant="rounded" />'}</code>
-                  <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
+                  <p className="text-gray-400 text-xs mt-1">
                     Use only default, outline, or ghost variants.
                   </p>
                 </div>
@@ -304,7 +304,7 @@ const ButtonDocs = () => {
                 <Check size={16} className="mt-1" />
                 <div>
                   <code>{'<Button className="w-full p-4" />'}</code>
-                  <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">
+                  <p className="text-gray-400 text-xs mt-1">
                     Use className for custom sizing or spacing.
                   </p>
                 </div>
@@ -314,8 +314,8 @@ const ButtonDocs = () => {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Pro Tips</h2>
-            <div className="text-gray-700 dark:text-gray-300 space-y-3">
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+            <div className="text-gray-300 space-y-3">
               <ul className="list-disc list-inside space-y-1">
                 <li>Combine with flex/grid for layout alignment.</li>
                 <li>Use variant and size props for consistent design.</li>
@@ -328,7 +328,7 @@ const ButtonDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">
+          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
             Built with <span className="text-primary">React</span>,{" "}
             <span className="text-primary">Tailwind CSS</span> &{" "}
             <span className="text-primary">TypeScript</span>.

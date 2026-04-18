@@ -24,16 +24,18 @@ const ModalDocs = () => {
         keywords="Neuctra UI Modal, React Modal component, overlay dialog, ModalButton, popup, UI library"
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-10">
-
+      <div className="font-primary min-h-screen">
+        <div className="space-y-10">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Modal Component
             </h1>
             <p className="text-lg text-gray-200 leading-relaxed">
-              The <span className="text-primary font-semibold">Modal</span> component provides a flexible overlay system with structured sections, keyboard support, scroll locking, and fully customizable styling.
+              The <span className="text-primary font-semibold">Modal</span>{" "}
+              component provides a flexible overlay system with structured
+              sections, keyboard support, scroll locking, and fully customizable
+              styling.
             </p>
           </header>
 
@@ -97,11 +99,12 @@ const ModalDocs = () => {
                   className="px-4 py-2 bg-primary text-white rounded"
                   modalContent={({ close }) => (
                     <ModalContent className="w-lg" onClose={close}>
-                      <ModalHeader title="Modal Title" icon={<Trash2 className="text-red-500" />} />
+                      <ModalHeader
+                        title="Modal Title"
+                        icon={<Trash2 className="text-red-500" />}
+                      />
 
-                      <ModalBody>
-                        This is the content of the modal.
-                      </ModalBody>
+                      <ModalBody>This is the content of the modal.</ModalBody>
 
                       <ModalFooter>
                         <ModalButton
@@ -489,8 +492,12 @@ const ModalDocs = () => {
               <li>Modal automatically locks scroll when open.</li>
               <li>Supports ESC key to close.</li>
               <li>Overlay click behavior is configurable.</li>
-              <li>Use <code>ModalButton</code> for async-safe actions.</li>
-              <li>Prefer <code>ModalTriggerButton</code> for simple modal flows.</li>
+              <li>
+                Use <code>ModalButton</code> for async-safe actions.
+              </li>
+              <li>
+                Prefer <code>ModalTriggerButton</code> for simple modal flows.
+              </li>
             </ul>
           </section>
 

@@ -1,7 +1,14 @@
 import React from "react";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Sparkles, Rocket, Palette, Component, Terminal, ArrowRight } from "lucide-react";
+import {
+  Sparkles,
+  Rocket,
+  Palette,
+  Component,
+  Terminal,
+  ArrowRight,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const IntroductionDocPage = () => {
@@ -12,7 +19,7 @@ const IntroductionDocPage = () => {
         description="Learn what Neuctra UI is and why it's built for modern React development."
       />
 
-      <div className="text-gray-200 min-h-screen py-12">
+      <div className="text-gray-200 min-h-screen">
         <div className="space-y-12">
           {/* ================= HERO ================= */}
           <section>
@@ -132,7 +139,7 @@ export default function App() {
                hover:opacity-90 transition"
             >
               Go to Quick Guide
-             <ArrowRight size={14} />
+              <ArrowRight size={14} />
             </Link>
           </section>
         </div>
@@ -143,7 +150,7 @@ export default function App() {
 
 /* ================= FEATURE CARD ================= */
 const Feature = ({ icon: Icon, title, desc }) => (
-  <div className="p-5 rounded-xl bg-zinc-900 border border-white/10 hover:border-zinc-700 transition">
+  <div className="p-5 rounded-xl bg-zinc-950 border border-white/10 hover:border-zinc-700 transition">
     <Icon className="text-primary mb-3" size={18} />
     <p className="text-white font-semibold">{title}</p>
     <p className="text-gray-400 text-sm mt-1">{desc}</p>

@@ -24,9 +24,8 @@ const RadioGroupDocs = () => {
         keywords="RadioGroup React, headless radio group, Tailwind radio component, customizable radio buttons, Neuctra UI"
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-10">
-
+      <div className="font-primary min-h-screen">
+        <div className="space-y-10">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
@@ -36,8 +35,8 @@ const RadioGroupDocs = () => {
               The <span className="text-primary font-semibold">RadioGroup</span>{" "}
               is a fully customizable and headless selection component. It
               supports keyboard navigation, complete styling control via
-              className and style props, and even custom rendering using
-              render props.
+              className and style props, and even custom rendering using render
+              props.
             </p>
           </header>
 
@@ -145,9 +144,7 @@ const RadioGroupDocs = () => {
                     <div
                       onClick={onSelect}
                       className={`p-4 rounded-xl border cursor-pointer transition ${
-                        checked
-                          ? "bg-primary text-white"
-                          : "bg-zinc-800"
+                        checked ? "bg-primary text-white" : "bg-zinc-800"
                       }`}
                     >
                       {option.label}
@@ -175,7 +172,6 @@ const RadioGroupDocs = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
-
                   <tr>
                     <td className="p-3">options</td>
                     <td className="p-3">Option[]</td>
@@ -238,7 +234,6 @@ const RadioGroupDocs = () => {
                     <td className="p-3">—</td>
                     <td className="p-3">Error message display.</td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
@@ -285,9 +280,7 @@ const RadioGroupDocs = () => {
 
           {/* Pro Tips */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Pro Tips
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
 
             <ul className="list-disc list-inside space-y-1 text-gray-200">
               <li>Use renderItem for full UI control (cards, pills, etc).</li>
@@ -302,7 +295,6 @@ const RadioGroupDocs = () => {
           <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
             Built with React, Tailwind CSS & TypeScript.
           </footer>
-
         </div>
       </div>
     </>

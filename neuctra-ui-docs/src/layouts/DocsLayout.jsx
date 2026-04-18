@@ -9,7 +9,7 @@ const DocsLayout = () => {
       <Sidebar />
 
       {/* Main content */}
-      <main className="ml-60 max-sm:ml-0 max-sm:pt-14 px-5 lg:px-10">
+      <main className="ml-64 px-5 lg:px-9 max-sm:ml-0 py-9">
         <Outlet />
       </main>
     </div>

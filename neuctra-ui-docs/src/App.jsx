@@ -45,7 +45,7 @@ import SelectDocs from "./pages/DocsPages/SelectDocs";
 import TextareaDocs from "./pages/DocsPages/TextareaDocs";
 import UICreationBotDocs from "./pages/DocsPages/UICreationBotDocs";
 import NeuctraUiChatBotPage from "./pages/NeuctraUIBot/NeuctraUiChatBot";
-import IntroductionDocPage from "./pages/DocsPages/Introduction";
+import IntroductionDocPage from "./pages/DocsPages/IntroductionDocPage";
 import QuickStartDocsPage from "./pages/DocsPages/QuickStartDocsPage";
 import FullSetupDocPage from "./pages/DocsPages/FullSetupDocPage";
 

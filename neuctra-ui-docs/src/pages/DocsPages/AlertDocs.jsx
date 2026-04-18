@@ -22,7 +22,8 @@ const AlertDocsContent = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Setup</h2>
         <p className="text-gray-400 mb-3">
-          Wrap your app with <code>ToastProvider</code> to enable toasts globally.
+          Wrap your app with <code>ToastProvider</code> to enable toasts
+          globally.
         </p>
 
         <CodeBlock
@@ -56,7 +57,9 @@ toast("Hello world!");`}
 
       {/* Shorthand Methods */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">Shorthand Methods</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Shorthand Methods
+        </h2>
         <p className="text-gray-400 mb-3">
           Quickly trigger styled toasts using helper methods:
         </p>
@@ -72,7 +75,9 @@ toast.info("Some information");`}
 
       {/* Advanced Usage */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">Advanced Usage</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Advanced Usage
+        </h2>
         <p className="text-gray-400 mb-3">
           Use full control with the object API:
         </p>
@@ -90,7 +95,9 @@ toast.info("Some information");`}
 
       {/* Shorthand with Options */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">Shorthand with Options</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Shorthand with Options
+        </h2>
         <CodeBlock
           language="jsx"
           code={`toast.success("Saved!", {
@@ -102,7 +109,9 @@ toast.info("Some information");`}
 
       {/* Interactive Example */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">Interactive Example</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Interactive Example
+        </h2>
 
         <CodePreviewBlock
           language="jsx"
@@ -212,8 +221,8 @@ const AlertDocs = () => {
           description="Modern toast notifications with simple and powerful API."
         />
 
-        <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-          <div className="max-w-5xl mx-auto px-4 space-y-10">
+        <div className="font-primary min-h-screen">
+          <div className="space-y-10">
             <header>
               <h1 className="text-4xl font-extrabold mb-3 text-white">
                 Toast Component

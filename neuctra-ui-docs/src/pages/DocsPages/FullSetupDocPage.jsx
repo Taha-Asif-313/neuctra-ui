@@ -1,14 +1,7 @@
 import React from "react";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";
-import {
-  Settings,
-  Palette,
-  Code2,
-  Moon,
-  Sun,
-  Paintbrush,
-} from "lucide-react";
+import { Settings, Palette, Code2, Moon, Sun, Paintbrush } from "lucide-react";
 
 const FullSetupDocPage = () => {
   return (
@@ -18,15 +11,14 @@ const FullSetupDocPage = () => {
         description="Complete manual setup guide for Neuctra UI with Tailwind and theming."
       />
 
-      <div className="bg-zinc-950 text-gray-200 min-h-screen py-12">
+      <div className="min-h-screen">
         <div className="space-y-10">
-
           {/* Header */}
           <div>
             <h1 className="text-4xl font-bold text-white">Full Setup</h1>
             <p className="text-gray-400 mt-2 max-w-2xl">
-              Follow this manual setup guide to configure Neuctra UI step by step
-              without using the CLI.
+              Follow this manual setup guide to configure Neuctra UI step by
+              step without using the CLI.
             </p>
           </div>
 
@@ -162,7 +154,6 @@ if (saved) setTheme(saved);`}
               This keeps theme consistent across page reloads.
             </p>
           </Step>
-
         </div>
       </div>
     </>
@@ -171,7 +162,7 @@ if (saved) setTheme(saved);`}
 
 /* STEP COMPONENT */
 const Step = ({ icon: Icon, title, description, children }) => (
-  <div className="p-5 space-y-4 border border-zinc-800 rounded-xl bg-zinc-900/40">
+  <div className=" space-y-4">
     <div className="flex items-center gap-3">
       <Icon className="text-primary" size={18} />
       <h2 className="text-lg font-semibold text-white">{title}</h2>

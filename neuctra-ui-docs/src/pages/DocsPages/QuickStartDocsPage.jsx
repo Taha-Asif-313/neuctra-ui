@@ -18,7 +18,7 @@ const QuickStartDocsPage = () => {
         description="Set up Neuctra UI instantly using the CLI."
       />
 
-      <div className="bg-transparent text-white min-h-screen py-12">
+      <div className="bg-transparent text-white min-h-screen">
         <div className="space-y-10">
           {/* Header */}
           <div>
@@ -326,7 +326,7 @@ toast.info("Some information");`}
 };
 
 const Step = ({ icon: Icon, title, description, children }) => (
-  <div className="p-5 space-y-4">
+  <div className="space-y-4">
     <div className="flex items-center gap-3">
       <Icon className="text-primary" size={18} />
       <h2 className="text-lg font-semibold text-white">{title}</h2>

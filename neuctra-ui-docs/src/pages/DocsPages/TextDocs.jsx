@@ -16,8 +16,8 @@ const TextDocs = () => {
         keywords="Neuctra UI Text, React typography component, responsive text React, polymorphic component React, Tailwind typography, line clamp React, truncate text UI"
       />
 
-      <div className="bg-zinc-950 text-gray-200 font-primary min-h-screen py-10">
-        <div className="mx-auto px-4 space-y-12 max-w-6xl">
+      <div className="font-primary min-h-screen">
+        <div className="space-y-12">
           {/* ---------------- Header ---------------- */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">

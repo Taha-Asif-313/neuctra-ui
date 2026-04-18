@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
@@ -54,6 +55,19 @@ const Sidebar = () => {
       ],
     },
   ];
+
+  // Filter sections based on search query
+  const filteredSections = searchQuery
+    ? navSections
+        .map((section) => ({
+          ...section,
+          links: section.links.filter((link) =>
+            link.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            section.title.toLowerCase().includes(searchQuery.toLowerCase())
+          ),
+        }))
+        .filter((section) => section.links.length > 0)
+    : navSections;
 
   const handleNavigation = (href) => {
     navigate(href);
@@ -116,8 +130,22 @@ const Sidebar = () => {
           </div>
         </div>
 
+        {/* Search Input */}
+        <div className="px-3 py-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 h-4 w-4" />
+            <input
+              type="text"
+              placeholder="Search documentation..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-sm text-white placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+            />
+          </div>
+        </div>
+
         <nav className="px-3 pb-8 pt-5 space-y-6">
-          {navSections.map((section) => (
+          {filteredSections.map((section) => (
             <div key={section.title} className="space-y-2">
               <div className="px-4 text-[11px] capitalize tracking-[0.24em] text-zinc-100">
                 {section.title}

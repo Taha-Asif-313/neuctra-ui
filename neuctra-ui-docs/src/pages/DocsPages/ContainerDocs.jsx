@@ -15,8 +15,8 @@ const ContainerDocs = () => {
         description="Learn how to use the Container component — a responsive layout wrapper powered by Tailwind className."
       />
 
-      <div className="bg-zinc-950 text-gray-200 min-h-screen py-12">
-        <div className="max-w-5xl mx-auto px-4 space-y-14">
+      <div className="min-h-screen">
+        <div className="space-y-14">
           {/* ---------------- Header ---------------- */}
           <header className="space-y-4">
             <h1 className="text-4xl font-extrabold text-white">
