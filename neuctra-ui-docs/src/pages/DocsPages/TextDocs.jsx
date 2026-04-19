@@ -20,30 +20,30 @@ const TextDocs = () => {
         <div className="space-y-12">
           {/* ---------------- Header ---------------- */}
           <header>
-            <h1 className="text-4xl font-extrabold mb-3 text-white">
+            <Text
+              as="h1"
+              size="2xl"
+              className="text-4xl mb-3 font-extrabold! text-white"
+            >
               Text Component
-            </h1>
-            <p className="text-lg text-gray-300 leading-relaxed max-w-3xl">
-              The <span className="text-primary font-semibold">Text</span>{" "}
+            </Text>
+
+            <Text as="p" size="sm" className="leading-relaxed">
+              The{" "}
+              <Text as="span" weight={600} color="primary">
+                Text
+              </Text>{" "}
               component is a modern, polymorphic typography primitive for React.
               It allows you to render any HTML text element while controlling
               font size, weight, alignment, truncation, and styling — all with
               Tailwind-powered utilities and full TypeScript support.
-            </p>
+            </Text>
           </header>
 
           {/* ---------------- Import ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold mb-3 text-white">Import</h2>
-            <CodeBlock
-              language="tsx"
-              code={`import { Text } from "@neuctra/ui";`}
-              previewContent={
-                <Text size="lg" weight={600}>
-                  Text component ready to use 🚀
-                </Text>
-              }
-            />
+            <CodeBlock code={`import { Text } from "@neuctra/ui";`} />
           </section>
 
           {/* ---------------- Basic ---------------- */}
@@ -54,67 +54,13 @@ const TextDocs = () => {
 
             <CodePreviewBlock
               language="tsx"
-              code={`<Text as="h1" size="xl" weight={700}>
-  Welcome to Neuctra UI
+              code={`<Text>
+  Welcome to <Text weight={700}>Neuctra UI</Text>
 </Text>`}
               previewContent={
-                <Text as="h1" size="xl" weight={700}>
-                  Welcome to Neuctra UI
+                <Text>
+                  Welcome to <Text weight={700}>Neuctra UI</Text>
                 </Text>
-              }
-            />
-          </section>
-
-          {/* ---------------- Responsive ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Responsive Text
-            </h2>
-
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Text
-  size={{ base: "sm", md: "lg", xl: "2xl" }}
-  weight={{ base: 400, md: 600 }}
->
-  Responsive Typography
-</Text>`}
-              previewContent={
-                <Text
-                  size={{ base: "sm", md: "lg", xl: "2xl" }}
-                  weight={{ base: 400, md: 600 }}
-                >
-                  Responsive Typography
-                </Text>
-              }
-            />
-          </section>
-
-          {/* ---------------- Truncate ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Truncate & Line Clamp
-            </h2>
-
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Text truncate>
-  Single line truncated text example...
-</Text>
-
-<Text truncate={3}>
-  Multi-line clamped text example...
-</Text>`}
-              previewContent={
-                <div className="space-y-2 max-w-sm">
-                  <Text truncate>
-                    This is a very long text that will truncate in a single line
-                  </Text>
-                  <Text truncate={3}>
-                    This is a longer paragraph that will be clamped after three
-                    lines. Perfect for cards, previews, and UI layouts.
-                  </Text>
-                </div>
               }
             />
           </section>
@@ -133,25 +79,6 @@ const TextDocs = () => {
               previewContent={
                 <Text as="a" href="https://www.neuctra.com" target="_blank">
                   Visit Neuctra
-                </Text>
-              }
-            />
-          </section>
-
-          {/* ---------------- Custom Values ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Custom Styling
-            </h2>
-
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Text size="18px" weight={500} color="#22c55e">
-  Custom styled text
-</Text>`}
-              previewContent={
-                <Text size="18px" weight={500} color="#22c55e">
-                  Custom styled text
                 </Text>
               }
             />
@@ -199,28 +126,23 @@ const TextDocs = () => {
                   {/* Typography */}
                   <tr>
                     <td className="p-3">size</td>
-                    <td className="p-3">Responsive&lt;string&gt;</td>
-                    <td className="p-3">"md"</td>
                     <td className="p-3">
-                      Font size. Can use Tailwind keys ("sm", "lg") or CSS
-                      values like "14px", "1rem".
+                      "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
                     </td>
+                    <td className="p-3">"md"</td>
+                    <td className="p-3">Predefined font size.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">weight</td>
-                    <td className="p-3">Responsive&lt;number | string&gt;</td>
+                    <td className="p-3">400 | 500 | 600 | 700</td>
                     <td className="p-3">400</td>
-                    <td className="p-3">
-                      Font weight (400, 500, 600, 700 or custom).
-                    </td>
+                    <td className="p-3">Font weight.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">align</td>
-                    <td className="p-3">
-                      Responsive&lt;"left" | "center" | "right"&gt;
-                    </td>
+                    <td className="p-3">"left" | "center" | "right"</td>
                     <td className="p-3">"left"</td>
                     <td className="p-3">Text alignment.</td>
                   </tr>
@@ -228,7 +150,7 @@ const TextDocs = () => {
                   <tr>
                     <td className="p-3">transform</td>
                     <td className="p-3">
-                      Responsive&lt;"uppercase" | "lowercase" | "capitalize"&gt;
+                      "uppercase" | "lowercase" | "capitalize"
                     </td>
                     <td className="p-3">—</td>
                     <td className="p-3">Text transformation.</td>
@@ -246,9 +168,7 @@ const TextDocs = () => {
                     <td className="p-3">underline</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">
-                      Adds underline. Ignored for anchors (already underlined).
-                    </td>
+                    <td className="p-3">Adds underline.</td>
                   </tr>
 
                   <tr>
@@ -261,11 +181,10 @@ const TextDocs = () => {
                   {/* Truncate */}
                   <tr>
                     <td className="p-3">truncate</td>
-                    <td className="p-3">boolean | number</td>
+                    <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
                     <td className="p-3">
-                      Truncate text: <code>true</code> = single line,{" "}
-                      <code>number</code> = multi-line clamp.
+                      Applies single-line truncation (ellipsis).
                     </td>
                   </tr>
 
@@ -277,16 +196,7 @@ const TextDocs = () => {
                     </td>
                     <td className="p-3">"default"</td>
                     <td className="p-3">
-                      Text color. Can use preset or custom CSS value.
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">darkMode</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">
-                      Enable dark mode colors if theme supports it.
+                      Text color. Accepts predefined keys or custom class.
                     </td>
                   </tr>
 
@@ -299,23 +209,12 @@ const TextDocs = () => {
                   </tr>
 
                   <tr>
-                    <td className="p-3">style</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">
-                      Inline styles override defaults (fontSize, fontWeight,
-                      etc).
-                    </td>
-                  </tr>
-
-                  {/* System */}
-                  <tr>
                     <td className="p-3">...rest</td>
                     <td className="p-3">ComponentPropsWithoutRef&lt;T&gt;</td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      All native props of the rendered element (href, target,
-                      onClick, etc.).
+                      Native props of the rendered element (href, onClick,
+                      etc.).
                     </td>
                   </tr>
                 </tbody>
@@ -335,8 +234,7 @@ const TextDocs = () => {
                 <div>
                   <code>{"<Text size={18} />"}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Size must be string ("18px", "1rem") or predefined key
-                    ("lg")
+                    Size must be one of: xs, sm, md, lg, xl, 2xl
                   </p>
                 </div>
               </div>
@@ -344,9 +242,9 @@ const TextDocs = () => {
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
-                  <code>{'<Text truncate="3" />'}</code>
+                  <code>{"<Text truncate={3} />"}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    truncate expects a number, not a string
+                    truncate only supports boolean (true/false)
                   </p>
                 </div>
               </div>
@@ -354,9 +252,9 @@ const TextDocs = () => {
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
-                  <code>{'<Text as="a" underline />'}</code>
+                  <code>{'<Text as="a" color="muted" />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Anchor already has underline styling by default
+                    Anchor elements automatically get primary color styling
                   </p>
                 </div>
               </div>
@@ -364,9 +262,9 @@ const TextDocs = () => {
               <div className="flex items-start gap-2 text-green-500">
                 <Check size={16} className="mt-1" />
                 <div>
-                  <code>{'<Text size="18px" />'}</code>
+                  <code>{'<Text size="lg" weight={600} />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Use valid CSS values for custom sizes
+                    Use predefined tokens for consistent typography
                   </p>
                 </div>
               </div>
@@ -377,43 +275,46 @@ const TextDocs = () => {
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
 
-            <div className="text-gray-200 space-y-3">
-              <p>
+            <ul className="text-gray-200 space-y-2 list-disc list-inside">
+              <li>
                 Use <code>as</code> to keep semantic HTML:
-              </p>
+                <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
+                  <li>h1 → headings</li>
+                  <li>p → paragraphs</li>
+                  <li>a → links</li>
+                </ul>
+              </li>
 
-              <ul className="list-disc list-inside space-y-1">
-                <li>h1 → headings</li>
-                <li>p → paragraphs</li>
-                <li>a → links</li>
-              </ul>
-
-              <p>
-                Combine responsive props for modern UI:
-                <code className="ml-2">
-                  {`size={{ base: "sm", md: "lg" }}`}
-                </code>
-              </p>
-
-              <p>
-                Use <code>truncate</code> for cards, tables, and previews.
-              </p>
-
-              <p>
-                Prefer predefined sizes (<code>sm</code>, <code>lg</code>) for
+              <li>
+                Use predefined sizes (<code>sm</code>, <code>lg</code>) for
                 consistency across your design system.
-              </p>
+              </li>
 
-              <p>
-                Use <code>className</code> for advanced styling instead of
-                overloading props.
-              </p>
+              <li>
+                Anchor elements (<code>as="a"</code>) automatically get primary
+                color + underline styling.
+              </li>
 
-              <p>
-                Combine with layout components like flex/grid for better UI
-                composition.
-              </p>
-            </div>
+              <li>
+                Use <code>truncate</code> for single-line ellipsis in cards,
+                tables, and tight layouts.
+              </li>
+
+              <li>
+                Combine <code>weight</code> and <code>size</code> instead of
+                adding custom classes.
+              </li>
+
+              <li>
+                Use <code>className</code> only when you need something outside
+                the system.
+              </li>
+
+              <li>
+                Keep the API simple — avoid over-engineering responsive props
+                unless necessary.
+              </li>
+            </ul>
           </section>
 
           {/* ---------------- Footer ---------------- */}

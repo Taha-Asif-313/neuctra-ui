@@ -5,7 +5,7 @@ import Metadata from "../../MetaData";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Badge } from "@neuctra/ui";
-import { Check, X } from "lucide-react";
+import { Check, User, X } from "lucide-react";
 
 const BadgeDocs = () => {
   return (
@@ -23,7 +23,7 @@ const BadgeDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Badge Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+            <p className="text-sm text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Badge</span>{" "}
               component is a versatile UI element for displaying text, counts,
               notification dots, and icons. Supports multiple sizes, rounded
@@ -36,10 +36,7 @@ const BadgeDocs = () => {
             <h2 className="text-2xl font-semibold mb-2 text-white">
               Import Component
             </h2>
-            <CodeBlock
-              language="react"
-              code={`import { Badge } from "@neuctra/ui";`}
-            />
+            <CodeBlock code={`import { Badge } from "@neuctra/ui";`} />
           </section>
 
           {/* Basic Usage */}
@@ -70,19 +67,23 @@ const BadgeDocs = () => {
                 language="jsx"
                 code={`<Badge text="Alerts" count={5} dotColor="#EF4444" pulse />`}
                 previewContent={
-                  <Badge text="Alerts" count={5} dotColor="#EF4444" pulse />
+                  <Badge text="Alerts" count={5} dotColor="#EF4444" />
                 }
               />
 
               <CodePreviewBlock
                 language="jsx"
-                code={`<Badge text="Admin" icon={<span>⭐</span>} iconPosition="right" primaryColor="#10b981" size="lg" />`}
+                code={`         <Badge
+  text="Admin"
+  icon={<User size={18} />}
+  iconPosition="right"
+  size="lg"
+/>`}
                 previewContent={
                   <Badge
                     text="Admin"
-                    icon={<span>⭐</span>}
+                    icon={<User size={18} />}
                     iconPosition="right"
-                    primaryColor="#10b981"
                     size="lg"
                   />
                 }
@@ -95,6 +96,10 @@ const BadgeDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-4">
               Props Table
             </h2>
+            <p className="text-gray-400 mb-3">
+              All available props for the Badge component.
+            </p>
+
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
@@ -108,136 +113,163 @@ const BadgeDocs = () => {
 
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
-                    <td className="p-3">text</td>
+                    <td className="p-3 font-medium">text</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">—</td>
+                    <td className="p-3 text-gray-400">—</td>
                     <td className="p-3">Text displayed inside the badge</td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">icon</td>
-                    <td className="p-3">ReactNode</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Optional icon displayed with text</td>
+                    <td className="p-3 font-medium">icon</td>
+                    <td className="p-3">React.ReactNode</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Optional icon displayed alongside the text
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">iconPosition</td>
+                    <td className="p-3 font-medium">iconPosition</td>
                     <td className="p-3">"left" | "right"</td>
-                    <td className="p-3">"left"</td>
-                    <td className="p-3">Position of icon relative to text</td>
+                    <td className="p-3 text-gray-400">"left"</td>
+                    <td className="p-3">
+                      Position of the icon relative to the text
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">primaryColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">"var(--primary)"</td>
-                    <td className="p-3">Badge background color</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">size</td>
+                    <td className="p-3 font-medium">size</td>
                     <td className="p-3">"sm" | "md" | "lg"</td>
-                    <td className="p-3">"md"</td>
-                    <td className="p-3">Badge size</td>
+                    <td className="p-3 text-gray-400">"md"</td>
+                    <td className="p-3">
+                      Size of the badge (affects padding and font size)
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">rounded</td>
+                    <td className="p-3 font-medium">rounded</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">true</td>
-                    <td className="p-3">Rounded pill shape</td>
+                    <td className="p-3 text-gray-400">true</td>
+                    <td className="p-3">
+                      Whether the badge should be fully rounded (pill shape) or
+                      slightly rounded
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">notificationDot</td>
+                    <td className="p-3 font-medium">notificationDot</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Shows small notification dot</td>
+                    <td className="p-3 text-gray-400">false</td>
+                    <td className="p-3">
+                      Shows a small notification dot in the top-right corner
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">dotColor</td>
+                    <td className="p-3 font-medium">dotColor</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"#ef4444"</td>
-                    <td className="p-3">Color of notification dot</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Custom color for the notification dot (overrides default
+                      destructive color)
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">count</td>
+                    <td className="p-3 font-medium">count</td>
                     <td className="p-3">number | string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Displays numeric badge count</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Displays a numeric or custom count badge (e.g., unread
+                      messages)
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">pulse</td>
+                    <td className="p-3 font-medium">pulse</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Enables ping animation on dot</td>
+                    <td className="p-3 text-gray-400">false</td>
+                    <td className="p-3">
+                      Enables a pulsing animation on the notification dot
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom class for badge wrapper</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">style</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline style for badge wrapper</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">dotClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom class for notification dot</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">dotStyle</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline style for notification dot</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">countClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom class for count badge</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">countStyle</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline style for count badge</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">iconClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom class for icon wrapper</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">iconStyle</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline style for icon wrapper</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">onClick</td>
+                    <td className="p-3 font-medium">onClick</td>
                     <td className="p-3">() =&gt; void</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Click handler for badge</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Click handler. Makes the badge interactive with hover
+                      effect
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Additional CSS classes for the badge container
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Inline styles for the badge container
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">dotClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Additional classes for the notification dot
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">dotStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Inline styles for the notification dot
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">countClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Additional classes for the count badge
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">countStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">Inline styles for the count badge</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Additional classes for the icon wrapper
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">iconStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">Inline styles for the icon wrapper</td>
                   </tr>
                 </tbody>
               </table>
@@ -251,31 +283,50 @@ const BadgeDocs = () => {
             </h2>
             <div className="space-y-4 text-sm text-gray-300">
               <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
+                <X size={16} />
                 <div>
                   <code>{"<Badge notificationDot count={5} />"}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Using both count and notificationDot can overlap; adjust
-                    styling if needed.
+                    Using both <code>notificationDot</code> and{" "}
+                    <code>count</code> at the same time can cause visual
+                    overlap.
                   </p>
                 </div>
               </div>
+
               <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
+                <X size={16} />
                 <div>
-                  <code>{'<Badge size="lg" />'}</code>
+                  <code>{'<Badge primaryColor="..." />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Ensure text fits properly; large size may require padding
-                    adjustment.
+                    The <code>primaryColor</code> prop does not exist. Use{" "}
+                    <code>className</code> or <code>style</code> to customize
+                    colors.
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-green-500">
-                <Check size={16} className="mt-1" />
+
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} />
                 <div>
-                  <code>{'<Badge primaryColor="#10b981" />'}</code>
+                  <code>{'<Badge dotColor="#ef4444" notificationDot />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Custom colors can be applied safely via primaryColor prop.
+                    <code>dotColor</code> is defined in props but currently not
+                    used in the component. Use <code>dotStyle</code> or{" "}
+                    <code>dotClassName</code> instead.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>
+                    {'<Badge text="New" icon={<Bell />} count={12} pulse />'}
+                  </code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Combining icon, count, and pulse creates highly noticeable
+                    badges.
                   </p>
                 </div>
               </div>
@@ -287,24 +338,30 @@ const BadgeDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
             <ul className="list-disc list-inside text-gray-200 space-y-1">
               <li>
-                Use <code>notificationDot</code> for subtle alerts.
+                Use <code>count</code> for numeric indicators like unread
+                messages or notifications.
               </li>
               <li>
-                Use <code>count</code> for numeric badges like unread messages.
+                Combine <code>icon</code> with <code>iconPosition</code> for
+                better context (e.g., status badges).
               </li>
               <li>
-                Combine icons with <code>iconPosition</code> for context.
+                Use <code>notificationDot</code> + <code>pulse</code> for urgent
+                alerts.
               </li>
               <li>
-                Use <code>pulse</code> to attract attention to important badges.
+                Customize appearance using <code>className</code> and{" "}
+                <code>style</code> since the component uses Tailwind + CSS
+                variables.
               </li>
               <li>
-                Adjust <code>size</code> and <code>rounded</code> for different
-                UI contexts.
+                Choose <code>rounded={false}</code> when you need a more
+                rectangular badge shape.
               </li>
+              <li>Keep text short — badges are meant to be compact.</li>
               <li>
-                Always consider accessibility; clickable badges should have
-                clear context.
+                For clickable badges, ensure sufficient contrast and clear
+                labeling for accessibility.
               </li>
             </ul>
           </section>

@@ -21,9 +21,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   variant?: "default" | "outline" | "ghost";
   size?: "xs" | "sm" | "md" | "lg";
 
-  weight?: React.CSSProperties["fontWeight"];
-  primaryColor?: string;
-
   /** 🔥 Full Customization */
   className?: string;
   contentClassName?: string;
@@ -52,9 +49,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       loadingText = "Loading...",
       fullWidth = false,
       variant = "default",
-      size = "md",
-      weight = 400,
-      primaryColor = "var(--primary)",
+      size = "sm",
       disabled,
 
       className,
@@ -78,10 +73,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     /* 📏 Sizes */
     const sizeClasses = {
-      xs: "px-4 py-1 text-xs",
-      sm: "px-5 py-1.5 text-sm",
-      md: "px-6 py-2 text-[15px]",
-      lg: "px-7 py-2.5 text-base",
+      xs: "px-3 py-1.5 text-xs min-h-[28px] rounded-md",
+      sm: "px-4 py-2 text-sm min-h-[32px] rounded-md",
+      md: "px-6 py-2.5 text-[15px] min-h-[40px] rounded-lg",
+      lg: "px-8 py-3 text-base min-h-[48px] rounded-xl",
+      xl: "px-10 py-3.5 text-lg min-h-[56px] rounded-2xl",
     } as const;
 
     /* 🎨 VARIANTS (SHADCN STYLE) */
@@ -89,20 +85,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       NonNullable<ButtonProps["variant"]>,
       string
     > = {
-      default:
-        "bg-primary text-primary-foreground hover:opacity-90",
+      default: "bg-primary text-primary-foreground hover:opacity-90",
       outline:
         "border border-border bg-background text-foreground hover:bg-accent",
-      ghost:
-        "bg-transparent text-foreground hover:bg-accent",
+      ghost: "bg-transparent text-foreground hover:bg-accent",
     };
 
     /* 🔘 Icon sizes */
     const iconSizes = {
-      xs: 12,
+      xs: 14,
       sm: 16,
       md: 20,
       lg: 24,
+      xl: 28,
     } as const;
 
     return (
@@ -110,23 +105,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         disabled={isDisabled}
+        aria-disabled={isDisabled}
         className={clsx(
-          "inline-flex items-center justify-center rounded-lg transition-all duration-200",
+          className,
           sizeClasses[size],
           variantClasses[variant],
           fullWidth && "w-full",
           isDisabled && "opacity-60 cursor-not-allowed pointer-events-none",
-          className,
+          "inline-flex items-center justify-center transition-all duration-200",
         )}
         style={{
-          fontWeight: weight,
           ...style,
         }}
         {...rest}
       >
         {/* 🔥 CONTENT WRAPPER */}
         <span
-          className={clsx("inline-flex items-center gap-2", contentClassName)}
+          className={clsx(contentClassName, "inline-flex items-center gap-2")}
           style={contentStyle}
         >
           {loading ? (
@@ -134,8 +129,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               {/* Loader */}
               <span
                 className={clsx(
-                  "border-2 border-current border-t-transparent rounded-full animate-spin",
                   loaderClassName,
+                  "border-2 border-current border-t-transparent rounded-full animate-spin",
                 )}
                 style={{
                   width: iconSizes[size],
@@ -148,8 +143,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               {/* Loading Text */}
               <span
                 className={clsx(
-                  "whitespace-nowrap text-foreground",
                   textClassName,
+                  "whitespace-nowrap text-foreground",
                 )}
                 style={textStyle}
               >
@@ -161,9 +156,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               {iconBefore && (
                 <span
                   className={clsx(
-                    "inline-flex items-center justify-center flex-shrink-0",
-                    "text-current",
                     iconClassName,
+                    "inline-flex items-center justify-center shrink-0",
+                    "text-current",
                   )}
                   style={{
                     width: iconSizes[size],
@@ -177,8 +172,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
               <span
                 className={clsx(
-                  "whitespace-nowrap text-current",
                   textClassName,
+                  "whitespace-nowrap text-current",
                 )}
                 style={textStyle}
               >
@@ -188,9 +183,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               {iconAfter && (
                 <span
                   className={clsx(
-                    "inline-flex items-center justify-center flex-shrink-0",
-                    "text-current",
                     iconClassName,
+                    "inline-flex items-center justify-center shrink-0",
+                    "text-current",
                   )}
                   style={{
                     width: iconSizes[size],

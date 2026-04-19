@@ -13,9 +13,6 @@ export interface BadgeProps {
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
 
-  /** Custom color */
-  primaryColor?: string;
-
   /** 📏 Sizes */
   size?: "sm" | "md" | "lg";
 

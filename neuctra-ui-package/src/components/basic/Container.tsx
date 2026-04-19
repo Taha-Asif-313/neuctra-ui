@@ -5,8 +5,7 @@ import clsx from "clsx";
 
 type ContainerSize = "sm" | "md" | "lg" | "xl" | "2xl" | "full";
 
-export interface ContainerProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: ContainerSize;
   padding?: "none" | "sm" | "md" | "lg" | "xl";
   center?: boolean;
@@ -54,46 +53,22 @@ export const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
       children,
       ...rest
     },
-    ref
+    ref,
   ) => {
-    /** Fallback inline styles (for non-Tailwind environments) */
-    const fallbackStyles: React.CSSProperties = {
-      width: "100%",
-      marginLeft: center ? "auto" : undefined,
-      marginRight: center ? "auto" : undefined,
-      padding:
-        padding === "none"
-          ? 0
-          : padding === "sm"
-          ? 16
-          : padding === "md"
-          ? 24
-          : padding === "lg"
-          ? 32
-          : 48,
-      backgroundColor: "bg-background",
-      color: "text-foreground",
-    };
-
     const classes = clsx(
-      "w-full box-border bg-background text-foreground",
+      className,
+      "w-full box-border",
       sizeMap[size],
       paddingMap[padding],
       center && "mx-auto",
-      className
     );
 
     return (
-      <div
-        ref={ref}
-        className={classes}
-        style={{ ...fallbackStyles, ...style }}
-        {...rest}
-      >
+      <div ref={ref} className={classes} style={{ ...style }} {...rest}>
         {children}
       </div>
     );
-  }
+  },
 );
 
 Container.displayName = "Container";

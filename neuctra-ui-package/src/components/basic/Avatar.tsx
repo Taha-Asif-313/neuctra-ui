@@ -7,7 +7,7 @@ type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive";
 type AvatarVariant = "circular" | "rounded" | "square";
 type StatusPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
-interface AvatarProps {
+export interface AvatarProps {
   src?: string;
   alt?: string;
   size?: AvatarSize;
@@ -15,7 +15,6 @@ interface AvatarProps {
   isOnline?: boolean;
   isOffline?: boolean;
   ring?: boolean;
-  ringColor?: string;
   fallback?: string;
   onClick?: () => void;
   statusPosition?: StatusPosition;
@@ -80,11 +79,13 @@ const getStatusDotSize = (size: Exclude<AvatarSize, "responsive">): string => {
 };
 
 // Get status border width based on avatar size
-const getStatusBorderWidth = (size: Exclude<AvatarSize, "responsive">): string => {
+const getStatusBorderWidth = (
+  size: Exclude<AvatarSize, "responsive">,
+): string => {
   const borders: Record<Exclude<AvatarSize, "responsive">, string> = {
     xs: "border",
     sm: "border",
-    md: "border",
+    md: "border-2",
     lg: "border-2",
     xl: "border-[3px]",
     "2xl": "border-[3px]",
@@ -101,7 +102,6 @@ export const Avatar: React.FC<AvatarProps> = ({
   isOffline = false,
   fallback,
   ring = false,
-  ringColor = "#3b82f6",
   onClick,
   statusPosition = "bottom-right",
   className = "",
@@ -123,9 +123,9 @@ export const Avatar: React.FC<AvatarProps> = ({
       .slice(0, 2);
 
   const statusColor = isOnline
-    ? "bg-primary"
+    ? "bg-primary border border-white"
     : isOffline
-      ? "bg-muted"
+      ? "bg-muted border border-white"
       : "";
 
   const statusDotSize = getStatusDotSize(resolvedSize);
@@ -147,7 +147,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         ${className}`}
       style={{
         ...style,
-        ...(ring ? { ringColor: "hsl(var(--border))" } : {}),
+        ...(ring ? { ringColor: "var(--border)" } : {}),
       }}
       onKeyDown={(e) => {
         if (clickable && (e.key === "Enter" || e.key === " ")) {

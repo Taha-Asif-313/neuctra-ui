@@ -9,52 +9,79 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-  const navSections = [
-    {
-      title: "Getting Started",
-      links: [
-        { label: "Overview", href: "/docs" },
-        { label: "Quick Start", href: "/docs/quick-start" },
-        { label: "Full Setup Guide", href: "/docs/full-setup" },
-      ],
-    },
-    {
-      title: "Basic Components",
-      links: [
-        { label: "Text", href: "/docs/text" },
-        { label: "Button", href: "/docs/button" },
-        { label: "Image", href: "/docs/image" },
-        { label: "Container", href: "/docs/container" },
-        { label: "List", href: "/docs/list" },
-        { label: "Badge", href: "/docs/badge" },
-        { label: "Avatar", href: "/docs/avatar" },
-        { label: "Tabs", href: "/docs/tabs" },
-        { label: "Drawer", href: "/docs/drawer" },
-        { label: "Table", href: "/docs/table" },
-        { label: "Alert", href: "/docs/alert" },
-        { label: "Modal", href: "/docs/modal" },
-        { label: "Accordion", href: "/docs/accordion" },
-      ],
-    },
-    {
-      title: "Form Components",
-      links: [
-        { label: "Input", href: "/docs/input" },
-        { label: "Radio", href: "/docs/radio" },
-        { label: "Check Box", href: "/docs/checkbox" },
-        { label: "Switch", href: "/docs/switch" },
-        { label: "Select", href: "/docs/select" },
-        { label: "Textarea", href: "/docs/textarea" },
-      ],
-    },
-    {
-      title: "Resources",
-      links: [
-        { label: "UI Creation Bot", href: "/docs/ui-creation-bot" },
-        { label: "About", href: "/about" },
-      ],
-    },
-  ];
+const navSections = [
+  {
+    title: "Getting Started",
+    links: [
+      { label: "Overview", href: "/docs" },
+      { label: "Quick Start", href: "/docs/quick-start" },
+      { label: "Full Setup Guide", href: "/docs/full-setup" },
+    ],
+  },
+
+  {
+    title: "Layout & Structure",
+    links: [
+      { label: "Container", href: "/docs/container" },
+    ],
+  },
+
+  {
+    title: "Typography & Media",
+    links: [
+      { label: "Text", href: "/docs/text" },
+      { label: "Image", href: "/docs/image" },
+      { label: "Avatar", href: "/docs/avatar" },
+      { label: "Badge", href: "/docs/badge" },
+    ],
+  },
+
+  {
+    title: "Data Display",
+    links: [
+      { label: "List", href: "/docs/list" },
+      { label: "Table", href: "/docs/table" },
+      { label: "Accordion", href: "/docs/accordion" },
+    ],
+  },
+
+  {
+    title: "Feedback & Overlay",
+    links: [
+      { label: "Alert", href: "/docs/alert" },
+      { label: "Modal", href: "/docs/modal" },
+      { label: "Drawer", href: "/docs/drawer" },
+    ],
+  },
+
+  {
+    title: "Navigation",
+    links: [
+      { label: "Tabs", href: "/docs/tabs" },
+    ],
+  },
+
+  {
+    title: "Form Components",
+    links: [
+      { label: "Input", href: "/docs/input" },
+      { label: "Textarea", href: "/docs/textarea" },
+      { label: "Select", href: "/docs/select" },
+      { label: "Checkbox", href: "/docs/checkbox" },
+      { label: "Radio", href: "/docs/radio" },
+      { label: "Switch", href: "/docs/switch" },
+      { label: "Button", href: "/docs/button" },
+    ],
+  },
+
+  {
+    title: "Resources",
+    links: [
+      { label: "UI Creation Bot", href: "/docs/ui-creation-bot" },
+      { label: "About", href: "/about" },
+    ],
+  },
+];
 
   // Filter sections based on search query
   const filteredSections = searchQuery
@@ -157,7 +184,7 @@ const Sidebar = () => {
                     onClick={() => handleNavigation(link.href)}
                     className={`group flex w-full items-center gap-3 rounded-2xl px-4 py-2 text-sm text-left transition ${
                       isActive(link.href)
-                        ? "bg-primary/10 text-primary shadow-sm shadow-primary/10"
+                        ? "bg-primary/10 text-primary"
                         : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
                     }`}
                   >

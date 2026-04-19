@@ -23,11 +23,21 @@ const ButtonDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Button Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+
+            <p className="text-sm leading-relaxed">
               The <span className="text-primary font-semibold">Button</span>{" "}
-              component is a flexible, responsive button primitive. Supports
-              variants, sizes, icons, loading states, full-width mode, and
-              custom colors — all with TypeScript support.
+              component is a flexible, highly customizable UI primitive built
+              with TypeScript. It supports multiple variants, sizes, icon
+              positioning, loading states, and full-width layout control —
+              making it suitable for modern design systems and production apps.
+            </p>
+
+            <p className="text-sm text-gray-300 mt-3 leading-relaxed">
+              Use <code>iconBefore</code> and <code>iconAfter</code> for icon
+              placement,
+              <code>loading</code> for async states, and <code>variant</code> +{" "}
+              <code>size</code>
+              for consistent design scaling across your UI.
             </p>
           </header>
 
@@ -36,13 +46,7 @@ const ButtonDocs = () => {
             <h2 className="text-2xl font-semibold mb-2 text-white">
               Import Component From Library
             </h2>
-            <CodeBlock
-              language="react"
-              code={`import { Button } from "@neuctra/ui";`}
-              previewContent={
-                <Button >Click Me</Button>
-              }
-            />
+            <CodeBlock code={`import { Button } from "@neuctra/ui";`} />
           </section>
 
           {/* Basic Usage */}
@@ -52,50 +56,13 @@ const ButtonDocs = () => {
             </h2>
             <CodePreviewBlock
               language="jsx"
-              code={`<Button size="xs" >Click Me</Button>
-<Button size="sm" >Click Me</Button>
-<Button size="md" >Click Me</Button>
-<Button size="lg" >Click Me</Button>`}
-              previewContent={<div className="space-x-2">
-              <Button size="xs" >Click Me</Button>
-              <Button size="sm" >Click Me</Button>
-              <Button size="md" >Click Me</Button>
-              <Button size="lg" >Click Me</Button>
-              </div>}
+              code={`<Button>Click Me</Button>`}
+              previewContent={
+                <Button onClick={() => alert("Hello Designer!")}>
+                  Click Me
+                </Button>
+              }
             />
-          </section>
-
-          {/* Advanced Examples */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Advanced Usage
-            </h2>
-
-            <div className="space-y-6">
-              <CodePreviewBlock
-                language="jsx"
-                code={`<Button variant="outline" size="lg" iconBefore={<Icon />}>
-  Submit
-</Button>`}
-                previewContent={
-                  <Button variant="outline" size="lg">
-                    Submit
-                  </Button>
-                }
-              />
-
-              <CodePreviewBlock
-                language="jsx"
-                code={`<Button variant="ghost" loading loadingText="Processing..." fullWidth>
-  Confirm
-</Button>`}
-                previewContent={
-                  <Button variant="ghost" loading fullWidth>
-                    Confirm
-                  </Button>
-                }
-              />
-            </div>
           </section>
 
           {/* Props Table */}
@@ -122,38 +89,40 @@ const ButtonDocs = () => {
                   {/* Content */}
                   <tr>
                     <td className="p-3">children</td>
-                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">React.ReactNode</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Content inside the button.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">iconBefore</td>
-                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">React.ReactNode</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Icon displayed before the text.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">iconAfter</td>
-                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">React.ReactNode</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Icon displayed after the text.</td>
                   </tr>
 
-                  {/* States */}
+                  {/* State */}
                   <tr>
                     <td className="p-3">loading</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Shows loading spinner and replaces content.</td>
+                    <td className="p-3">
+                      Shows loader and disables button automatically.
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3">loadingText</td>
                     <td className="p-3">string</td>
                     <td className="p-3">"Loading..."</td>
-                    <td className="p-3">Text shown during loading state.</td>
+                    <td className="p-3">Text shown while loading.</td>
                   </tr>
 
                   <tr>
@@ -168,72 +137,62 @@ const ButtonDocs = () => {
                     <td className="p-3">variant</td>
                     <td className="p-3">"default" | "outline" | "ghost"</td>
                     <td className="p-3">"default"</td>
-                    <td className="p-3">Visual style variant.</td>
+                    <td className="p-3">
+                      Controls visual style of the button.
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3">size</td>
-                    <td className="p-3">"xs" | "sm" | "md" | "lg"</td>
-                    <td className="p-3">"md"</td>
-                    <td className="p-3">Controls padding and font size.</td>
+                    <td className="p-3">"xs" | "sm" | "md" | "lg" | "xl"</td>
+                    <td className="p-3">"sm"</td>
+                    <td className="p-3">
+                      Controls padding, height, and font size.
+                    </td>
                   </tr>
 
-                  <tr>
-                    <td className="p-3">weight</td>
-                    <td className="p-3">number | string</td>
-                    <td className="p-3">400</td>
-                    <td className="p-3">Font weight of button text.</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">primaryColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">"var(--primary)"</td>
-                    <td className="p-3">Main color for variants (background, border, text).</td>
-                  </tr>
-
-                  {/* 🔥 Custom Classes */}
+                  {/* Customization */}
                   <tr>
                     <td className="p-3">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Classes for root button.</td>
+                    <td className="p-3">Root button classes.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">contentClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Classes for inner content wrapper.</td>
+                    <td className="p-3">Wrapper around content.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">textClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Classes for text content.</td>
+                    <td className="p-3">Text styling.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">iconClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Classes applied to both icons.</td>
+                    <td className="p-3">Icon styling.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">loaderClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Classes for loading spinner.</td>
+                    <td className="p-3">Loader spinner styling.</td>
                   </tr>
 
-                  {/* 🎨 Styles */}
+                  {/* Styles */}
                   <tr>
                     <td className="p-3">style</td>
                     <td className="p-3">React.CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for root button.</td>
+                    <td className="p-3">Inline styles for button.</td>
                   </tr>
 
                   <tr>
@@ -261,16 +220,18 @@ const ButtonDocs = () => {
                     <td className="p-3">loaderStyle</td>
                     <td className="p-3">React.CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for loader spinner.</td>
+                    <td className="p-3">Inline styles for loader.</td>
                   </tr>
 
                   {/* Native */}
                   <tr>
                     <td className="p-3">...rest</td>
-                    <td className="p-3">ButtonHTMLAttributes&lt;HTMLButtonElement&gt;</td>
+                    <td className="p-3">
+                      React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;
+                    </td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      All native button props (onClick, type, disabled, etc).
+                      Native button props like onClick, type, disabled.
                     </td>
                   </tr>
                 </tbody>
@@ -280,32 +241,51 @@ const ButtonDocs = () => {
 
           {/* Common Mistakes */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Common Mistakes</h2>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Common Mistakes
+            </h2>
+
             <div className="space-y-4 text-sm text-gray-300">
+              {/* Wrong size */}
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
                   <code>{'<Button size="15px" />'}</code>
                   <p className="text-gray-400 text-xs mt-1">
-                    Use predefined sizes: sm, md, lg.
+                    Only predefined sizes are allowed: xs, sm, md, lg, xl
                   </p>
                 </div>
               </div>
+
+              {/* Wrong variant */}
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
                   <code>{'<Button variant="rounded" />'}</code>
                   <p className="text-gray-400 text-xs mt-1">
-                    Use only default, outline, or ghost variants.
+                    Variant must be: default, outline, or ghost
                   </p>
                 </div>
               </div>
+
+              {/* loading misuse */}
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{"<Button loading disabled={false} />"}</code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    loading automatically disables the button
+                  </p>
+                </div>
+              </div>
+
+              {/* correct usage */}
               <div className="flex items-start gap-2 text-green-500">
                 <Check size={16} className="mt-1" />
                 <div>
-                  <code>{'<Button className="w-full p-4" />'}</code>
+                  <code>{'<Button className="w-full" />'}</code>
                   <p className="text-gray-400 text-xs mt-1">
-                    Use className for custom sizing or spacing.
+                    Use className for layout instead of inline hacks
                   </p>
                 </div>
               </div>
@@ -315,14 +295,43 @@ const ButtonDocs = () => {
           {/* Pro Tips */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+
             <div className="text-gray-300 space-y-3">
-              <ul className="list-disc list-inside space-y-1">
-                <li>Combine with flex/grid for layout alignment.</li>
-                <li>Use variant and size props for consistent design.</li>
-                <li>Use iconBefore / iconAfter for better UX.</li>
-                <li>Use loading prop for async actions feedback.</li>
-                <li>Use fullWidth for buttons in forms or banners.</li>
-                <li>Prefer semantic HTML: type="submit" for forms.</li>
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  Combine <code>variant</code> + <code>size</code> for
+                  consistent UI system design.
+                </li>
+
+                <li>
+                  Use <code>iconBefore</code> for actions (like "Save") and{" "}
+                  <code>iconAfter</code> for navigation (like arrows).
+                </li>
+
+                <li>
+                  <code>loading</code> automatically disables the button — no
+                  need to manually manage <code>disabled</code>.
+                </li>
+
+                <li>
+                  Use <code>fullWidth</code> for forms, modals, and mobile
+                  layouts.
+                </li>
+
+                <li>
+                  Prefer <code>type="submit"</code> only inside forms to avoid
+                  accidental submits.
+                </li>
+
+                <li>
+                  Use <code>className</code> for layout control instead of
+                  inline styles.
+                </li>
+
+                <li>
+                  Avoid excessive customization props — stick to variants for
+                  scalability.
+                </li>
               </ul>
             </div>
           </section>

@@ -5,7 +5,19 @@ import { Container } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
-import { ArrowRight, Check, Lightbulb, X } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Lightbulb,
+  X,
+  Palette,
+  Layout,
+  Grid3X3,
+  MousePointer,
+  Accessibility,
+  Database,
+} from "lucide-react";
+import CodeBlock from "../../components/Docs/CodeBlock";
 
 const ContainerDocs = () => {
   return (
@@ -34,150 +46,29 @@ const ContainerDocs = () => {
             </p>
           </header>
 
-          {/* ---------------- Key Concept --------------- */}
+                    {/* Import */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3 flex items-center gap-2">
-              <Lightbulb size={20} />
-              Key Concept
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component From Library
             </h2>
-
-            <div className="text-gray-200 leading-relaxed space-y-4">
-              <p>
-                The <code>Container</code> behaves just like a{" "}
-                <code>&lt;div&gt;</code>. It does not control layout for you.
-              </p>
-
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <ArrowRight size={16} className="mt-1" />
-                  <p>
-                    Use <code>className</code> to control layout (flex, grid,
-                    spacing, etc.)
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <ArrowRight size={16} className="mt-1" />
-                  <p>
-                    The <code>Container</code> is mainly responsible for width
-                    and horizontal spacing
-                  </p>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <ArrowRight size={16} className="mt-1" />
-                  <p>Think of it as a wrapper, not a layout system</p>
-                </div>
-              </div>
-            </div>
+            <CodeBlock code={`import { Container } from "@neuctra/ui";`} />
           </section>
 
-          {/* ---------------- When to Use ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              When to Use
-            </h2>
-
-            <div className="text-gray-200 space-y-3">
-              <p>
-                Use <code>Container</code> when you want to:
-              </p>
-
-              <ul className="space-y-2 list-disc list-inside">
-                <li>Limit content width for better readability</li>
-                <li>Center content horizontally</li>
-                <li>Add consistent page spacing</li>
-                <li>Create layout wrappers for sections</li>
-              </ul>
-
-              <p className="text-gray-300 text-sm">
-                It is commonly used for page layouts, sections, and content
-                blocks.
-              </p>
-            </div>
-          </section>
-
-          {/* ---------------- Mental Model ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Mental Model
-            </h2>
-
-            <div className="text-gray-200 space-y-3">
-              <p>
-                Think of <code>Container</code> like a <strong>frame</strong>{" "}
-                around your content.
-              </p>
-
-              <p>
-                It does <strong>NOT</strong> control layout (flex/grid).
-              </p>
-
-              <p>It only controls:</p>
-
-              <ul className="list-disc list-inside space-y-1">
-                <li>Max width</li>
-                <li>Horizontal centering</li>
-                <li>Basic padding</li>
-              </ul>
-
-              <p className="text-gray-500 text-sm">
-                Layout always belongs to <code>className</code> or{" "}
-                <code>style</code>.
-              </p>
-            </div>
-          </section>
-
-          {/* ---------------- Real Example ---------------- */}
+          {/* ---------------- Basic Usage ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
-              Real World Example
+              Basic Usage
             </h2>
 
             <CodePreviewBlock
               language="tsx"
-              code={`<Container size="lg" className="py-10">
-  <div className="grid md:grid-cols-2 gap-6">
-    <div className="bg-zinc-800 p-4 rounded-lg">Left</div>
-    <div className="bg-zinc-800 p-4 rounded-lg">Right</div>
-  </div>
+              code={`<Container className="bg-zinc-800 p-4 rounded-lg">
+  Hello Developer! I am contianer.
 </Container>`}
               previewContent={
-                <Container size="lg" className="py-10">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-zinc-800 p-4 rounded-lg text-white">
-                      Left
-                    </div>
-                    <div className="bg-zinc-800 p-4 rounded-lg text-white">
-                      Right
-                    </div>
-                  </div>
+                <Container className="bg-zinc-800 p-4 rounded-lg">
+                  Hello Developer! I am contianer.
                 </Container>
-              }
-            />
-          </section>
-
-          {/* ---------------- Sizes ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">Sizes</h2>
-
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Container size="sm" />
-<Container size="lg" />
-<Container size="full" />`}
-              previewContent={
-                <div className="space-y-4">
-                  <Container size="sm" className="bg-red-500 p-4">
-                    Small
-                  </Container>
-                  <Container size="lg" className="bg-blue-500 p-4">
-                    Large
-                  </Container>
-                  <Container size="full" className="bg-green-500 p-4">
-                    Full Width
-                  </Container>
-                </div>
               }
             />
           </section>
@@ -188,114 +79,183 @@ const ContainerDocs = () => {
               Works Just Like a div
             </h2>
 
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Container className="bg-blue-500 p-6 rounded-xl shadow-lg">
+            <div className="text-gray-200 space-y-6">
+              <p>
+                <code>Container</code> is a drop-in replacement for{" "}
+                <code>&lt;div&gt;</code>. You can use it with{" "}
+                <strong>any div props</strong>, <strong>any CSS classes</strong>
+                , and <strong>any inline styles</strong>.
+              </p>
+
+              <div className="space-y-4">
+                {/* Basic Styling */}
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <Palette size={20} />
+                    Basic Styling
+                  </h3>
+                  <CodePreviewBlock
+                    language="tsx"
+                    code={`<Container className="bg-blue-500 p-6 rounded-xl shadow-lg">
   <h2>Just like a div</h2>
 </Container>`}
-              previewContent={
-                <Container className="bg-blue-500 p-6 rounded-xl shadow-lg">
-                  <h2 className="text-white font-semibold">Just like a div</h2>
-                </Container>
-              }
-            />
-          </section>
+                    previewContent={
+                      <Container className="bg-blue-500 p-6 rounded-xl shadow-lg">
+                        <h2 className="text-white font-semibold">
+                          Just like a div
+                        </h2>
+                      </Container>
+                    }
+                  />
+                </div>
 
-          {/* ---------------- Without Tailwind ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Without Tailwind
-            </h2>
-
-            <CodePreviewBlock
-              language="tsx"
-              code={`<Container
-  style={{
-    maxWidth: 800,
-    padding: 24,
-    margin: "0 auto"
-  }}
->
-  <h2>Plain CSS usage</h2>
+                {/* Layout with Flex */}
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <Layout size={20} />
+                    Layout with Flex
+                  </h3>
+                  <CodePreviewBlock
+                    language="tsx"
+                    code={`<Container className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+  <span>Left</span>
+  <span>Right</span>
 </Container>`}
-              previewContent={
-                <Container
-                  style={{
-                    maxWidth: 800,
-                    padding: 24,
-                    margin: "0 auto",
-                    background: "#27272a",
-                    color: "white",
-                  }}
-                >
-                  Plain CSS usage
-                </Container>
-              }
-            />
-          </section>
+                    previewContent={
+                      <Container className="flex items-center justify-between p-4 bg-gray-800 rounded-lg text-white">
+                        <span>Left</span>
+                        <span>Right</span>
+                      </Container>
+                    }
+                  />
+                </div>
 
-          {/* ---------------- Mistakes ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Common Mistakes
-            </h2>
-
-            <div className="space-y-4 text-sm text-gray-300">
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
+                {/* Grid Layout */}
                 <div>
-                  <code>{'<Container padding="1.5rem" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Padding only accepts predefined values (sm, md, lg...)
-                  </p>
+                  <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <Grid3X3 size={20} />
+                    Grid Layout
+                  </h3>
+                  <CodePreviewBlock
+                    language="tsx"
+                    code={`<Container className="grid grid-cols-3 gap-4 p-4 bg-gray-900 rounded-lg">
+  <div className="bg-blue-500 p-3 rounded">1</div>
+  <div className="bg-green-500 p-3 rounded">2</div>
+  <div className="bg-red-500 p-3 rounded">3</div>
+</Container>`}
+                    previewContent={
+                      <Container className="grid grid-cols-3 gap-4 p-4 bg-gray-900 rounded-lg">
+                        <div className="bg-blue-500 p-3 rounded text-white text-center">
+                          1
+                        </div>
+                        <div className="bg-green-500 p-3 rounded text-white text-center">
+                          2
+                        </div>
+                        <div className="bg-red-500 p-3 rounded text-white text-center">
+                          3
+                        </div>
+                      </Container>
+                    }
+                  />
+                </div>
+
+                {/* Event Handlers */}
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <MousePointer size={20} />
+                    Event Handlers
+                  </h3>
+                  <CodePreviewBlock
+                    language="tsx"
+                    code={`<Container
+  className="p-4 bg-purple-500 rounded-lg cursor-pointer hover:bg-purple-600 transition-colors"
+  onClick={() => alert('Clicked!')}
+  onMouseEnter={() => console.log('Hover')}
+>
+  Click me (check console)
+</Container>`}
+                    previewContent={
+                      <Container
+                        className="p-4 bg-purple-500 rounded-lg cursor-pointer hover:bg-purple-600 transition-colors text-white"
+                        onClick={() => alert("Container clicked!")}
+                      >
+                        Click me
+                      </Container>
+                    }
+                  />
+                </div>
+
+                {/* Accessibility */}
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <Accessibility size={20} />
+                    Accessibility
+                  </h3>
+                  <CodePreviewBlock
+                    language="tsx"
+                    code={`<Container
+  className="p-4 bg-indigo-500 rounded-lg"
+  role="button"
+  tabIndex={0}
+  aria-label="Interactive container"
+  onKeyDown={(e) => e.key === 'Enter' && alert('Pressed Enter')}
+>
+  Press Enter or click
+</Container>`}
+                    previewContent={
+                      <Container
+                        className="p-4 bg-indigo-500 rounded-lg text-white cursor-pointer"
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Interactive container"
+                        onClick={() => alert("Container activated!")}
+                      >
+                        Press Enter or click
+                      </Container>
+                    }
+                  />
+                </div>
+
+                {/* Data Attributes */}
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                    <Database size={20} />
+                    Data Attributes
+                  </h3>
+                  <CodePreviewBlock
+                    language="tsx"
+                    code={`<Container
+  className="p-4 bg-pink-500 rounded-lg"
+  data-component="custom-container"
+  data-testid="my-container"
+>
+  Custom data attributes
+</Container>`}
+                    previewContent={
+                      <Container
+                        className="p-4 bg-pink-500 rounded-lg text-white"
+                        data-component="custom-container"
+                        data-testid="my-container"
+                      >
+                        Custom data attributes
+                      </Container>
+                    }
+                  />
                 </div>
               </div>
 
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
-                <div>
-                  <code>{'<Container width="80%" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Container does not support custom width props
-                  </p>
-                </div>
+              <div className="bg-zinc-800 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+                  <Lightbulb size={20} />
+                  Pro Tip
+                </h3>
+                <p className="text-gray-300">
+                  Use <code>Container</code> anywhere you'd use a{" "}
+                  <code>&lt;div&gt;</code>. It accepts all the same props:{" "}
+                  <code>id</code>, <code>onClick</code>,<code>style</code>,{" "}
+                  <code>aria-*</code>, <code>data-*</code>, etc.
+                </p>
               </div>
-
-              <div className="flex items-start gap-2 text-green-500">
-                <Check size={16} className="mt-1" />
-                <div>
-                  <code>{'<Container className="p-6 w-[80%]" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Use className or style for layout control
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* ---------------- Pro Tips ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
-
-            <div className="text-gray-200 space-y-3">
-              <p>
-                Always combine <code>Container</code> with layout utilities:
-              </p>
-
-              <ul className="list-disc list-inside space-y-1">
-                <li>flex → for alignment</li>
-                <li>grid → for layouts</li>
-                <li>gap → for spacing</li>
-              </ul>
-
-              <p>
-                Use <code>size="lg"</code> or <code>xl</code> for readable
-                content width.
-              </p>
-
-              <p>
-                Use <code>full</code> for full-width sections (hero, banners).
-              </p>
             </div>
           </section>
 
@@ -385,6 +345,114 @@ const ContainerDocs = () => {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          {/* ---------------- Mistakes ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Common Mistakes
+            </h2>
+
+            <div className="space-y-4 text-sm text-gray-300">
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{'<Container padding="1.5rem" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Padding only accepts predefined values (sm, md, lg...)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{'<Container width="80%" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Container does not support custom width props
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-green-500">
+                <Check size={16} className="mt-1" />
+                <div>
+                  <code>{'<Container className="p-6 w-[80%]" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Use className or style for layout control
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ---------------- Pro Tips ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+
+            <div className="text-gray-200 leading-relaxed space-y-5">
+              {/* Core Concept */}
+              <p>
+                The <code>Container</code> behaves like a{" "}
+                <code>&lt;div&gt;</code> and does not manage layout
+                automatically. Its primary responsibility is controlling width
+                and horizontal spacing.
+              </p>
+
+              {/* Key Points */}
+              <div className="space-y-2">
+                <div className="flex items-start gap-2">
+                  <ArrowRight size={16} className="mt-1" />
+                  <p>
+                    Use <code>className</code> to handle layout (flex, grid,
+                    spacing, etc.)
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <ArrowRight size={16} className="mt-1" />
+                  <p>
+                    Think of <code>Container</code> as a wrapper, not a layout
+                    system
+                  </p>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <ArrowRight size={16} className="mt-1" />
+                  <p>
+                    It helps maintain consistent content width across your UI
+                  </p>
+                </div>
+              </div>
+
+              {/* Pro Tips */}
+              <div className="pt-2 space-y-3">
+                <p className="text-gray-300 font-medium">Best Practices:</p>
+
+                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                  <li>
+                    Combine with <code>flex</code>, <code>grid</code>, and{" "}
+                    <code>gap</code> for layouts
+                  </li>
+                  <li>
+                    Use <code>size="lg"</code> or <code>"xl"</code> for readable
+                    content width
+                  </li>
+                  <li>
+                    Use <code>full</code> for edge-to-edge sections (hero,
+                    banners)
+                  </li>
+                  <li>
+                    Avoid putting layout logic inside Container — keep it
+                    reusable
+                  </li>
+                  <li>
+                    Keep Container consistent across pages to maintain visual
+                    rhythm
+                  </li>
+                </ul>
+              </div>
             </div>
           </section>
 

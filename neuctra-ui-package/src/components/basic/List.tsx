@@ -21,10 +21,6 @@ export interface ListProps {
 
   type?: "unordered" | "ordered" | "inline";
 
-  /** 🎨 Theme */
-  primaryTheme?: boolean;
-  primaryColor?: string;
-
   /** 🔥 Class Customization */
   className?: string;
   listClassName?: string;
@@ -54,9 +50,6 @@ interface ListItemProps extends ListItemType {
   isInline?: boolean;
   isOrdered?: boolean;
 
-  primaryTheme?: boolean;
-  primaryColor?: string;
-
   itemClassName?: string;
   bulletClassName?: string;
   textClassName?: string;
@@ -70,15 +63,13 @@ interface ListItemProps extends ListItemType {
   subListStyle?: CSSProperties;
 }
 
-const ListItem: React.FC<ListItemProps> = ({
+export const ListItem: React.FC<ListItemProps> = ({
   text,
   icon,
   onClick,
   subItems,
   isInline,
   isOrdered,
-  primaryTheme = true,
-  primaryColor = "#3b82f6",
 
   itemClassName,
   bulletClassName,
@@ -100,7 +91,7 @@ const ListItem: React.FC<ListItemProps> = ({
         className={clsx(
           "flex items-center gap-2 text-sm text-foreground transition-colors",
           onClick && "cursor-pointer hover:text-primary",
-          itemClassName
+          itemClassName,
         )}
       >
         {/* ICON / BULLET */}
@@ -114,14 +105,17 @@ const ListItem: React.FC<ListItemProps> = ({
             <span
               className={clsx(
                 "w-2 h-2 rounded-full bg-primary",
-                bulletClassName
+                bulletClassName,
               )}
               style={bulletStyle}
             />
           )
         )}
 
-        <span className={clsx("text-foreground", textClassName)} style={textStyle}>
+        <span
+          className={clsx("text-foreground", textClassName)}
+          style={textStyle}
+        >
           {text}
         </span>
       </div>
@@ -132,7 +126,7 @@ const ListItem: React.FC<ListItemProps> = ({
           className={clsx(
             "pl-5 mt-2 space-y-2",
             isOrdered ? "list-decimal text-foreground" : "list-none",
-            subListClassName
+            subListClassName,
           )}
           style={subListStyle}
         >
@@ -142,8 +136,6 @@ const ListItem: React.FC<ListItemProps> = ({
               {...sub}
               isInline={false}
               isOrdered={isOrdered}
-              primaryTheme={primaryTheme}
-              primaryColor={primaryColor}
               itemClassName={itemClassName}
               bulletClassName={bulletClassName}
               textClassName={textClassName}
@@ -171,9 +163,6 @@ export const List: React.FC<ListProps> = ({
   titleIcon,
   items,
   type = "unordered",
-
-  primaryTheme = true,
-  primaryColor = "#3b82f6",
 
   className,
   listClassName,
@@ -205,7 +194,7 @@ export const List: React.FC<ListProps> = ({
         <div
           className={clsx(
             "flex items-center gap-2 mb-3 text-base font-semibold text-foreground",
-            titleClassName
+            titleClassName,
           )}
           style={titleStyle}
         >
@@ -224,9 +213,9 @@ export const List: React.FC<ListProps> = ({
           isInline
             ? "flex flex-wrap gap-4"
             : isOrdered
-            ? "list-decimal pl-5 space-y-2 text-foreground"
-            : "list-none p-0 text-foreground",
-          listClassName
+              ? "list-decimal pl-5 space-y-2 text-foreground"
+              : "list-none p-0 text-foreground",
+          listClassName,
         )}
         style={listStyle}
       >
@@ -236,8 +225,6 @@ export const List: React.FC<ListProps> = ({
             {...item}
             isInline={isInline}
             isOrdered={isOrdered}
-            primaryTheme={primaryTheme}
-            primaryColor={primaryColor}
             itemClassName={itemClassName}
             bulletClassName={bulletClassName}
             textClassName={textClassName}

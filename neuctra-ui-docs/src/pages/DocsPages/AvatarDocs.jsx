@@ -5,7 +5,7 @@ import Metadata from "../../MetaData";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Avatar } from "@neuctra/ui";
-import { User } from "lucide-react";
+import { AlertTriangle, Check, User, X } from "lucide-react";
 
 const AvatarDocs = () => {
   return (
@@ -23,7 +23,7 @@ const AvatarDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Avatar Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+            <p className="text-sm text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Avatar</span>{" "}
               component displays profile images, user initials, or fallback
               icons. Supports multiple sizes, variants, online/offline status,
@@ -36,10 +36,7 @@ const AvatarDocs = () => {
             <h2 className="text-2xl font-semibold mb-2 text-white">
               Import Component
             </h2>
-            <CodeBlock
-              language="react"
-              code={`import { Avatar } from "@neuctra/ui";`}
-            />
+            <CodeBlock code={`import { Avatar } from "@neuctra/ui";`} />
           </section>
 
           {/* Basic Usage */}
@@ -107,6 +104,10 @@ const AvatarDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-4">
               Props Table
             </h2>
+            <p className="text-gray-400 mb-3">
+              All available props for the Avatar component.
+            </p>
+
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
@@ -117,102 +118,128 @@ const AvatarDocs = () => {
                     <th className="text-left p-3">Description</th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
-                    <td className="p-3">src</td>
+                    <td className="p-3 font-medium">src</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Image URL for avatar</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">Image source URL for the avatar</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">alt</td>
+                    <td className="p-3 font-medium">alt</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"User avatar"</td>
+                    <td className="p-3 text-gray-400">"User avatar"</td>
                     <td className="p-3">
-                      Alt text for image / accessibility label
+                      Accessibility label and alt text for the image
                     </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">size</td>
+                    <td className="p-3 font-medium">size</td>
                     <td className="p-3">
                       "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive"
                     </td>
-                    <td className="p-3">"md"</td>
-                    <td className="p-3">Avatar size</td>
+                    <td className="p-3 text-gray-400">"md"</td>
+                    <td className="p-3">Size of the avatar</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">variant</td>
+                    <td className="p-3 font-medium">variant</td>
                     <td className="p-3">"circular" | "rounded" | "square"</td>
-                    <td className="p-3">"circular"</td>
-                    <td className="p-3">Avatar shape</td>
+                    <td className="p-3 text-gray-400">"circular"</td>
+                    <td className="p-3">Shape of the avatar</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">isOnline</td>
+                    <td className="p-3 font-medium">isOnline</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Show green status dot</td>
+                    <td className="p-3 text-gray-400">false</td>
+                    <td className="p-3">
+                      Shows a green status dot (online indicator)
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">isOffline</td>
+                    <td className="p-3 font-medium">isOffline</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Show gray status dot</td>
+                    <td className="p-3 text-gray-400">false</td>
+                    <td className="p-3">
+                      Shows a gray status dot (offline indicator)
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">ring</td>
+                    <td className="p-3 font-medium">ring</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Add a ring around avatar</td>
+                    <td className="p-3 text-gray-400">false</td>
+                    <td className="p-3">Adds a ring around the avatar</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">ringColor</td>
+                    <td className="p-3 font-medium">fallback</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"#3b82f6"</td>
-                    <td className="p-3">Color of ring</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Custom fallback text (initials) when image fails to load
+                      or no src is provided
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">fallback</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Initials or letters if image fails</td>
+                    <td className="p-3 font-medium">onClick</td>
+                    <td className="p-3">() =&gt; void</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Click handler. Makes the avatar focusable and keyboard
+                      accessible
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">onClick</td>
-                    <td className="p-3">() ={`>`} void</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Click handler</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">statusPosition</td>
+                    <td className="p-3 font-medium">statusPosition</td>
                     <td className="p-3">
                       "top-left" | "top-right" | "bottom-left" | "bottom-right"
                     </td>
-                    <td className="p-3">"bottom-right"</td>
-                    <td className="p-3">Position of status dot</td>
+                    <td className="p-3 text-gray-400">"bottom-right"</td>
+                    <td className="p-3">Position of the status dot</td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">className</td>
+                    <td className="p-3 font-medium">className</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">""</td>
-                    <td className="p-3">Custom class for avatar wrapper</td>
+                    <td className="p-3 text-gray-400">""</td>
+                    <td className="p-3">
+                      Additional CSS classes for the avatar container
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">statusClassName</td>
+                    <td className="p-3 font-medium">statusClassName</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">""</td>
-                    <td className="p-3">Custom class for status dot</td>
+                    <td className="p-3 text-gray-400">""</td>
+                    <td className="p-3">
+                      Additional CSS classes for the status dot
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">style</td>
+                    <td className="p-3 font-medium">style</td>
                     <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom inline styles for avatar</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Custom inline styles for the avatar container
+                    </td>
                   </tr>
+
                   <tr>
-                    <td className="p-3">statusStyle</td>
+                    <td className="p-3 font-medium">statusStyle</td>
                     <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Custom inline styles for status dot</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Custom inline styles for the status dot
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -226,31 +253,51 @@ const AvatarDocs = () => {
             </h2>
             <div className="space-y-4 text-sm text-gray-300">
               <div className="flex items-start gap-2 text-red-500">
-                <span className="font-bold">⚠</span>
-                <div>
-                  <code>{'<Avatar size="2xl" fallback="AB" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Ensure fallback initials are short; too many letters will
-                    overflow.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 text-red-500">
-                <span className="font-bold">⚠</span>
+                <X size={16} />
                 <div>
                   <code>{"<Avatar isOnline isOffline />"}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Avoid using both online and offline simultaneously; choose
-                    one status.
+                  <p className="text-gray-200 text-xs mt-1">
+                    Do not use both <code>isOnline</code> and{" "}
+                    <code>isOffline</code> at the same time. Only one status
+                    should be active.
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-green-500">
-                <span className="font-bold">✔</span>
+
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} />
                 <div>
                   <code>{'<Avatar ring ringColor="#10b981" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Custom ring colors can highlight important avatars.
+                  <p className="text-gray-200 text-xs mt-1">
+                    <code>ringColor</code> prop does not exist. Use{" "}
+                    <code>style</code> or Tailwind classes to customize ring
+                    color.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} />
+                <div>
+                  <code>{'<Avatar size="2xl" fallback="ABCD" />'}</code>
+                  <p className="text-gray-200 text-xs mt-1">
+                    Keep fallback initials short (max 2 characters) to prevent
+                    overflow on smaller sizes.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>
+                    {
+                      '<Avatar src={image} fallback="JD" onClick={handleClick} />'
+                    }
+                  </code>
+                  <p className="text-gray-200 text-xs mt-1">
+                    Always provide a meaningful <code>fallback</code> for better
+                    UX when images fail.
                   </p>
                 </div>
               </div>
@@ -262,36 +309,43 @@ const AvatarDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
             <ul className="list-disc list-inside text-gray-200 space-y-1">
               <li>
-                Use <code>fallback</code> to show user initials if image fails.
+                Use <code>fallback</code> to display user initials when the
+                image fails to load.
               </li>
               <li>
-                Combine <code>ring</code> and <code>ringColor</code> for
-                attention.
+                Combine <code>ring</code> with custom <code>style</code> or
+                Tailwind classes for colored rings.
               </li>
               <li>
-                Use <code>isOnline</code> or <code>isOffline</code> for presence
-                indicators.
+                Use <code>isOnline</code> for presence indicators in
+                chat/messaging UIs.
               </li>
               <li>
-                Clickable avatars should have <code>tabIndex</code> and proper
-                ARIA roles.
+                Make avatars clickable by passing <code>onClick</code> — the
+                component automatically handles keyboard accessibility.
               </li>
               <li>
-                Pick the right <code>variant</code> for design context:
-                circular, rounded, or square.
+                Choose the right <code>variant</code>: <code>circular</code> for
+                profiles, <code>rounded</code> for teams, <code>square</code>{" "}
+                for apps/icons.
               </li>
               <li>
-                Responsive avatars can default to "md" but scale with CSS or
-                parent container.
+                For fully responsive avatars, use <code>size="responsive"</code>{" "}
+                and control size via parent container + Tailwind responsive
+                classes.
+              </li>
+              <li>
+                You can customize status dot appearance using{" "}
+                <code>statusClassName</code> and <code>statusStyle</code>.
               </li>
             </ul>
           </section>
 
           {/* Footer */}
           <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
+            Built with <span className=" ">React</span>,{" "}
+            <span className=" ">Tailwind CSS</span> &{" "}
+            <span className=" ">TypeScript</span>.
           </footer>
         </div>
       </div>

@@ -84,7 +84,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <div
-        className={`w-full space-y-1.5 ${containerClassName}`}
+        className={`w-full space-y-1 ${containerClassName}`}
         style={containerStyle}
       >
         {label && (
