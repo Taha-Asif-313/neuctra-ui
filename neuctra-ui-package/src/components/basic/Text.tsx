@@ -162,6 +162,7 @@ export function Text<T extends HTMLElementTag = "p">({
         italic && "italic",
         strikethrough && "line-through",
         underline && "underline",
+        truncate && "block min-w-0",
 
         // anchor styling (still theme-aware)
         isAnchor && "text-primary hover:opacity-80 underline",

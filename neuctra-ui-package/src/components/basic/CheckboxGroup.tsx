@@ -140,7 +140,8 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   const DefaultIcon = (checked: boolean) => (
     <span
       className={clsx(
-        "inline-flex items-center justify-center rounded border border-border bg-background transition-colors",
+        "inline-flex items-center justify-center rounded border transition-colors",
+        checked ? "border-primary bg-primary" : "border-border bg-transparent",
         iconClassName
       )}
       style={{
@@ -152,7 +153,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
       {checked && (
         <svg
           viewBox="0 0 24 24"
-          className="text-primary"
+          className="text-white"
           fill="none"
           stroke="currentColor"
           strokeWidth={3}
@@ -202,9 +203,8 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
             onFocus={() => setFocusedIndex(index)}
             className={clsx(
               "flex items-center justify-between cursor-pointer transition-colors",
-              "text-foreground hover:bg-accent",
+              "text-foreground",
               disabled && "opacity-50 cursor-not-allowed",
-              focused && "ring-2 ring-border",
               itemClassName,
               labelClassName
             )}

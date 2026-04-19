@@ -4,7 +4,7 @@ import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Check, X, ChevronDown } from "lucide-react";
+import { Check, X, ChevronDown, MapPin } from "lucide-react";
 import { Select } from "@neuctra/ui";
 
 const sampleOptions = [
@@ -98,14 +98,14 @@ const SelectDocs = () => {
   options={sampleOptions}
   label="Custom Label"
   required
-  prefixIcon={ChevronDown}
+  prefixIcon={MapPin}
 />`}
                 previewContent={
                   <Select
                     options={sampleOptions}
                     label="Custom Label"
                     required
-                    prefixIcon={ChevronDown}
+                    prefixIcon={MapPin}
                   />
                 }
               />

@@ -29,7 +29,7 @@
 
   --border: color-mix(in srgb, var(--primary) 12%, #e2e8f0);
   --input: #e2e8f0;
-  --ring: color-mix(in srgb, var(--primary) 60%, transparent);
+  --ring: #18181b;
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
@@ -45,19 +45,15 @@
   --background: #0a0a0a;
   --foreground: #ffffff;
 
-  --primary-soft: color-mix(in srgb, var(--primary) 15%, black);
-  --primary-muted: color-mix(in srgb, var(--primary) 25%, black);
-  --primary-border: color-mix(in srgb, var(--primary) 35%, black);
-
-  --muted: #1f2937;
+  --muted: #27272a;
   --muted-foreground: #9ca3af;
 
-  --accent: #1f2937;
+  --accent: #18181b ;
   --accent-foreground: #ffffff;
 
-  --border: color-mix(in srgb, var(--primary) 20%, #1f2937);
+  --border: #18181b;
   --input: #1f2937;
-  --ring: color-mix(in srgb, var(--primary) 60%, transparent);
+  --ring: #18181b;
 
   --destructive: #7f1d1d;
   --destructive-foreground: #ffffff;

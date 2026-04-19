@@ -132,10 +132,10 @@ const InputDocs = () => {
 />`}
                 previewContent={
                   <Input
-                    label="Email"
-                    type="email"
-                    prefix="+"
-                    error="Invalid email"
+                    label="Currency"
+                    type="text"
+                    prefix="PKR"
+                    error="Invalid currency"
                   />
                 }
               />

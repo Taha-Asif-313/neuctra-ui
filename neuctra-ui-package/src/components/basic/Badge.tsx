@@ -102,7 +102,7 @@ export const Badge: React.FC<BadgeProps> = memo(
           <span
             style={dotStyle}
             className={clsx(
-              "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-accent",
+              "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-destructive",
               pulse && "animate-ping",
               dotClassName,
             )}
@@ -116,7 +116,7 @@ export const Badge: React.FC<BadgeProps> = memo(
             className={clsx(
               "absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px]",
               "flex items-center justify-center rounded-full",
-              "bg-accent text-primary-foreground",
+              "bg-destructive text-primary-foreground",
               countClassName,
             )}
           >

@@ -168,8 +168,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
             key={option.value}
             className={clsx(
               "flex items-center justify-between gap-2 cursor-pointer select-none rounded-md px-2 py-1 transition-colors",
-              "text-foreground hover:bg-accent",
-              focused && "ring-2 ring-border",
+              "text-foreground",
               disabled && "opacity-50 cursor-not-allowed",
               itemClassName
             )}
@@ -206,10 +205,10 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                 width: iconSize,
                 height: iconSize,
                 borderColor: checked
-                  ? "hsl(var(--primary))"
-                  : "hsl(var(--border))",
+                  ? "var(--primary)"
+                  : "var(--border)",
                 backgroundColor: checked
-                  ? "hsl(var(--primary))"
+                  ? "var(--primary)"
                   : "transparent",
                 ...iconStyle,
               }}

@@ -17,7 +17,9 @@ export interface InputFieldProps {
 
   value?: string;
   defaultValue?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 
   required?: boolean;
   disabled?: boolean;
@@ -119,7 +121,7 @@ export const Input = forwardRef<
   const currentValue = value !== undefined ? value : localValue;
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     if (value === undefined) setLocalValue(e.target.value);
     onChange?.(e);
@@ -130,10 +132,10 @@ export const Input = forwardRef<
   };
 
   const getPadding = () => {
-    if (!hasPrefix) return "px-4";
+    if (!hasPrefix) return "px-3.5";
     if (hasPrefixIcon && hasPrefixText) return "pl-20 pr-4";
-    if (hasPrefixText) return "pl-14 pr-4";
-    if (hasPrefixIcon) return "pl-10 pr-4";
+    if (hasPrefixText) return "pl-12 pr-4";
+    if (hasPrefixIcon) return "pl-9 pr-4";
     return "px-4";
   };
 
@@ -141,15 +143,14 @@ export const Input = forwardRef<
     ? { borderColor: primaryColor, boxShadow: `0 0 0 1px ${primaryColor}` }
     : {};
 
-
   return (
     <div
-      className={`w-full space-y-1 text-foreground ${wrapperClassName || className}`}
+      className={`w-full space-y-0.5 text-foreground ${wrapperClassName || className}`}
       style={wrapperStyle}
     >
       {label && (
         <label
-          className={`flex items-center gap-2 text-sm font-medium text-foreground ${labelClassName}`}
+          className={`flex items-center gap-2 text-[13px] font-medium text-foreground ${labelClassName}`}
           style={labelStyle}
         >
           {LabelIcon && <LabelIcon size={16} />}
@@ -182,7 +183,7 @@ export const Input = forwardRef<
             className={`
               w-full rounded-lg text-sm border border-border bg-background text-foreground outline-none py-2.5
               ${getPadding()}
-              focus:ring-2 focus:ring-primary/20
+              focus:border-primary/40
               ${textareaClassName}
             `}
           />
@@ -197,14 +198,14 @@ export const Input = forwardRef<
             placeholder={placeholder}
             disabled={disabled}
             readOnly={readOnly}
-            min={type === "number" ? min ?? 0 : undefined}
+            min={type === "number" ? (min ?? 0) : undefined}
             max={max}
             step={step}
             style={{ ...dynamicStyle, ...inputStyle }}
             className={`
-              w-full rounded-lg text-sm border border-border bg-background text-foreground outline-none py-2.5
+              w-full rounded-lg text-sm border border-border bg-background text-foreground outline-none py-2
               ${getPadding()}
-              focus:ring-2 focus:ring-primary/20
+              focus:border-primary/40
               ${inputClassName}
             `}
           />
@@ -235,8 +236,8 @@ export const Input = forwardRef<
             error
               ? "text-destructive"
               : success
-              ? "text-primary"
-              : "text-muted-foreground"
+                ? "text-primary"
+                : "text-muted-foreground"
           } ${helperTextClassName}`}
         >
           {error && typeof error === "string" ? error : helperText}

@@ -123,7 +123,6 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
     >
       {options.map((option, index) => {
         const checked = selectedValues.includes(option.value);
-        const focused = focusedIndex === index;
 
         return (
           <label
@@ -132,9 +131,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
             className={clsx(
               "flex items-center justify-between cursor-pointer transition-colors",
               "text-foreground",
-              "hover:bg-accent/40",
               disabled && "opacity-50 cursor-not-allowed",
-              focused && "ring-2 ring-border",
               itemClassName,
               labelClassName
             )}
@@ -176,7 +173,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
               <span
                 className={clsx(
                   "absolute top-1/2 -translate-y-1/2 rounded-full shadow",
-                  "bg-background",
+                  "bg-white",
                   thumbClassName
                 )}
                 style={{

@@ -115,43 +115,6 @@ export const init = async () => {
     // =============================
     log.title("Setup Complete");
 
-    console.log(kleur.bold("Next Steps:\n"));
-
-    console.log(kleur.cyan("1. Wrap your App:"));
-    console.log(kleur.gray(`
-   import { ThemeProvider } from "./contexts/ThemeContext";
-
-   function App() {
-     return (
-       <ThemeProvider>
-         <YourAppContent />
-       </ThemeProvider>
-     );
-   }
-    `));
-
-    console.log(kleur.cyan("2. Use theme hook:"));
-    console.log(kleur.gray(`
-   import { useTheme } from "./contexts/ThemeContext";
-
-   export function ThemeToggle() {
-     const { isDark, toggleTheme } = useTheme();
-     return (
-       <button onClick={toggleTheme}>
-         {isDark ? "☀ Light" : "🌙 Dark"}
-       </button>
-     );
-   }
-    `));
-
-    console.log(kleur.cyan("3. Features:"));
-    console.log(kleur.gray(`
-   ✨ System theme detection
-   💾 LocalStorage persistence
-   🔁 Toggle hook
-   🌗 .dark class sync
-    `));
-
     log.success("Happy coding 🚀\n");
 
   } catch (error) {

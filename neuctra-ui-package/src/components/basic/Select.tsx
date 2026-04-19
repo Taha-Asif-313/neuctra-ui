@@ -53,9 +53,6 @@ export interface SelectProps {
   dropdownStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
 
-  /** Dark Mode */
-  darkMode?: boolean;
-
   /** Theme */
   primaryColor?: string;
 }
@@ -95,14 +92,12 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     dropdownStyle,
     itemStyle,
 
-    darkMode,
     primaryColor = "var(--primary)",
   } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => containerRef.current!);
 
-  const [systemDarkMode, setSystemDarkMode] = useState(false);
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState<
     string | string[] | undefined
@@ -135,21 +130,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Detect system theme
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    setSystemDarkMode(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) => setSystemDarkMode(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  // Resolve final dark mode
-  const finalDarkMode = darkMode !== undefined ? darkMode : systemDarkMode;
-
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLButtonElement>) => {
       if (e.key === "Escape") setOpen(false);
@@ -165,6 +145,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     if (disabled) return;
 
     let newValue: string | string[];
+
     if (multiple) {
       const exists = selectedValues.includes(opt.value);
       newValue = exists
@@ -186,52 +167,11 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   const hasError = Boolean(error);
   const hasValue = selectedLabels.length > 0;
 
-  // Theme tokens
-  const theme = finalDarkMode
-    ? {
-        bg: "bg-zinc-900",
-        text: "text-zinc-100",
-        border: "ring-zinc-700",
-        triggerBg: "bg-zinc-800",
-        triggerText: "text-zinc-100",
-        triggerHover: "hover:bg-zinc-700",
-        triggerFocus: "focus-visible:ring-2 focus-visible:ring-offset-zinc-900",
-        placeholder: "text-zinc-500",
-        dropdownBg: "bg-zinc-800",
-        dropdownBorder: "ring-1 ring-zinc-700",
-        dropdownShadow: "shadow-2xl",
-        itemText: "text-zinc-100",
-        itemHover: "hover:bg-zinc-700",
-        helperMuted: "text-zinc-500",
-        labelText: "text-zinc-300",
-        scrollbar: "[&::-webkit-scrollbar-track]:bg-zinc-800",
-      }
-    : {
-        bg: "bg-white",
-        text: "text-gray-900",
-        border: "ring-gray-200",
-        triggerBg: "bg-white",
-        triggerText: "text-gray-900",
-        triggerHover: "hover:bg-gray-50",
-        triggerFocus: "focus-visible:ring-2 focus-visible:ring-offset-white",
-        placeholder: "text-gray-400",
-        dropdownBg: "bg-white",
-        dropdownBorder: "ring-1 ring-gray-200",
-        dropdownShadow: "shadow-xl",
-        itemText: "text-gray-800",
-        itemHover: "hover:bg-gray-50",
-        helperMuted: "text-gray-400",
-        labelText: "text-gray-700",
-        scrollbar: "[&::-webkit-scrollbar-track]:bg-gray-50",
-      };
-
-  // REMOVE: darkMode + system theme logic completely
-
   const ringColor = hasError
-    ? "#ef4444"
+    ? "var(--destructive)"
     : success
-      ? "#22c55e"
-      : "rgba(0,0,0,0.1)";
+      ? "var(--success)"
+      : "var(--border)";
 
   return (
     <div
@@ -242,14 +182,13 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       {label && (
         <label
           className={clsx(
-            "flex items-center gap-1.5 text-sm font-medium select-none",
-            "text-gray-700 dark:text-zinc-300",
+            "flex items-center gap-1.5 text-sm font-medium text-foreground",
             labelClassName,
           )}
         >
           {LabelIcon && <LabelIcon className="w-4 h-4 shrink-0" />}
           {label}
-          {required && <span className="text-red-500">*</span>}
+          {required && <span className="text-destructive">*</span>}
         </label>
       )}
 
@@ -257,8 +196,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         {PrefixIcon && (
           <div
             className={clsx(
-              "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2",
-              "text-gray-400 dark:text-zinc-400",
+              "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground",
               iconClassName,
             )}
           >
@@ -273,21 +211,14 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           onKeyDown={handleKeyDown}
           className={clsx(
             "w-full flex items-center justify-between gap-2",
-            "rounded-lg text-sm px-3 py-2 transition-all outline-none border border-zinc-200 dark:border-zinc-900",
+            "rounded-lg text-sm px-3 py-2 transition-all outline-none",
+            "border border-border bg-background text-foreground",
+            "hover:bg-accent/10",
             PrefixIcon && "pl-9",
-
-            // LIGHT + DARK
-            "bg-white text-zinc-950 hover:bg-gray-50",
-            "dark:bg-zinc-950 dark:text-zinc-50 dark:hover:bg-zinc-700",
-
-            "focus-visible:ring-2 focus-visible:ring-offset-2",
-            "focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-900",
-
             disabled && "opacity-50 cursor-not-allowed pointer-events-none",
             triggerClassName,
           )}
           style={{
-            boxShadow: `0 0 0 1.5px ${ringColor}`,
             ["--tw-ring-color" as string]: primaryColor,
             ...triggerStyle,
           }}
@@ -295,9 +226,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           <span
             className={clsx(
               "truncate flex-1 text-left",
-              hasValue
-                ? "text-gray-900 dark:text-zinc-100"
-                : "text-gray-400 dark:text-zinc-500",
+              hasValue ? "text-foreground" : "text-muted-foreground",
               valueClassName,
             )}
           >
@@ -310,9 +239,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
           <DropdownIcon
             className={clsx(
-              "w-4 h-4 transition-transform",
+              "w-4 h-4 transition-transform text-muted-foreground",
               open && "rotate-180",
-              "text-gray-400 dark:text-zinc-400",
               iconClassName,
             )}
           />
@@ -321,39 +249,33 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         {open && (
           <div
             className={clsx(
-              "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden shadow-xl",
-              "bg-white ring-1 ring-gray-200",
-              "dark:bg-zinc-800 dark:ring-zinc-700 dark:shadow-2xl",
+              "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden",
+              "bg-background border border-border shadow-lg",
               dropdownClassName,
             )}
             style={dropdownStyle}
           >
             <ul className="max-h-60 overflow-y-auto">
               {options.length === 0 ? (
-                <li className="px-3 py-2.5 text-sm text-gray-400 dark:text-zinc-500 text-center">
+                <li className="px-3 py-2.5 text-sm text-muted-foreground text-center">
                   No options available
                 </li>
               ) : (
                 options.map((opt) => {
                   const active = selectedValues.includes(opt.value);
+
                   return (
                     <li
                       key={opt.value}
                       onClick={() => handleSelect(opt)}
                       className={clsx(
-                        "flex items-center justify-between px-3 py-2 text-sm cursor-pointer transition-colors duration-150",
-
-                        // LIGHT
-                        "text-zinc-950 hover:bg-zinc-50 active:bg-gray-100",
-
-                        // DARK
-                        "dark:text-zinc-100 dark:bg-zinc-950 dark:hover:bg-zinc-700 dark:active:bg-zinc-600",
-
+                        "flex items-center justify-between px-3 py-2 text-sm cursor-pointer transition-colors",
+                        "text-foreground hover:bg-accent/10",
                         itemClassName,
                       )}
                       style={{
                         backgroundColor: active
-                          ? `color-mix(in srgb, ${primaryColor} 15%, transparent)`
+                          ? `${primaryColor}20`
                           : undefined,
                         ...itemStyle,
                       }}
@@ -383,10 +305,10 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           className={clsx(
             "text-xs",
             hasError
-              ? "text-red-500"
+              ? "text-destructive"
               : success
-                ? "text-green-500"
-                : "text-gray-400 dark:text-zinc-500",
+                ? "text-primary"
+                : "text-muted-foreground",
             helperClassName,
           )}
         >

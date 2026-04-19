@@ -1,4 +1,3 @@
-import React from "react";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import {
@@ -28,7 +27,7 @@ const IntroductionDocPage = () => {
               <span className="text-primary">Neuctra UI</span>
             </h1>
 
-            <p className="mt-4 text-gray-400 max-w-2xl leading-relaxed">
+            <p className="mt-4 text-zinc-200 max-w-2xl leading-relaxed">
               Neuctra UI is a modern React component library powered by Tailwind
               CSS. It helps you build clean, scalable, and customizable
               interfaces without wasting time on repetitive UI work.
@@ -44,7 +43,7 @@ const IntroductionDocPage = () => {
               </h2>
             </div>
 
-            <p className="text-gray-400 text-sm">
+            <p className="text-zinc-200 text-sm">
               The fastest way to start is using the official CLI. It
               automatically: installs packages, configures Tailwind, sets up
               theme system, and wraps your app with providers.
@@ -84,13 +83,13 @@ const IntroductionDocPage = () => {
               What is Neuctra UI?
             </h2>
 
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-zinc-200 leading-relaxed">
               Neuctra UI is not just a component library — it's a complete UI
               system. It combines design tokens, accessibility, and developer
               experience into a single cohesive ecosystem.
             </p>
 
-            <p className="text-gray-400 leading-relaxed">
+            <p className="text-zinc-200 leading-relaxed">
               Every component is built with performance, customization, and
               consistency in mind — making it suitable for both small projects
               and enterprise apps.
@@ -126,7 +125,7 @@ export default function App() {
               <h3 className="text-lg font-semibold text-white">What’s Next?</h3>
             </div>
 
-            <p className="text-gray-400 text-sm">
+            <p className="text-zinc-200 text-sm">
               Move to <span className="text-white">Quick Start</span> to install
               and configure Neuctra UI in your project step by step.
             </p>
@@ -153,7 +152,7 @@ const Feature = ({ icon: Icon, title, desc }) => (
   <div className="p-5 rounded-xl bg-zinc-950 border border-white/10 hover:border-zinc-700 transition">
     <Icon className="text-primary mb-3" size={18} />
     <p className="text-white font-semibold">{title}</p>
-    <p className="text-gray-400 text-sm mt-1">{desc}</p>
+    <p className="text-zinc-200 text-sm mt-1">{desc}</p>
   </div>
 );
 
