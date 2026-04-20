@@ -1,6 +1,6 @@
 {
   "name": "@neuctra/ui-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "description": "Official CLI for Neuctra UI - Instantly setup React projects with automatic theme configuration, CSS initialization, and ThemeProvider wrapping for seamless dark mode support",
   "author": {
@@ -66,12 +66,11 @@
     "prepublishOnly": "node -e \"console.log('✅ Publishing @neuctra/ui-cli to npm')\""
   },
   "dependencies": {
-    "fs-extra": "^11.3.4"
-  },
-  "devDependencies": {
+    "fs-extra": "^11.3.4",
     "kleur": "^4.1.5",
     "ora": "^9.3.0"
   },
+  "devDependencies": {},
   "funding": {
     "type": "individual",
     "url": "https://github.com/sponsors/neuctra"
