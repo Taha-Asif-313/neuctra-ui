@@ -34,7 +34,8 @@ if (command === "-v" || command === "--version") {
 }
 
 if (command === "init") {
-  import("../commands/init.js").then((m) => m.init()).catch((err) => {
+  const initModulePath = join(__dirname, "../commands/init.js");
+  import(initModulePath).then((m) => m.init()).catch((err) => {
     console.error("❌ Error:", err.message);
     process.exit(1);
   });
