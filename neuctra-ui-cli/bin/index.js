@@ -2,7 +2,7 @@
 
 import process from "process";
 import { readFileSync } from "fs";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 import { dirname, join } from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -35,10 +35,14 @@ if (command === "-v" || command === "--version") {
 
 if (command === "init") {
   const initModulePath = join(__dirname, "../commands/init.js");
-  import(initModulePath).then((m) => m.init()).catch((err) => {
-    console.error("❌ Error:", err.message);
-    process.exit(1);
-  });
+  const fileUrl = pathToFileURL(initModulePath).href;
+
+  import(fileUrl)
+    .then((m) => m.init())
+    .catch((err) => {
+      console.error("❌ Error:", err.message);
+      process.exit(1);
+    });
 } else {
   console.error(`❌ Unknown command: ${command}\n`);
   showHelp();
