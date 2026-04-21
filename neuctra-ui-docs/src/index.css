@@ -1,78 +1,117 @@
+@import "tailwindcss";
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-@import "tailwindcss";
 @source "../node_modules/@neuctra/ui";
 
+/* =============================
+   BASE GLOBAL STYLES
+============================= */
 
-/* NEUCTRA_THEME_START */
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
 
 /* =============================
-   BASE THEME (LIGHT)
+   THEME SYSTEM
 ============================= */
+/* NEUCTRA_THEME_START */
+
+/* LIGHT THEME */
 :root {
   --primary: #00c214;
   --primary-foreground: #ffffff;
 
-  --primary-soft: color-mix(in srgb, var(--primary) 10%, white);
-  --primary-muted: color-mix(in srgb, var(--primary) 20%, white);
-  --primary-border: color-mix(in srgb, var(--primary) 30%, white);
-  --primary-ring: color-mix(in srgb, var(--primary) 50%, transparent);
-
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #09090b;
 
-  --muted: color-mix(in srgb, var(--primary) 6%, #f1f5f9);
-  --muted-foreground: #64748b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
 
-  --accent: color-mix(in srgb, var(--primary) 8%, #f1f5f9);
-  --accent-foreground: #0f172a;
+  --accent: #e4e4e7;
+  --accent-foreground: #09090b;
 
-  --border: color-mix(in srgb, var(--primary) 12%, #e2e8f0);
-  --input: #e2e8f0;
-  --ring: #18181b;
+  --border: #e4e4e7;
+  --input: #f4f4f5;
+  --ring: #a1a1aa;
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 }
 
-/* =============================
-   DARK THEME
-============================= */
+/* DARK THEME */
 .dark {
-  /* keep your brand color */
   --primary: #00c214;
   --primary-foreground: #ffffff;
 
-  /* zinc scale */
-  --background: #09090b;           /* zinc-950 */
-  --foreground: #fafafa;           /* zinc-50 */
+  --background: #09090b;
+  --foreground: #fafafa;
 
-  --muted: #27272a;                /* zinc-800 */
-  --muted-foreground: #a1a1aa;     /* zinc-400 */
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
 
-  --accent: #18181b;               /* zinc-900 */
-  --accent-foreground: #fafafa;    /* zinc-50 */
+  --accent: #18181b;
+  --accent-foreground: #fafafa;
 
-  --border: #27272a;               /* zinc-800 */
-  --input: #18181b;                /* zinc-900 */
-  --ring: #3f3f46;                 /* zinc-700 */
+  --border: #27272a;
+  --input: #18181b;
+  --ring: #3f3f46;
 
-  --destructive: #7f1d1d;          /* keep as is (red-900 vibe) */
+  --destructive: #d40000;
   --destructive-foreground: #fafafa;
 }
 
-/* =============================
-   SYSTEM DARK MODE
-============================= */
+/* SYSTEM DARK MODE */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ffffff;
+    --primary: #00c214;
+    --primary-foreground: #ffffff;
+
+    --background: #09090b;
+    --foreground: #fafafa;
+
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+
+    --accent: #18181b;
+    --accent-foreground: #fafafa;
+
+    --border: #27272a;
+    --input: #18181b;
+    --ring: #3f3f46;
+
+    --destructive: #d40000;
+    --destructive-foreground: #fafafa;
   }
 }
 
+/* NEUCTRA_THEME_END */
+
 /* =============================
-   TAILWIND v4 THEME TOKENS
+   TAILWIND TOKENS
 ============================= */
 @theme {
   --color-primary: var(--primary);
@@ -94,39 +133,4 @@
 
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-}
-
-/* NEUCTRA_THEME_END */
-
-
-body {
-  font-family: "Poppins";
-}
-
-/* ===== Custom Scrollbar ===== */
-/* Thin scrollbar for both vertical and horizontal */
-::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-}
-
-/* Scrollbar track (background behind the thumb) */
-::-webkit-scrollbar-track {
-  background-color: #000; /* Black track */
-}
-
-/* Scrollbar thumb (the draggable part) */
-::-webkit-scrollbar-thumb {
-  background-color: var(--primary); /* Primary color */
-  border-radius: 9999px; /* Fully rounded */
-}
-
-/* Hover effect for the thumb */
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary); /* Slightly darker on hover */
-}
-
-
-button{
-  cursor: pointer;
 }
