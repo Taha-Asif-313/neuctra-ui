@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";

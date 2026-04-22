@@ -32,6 +32,11 @@ export type { BadgeProps } from "./components/basic/Badge";
 export { List, ListItem } from "./components/basic/List";
 export type { ListProps, ListItemType } from "./components/basic/List";
 
+
+// Dropdown Component Completed!
+export { Dropdown } from "./components/basic/Dropdown";
+export type { DropdownProps, DropdownItem } from "./components/basic/Dropdown";
+
 // Alerts & Notifications
 export { ToastProvider, useToast } from "./components/basic/Alert"; // ✅ Modern ShadCN-style toast
 

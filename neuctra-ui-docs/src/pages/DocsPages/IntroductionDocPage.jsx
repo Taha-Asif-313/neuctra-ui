@@ -49,7 +49,7 @@ const IntroductionDocPage = () => {
               theme system, and wraps your app with providers.
             </p>
 
-            <CodeBlock language="bash" code={`npx @neuctra/ui-cli init`} />
+            <CodeBlock language="bash" code={`npx @neuctra/ui-cli@latest init`} />
           </section>
 
           {/* ================= FEATURES ================= */}

@@ -45,7 +45,6 @@ const ModalDocs = () => {
               Import Component
             </h2>
             <CodeBlock
-              language="react"
               code={`import {
   Modal,
   ModalContent,
@@ -60,29 +59,39 @@ const ModalDocs = () => {
 
           {/* Basic Example */}
           <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
-            </h2>
+            <h2 className="text-2xl font-semibold mb-4">Basic Example</h2>
 
             <CodePreviewBlock
               language="jsx"
-              code={`
-<ModalTriggerButton
-  variant="primary"
+              code={`<ModalTriggerButton
+  variant="default"
   modalContent={({ close }) => (
-    <ModalContent onClose={close}>
-      <ModalHeader title="Modal Title" icon={<X />} />
+    <ModalContent className="w-full max-w-md" onClose={close}>
+      <ModalHeader
+        title="Delete Item"
+        onClose={close}
+        icon={<Trash2 size={20} className="text-destructive" />}
+      />
 
       <ModalBody>
-        This is the content of the modal.
+        Are you sure you want to delete this item?
       </ModalBody>
 
       <ModalFooter>
         <ModalButton
-          variant="primary"
+          variant="ghost"
+          onClose={close}
+          closeOnClick
+        >
+          Cancel
+        </ModalButton>
+
+        <ModalButton
+          variant="default"
+          className="bg-destructive!"
           closeOnClick
           onClose={close}
-          action={() => alert("Action executed")}
+          action={() => alert("Deleted")}
         >
           Confirm
         </ModalButton>
@@ -90,28 +99,39 @@ const ModalDocs = () => {
     </ModalContent>
   )}
 >
-  Open Modal
-</ModalTriggerButton>
-              `}
+  Delete
+</ModalTriggerButton>`}
               previewContent={
                 <ModalTriggerButton
-                  variant="primary"
-                  className="px-4 py-2 bg-primary text-white rounded"
+                  variant="default"
+                  className="bg-destructive!"
                   modalContent={({ close }) => (
-                    <ModalContent className="w-lg" onClose={close}>
+                    <ModalContent className="w-full max-w-md" onClose={close}>
                       <ModalHeader
-                        title="Modal Title"
-                        icon={<Trash2 className="text-red-500" />}
+                        title="Delete Item"
+                        onClose={close}
+                        icon={<Trash2 size={20} className="text-destructive" />}
                       />
 
-                      <ModalBody>This is the content of the modal.</ModalBody>
+                      <ModalBody>
+                        Are you sure you want to delete this item?
+                      </ModalBody>
 
                       <ModalFooter>
                         <ModalButton
-                          className="px-4 py-2 bg-primary text-white rounded"
+                          variant="ghost"
+                          onClose={close}
+                          closeOnClick
+                        >
+                          Cancel
+                        </ModalButton>
+
+                        <ModalButton
+                          variant="default"
+                          className="bg-destructive!"
                           closeOnClick
                           onClose={close}
-                          action={() => alert("Action executed")}
+                          action={() => alert("Deleted")}
                         >
                           Confirm
                         </ModalButton>
@@ -119,7 +139,7 @@ const ModalDocs = () => {
                     </ModalContent>
                   )}
                 >
-                  Open Modal
+                  Delete
                 </ModalTriggerButton>
               }
             />
@@ -265,10 +285,10 @@ const ModalDocs = () => {
 
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
-                    <td className="p-3 font-mono">onClose</td>
-                    <td className="p-3">() =&gt; void</td>
+                    <td className="p-3 font-mono">children</td>
+                    <td className="p-3">ReactNode</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Closes modal</td>
+                    <td className="p-3">Modal content</td>
                   </tr>
 
                   <tr>
@@ -286,6 +306,27 @@ const ModalDocs = () => {
                   </tr>
 
                   <tr>
+                    <td className="p-3 font-mono">maxWidth</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">max-w-md</td>
+                    <td className="p-3">Maximum width class</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">onClose</td>
+                    <td className="p-3">() =&gt; void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Closes modal</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">showCloseButton</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Show top-right close button</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3 font-mono">closeButtonClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
@@ -297,20 +338,6 @@ const ModalDocs = () => {
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Close button styles</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">contentClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inner content wrapper class</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">contentStyle</td>
-                    <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inner content wrapper styles</td>
                   </tr>
                 </tbody>
               </table>
@@ -350,17 +377,24 @@ const ModalDocs = () => {
                   </tr>
 
                   <tr>
-                    <td className="p-3 font-mono">iconClassName</td>
-                    <td className="p-3">string</td>
+                    <td className="p-3 font-mono">onClose</td>
+                    <td className="p-3">() =&gt; void</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Icon wrapper class</td>
+                    <td className="p-3">Close function</td>
                   </tr>
 
                   <tr>
-                    <td className="p-3 font-mono">iconStyle</td>
+                    <td className="p-3 font-mono">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Header wrapper class</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">style</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Icon styles</td>
+                    <td className="p-3">Header wrapper styles</td>
                   </tr>
                 </tbody>
               </table>
@@ -398,6 +432,13 @@ const ModalDocs = () => {
                     <td className="p-3">—</td>
                     <td className="p-3">Body wrapper class</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Body wrapper styles</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -433,6 +474,13 @@ const ModalDocs = () => {
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Footer wrapper class</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Footer wrapper styles</td>
                   </tr>
                 </tbody>
               </table>
@@ -497,6 +545,10 @@ const ModalDocs = () => {
               </li>
               <li>
                 Prefer <code>ModalTriggerButton</code> for simple modal flows.
+              </li>
+              <li>
+                Enable <code>showCloseButton</code> on <code>ModalContent</code>{" "}
+                for a top-right close icon.
               </li>
             </ul>
           </section>

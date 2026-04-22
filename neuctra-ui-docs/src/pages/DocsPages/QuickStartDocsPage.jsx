@@ -35,7 +35,7 @@ const QuickStartDocsPage = () => {
             title="Step 1 — Initialize with CLI"
             description="Run the CLI command to install Neuctra UI and auto-configure your project."
           >
-            <CodeBlock language="bash" code={`npx @neuctra/ui-cli init`} />
+            <CodeBlock language="bash" code={`npx @neuctra/ui-cli@latest init`} />
 
             <p className="text-gray-200 text-sm">This command will:</p>
 

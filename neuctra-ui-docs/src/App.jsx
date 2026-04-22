@@ -18,7 +18,6 @@ import ContactPage from "./pages/SitePages/ContactPage";
 import PrivacyPolicyPage from "./pages/SitePages/PrivacyPolicyPage";
 
 // Docs Pages
-import GetStarted from "./pages/DocsPages/GetStarted";
 import ButtonDocs from "./pages/DocsPages/ButtonDocs";
 import TextDocs from "./pages/DocsPages/TextDocs";
 import ImageDocs from "./pages/DocsPages/ImageDocs";
@@ -48,6 +47,7 @@ import NeuctraUiChatBotPage from "./pages/NeuctraUIBot/NeuctraUiChatBot";
 import IntroductionDocPage from "./pages/DocsPages/IntroductionDocPage";
 import QuickStartDocsPage from "./pages/DocsPages/QuickStartDocsPage";
 import FullSetupDocPage from "./pages/DocsPages/FullSetupDocPage";
+import DropdownDocs from "./pages/DocsPages/DropdownDocs";
 
 const App = () => {
   return (
@@ -73,6 +73,7 @@ const App = () => {
           <Route path="text" element={<TextDocs />} />
           <Route path="image" element={<ImageDocs />} />
           <Route path="button" element={<ButtonDocs />} />
+          <Route path="dropdown" element={<DropdownDocs />} />
           <Route path="input" element={<InputDocs />} />
           <Route path="list" element={<ListDocs />} />
           <Route path="tabs" element={<TabsDocs />} />

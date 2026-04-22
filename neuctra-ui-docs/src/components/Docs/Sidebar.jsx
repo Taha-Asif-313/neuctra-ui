@@ -9,88 +9,86 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const currentPath = location.pathname;
 
-const navSections = [
-  {
-    title: "Getting Started",
-    links: [
-      { label: "Overview", href: "/docs" },
-      { label: "Quick Start", href: "/docs/quick-start" },
-      { label: "Full Setup Guide", href: "/docs/full-setup" },
-    ],
-  },
+  const navSections = [
+    {
+      title: "Getting Started",
+      links: [
+        { label: "Overview", href: "/docs" },
+        { label: "Quick Start", href: "/docs/quick-start" },
+        { label: "Full Setup Guide", href: "/docs/full-setup" },
+      ],
+    },
 
-  {
-    title: "Layout & Structure",
-    links: [
-      { label: "Container", href: "/docs/container" },
-    ],
-  },
+    {
+      title: "Layout & Structure",
+      links: [{ label: "Container", href: "/docs/container" }],
+    },
 
-  {
-    title: "Typography & Media",
-    links: [
-      { label: "Text", href: "/docs/text" },
-      { label: "Image", href: "/docs/image" },
-      { label: "Avatar", href: "/docs/avatar" },
-      { label: "Badge", href: "/docs/badge" },
-    ],
-  },
+    {
+      title: "Typography & Media",
+      links: [
+        { label: "Text", href: "/docs/text" },
+        { label: "Image", href: "/docs/image" },
+        { label: "Avatar", href: "/docs/avatar" },
+        { label: "Badge", href: "/docs/badge" },
+      ],
+    },
 
-  {
-    title: "Data Display",
-    links: [
-      { label: "List", href: "/docs/list" },
-      { label: "Table", href: "/docs/table" },
-      { label: "Accordion", href: "/docs/accordion" },
-    ],
-  },
+    {
+      title: "Data Display",
+      links: [
+        { label: "List", href: "/docs/list" },
+        { label: "Table", href: "/docs/table" },
+        { label: "Accordion", href: "/docs/accordion" },
+      ],
+    },
 
-  {
-    title: "Feedback & Overlay",
-    links: [
-      { label: "Alert", href: "/docs/alert" },
-      { label: "Modal", href: "/docs/modal" },
-      { label: "Drawer", href: "/docs/drawer" },
-    ],
-  },
+    {
+      title: "Feedback & Overlay",
+      links: [
+        { label: "Alert", href: "/docs/alert" },
+        { label: "Modal", href: "/docs/modal" },
+        { label: "Drawer", href: "/docs/drawer" },
+        { label: "Dropdown", href: "/docs/dropdown" },
+      ],
+    },
 
-  {
-    title: "Navigation",
-    links: [
-      { label: "Tabs", href: "/docs/tabs" },
-    ],
-  },
+    {
+      title: "Navigation",
+      links: [{ label: "Tabs", href: "/docs/tabs" }],
+    },
 
-  {
-    title: "Form Components",
-    links: [
-      { label: "Input", href: "/docs/input" },
-      { label: "Textarea", href: "/docs/textarea" },
-      { label: "Select", href: "/docs/select" },
-      { label: "Checkbox", href: "/docs/checkbox" },
-      { label: "Radio", href: "/docs/radio" },
-      { label: "Switch", href: "/docs/switch" },
-      { label: "Button", href: "/docs/button" },
-    ],
-  },
+    {
+      title: "Form Components",
+      links: [
+        { label: "Input", href: "/docs/input" },
+        { label: "Textarea", href: "/docs/textarea" },
+        { label: "Select", href: "/docs/select" },
+        { label: "Checkbox", href: "/docs/checkbox" },
+        { label: "Radio", href: "/docs/radio" },
+        { label: "Switch", href: "/docs/switch" },
+        { label: "Button", href: "/docs/button" },
+      ],
+    },
 
-  {
-    title: "Resources",
-    links: [
-      { label: "UI Creation Bot", href: "/docs/ui-creation-bot" },
-      { label: "About", href: "/about" },
-    ],
-  },
-];
+    {
+      title: "Resources",
+      links: [
+        { label: "UI Creation Bot", href: "/docs/ui-creation-bot" },
+        { label: "About", href: "/about" },
+      ],
+    },
+  ];
 
   // Filter sections based on search query
   const filteredSections = searchQuery
     ? navSections
         .map((section) => ({
           ...section,
-          links: section.links.filter((link) =>
-            link.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            section.title.toLowerCase().includes(searchQuery.toLowerCase())
+          links: section.links.filter(
+            (link) =>
+              link.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              section.title.toLowerCase().includes(searchQuery.toLowerCase()),
           ),
         }))
         .filter((section) => section.links.length > 0)
