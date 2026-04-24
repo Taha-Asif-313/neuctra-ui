@@ -83,15 +83,34 @@ export const ListItem: React.FC<ListItemProps> = ({
   iconStyle,
   subListStyle,
 }) => {
+  const showTree = !isInline && !isOrdered;
+
   return (
-    <li className={clsx(!isInline && "mb-3")}>
+    <li
+      className={clsx(
+        "relative",
+        showTree && "pl-5",     // only indent when tree is active
+        !isInline && "pb-2"
+      )}
+    >
+      {/* 🌲 Tree lines (ONLY when allowed) */}
+      {showTree && (
+        <>
+          {/* Vertical */}
+          <span className="absolute left-2 top-0 bottom-0 w-px bg-foreground/60" />
+
+          {/* Horizontal */}
+          <span className="absolute left-2 top-[0.9rem] w-3 h-px bg-foreground/60" />
+        </>
+      )}
+
       <div
         onClick={onClick}
         style={itemStyle}
         className={clsx(
           "flex items-center gap-2 text-sm text-foreground transition-colors",
           onClick && "cursor-pointer hover:text-primary",
-          itemClassName,
+          itemClassName
         )}
       >
         {/* ICON / BULLET */}
@@ -105,7 +124,7 @@ export const ListItem: React.FC<ListItemProps> = ({
             <span
               className={clsx(
                 "w-2 h-2 rounded-full bg-primary",
-                bulletClassName,
+                bulletClassName
               )}
               style={bulletStyle}
             />
@@ -124,9 +143,9 @@ export const ListItem: React.FC<ListItemProps> = ({
       {subItems && subItems.length > 0 && (
         <ul
           className={clsx(
-            "pl-5 mt-2 space-y-2",
+            showTree ? "ml-3 mt-1" : "ml-4 mt-1", // slight diff spacing
             isOrdered ? "list-decimal text-foreground" : "list-none",
-            subListClassName,
+            subListClassName
           )}
           style={subListStyle}
         >

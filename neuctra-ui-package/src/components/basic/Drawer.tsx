@@ -1,11 +1,212 @@
 "use client";
 
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { ReactNode, CSSProperties, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { X } from "lucide-react";
+import { useState } from "react";
+import { Button, ButtonProps } from "./Button";
+
+export interface DrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children?: ReactNode;
+  renderContent?: (close: () => void) => ReactNode;
+
+  position?: "left" | "right" | "top" | "bottom";
+  size?: string;
+
+  disableOverlayClose?: boolean;
+
+  overlayClassName?: string;
+  overlayStyle?: CSSProperties;
+}
+
+export function Drawer({
+  isOpen,
+  onClose,
+  children,
+  renderContent,
+  position = "right",
+  size = "320px",
+  disableOverlayClose = false,
+  overlayClassName,
+  overlayStyle,
+}: DrawerProps) {
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+
+    if (isOpen) document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
+
+  const getMotion = () => {
+    switch (position) {
+      case "left":
+        return {
+          initial: { x: "-100%" },
+          animate: { x: 0 },
+          exit: { x: "-100%" },
+        };
+      case "right":
+        return {
+          initial: { x: "100%" },
+          animate: { x: 0 },
+          exit: { x: "100%" },
+        };
+      case "top":
+        return {
+          initial: { y: "-100%" },
+          animate: { y: 0 },
+          exit: { y: "-100%" },
+        };
+      case "bottom":
+        return {
+          initial: { y: "100%" },
+          animate: { y: 0 },
+          exit: { y: "100%" },
+        };
+    }
+  };
+
+  const getSizeStyle = (): CSSProperties => {
+    switch (position) {
+      case "left":
+      case "right":
+        return { width: size, height: "100%" };
+      case "top":
+      case "bottom":
+        return { height: size, width: "100%" };
+    }
+  };
+
+  const handleOverlayClick = () => {
+    if (!disableOverlayClose) onClose();
+  };
+
+  const motionProps = getMotion();
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50">
+          {/* Overlay */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleOverlayClick}
+            className={clsx(
+              "absolute inset-0 bg-background/80 backdrop-blur-sm",
+              overlayClassName,
+            )}
+            style={overlayStyle}
+          />
+
+          {/* Panel */}
+          <motion.div
+            {...motionProps}
+            transition={{ duration: 0.25 }}
+            className={clsx(
+              "fixed z-50 flex flex-col bg-background border-border shadow-2xl",
+              "border",
+              position === "right" && "right-0 top-0",
+              position === "left" && "left-0 top-0",
+              position === "top" && "top-0 left-0",
+              position === "bottom" && "bottom-0 left-0",
+            )}
+            style={getSizeStyle()}
+          >
+            {renderContent ? renderContent(onClose) : children}
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+export interface DrawerContentProps {
+  children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+}
+
+export function DrawerContent({
+  children,
+  className,
+  style,
+}: DrawerContentProps) {
+  return (
+    <div className={clsx("flex flex-col h-full", className)} style={style}>
+      {children}
+    </div>
+  );
+}
+
+export function DrawerBody({ children }: { children: ReactNode }) {
+  return <div className="flex-1 p-6 overflow-auto">{children}</div>;
+}
+
+export interface DrawerHeaderProps {
+  title?: string;
+  icon?: ReactNode;
+  onClose?: () => void;
+}
+
+export function DrawerHeader({ title, icon, onClose }: DrawerHeaderProps) {
+  return (
+    <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+      <div className="flex items-center gap-2 font-semibold">
+        {icon}
+        {title && <h3 className="text-sm">{title}</h3>}
+      </div>
+
+      {onClose && (
+        <button onClick={onClose} className="p-2 rounded-lg hover:bg-accent">
+          <X size={18} />
+        </button>
+      )}
+    </div>
+  );
+}
+
+export function DrawerFooter({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex justify-end gap-3 px-6 py-3 border-t border-border bg-accent/60">
+      {children}
+    </div>
+  );
+}
+
+export interface DrawerTriggerProps extends ButtonProps {
+  children: React.ReactNode;
+  drawerContent: (props: { close: () => void }) => React.ReactNode;
+}
+
+export function DrawerTriggerButton({
+  children,
+  drawerContent,
+  ...props
+}: DrawerTriggerProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button {...props} onClick={() => setOpen(true)}>
+        {children}
+      </Button>
+
+      <Drawer isOpen={open} onClose={() => setOpen(false)}>
+        {drawerContent({ close: () => setOpen(false) })}
+      </Drawer>
+    </>
+  );
+}
 
 /* ---------------- 🧩 Drawer Button ---------------- */
-interface DrawerButtonProps {
+export interface DrawerButtonProps {
   label?: string;
   icon?: ReactNode;
   iconPosition?: "left" | "right";
@@ -32,171 +233,15 @@ export const DrawerButton: React.FC<DrawerButtonProps> = ({
     style={style}
     className={clsx(
       "inline-flex items-center justify-centertransition-all",
-      className
+      className,
     )}
   >
-    {icon && iconPosition === "left" && <span className={iconClassName}>{icon}</span>}
+    {icon && iconPosition === "left" && (
+      <span className={iconClassName}>{icon}</span>
+    )}
     <span className={labelClassName}>{label}</span>
-    {icon && iconPosition === "right" && <span className={iconClassName}>{icon}</span>}
+    {icon && iconPosition === "right" && (
+      <span className={iconClassName}>{icon}</span>
+    )}
   </button>
 );
-
-/* ---------------- 🧱 Drawer ---------------- */
-interface DrawerProps {
-  open: boolean;
-  onClose?: () => void;
-  position?: "left" | "right" | "top" | "bottom";
-  size?: string;
-  children?: ReactNode;
-  showCloseButton?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-  overlayClassName?: string;
-  overlayStyle?: React.CSSProperties;
-  panelClassName?: string;
-  panelStyle?: React.CSSProperties;
-  contentClassName?: string;
-  contentStyle?: React.CSSProperties;
-  closeButtonClassName?: string;
-  closeButtonStyle?: React.CSSProperties;
-  zIndex?: number;
-  renderContent?: (close: () => void) => ReactNode;
-}
-
-export const Drawer: React.FC<DrawerProps> = ({
-  open,
-  onClose,
-  position = "right",
-  size = "320px",
-  children,
-  showCloseButton = true,
-  className,
-  style,
-  overlayClassName,
-  overlayStyle,
-  panelClassName,
-  panelStyle,
-  contentClassName,
-  contentStyle,
-  closeButtonClassName,
-  closeButtonStyle,
-  zIndex = 50,
-  renderContent,
-}) => {
-  const [mounted, setMounted] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    if (open) {
-      setMounted(true);
-      // Double RAF: first frame commits the mount with off-screen transform,
-      // second frame triggers the transition from that position into view.
-      const raf1 = requestAnimationFrame(() => {
-        const raf2 = requestAnimationFrame(() => {
-          setIsAnimating(true);
-        });
-        return () => cancelAnimationFrame(raf2);
-      });
-      return () => cancelAnimationFrame(raf1);
-    } else {
-      setIsAnimating(false);
-      const timer = setTimeout(() => setMounted(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [open]);
-
-  // Slide-in transform: off-screen when !isAnimating, in-view when isAnimating
-  const getTransform = (): string => {
-    if (isAnimating) return "translate(0, 0)";
-    switch (position) {
-      case "left":   return "translateX(-100%)";
-      case "right":  return "translateX(100%)";
-      case "top":    return "translateY(-100%)";
-      case "bottom": return "translateY(100%)";
-    }
-  };
-
-  // Panel is fixed and anchored to the correct edge.
-  // FIX: each position only sets the edges it needs — no conflicting constraints.
-  const getPanelStyles = (): React.CSSProperties => {
-    const base: React.CSSProperties = {
-      position: "fixed",
-      transform: getTransform(),
-      transitionProperty: "transform",
-    };
-
-    switch (position) {
-      case "left":
-        return { ...base, top: 0, left: 0, width: size, height: "100%" };
-      case "right":
-        return { ...base, top: 0, right: 0, width: size, height: "100%" };
-      case "top":
-        return { ...base, top: 0, left: 0, width: "100%", height: size };
-      case "bottom":
-        return { ...base, bottom: 0, left: 0, width: "100%", height: size };
-    }
-  };
-
-  // Close button stays in the corner that makes sense per position
-  const getCloseButtonPosition = (): string => {
-    switch (position) {
-      case "top":    return "bottom-2 right-2";
-      case "bottom": return "top-2 right-2";
-      default:       return "top-4 right-4";
-    }
-  };
-
-  if (!mounted) return null;
-
-  return (
-    <div className={clsx("fixed inset-0", className)} style={{ zIndex, ...style }}>
-      {/* Overlay */}
-      <div
-        onClick={onClose}
-        style={overlayStyle}
-        className={clsx(
-          "absolute inset-0 transition-all duration-300 ease-in-out",
-          "bg-black/50 dark:bg-black/70",
-          isAnimating ? "opacity-100" : "opacity-0 pointer-events-none",
-          overlayClassName
-        )}
-      />
-
-      {/* Panel */}
-      <div
-        className={clsx(
-          "flex flex-col shadow-xl transition-transform duration-300 ease-in-out",
-          "bg-white text-gray-900 dark:bg-zinc-900 dark:text-gray-100",
-          panelClassName
-        )}
-        style={{ ...getPanelStyles(), ...panelStyle }}
-      >
-        {/* Close Button */}
-        {showCloseButton && (
-          <button
-            onClick={onClose}
-            aria-label="Close drawer"
-            style={closeButtonStyle}
-            className={clsx(
-              "absolute p-2 rounded-full transition-colors",
-              "hover:bg-gray-100 dark:hover:bg-zinc-800",
-              "focus:outline-none focus:ring-2 focus:ring-blue-500",
-              getCloseButtonPosition(),
-              closeButtonClassName
-            )}
-          >
-            <X size={20} />
-          </button>
-        )}
-
-        {/* Content */}
-        <div
-          className={clsx("flex-1 overflow-auto", contentClassName)}
-          style={contentStyle}
-        >
-          {renderContent ? renderContent(onClose || (() => {})) : children}
-        </div>
-      </div>
-    </div>
-  );
-};

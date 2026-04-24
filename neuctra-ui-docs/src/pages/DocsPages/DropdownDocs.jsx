@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Dropdown } from "@neuctra/ui";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { MoreVertical, Edit, Trash2, Copy, Eye, Check, X } from "lucide-react";
+import { Edit, Trash2, Copy, Eye, Check, X } from "lucide-react";
 
 const DropdownDocs = () => {
+  const [controlledOpen, setControlledOpen] = useState(false);
+
   return (
     <>
       <Metadata
@@ -24,14 +26,14 @@ const DropdownDocs = () => {
               Dropdown Component
             </h1>
 
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-sm leading-relaxed text-foreground">
               The <span className="text-primary font-semibold">Dropdown</span>{" "}
               component is a flexible, fully customizable action menu built for
               modern applications. It supports icons, separators, danger states,
               controlled/uncontrolled behavior, and theme-aware styling.
             </p>
 
-            <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+            <p className="text-sm text-foreground mt-3 leading-relaxed">
               Use <code>items</code> to define menu actions,{" "}
               <code>trigger</code> for the toggle element, and{" "}
               <code>align</code> + <code>width</code> for layout control.
@@ -96,6 +98,171 @@ const DropdownDocs = () => {
             />
           </section>
 
+          {/* Menu Item Options */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Menu Item Options
+            </h2>
+            <p className="text-sm text-foreground mb-3 leading-relaxed">
+              Each item supports icons, labels, click handlers, disabled state,
+              separators, and danger styling.
+            </p>
+
+            <CodeBlock
+              language="jsx"
+              code={`const items = [
+  {
+    label: "Edit",
+    icon: <Edit size={16} />,
+    onClick: handleEdit,
+  },
+  {
+    label: "Duplicate",
+    icon: <Copy size={16} />,
+    onClick: handleDuplicate,
+  },
+  { separator: true },
+  {
+    label: "Delete",
+    icon: <Trash2 size={16} />,
+    danger: true,
+    onClick: handleDelete,
+  },
+];`}
+            />
+
+            <ul className="list-disc pl-5 mt-3 space-y-2 text-sm text-foreground">
+              <li>
+                <code>label</code>: menu item text or React node.
+              </li>
+              <li>
+                <code>icon</code>: optional icon before the label.
+              </li>
+              <li>
+                <code>onClick</code>: action when the item is selected.
+              </li>
+              <li>
+                <code>danger</code>: highlights destructive actions.
+              </li>
+              <li>
+                <code>disabled</code>: disables the item and prevents clicks.
+              </li>
+              <li>
+                <code>separator</code>: renders a divider line between sections.
+              </li>
+              <li>
+                <code>className</code> and <code>style</code>: customize item
+                styling.
+              </li>
+            </ul>
+          </section>
+
+          {/* Controlled Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Controlled Dropdown
+            </h2>
+            <p className="text-sm text-foreground mb-3 leading-relaxed">
+              Use <code>open</code> and <code>onOpenChange</code> when you need
+              explicit visibility control or want to sync the menu state with
+              other UI.
+            </p>
+
+            <CodePreviewBlock
+              language="jsx"
+              code={`const [open, setOpen] = useState(false);
+
+<Dropdown
+  trigger={<button>Open menu</button>}
+  open={open}
+  onOpenChange={setOpen}
+  items={items}
+/>`}
+              previewContent={
+                <div className="w-full flex flex-col items-center gap-4">
+                  <Dropdown
+                    trigger={
+                      <button className="text-sm">Controlled Menu</button>
+                    }
+                    open={controlledOpen}
+                    onOpenChange={setControlledOpen}
+                    items={[
+                      {
+                        label: "Save",
+                        onClick: () => alert("Save clicked"),
+                      },
+                      {
+                        label: "Publish",
+                        onClick: () => alert("Publish clicked"),
+                      },
+                      { separator: true },
+                      {
+                        label: "Remove",
+                        danger: true,
+                        onClick: () => alert("Remove clicked"),
+                      },
+                    ]}
+                  />
+
+                  <button
+                    onClick={() => setControlledOpen((value) => !value)}
+                    className="rounded-lg bg-primary px-4 py-2 text-white hover:bg-primary/90 transition"
+                  >
+                    Toggle controlled dropdown
+                  </button>
+                </div>
+              }
+            />
+          </section>
+
+          {/* Alignment & Width */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Alignment & Width
+            </h2>
+            <p className="text-sm text-foreground mb-3 leading-relaxed">
+              Use <code>align</code> to anchor the menu left or right, and
+              <code>width</code> to control the panel width.
+            </p>
+
+            <CodeBlock
+              language="jsx"
+              code={`<Dropdown
+  trigger={<button>Right aligned</button>}
+  align="right"
+  width={240}
+  items={items}
+/>
+
+<Dropdown
+  trigger={<button>Left aligned</button>}
+  align="left"
+  width={260}
+  items={items}
+/>`}
+            />
+          </section>
+
+          {/* Close Behavior */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Close Behavior
+            </h2>
+            <p className="text-sm text-foreground mb-3 leading-relaxed">
+              By default the dropdown closes when an item is clicked. Use{" "}
+              <code>closeOnClick={false}</code> to keep the menu open.
+            </p>
+
+            <CodeBlock
+              language="jsx"
+              code={`<Dropdown
+  trigger={<button>Keep open</button>}
+  closeOnClick={false}
+  items={items}
+/>`}
+            />
+          </section>
+
           {/* Props Table */}
           <section>
             <h2 className="text-2xl font-semibold text-foreground mb-4">
@@ -113,7 +280,7 @@ const DropdownDocs = () => {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-border text-muted-foreground">
+                <tbody className="divide-y divide-border text-foreground">
                   <tr>
                     <td className="p-3">trigger</td>
                     <td className="p-3">React.ReactNode</td>
@@ -169,7 +336,9 @@ const DropdownDocs = () => {
                     <td className="p-3">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Wrapper styling.</td>
+                    <td className="p-3">
+                      Wrapper styling for the trigger container.
+                    </td>
                   </tr>
 
                   <tr>
@@ -183,7 +352,23 @@ const DropdownDocs = () => {
                     <td className="p-3">itemClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Item styling.</td>
+                    <td className="p-3">Item styling for every menu entry.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for the wrapper.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">menuStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Inline styles for the dropdown menu panel.
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -196,7 +381,7 @@ const DropdownDocs = () => {
               Common Mistakes
             </h2>
 
-            <div className="space-y-4 text-sm text-muted-foreground">
+            <div className="space-y-4 text-sm text-foreground">
               <div className="flex items-start gap-2 text-destructive">
                 <X size={16} />
                 <div>
@@ -235,7 +420,7 @@ const DropdownDocs = () => {
               Pro Tips
             </h2>
 
-            <ul className="list-disc list-inside text-muted-foreground space-y-2 text-sm">
+            <ul className="list-disc list-inside text-foreground space-y-2 text-sm">
               <li>
                 Use <code>separator</code> to visually group actions.
               </li>
@@ -254,7 +439,7 @@ const DropdownDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-border text-sm text-muted-foreground">
+          <footer className="pt-8 border-t border-border text-sm text-foreground">
             Built with <span className="text-primary">React</span>,{" "}
             <span className="text-primary">Tailwind CSS</span> &{" "}
             <span className="text-primary">TypeScript</span>.

@@ -180,31 +180,6 @@ const CheckboxDocs = () => {
             />
           </section>
 
-          {/* Dark Mode */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Dark Mode
-            </h2>
-
-            <CodePreviewBlock
-              language="tsx"
-              code={`<CheckboxGroup
-  options={options}
-  selectedValues={values}
-  onChange={setValues}
-  darkMode
-/>`}
-              previewContent={
-                <CheckboxGroup
-                  options={options}
-                  selectedValues={values}
-                  onChange={setValues}
-                  darkMode
-                />
-              }
-            />
-          </section>
-
           {/* Props Table */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
@@ -425,14 +400,6 @@ const CheckboxDocs = () => {
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Custom text color.</td>
-                  </tr>
-
-                  {/* 🌙 Dark Mode */}
-                  <tr>
-                    <td className="p-3">darkMode</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">false</td>
-                    <td className="p-3">Enables dark mode styles.</td>
                   </tr>
 
                   {/* 🧠 Advanced */}

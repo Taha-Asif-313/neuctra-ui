@@ -12,8 +12,8 @@ const InputDocs = () => {
     <>
       <Metadata
         title="Input Component — Neuctra UI"
-        description="Learn how to use the Input component in Neuctra UI — supports text, password, number, email, and textarea inputs, with prefix/suffix icons, validation, and custom theming."
-        keywords="Neuctra UI Input, React input component, Tailwind input, UI library, input validation, prefix suffix icons"
+        description="Learn how to use the modern Input component in Neuctra UI — supports text, password, email, number, url, tel, search, and textarea inputs, with validation states, multiple sizes, and prefix/suffix icons."
+        keywords="Neuctra UI Input, React input component, Tailwind input, UI library, input validation, form component, modern input"
       />
 
       <div className="font-primary min-h-screen">
@@ -23,12 +23,13 @@ const InputDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Input Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+            <p className="text-sm text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Input</span>{" "}
-              component is a flexible form input primitive. Supports multiple
-              types including text, password, email, number, and textarea. Also
-              supports prefix/suffix icons, validation messages, helper text,
-              custom colors, and password visibility toggle.
+              component is a flexible, modern form input with support for
+              multiple types (text, password, email, number, url, tel, search,
+              textarea). Features include prefix/suffix icons, inline validation
+              states, helper text, multiple sizes, and a password visibility
+              toggle.
             </p>
           </header>
 
@@ -37,11 +38,7 @@ const InputDocs = () => {
             <h2 className="text-2xl font-semibold mb-2 text-white">
               Import Component From Library
             </h2>
-            <CodeBlock
-              language="react"
-              code={`import { Input } from "@neuctra/ui";`}
-              previewContent={<Input placeholder="Enter text..." />}
-            />
+            <CodeBlock code={`import { Input } from "@neuctra/ui";`} />
           </section>
 
           {/* Basic Usage */}
@@ -58,19 +55,34 @@ const InputDocs = () => {
             />
           </section>
 
-          {/* Advanced Examples */}
+          {/* Input Types */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Advanced Usage
+              Input Types
             </h2>
             <div className="space-y-6">
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
+  label="Email"
+  type="email"
+  placeholder="you@example.com"
+/>`}
+                previewContent={
+                  <Input
+                    label="Email"
+                    type="email"
+                    placeholder="you@example.com"
+                  />
+                }
+              />
+
               <CodePreviewBlock
                 language="jsx"
                 code={`<Input
   type="password"
   label="Password"
   placeholder="Enter password"
-  suffixIcon={<Eye />}
 />`}
                 previewContent={
                   <Input
@@ -86,6 +98,7 @@ const InputDocs = () => {
                 code={`<Input
   type="number"
   label="Age"
+  placeholder="Enter Age"
   min={1}
   max={100}
   defaultValue="18"
@@ -94,6 +107,7 @@ const InputDocs = () => {
                   <Input
                     type="number"
                     label="Age"
+                    placeholder="Enter Age"
                     min={1}
                     max={100}
                     defaultValue="18"
@@ -107,7 +121,7 @@ const InputDocs = () => {
   type="textarea"
   label="Message"
   placeholder="Enter your message"
-  rows={6}
+  rows={4}
   helperText="Write something nice..."
 />`}
                 previewContent={
@@ -115,8 +129,32 @@ const InputDocs = () => {
                     type="textarea"
                     label="Message"
                     placeholder="Enter your message"
-                    rows={6}
+                    rows={4}
                     helperText="Write something nice..."
+                  />
+                }
+              />
+            </div>
+          </section>
+
+          {/* States & Validation */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              States & Validation
+            </h2>
+            <div className="space-y-6">
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
+  label="Error state"
+  placeholder="Invalid input"
+  error="This field is required"
+/>`}
+                previewContent={
+                  <Input
+                    label="Error state"
+                    placeholder="Invalid input"
+                    error="This field is required"
                   />
                 }
               />
@@ -124,19 +162,64 @@ const InputDocs = () => {
               <CodePreviewBlock
                 language="jsx"
                 code={`<Input
-  label="Email"
-  type="email"
-  prefix="+"
-  prefixIcon={MailIcon}
-  error="Invalid email"
+  label="Success state"
+  placeholder="Valid input"
+  success={true}
+  helperText="Great choice!"
 />`}
                 previewContent={
                   <Input
-                    label="Currency"
-                    type="text"
-                    prefix="PKR"
-                    error="Invalid currency"
+                    label="Success state"
+                    placeholder="Valid input"
+                    success={true}
+                    helperText="Great choice!"
                   />
+                }
+              />
+
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input
+  label="Disabled"
+  placeholder="Cannot interact"
+  disabled={true}
+/>`}
+                previewContent={
+                  <Input
+                    label="Disabled"
+                    placeholder="Cannot interact"
+                    disabled={true}
+                  />
+                }
+              />
+            </div>
+          </section>
+
+          {/* Sizes */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Sizes</h2>
+            <div className="space-y-6">
+              <CodePreviewBlock
+                language="jsx"
+                code={`<Input size="sm" label="Small" placeholder="Compact input" />\n<Input size="md" label="Medium" placeholder="Default size" />\n<Input size="lg" label="Large" placeholder="Spacious input" />`}
+                previewContent={
+                  <div className="space-y-4">
+                    <Input
+                      size="sm"
+                      label="Small"
+                      placeholder="Compact input"
+                    />
+                    <Input
+                      size="md"
+                      label="Medium"
+                      placeholder="Default size"
+                    />
+                    <Input
+                      size="lg"
+                      label="Large"
+                      placeholder="Spacious input"
+                    />
+                  </div>
                 }
               />
             </div>
@@ -180,10 +263,29 @@ const InputDocs = () => {
                   <tr>
                     <td className="p-3">type</td>
                     <td className="p-3">
-                      "text" | "password" | "email" | "number" | "textarea"
+                      "text" | "password" | "email" | "number" | "url" | "tel" |
+                      "search" | "textarea"
                     </td>
                     <td className="p-3">"text"</td>
                     <td className="p-3">Input type.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">id</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      HTML id attribute for accessibility.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">description</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Descriptive text shown next to label.
+                    </td>
                   </tr>
 
                   <tr>
@@ -214,6 +316,20 @@ const InputDocs = () => {
                     <td className="p-3">(event) ={`>`} void</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Triggered when input value changes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">onFocus</td>
+                    <td className="p-3">(event) ={`>`} void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Triggered when input gains focus.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">onBlur</td>
+                    <td className="p-3">(event) ={`>`} void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Triggered when input loses focus.</td>
                   </tr>
 
                   <tr>
@@ -296,6 +412,13 @@ const InputDocs = () => {
                   </tr>
 
                   <tr>
+                    <td className="p-3">maxLength</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Maximum character length.</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">rows</td>
                     <td className="p-3">number</td>
                     <td className="p-3">4</td>
@@ -303,17 +426,10 @@ const InputDocs = () => {
                   </tr>
 
                   <tr>
-                    <td className="p-3">primaryTheme</td>
-                    <td className="p-3">boolean</td>
-                    <td className="p-3">true</td>
-                    <td className="p-3">Enable default theme styles.</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">primaryColor</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">#3b82f6</td>
-                    <td className="p-3">Custom color when theme disabled.</td>
+                    <td className="p-3">size</td>
+                    <td className="p-3">"sm" | "md" | "lg"</td>
+                    <td className="p-3">"md"</td>
+                    <td className="p-3">Input size variant.</td>
                   </tr>
 
                   {/* 🔥 Customization Props */}
@@ -386,13 +502,6 @@ const InputDocs = () => {
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for label.</td>
                   </tr>
-
-                  <tr>
-                    <td className="p-3">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Fallback wrapper class.</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
@@ -425,9 +534,18 @@ const InputDocs = () => {
               <div className="flex items-start gap-2 text-green-500">
                 <Check size={16} className="mt-1" />
                 <div>
-                  <code>{'<Input className="w-full" />'}</code>
+                  <code>{'<Input id="email" htmlFor="email" />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Use className for custom sizing or spacing.
+                    Always use id for form accessibility.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2 text-green-500">
+                <Check size={16} className="mt-1" />
+                <div>
+                  <code>{'<Input size="lg" description="Required" />'}</code>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Use size prop and description for better UX.
                   </p>
                 </div>
               </div>
@@ -439,16 +557,36 @@ const InputDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
             <div className="text-gray-200 space-y-3">
               <ul className="list-disc list-inside space-y-1">
-                <li>Use prefix/prefixIcon/suffixIcon for enhanced UX.</li>
-                <li>Combine with flex/grid for form layouts.</li>
                 <li>
-                  Use type="password" with suffixIcon for visibility toggle.
+                  Use <code className="text-primary">size</code> prop for
+                  responsive layouts (sm, md, lg).
                 </li>
-                <li>Use error/success/helperText for validation feedback.</li>
                 <li>
-                  Controlled vs uncontrolled usage: value vs defaultValue.
+                  Use <code className="text-primary">prefix/prefixIcon</code>{" "}
+                  for visual context (currency, domain, etc).
                 </li>
-                <li>Use primaryTheme and primaryColor for custom design.</li>
+                <li>
+                  Combine <code className="text-primary">error/success</code>{" "}
+                  with <code className="text-primary">helperText</code> for user
+                  feedback.
+                </li>
+                <li>
+                  Always provide <code className="text-primary">id</code> and{" "}
+                  <code className="text-primary">label</code> for accessibility.
+                </li>
+                <li>
+                  Use <code className="text-primary">description</code> prop to
+                  show optional/required hints.
+                </li>
+                <li>
+                  Password inputs automatically include visibility toggle via
+                  Eye icon.
+                </li>
+                <li>
+                  Controlled vs uncontrolled: use{" "}
+                  <code className="text-primary">value</code> or{" "}
+                  <code className="text-primary">defaultValue</code>.
+                </li>
               </ul>
             </div>
           </section>

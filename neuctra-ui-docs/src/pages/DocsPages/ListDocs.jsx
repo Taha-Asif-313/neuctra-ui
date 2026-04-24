@@ -10,7 +10,7 @@ import { Check, X } from "lucide-react";
 const ListDocs = () => {
   const sampleItems = [
     { text: "First item" },
-    { text: "Second item", icon: "⭐" },
+    { text: "Second item" },
     {
       text: "Third item",
       subItems: [{ text: "Nested A" }, { text: "Nested B" }],
@@ -59,7 +59,7 @@ const ListDocs = () => {
               code={`<List 
   items={[
     { text: "Item 1" },
-    { text: "Item 2", icon: "⭐" },
+    { text: "Item 2" },
     { text: "Item 3", subItems: [{ text: "Nested 1" }, { text: "Nested 2" }] },
   ]}
 />`}

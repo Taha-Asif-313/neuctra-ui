@@ -195,7 +195,7 @@ interface ModalBodyProps {
 
 export function ModalBody({ children, className, style }: ModalBodyProps) {
   return (
-    <div className={clsx(className, "p-6 space-y-4")} style={style}>
+    <div className={clsx(className, "p-6 text-foreground space-y-4")} style={style}>
       {children}
     </div>
   );

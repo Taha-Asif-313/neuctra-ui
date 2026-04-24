@@ -1,12 +1,15 @@
 "use client";
+
 import React, { ReactNode, CSSProperties } from "react";
 import clsx from "clsx";
 
-/* ---------------------------- Types ---------------------------- */
+/* =========================
+   Table Root
+========================= */
 interface TableProps {
   children: ReactNode;
 
-  /** Root wrapper */
+  /** Wrapper */
   className?: string;
   style?: CSSProperties;
 
@@ -14,154 +17,210 @@ interface TableProps {
   tableClassName?: string;
   tableStyle?: CSSProperties;
 
-  /** Responsive */
+  /** Behavior */
   responsive?: boolean;
+  striped?: boolean;
+  hoverable?: boolean;
+  bordered?: boolean;
+  dense?: boolean;
 }
 
-interface TableSectionProps {
-  children: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-}
-
-interface TableCellProps {
-  children: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-}
-
-interface TRowProps extends TableSectionProps {
-  onClick?: () => void;
-
-  /** Styling */
-  hoverClassName?: string;
-  hoverStyle?: CSSProperties;
-}
-
-/* ---------------------------- Table ---------------------------- */
-export const Table: React.FC<TableProps> = ({
+export function Table({
   children,
   className,
   style,
   tableClassName,
   tableStyle,
   responsive = true,
-}) => {
+  striped = false,
+  hoverable = true,
+  bordered = false,
+  dense = false,
+}: TableProps) {
   return (
     <div
       className={clsx(
-        "w-full rounded-lg border border-border bg-background text-foreground",
+        "w-full rounded-2xl border bg-background text-foreground shadow-sm",
+        "border-border",
         responsive && "overflow-x-auto",
-        className
+        className,
       )}
-      style={{
-        ...style,
-      }}
+      style={style}
     >
       <table
         className={clsx(
-          "w-full border-collapse text-sm min-w-[600px]",
-          tableClassName
+          "w-full border-collapse text-sm",
+          dense ? "text-xs" : "text-sm",
+          tableClassName,
         )}
         style={{
           borderSpacing: 0,
           ...tableStyle,
         }}
       >
-        {children}
+        {React.Children.map(children, (child) =>
+          React.isValidElement(child)
+            ? React.cloneElement(child as any, {
+                striped,
+                hoverable,
+                bordered,
+                dense,
+              })
+            : child,
+        )}
       </table>
     </div>
   );
-};
+}
 
-/* ---------------------------- Head ---------------------------- */
-export const THead: React.FC<TableSectionProps> = ({
+/* =========================
+   Head
+========================= */
+interface TableSectionProps {
+  children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+
+  striped?: boolean;
+  hoverable?: boolean;
+  bordered?: boolean;
+  dense?: boolean;
+}
+
+export function THead({
   children,
   className,
   style,
-}) => (
-  <thead
-    className={clsx(
-      "bg-muted text-foreground",
-      className
-    )}
-    style={style}
-  >
-    {children}
-  </thead>
-);
+  bordered,
+}: TableSectionProps) {
+  return (
+    <thead
+      className={clsx(
+        "bg-accent text-foreground",
+        className,
+      )}
+      style={style}
+    >
+      {React.Children.map(children, (child) =>
+        React.isValidElement(child)
+          ? React.cloneElement(child as any, { bordered })
+          : child,
+      )}
+    </thead>
+  );
+}
 
-/* ---------------------------- Body ---------------------------- */
-export const TBody: React.FC<TableSectionProps> = ({
+/* =========================
+   Body
+========================= */
+export function TBody({
   children,
   className,
   style,
-}) => (
-  <tbody
-    className={clsx(
-      "bg-background text-foreground",
-      className
-    )}
-    style={style}
-  >
-    {children}
-  </tbody>
-);
+  striped,
+  hoverable,
+  bordered,
+}: TableSectionProps) {
+  return (
+    <tbody className={clsx("bg-background", className)} style={style}>
+      {React.Children.map(children, (child, index) =>
+        React.isValidElement(child)
+          ? React.cloneElement(child as any, {
+              striped,
+              hoverable,
+              bordered,
+              index,
+            })
+          : child,
+      )}
+    </tbody>
+  );
+}
 
-/* ---------------------------- Row ---------------------------- */
-export const TRow: React.FC<TRowProps> = ({
+/* =========================
+   Row
+========================= */
+interface TRowProps extends TableSectionProps {
+  onClick?: () => void;
+  index?: number;
+}
+
+export function TRow({
   children,
   className,
   style,
   onClick,
-  hoverClassName,
-  hoverStyle,
-}) => (
-  <tr
-    onClick={onClick}
-    className={clsx(
-      "transition-colors duration-200 border-b border-border",
-      onClick && "cursor-pointer",
-      "hover:bg-accent",
-      hoverClassName,
-      className
-    )}
-    style={hoverStyle ? { ...style } : style}
-  >
-    {children}
-  </tr>
-);
+  striped,
+  hoverable,
+  bordered,
+  index = 0,
+}: TRowProps) {
+  return (
+    <tr
+      onClick={onClick}
+      className={clsx(
+        className,
+        bordered && "border-b border-border",
+        striped && index % 2 === 0 && "bg-accent/30",
+        hoverable && "hover:bg-accent/60",
+        onClick && "cursor-pointer",
+        "transition-all duration-200",
+      )}
+      style={style}
+    >
+      {children}
+    </tr>
+  );
+}
 
-/* ---------------------------- TH ---------------------------- */
-export const TH: React.FC<TableCellProps> = ({
+/* =========================
+   Header Cell
+========================= */
+interface TableCellProps {
+  children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+
+  bordered?: boolean;
+  dense?: boolean;
+}
+
+export function TH({
   children,
   className,
   style,
-}) => (
-  <th
-    className={clsx(
-      "text-left px-4 py-3 font-medium text-foreground border-b border-border",
-      className
-    )}
-    style={style}
-  >
-    {children}
-  </th>
-);
+  bordered,
+  dense,
+}: TableCellProps) {
+  return (
+    <th
+      className={clsx(
+        className,
+        "text-left font-medium text-foreground",
+        dense ? "px-3 py-2" : "px-5 py-3",
+        bordered && "border-b border-border",
+      )}
+      style={style}
+    >
+      {children}
+    </th>
+  );
+}
 
-/* ---------------------------- TD ---------------------------- */
-export const TD: React.FC<TableCellProps> = ({
-  children,
-  className,
-  style,
-}) => (
-  <td
-    className={clsx(
-      "px-4 py-3 text-muted-foreground",
-      className
-    )}
-    style={style}
-  >
-    {children}
-  </td>
-);
+/* =========================
+   Data Cell
+========================= */
+export function TD({ children, className, style, dense }: TableCellProps) {
+  return (
+    <td
+      className={clsx(
+        className,
+        "text-accent-foreground",
+        dense ? "px-3 py-2" : "px-5 py-3",
+      )}
+      style={style}
+    >
+      {children}
+    </td>
+  );
+}

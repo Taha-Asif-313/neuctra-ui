@@ -22,36 +22,111 @@ const AlertDocsContent = () => {
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Setup</h2>
         <p className="text-gray-400 mb-3">
-          Wrap your app with <code>ToastProvider</code> to enable toasts
-          globally.
+          Add <code>ToastProvider</code> once at the root of your app to enable
+          toasts globally across all pages and components.
         </p>
 
         <CodeBlock
           language="jsx"
           code={`import { ToastProvider } from "@neuctra/ui";
 
-export default function App() {
+export default function App({ Component, pageProps }) {
   return (
     <ToastProvider>
-      <YourApp />
+      <Component {...pageProps} />
     </ToastProvider>
   );
 }`}
         />
       </section>
 
-      {/* Basic Usage */}
+      {/* Complete Setup */}
       <section>
-        <h2 className="text-2xl font-semibold mb-4 text-white">Basic Usage</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Complete Setup</h2>
         <p className="text-gray-400 mb-3">
-          Use the <code>useToast()</code> hook anywhere in your app.
+          Use <code>ToastProvider</code> at the top-level so <code>useToast()</code>
+          can access the toast context from any child component.
         </p>
 
         <CodeBlock
           language="jsx"
-          code={`const { toast } = useToast();
+          code={`import { ToastProvider } from "@neuctra/ui";
+import Layout from "./Layout";
 
-toast("Hello world!");`}
+function App() {
+  return (
+    <ToastProvider>
+      <Layout />
+    </ToastProvider>
+  );
+}
+
+export default App;
+`}
+        />
+      </section>
+
+      {/* How it Works */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">How it Works</h2>
+        <p className="text-gray-400 mb-3">
+          <code>ToastProvider</code> keeps a shared list of notifications and
+          renders a fixed toast container in the bottom-right corner. The hook
+          returns <code>toast</code> helpers and a <code>dismiss</code> method.
+        </p>
+
+        <ul className="list-disc pl-5 space-y-2 text-gray-400">
+          <li>
+            `toast()` accepts either a simple string or an object with options.
+          </li>
+          <li>
+            Built-in variants: <code>success</code>, <code>error</code>,
+            <code>warning</code>, <code>info</code>.
+          </li>
+          <li>
+            Toasts auto-dismiss by default, but you can disable this with
+            <code>duration: 0</code>.
+          </li>
+          <li>
+            Individual toasts support manual close buttons and Escape key
+            dismissal.
+          </li>
+        </ul>
+      </section>
+
+      {/* Basic Usage */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Basic Usage</h2>
+        <p className="text-gray-400 mb-3">
+          Use the <code>useToast()</code> hook from any component wrapped by
+          <code>ToastProvider</code>.
+        </p>
+
+        <CodeBlock
+          language="jsx"
+          code={`import { useToast } from "@neuctra/ui";
+
+function Example() {
+  const { toast } = useToast();
+
+  return (
+    <button onClick={() => toast("Hello world!")}>Show toast</button>
+  );
+}`}
+        />
+      </section>
+
+      {/* String Shortcut */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">String Shortcut</h2>
+        <p className="text-gray-400 mb-3">
+          Passing a string creates a simple toast where the string is used as the
+          description.
+        </p>
+
+        <CodeBlock
+          language="jsx"
+          code={`toast("This is a notification message.");`}
         />
       </section>
 
@@ -61,7 +136,7 @@ toast("Hello world!");`}
           Shorthand Methods
         </h2>
         <p className="text-gray-400 mb-3">
-          Quickly trigger styled toasts using helper methods:
+          Trigger typed notifications with built-in helper methods.
         </p>
 
         <CodeBlock
@@ -79,7 +154,7 @@ toast.info("Some information");`}
           Advanced Usage
         </h2>
         <p className="text-gray-400 mb-3">
-          Use full control with the object API:
+          Use the full object API to customize every toast instance.
         </p>
 
         <CodeBlock
@@ -93,11 +168,37 @@ toast.info("Some information");`}
         />
       </section>
 
+      {/* Dismiss Control */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">Dismiss Control</h2>
+        <p className="text-gray-400 mb-3">
+          In addition to toast helpers, you can dismiss one toast or clear all
+          active notifications.
+        </p>
+
+        <CodeBlock
+          language="jsx"
+          code={`const { toast, dismiss } = useToast();
+
+toast.success("Saved!", { description: "Will close automatically." });
+
+// remove one toast by id
+// dismiss(id);
+
+// clear every notification
+// dismiss();`}
+        />
+      </section>
+
       {/* Shorthand with Options */}
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">
           Shorthand with Options
         </h2>
+        <p className="text-gray-400 mb-3">
+          Extend the helper methods with optional properties for more detail.
+        </p>
+
         <CodeBlock
           language="jsx"
           code={`toast.success("Saved!", {
@@ -172,22 +273,52 @@ toast.info("Some information");`}
               <tr>
                 <td className="p-3">title</td>
                 <td className="p-3">string</td>
-                <td>Main title</td>
+                <td>Main title displayed in the toast.</td>
               </tr>
               <tr>
                 <td className="p-3">description</td>
                 <td className="p-3">string</td>
-                <td>Optional message</td>
+                <td>Optional supporting text.</td>
               </tr>
               <tr>
                 <td className="p-3">type</td>
                 <td className="p-3">success | error | warning | info</td>
-                <td>Toast variant</td>
+                <td>Visual variant and icon style.</td>
               </tr>
               <tr>
                 <td className="p-3">duration</td>
                 <td className="p-3">number</td>
-                <td>Auto dismiss time (ms). Use 0 to disable</td>
+                <td>Auto dismiss time in milliseconds. Use 0 to keep toast open.</td>
+              </tr>
+              <tr>
+                <td className="p-3">toast()</td>
+                <td className="p-3">function</td>
+                <td>Core function that accepts a string or toast object.</td>
+              </tr>
+              <tr>
+                <td className="p-3">toast.success()</td>
+                <td className="p-3">function</td>
+                <td>Show a success notification quickly.</td>
+              </tr>
+              <tr>
+                <td className="p-3">toast.error()</td>
+                <td className="p-3">function</td>
+                <td>Show an error notification quickly.</td>
+              </tr>
+              <tr>
+                <td className="p-3">toast.warning()</td>
+                <td className="p-3">function</td>
+                <td>Show a warning notification quickly.</td>
+              </tr>
+              <tr>
+                <td className="p-3">toast.info()</td>
+                <td className="p-3">function</td>
+                <td>Show an info notification quickly.</td>
+              </tr>
+              <tr>
+                <td className="p-3">dismiss(id?)</td>
+                <td className="p-3">function</td>
+                <td>Remove one toast by id or clear all toasts when called without an id.</td>
               </tr>
             </tbody>
           </table>
@@ -199,13 +330,12 @@ toast.info("Some information");`}
         <h2 className="text-2xl font-semibold mb-4 text-white">Features</h2>
 
         <ul className="list-disc pl-5 space-y-2 text-gray-400">
-          <li>Simple API: function + shorthand methods</li>
-          <li>Auto dismiss with configurable duration</li>
-          <li>Manual close support</li>
-          <li>Escape key dismiss</li>
-          <li>Stacked notifications</li>
-          <li>Smooth animations</li>
-          <li>Dark mode ready</li>
+          <li>Provider-based toast context with global access.</li>
+          <li>Shorthand and object APIs for flexible notifications.</li>
+          <li>Auto dismiss with configurable duration.</li>
+          <li>Manual close button and Escape key support.</li>
+          <li>Stacked notifications in a fixed container.</li>
+          <li>Dark mode friendly styling and smooth animations.</li>
         </ul>
       </section>
     </>

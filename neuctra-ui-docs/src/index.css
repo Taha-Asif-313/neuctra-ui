@@ -56,8 +56,8 @@ button {
   --input: #f4f4f5;
   --ring: #a1a1aa;
 
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --destructive: #d40000;
+  --destructive-foreground: #fafafa;
 }
 
 /* DARK THEME */

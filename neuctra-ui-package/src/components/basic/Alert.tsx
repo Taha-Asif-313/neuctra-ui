@@ -199,7 +199,7 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
         )}
 
         {description && (
-          <div className="text-sm mt-1 text-zinc-500 dark:text-zinc-300">
+          <div className="text-sm text-zinc-500 dark:text-zinc-300">
             {description}
           </div>
         )}

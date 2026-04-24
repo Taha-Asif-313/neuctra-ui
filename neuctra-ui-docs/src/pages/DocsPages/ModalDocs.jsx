@@ -110,8 +110,12 @@ const ModalDocs = () => {
                       <ModalHeader
                         title="Delete Item"
                         onClose={close}
-                        icon={<Trash2 size={20} className="text-destructive" />}
-                      />
+                        icon={
+                        <div className="p-2 rounded-lg text-destructive bg-destructive/10"  >
+
+                          <Trash2 size={18}/>
+                        </div>
+                      }/>
 
                       <ModalBody>
                         Are you sure you want to delete this item?

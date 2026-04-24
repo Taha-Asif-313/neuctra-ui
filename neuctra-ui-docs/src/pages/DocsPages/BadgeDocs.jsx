@@ -73,22 +73,44 @@ const BadgeDocs = () => {
 
               <CodePreviewBlock
                 language="jsx"
-                code={`         <Badge
+                code={`<Badge
   text="Admin"
-  icon={<User size={18} />}
-  iconPosition="right"
+  variant="soft"
+  icon={<User size={16} />}
+  iconPosition="left"
   size="lg"
 />`}
                 previewContent={
                   <Badge
                     text="Admin"
-                    icon={<User size={18} />}
-                    iconPosition="right"
+                    variant="soft"
+                    icon={<User size={16} />}
+                    iconPosition="left"
                     size="lg"
                   />
                 }
               />
             </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">Variants</h2>
+
+            <CodePreviewBlock
+              language="jsx"
+              code={`<>
+  <Badge text="Solid" />
+  <Badge text="Outline" variant="outline" />
+  <Badge text="Soft" variant="soft" />
+</>`}
+              previewContent={
+                <div className="flex gap-3">
+                  <Badge text="Solid" />
+                  <Badge text="Outline" variant="outline" />
+                  <Badge text="Soft" variant="soft" />
+                </div>
+              }
+            />
           </section>
 
           {/* Props Table */}
@@ -125,6 +147,20 @@ const BadgeDocs = () => {
                     <td className="p-3 text-gray-400">—</td>
                     <td className="p-3">
                       Optional icon displayed alongside the text
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">variant</td>
+                    <td className="p-3">"solid" | "outline" | "soft"</td>
+                    <td className="p-3 text-gray-400">"solid"</td>
+                    <td className="p-3">
+                      Controls the visual style of the badge.
+                      <br />
+                      <span className="text-xs text-gray-500">
+                        solid: filled • outline: bordered • soft: subtle
+                        background
+                      </span>
                     </td>
                   </tr>
 

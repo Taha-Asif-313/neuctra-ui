@@ -32,7 +32,6 @@ export type { BadgeProps } from "./components/basic/Badge";
 export { List, ListItem } from "./components/basic/List";
 export type { ListProps, ListItemType } from "./components/basic/List";
 
-
 // Dropdown Component Completed!
 export { Dropdown } from "./components/basic/Dropdown";
 export type { DropdownProps, DropdownItem } from "./components/basic/Dropdown";
@@ -49,7 +48,22 @@ export { RadioGroup } from "./components/basic/RadioGroup";
 export { SwitchGroup } from "./components/basic/SwitchGroup";
 
 // Drawers
-export { Drawer, DrawerButton } from "./components/basic/Drawer"; // ✅ Finalized
+export {
+  Drawer,
+  DrawerButton,
+  DrawerBody,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerContent,
+  DrawerTriggerButton,
+} from "./components/basic/Drawer"; // ✅ Finalized
+export type {
+  DrawerProps,
+  DrawerButtonProps,
+  DrawerContentProps,
+  DrawerHeaderProps,
+  DrawerTriggerProps,
+} from "./components/basic/Drawer";
 
 // Dropdowns
 export { Select } from "./components/basic/Select"; // ✅ Finalized

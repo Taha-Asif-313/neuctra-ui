@@ -10,22 +10,20 @@ import clsx from "clsx";
 export interface BadgeProps {
   text?: string;
 
+  variant?: "solid" | "outline" | "soft";
+
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
 
-  /** 📏 Sizes */
   size?: "sm" | "md" | "lg";
 
-  /** Shape */
   rounded?: boolean;
 
-  /** Notification */
   notificationDot?: boolean;
   dotColor?: string;
   count?: number | string;
   pulse?: boolean;
 
-  /** 🎨 Customization */
   className?: string;
   style?: CSSProperties;
   dotClassName?: string;
@@ -47,8 +45,8 @@ export const Badge: React.FC<BadgeProps> = memo(
     text,
     icon,
     iconPosition = "left",
-
-    size = "md",
+    variant = "solid",
+    size = "sm",
     rounded = true,
 
     notificationDot = false,
@@ -66,11 +64,16 @@ export const Badge: React.FC<BadgeProps> = memo(
 
     onClick,
   }) => {
-    /** 📏 Sizes */
     const sizes = {
-      sm: "px-2 py-0.5 text-xs",
-      md: "px-3 py-1 text-xs",
-      lg: "px-4 py-1.5 text-sm",
+      sm: "px-3 py-0.5 text-xs",
+      md: "px-4 py-1 text-xs",
+      lg: "px-5 py-1.5 text-sm",
+    };
+
+    const variants = {
+      solid: "bg-primary text-white",
+      outline: "border border-primary text-primary bg-transparent",
+      soft: "bg-primary/10 text-primary",
     };
 
     return (
@@ -78,43 +81,45 @@ export const Badge: React.FC<BadgeProps> = memo(
         onClick={onClick}
         style={style}
         className={clsx(
-          "relative inline-flex items-center justify-center gap-1 font-medium",
+          className,
+          "relative inline-flex items-center justify-center font-medium gap-1",
           "transition-all duration-200 select-none",
-          "bg-accent text-primary-foreground border border-border",
 
-          // shape
+          variants[variant], // ✅ single source of truth
+
           rounded ? "rounded-full" : "rounded-md",
-
-          // size
           sizes[size],
 
-          // hover (shadcn-like subtle)
-          onClick && "cursor-pointer hover:bg-accent/80",
-
-          className,
+          onClick &&
+            "cursor-pointer " +
+              (variant === "solid"
+                ? "hover:bg-accent/80"
+                : variant === "outline"
+                  ? "hover:bg-primary/10"
+                  : "hover:bg-primary/20"),
         )}
       >
-        {/* 🔴 Dot */}
+        {/* Dot */}
         {notificationDot && (
           <span
             style={dotStyle}
             className={clsx(
+              dotClassName,
               "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-destructive",
               pulse && "animate-ping",
-              dotClassName,
             )}
           />
         )}
 
-        {/* 🔢 Count */}
+        {/* Count */}
         {count !== undefined && (
           <span
             style={countStyle}
             className={clsx(
+              countClassName,
               "absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px]",
               "flex items-center justify-center rounded-full",
-              "bg-destructive text-primary-foreground",
-              countClassName,
+              "bg-destructive text-white",
             )}
           >
             {count}
@@ -125,7 +130,7 @@ export const Badge: React.FC<BadgeProps> = memo(
         {icon && iconPosition === "left" && (
           <span
             style={iconStyle}
-            className={clsx("flex items-center", iconClassName)}
+            className={clsx(iconClassName, "flex items-center")}
           >
             {icon}
           </span>
@@ -138,7 +143,7 @@ export const Badge: React.FC<BadgeProps> = memo(
         {icon && iconPosition === "right" && (
           <span
             style={iconStyle}
-            className={clsx("flex items-center", iconClassName)}
+            className={clsx(iconClassName, "flex items-center")}
           >
             {icon}
           </span>

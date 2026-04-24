@@ -135,17 +135,17 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               transition={{ duration: 0.18 }}
               onClick={(e) => e.stopPropagation()}
               className={clsx(
-                "absolute z-50 mt-2 rounded-2xl shadow-2xl border",
+                menuClassName,
+                "absolute z-50 mt-2 rounded-2xl shadow-2xl overflow-hidden border",
                 "bg-background border-border",
                 align === "right" ? "right-0" : "left-0",
-                menuClassName,
               )}
               style={{
                 width,
                 ...menuStyle,
               }}
             >
-              <div className="py-1 text-sm text-foreground">
+              <div className="text-sm text-foreground">
                 {items.map((item, i) => {
                   if (item.separator) {
                     return (

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Metadata from "../../MetaData";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Drawer, DrawerButton } from "@neuctra/ui";
+import { Button, Drawer, DrawerBody, DrawerButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerTriggerButton } from "@neuctra/ui";
 import { Menu, Check, X } from "lucide-react";
 
 /* ---------------- Helper component per drawer example ---------------- */
@@ -13,7 +13,7 @@ const DrawerExample = ({
   position = "right",
   children,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-center">
@@ -21,14 +21,13 @@ const DrawerExample = ({
         label={label}
         className="gap-2"
         icon={<Menu size={20} />}
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
       />
 
       <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
         position={position}
-        className="z-[2000]"
       >
         {children ? (
           children
@@ -46,19 +45,18 @@ const DrawerExample = ({
 };
 
 const HeadlessDrawerExample = () => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-center">
       <DrawerButton
         label="Open Headless Drawer"
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
       />
 
       <Drawer
-        open={open}
-        onClose={() => setOpen(false)}
-        showCloseButton={false}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
         position="right"
         renderContent={(close) => (
           <div className="p-6">
@@ -95,9 +93,10 @@ const DrawerDocs = () => {
             </h1>
             <p className="text-lg text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Drawer</span>{" "}
-              component provides a flexible sliding panel from any screen edge.
-              It supports full customization via className and inline styles,
-              multiple positions, overlay control, and headless rendering.
+              component creates sliding panels that appear from any screen edge.
+              Perfect for sidebars, mobile menus, settings panels, and more.
+              Supports both structured layouts with sub-components and fully
+              custom headless rendering.
             </p>
           </header>
 
@@ -108,7 +107,11 @@ const DrawerDocs = () => {
             </h2>
             <CodeBlock
               language="tsx"
-              code={`import { Drawer, DrawerButton } from "@neuctra/ui";`}
+              code={`// Main components
+import { Drawer, DrawerButton, DrawerTriggerButton } from "@neuctra/ui";
+
+// Sub-components for structured layouts
+import { DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@neuctra/ui";`}
             />
           </section>
 
@@ -120,26 +123,59 @@ const DrawerDocs = () => {
 
             <CodePreviewBlock
               language="tsx"
-              code={`// 1. Control drawer state
-const [open, setOpen] = useState(false);
+              code={`// Simple approach with DrawerTriggerButton
+<DrawerTriggerButton
+  drawerContent={({ close }) => (
+    <DrawerContent>
+      <DrawerHeader title="My Drawer" onClose={close} />
+      <DrawerBody>
+        <p>Hello from Drawer! 👋</p>
+      </DrawerBody>
+      <DrawerFooter>
+        <Button onClick={close}>Close</Button>
+      </DrawerFooter>
+    </DrawerContent>
+  )}
+>
+  Open Drawer
+</DrawerTriggerButton>
 
-// 2. Trigger button
-<DrawerButton
-  label="Open Drawer"
-  onClick={() => setOpen(true)}
-/>
+// Manual control approach
+const [isOpen, setIsOpen] = useState(false);
 
-// 3. Drawer component
+<DrawerButton label="Open Drawer" onClick={() => setIsOpen(true)} />
+
 <Drawer
-  open={open}
-  onClose={() => setOpen(false)}
+  isOpen={isOpen}
+  onClose={() => setIsOpen(false)}
   position="right"
 >
-  <div className="p-6 text-lg font-semibold">
-    Hello from Drawer 👋
+  <div className="p-6">
+    <h2 className="text-lg font-semibold">Manual Drawer</h2>
+    <p>Hello from drawer!</p>
   </div>
 </Drawer>`}
-              previewContent={<DrawerExample />}
+              previewContent={<DrawerTriggerButton
+  variant="default"
+  drawerContent={({ close }) => (
+    <DrawerContent>
+      <DrawerHeader title="My Drawer" onClose={close} />
+
+      <DrawerBody>
+        Hello from Drawer
+      </DrawerBody>
+
+      <DrawerFooter>
+        <Button variant="ghost" onClick={close}>
+          Cancel
+        </Button>
+        <Button onClick={close}>Save</Button>
+      </DrawerFooter>
+    </DrawerContent>
+  )}
+>
+  Open Drawer
+</DrawerTriggerButton>}
             />
           </section>
 
@@ -160,9 +196,8 @@ const [open, setOpen] = useState(false);
 />
 
 <Drawer
-  open={open}
+  isOpen={open}
   onClose={() => setOpen(false)}
-  showCloseButton={false}
   position="right"
   renderContent={(close) => (
     <div className="p-6">
@@ -183,7 +218,92 @@ const [open, setOpen] = useState(false);
             />
           </section>
 
-          {/* ---------------- Helper for Headless Preview ---------------- */}
+          {/* ---------------- Sub-Components ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Sub-Components
+            </h2>
+            <p className="text-gray-200 mb-4">
+              Use these helper components to build structured drawer layouts:
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  DrawerTriggerButton
+} from "@neuctra/ui";
+
+<DrawerTriggerButton
+  variant="default"
+  drawerContent={({ close }) => (
+    <DrawerContent>
+      <DrawerHeader title="My Drawer" onClose={close} />
+      <DrawerBody>
+        <p>Your content here</p>
+      </DrawerBody>
+      <DrawerFooter>
+        <Button variant="ghost" onClick={close}>
+          Cancel
+        </Button>
+        <Button onClick={close}>Save</Button>
+      </DrawerFooter>
+    </DrawerContent>
+  )}
+>
+  Open Drawer
+</DrawerTriggerButton>`}
+              previewContent={<DrawerTriggerButton
+  variant="default"
+  drawerContent={({ close }) => (
+    <DrawerContent>
+      <DrawerHeader title="My Drawer" onClose={close} />
+      <DrawerBody>
+        <p className="text-sm">This drawer uses sub-components for clean structure.</p>
+      </DrawerBody>
+      <DrawerFooter>
+        <Button variant="ghost" onClick={close}>
+          Cancel
+        </Button>
+        <Button onClick={close}>Save</Button>
+      </DrawerFooter>
+    </DrawerContent>
+  )}
+>
+  Open Structured Drawer
+</DrawerTriggerButton>}
+            />
+          </section>
+
+          {/* ---------------- Positions ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Positions
+            </h2>
+            <p className="text-gray-200 mb-4">
+              Drawers can slide in from any edge of the screen:
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <DrawerExample label="Left Drawer" position="left" />
+              <DrawerExample label="Right Drawer" position="right" />
+              <DrawerExample label="Top Drawer" position="top" />
+              <DrawerExample label="Bottom Drawer" position="bottom" />
+            </div>
+
+            <CodeBlock
+              language="tsx"
+              code={`// Position options
+<Drawer position="left" />   // Slides from left
+<Drawer position="right" />  // Slides from right (default)
+<Drawer position="top" />    // Slides from top
+<Drawer position="bottom" /> // Slides from bottom`}
+            />
+          </section>
 
           {/* Props Table — Drawer */}
           <section>
@@ -204,7 +324,7 @@ const [open, setOpen] = useState(false);
 
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
-                    <td className="p-3 font-mono">open</td>
+                    <td className="p-3 font-mono">isOpen</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Controls drawer visibility</td>
@@ -236,17 +356,10 @@ const [open, setOpen] = useState(false);
                   </tr>
 
                   <tr>
-                    <td className="p-3 font-mono">showCloseButton</td>
+                    <td className="p-3 font-mono">disableOverlayClose</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">true</td>
-                    <td className="p-3">Show or hide close button</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">zIndex</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">50</td>
-                    <td className="p-3">Stacking order of drawer</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Disable closing drawer by clicking overlay</td>
                   </tr>
 
                   <tr>
@@ -262,74 +375,18 @@ const [open, setOpen] = useState(false);
 
                   {/* 🎨 Class Customization */}
                   <tr>
-                    <td className="p-3 font-mono">className</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Root wrapper class</td>
-                  </tr>
-
-                  <tr>
                     <td className="p-3 font-mono">overlayClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Overlay background styling</td>
                   </tr>
 
-                  <tr>
-                    <td className="p-3 font-mono">panelClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Drawer panel container</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">contentClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Scrollable content wrapper</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">closeButtonClassName</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Close button styling</td>
-                  </tr>
-
                   {/* 🎨 Style Customization */}
-                  <tr>
-                    <td className="p-3 font-mono">style</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Root wrapper inline styles</td>
-                  </tr>
-
                   <tr>
                     <td className="p-3 font-mono">overlayStyle</td>
                     <td className="p-3">React.CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Overlay inline styles</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">panelStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Drawer panel inline styles</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">contentStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Content area inline styles</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">closeButtonStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Close button inline styles</td>
                   </tr>
                 </tbody>
               </table>
@@ -425,16 +482,16 @@ const [open, setOpen] = useState(false);
               <div className="flex gap-2 items-start text-red-500">
                 <X size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-red-500">{`<Drawer open />`}</code>
+                  <code className="text-red-500">{`<Drawer isOpen />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
-                    Always bind open to a state variable and provide onClose.
+                    Always bind isOpen to a state variable and provide onClose.
                   </p>
                 </div>
               </div>
               <div className="flex gap-2 items-start text-red-500">
                 <X size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-red-500">{`<Drawer open={open} />`}</code>
+                  <code className="text-red-500">{`<Drawer isOpen={open} />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Missing onClose means overlay clicks won't close the drawer.
                   </p>
@@ -443,7 +500,7 @@ const [open, setOpen] = useState(false);
               <div className="flex gap-2 items-start text-red-500">
                 <X size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-red-500">{`<Drawer open={open} onClose={...} />`}</code>
+                  <code className="text-red-500">{`<Drawer isOpen={open} onClose={...} />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Missing position prop — defaults to "right". Be explicit
                     when using other positions.
@@ -453,7 +510,7 @@ const [open, setOpen] = useState(false);
               <div className="flex gap-2 items-start text-green-500">
                 <Check size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-green-500">{`<Drawer open={open} onClose={() => setOpen(false)} position="left" />`}</code>
+                  <code className="text-green-500">{`<Drawer isOpen={open} onClose={() => setOpen(false)} position="left" />`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
                     Correct — state, close handler, and position all explicit.
                   </p>
@@ -462,9 +519,9 @@ const [open, setOpen] = useState(false);
               <div className="flex gap-2 items-start text-green-500">
                 <Check size={16} className="mt-0.5 shrink-0" />
                 <div>
-                  <code className="text-green-500">{`use zIndex when stacking modals`}</code>
+                  <code className="text-green-500">{`use disableOverlayClose for modals`}</code>
                   <p className="text-gray-500 text-xs mt-0.5">
-                    Avoid layering issues with multiple overlays.
+                    Prevent accidental closes in critical flows.
                   </p>
                 </div>
               </div>
@@ -485,8 +542,8 @@ const [open, setOpen] = useState(false);
                 a modern frosted glass look.
               </li>
               <li>
-                Use <code className="text-primary">zIndex</code> when stacking
-                multiple drawers or modals.
+                Use <code className="text-primary">disableOverlayClose</code> for
+                critical flows to prevent accidental closes.
               </li>
               <li>
                 Prefer <code className="text-primary">top</code> /{" "}
@@ -494,9 +551,9 @@ const [open, setOpen] = useState(false);
                 mobile bottom sheets.
               </li>
               <li>
-                Set <code className="text-primary">showCloseButton=false</code>{" "}
-                with <code className="text-primary">renderContent</code> to own
-                the full close UX.
+                Use <code className="text-primary">DrawerHeader</code> with{" "}
+                <code className="text-primary">onClose</code> for consistent
+                close UX.
               </li>
             </ul>
           </section>

@@ -9,6 +9,7 @@ import { Check, X } from "lucide-react";
 
 const SwitchGroupDocs = () => {
   const [values, setValues] = useState(["react"]);
+  const [singleChecked, setSingleChecked] = useState(false);
 
   const options = [
     { label: "React", value: "react" },
@@ -19,9 +20,9 @@ const SwitchGroupDocs = () => {
   return (
     <>
       <Metadata
-        title="Switch Group Component — Neuctra UI"
-        description="Fully customizable Switch Group component with Tailwind-based styling, keyboard navigation, and full design system control."
-        keywords="SwitchGroup, React switch toggle, UI library, Tailwind switch, multi select toggle"
+        title="Switch Component — Neuctra UI"
+        description="Fully customizable Switch component with single toggle and optional group functionality, built with Tailwind-based styling."
+        keywords="Switch, SwitchGroup, React switch toggle, UI library, Tailwind switch, toggle, single switch, multi select toggle"
       />
 
       <div className="font-primary min-h-screen">
@@ -29,10 +30,10 @@ const SwitchGroupDocs = () => {
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
-              Switch Group
+              Switch
             </h1>
             <p className="text-lg text-gray-200 leading-relaxed">
-              A flexible and fully customizable switch group component. Built to
+              A flexible and fully customizable switch component that supports single toggles by default, with optional multi-select group functionality. Built to
               follow your design system using Tailwind classes — no hardcoded
               colors, full control over layout, styling, and behavior.
             </p>
@@ -49,9 +50,9 @@ const SwitchGroupDocs = () => {
               code={`import { SwitchGroup } from "@neuctra/ui";`}
               previewContent={
                 <SwitchGroup
-                  options={options}
-                  selectedValues={values}
-                  onChange={setValues}
+                  label="Enable feature"
+                  checked={singleChecked}
+                  onCheckedChange={setSingleChecked}
                 />
               }
             />
@@ -65,9 +66,35 @@ const SwitchGroupDocs = () => {
 
             <CodePreviewBlock
               language="tsx"
+              code={`const [checked, setChecked] = useState(false);
+
+<SwitchGroup
+  label="Enable notifications"
+  checked={checked}
+  onCheckedChange={setChecked}
+/>`}
+              previewContent={
+                <SwitchGroup
+                  label="Enable notifications"
+                  checked={singleChecked}
+                  onCheckedChange={setSingleChecked}
+                />
+              }
+            />
+          </section>
+
+          {/* Group Mode */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Group Mode
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
               code={`const [values, setValues] = useState([]);
 
 <SwitchGroup
+  mode="group"
   options={[
     { label: "React", value: "react" },
     { label: "Vue", value: "vue" }
@@ -77,6 +104,7 @@ const SwitchGroupDocs = () => {
 />`}
               previewContent={
                 <SwitchGroup
+                  mode="group"
                   options={options}
                   selectedValues={values}
                   onChange={setValues}
@@ -94,21 +122,21 @@ const SwitchGroupDocs = () => {
             <CodePreviewBlock
               language="tsx"
               code={`<SwitchGroup
-  options={options}
-  selectedValues={values}
-  onChange={setValues}
+  label="Custom styled switch"
+  checked={checked}
+  onCheckedChange={setChecked}
   className="bg-zinc-900 p-4 rounded-xl"
-  itemClassName="hover:bg-zinc-800 p-2 rounded"
+  labelClassName="hover:bg-zinc-800 p-2 rounded"
   textClassName="text-sm font-medium text-blue-400"
-  switchClassName="bg-green-500 data-[checked=true]:bg-blue-500"
+  switchClassName="bg-green-500"
 />`}
               previewContent={
                 <SwitchGroup
-                  options={options}
-                  selectedValues={values}
-                  onChange={setValues}
+                  label="Custom styled switch"
+                  checked={singleChecked}
+                  onCheckedChange={setSingleChecked}
                   className="bg-zinc-900 p-4 rounded-xl"
-                  itemClassName="hover:bg-zinc-800 p-2 rounded"
+                  labelClassName="hover:bg-zinc-800 p-2 rounded"
                   textClassName="text-sm font-medium"
                   switchClassName="bg-zinc-700"
                 />
@@ -122,20 +150,20 @@ const SwitchGroupDocs = () => {
 
             <CodePreviewBlock
               language="tsx"
-              code={`<SwitchGroup iconSize={16} />
-<SwitchGroup iconSize={24} />`}
+              code={`<SwitchGroup label="Small" iconSize={16} />
+<SwitchGroup label="Large" iconSize={24} />`}
               previewContent={
                 <div className="space-y-4">
                   <SwitchGroup
-                    options={options}
-                    selectedValues={values}
-                    onChange={setValues}
+                    label="Small switch"
+                    checked={singleChecked}
+                    onCheckedChange={setSingleChecked}
                     iconSize={16}
                   />
                   <SwitchGroup
-                    options={options}
-                    selectedValues={values}
-                    onChange={setValues}
+                    label="Large switch"
+                    checked={singleChecked}
+                    onCheckedChange={setSingleChecked}
                     iconSize={26}
                   />
                 </div>
@@ -163,24 +191,61 @@ const SwitchGroupDocs = () => {
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   {/* CORE */}
                   <tr>
+                    <td className="p-3 font-mono">mode</td>
+                    <td className="p-3">'single' | 'group'</td>
+                    <td className="p-3">'single'</td>
+                    <td className="p-3">Switch between single toggle or multi-select group.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">name</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Form field name.</td>
+                  </tr>
+
+                  {/* GROUP MODE */}
+                  <tr>
                     <td className="p-3 font-mono">options</td>
                     <td className="p-3">Option[]</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">List of switch items.</td>
+                    <td className="p-3">List of switch items (group mode).</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">selectedValues</td>
                     <td className="p-3">string[]</td>
                     <td className="p-3">[]</td>
-                    <td className="p-3">Controlled selected values.</td>
+                    <td className="p-3">Controlled selected values (group mode).</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">onChange</td>
                     <td className="p-3">(values: string[]) =&gt; void</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Callback when selection changes.</td>
+                    <td className="p-3">Callback when selection changes (group mode).</td>
+                  </tr>
+
+                  {/* SINGLE MODE */}
+                  <tr>
+                    <td className="p-3 font-mono">label</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Label text for single switch.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">checked</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Checked state (single mode).</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">onCheckedChange</td>
+                    <td className="p-3">(checked: boolean) =&gt; void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Callback when checked state changes (single mode).</td>
                   </tr>
 
                   <tr>

@@ -123,9 +123,9 @@ export const Avatar: React.FC<AvatarProps> = ({
       .slice(0, 2);
 
   const statusColor = isOnline
-    ? "bg-primary border border-white"
+    ? "bg-primary border border-foreground"
     : isOffline
-      ? "bg-muted border border-white"
+      ? "bg-muted border border-foreground"
       : "";
 
   const statusDotSize = getStatusDotSize(resolvedSize);

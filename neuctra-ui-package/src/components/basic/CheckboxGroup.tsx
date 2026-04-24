@@ -23,7 +23,7 @@ interface CheckboxGroupProps {
   required?: boolean;
   error?: string;
 
-  /** 🌈 Customization */
+  /** Customization */
   className?: string;
   containerClassName?: string;
   itemClassName?: string;

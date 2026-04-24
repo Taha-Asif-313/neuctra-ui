@@ -42,7 +42,6 @@ import TemplateHomePage from "./pages/TemplatePages/TemplateHomePage";
 import TemplatePage from "./pages/TemplatePages/TemplatePage";
 import SelectDocs from "./pages/DocsPages/SelectDocs";
 import TextareaDocs from "./pages/DocsPages/TextareaDocs";
-import UICreationBotDocs from "./pages/DocsPages/UICreationBotDocs";
 import NeuctraUiChatBotPage from "./pages/NeuctraUIBot/NeuctraUiChatBot";
 import IntroductionDocPage from "./pages/DocsPages/IntroductionDocPage";
 import QuickStartDocsPage from "./pages/DocsPages/QuickStartDocsPage";
@@ -90,7 +89,6 @@ const App = () => {
           <Route path="modal" element={<ModalDocs />} />
           <Route path="accordion" element={<AccordionDocs />} />
           <Route path="table" element={<TableDocs />} />
-          <Route path="ui-creation-bot" element={<UICreationBotDocs />} />
         </Route>
 
         <Route path="/templates" element={<TemplatesLayout />}>
