@@ -28,7 +28,7 @@ import BadgeDocs from "./pages/DocsPages/BadgeDocs";
 import AvatarDocs from "./pages/DocsPages/AvatarDocs";
 import RadioGroupDocs from "./pages/DocsPages/RadioGroupDocs";
 import CheckboxGroupDocs from "./pages/DocsPages/CheckboxGroupDocs";
-import SwitchGroupDocs from "./pages/DocsPages/SwitchGroupDocs";
+import SwitchGroupDocs from "./pages/DocsPages/SwitchDocs";
 import ContainerDocs from "./pages/DocsPages/ContainerDocs";
 
 import DrawerDocs from "./pages/DocsPages/DrawerDocs";

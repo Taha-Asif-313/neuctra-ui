@@ -60,6 +60,7 @@ const InputDocs = () => {
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Input Types
             </h2>
+
             <div className="space-y-6">
               <CodePreviewBlock
                 language="jsx"
@@ -98,7 +99,7 @@ const InputDocs = () => {
                 code={`<Input
   type="number"
   label="Age"
-  placeholder="Enter Age"
+  placeholder="Enter age"
   min={1}
   max={100}
   defaultValue="18"
@@ -107,7 +108,7 @@ const InputDocs = () => {
                   <Input
                     type="number"
                     label="Age"
-                    placeholder="Enter Age"
+                    placeholder="Enter age"
                     min={1}
                     max={100}
                     defaultValue="18"
@@ -120,17 +121,17 @@ const InputDocs = () => {
                 code={`<Input
   type="textarea"
   label="Message"
-  placeholder="Enter your message"
+  placeholder="Write your message..."
   rows={4}
-  helperText="Write something nice..."
+  helperText="Supports multiline input"
 />`}
                 previewContent={
                   <Input
                     type="textarea"
                     label="Message"
-                    placeholder="Enter your message"
+                    placeholder="Write your message..."
                     rows={4}
-                    helperText="Write something nice..."
+                    helperText="Supports multiline input"
                   />
                 }
               />
@@ -142,18 +143,19 @@ const InputDocs = () => {
             <h2 className="text-2xl font-semibold mb-4 text-white">
               States & Validation
             </h2>
+
             <div className="space-y-6">
               <CodePreviewBlock
                 language="jsx"
                 code={`<Input
   label="Error state"
-  placeholder="Invalid input"
+  placeholder="Enter value"
   error="This field is required"
 />`}
                 previewContent={
                   <Input
                     label="Error state"
-                    placeholder="Invalid input"
+                    placeholder="Enter value"
                     error="This field is required"
                   />
                 }
@@ -164,15 +166,15 @@ const InputDocs = () => {
                 code={`<Input
   label="Success state"
   placeholder="Valid input"
-  success={true}
-  helperText="Great choice!"
+  success
+  helperText="Looks good!"
 />`}
                 previewContent={
                   <Input
                     label="Success state"
                     placeholder="Valid input"
-                    success={true}
-                    helperText="Great choice!"
+                    success
+                    helperText="Looks good!"
                   />
                 }
               />
@@ -180,15 +182,15 @@ const InputDocs = () => {
               <CodePreviewBlock
                 language="jsx"
                 code={`<Input
-  label="Disabled"
-  placeholder="Cannot interact"
-  disabled={true}
+  label="Disabled input"
+  placeholder="Disabled"
+  disabled
 />`}
                 previewContent={
                   <Input
-                    label="Disabled"
-                    placeholder="Cannot interact"
-                    disabled={true}
+                    label="Disabled input"
+                    placeholder="Disabled"
+                    disabled
                   />
                 }
               />
@@ -512,40 +514,34 @@ const InputDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-4">
               Common Mistakes
             </h2>
+
             <div className="space-y-4 text-sm text-gray-300">
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
                   <code>{'<Input type="textarea" rows={0} />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Rows must be greater than 0.
+                    rows must be {">="} 1 for textarea rendering.
                   </p>
                 </div>
               </div>
+
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
                   <code>{'<Input type="number" min={10} max={5} />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Ensure min is less than max.
+                    min should always be less than max.
                   </p>
                 </div>
               </div>
+
               <div className="flex items-start gap-2 text-green-500">
                 <Check size={16} className="mt-1" />
                 <div>
-                  <code>{'<Input id="email" htmlFor="email" />'}</code>
+                  <code>{'<Input id="email" label="Email" />'}</code>
                   <p className="text-gray-500 text-xs mt-1">
-                    Always use id for form accessibility.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 text-green-500">
-                <Check size={16} className="mt-1" />
-                <div>
-                  <code>{'<Input size="lg" description="Required" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Use size prop and description for better UX.
+                    Always use label + id for accessibility.
                   </p>
                 </div>
               </div>

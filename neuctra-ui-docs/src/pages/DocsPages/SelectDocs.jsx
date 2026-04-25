@@ -63,17 +63,6 @@ const SelectDocs = () => {
             </p>
           </header>
 
-          {/* Import */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Import Component From Library
-            </h2>
-            <CodeBlock
-              language="javascript"
-              code={`import { Select } from "@neuctra/ui";`}
-            />
-          </section>
-
           {/* Overview */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">Overview</h2>
@@ -95,6 +84,17 @@ const SelectDocs = () => {
               <li>Controlled and uncontrolled modes</li>
               <li>Extensive customization layers</li>
             </ul>
+          </section>
+
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Import Component From Library
+            </h2>
+            <CodeBlock
+              language="javascript"
+              code={`import { Select } from "@neuctra/ui";`}
+            />
           </section>
 
           {/* Basic Usage */}

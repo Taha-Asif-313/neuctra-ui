@@ -45,7 +45,7 @@ export { Accordion } from "./components/basic/Accordion"; // ✅ Finalized
 // ✅ Checkbox, Radio & Switch Components
 export { CheckboxGroup } from "./components/basic/CheckboxGroup";
 export { RadioGroup } from "./components/basic/RadioGroup";
-export { SwitchGroup } from "./components/basic/SwitchGroup";
+export { Switch } from "./components/basic/Switch";
 
 // Drawers
 export {

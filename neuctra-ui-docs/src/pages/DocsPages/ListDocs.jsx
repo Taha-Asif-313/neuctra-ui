@@ -21,8 +21,8 @@ const ListDocs = () => {
     <>
       <Metadata
         title="List Component — Neuctra UI"
-        description="Learn how to use the List component in Neuctra UI — ordered, unordered, or inline lists with icons, nested items, click handlers, and custom styling."
-        keywords="Neuctra UI List, React List component, nested list, icons, inline list, ordered list, UI library"
+        description="Flexible List component with support for nested items, tree view, inline layout, icons, and full customization."
+        keywords="React List component, nested list, tree list, inline list, ordered list, UI component"
       />
 
       <div className="font-primary min-h-screen">
@@ -32,19 +32,28 @@ const ListDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               List Component
             </h1>
-            <p className="text-sm text-gray-200 leading-relaxed">
+
+            <p className="text-sm leading-relaxed text-gray-200">
               The <span className="text-primary font-semibold">List</span>{" "}
-              component provides flexible <strong>unordered</strong>,{" "}
-              <strong>ordered</strong>, or <strong>inline</strong> lists.
-              Supports nested items, icons, click handlers, and theme
-              customization.
+              component is a flexible and composable UI primitive built with
+              TypeScript. It supports <strong>unordered</strong>,{" "}
+              <strong>ordered</strong>, and <strong>inline</strong> layouts,
+              along with nested structures, optional tree visualization, icons,
+              and interactive items.
+            </p>
+
+            <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+              Use <code>type</code> to control layout, <code>subItems</code> for
+              nesting, <code>showTree</code> for hierarchy visualization, and
+              styling props like <code>bulletClassName</code> or{" "}
+              <code>itemClassName</code> for customization.
             </p>
           </header>
 
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock code={`import { List } from "@neuctra/ui";`} />
           </section>
@@ -54,30 +63,82 @@ const ListDocs = () => {
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
+
             <CodePreviewBlock
               language="jsx"
               code={`<List 
   items={[
     { text: "Item 1" },
     { text: "Item 2" },
-    { text: "Item 3", subItems: [{ text: "Nested 1" }, { text: "Nested 2" }] },
+    {
+      text: "Item 3",
+      subItems: [
+        { text: "Nested 1" },
+        { text: "Nested 2" }
+      ]
+    }
   ]}
+  showTree
 />`}
-              previewContent={<List items={sampleItems} />}
+              previewContent={<List items={sampleItems} showTree />}
             />
           </section>
 
-          {/* Advanced Examples */}
+          {/* Item Structure */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Advanced Usage
+              Item Structure
+            </h2>
+
+            <p className="text-sm text-gray-300 mb-3 leading-relaxed">
+              Each item in the <code>items</code> array follows the{" "}
+              <code>ListItemType</code> structure. This allows you to build
+              simple, nested, or interactive lists.
+            </p>
+
+            <CodeBlock
+              code={`type ListItemType = {
+  text: string;                 // Required: label of the item
+  icon?: ReactNode;             // Optional: icon before text
+  onClick?: () => void;         // Optional: click handler
+  subItems?: ListItemType[];    // Optional: nested children
+};`}
+            />
+
+            <div className="mt-4 space-y-3 text-sm text-gray-300">
+              <p>
+                <strong className="text-white">text</strong> — The visible label
+                of the list item.
+              </p>
+
+              <p>
+                <strong className="text-white">icon</strong> — Adds a visual
+                icon before the text.
+              </p>
+
+              <p>
+                <strong className="text-white">onClick</strong> — Makes the item
+                interactive.
+              </p>
+
+              <p>
+                <strong className="text-white">subItems</strong> — Creates
+                nested lists (supports infinite depth).
+              </p>
+            </div>
+          </section>
+
+          {/* Variants */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              List Types
             </h2>
 
             <div className="space-y-6">
               <CodePreviewBlock
                 language="jsx"
                 code={`<List 
-  title="Inline List"
+  title="Inline Navigation"
   type="inline"
   items={[
     { text: "Home" },
@@ -87,7 +148,7 @@ const ListDocs = () => {
 />`}
                 previewContent={
                   <List
-                    title="Inline List"
+                    title="Inline Navigation"
                     type="inline"
                     items={[
                       { text: "Home" },
@@ -101,26 +162,22 @@ const ListDocs = () => {
               <CodePreviewBlock
                 language="jsx"
                 code={`<List 
-  title="Ordered List with Custom Color"
+  title="Ordered Steps"
   type="ordered"
-  primaryTheme={false}
-  primaryColor="#f97316"
   items={[
-    { text: "Step 1" },
-    { text: "Step 2" },
-    { text: "Step 3" },
+    { text: "Install dependencies" },
+    { text: "Configure project" },
+    { text: "Run application" },
   ]}
 />`}
                 previewContent={
                   <List
-                    title="Ordered List with Custom Color"
+                    title="Ordered Steps"
                     type="ordered"
-                    primaryTheme={false}
-                    primaryColor="#f97316"
                     items={[
-                      { text: "Step 1" },
-                      { text: "Step 2" },
-                      { text: "Step 3" },
+                      { text: "Install dependencies" },
+                      { text: "Configure project" },
+                      { text: "Run application" },
                     ]}
                   />
                 }
@@ -128,14 +185,35 @@ const ListDocs = () => {
             </div>
           </section>
 
+          {/* Tree Mode */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Tree View (Hierarchy)
+            </h2>
+
+            <CodePreviewBlock
+              language="jsx"
+              code={`<List 
+  showTree
+  items={[
+    {
+      text: "Parent",
+      subItems: [
+        { text: "Child 1" },
+        { text: "Child 2" }
+      ]
+    }
+  ]}
+/>`}
+              previewContent={<List items={sampleItems} showTree />}
+            />
+          </section>
+
           {/* Props Table */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
               Props Table
             </h2>
-            <p className="text-gray-400 mb-3">
-              All available props for the List component.
-            </p>
 
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
@@ -151,29 +229,15 @@ const ListDocs = () => {
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   {/* Core */}
                   <tr>
-                    <td className="p-3">title</td>
-                    <td className="p-3">string</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">
-                      Optional heading displayed above the list
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">titleIcon</td>
-                    <td className="p-3">ReactNode</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Icon shown before the title</td>
-                  </tr>
-                  <tr>
                     <td className="p-3">items</td>
                     <td className="p-3">ListItemType[]</td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      Array of list items. Each item supports: <code>text</code>
-                      , <code>icon</code>, <code>onClick</code>, and nested{" "}
+                      Main data source for the list. Supports nested{" "}
                       <code>subItems</code>.
                     </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">type</td>
                     <td className="p-3">"unordered" | "ordered" | "inline"</td>
@@ -182,8 +246,34 @@ const ListDocs = () => {
                       Controls layout:
                       <br />• <code>unordered</code> → custom bullets
                       <br />• <code>ordered</code> → numbered list
-                      <br />• <code>inline</code> → horizontal flex layout
+                      <br />• <code>inline</code> → horizontal layout
                     </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">showTree</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Enables tree-style hierarchy lines for nested items.
+                    </td>
+                  </tr>
+
+                  {/* Title */}
+                  <tr>
+                    <td className="p-3">title</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Optional heading displayed above the list
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">titleIcon</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Icon displayed before the title</td>
                   </tr>
 
                   {/* Class Customization */}
@@ -193,42 +283,51 @@ const ListDocs = () => {
                     <td className="p-3">—</td>
                     <td className="p-3">Wrapper container class</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">listClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Class for the ul/ol element</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">itemClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Class for each list item row</td>
+                    <td className="p-3">
+                      Class applied to each list item (li)
+                    </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">titleClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Class for title container</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">bulletClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Class for custom bullet dot</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">textClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Class for item text</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">iconClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Class for icons (title + items)</td>
+                    <td className="p-3">Class for all icons (title + items)</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">subListClassName</td>
                     <td className="p-3">string</td>
@@ -243,44 +342,49 @@ const ListDocs = () => {
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for wrapper container</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">listStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for ul/ol element</td>
+                    <td className="p-3">Inline styles for ul/ol</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">itemStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">
-                      Inline styles for each item container
-                    </td>
+                    <td className="p-3">Inline styles for each item (li)</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">titleStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for title</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">bulletStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for bullet dot</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">textStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for text</td>
+                    <td className="p-3">Inline styles for item text</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">iconStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for icons</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">subListStyle</td>
                     <td className="p-3">CSSProperties</td>
@@ -299,56 +403,32 @@ const ListDocs = () => {
             </h2>
 
             <div className="space-y-4 text-sm text-gray-300">
-              {/* Inline spacing misunderstanding */}
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
+              <div className="flex gap-2 text-red-500">
+                <X size={16} />
                 <div>
-                  <code>{'<List type="inline" items={[...]} />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Inline lists already use flex + gap. Don’t add margin to
-                    items — use <code>listClassName</code> if you need spacing
-                    control.
+                  <code>{'<List primaryColor="#f00" />'}</code>
+                  <p className="text-xs text-gray-400">
+                    This prop does not exist. Use styling props instead.
                   </p>
                 </div>
               </div>
 
-              {/* Empty items */}
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
+              <div className="flex gap-2 text-red-500">
+                <X size={16} />
                 <div>
                   <code>{"<List items={[]} />"}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    An empty <code>items</code> array renders nothing. Always
-                    pass at least one item.
+                  <p className="text-xs text-gray-400">
+                    Empty list renders nothing.
                   </p>
                 </div>
               </div>
 
-              {/* Wrong props usage */}
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
+              <div className="flex gap-2 text-green-500">
+                <Check size={16} />
                 <div>
-                  <code>
-                    {'<List primaryTheme={false} primaryColor="#f00" />'}
-                  </code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    These props do not exist. Use <code>bulletClassName</code>{" "}
-                    or <code>bulletStyle</code> to customize bullet colors.
-                  </p>
-                </div>
-              </div>
-
-              {/* Correct usage */}
-              <div className="flex items-start gap-2 text-green-500">
-                <Check size={16} className="mt-1" />
-                <div>
-                  <code>
-                    {
-                      '<List items={[{ text: "Item" }]} bulletClassName="bg-red-500" />'
-                    }
-                  </code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Customize bullet appearance using provided styling props.
+                  <code>{"<List showTree items={[...]} />"}</code>
+                  <p className="text-xs text-gray-400">
+                    Use showTree for hierarchy visualization.
                   </p>
                 </div>
               </div>
@@ -359,33 +439,19 @@ const ListDocs = () => {
           <section>
             <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
 
-            <ul className="list-disc list-inside text-gray-200 space-y-1">
+            <ul className="list-disc list-inside text-gray-300 space-y-2">
               <li>
-                Use <code>subItems</code> to create nested lists with automatic
-                indentation.
+                Use <code>showTree</code> for nested navigation UIs.
               </li>
               <li>
-                Use <code>type="inline"</code> for horizontal layouts like
-                breadcrumbs or tags.
+                Use <code>type="inline"</code> for menus & breadcrumbs.
+              </li>
+              <li>Add icons for better visual hierarchy.</li>
+              <li>
+                Use <code>onClick</code> to make items interactive.
               </li>
               <li>
-                Add icons to items for better visual hierarchy and scannability.
-              </li>
-              <li>
-                Use <code>onClick</code> to turn list items into interactive
-                elements.
-              </li>
-              <li>
-                Customize bullets using <code>bulletClassName</code> or{" "}
-                <code>bulletStyle</code>.
-              </li>
-              <li>
-                Use <code>listClassName</code> for layout control (spacing,
-                alignment, wrapping).
-              </li>
-              <li>
-                Combine <code>title</code> and <code>titleIcon</code> to create
-                grouped sections.
+                Customize via className instead of inline styles when possible.
               </li>
             </ul>
           </section>

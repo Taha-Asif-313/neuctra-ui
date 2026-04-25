@@ -123,7 +123,7 @@ export const Input = forwardRef<
   } = props;
 
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-  useImperativeHandle(ref, () => inputRef.current!);
+  useImperativeHandle(ref, () => inputRef.current as any);
 
   const [localValue, setLocalValue] = useState(defaultValue || "");
   const [visible, setVisible] = useState(false);
@@ -175,7 +175,7 @@ export const Input = forwardRef<
     "placeholder:text-muted-foreground " +
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 " +
     "dark:bg-input/30 dark:disabled:bg-input/80 " +
-    "focus-visible:border-ring focus-visible:ring-1 focus-visible:ring-ring/50";
+    "focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-ring";
 
   return (
     <div
@@ -255,7 +255,7 @@ export const Input = forwardRef<
             placeholder={placeholder}
             disabled={disabled}
             readOnly={readOnly}
-            min={type === "number" ? (min ?? 0) : undefined}
+            min={type === "number" ? min : undefined}
             max={max}
             step={step}
             maxLength={maxLength}
@@ -273,6 +273,7 @@ export const Input = forwardRef<
         {type === "password" && (
           <button
             type="button"
+            aria-label="Toggle password visibility"
             onClick={() => setVisible(!visible)}
             disabled={disabled}
             className={clsx(

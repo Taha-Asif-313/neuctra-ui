@@ -4,7 +4,16 @@ import React, { useState } from "react";
 import Metadata from "../../MetaData";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Button, Drawer, DrawerBody, DrawerButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerTriggerButton } from "@neuctra/ui";
+import {
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTriggerButton,
+} from "@neuctra/ui";
 import { Menu, Check, X } from "lucide-react";
 
 /* ---------------- Helper component per drawer example ---------------- */
@@ -91,7 +100,7 @@ const DrawerDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Drawer Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+            <p className="text-sm text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Drawer</span>{" "}
               component creates sliding panels that appear from any screen edge.
               Perfect for sidebars, mobile menus, settings panels, and more.
@@ -155,27 +164,27 @@ const [isOpen, setIsOpen] = useState(false);
     <p>Hello from drawer!</p>
   </div>
 </Drawer>`}
-              previewContent={<DrawerTriggerButton
-  variant="default"
-  drawerContent={({ close }) => (
-    <DrawerContent>
-      <DrawerHeader title="My Drawer" onClose={close} />
+              previewContent={
+                <DrawerTriggerButton
+                  variant="default"
+                  drawerContent={({ close }) => (
+                    <DrawerContent>
+                      <DrawerHeader title="My Drawer" onClose={close} />
 
-      <DrawerBody>
-        Hello from Drawer
-      </DrawerBody>
+                      <DrawerBody>Hello from Drawer</DrawerBody>
 
-      <DrawerFooter>
-        <Button variant="ghost" onClick={close}>
-          Cancel
-        </Button>
-        <Button onClick={close}>Save</Button>
-      </DrawerFooter>
-    </DrawerContent>
-  )}
->
-  Open Drawer
-</DrawerTriggerButton>}
+                      <DrawerFooter>
+                        <Button variant="ghost" onClick={close}>
+                          Cancel
+                        </Button>
+                        <Button onClick={close}>Save</Button>
+                      </DrawerFooter>
+                    </DrawerContent>
+                  )}
+                >
+                  Open Drawer
+                </DrawerTriggerButton>
+              }
             />
           </section>
 
@@ -257,51 +266,29 @@ const [open, setOpen] = useState(false);
 >
   Open Drawer
 </DrawerTriggerButton>`}
-              previewContent={<DrawerTriggerButton
-  variant="default"
-  drawerContent={({ close }) => (
-    <DrawerContent>
-      <DrawerHeader title="My Drawer" onClose={close} />
-      <DrawerBody>
-        <p className="text-sm">This drawer uses sub-components for clean structure.</p>
-      </DrawerBody>
-      <DrawerFooter>
-        <Button variant="ghost" onClick={close}>
-          Cancel
-        </Button>
-        <Button onClick={close}>Save</Button>
-      </DrawerFooter>
-    </DrawerContent>
-  )}
->
-  Open Structured Drawer
-</DrawerTriggerButton>}
-            />
-          </section>
-
-          {/* ---------------- Positions ---------------- */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Positions
-            </h2>
-            <p className="text-gray-200 mb-4">
-              Drawers can slide in from any edge of the screen:
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <DrawerExample label="Left Drawer" position="left" />
-              <DrawerExample label="Right Drawer" position="right" />
-              <DrawerExample label="Top Drawer" position="top" />
-              <DrawerExample label="Bottom Drawer" position="bottom" />
-            </div>
-
-            <CodeBlock
-              language="tsx"
-              code={`// Position options
-<Drawer position="left" />   // Slides from left
-<Drawer position="right" />  // Slides from right (default)
-<Drawer position="top" />    // Slides from top
-<Drawer position="bottom" /> // Slides from bottom`}
+              previewContent={
+                <DrawerTriggerButton
+                  variant="default"
+                  drawerContent={({ close }) => (
+                    <DrawerContent>
+                      <DrawerHeader title="My Drawer" onClose={close} />
+                      <DrawerBody>
+                        <p className="text-sm">
+                          This drawer uses sub-components for clean structure.
+                        </p>
+                      </DrawerBody>
+                      <DrawerFooter>
+                        <Button variant="ghost" onClick={close}>
+                          Cancel
+                        </Button>
+                        <Button onClick={close}>Save</Button>
+                      </DrawerFooter>
+                    </DrawerContent>
+                  )}
+                >
+                  Open Structured Drawer
+                </DrawerTriggerButton>
+              }
             />
           </section>
 
@@ -334,16 +321,28 @@ const [open, setOpen] = useState(false);
                     <td className="p-3 font-mono">onClose</td>
                     <td className="p-3">() =&gt; void</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">
-                      Triggered when overlay or close button is clicked
-                    </td>
+                    <td className="p-3">Called when drawer closes</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">children</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Drawer content (static)</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">renderContent</td>
+                    <td className="p-3">(close) =&gt; ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Render prop with access to close()</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">position</td>
                     <td className="p-3">"left" | "right" | "top" | "bottom"</td>
                     <td className="p-3">"right"</td>
-                    <td className="p-3">Drawer slide direction</td>
+                    <td className="p-3">Slide direction</td>
                   </tr>
 
                   <tr>
@@ -351,7 +350,7 @@ const [open, setOpen] = useState(false);
                     <td className="p-3">string</td>
                     <td className="p-3">"320px"</td>
                     <td className="p-3">
-                      Width or height of drawer depending on position
+                      Width or height depending on position
                     </td>
                   </tr>
 
@@ -359,34 +358,21 @@ const [open, setOpen] = useState(false);
                     <td className="p-3 font-mono">disableOverlayClose</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Disable closing drawer by clicking overlay</td>
+                    <td className="p-3">Prevents closing on overlay click</td>
                   </tr>
 
-                  <tr>
-                    <td className="p-3 font-mono">renderContent</td>
-                    <td className="p-3">
-                      (close: () =&gt; void) =&gt; ReactNode
-                    </td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">
-                      Headless render function with close handler
-                    </td>
-                  </tr>
-
-                  {/* 🎨 Class Customization */}
                   <tr>
                     <td className="p-3 font-mono">overlayClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Overlay background styling</td>
+                    <td className="p-3">Overlay styling</td>
                   </tr>
 
-                  {/* 🎨 Style Customization */}
                   <tr>
                     <td className="p-3 font-mono">overlayStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Overlay inline styles</td>
+                    <td className="p-3">Inline overlay styles</td>
                   </tr>
                 </tbody>
               </table>
@@ -414,7 +400,7 @@ const [open, setOpen] = useState(false);
                   <tr>
                     <td className="p-3 font-mono">label</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"Open Drawer"</td>
+                    <td className="p-3">""</td>
                     <td className="p-3">Button text content</td>
                   </tr>
 
@@ -422,44 +408,42 @@ const [open, setOpen] = useState(false);
                     <td className="p-3 font-mono">icon</td>
                     <td className="p-3">ReactNode</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Optional icon</td>
+                    <td className="p-3">Optional icon element</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">iconPosition</td>
                     <td className="p-3">"left" | "right"</td>
                     <td className="p-3">"left"</td>
-                    <td className="p-3">Icon position relative to label</td>
+                    <td className="p-3">Controls icon placement</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">onClick</td>
                     <td className="p-3">() =&gt; void</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">
-                      Click handler (usually opens drawer)
-                    </td>
+                    <td className="p-3">Click handler</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Button root styling</td>
+                    <td className="p-3">Root button classes</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">style</td>
-                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Inline button styles</td>
+                    <td className="p-3">Inline styles</td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">labelClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Label text styling</td>
+                    <td className="p-3">Label styling</td>
                   </tr>
 
                   <tr>
@@ -472,6 +456,95 @@ const [open, setOpen] = useState(false);
               </table>
             </div>
           </section>
+
+          {/* Props Table — DrawerTriggerButton */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              DrawerTriggerButton Props
+            </h2>
+
+            <p className="text-sm text-gray-400 mb-3">
+              Extends <code>ButtonProps</code>
+            </p>
+
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-zinc-900 text-gray-200">
+                  <tr>
+                    <th className="p-3 text-left">Prop</th>
+                    <th className="p-3 text-left">Type</th>
+                    <th className="p-3 text-left">Default</th>
+                    <th className="p-3 text-left">Description</th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr>
+                    <td className="p-3 font-mono">drawerContent</td>
+                    <td className="p-3">(close) =&gt; ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Function to render drawer with access to close()
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">children</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Trigger button content</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Props Table — DrawerHeader */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              DrawerHeader Props
+            </h2>
+
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <tbody className="divide-y divide-zinc-800 text-gray-300">
+                  <tr>
+                    <td className="p-3 font-mono">title</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Header title</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-mono">icon</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Optional icon</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-mono">onClose</td>
+                    <td className="p-3">() =&gt; void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Shows close button if provided</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* DrawerContent */}
+          <p className="text-sm text-gray-200">
+            Wrapper for full-height layout inside Drawer.
+          </p>
+
+          {/* DrawerBody */}
+          <p className="text-sm text-gray-200">
+            Scrollable content area with padding.
+          </p>
+
+          {/* DrawerFooter */}
+          <p className="text-sm text-gray-200">
+            Footer actions container (buttons, etc).
+          </p>
 
           {/* Common Mistakes */}
           <section>
@@ -542,8 +615,8 @@ const [open, setOpen] = useState(false);
                 a modern frosted glass look.
               </li>
               <li>
-                Use <code className="text-primary">disableOverlayClose</code> for
-                critical flows to prevent accidental closes.
+                Use <code className="text-primary">disableOverlayClose</code>{" "}
+                for critical flows to prevent accidental closes.
               </li>
               <li>
                 Prefer <code className="text-primary">top</code> /{" "}

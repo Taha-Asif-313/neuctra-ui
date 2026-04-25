@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Textarea } from "@neuctra/ui";
 import Metadata from "../../MetaData";
@@ -8,28 +8,33 @@ import CodeBlock from "../../components/Docs/CodeBlock";
 import { Check, X } from "lucide-react";
 
 const TextareaDocs = () => {
+  const [message, setMessage] = useState("");
+
   return (
     <>
       <Metadata
         title="Textarea Component — Neuctra UI"
-        description="Learn how to use the Textarea component in Neuctra UI — customizable, responsive, theme-aware textareas with labels, icons, helper text, error and success states."
-        keywords="Neuctra UI Textarea, React textarea component, Tailwind textarea, responsive textarea, UI library, React form component"
+        description="Modern auto-resizing textarea component with chat-style behavior, keyboard interactions, and full customization."
+        keywords="Neuctra UI Textarea, React textarea auto resize, chat input textarea, Tailwind textarea, UI component"
       />
 
       <div className="font-primary min-h-screen">
-        <div className="space-y-10">
+        <div className="space-y-12">
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Textarea Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
-              The <span className="text-primary font-semibold">Textarea</span>{" "}
-              component is a flexible, responsive textarea primitive. Supports
-              labels, icons, error and success states, helper text, character
-              count, and theme-aware styling — fully customizable with className
-              and style props.
-            </p>
+<p className="text-sm text-gray-200 leading-relaxed">
+  The <span className="text-primary font-semibold">Textarea</span>{" "}
+  component is a modern, flexible multiline input built for real-world
+  applications. It supports{" "}
+  <span className="text-primary">auto-resizing behavior</span>,{" "}
+  <span className="text-primary">ChatGPT-like input handling</span> with
+  Enter-to-submit support, character counting, validation states, and full
+  styling customization. Designed for chat apps, forms, and content-heavy
+  inputs.
+</p>
           </header>
 
           {/* Import */}
@@ -38,94 +43,202 @@ const TextareaDocs = () => {
               Import Component From Library
             </h2>
             <CodeBlock
-              language="react"
+              language="tsx"
               code={`import { Textarea } from "@neuctra/ui";`}
               previewContent={<Textarea placeholder="Type here..." />}
             />
           </section>
 
-          {/* Basic Usage */}
+          {/* Basic */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Example
+              Basic Usage
             </h2>
+
             <CodePreviewBlock
-              language="jsx"
-              code={`<Textarea label="Description" placeholder="Enter text..." />`}
+              language="tsx"
+              code={`<Textarea
+  label="Description"
+  placeholder="Enter text..."
+/>`}
               previewContent={
                 <Textarea label="Description" placeholder="Enter text..." />
               }
             />
           </section>
 
-          {/* Advanced Usage */}
+          {/* Auto Resize */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Advanced Usage
+              Auto Resize (Core Feature)
             </h2>
-            <div className="space-y-6">
-              <CodePreviewBlock
-                language="jsx"
-                code={`<Textarea
-  label="Bio"
-  icon={UserIcon}
-  value={value}
-  onChange={handleChange}
-  helperText="Tell us about yourself"
-  maxLength={150}
-/>`}
-                previewContent={
-                  <Textarea
-                    label="Bio"
-                    placeholder="Tell us about yourself"
-                    helperText="You can write up to 150 characters"
-                    maxLength={150}
-                  />
-                }
-              />
 
-              <CodePreviewBlock
-                language="jsx"
-                code={`<Textarea
-  label="Comment"
-  error
-  helperText="This field is required"
-  rows={5}
-  className="border-red-500"
-  darkMode
+            <p className="text-gray-400 mb-4">
+              Automatically grows with content like modern chat apps. Stops at a
+              max height and becomes scrollable.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Textarea
+  placeholder="Start typing..."
+  autoResize
+  minRows={2}
+  maxRows={8}
 />`}
-                previewContent={
-                  <Textarea
-                    label="Comment"
-                    rows={5}
-                    error
-                    helperText="This field is required"
-                    darkMode
-                  />
-                }
-              />
-            </div>
+              previewContent={
+                <Textarea
+                  placeholder="Start typing..."
+                  autoResize
+                  minRows={2}
+                  maxRows={8}
+                />
+              }
+            />
           </section>
 
-          {/* Props Table */}
+          {/* Chat Example */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Chat-style Input (Enter to Send)
+            </h2>
+
+            <p className="text-gray-400 mb-4">
+              Behaves like ChatGPT: press Enter to submit, Shift + Enter for new
+              line.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`const [message, setMessage] = useState("");
+
+<Textarea
+  placeholder="Type a message..."
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+  autoResize
+  submitOnEnter
+  onSubmit={() => {
+    console.log(message);
+    setMessage("");
+  }}
+/>`}
+              previewContent={
+                <Textarea
+                  placeholder="Type a message..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  autoResize
+                  submitOnEnter
+                  onSubmit={() => {
+                    alert("Sent: " + message);
+                    setMessage("");
+                  }}
+                />
+              }
+            />
+          </section>
+
+          {/* Validation */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Validation States
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Textarea
+  label="Comment"
+  placeholder="Write your comment..."
+  error
+  helperText="This field is required"
+/>
+
+<Textarea
+  label="Success"
+  placeholder="Everything looks fine..."
+  success
+  helperText="Looks good!"
+/>`}
+              previewContent={
+                <div className="space-y-4">
+                  <Textarea
+                    label="Comment"
+                    placeholder="Write your comment..."
+                    error
+                    helperText="This field is required"
+                  />
+                  <Textarea
+                    label="Success"
+                    placeholder="Everything looks fine..."
+                    success
+                    helperText="Looks good!"
+                  />
+                </div>
+              }
+            />
+          </section>
+
+          {/* Character Count */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Character Limit
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Textarea
+  maxLength={120}
+  placeholder="Max 120 characters"
+/>`}
+              previewContent={
+                <Textarea maxLength={120} placeholder="Max 120 characters" />
+              }
+            />
+          </section>
+
+          {/* Custom Styling */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Custom Styling
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Textarea
+  label="Styled"
+  className="rounded-xl !border-blue-500"
+  labelClassName="text-blue-400"
+  placeholder="Custom styling using Tailwind overrides"
+/>`}
+              previewContent={
+                <Textarea
+                  label="Styled"
+                  className="rounded-xl !border-blue-500"
+                  labelClassName="!text-blue-500"
+                  placeholder="Custom styling using Tailwind overrides"
+                />
+              }
+            />
+          </section>
+
+          {/* Props */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
               Props Table
             </h2>
-            <p className="text-gray-400 mb-3">
-              All available props for the Textarea component.
-            </p>
 
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
               <table className="w-full text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
-                    <th className="text-left p-3">Prop</th>
-                    <th className="text-left p-3">Type</th>
-                    <th className="text-left p-3">Default</th>
-                    <th className="text-left p-3">Description</th>
+                    <th className="p-3 text-left">Prop</th>
+                    <th className="p-3 text-left">Type</th>
+                    <th className="p-3 text-left">Default</th>
+                    <th className="p-3 text-left">Description</th>
                   </tr>
                 </thead>
+
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
                     <td className="p-3">label</td>
@@ -135,115 +248,193 @@ const TextareaDocs = () => {
                       Optional label displayed above the textarea.
                     </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">icon</td>
                     <td className="p-3">React.ElementType</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">
-                      Optional icon displayed next to the label.
-                    </td>
+                    <td className="p-3">Icon displayed next to the label.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">helperText</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      Text displayed below the textarea (e.g., instructions or
-                      errors).
+                      Helper or validation message shown below.
                     </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">error</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Shows error state and red border.</td>
+                    <td className="p-3">
+                      Applies error styles (destructive border/text).
+                    </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">success</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
                     <td className="p-3">
-                      Shows success state and green border.
+                      Applies success styles (primary border).
                     </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">maxLength</td>
                     <td className="p-3">number</td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      Maximum allowed characters; shows counter if provided.
+                      Maximum character limit. Shows counter when used.
                     </td>
                   </tr>
+
+                  {/* Auto Resize */}
                   <tr>
-                    <td className="p-3">rows</td>
-                    <td className="p-3">number</td>
-                    <td className="p-3">3</td>
-                    <td className="p-3">Number of visible textarea rows.</td>
+                    <td className="p-3">autoResize</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">true</td>
+                    <td className="p-3">
+                      Enables dynamic height resizing based on content.
+                    </td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3">minRows</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">1</td>
+                    <td className="p-3">
+                      Minimum visible rows when autoResize is enabled.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">maxRows</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">6</td>
+                    <td className="p-3">
+                      Maximum rows before vertical scroll appears.
+                    </td>
+                  </tr>
+
+                  {/* Chat Behavior */}
+                  <tr>
+                    <td className="p-3">submitOnEnter</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Press Enter to submit. Use Shift + Enter for newline.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">onSubmit</td>
+                    <td className="p-3">() =&gt; void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Callback triggered when submitting via Enter.
+                    </td>
+                  </tr>
+
+                  {/* Styling */}
                   <tr>
                     <td className="p-3">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      Custom Tailwind or CSS classes for the textarea.
+                      Custom classes for textarea element.
                     </td>
                   </tr>
+
                   <tr>
                     <td className="p-3">containerClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">
-                      Custom classes for outer container div.
-                    </td>
+                    <td className="p-3">Classes for outer wrapper.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">labelClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">
-                      Custom classes for the label element.
-                    </td>
+                    <td className="p-3">Custom label styling.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">helperClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Custom classes for helper text.</td>
+                    <td className="p-3">Custom helper text styling.</td>
                   </tr>
+
                   <tr>
                     <td className="p-3">countClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
+                    <td className="p-3">Custom character counter styling.</td>
+                  </tr>
+
+                  {/* Styles */}
+                  <tr>
+                    <td className="p-3">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for textarea.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">containerStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for container.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">labelStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for label.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">helperStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for helper text.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">countStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
                     <td className="p-3">
-                      Custom classes for character count text.
+                      Inline styles for character counter.
                     </td>
                   </tr>
+
+                  {/* Theme */}
                   <tr>
                     <td className="p-3">darkMode</td>
                     <td className="p-3">boolean</td>
-                    <td className="p-3">undefined</td>
+                    <td className="p-3">system</td>
                     <td className="p-3">
-                      Force dark or light mode; defaults to system preference.
+                      Force dark/light mode. Defaults to system preference.
                     </td>
                   </tr>
-                  <tr>
-                    <td className="p-3">
-                      style / containerStyle / labelStyle / helperStyle /
-                      countStyle
-                    </td>
-                    <td className="p-3">CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline styles for each part.</td>
-                  </tr>
+
+                  {/* Native */}
                   <tr>
                     <td className="p-3">...rest</td>
                     <td className="p-3">
-                      TextareaHTMLAttributes&lt;HTMLTextAreaElement&gt;
+                      React.TextareaHTMLAttributes&lt;HTMLTextAreaElement&gt;
                     </td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      All native textarea props like onChange, placeholder,
-                      disabled, etc.
+                      All native textarea props (value, onChange, placeholder,
+                      etc).
                     </td>
                   </tr>
                 </tbody>
@@ -251,67 +442,38 @@ const TextareaDocs = () => {
             </div>
           </section>
 
-          {/* Common Mistakes */}
+          {/* Mistakes */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
               Common Mistakes
             </h2>
-            <div className="space-y-4 text-sm text-gray-300">
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
-                <div>
-                  <code>{'<Textarea rows="10" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Use a number, not a string, for rows.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
-                <div>
-                  <code>{'<Textarea maxLength="100" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    maxLength must be a number, not a string.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-2 text-green-500">
-                <Check size={16} className="mt-1" />
-                <div>
-                  <code>{'<Textarea className="w-full p-4" />'}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Use className for custom sizing, spacing, and styling.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
 
-          {/* Pro Tips */}
-          <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
-            <div className="text-gray-200 space-y-3">
-              <ul className="list-disc list-inside space-y-1">
-                <li>Combine with flex/grid for layout alignment.</li>
-                <li>
-                  Use helperText to give clear instructions or validation
-                  messages.
-                </li>
-                <li>Use error/success states for better UX feedback.</li>
-                <li>Use darkMode prop to override system theme if needed.</li>
-                <li>
-                  Use maxLength and character count for controlled text input.
-                </li>
-                <li>Use label and icon for better semantic accessibility.</li>
-              </ul>
+            <div className="space-y-4 text-sm">
+              <div className="flex gap-2 text-red-500">
+                <X size={16} />
+                <div>
+                  <code>{'<Textarea rows="5" />'}</code>
+                  <p className="text-gray-500 text-xs">
+                    Avoid rows when using autoResize.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>{"<Textarea maxRows={6} />"}</code>
+                  <p className="text-gray-500 text-xs">
+                    Use minRows / maxRows instead.
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
 
           {/* Footer */}
           <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
+            Built with React + Tailwind + TypeScript.
           </footer>
         </div>
       </div>

@@ -6,6 +6,7 @@ import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";
 import { CheckboxGroup } from "@neuctra/ui";
 import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const CheckboxDocs = () => {
   const [values, setValues] = useState(["react"]);
@@ -33,33 +34,13 @@ const CheckboxDocs = () => {
               Checkbox Group Component
             </h1>
             <p className="text-sm text-accent-foreground leading-relaxed">
-              A flexible <span className="font-semibold text-primary">checkbox</span> component supporting both single toggles and
-              multi-select groups. Features keyboard navigation, custom
-              rendering, comprehensive styling options, and accessible defaults.
+              A flexible{" "}
+              <span className="font-semibold text-primary">checkbox</span>{" "}
+              component supporting both single toggles and multi-select groups.
+              Features keyboard navigation, custom rendering, comprehensive
+              styling options, and accessible defaults.
             </p>
           </header>
-
-          {/* Installation */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-2 text-foreground">
-              Installation
-            </h2>
-            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
-              Install the package once and import the component where you need it.
-            </p>
-            <CodeBlock language="bash" code={`npm install @neuctra/ui`} />
-          </section>
-
-          {/* Import */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-2 text-foreground">
-              Import
-            </h2>
-            <CodeBlock
-              language="tsx"
-              code={`import { CheckboxGroup } from "@neuctra/ui";`}
-            />
-          </section>
 
           {/* Overview */}
           <section>
@@ -69,9 +50,20 @@ const CheckboxDocs = () => {
             <p className="text-sm text-accent-foreground leading-relaxed">
               CheckboxGroup works in two modes: <code>group</code> for
               multi-select lists and <code>single</code> for simple yes/no
-              toggles. Both modes support full keyboard navigation, custom icons,
-              disabled states, error messages, and unrestricted styling.
+              toggles. Both modes support full keyboard navigation, custom
+              icons, disabled states, error messages, and unrestricted styling.
             </p>
+          </section>
+
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2 text-foreground">
+              Import Component From Library
+            </h2>
+            <CodeBlock
+              language="tsx"
+              code={`import { CheckboxGroup } from "@neuctra/ui";`}
+            />
           </section>
 
           {/* Single Mode */}
@@ -175,32 +167,6 @@ const CheckboxDocs = () => {
             />
           </section>
 
-          {/* Keyboard Navigation */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-foreground">
-              Keyboard Navigation
-            </h2>
-            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
-              Built-in keyboard support for group mode: use arrow keys to
-              navigate, space or enter to toggle, and tab to focus/blur.
-            </p>
-
-            <ul className="list-disc pl-5 space-y-2 text-sm text-accent-foreground">
-              <li>
-                <code>↑ ↓</code> — Navigate between items
-              </li>
-              <li>
-                <code>← →</code> — Navigate between items
-              </li>
-              <li>
-                <code>Space / Enter</code> — Toggle current item
-              </li>
-              <li>
-                <code>Tab</code> — Move focus out of the group
-              </li>
-            </ul>
-          </section>
-
           {/* Custom Rendering */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">
@@ -291,7 +257,7 @@ const CheckboxDocs = () => {
           {/* Props Table */}
           <section>
             <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Props Reference
+              Props Table
             </h2>
 
             <div className="border border-border rounded-xl overflow-hidden">
@@ -365,7 +331,9 @@ const CheckboxDocs = () => {
                     <td className="p-3">name</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">HTML name attribute for form submission.</td>
+                    <td className="p-3">
+                      HTML name attribute for form submission.
+                    </td>
                   </tr>
 
                   <tr>
@@ -379,21 +347,27 @@ const CheckboxDocs = () => {
                     <td className="p-3">readOnly</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Prevents selection changes (display only).</td>
+                    <td className="p-3">
+                      Prevents selection changes (display only).
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3">required</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Marks inputs as required for validation.</td>
+                    <td className="p-3">
+                      Marks inputs as required for validation.
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3">error</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Error message displayed below the group.</td>
+                    <td className="p-3">
+                      Error message displayed below the group.
+                    </td>
                   </tr>
 
                   {/* Styling */}
@@ -524,68 +498,6 @@ const CheckboxDocs = () => {
             </div>
           </section>
 
-          {/* Common Patterns */}
-          <section>
-            <h2 className="text-2xl font-semibold text-foreground mb-4">
-              Common Patterns
-            </h2>
-
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">
-                  Form Integration
-                </h3>
-                <CodeBlock
-                  language="tsx"
-                  code={`<form onSubmit={(e) => {
-  e.preventDefault();
-  console.log(values);
-}}>
-  <CheckboxGroup
-    name="frameworks"
-    options={options}
-    selectedValues={values}
-    onChange={setValues}
-    required
-  />
-  <button type="submit">Submit</button>
-</form>`}
-                />
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">
-                  Controlled with Validation
-                </h3>
-                <CodeBlock
-                  language="tsx"
-                  code={`<CheckboxGroup
-  options={options}
-  selectedValues={values}
-  onChange={setValues}
-  error={values.length === 0 ? "Select at least one" : ""}
-  required
-/>`}
-                />
-              </div>
-
-              <div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">
-                  Read-Only Display
-                </h3>
-                <CodeBlock
-                  language="tsx"
-                  code={`<CheckboxGroup
-  options={options}
-  selectedValues={["react", "vue"]}
-  onChange={() => {}}
-  readOnly
-/>`}
-                />
-              </div>
-            </div>
-          </section>
-
           {/* Common Mistakes */}
           <section>
             <h2 className="text-2xl font-semibold text-foreground mb-4">
@@ -596,7 +508,7 @@ const CheckboxDocs = () => {
               <div className="flex gap-2 text-destructive">
                 <X size={16} />
                 <div>
-                  <code>{"selectedValues=\"react\""}</code>
+                  <code>{'selectedValues="react"'}</code>
                   <p className="text-accent-foreground text-xs mt-1">
                     Must be an array. Use <code>["react"]</code> instead.
                   </p>
@@ -606,7 +518,7 @@ const CheckboxDocs = () => {
               <div className="flex gap-2 text-destructive">
                 <X size={16} />
                 <div>
-                  <code>{"mode=\"single\" + selectedValues"}</code>
+                  <code>{'mode="single" + selectedValues'}</code>
                   <p className="text-accent-foreground text-xs mt-1">
                     Use <code>checked</code> and <code>onCheckedChange</code> in
                     single mode.
@@ -628,7 +540,7 @@ const CheckboxDocs = () => {
                 <Check size={16} />
                 <div>
                   <code>
-                    {"mode=\"single\" checked={true} onCheckedChange={...}"}
+                    {'mode="single" checked={true} onCheckedChange={...}'}
                   </code>
                   <p className="text-accent-foreground text-xs mt-1">
                     Use correct props for single mode.
@@ -638,10 +550,59 @@ const CheckboxDocs = () => {
             </div>
           </section>
 
+          {/* Pro Tips */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+
+            <div className="text-gray-300 space-y-3">
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  Use <code>mode="group"</code> when handling multiple
+                  selections and <code>mode="single"</code> for boolean toggles
+                  like settings.
+                </li>
+
+                <li>
+                  Prefer <code>selectedValues</code> as the single source of
+                  truth — avoid mixing internal and external state.
+                </li>
+
+                <li>
+                  Use <code>customIcon</code> to fully match your design system
+                  (checkbox, toggle, or animated indicators).
+                </li>
+
+                <li>
+                  Use <code>renderItem</code> when you need fully custom layouts
+                  like cards, settings rows, or list items.
+                </li>
+
+                <li>
+                  Keep <code>readOnly</code> for UI display-only states instead
+                  of disabling interactions completely.
+                </li>
+
+                <li>
+                  Combine <code>itemClassName</code> +{" "}
+                  <code>textClassName</code> for clean separation between layout
+                  and typography styling.
+                </li>
+
+                <li>
+                  Avoid managing checked state manually inside each item —
+                  always lift state up to the parent via <code>onChange</code>.
+                </li>
+
+                <li>
+                  Use keyboard navigation support (Arrow keys + Enter/Space) for
+                  better accessibility in group mode.
+                </li>
+              </ul>
+            </div>
+          </section>
+
           {/* Footer */}
-          <footer className="pt-8 border-t border-border text-sm text-accent-foreground">
-            Built with React, Tailwind CSS &amp; TypeScript.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

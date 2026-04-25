@@ -55,10 +55,6 @@ interface RadioGroupProps {
   dotClassName?: string;
   dotStyle?: React.CSSProperties;
 
-  /** 🎨 Glow Effect */
-  glowClassName?: string;
-  glowStyle?: React.CSSProperties;
-
   /** 🎨 Error Message */
   errorClassName?: string;
   errorStyle?: React.CSSProperties;
@@ -66,7 +62,7 @@ interface RadioGroupProps {
   /** ⚙️ Configuration */
   size?: "sm" | "md" | "lg";
   orientation?: "vertical" | "horizontal";
-  showGlow?: boolean;
+
   animationDuration?: number;
 }
 
@@ -106,15 +102,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   dotClassName,
   dotStyle,
 
-  glowClassName,
-  glowStyle,
-
   errorClassName,
   errorStyle,
 
   size = "md",
   orientation = "vertical",
-  showGlow = true,
+
   animationDuration = 0.2,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -213,7 +206,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     return () => el.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  /* 🎯 Focus management */
+  /* Focus management */
   useEffect(() => {
     if (focusedIndex !== null && containerRef.current) {
       const focusedElement = containerRef.current.children[
@@ -231,17 +224,16 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       aria-invalid={!!error}
       tabIndex={disabled ? -1 : 0}
       className={clsx(
+        className,
         "outline-none",
         orientation === "vertical"
           ? "flex flex-col gap-2"
           : "flex flex-row gap-2 flex-wrap",
-        className,
       )}
       style={style}
     >
       {options.map((option, i) => {
         const checked = selectedValue === option.value;
-        const focused = focusedIndex === i;
         const itemDisabled = disabled || option.disabled;
 
         const handleSelect = () => {
@@ -258,13 +250,13 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
             onFocus={() => setFocusedIndex(i)}
             onBlur={() => setFocusedIndex(null)}
             className={clsx(
+              itemClassName,
               "relative flex items-center justify-between gap-4 rounded-xl border cursor-pointer transition-all",
               currentSize.item,
               "bg-background border-border",
               !itemDisabled && "hover:bg-accent/60",
               checked && "border-primary bg-primary/5",
               itemDisabled && "opacity-50 cursor-not-allowed",
-              itemClassName,
             )}
             style={itemStyle}
           >
@@ -273,8 +265,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
               {option.icon && (
                 <div
                   className={clsx(
-                    "text-muted-foreground shrink-0",
                     iconWrapperClassName,
+                    "text-muted-foreground shrink-0",
                   )}
                   style={iconWrapperStyle}
                 >
@@ -285,9 +277,9 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
               <div className="min-w-0 flex-1">
                 <p
                   className={clsx(
+                    labelClassName,
                     "font-medium text-foreground truncate",
                     currentSize.text,
-                    labelClassName,
                   )}
                   style={labelStyle}
                 >
@@ -297,9 +289,9 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                 {option.description && (
                   <p
                     className={clsx(
+                      descriptionClassName,
                       "text-muted-foreground truncate",
                       currentSize.desc,
-                      descriptionClassName,
                     )}
                     style={descriptionStyle}
                   >
@@ -325,12 +317,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
             {/* Radio Indicator */}
             <div
               className={clsx(
+                indicatorClassName,
                 "relative flex items-center justify-center rounded-full border transition-all shrink-0",
                 currentSize.indicator,
                 checked
                   ? "border-primary bg-primary"
                   : "border-muted-foreground/40",
-                indicatorClassName,
               )}
               style={indicatorStyle}
             >
@@ -342,27 +334,15 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                     exit={{ scale: 0 }}
                     transition={{ duration: animationDuration }}
                     className={clsx(
+                      dotClassName,
                       "rounded-full bg-background",
                       currentSize.dot,
-                      dotClassName,
                     )}
                     style={dotStyle}
                   />
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Glow Effect */}
-            {checked && showGlow && (
-              <motion.div
-                layoutId="radio-highlight"
-                className={clsx(
-                  "absolute inset-0 rounded-xl border border-primary/30 pointer-events-none",
-                  glowClassName,
-                )}
-                style={glowStyle}
-              />
-            )}
           </label>
         );
       })}
@@ -373,9 +353,9 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className={clsx(
+            errorClassName,
             "text-destructive mt-1",
             currentSize.desc,
-            errorClassName,
           )}
           style={errorStyle}
           id={name ? `${name}-error` : undefined}

@@ -4,11 +4,11 @@ import React, {
   forwardRef,
   useState,
   useEffect,
+  useRef,
   CSSProperties,
 } from "react";
 
-interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   icon?: React.ElementType;
   error?: boolean;
@@ -16,21 +16,27 @@ interface TextareaProps
   helperText?: string;
   maxLength?: number;
 
+  /** Auto resize */
+  autoResize?: boolean;
+  minRows?: number;
+  maxRows?: number;
+
+  /** Chat-like behavior */
+  submitOnEnter?: boolean; // Enter submits
+  onSubmit?: () => void;
+
   /** Customization */
-  className?: string; // textarea
-  containerClassName?: string; // outer div
+  className?: string;
+  containerClassName?: string;
   labelClassName?: string;
   helperClassName?: string;
   countClassName?: string;
 
-  style?: CSSProperties; // textarea inline style
+  style?: CSSProperties;
   containerStyle?: CSSProperties;
   labelStyle?: CSSProperties;
   helperStyle?: CSSProperties;
   countStyle?: CSSProperties;
-
-  /** Theme control */
-  darkMode?: boolean; // force dark or light, otherwise system
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -46,9 +52,15 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       disabled,
       error,
       success,
-      rows = 3,
       helperText,
       maxLength,
+
+      autoResize = true,
+      minRows = 1,
+      maxRows = 6,
+
+      submitOnEnter,
+      onSubmit,
 
       className = "",
       containerClassName = "",
@@ -62,25 +74,57 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       helperStyle,
       countStyle,
 
-      darkMode,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const [systemDarkMode, setSystemDarkMode] = useState(false);
+    const innerRef = useRef<HTMLTextAreaElement | null>(null);
+
+    // Merge refs
+    const setRefs = (el: HTMLTextAreaElement) => {
+      innerRef.current = el;
+      if (typeof ref === "function") ref(el);
+      else if (ref) (ref as any).current = el;
+    };
+
+    /** 🔥 Auto resize logic */
+    const resizeTextarea = () => {
+      const el = innerRef.current;
+      if (!el || !autoResize) return;
+
+      el.style.height = "auto";
+
+      const lineHeight = 24; // approx
+      const minHeight = minRows * lineHeight;
+      const maxHeight = maxRows * lineHeight;
+
+      const newHeight = Math.min(
+        Math.max(el.scrollHeight, minHeight),
+        maxHeight,
+      );
+
+      el.style.height = newHeight + "px";
+      el.style.overflowY = el.scrollHeight > maxHeight ? "auto" : "hidden";
+    };
 
     useEffect(() => {
-      if (typeof window === "undefined") return;
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      setSystemDarkMode(mediaQuery.matches);
+      resizeTextarea();
+    }, [value]);
 
-      const handler = (e: MediaQueryListEvent) => setSystemDarkMode(e.matches);
-      mediaQuery.addEventListener("change", handler);
-      return () => mediaQuery.removeEventListener("change", handler);
-    }, []);
+    /** ⌨️ ChatGPT-like enter behavior */
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (submitOnEnter && e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        onSubmit?.();
+      }
+    };
 
-    const finalDarkMode = darkMode !== undefined ? darkMode : systemDarkMode;
-    const showCount = typeof value === "string" && maxLength;
+    const currentLength =
+      typeof value === "string"
+        ? value.length
+        : innerRef.current?.value?.length || 0;
+
+    const showCount = typeof maxLength === "number" && maxLength > 0;
 
     return (
       <div
@@ -90,52 +134,63 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label
             htmlFor={name}
-            className={`flex items-center gap-2 text-[13px] font-medium text-foreground ${labelClassName}`}
+            className={`flex items-center gap-2 text-[13px] font-medium ${labelClassName}`}
             style={labelStyle}
           >
-            {Icon && <Icon size={16} className="text-primary" />}
+            {Icon && <Icon size={14} />}
             {label}
-            {required && (
-              <span className="text-destructive">*</span>
-            )}
+            {required && <span className="text-destructive">*</span>}
           </label>
         )}
 
-        <div className="relative">
+        <div className="relative group">
           <textarea
-            ref={ref}
+            ref={setRefs}
             id={name}
             name={name}
             value={value}
-            onChange={onChange}
+            onChange={(e) => {
+              onChange?.(e);
+              resizeTextarea();
+            }}
+            onKeyDown={handleKeyDown}
             placeholder={placeholder}
             required={required}
             disabled={disabled}
-            rows={rows}
             maxLength={maxLength}
+            rows={minRows}
             className={`
-              w-full px-4 py-2.5 text-sm rounded-xl
-              resize-none transition-all duration-200
+              w-full px-4 py-3 text-sm rounded-lg
+              resize-none transition-all duration-200 ease-out
               outline-none border
-              bg-background text-foreground placeholder:text-muted-foreground
+
+              bg-background text-foreground
+              placeholder:text-muted-foreground
+
               border-border
-              focus:bg-accent
-              focus:border-border
+              focus:ring-1 focus:ring-border
+
+              group-hover:border-muted-foreground/40
+
               disabled:opacity-50 disabled:cursor-not-allowed
-              ${error ? "border-destructive focus:border-destructive" : ""}
-              ${success ? "border-primary focus:border-primary" : ""}
+
+              ${error ? "border-destructive focus:ring-destructive/20" : ""}
+              ${success ? "border-primary" : ""}
+
               ${className}
             `}
-            style={style}
+            style={{
+              ...style,
+            }}
             {...props}
           />
 
-          {showCount && typeof value === "string" && (
+          {showCount && (
             <span
-              className={`absolute bottom-2 right-3 text-[11px] text-muted-foreground ${countClassName}`}
+              className={`absolute bottom-3 right-3 text-[11px] text-accent-foreground ${countClassName}`}
               style={countStyle}
             >
-              {value.length}/{maxLength}
+              {currentLength}/{maxLength}
             </span>
           )}
         </div>
@@ -146,8 +201,8 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               error
                 ? "text-destructive"
                 : success
-                ? "text-primary"
-                : "text-muted-foreground"
+                  ? "text-primary"
+                  : "text-muted-foreground"
             } ${helperClassName}`}
             style={helperStyle}
           >
@@ -156,7 +211,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 Textarea.displayName = "Textarea";

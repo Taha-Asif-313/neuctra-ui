@@ -4,7 +4,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
-import { LayoutPanelTop, Settings, Star, Lock } from "lucide-react";
+import { LayoutPanelTop, Settings, Star, Lock, Check, X } from "lucide-react";
 import CodeBlock from "../../components/Docs/CodeBlock";
 
 /* ------------------------------------------------------------------ */
@@ -72,18 +72,26 @@ const TabsDocs = () => {
         <div className="space-y-12">
           {/* Header */}
           <header>
-            <h1 className="text-4xl font-bold text-white mb-3">
+            <h1 className="text-4xl font-extrabold mb-3 text-white">
               Tabs Component
             </h1>
-            <p className="text-gray-400 max-w-3xl">
-              A composable, fully customizable tab system built from individual
-              sub-components — <code className="text-primary">Tabs</code>,{" "}
-              <code className="text-primary">TabList</code>,{" "}
-              <code className="text-primary">Tab</code>,{" "}
-              <code className="text-primary">TabPanels</code>, and{" "}
-              <code className="text-primary">TabPanel</code>. Supports variants,
-              vertical layouts, theming, keyboard navigation, and four
-              responsive mobile modes.
+
+            <p className="text-sm leading-relaxed">
+              The <span className="text-primary font-semibold">Tabs</span>{" "}
+              component is a flexible, fully responsive UI primitive built with
+              TypeScript. It supports multiple layouts, visual variants,
+              keyboard navigation, and mobile-aware behaviors — making it ideal
+              for dashboards, settings panels, and structured content
+              navigation.
+            </p>
+
+            <p className="text-sm text-gray-300 mt-3 leading-relaxed">
+              Use <code>variant</code> and <code>position</code> to control
+              layout and styling, <code>mobileVariant</code> for responsive
+              behavior, and <code>TabList</code> + <code>TabPanels</code> for
+              structured composition. Customize appearance with design tokens
+              like <code>primaryColor</code> and <code>radius</code> for
+              consistent theming.
             </p>
           </header>
 
@@ -116,7 +124,6 @@ const TabsDocs = () => {
             />
           </section>
 
-          {/* ── Props Tables ─────────────────────────────────────────────── */}
           {/* Props Table — Tabs */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
@@ -534,6 +541,142 @@ const TabsDocs = () => {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Common Mistakes
+            </h2>
+
+            <div className="space-y-4 text-sm text-gray-300">
+              {/* Missing TabPanel index */}
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{"<TabPanel>Content</TabPanel>"}</code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Each TabPanel must have a matching <code>index</code>
+                  </p>
+                </div>
+              </div>
+
+              {/* Mismatched count */}
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>
+                    {"<TabList><Tab /> x3</TabList> + <TabPanel /> x2"}
+                  </code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Number of Tabs and TabPanels should match
+                  </p>
+                </div>
+              </div>
+
+              {/* Manual index misuse */}
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{"<Tab index={5} />"}</code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Avoid manually setting index unless necessary — auto
+                    indexing is handled internally
+                  </p>
+                </div>
+              </div>
+
+              {/* Wrong nesting */}
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{"<TabPanel outside <Tabs> />"}</code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    All components must be inside <code>&lt;Tabs&gt;</code>{" "}
+                    provider
+                  </p>
+                </div>
+              </div>
+
+              {/* Disabled misuse */}
+              <div className="flex items-start gap-2 text-red-500">
+                <X size={16} className="mt-1" />
+                <div>
+                  <code>{"<Tab disabled /> + expecting click"}</code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Disabled tabs do not trigger <code>setActive</code>
+                  </p>
+                </div>
+              </div>
+
+              {/* Correct usage */}
+              <div className="flex items-start gap-2 text-green-500">
+                <Check size={16} className="mt-1" />
+                <div>
+                  <code>{"<Tabs><TabList /><TabPanels /></Tabs>"}</code>
+                  <p className="text-gray-400 text-xs mt-1">
+                    Always follow the correct structure hierarchy
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+
+            <div className="text-gray-300 space-y-3">
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  Use <code>variant="underline"</code> for clean
+                  navigation-style tabs, and <code>pill</code> for dashboards.
+                </li>
+
+                <li>
+                  Combine <code>position="left"</code> with{" "}
+                  <code>fullWidth</code> for sidebar layouts.
+                </li>
+
+                <li>
+                  Use <code>mobileVariant="drawer"</code> for better UX on small
+                  screens.
+                </li>
+
+                <li>
+                  Prefer <code>keepMounted</code> when tab content has expensive
+                  re-renders.
+                </li>
+
+                <li>
+                  Use <code>onTabChange</code> to sync tabs with routing or
+                  state (e.g. query params).
+                </li>
+
+                <li>
+                  Add <code>icon</code> in <code>&lt;Tab&gt;</code> for better
+                  visual scanning.
+                </li>
+
+                <li>
+                  Use <code>fullWidth</code> for equal tab sizing in forms or
+                  mobile layouts.
+                </li>
+
+                <li>
+                  Customize with CSS variables (<code>--primary</code>,{" "}
+                  <code>--accent</code>) instead of inline styles.
+                </li>
+
+                <li>
+                  Avoid heavy content inside tabs unless using{" "}
+                  <code>keepMounted</code>.
+                </li>
+
+                <li>
+                  Keyboard navigation is built-in — ensure focus styles are
+                  visible for accessibility.
+                </li>
+              </ul>
             </div>
           </section>
 

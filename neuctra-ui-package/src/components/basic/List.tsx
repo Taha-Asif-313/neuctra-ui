@@ -20,8 +20,8 @@ export interface ListProps {
   items: ListItemType[];
 
   type?: "unordered" | "ordered" | "inline";
+  showTree?: boolean; // ✅ moved to root (global control)
 
-  /** 🔥 Class Customization */
   className?: string;
   listClassName?: string;
   itemClassName?: string;
@@ -31,7 +31,6 @@ export interface ListProps {
   iconClassName?: string;
   subListClassName?: string;
 
-  /** 🔥 Style Customization */
   style?: CSSProperties;
   listStyle?: CSSProperties;
   itemStyle?: CSSProperties;
@@ -49,6 +48,7 @@ export interface ListProps {
 interface ListItemProps extends ListItemType {
   isInline?: boolean;
   isOrdered?: boolean;
+  showTree?: boolean;
 
   itemClassName?: string;
   bulletClassName?: string;
@@ -70,6 +70,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   subItems,
   isInline,
   isOrdered,
+  showTree,
 
   itemClassName,
   bulletClassName,
@@ -83,52 +84,52 @@ export const ListItem: React.FC<ListItemProps> = ({
   iconStyle,
   subListStyle,
 }) => {
-  const showTree = !isInline && !isOrdered;
+  const hasChildren = subItems && subItems.length > 0;
 
   return (
     <li
       className={clsx(
         "relative",
-        showTree && "pl-5",     // only indent when tree is active
-        !isInline && "pb-2"
+        showTree && !isInline && "pl-5",
+        !isInline && "pb-2",
+        itemClassName // ✅ applied here
       )}
+      style={itemStyle}
     >
-      {/* 🌲 Tree lines (ONLY when allowed) */}
-      {showTree && (
+      {/* 🌲 Tree lines */}
+      {showTree && !isInline && (
         <>
-          {/* Vertical */}
           <span className="absolute left-2 top-0 bottom-0 w-px bg-foreground/60" />
-
-          {/* Horizontal */}
           <span className="absolute left-2 top-[0.9rem] w-3 h-px bg-foreground/60" />
         </>
       )}
 
       <div
         onClick={onClick}
-        style={itemStyle}
         className={clsx(
           "flex items-center gap-2 text-sm text-foreground transition-colors",
-          onClick && "cursor-pointer hover:text-primary",
-          itemClassName
+          onClick && "cursor-pointer hover:text-primary"
         )}
       >
         {/* ICON / BULLET */}
-        {icon ? (
-          <span className={iconClassName} style={iconStyle}>
-            {icon}
-          </span>
-        ) : (
-          !isInline &&
-          !isOrdered && (
-            <span
-              className={clsx(
-                "w-2 h-2 rounded-full bg-primary",
-                bulletClassName
-              )}
-              style={bulletStyle}
-            />
-          )
+        {!isOrdered && (
+          <>
+            {icon ? (
+              <span className={iconClassName} style={iconStyle}>
+                {icon}
+              </span>
+            ) : (
+              !isInline && (
+                <span
+                  className={clsx(
+                    "w-2 h-2 rounded-full bg-primary",
+                    bulletClassName
+                  )}
+                  style={bulletStyle}
+                />
+              )
+            )}
+          </>
         )}
 
         <span
@@ -140,21 +141,22 @@ export const ListItem: React.FC<ListItemProps> = ({
       </div>
 
       {/* Nested */}
-      {subItems && subItems.length > 0 && (
+      {hasChildren && !isInline && (
         <ul
           className={clsx(
-            showTree ? "ml-3 mt-1" : "ml-4 mt-1", // slight diff spacing
-            isOrdered ? "list-decimal text-foreground" : "list-none",
+            showTree ? "ml-3 mt-1" : "ml-4 mt-1",
+            isOrdered ? "list-decimal pl-5" : "list-none",
             subListClassName
           )}
           style={subListStyle}
         >
-          {subItems.map((sub, i) => (
+          {subItems!.map((sub, i) => (
             <ListItem
               key={i}
               {...sub}
               isInline={false}
               isOrdered={isOrdered}
+              showTree={showTree} // ✅ FIXED
               itemClassName={itemClassName}
               bulletClassName={bulletClassName}
               textClassName={textClassName}
@@ -182,6 +184,7 @@ export const List: React.FC<ListProps> = ({
   titleIcon,
   items,
   type = "unordered",
+  showTree = false,
 
   className,
   listClassName,
@@ -213,7 +216,7 @@ export const List: React.FC<ListProps> = ({
         <div
           className={clsx(
             "flex items-center gap-2 mb-3 text-base font-semibold text-foreground",
-            titleClassName,
+            titleClassName
           )}
           style={titleStyle}
         >
@@ -232,9 +235,9 @@ export const List: React.FC<ListProps> = ({
           isInline
             ? "flex flex-wrap gap-4"
             : isOrdered
-              ? "list-decimal pl-5 space-y-2 text-foreground"
-              : "list-none p-0 text-foreground",
-          listClassName,
+              ? "list-decimal pl-5 space-y-2"
+              : "list-none p-0",
+          listClassName
         )}
         style={listStyle}
       >
@@ -244,6 +247,7 @@ export const List: React.FC<ListProps> = ({
             {...item}
             isInline={isInline}
             isOrdered={isOrdered}
+            showTree={showTree}
             itemClassName={itemClassName}
             bulletClassName={bulletClassName}
             textClassName={textClassName}

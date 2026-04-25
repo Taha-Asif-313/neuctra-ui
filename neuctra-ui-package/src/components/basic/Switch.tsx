@@ -8,7 +8,7 @@ interface Option {
 }
 
 interface SwitchGroupProps {
-  mode?: 'single' | 'group';
+  mode?: "single" | "group";
   name?: string;
   // For group mode
   options?: Option[];
@@ -45,8 +45,8 @@ interface SwitchGroupProps {
   iconSize?: number;
 }
 
-export const SwitchGroup: React.FC<SwitchGroupProps> = ({
-  mode = 'single',
+export const Switch: React.FC<SwitchGroupProps> = ({
+  mode = "single",
   name,
   options,
   selectedValues = [],
@@ -100,7 +100,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
      Keyboard Navigation (Group only)
   ========================= */
   useEffect(() => {
-    if (mode !== 'group' || !options) return;
+    if (mode !== "group" || !options) return;
 
     const container = containerRef.current;
     if (!container) return;
@@ -115,7 +115,9 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
 
       if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
         e.preventDefault();
-        setFocusedIndex((prev) => (prev! - 1 + options.length) % options.length);
+        setFocusedIndex(
+          (prev) => (prev! - 1 + options.length) % options.length,
+        );
       }
 
       if (e.key === " " || e.key === "Enter") {
@@ -128,7 +130,11 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
     return () => container.removeEventListener("keydown", handleKeyDown);
   }, [focusedIndex, options, selectedValues, disabled, mode]);
 
-  const renderSwitch = (isChecked: boolean, onToggle: () => void, inputValue?: string) => (
+  const renderSwitch = (
+    isChecked: boolean,
+    onToggle: () => void,
+    inputValue?: string,
+  ) => (
     <>
       <input
         type="checkbox"
@@ -146,7 +152,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
         className={clsx(
           "relative inline-flex rounded-full transition-colors",
           isChecked ? "bg-primary" : "bg-muted",
-          switchClassName
+          switchClassName,
         )}
         style={{
           width: iconSize * 2,
@@ -159,12 +165,10 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
           className={clsx(
             "absolute top-1/2 -translate-y-1/2 rounded-full shadow",
             "bg-white",
-            thumbClassName
+            thumbClassName,
           )}
           style={{
-            left: isChecked
-              ? `calc(100% - ${iconSize - 4}px - 2px)`
-              : "2px",
+            left: isChecked ? `calc(100% - ${iconSize - 4}px - 2px)` : "2px",
             width: iconSize - 4,
             height: iconSize - 4,
             transition: "left 0.25s ease",
@@ -178,21 +182,21 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
   return (
     <div
       ref={containerRef}
-      role={mode === 'group' ? "group" : "switch"}
-      tabIndex={mode === 'group' ? 0 : undefined}
+      role={mode === "group" ? "group" : "switch"}
+      tabIndex={mode === "group" ? 0 : undefined}
       aria-disabled={disabled}
       aria-invalid={!!error}
       className={clsx("flex flex-col gap-2 text-foreground", className)}
       style={style}
     >
-      {mode === 'single' ? (
+      {mode === "single" ? (
         <label
           className={clsx(
             "flex items-center justify-between cursor-pointer transition-colors",
             "text-foreground",
             disabled && "opacity-50 cursor-not-allowed",
             itemClassName,
-            labelClassName
+            labelClassName,
           )}
           style={{ ...itemStyle, ...labelStyle }}
         >
@@ -219,7 +223,7 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
                 "text-foreground",
                 disabled && "opacity-50 cursor-not-allowed",
                 itemClassName,
-                labelClassName
+                labelClassName,
               )}
               style={{ ...itemStyle, ...labelStyle }}
             >
@@ -231,7 +235,11 @@ export const SwitchGroup: React.FC<SwitchGroupProps> = ({
                 {option.label}
               </span>
 
-              {renderSwitch(isChecked, () => handleGroupChange(option.value), option.value)}
+              {renderSwitch(
+                isChecked,
+                () => handleGroupChange(option.value),
+                option.value,
+              )}
             </label>
           );
         })

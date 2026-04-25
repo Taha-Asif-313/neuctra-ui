@@ -191,7 +191,7 @@ export const Tabs: React.FC<TabsProps> = ({
         ref={containerRef}
         className={clsx(
           "modern-tabs",
-          "bg-background text-foreground",
+          "text-foreground",
           isVertical ? "flex flex-row" : "flex flex-col",
           effectivePosition === "right" && "flex-row-reverse",
           effectivePosition === "bottom" && "flex-col-reverse",
@@ -403,7 +403,7 @@ export const TabList: React.FC<TabListProps> = ({
     <div
       role="tablist"
       className={clsx(
-        "flex bg-background text-foreground",
+        "flex text-foreground",
         isVertical ? "flex-col" : "flex-row",
         isVertical ? "min-w-40" : "w-full",
         className,
@@ -590,7 +590,7 @@ export const TabPanels: React.FC<TabPanelsProps> = ({
   return (
     <div
       className={clsx(
-        "flex-1 min-w-0 bg-background text-foreground",
+        "flex-1 min-w-0 text-foreground",
         className,
       )}
       style={{
@@ -632,7 +632,7 @@ export const TabPanel: React.FC<TabPanelProps> = ({
       hidden={!isActive}
       className={clsx(
         isActive && "tab-panel-active",
-        "bg-background text-foreground",
+        "text-foreground",
         className,
       )}
       style={{ display: isActive ? undefined : "none", ...style }}
