@@ -43,7 +43,7 @@ const DataStream = ({ delay = 0, left = "50%" }) => (
 
 const AnimatedBackground = () => (
   <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-    <GridPattern />
+    {/* <GridPattern /> */}
     {[...Array(6)].map((_, i) => (
       <DataStream key={i} delay={i * 0.8} left={`${12 + i * 15}%`} />
     ))}
@@ -233,7 +233,7 @@ const NeuctraUiChatBot = () => {
   ];
 
   return (
-    <div className="relative flex flex-col min-h-screen bg-zinc-950 text-zinc-100 font-primary antialiased selection:bg-primary/30 overflow-hidden">
+    <div className="relative flex flex-col min-h-screen bg-black text-zinc-100 font-primary antialiased selection:bg-primary/30 overflow-hidden">
       <AnimatedBackground />
 
       <motion.header

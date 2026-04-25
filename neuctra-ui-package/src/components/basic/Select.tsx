@@ -7,20 +7,25 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useCallback,
+  useMemo,
+  useId,
 } from "react";
 import clsx from "clsx";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Check } from "lucide-react";
 
 export interface SelectOption {
   label: string;
   value: string;
   icon?: React.ReactNode;
+  description?: string; // ✅ ADD THIS
 }
 
 export interface SelectProps {
   label?: string;
   name?: string;
   value?: string | string[];
+  showDescription?: boolean;
   defaultValue?: string | string[];
   onValueChange?: (value: string | string[], name?: string) => void;
   options?: SelectOption[];
@@ -37,6 +42,14 @@ export interface SelectProps {
   prefixIcon?: React.ElementType;
   dropdownIcon?: React.ElementType;
 
+  /** Configuration */
+  size?: "sm" | "md" | "lg";
+
+  searchable?: boolean;
+  searchPlaceholder?: string;
+  searchClassName?: string;
+  searchStyle?: React.CSSProperties;
+
   /** Customization */
   className?: string;
   containerClassName?: string;
@@ -48,13 +61,18 @@ export interface SelectProps {
   iconClassName?: string;
   helperClassName?: string;
 
+  /** Item Icon Styling */
+  itemIconClassName?: string;
+  itemIconStyle?: React.CSSProperties;
+
+  /** Check Icon Styling */
+  checkIconClassName?: string;
+  checkIconStyle?: React.CSSProperties;
+
   style?: React.CSSProperties;
   triggerStyle?: React.CSSProperties;
   dropdownStyle?: React.CSSProperties;
   itemStyle?: React.CSSProperties;
-
-  /** Theme */
-  primaryColor?: string;
 }
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
@@ -72,10 +90,18 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     success,
     helperText,
     multiple = false,
+    showDescription = false,
 
     labelIcon: LabelIcon,
     prefixIcon: PrefixIcon,
     dropdownIcon: DropdownIcon = ChevronDown,
+
+    searchClassName,
+    searchStyle,
+    searchPlaceholder,
+    searchable = false,
+
+    size = "md",
 
     className,
     containerClassName,
@@ -87,24 +113,53 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     iconClassName,
     helperClassName,
 
+    itemIconClassName,
+    itemIconStyle,
+
+    checkIconClassName,
+    checkIconStyle,
+
     style,
     triggerStyle,
     dropdownStyle,
     itemStyle,
-
-    primaryColor = "var(--primary)",
   } = props;
 
   const containerRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => containerRef.current!);
+  const generatedHelperTextId = useId();
 
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const [internalValue, setInternalValue] = useState<
     string | string[] | undefined
   >(defaultValue);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
 
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
+
+  // Size configuration
+  const sizeConfig = {
+    sm: {
+      trigger: "px-2.5 py-1.5 text-xs",
+      item: "px-2.5 py-1.5 text-xs",
+      icon: "w-3 h-3",
+      checkIcon: "w-3 h-3",
+    },
+    md: {
+      trigger: "px-3 py-2 text-sm",
+      item: "px-3 py-2 text-sm",
+      icon: "w-4 h-4",
+      checkIcon: "w-4 h-4",
+    },
+    lg: {
+      trigger: "px-4 py-3 text-base",
+      item: "px-4 py-3 text-base",
+      icon: "w-5 h-5",
+      checkIcon: "w-5 h-5",
+    },
+  };
 
   const selectedValues: string[] = multiple
     ? Array.isArray(currentValue)
@@ -115,6 +170,14 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     : currentValue
       ? [currentValue as string]
       : [];
+
+  const filteredOptions = useMemo(
+    () =>
+      options.filter((opt) =>
+        opt.label.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [options, search],
+  );
 
   // Close on outside click
   useEffect(() => {
@@ -130,48 +193,130 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (e.key === "Escape") setOpen(false);
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        if (!disabled) setOpen((p) => !p);
-      }
-    },
-    [disabled],
-  );
+  useEffect(() => {
+    if (!open) {
+      setSearch("");
+      setFocusedIndex(-1);
+    }
+  }, [open]);
 
-  const handleSelect = (opt: SelectOption) => {
-    if (disabled) return;
+  useEffect(() => {
+    if (!open) return;
 
-    let newValue: string | string[];
-
-    if (multiple) {
-      const exists = selectedValues.includes(opt.value);
-      newValue = exists
-        ? selectedValues.filter((v) => v !== opt.value)
-        : [...selectedValues, opt.value];
-    } else {
-      newValue = opt.value;
-      setOpen(false);
+    if (filteredOptions.length === 0) {
+      setFocusedIndex(-1);
+      return;
     }
 
-    if (!isControlled) setInternalValue(newValue);
-    onValueChange?.(newValue, name);
-  };
+    setFocusedIndex((prev) => {
+      if (prev < 0) return 0;
+      return prev >= filteredOptions.length ? filteredOptions.length - 1 : prev;
+    });
+  }, [filteredOptions, open]);
 
-  const selectedLabels = options
-    .filter((o) => selectedValues.includes(o.value))
-    .map((o) => o.label);
+  const handleSelect = useCallback(
+    (opt: SelectOption) => {
+      if (disabled) return;
+
+      let newValue: string | string[];
+
+      if (multiple) {
+        const exists = selectedValues.includes(opt.value);
+        newValue = exists
+          ? selectedValues.filter((v) => v !== opt.value)
+          : [...selectedValues, opt.value];
+      } else {
+        newValue = opt.value;
+        setOpen(false);
+        setFocusedIndex(-1);
+      }
+
+      if (!isControlled) setInternalValue(newValue);
+      onValueChange?.(newValue, name);
+    },
+    [disabled, selectedValues, multiple, isControlled, name, onValueChange],
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (!open) {
+        if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
+          e.preventDefault();
+          if (!disabled) {
+            setOpen(true);
+            setFocusedIndex(0);
+          }
+        }
+        return;
+      }
+
+      // Handle navigation when dropdown is open
+      if (filteredOptions.length === 0) {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          setOpen(false);
+          setFocusedIndex(-1);
+        }
+        return;
+      }
+
+      switch (e.key) {
+        case "Escape":
+          e.preventDefault();
+          setOpen(false);
+          setFocusedIndex(-1);
+          break;
+        case "Enter":
+        case " ":
+          e.preventDefault();
+          if (focusedIndex >= 0 && focusedIndex < filteredOptions.length) {
+            handleSelect(filteredOptions[focusedIndex]);
+          }
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          setFocusedIndex((prev) =>
+            prev < filteredOptions.length - 1 ? prev + 1 : prev,
+          );
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setFocusedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+          break;
+        case "Home":
+          e.preventDefault();
+          setFocusedIndex(0);
+          break;
+        case "End":
+          e.preventDefault();
+          setFocusedIndex(filteredOptions.length - 1);
+          break;
+        case "PageUp":
+          e.preventDefault();
+          setFocusedIndex((prev) => Math.max(0, prev - 5));
+          break;
+        case "PageDown":
+          e.preventDefault();
+          setFocusedIndex((prev) =>
+            Math.min(filteredOptions.length - 1, prev + 5),
+          );
+          break;
+      }
+    },
+    [open, disabled, focusedIndex, filteredOptions, handleSelect],
+  );
+
+  const selectedLabels = useMemo(
+    () =>
+      options
+        .filter((o) => selectedValues.includes(o.value))
+        .map((o) => o.label),
+    [options, selectedValues],
+  );
 
   const hasError = Boolean(error);
   const hasValue = selectedLabels.length > 0;
-
-  const ringColor = hasError
-    ? "var(--destructive)"
-    : success
-      ? "var(--success)"
-      : "var(--border)";
+  const helperTextId = helperText || error ? name || generatedHelperTextId : undefined;
 
   return (
     <div
@@ -200,7 +345,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               iconClassName,
             )}
           >
-            <PrefixIcon className="w-4 h-4" />
+            <PrefixIcon className={sizeConfig[size].icon} />
           </div>
         )}
 
@@ -209,17 +354,25 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           disabled={disabled}
           onClick={() => !disabled && setOpen((p) => !p)}
           onKeyDown={handleKeyDown}
+          role="combobox"
+          aria-expanded={open}
+          aria-haspopup="listbox"
+          aria-required={required}
+          aria-invalid={hasError}
+          aria-describedby={helperTextId}
           className={clsx(
             "w-full flex items-center justify-between gap-2",
-            "rounded-lg text-sm px-3 py-2 transition-all outline-none",
+            "rounded-lg transition-all outline-none",
             "border border-border bg-background text-foreground",
             "hover:bg-accent/10",
             PrefixIcon && "pl-9",
             disabled && "opacity-50 cursor-not-allowed pointer-events-none",
+            hasError && "border-destructive focus:ring-destructive",
+            success && "border-success focus:ring-success",
+            sizeConfig[size].trigger,
             triggerClassName,
           )}
           style={{
-            ["--tw-ring-color" as string]: primaryColor,
             ...triggerStyle,
           }}
         >
@@ -239,69 +392,126 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
           <DropdownIcon
             className={clsx(
-              "w-4 h-4 transition-transform text-muted-foreground",
+              "transition-transform text-muted-foreground",
               open && "rotate-180",
+              sizeConfig[size].icon,
               iconClassName,
             )}
           />
         </button>
 
-        {open && (
-          <div
-            className={clsx(
-              "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden",
-              "bg-background border border-border shadow-lg",
-              dropdownClassName,
-            )}
-            style={dropdownStyle}
-          >
-            <ul className="max-h-60 overflow-y-auto">
-              {options.length === 0 ? (
-                <li className="px-3 py-2.5 text-sm text-muted-foreground text-center">
-                  No options available
-                </li>
-              ) : (
-                options.map((opt) => {
-                  const active = selectedValues.includes(opt.value);
-
-                  return (
-                    <li
-                      key={opt.value}
-                      onClick={() => handleSelect(opt)}
-                      className={clsx(
-                        "flex items-center justify-between px-3 py-2 text-sm cursor-pointer transition-colors",
-                        "text-foreground hover:bg-accent/10",
-                        itemClassName,
-                      )}
-                      style={{
-                        backgroundColor: active
-                          ? `${primaryColor}20`
-                          : undefined,
-                        ...itemStyle,
-                      }}
-                    >
-                      <div className="flex items-center gap-2 truncate">
-                        {opt.icon && <span>{opt.icon}</span>}
-                        <span>{opt.label}</span>
-                      </div>
-
-                      {active && (
-                        <Check
-                          className="w-4 h-4 ml-2"
-                          style={{ color: primaryColor }}
-                        />
-                      )}
-                    </li>
-                  );
-                })
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.12 }}
+              className={clsx(
+                "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden",
+                "bg-background border border-border",
+                dropdownClassName,
               )}
-            </ul>
-          </div>
-        )}
+              style={dropdownStyle}
+              role="listbox"
+              aria-label="Options"
+            >
+              {searchable && (
+                <div className="p-2 border-b border-border">
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => {
+                      setSearch(e.target.value);
+                      setFocusedIndex(0);
+                    }}
+                    placeholder={searchPlaceholder || "Search..."}
+                    className={clsx(
+                      "w-full px-2 py-1.5 text-sm rounded-md outline-none",
+                      "bg-background border border-border text-foreground",
+                      searchClassName,
+                    )}
+                    style={searchStyle}
+                  />
+                </div>
+              )}
+              <ul className="max-h-60 overflow-y-auto">
+                {filteredOptions.length === 0 ? (
+                  <li className="px-3 py-2.5 text-sm text-muted-foreground text-center">
+                    No options available
+                  </li>
+                ) : (
+                  filteredOptions.map((opt, index) => {
+                    const active = selectedValues.includes(opt.value);
+                    const focused = focusedIndex === index;
+
+                    return (
+                      <li
+                        key={opt.value}
+                        onClick={() => handleSelect(opt)}
+                        role="option"
+                        aria-selected={active}
+                        className={clsx(
+                          "flex items-center justify-between cursor-pointer transition-all relative hover:bg-accent",
+                          sizeConfig[size].item,
+                          focused && "bg-accent/20",
+                          itemClassName,
+                        )}
+                        style={{
+                          ...itemStyle,
+                        }}
+                      >
+                        <div className="flex flex-col truncate">
+                          <div className="flex items-center gap-2">
+                            {opt.icon && (
+                              <span
+                                className={clsx(
+                                  sizeConfig[size].icon,
+                                  itemIconClassName,
+                                )}
+                                style={itemIconStyle}
+                              >
+                                {opt.icon}
+                              </span>
+                            )}
+
+                            <span className="font-medium">{opt.label}</span>
+                          </div>
+
+                          {showDescription && opt.description && (
+                            <span className="text-xs text-muted-foreground mt-0.5">
+                              {opt.description}
+                            </span>
+                          )}
+                        </div>
+
+                        {active && (
+                          <div>
+                            <Check
+                              className={clsx(
+                                sizeConfig[size].checkIcon,
+                                checkIconClassName,
+                                "text-primary",
+                              )}
+                              style={{
+                                ...checkIconStyle,
+                              }}
+                            />
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })
+                )}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {(helperText || error) && (
         <p
+          id={helperTextId}
           className={clsx(
             "text-xs",
             hasError

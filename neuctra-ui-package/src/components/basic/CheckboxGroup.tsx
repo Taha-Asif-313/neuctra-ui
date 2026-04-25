@@ -13,17 +13,26 @@ interface Option {
 }
 
 interface CheckboxGroupProps {
+  mode?: "single" | "group";
+
   name?: string;
-  options: Option[];
+
+  /* ---------- GROUP MODE ---------- */
+  options?: Option[];
   selectedValues?: string[];
   onChange?: (values: string[]) => void;
+
+  /* ---------- SINGLE MODE ---------- */
+  label?: string;
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
 
   disabled?: boolean;
   readOnly?: boolean;
   required?: boolean;
   error?: string;
 
-  /** Customization */
+  /* ---------- Styling ---------- */
   className?: string;
   containerClassName?: string;
   itemClassName?: string;
@@ -40,13 +49,13 @@ interface CheckboxGroupProps {
   iconStyle?: React.CSSProperties;
   errorStyle?: React.CSSProperties;
 
-  /** 🎨 Icon customization */
-  customIcon?: (checked: boolean, option: Option) => React.ReactNode;
+  /* ---------- Icon ---------- */
+  customIcon?: (checked: boolean, option?: Option) => React.ReactNode;
   iconSize?: number;
 
-  /** 🧠 Advanced render override */
+  /* ---------- Advanced ---------- */
   renderItem?: (params: {
-    option: Option;
+    option?: Option;
     checked: boolean;
     focused: boolean;
     toggle: () => void;
@@ -57,10 +66,17 @@ interface CheckboxGroupProps {
    Component
 ========================= */
 export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
+  mode = "group",
+
   name,
-  options,
+
+  options = [],
   selectedValues = [],
   onChange,
+
+  label,
+  checked = false,
+  onCheckedChange,
 
   disabled = false,
   readOnly = false,
@@ -92,9 +108,9 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
   /* =========================
-     Toggle
+     Handlers
   ========================= */
-  const handleChange = (value: string) => {
+  const handleGroupChange = (value: string) => {
     if (!onChange || disabled || readOnly) return;
 
     const updated = selectedValues.includes(value)
@@ -104,44 +120,53 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
     onChange(updated);
   };
 
+  const handleSingleChange = () => {
+    if (!onCheckedChange || disabled || readOnly) return;
+    onCheckedChange(!checked);
+  };
+
   /* =========================
-     Keyboard Navigation
+     Keyboard Navigation (group only)
   ========================= */
   useEffect(() => {
+    if (mode !== "group") return;
+
     const container = containerRef.current;
     if (!container) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (disabled || focusedIndex === null) return;
 
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+      if (["ArrowDown", "ArrowRight"].includes(e.key)) {
         e.preventDefault();
         setFocusedIndex((prev) => (prev! + 1) % options.length);
       }
 
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+      if (["ArrowUp", "ArrowLeft"].includes(e.key)) {
         e.preventDefault();
         setFocusedIndex((prev) => (prev! - 1 + options.length) % options.length);
       }
 
-      if (e.key === " " || e.key === "Enter") {
+      if ([" ", "Enter"].includes(e.key)) {
         e.preventDefault();
-        handleChange(options[focusedIndex].value);
+        handleGroupChange(options[focusedIndex].value);
       }
     };
 
     container.addEventListener("keydown", handleKeyDown);
     return () => container.removeEventListener("keydown", handleKeyDown);
-  }, [focusedIndex, options, selectedValues, disabled]);
+  }, [focusedIndex, options, selectedValues, disabled, mode]);
 
   /* =========================
      Default Icon
   ========================= */
-  const DefaultIcon = (checked: boolean) => (
+  const DefaultIcon = (isChecked: boolean) => (
     <span
       className={clsx(
         "inline-flex items-center justify-center rounded border transition-colors",
-        checked ? "border-primary bg-primary" : "border-border bg-transparent",
+        isChecked
+          ? "border-primary bg-primary"
+          : "border-border bg-transparent",
         iconClassName
       )}
       style={{
@@ -150,7 +175,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
         ...iconStyle,
       }}
     >
-      {checked && (
+      {isChecked && (
         <svg
           viewBox="0 0 24 24"
           className="text-white"
@@ -166,33 +191,92 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   );
 
   /* =========================
-     Render
+     Render Single
+  ========================= */
+  if (mode === "single") {
+    const toggle = handleSingleChange;
+
+    if (renderItem) {
+      return (
+        <div className={className} style={style}>
+          {renderItem({
+            checked,
+            focused: false,
+            toggle,
+          })}
+        </div>
+      );
+    }
+
+    return (
+      <div className={className} style={style}>
+        <label
+          className={clsx(
+            "flex items-center justify-between cursor-pointer",
+            disabled && "opacity-50 cursor-not-allowed",
+            itemClassName,
+            labelClassName
+          )}
+          style={{ ...itemStyle, ...labelStyle }}
+        >
+          <span
+            className={clsx("text-sm text-foreground", textClassName)}
+            style={textStyle}
+          >
+            {label}
+          </span>
+
+          <input
+            type="checkbox"
+            hidden
+            name={name}
+            checked={checked}
+            disabled={disabled || readOnly}
+            required={required}
+            onChange={toggle}
+          />
+
+          {customIcon ? customIcon(checked) : DefaultIcon(checked)}
+        </label>
+
+        {error && (
+          <p
+            className={clsx("text-sm text-destructive mt-1", errorClassName)}
+            style={errorStyle}
+          >
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  /* =========================
+     Render Group
   ========================= */
   return (
     <div
       ref={containerRef}
       role="group"
       tabIndex={0}
-      aria-disabled={disabled}
-      aria-invalid={!!error}
-      className={clsx(
-        "flex flex-col gap-2 text-foreground",
-        className,
-        containerClassName
-      )}
-      style={{ ...style, ...containerStyle }}
+      className={clsx("flex flex-col gap-2", containerClassName || className)}
+      style={containerStyle || style}
     >
       {options.map((option, index) => {
-        const checked = selectedValues.includes(option.value);
+        const isChecked = selectedValues.includes(option.value);
         const focused = focusedIndex === index;
 
-        const toggle = () => handleChange(option.value);
+        const toggle = () => handleGroupChange(option.value);
 
-        /* 🔥 Custom render override */
         if (renderItem) {
           return (
             <React.Fragment key={option.value}>
-              {renderItem({ option, checked, focused, toggle })}
+              {renderItem({
+                option,
+                checked: isChecked,
+                focused,
+                toggle,
+              })}
             </React.Fragment>
           );
         }
@@ -202,8 +286,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
             key={option.value}
             onFocus={() => setFocusedIndex(index)}
             className={clsx(
-              "flex items-center justify-between cursor-pointer transition-colors",
-              "text-foreground",
+              "flex items-center justify-between cursor-pointer",
               disabled && "opacity-50 cursor-not-allowed",
               itemClassName,
               labelClassName
@@ -222,20 +305,21 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
               hidden
               name={name}
               value={option.value}
-              checked={checked}
+              checked={isChecked}
               disabled={disabled || readOnly || option.disabled}
               required={required}
               onChange={toggle}
             />
 
-            {customIcon ? customIcon(checked, option) : DefaultIcon(checked)}
+            {customIcon
+              ? customIcon(isChecked, option)
+              : DefaultIcon(isChecked)}
           </label>
         );
       })}
 
       {error && (
         <p
-          role="alert"
           className={clsx("text-sm text-destructive mt-1", errorClassName)}
           style={errorStyle}
         >

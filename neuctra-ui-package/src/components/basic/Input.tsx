@@ -150,12 +150,12 @@ export const Input = forwardRef<
   const getSizeClasses = () => {
     switch (size) {
       case "sm":
-        return "h-8 px-3 text-sm";
+        return "py-1.5 px-3 text-xs";
       case "lg":
-        return "h-11 px-4 text-base";
+        return "py-2.5 px-4 text-base";
       case "md":
       default:
-        return "h-9 px-4 text-sm";
+        return "py-2 px-4 text-sm";
     }
   };
 
@@ -179,7 +179,7 @@ export const Input = forwardRef<
 
   return (
     <div
-      className={clsx("w-full space-y-1", wrapperClassName)}
+      className={clsx("w-full space-y-1.5", wrapperClassName)}
       style={wrapperStyle}
     >
       {label && (
