@@ -1,0 +1,275 @@
+{
+  "spec_version": "1.0.0",
+  "library": {
+    "name": "Neuctra UI",
+    "package": "@neuctra/ui",
+    "description": "Modern React UI component library for building customizable interfaces quickly.",
+    "import_example": "import { Button, Input, Container } from \"@neuctra/ui\";"
+  },
+  "global_rules": {
+    "framework": "React",
+    "styling": [
+      "Use className for custom styling and layout composition.",
+      "Prefer composition with Container + utility classes for page structure."
+    ],
+    "component_usage": [
+      "Import components only from @neuctra/ui.",
+      "Prefer documented props only; avoid inventing props.",
+      "Use controlled component patterns for forms and interactive elements."
+    ],
+    "accessibility": [
+      "Provide meaningful labels for Input, Textarea, Select, and form controls.",
+      "Use semantic structure with headings, sections, and descriptive button text."
+    ]
+  },
+  "exports": {
+    "components": [
+      "Text",
+      "Button",
+      "Image",
+      "Container",
+      "Avatar",
+      "Badge",
+      "List",
+      "ListItem",
+      "Dropdown",
+      "ToastProvider",
+      "Accordion",
+      "CheckboxGroup",
+      "RadioGroup",
+      "Switch",
+      "Drawer",
+      "DrawerButton",
+      "DrawerBody",
+      "DrawerHeader",
+      "DrawerFooter",
+      "DrawerContent",
+      "DrawerTriggerButton",
+      "Select",
+      "Input",
+      "Textarea",
+      "Modal",
+      "ModalTriggerButton",
+      "ModalButton",
+      "ModalContent",
+      "ModalHeader",
+      "ModalBody",
+      "ModalFooter",
+      "Table",
+      "TBody",
+      "TD",
+      "THead",
+      "TH",
+      "TRow",
+      "Tabs",
+      "TabList",
+      "Tab",
+      "TabPanels",
+      "TabPanel"
+    ],
+    "hooks": ["useToast"]
+  },
+  "component_catalog": [
+    {
+      "name": "Text",
+      "category": "typography",
+      "purpose": "Polymorphic text/heading primitive.",
+      "key_props": ["as", "size", "weight", "color", "truncate", "align", "className"],
+      "example": "<Text as=\"h1\" size=\"2xl\">Dashboard</Text>"
+    },
+    {
+      "name": "Button",
+      "category": "actions",
+      "purpose": "Primary action button with variants, sizes, and loading states.",
+      "key_props": ["variant", "size", "loading", "loadingText", "iconBefore", "iconAfter", "fullWidth", "className"],
+      "example": "<Button variant=\"outline\" size=\"md\" iconAfter={<ArrowRight size={16} />}>Continue</Button>"
+    },
+    {
+      "name": "Container",
+      "category": "layout",
+      "purpose": "Layout wrapper for width, padding, and centered content.",
+      "key_props": ["size", "padding", "center", "className", "style"],
+      "example": "<Container size=\"xl\" padding=\"md\" className=\"grid gap-4\">...</Container>"
+    },
+    {
+      "name": "Image",
+      "category": "media",
+      "purpose": "Image component with sizing, overlay, fallback, and interactivity.",
+      "key_props": ["src", "alt", "width", "height", "aspectRatio", "overlay", "fallback", "clickable"],
+      "example": "<Image src=\"/hero.png\" alt=\"Hero banner\" width={640} height={360} />"
+    },
+    {
+      "name": "Avatar",
+      "category": "media",
+      "purpose": "Profile avatar with online/offline states and fallback.",
+      "key_props": ["src", "alt", "size", "variant", "isOnline", "isOffline", "fallback", "statusPosition"],
+      "example": "<Avatar src=\"/user.jpg\" alt=\"Ava\" size=\"lg\" isOnline />"
+    },
+    {
+      "name": "Badge",
+      "category": "feedback",
+      "purpose": "Small status/counter label element.",
+      "key_props": ["text", "variant", "size", "icon", "count", "notificationDot", "pulse"],
+      "example": "<Badge text=\"Notifications\" count={3} />"
+    },
+    {
+      "name": "Select",
+      "category": "forms",
+      "purpose": "Single or multi-select dropdown with optional search.",
+      "key_props": ["options", "value", "onValueChange", "multiple", "searchable", "size", "showDescription"],
+      "example": "<Select options={roleOptions} value={role} onValueChange={setRole} placeholder=\"Select role\" />"
+    },
+    {
+      "name": "Input",
+      "category": "forms",
+      "purpose": "Text input control with label, helper, and validation states.",
+      "key_props": ["label", "type", "value", "onChange", "error", "success", "helperText", "size"],
+      "example": "<Input label=\"Email\" type=\"email\" value={email} onChange={(e)=>setEmail(e.target.value)} />"
+    },
+    {
+      "name": "Textarea",
+      "category": "forms",
+      "purpose": "Multiline input with optional auto-resize and submit-on-enter behavior.",
+      "key_props": ["label", "value", "onChange", "autoResize", "minRows", "maxRows", "submitOnEnter", "onSubmit"],
+      "example": "<Textarea label=\"Message\" value={message} onChange={(e)=>setMessage(e.target.value)} rows={5} />"
+    },
+    {
+      "name": "CheckboxGroup",
+      "category": "forms",
+      "purpose": "Single/group checkbox selection with controlled values.",
+      "key_props": ["mode", "options", "selectedValues", "onChange", "checked", "onCheckedChange", "error"],
+      "example": "<CheckboxGroup options={features} selectedValues={selected} onChange={setSelected} />"
+    },
+    {
+      "name": "RadioGroup",
+      "category": "forms",
+      "purpose": "Single-choice option selection.",
+      "key_props": ["options", "selectedValue", "onChange", "orientation", "size", "error"],
+      "example": "<RadioGroup options={plans} selectedValue={plan} onChange={setPlan} />"
+    },
+    {
+      "name": "Switch",
+      "category": "forms",
+      "purpose": "Boolean or grouped toggle control.",
+      "key_props": ["mode", "checked", "onCheckedChange", "options", "selectedValues", "onChange", "iconSize"],
+      "example": "<Switch label=\"Enable alerts\" checked={enabled} onCheckedChange={setEnabled} />"
+    },
+    {
+      "name": "Dropdown",
+      "category": "navigation",
+      "purpose": "Action menu with trigger and selectable items.",
+      "key_props": ["trigger", "items", "open", "onOpenChange", "align", "width", "closeOnClick"],
+      "example": "<Dropdown trigger={<Button>Actions</Button>} items={menuItems} />"
+    },
+    {
+      "name": "Accordion",
+      "category": "content",
+      "purpose": "Collapsible sections for FAQs and grouped content.",
+      "key_props": ["items", "allowMultiple", "defaultOpen", "renderItem", "iconOpen", "iconClose"],
+      "example": "<Accordion items={faqItems} allowMultiple />"
+    },
+    {
+      "name": "List",
+      "category": "content",
+      "purpose": "Unordered/ordered/inline list with optional hierarchy.",
+      "key_props": ["items", "type", "showTree", "title", "itemClassName", "bulletClassName"],
+      "example": "<List type=\"ordered\" title=\"Setup\" items={steps} />"
+    },
+    {
+      "name": "Modal",
+      "category": "overlays",
+      "purpose": "Dialog overlay for confirmation and focused interactions.",
+      "key_props": ["isOpen", "onClose", "disableOverlayClose", "overlayClassName"],
+      "example": "<Modal isOpen={open} onClose={() => setOpen(false)}>...</Modal>"
+    },
+    {
+      "name": "Drawer",
+      "category": "overlays",
+      "purpose": "Side panel for contextual tasks and forms.",
+      "key_props": ["isOpen", "onClose", "position", "size", "renderContent", "disableOverlayClose"],
+      "example": "<Drawer isOpen={open} onClose={close} position=\"right\">...</Drawer>"
+    },
+    {
+      "name": "Table",
+      "category": "data-display",
+      "purpose": "Composable table system for structured data.",
+      "key_props": ["responsive", "striped", "hoverable", "bordered", "dense", "className"],
+      "example": "<Table striped bordered><THead>...</THead><TBody>...</TBody></Table>"
+    },
+    {
+      "name": "Tabs",
+      "category": "navigation",
+      "purpose": "Tab-based content switching with responsive variants.",
+      "key_props": ["defaultActive", "position", "variant", "mobileVariant", "fullWidth", "onTabChange"],
+      "example": "<Tabs defaultActive={0}><TabList>...</TabList><TabPanels>...</TabPanels></Tabs>"
+    },
+    {
+      "name": "ToastProvider",
+      "category": "feedback",
+      "purpose": "Context provider required for toast notifications.",
+      "key_props": ["children"],
+      "example": "<ToastProvider><App /></ToastProvider>"
+    },
+    {
+      "name": "useToast",
+      "category": "hooks",
+      "purpose": "Hook for success/error/info toast messages.",
+      "key_props": ["toast", "dismiss"],
+      "example": "const { toast } = useToast(); toast.success(\"Saved successfully\");"
+    }
+  ],
+  "layout_patterns": [
+    {
+      "name": "dashboard_grid",
+      "description": "Responsive dashboard cards grid.",
+      "structure": [
+        "Container",
+        "div (grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6)",
+        "cards using Badge, Text, Button"
+      ]
+    },
+    {
+      "name": "settings_page",
+      "description": "Form-heavy settings layout with grouped sections.",
+      "structure": [
+        "Container",
+        "Tabs + TabList + TabPanels",
+        "Input/Textarea/Select/CheckboxGroup",
+        "Button actions in footer row"
+      ]
+    },
+    {
+      "name": "data_management",
+      "description": "List and table-centric CRUD style layout.",
+      "structure": [
+        "Container",
+        "header row with Button + Select",
+        "Table with THead/TRow/TH and TBody/TRow/TD",
+        "Modal or Drawer for create/edit forms"
+      ]
+    }
+  ],
+  "ai_generation_contract": {
+    "required_output_shape": {
+      "imports": ["Components and hooks imported from @neuctra/ui"],
+      "state": ["Controlled state for form components and overlays"],
+      "jsx_tree": ["Composable section-based UI"],
+      "accessibility": ["Labels, button text, semantic headings"],
+      "styling": ["Tailwind utility classes through className"]
+    },
+    "do": [
+      "Use Container for page-level structure.",
+      "Use controlled values for Select/Input/Textarea/RadioGroup.",
+      "Use Modal/Drawer for non-trivial create-edit flows.",
+      "Use Tabs to split dense settings/data areas.",
+      "Prefer concise, reusable component sections."
+    ],
+    "dont": [
+      "Do not invent unsupported props.",
+      "Do not import components from internal file paths.",
+      "Do not rely on inline styles unless explicitly required.",
+      "Do not output inaccessible unlabeled form controls."
+    ]
+  },
+  "starter_prompt_for_other_ai": "Use only @neuctra/ui components from this JSON. Build a modern, accessible React UI with clean section hierarchy, controlled form state, and composable layout using Container + Tailwind className utilities. Prefer documented props and patterns from component_catalog and layout_patterns."
+}

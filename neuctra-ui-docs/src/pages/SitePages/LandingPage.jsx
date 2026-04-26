@@ -279,7 +279,7 @@ const LandingPage = () => {
         <CircuitLine top="45%" left="92%" delay={2.0} width={200} height={100} />
 
         {/* Hero Section */}
-        <div className="relative z-10 min-h-screen md:px-8 px-4 py-10 flex flex-col items-center justify-center">
+        <div className="relative z-10 min-h-screen md:px-0 px-4 py-10 flex flex-col items-center justify-center">
           <div className="max-w-6xl mx-auto w-full">
             <div className="grid lg:grid-cols-2 gap-2 items-center">
             {/* Left Content */}
@@ -291,7 +291,7 @@ const LandingPage = () => {
                 className="mb-2"
               >
                 <span className="inline-block px-4 py-1 bg-primary/10 border border-primary/30 rounded-full text-primary text-xs font-semibold mb-1">
-                  ⚡ Next-Gen UI Library
+                  Next-Gen UI Library
                 </span>
               </motion.div>
 
@@ -312,7 +312,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.2 }}
-                className="text-gray-400 mb-4 text-sm leading-relaxed"
+                className="text-gray-200 mb-4 text-sm leading-relaxed"
               >
                 Unlock the power of a next-generation UI component library
                 designed for React and Next.js. Lightning-fast, visually
@@ -358,11 +358,11 @@ const LandingPage = () => {
                 className="flex gap-8 mt-4"
               >
                 <div>
-                  <div className="text-3xl font-bold text-primary">50+</div>
+                  <div className="text-3xl font-bold text-primary">20+</div>
                   <div className="text-xs text-gray-500">Components</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-primary">10k+</div>
+                  <div className="text-3xl font-bold text-primary">1k+</div>
                   <div className="text-xs text-gray-500">Downloads</div>
                 </div>
                 <div>
@@ -446,7 +446,7 @@ const LandingPage = () => {
         </div>
 
         {/* Features */}
-        <div className="relative z-10 max-w-6xl mx-auto md:px-8 px-4 py-20">
+        <div className="relative z-10 max-w-6xl mx-auto md:px-0 px-4 py-20">
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -497,7 +497,7 @@ const LandingPage = () => {
         </div>
 
         {/* Full Overview Sections */}
-        <div className="relative z-10 max-w-6xl mx-auto md:px-8 px-4 pb-24 space-y-24">
+        <div className="relative z-10 max-w-6xl mx-auto md:px-0 px-4 pb-24 space-y-24">
           <section className="space-y-6">
             <motion.h3
               initial={{ opacity: 0, y: 20 }}

@@ -8,9 +8,15 @@ export default function CodePreviewPage({
   description,
   code = "",
   preview = null,
+  compact = false,
+  className = "",
 }) {
   return (
-    <div className="min-h-screen bg-zinc-950 text-white p-6 space-y-6">
+    <div
+      className={`bg-zinc-950 text-white p-6 space-y-6 ${
+        compact ? "rounded-xl border border-zinc-800 min-h-0" : "min-h-screen"
+      } ${className}`}
+    >
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold">{title}</h1>
