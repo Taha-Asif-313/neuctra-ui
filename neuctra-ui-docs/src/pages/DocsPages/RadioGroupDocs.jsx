@@ -496,20 +496,21 @@ const RadioGroupDocs = () => {
             />
           </section>
 
-{/* Styling & Customization */}
-<section>
-  <h2 className="text-2xl font-semibold mb-2 text-white">
-    Styling &amp; Customization
-  </h2>
+          {/* Styling & Customization */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Styling &amp; Customization
+            </h2>
 
-  <p className="text-gray-200 text-sm mb-4">
-    RadioGroup supports multiple styling layers so you can fully customize
-    layout, structure, and selection state using Tailwind CSS classes.
-  </p>
+            <p className="text-gray-200 text-sm mb-4">
+              RadioGroup supports multiple styling layers so you can fully
+              customize layout, structure, and selection state using Tailwind
+              CSS classes.
+            </p>
 
-  <CodePreviewBlock
-    language="tsx"
-    code={`<RadioGroup
+            <CodePreviewBlock
+              language="tsx"
+              code={`<RadioGroup
   options={options}
   selectedValue={value}
   onChange={setValue}
@@ -527,22 +528,22 @@ const RadioGroupDocs = () => {
 
   dotClassName="bg-primary"
 />`}
-    previewContent={
-      <RadioGroup
-        options={options}
-        selectedValue={value}
-        onChange={setValue}
-        className="p-5 rounded-2xl bg-gradient-to-br from-zinc-950 to-zinc-900 border border-zinc-800"
-        itemClassName="bg-zinc-900/60 border !border-zinc-800 rounded-xl px-4 py-3 hover:bg-zinc-800 transition-all duration-200"
-        labelClassName="text-white font-medium"
-        descriptionClassName="text-zinc-400 text-xs"
-        iconWrapperClassName="text-zinc-400"
-        indicatorClassName="border border-zinc-600 bg-zinc-900"
-        dotClassName="bg-primary"
-      />
-    }
-  />
-</section>
+              previewContent={
+                <RadioGroup
+                  options={options}
+                  selectedValue={value}
+                  onChange={setValue}
+                  className="p-5 rounded-2xl bg-gradient-to-br from-zinc-950 to-zinc-900 border border-zinc-800"
+                  itemClassName="bg-zinc-900/60 border !border-zinc-800 rounded-xl px-4 py-3 hover:bg-zinc-800 transition-all duration-200"
+                  labelClassName="text-white font-medium"
+                  descriptionClassName="text-zinc-400 text-xs"
+                  iconWrapperClassName="text-zinc-400"
+                  indicatorClassName="border border-zinc-600 bg-zinc-900"
+                  dotClassName="bg-primary"
+                />
+              }
+            />
+          </section>
 
           {/* Props Table */}
           <section>

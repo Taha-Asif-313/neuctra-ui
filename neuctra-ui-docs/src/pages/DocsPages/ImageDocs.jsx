@@ -6,6 +6,7 @@ import { Button, Container, Image, Text } from "@neuctra/ui";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const ImageDocs = () => {
   return (
@@ -435,11 +436,7 @@ const ImageDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

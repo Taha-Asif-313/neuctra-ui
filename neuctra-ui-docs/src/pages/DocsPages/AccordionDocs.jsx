@@ -5,6 +5,7 @@ import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";
 import { Accordion } from "@neuctra/ui";
 import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const items = [
   {
@@ -37,18 +38,34 @@ const AccordionDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Accordion Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+
+            <p className="text-sm leading-relaxed">
               The <span className="text-primary font-semibold">Accordion</span>{" "}
-              component is a flexible, fully customizable collapsible UI
-              element. Supports multiple open items, custom rendering, className
-              overrides, inline styles, and smooth animations.
+              component is a flexible and accessible UI primitive built with
+              React and TypeScript. It allows users to expand and collapse
+              content sections, making it ideal for FAQs, documentation, and
+              content-heavy interfaces.
+            </p>
+
+            <p className="text-sm text-gray-300 mt-3 leading-relaxed">
+              It supports single or multiple open sections via{" "}
+              <code>allowMultiple</code>, controlled default state using{" "}
+              <code>defaultOpen</code>, and full customization of header, icon,
+              and content styling for seamless integration into any design
+              system.
+            </p>
+
+            <p className="text-sm text-gray-300 mt-3 leading-relaxed">
+              Use <code>iconOpen</code> and <code>iconClose</code> to customize
+              expand/collapse indicators, and <code>renderItem</code> for full
+              control over each accordion item layout and behavior.
             </p>
           </header>
 
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock
               language="react"
@@ -302,11 +319,7 @@ const AccordionDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

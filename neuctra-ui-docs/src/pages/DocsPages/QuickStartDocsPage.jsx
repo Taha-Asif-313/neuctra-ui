@@ -4,7 +4,6 @@ import Metadata from "../../MetaData";
 import {
   Terminal,
   Palette,
-  Sparkles,
   Lightbulb,
   AlertTriangle,
   Check,
@@ -22,7 +21,7 @@ const QuickStartDocsPage = () => {
         <div className="space-y-10">
           {/* Header */}
           <div>
-            <h1 className="text-4xl font-bold text-white">Quick Start</h1>
+            <h1 className="text-4xl font-bold text-white">Quick Start For <code className="text-primary" >@neuctra/ui</code></h1>
             <p className="text-gray-200 mt-2">
               The fastest way to set up Neuctra UI is using the CLI. It
               installs, configures, and prepares everything automatically.
@@ -35,7 +34,10 @@ const QuickStartDocsPage = () => {
             title="Step 1 — Initialize with CLI"
             description="Run the CLI command to install Neuctra UI and auto-configure your project."
           >
-            <CodeBlock language="bash" code={`npx @neuctra/ui-cli@latest init`} />
+            <CodeBlock
+              language="bash"
+              code={`npx @neuctra/ui-cli@latest init`}
+            />
 
             <p className="text-gray-200 text-sm">This command will:</p>
 
@@ -72,81 +74,118 @@ const QuickStartDocsPage = () => {
 
             <CodeBlock
               language="css"
-              code={`@import "tailwindcss";
+              code={`@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
 @source "../node_modules/@neuctra/ui";
 
+/* =============================
+   BASE GLOBAL STYLES
+============================= */
 
-/* NEUCTRA_THEME_START */
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
 
 /* =============================
-   BASE THEME (LIGHT)
+   THEME SYSTEM
 ============================= */
+/* NEUCTRA_THEME_START */
+
+/* LIGHT THEME */
 :root {
   --primary: #00c214;
   --primary-foreground: #ffffff;
 
-  --primary-soft: color-mix(in srgb, var(--primary) 10%, white);
-  --primary-muted: color-mix(in srgb, var(--primary) 20%, white);
-  --primary-border: color-mix(in srgb, var(--primary) 30%, white);
-  --primary-ring: color-mix(in srgb, var(--primary) 50%, transparent);
-
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #09090b;
 
-  --muted: color-mix(in srgb, var(--primary) 6%, #f1f5f9);
-  --muted-foreground: #64748b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
 
-  --accent: color-mix(in srgb, var(--primary) 8%, #f1f5f9);
-  --accent-foreground: #0f172a;
+  --accent: #e4e4e7;
+  --accent-foreground: #09090b;
 
-  --border: color-mix(in srgb, var(--primary) 12%, #e2e8f0);
-  --input: #e2e8f0;
-  --ring: color-mix(in srgb, var(--primary) 60%, transparent);
+  --border: #e4e4e7;
+  --input: #f4f4f5;
+  --ring: #a1a1aa;
 
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --destructive: #d40000;
+  --destructive-foreground: #fafafa;
 }
 
-/* =============================
-   DARK THEME
-============================= */
+/* DARK THEME */
 .dark {
   --primary: #00c214;
   --primary-foreground: #ffffff;
 
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #09090b;
+  --foreground: #fafafa;
 
-  --primary-soft: color-mix(in srgb, var(--primary) 15%, black);
-  --primary-muted: color-mix(in srgb, var(--primary) 25%, black);
-  --primary-border: color-mix(in srgb, var(--primary) 35%, black);
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
 
-  --muted: #1f2937;
-  --muted-foreground: #9ca3af;
+  --accent: #18181b;
+  --accent-foreground: #fafafa;
 
-  --accent: #1f2937;
-  --accent-foreground: #ffffff;
+  --border: #27272a;
+  --input: #18181b;
+  --ring: #3f3f46;
 
-  --border: color-mix(in srgb, var(--primary) 20%, #1f2937);
-  --input: #1f2937;
-  --ring: color-mix(in srgb, var(--primary) 60%, transparent);
-
-  --destructive: #7f1d1d;
-  --destructive-foreground: #ffffff;
+  --destructive: #d40000;
+  --destructive-foreground: #fafafa;
 }
 
-/* =============================
-   SYSTEM DARK MODE
-============================= */
+/* SYSTEM DARK MODE */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ffffff;
+    --primary: #00c214;
+    --primary-foreground: #ffffff;
+
+    --background: #09090b;
+    --foreground: #fafafa;
+
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+
+    --accent: #18181b;
+    --accent-foreground: #fafafa;
+
+    --border: #27272a;
+    --input: #18181b;
+    --ring: #3f3f46;
+
+    --destructive: #d40000;
+    --destructive-foreground: #fafafa;
   }
 }
 
+/* NEUCTRA_THEME_END */
+
 /* =============================
-   TAILWIND v4 THEME TOKENS
+   TAILWIND TOKENS
 ============================= */
 @theme {
   --color-primary: var(--primary);
@@ -169,8 +208,6 @@ const QuickStartDocsPage = () => {
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
 }
-
-/* NEUCTRA_THEME_END */
 `}
             />
 
@@ -182,7 +219,7 @@ const QuickStartDocsPage = () => {
 
           {/* STEP 3 */}
           <Step
-            icon={Sparkles}
+            icon={Lightbulb}
             title="Step 3 — Providers (Auto Configured)"
             description="The CLI automatically sets up required providers in your main React entry file."
           >
@@ -233,7 +270,7 @@ createRoot(document.getElementById("root")).render(
 
           {/* STEP 4 */}
           <Step
-            icon={Sparkles}
+            icon={Lightbulb}
             title="Step 4 — Use Theme Toggle"
             description="Dark mode is already configured. Just use the hook."
           >
@@ -267,7 +304,7 @@ export function ThemeToggle() {
 
           {/* STEP 5 */}
           <Step
-            icon={Sparkles}
+            icon={Lightbulb}
             title="Step 5 — Show Toast Notifications"
             description="Trigger beautiful toast notifications anywhere in your app using the useToast hook."
           >

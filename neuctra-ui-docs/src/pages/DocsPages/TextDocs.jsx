@@ -6,6 +6,7 @@ import { Text } from "@neuctra/ui";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { X, Check } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const TextDocs = () => {
   return (
@@ -42,7 +43,9 @@ const TextDocs = () => {
 
           {/* ---------------- Import ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-white">Import</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-white">
+              Import Component From Library
+            </h2>
             <CodeBlock code={`import { Text } from "@neuctra/ui";`} />
           </section>
 
@@ -318,11 +321,7 @@ const TextDocs = () => {
           </section>
 
           {/* ---------------- Footer ---------------- */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Check, X, Lightbulb, User } from "lucide-react";
 import { Select } from "@neuctra/ui";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const sampleOptions = [
   { label: "Option 1", value: "1" },
@@ -893,11 +894,7 @@ useEffect(() => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

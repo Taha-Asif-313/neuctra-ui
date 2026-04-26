@@ -5,6 +5,7 @@ import Metadata from "../../MetaData";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Table, THead, TBody, TRow, TH, TD } from "@neuctra/ui";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const TableDocs = () => {
   return (
@@ -34,7 +35,7 @@ const TableDocs = () => {
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock
               code={`import { Table, THead, TBody, TRow, TH, TD } from "@neuctra/ui";`}
@@ -623,9 +624,7 @@ const TableDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with React, Tailwind CSS & TypeScript.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

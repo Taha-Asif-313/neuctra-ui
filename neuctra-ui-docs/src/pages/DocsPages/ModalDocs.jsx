@@ -13,7 +13,8 @@ import {
   ModalButton,
   ModalTriggerButton,
 } from "@neuctra/ui";
-import { Trash2, User, X } from "lucide-react";
+import { Trash2} from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const ModalDocs = () => {
   return (
@@ -31,18 +32,31 @@ const ModalDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Modal Component
             </h1>
-            <p className="text-lg text-gray-200 leading-relaxed">
+
+            <p className="text-sm leading-relaxed">
               The <span className="text-primary font-semibold">Modal</span>{" "}
-              component provides a flexible overlay system with structured
-              sections, keyboard support, scroll locking, and fully customizable
-              styling.
+              component is a flexible and composable overlay system designed for
+              dialogs, confirmations, and complex UI interactions. It includes
+              structured subcomponents like <code>ModalContent</code>,{" "}
+              <code>ModalHeader</code>, <code>ModalBody</code>, and{" "}
+              <code>ModalFooter</code> — making it easy to build consistent,
+              accessible layouts.
+            </p>
+
+            <p className="text-sm text-gray-300 mt-3 leading-relaxed">
+              Use <code>ModalTriggerButton</code> for quick integration,{" "}
+              <code>disableOverlayClose</code> to control dismiss behavior, and{" "}
+              <code>ModalButton</code> for built-in actions with optional async
+              handling. The component also supports animations via{" "}
+              <code>framer-motion</code> and full styling control through
+              className and style props.
             </p>
           </header>
 
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock
               code={`import {
@@ -111,11 +125,11 @@ const ModalDocs = () => {
                         title="Delete Item"
                         onClose={close}
                         icon={
-                        <div className="p-2 rounded-lg text-destructive bg-destructive/10"  >
-
-                          <Trash2 size={18}/>
-                        </div>
-                      }/>
+                          <div className="p-2 rounded-lg text-destructive bg-destructive/10">
+                            <Trash2 size={18} />
+                          </div>
+                        }
+                      />
 
                       <ModalBody>
                         Are you sure you want to delete this item?
@@ -558,9 +572,7 @@ const ModalDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with React, Tailwind CSS & TypeScript.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { List } from "@neuctra/ui";
 import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const ListDocs = () => {
   const sampleItems = [
@@ -78,9 +79,8 @@ const ListDocs = () => {
       ]
     }
   ]}
-  showTree
 />`}
-              previewContent={<List items={sampleItems} showTree />}
+              previewContent={<List items={sampleItems} />}
             />
           </section>
 
@@ -457,11 +457,7 @@ const ListDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

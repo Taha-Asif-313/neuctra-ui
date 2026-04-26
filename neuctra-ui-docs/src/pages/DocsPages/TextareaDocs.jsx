@@ -6,6 +6,7 @@ import { Textarea } from "@neuctra/ui";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const TextareaDocs = () => {
   const [message, setMessage] = useState("");
@@ -25,16 +26,16 @@ const TextareaDocs = () => {
             <h1 className="text-4xl font-extrabold mb-3 text-white">
               Textarea Component
             </h1>
-<p className="text-sm text-gray-200 leading-relaxed">
-  The <span className="text-primary font-semibold">Textarea</span>{" "}
-  component is a modern, flexible multiline input built for real-world
-  applications. It supports{" "}
-  <span className="text-primary">auto-resizing behavior</span>,{" "}
-  <span className="text-primary">ChatGPT-like input handling</span> with
-  Enter-to-submit support, character counting, validation states, and full
-  styling customization. Designed for chat apps, forms, and content-heavy
-  inputs.
-</p>
+            <p className="text-sm text-gray-200 leading-relaxed">
+              The <span className="text-primary font-semibold">Textarea</span>{" "}
+              component is a modern, flexible multiline input built for
+              real-world applications. It supports{" "}
+              <span className="text-primary">auto-resizing behavior</span>,{" "}
+              <span className="text-primary">ChatGPT-like input handling</span>{" "}
+              with Enter-to-submit support, character counting, validation
+              states, and full styling customization. Designed for chat apps,
+              forms, and content-heavy inputs.
+            </p>
           </header>
 
           {/* Import */}
@@ -472,9 +473,7 @@ const TextareaDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with React + Tailwind + TypeScript.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

@@ -18,6 +18,7 @@ import {
   Database,
 } from "lucide-react";
 import CodeBlock from "../../components/Docs/CodeBlock";
+import { Link } from "react-router-dom";
 
 const ContainerDocs = () => {
   return (
@@ -29,24 +30,40 @@ const ContainerDocs = () => {
 
       <div className="min-h-screen">
         <div className="space-y-14">
-          {/* ---------------- Header ---------------- */}
-          <header className="space-y-4">
-            <h1 className="text-4xl font-extrabold text-white">
+          {/* Header */}
+          <header>
+            <h1 className="text-4xl font-extrabold mb-3 text-white">
               Container Component
             </h1>
-            <p className="text-lg text-gray-200 max-w-3xl leading-relaxed">
+
+            <p className="text-sm leading-relaxed">
               The <span className="text-primary font-semibold">Container</span>{" "}
-              is a simple wrapper that controls{" "}
-              <strong>width, padding, and centering</strong>.
-              <br />
-              <br />
-              For layouts like{" "}
-              <strong>flex, grid, spacing, and responsiveness</strong>, you use
-              Tailwind classes via <code>className</code>.
+              component is a layout utility designed to control content width,
+              horizontal alignment, and spacing. It provides a simple and
+              consistent way to structure page sections while remaining fully
+              flexible for custom layouts and styling.
             </p>
+
+            <p className="text-sm text-gray-300 mt-3 leading-relaxed">
+              Use <code>size</code> to define max-width constraints,
+              <code>padding</code> for internal spacing, and <code>center</code>{" "}
+              to automatically align content horizontally. Combine it with{" "}
+              <code>className</code> or <code>style</code> for complete layout
+              control.
+            </p>
+
+            <div className="mt-5 flex gap-3">
+              <Link
+                to="/docs/layout-playground"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white font-medium hover:opacity-90 transition"
+              >
+                Open Layout Playground
+                <ArrowRight size={16} />
+              </Link>
+            </div>
           </header>
 
-                    {/* Import */}
+          {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
               Import Component From Library
@@ -71,6 +88,165 @@ const ContainerDocs = () => {
                 </Container>
               }
             />
+          </section>
+
+          {/* ---------------- Layout Recipes ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Layout Recipes
+            </h2>
+
+            <p className="text-gray-400 mb-6 text-sm">
+              Use <code>Container</code> with utility classes to quickly build
+              common layouts. Below are reusable patterns you can copy directly
+              into your projects.
+            </p>
+
+            <div className="space-y-10">
+              {/* Flex Row */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Flex Row (Space Between)
+                </h3>
+
+                <CodePreviewBlock
+                  language="tsx"
+                  code={`<Container className="flex items-center justify-between p-4 bg-zinc-800 rounded-lg">
+  <div>Logo</div>
+  <div>Actions</div>
+</Container>`}
+                  previewContent={
+                    <Container className="flex items-center justify-between p-4 bg-zinc-800 rounded-lg text-white">
+                      <div>Logo</div>
+                      <div>Actions</div>
+                    </Container>
+                  }
+                />
+              </div>
+
+              {/* Flex Center */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Flex Center (Perfect Centering)
+                </h3>
+
+                <CodePreviewBlock
+                  language="tsx"
+                  code={`<Container className="flex items-center justify-center h-40 bg-zinc-900 rounded-lg">
+  Centered Content
+</Container>`}
+                  previewContent={
+                    <Container className="flex items-center justify-center h-40 bg-zinc-900 rounded-lg text-white">
+                      Centered Content
+                    </Container>
+                  }
+                />
+              </div>
+
+              {/* Flex Column */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Flex Column (Stacked Layout)
+                </h3>
+
+                <CodePreviewBlock
+                  language="tsx"
+                  code={`<Container className="flex flex-col gap-3 p-4 bg-zinc-800 rounded-lg">
+  <div>Header</div>
+  <div>Content</div>
+  <div>Footer</div>
+</Container>`}
+                  previewContent={
+                    <Container className="flex flex-col gap-3 p-4 bg-zinc-800 rounded-lg text-white">
+                      <div>Header</div>
+                      <div>Content</div>
+                      <div>Footer</div>
+                    </Container>
+                  }
+                />
+              </div>
+
+              {/* Grid 2 Columns */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Grid (2 Columns)
+                </h3>
+
+                <CodePreviewBlock
+                  language="tsx"
+                  code={`<Container className="grid grid-cols-2 gap-4 p-4 bg-zinc-900 rounded-lg">
+  <div className="bg-blue-500 p-3 rounded">1</div>
+  <div className="bg-green-500 p-3 rounded">2</div>
+</Container>`}
+                  previewContent={
+                    <Container className="grid grid-cols-2 gap-4 p-4 bg-zinc-900 rounded-lg">
+                      <div className="bg-blue-500 p-3 rounded text-white text-center">
+                        1
+                      </div>
+                      <div className="bg-green-500 p-3 rounded text-white text-center">
+                        2
+                      </div>
+                    </Container>
+                  }
+                />
+              </div>
+
+              {/* Grid Responsive */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Responsive Grid
+                </h3>
+
+                <CodePreviewBlock
+                  language="tsx"
+                  code={`<Container className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-zinc-900 rounded-lg">
+  <div className="bg-blue-500 p-3 rounded">1</div>
+  <div className="bg-green-500 p-3 rounded">2</div>
+  <div className="bg-red-500 p-3 rounded">3</div>
+</Container>`}
+                  previewContent={
+                    <Container className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-zinc-900 rounded-lg">
+                      {[1, 2, 3].map((n) => (
+                        <div
+                          key={n}
+                          className="bg-blue-500 p-3 rounded text-white text-center"
+                        >
+                          {n}
+                        </div>
+                      ))}
+                    </Container>
+                  }
+                />
+              </div>
+
+              {/* Card Grid */}
+              <div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Card Grid Layout
+                </h3>
+
+                <CodePreviewBlock
+                  language="tsx"
+                  code={`<Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+  <div className="bg-zinc-800 p-4 rounded-lg">Card 1</div>
+  <div className="bg-zinc-800 p-4 rounded-lg">Card 2</div>
+  <div className="bg-zinc-800 p-4 rounded-lg">Card 3</div>
+</Container>`}
+                  previewContent={
+                    <Container className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+                      {[1, 2, 3].map((n) => (
+                        <div
+                          key={n}
+                          className="bg-zinc-800 p-4 rounded-lg text-white"
+                        >
+                          Card {n}
+                        </div>
+                      ))}
+                    </Container>
+                  }
+                />
+              </div>
+            </div>
           </section>
 
           {/* ---------------- Div Behavior ---------------- */}

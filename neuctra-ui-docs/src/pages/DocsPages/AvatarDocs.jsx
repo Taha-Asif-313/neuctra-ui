@@ -6,6 +6,7 @@ import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Avatar } from "@neuctra/ui";
 import { AlertTriangle, Check, User, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const AvatarDocs = () => {
   return (
@@ -34,7 +35,7 @@ const AvatarDocs = () => {
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock code={`import { Avatar } from "@neuctra/ui";`} />
           </section>
@@ -342,11 +343,7 @@ const AvatarDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className=" ">React</span>,{" "}
-            <span className=" ">Tailwind CSS</span> &{" "}
-            <span className=" ">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

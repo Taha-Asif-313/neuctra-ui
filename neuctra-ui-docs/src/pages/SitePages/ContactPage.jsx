@@ -1,143 +1,163 @@
 "use client";
-import { Mail, Github, Twitter, Linkedin, Send } from "lucide-react";
+import React from "react";
+import {
+  Mail,
+  Github,
+  Twitter,
+  Linkedin,
+  Send,
+  ArrowRight,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button, Container, Input, Textarea } from "@neuctra/ui";
+import Metadata from "../../MetaData";
+
+const channels = [
+  {
+    title: "Email",
+    value: "contact@neuctraui.com",
+    href: "mailto:contact@neuctraui.com",
+    icon: <Mail className="h-5 w-5 text-primary" />,
+    helper: "For support, partnerships, and product feedback.",
+  },
+  {
+    title: "GitHub",
+    value: "github.com/Taha-Asif-313/neuctra",
+    href: "https://github.com/Taha-Asif-313/neuctra",
+    icon: <Github className="h-5 w-5 text-primary" />,
+    helper: "Issues, discussions, and open-source contributions.",
+  },
+  {
+    title: "Twitter / X",
+    value: "@neuctraui",
+    href: "https://twitter.com/neuctraui",
+    icon: <Twitter className="h-5 w-5 text-primary" />,
+    helper: "Release updates, design tips, and announcements.",
+  },
+  {
+    title: "LinkedIn",
+    value: "Neuctra UI",
+    href: "https://www.linkedin.com",
+    icon: <Linkedin className="h-5 w-5 text-primary" />,
+    helper: "Professional updates and collaborations.",
+  },
+];
 
 export default function ContactPage() {
   return (
-    <div className="bg-zinc-950 text-gray-100 min-h-screen pt-24 pb-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-3">
-            Let's Connect
-          </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            Have a question or want to work together? Reach out through any of these channels.
-          </p>
-        </div>
+    <>
+      <Metadata
+        title="Contact — Neuctra UI"
+        description="Get in touch with the Neuctra UI team for support, feedback, contributions, and collaboration."
+      />
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-          <div className="bg-zinc-800/50 backdrop-blur-sm p-8 rounded-2xl border border-zinc-700/50 shadow-lg">
-            <h2 className="text-2xl font-bold text-white mb-8 relative after:content-[''] after:absolute after:left-0 after:bottom-[-8px] after:w-12 after:h-1 after:bg-primary after:rounded-full">
-              Contact Info
-            </h2>
+      <div className="text-gray-100 min-h-screen pt-14 pb-16">
+        <Container className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0 space-y-10">
+          <section className="relative overflow-hidden rounded-2xl border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950 p-8 md:p-10">
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(0,194,20,0.14),transparent_45%)]" />
+            <div className="relative space-y-4">
+              <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                Contact
+              </span>
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white">
+                Let&apos;s build something great together
+              </h1>
+              <p className="text-zinc-300 text-base md:text-lg max-w-3xl leading-relaxed">
+                Reach out for component support, product feedback, bug reports,
+                or collaboration opportunities. We usually respond within 1-2
+                business days.
+              </p>
+              <Link to="/docs">
+                <Button variant="outline" iconAfter={<ArrowRight size={16} />}>
+                  Explore Documentation
+                </Button>
+              </Link>
+            </div>
+          </section>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4 p-4 hover:bg-zinc-700/30 rounded-xl transition-all duration-300">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Mail className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-1">Email</h3>
+          <section className="grid lg:grid-cols-2 gap-8">
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6 md:p-7">
+              <h2 className="text-2xl font-semibold text-white mb-5">
+                Contact Channels
+              </h2>
+              <div className="space-y-3">
+                {channels.map((channel) => (
                   <a
-                    href="mailto:contact@neuctraui.com"
-                    className="text-gray-400 hover:text-primary transition-colors"
+                    key={channel.title}
+                    href={channel.href}
+                    target={
+                      channel.href.startsWith("http") ? "_blank" : undefined
+                    }
+                    rel={
+                      channel.href.startsWith("http")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="block rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
                   >
-                    contact@neuctraui.com
+                    <div className="flex items-start gap-3">
+                      <div className="rounded-lg bg-primary/10 p-2.5">
+                        {channel.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-white">
+                          {channel.title}
+                        </h3>
+                        <p className="text-sm text-zinc-300 mt-0.5">
+                          {channel.value}
+                        </p>
+                        <p className="text-xs text-zinc-400 mt-1">
+                          {channel.helper}
+                        </p>
+                      </div>
+                    </div>
                   </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 hover:bg-zinc-700/30 rounded-xl transition-all duration-300">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Github className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-1">
-                    GitHub
-                  </h3>
-                  <a
-                    href="https://github.com/Taha-Asif-313/neuctra"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-primary transition-colors"
-                  >
-                    github.com/Taha-Asif-313/neuctra
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 hover:bg-zinc-700/30 rounded-xl transition-all duration-300">
-                <div className="bg-primary/10 p-3 rounded-lg">
-                  <Twitter className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-1">
-                    Twitter
-                  </h3>
-                  <a
-                    href="https://twitter.com/neuctraui"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-primary transition-colors"
-                  >
-                    @neuctraui
-                  </a>
-                </div>
+                ))}
               </div>
             </div>
-          </div>
 
-          <div className="bg-zinc-800/50 backdrop-blur-sm p-8 rounded-2xl border border-zinc-700/50 shadow-lg">
-            <h2 className="text-2xl font-bold text-white mb-8 relative after:content-[''] after:absolute after:left-0 after:bottom-[-8px] after:w-12 after:h-1 after:bg-primary after:rounded-full">
-              Send a Message
-            </h2>
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6 md:p-7">
+              <h2 className="text-2xl font-semibold text-white mb-5">
+                Send a Message
+              </h2>
 
-            <form className="space-y-5">
-              <div className="space-y-1">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="w-full bg-zinc-700/50 border border-zinc-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                  placeholder="Your name"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="w-full bg-zinc-700/50 border border-zinc-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-300"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  className="w-full bg-zinc-700/50 border border-zinc-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                  placeholder="Your message here..."
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-medium px-6 py-3 rounded-lg transition-all duration-300 w-full sm:w-auto"
+              <form
+                className="space-y-4"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                }}
               >
-                <Send className="h-4 w-4" />
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
+                <Input
+                  label="Name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                />
+
+                <Input
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="you@company.com"
+                  required
+                />
+
+                <Textarea
+                  label="Message"
+                  name="message"
+                  rows={6}
+                  placeholder="Tell us what you are building and how we can help."
+                  required
+                />
+
+                <Button type="submit" iconBefore={<Send className="h-4 w-4" />}>
+                  Send Message
+                </Button>
+              </form>
+            </div>
+          </section>
+        </Container>
       </div>
-    </div>
+    </>
   );
 }

@@ -12,13 +12,22 @@ import React, {
 import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
 
 type AlertType = "success" | "error" | "warning" | "info";
+type ToastVariant = "soft" | "light" | "dark";
 
 interface Toast {
   id: string;
   title?: string;
   description?: string;
   type?: AlertType;
+  variant?: ToastVariant;
   duration?: number;
+
+  className?: string;
+  style?: React.CSSProperties;
+
+  titleClassName?: string;
+  descriptionClassName?: string;
+  iconClassName?: string;
 }
 
 interface ToastContextProps {
@@ -62,6 +71,7 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
       const toastData: Toast = {
         id,
         type: "info",
+        variant: "soft",
         duration: 4000,
         ...options,
       };
@@ -115,43 +125,86 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-const typeConfig: Record<
-  AlertType,
-  {
-    bg: string;
-    border: string;
-    text: string;
-    iconColor: string;
-    icon: React.ElementType;
-  }
-> = {
-  success: {
-    bg: "bg-white dark:bg-green-950/70",
-    border: "border-green-500/40",
-    text: "text-green-600 dark:text-green-400",
-    iconColor: "text-green-500",
-    icon: CheckCircle,
+const variantStyles = {
+  soft: {
+    success: {
+      bg: "bg-green-500/10 dark:bg-green-500/15",
+      border: "border-green-500/30",
+      text: "text-green-600 dark:text-green-400",
+      icon: "text-green-500",
+    },
+    error: {
+      bg: "bg-red-500/10 dark:bg-red-500/15",
+      border: "border-red-500/30",
+      text: "text-red-600 dark:text-red-400",
+      icon: "text-red-500",
+    },
+    warning: {
+      bg: "bg-yellow-500/10 dark:bg-yellow-500/15",
+      border: "border-yellow-500/30",
+      text: "text-yellow-600 dark:text-yellow-400",
+      icon: "text-yellow-500",
+    },
+    info: {
+      bg: "bg-blue-500/10 dark:bg-blue-500/15",
+      border: "border-blue-500/30",
+      text: "text-blue-600 dark:text-blue-400",
+      icon: "text-blue-500",
+    },
   },
-  error: {
-    bg: "bg-white dark:bg-red-950/80",
-    border: "border-red-500/40",
-    text: "text-red-600 dark:text-red-400",
-    iconColor: "text-red-500",
-    icon: AlertCircle,
+
+  light: {
+    success: {
+      bg: "bg-white dark:bg-green-950/70",
+      border: "border-green-500/40",
+      text: "text-green-600 dark:text-green-400",
+      icon: "text-green-500",
+    },
+    error: {
+      bg: "bg-white dark:bg-red-950/80",
+      border: "border-red-500/40",
+      text: "text-red-600 dark:text-red-400",
+      icon: "text-red-500",
+    },
+    warning: {
+      bg: "bg-white dark:bg-yellow-950/80",
+      border: "border-yellow-500/40",
+      text: "text-yellow-600 dark:text-yellow-400",
+      icon: "text-yellow-500",
+    },
+    info: {
+      bg: "bg-white dark:bg-blue-950/80",
+      border: "border-blue-500/40",
+      text: "text-blue-600 dark:text-blue-400",
+      icon: "text-blue-500",
+    },
   },
-  warning: {
-    bg: "bg-white dark:bg-yellow-950/80",
-    border: "border-yellow-500/40",
-    text: "text-yellow-600 dark:text-yellow-400",
-    iconColor: "text-yellow-500",
-    icon: AlertTriangle,
-  },
-  info: {
-    bg: "bg-white dark:bg-blue-950/80",
-    border: "border-blue-500/40",
-    text: "text-blue-600 dark:text-blue-400",
-    iconColor: "text-blue-500",
-    icon: Info,
+
+  dark: {
+    success: {
+      bg: "bg-green-600 text-white",
+      border: "border-green-700",
+      text: "text-white",
+      icon: "text-white",
+    },
+    error: {
+      bg: "bg-red-600 text-white",
+      border: "border-red-700",
+      text: "text-white",
+      icon: "text-white",
+    },
+    warning: {
+      bg: "bg-yellow-500 text-black",
+      border: "border-yellow-600",
+      text: "text-black",
+      icon: "text-black",
+    },
+    info: {
+      bg: "bg-blue-600 text-white",
+      border: "border-blue-700",
+      text: "text-white",
+      icon: "text-white",
+    },
   },
 };
 
@@ -159,9 +212,28 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
   toast,
   onClose,
 }) => {
-  const { title, description, type = "info" } = toast;
-  const config = typeConfig[type];
-  const Icon = config.icon;
+  const {
+    title,
+    description,
+    type = "info",
+    variant = "soft",
+    className,
+    style,
+    titleClassName,
+    descriptionClassName,
+    iconClassName,
+  } = toast;
+
+  const config = variantStyles[variant][type];
+
+  const IconMap = {
+    success: CheckCircle,
+    error: AlertCircle,
+    warning: AlertTriangle,
+    info: Info,
+  };
+
+  const Icon = IconMap[type];
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -174,50 +246,39 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
   return (
     <div
       className={`
-  group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-2 rounded-xl
-  ${config.bg} p-4 pr-10
-  shadow-md dark:shadow-black/40
-  transition-all duration-300 ease-out
-  animate-in slide-in-from-right-full fade-in
-  hover:scale-[1.03] hover:shadow-lg
-`}
+        ${className || ""}
+        group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-2 rounded-xl
+        border ${config.border} ${config.bg}
+        p-4 pr-10
+        shadow-md dark:shadow-black/40
+        transition-all duration-300 ease-out
+        animate-in slide-in-from-right-full fade-in
+        hover:scale-[1.03] hover:shadow-lg
+      `}
+      style={style}
       role="alert"
     >
-      <Icon className={`h-5 w-5 shrink-0 ${config.iconColor}`} />
+      <Icon
+        className={` ${iconClassName || ""} h-5 w-5 shrink-0 ${config.icon}`}
+      />
 
       <div className="flex-1">
         {title && (
           <div
-            className={`text-sm font-normal ${
-              description
-                ? config.text // normal colored title
-                : "text-zinc-900 dark:text-white" // simple toast = white/neutral
-            }`}
+            className={`${titleClassName || ""} text-sm font-medium ${config.text}`}
           >
             {title}
           </div>
         )}
 
         {description && (
-          <div className="text-sm text-zinc-500 dark:text-zinc-300">
+          <div
+            className={`${descriptionClassName || ""} text-sm text-zinc-500 dark:text-zinc-300 `}
+          >
             {description}
           </div>
         )}
       </div>
-
-      <button
-        onClick={onClose}
-        className={`
-          absolute top-3 right-3 rounded-full p-1
-          text-zinc-400 hover:text-zinc-700
-          dark:text-zinc-500 dark:hover:text-zinc-200
-          transition-colors
-          focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500
-        `}
-        aria-label="Close toast"
-      >
-        <X className="h-4 w-4" />
-      </button>
     </div>
   );
 };

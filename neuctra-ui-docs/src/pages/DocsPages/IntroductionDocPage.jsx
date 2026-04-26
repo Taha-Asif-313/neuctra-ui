@@ -1,12 +1,12 @@
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import {
-  Sparkles,
   Rocket,
   Palette,
   Component,
   Terminal,
   ArrowRight,
+  Lightbulb,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -22,9 +22,8 @@ const IntroductionDocPage = () => {
         <div className="space-y-12">
           {/* ================= HERO ================= */}
           <section>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-              Build modern UIs with{" "}
-              <span className="text-primary">Neuctra UI</span>
+            <h1 className="text-4xl font-extrabold text-white leading-tight">
+              Build modern UIs with <code className="text-primary">@neuctra/ui</code>
             </h1>
 
             <p className="mt-4 text-zinc-200 max-w-2xl leading-relaxed">
@@ -49,7 +48,10 @@ const IntroductionDocPage = () => {
               theme system, and wraps your app with providers.
             </p>
 
-            <CodeBlock language="bash" code={`npx @neuctra/ui-cli@latest init`} />
+            <CodeBlock
+              language="bash"
+              code={`npx @neuctra/ui-cli@latest init`}
+            />
           </section>
 
           {/* ================= FEATURES ================= */}
@@ -121,7 +123,7 @@ export default function App() {
           {/* ================= NEXT STEP ================= */}
           <section className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl space-y-3">
             <div className="flex items-center gap-2">
-              <Sparkles className="text-primary" size={18} />
+              <Lightbulb className="text-primary" size={18} />
               <h3 className="text-lg font-semibold text-white">What’s Next?</h3>
             </div>
 

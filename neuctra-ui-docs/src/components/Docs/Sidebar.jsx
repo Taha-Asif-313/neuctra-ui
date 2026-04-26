@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, X, Search } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,9 +73,7 @@ const Sidebar = () => {
 
     {
       title: "Resources",
-      links: [
-        { label: "About", href: "/about" },
-      ],
+      links: [{ label: "About", href: "/about" }],
     },
   ];
 
@@ -126,7 +124,7 @@ const Sidebar = () => {
         }`}
       >
         <div className="px-5 pt-6 pb-4 border-b border-zinc-800">
-          <div className="flex items-center gap-3">
+          <Link to={"/"} className="flex items-center gap-3">
             {/* Logo */}
             <img
               src="/logo.png"
@@ -147,11 +145,11 @@ const Sidebar = () => {
                 <span className="text-xs text-gray-400">v0.2</span>
               </div>
 
-              <span className="text-[11px] text-gray-400 tracking-wide">
+              <span className="text-[11px] text-gray-300 tracking-wide">
                 Documentation
               </span>
             </div>
-          </div>
+          </Link>
         </div>
 
         {/* Search Input */}

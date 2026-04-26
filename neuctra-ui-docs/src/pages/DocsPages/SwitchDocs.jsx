@@ -5,7 +5,8 @@ import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";
 import { Switch } from "@neuctra/ui";
-import { Check, X, Lightbulb } from "lucide-react";
+import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const SwitchDocs = () => {
   const [values, setValues] = useState(["react"]);
@@ -607,9 +608,7 @@ const SwitchDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-zinc-800 text-sm text-gray-400">
-            Built with React + Tailwind CSS
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

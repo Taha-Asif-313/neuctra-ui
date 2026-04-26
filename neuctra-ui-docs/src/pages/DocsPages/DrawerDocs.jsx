@@ -15,6 +15,7 @@ import {
   DrawerTriggerButton,
 } from "@neuctra/ui";
 import { Menu, Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 /* ---------------- Helper component per drawer example ---------------- */
 const DrawerExample = ({
@@ -112,7 +113,7 @@ const DrawerDocs = () => {
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock
               language="tsx"
@@ -632,9 +633,7 @@ const [open, setOpen] = useState(false);
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with React, Tailwind CSS & TypeScript.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

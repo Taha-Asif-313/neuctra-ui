@@ -6,6 +6,7 @@ import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Badge } from "@neuctra/ui";
 import { Check, User, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const BadgeDocs = () => {
   return (
@@ -34,7 +35,7 @@ const BadgeDocs = () => {
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
-              Import Component
+              Import Component From Library
             </h2>
             <CodeBlock code={`import { Badge } from "@neuctra/ui";`} />
           </section>
@@ -93,6 +94,7 @@ const BadgeDocs = () => {
             </div>
           </section>
 
+          {/* Variant Examples */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">Variants</h2>
 
@@ -403,11 +405,7 @@ const BadgeDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-gray-800 text-sm text-gray-400">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>

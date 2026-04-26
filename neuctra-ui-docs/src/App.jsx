@@ -47,6 +47,7 @@ import IntroductionDocPage from "./pages/DocsPages/IntroductionDocPage";
 import QuickStartDocsPage from "./pages/DocsPages/QuickStartDocsPage";
 import FullSetupDocPage from "./pages/DocsPages/FullSetupDocPage";
 import DropdownDocs from "./pages/DocsPages/DropdownDocs";
+import LayoutPlayground from "./pages/DocsPages/LayoutPlayground";
 
 const App = () => {
   return (
@@ -83,6 +84,7 @@ const App = () => {
           <Route path="switch" element={<SwitchGroupDocs />} />
           <Route path="select" element={<SelectDocs />} />
           <Route path="container" element={<ContainerDocs />} />
+          <Route path="layout-playground" element={<LayoutPlayground />} />
           <Route path="drawer" element={<DrawerDocs />} />
           <Route path="textarea" element={<TextareaDocs />} />
           <Route path="alert" element={<AlertDocs />} />

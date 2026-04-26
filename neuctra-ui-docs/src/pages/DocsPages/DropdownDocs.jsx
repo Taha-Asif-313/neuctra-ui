@@ -6,6 +6,7 @@ import { Dropdown } from "@neuctra/ui";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import { Edit, Trash2, Copy, Eye, Check, X } from "lucide-react";
+import DocsFooter from "../../components/Docs/DocsFooter";
 
 const DropdownDocs = () => {
   const [controlledOpen, setControlledOpen] = useState(false);
@@ -439,11 +440,7 @@ const DropdownDocs = () => {
           </section>
 
           {/* Footer */}
-          <footer className="pt-8 border-t border-border text-sm text-foreground">
-            Built with <span className="text-primary">React</span>,{" "}
-            <span className="text-primary">Tailwind CSS</span> &{" "}
-            <span className="text-primary">TypeScript</span>.
-          </footer>
+          <DocsFooter />
         </div>
       </div>
     </>
