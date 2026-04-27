@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Metadata from "../../MetaData";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
@@ -12,9 +12,57 @@ import {
   ModalFooter,
   ModalButton,
   ModalTriggerButton,
+  Button,
 } from "@neuctra/ui";
-import { Trash2} from "lucide-react";
+import { Trash2 } from "lucide-react";
 import DocsFooter from "../../components/Docs/DocsFooter";
+
+const ControlledModalPreview = () => {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button className="bg-destructive!" onClick={() => setOpen(true)}>
+        Delete
+      </Button>
+ 
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <ModalContent
+          className="w-full max-w-md"
+          onClose={() => setOpen(false)}
+        >
+          <ModalHeader
+            title="Delete Item"
+            onClose={() => setOpen(false)}
+            icon={
+              <div className="p-2 rounded-lg text-destructive bg-destructive/10">
+                <Trash2 size={18} />
+              </div>
+            }
+          />
+
+          <ModalBody>Are you sure you want to delete this item?</ModalBody>
+
+          <ModalFooter>
+            <Button variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+
+            <Button
+              className="bg-destructive!"
+              onClick={() => {
+                alert("Deleted");
+                setOpen(false);
+              }}
+            >
+              Confirm
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+};
 
 const ModalDocs = () => {
   return (
@@ -71,95 +119,55 @@ const ModalDocs = () => {
             />
           </section>
 
-          {/* Basic Example */}
+          {/* Basic Example (Controlled Modal) */}
           <section>
             <h2 className="text-2xl font-semibold mb-4">Basic Example</h2>
 
             <CodePreviewBlock
               language="jsx"
-              code={`<ModalTriggerButton
-  variant="default"
-  modalContent={({ close }) => (
-    <ModalContent className="w-full max-w-md" onClose={close}>
-      <ModalHeader
-        title="Delete Item"
-        onClose={close}
-        icon={<Trash2 size={20} className="text-destructive" />}
-      />
+              code={`const [open, setOpen] = useState(false);
 
-      <ModalBody>
-        Are you sure you want to delete this item?
-      </ModalBody>
-
-      <ModalFooter>
-        <ModalButton
-          variant="ghost"
-          onClose={close}
-          closeOnClick
-        >
-          Cancel
-        </ModalButton>
-
-        <ModalButton
-          variant="default"
-          className="bg-destructive!"
-          closeOnClick
-          onClose={close}
-          action={() => alert("Deleted")}
-        >
-          Confirm
-        </ModalButton>
-      </ModalFooter>
-    </ModalContent>
-  )}
->
+<Button onClick={() => setOpen(true)}>
   Delete
-</ModalTriggerButton>`}
-              previewContent={
-                <ModalTriggerButton
-                  variant="default"
-                  className="bg-destructive!"
-                  modalContent={({ close }) => (
-                    <ModalContent className="w-full max-w-md" onClose={close}>
-                      <ModalHeader
-                        title="Delete Item"
-                        onClose={close}
-                        icon={
-                          <div className="p-2 rounded-lg text-destructive bg-destructive/10">
-                            <Trash2 size={18} />
-                          </div>
-                        }
-                      />
+</Button>
 
-                      <ModalBody>
-                        Are you sure you want to delete this item?
-                      </ModalBody>
+<Modal isOpen={open} onClose={() => setOpen(false)}>
+  <ModalContent
+    className="w-full max-w-md"
+    onClose={() => setOpen(false)}
+  >
+    <ModalHeader
+      title="Delete Item"
+      onClose={() => setOpen(false)}
+      icon={<Trash2 size={18} />}
+    />
 
-                      <ModalFooter>
-                        <ModalButton
-                          variant="ghost"
-                          onClose={close}
-                          closeOnClick
-                        >
-                          Cancel
-                        </ModalButton>
+    <ModalBody>
+      Are you sure you want to delete this item?
+    </ModalBody>
 
-                        <ModalButton
-                          variant="default"
-                          className="bg-destructive!"
-                          closeOnClick
-                          onClose={close}
-                          action={() => alert("Deleted")}
-                        >
-                          Confirm
-                        </ModalButton>
-                      </ModalFooter>
-                    </ModalContent>
-                  )}
-                >
-                  Delete
-                </ModalTriggerButton>
-              }
+    <ModalFooter>
+      <ModalButton
+        variant="ghost"
+        onClick={() => setOpen(false)}
+      >
+        Cancel
+      </ModalButton>
+
+      <ModalButton
+        variant="default"
+        className="bg-destructive!"
+        onClick={() => {
+          alert("Deleted");
+          setOpen(false);
+        }}
+      >
+        Confirm
+      </ModalButton>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`}
+              previewContent={<ControlledModalPreview />}
             />
           </section>
 

@@ -18,39 +18,33 @@ import { Menu, Check, X } from "lucide-react";
 import DocsFooter from "../../components/Docs/DocsFooter";
 
 /* ---------------- Helper component per drawer example ---------------- */
-const DrawerExample = ({
-  label = "Open Drawer",
-  position = "right",
-  children,
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
+const ControlledDrawerPreview = () => {
+  const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="flex items-center justify-center">
-      <DrawerButton
-        label={label}
-        className="gap-2"
-        icon={<Menu size={20} />}
-        onClick={() => setIsOpen(true)}
-      />
+    <>
+      <Button onClick={() => setOpen(true)}>Open Drawer</Button>
 
-      <Drawer
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        position={position}
-      >
-        {children ? (
-          children
-        ) : (
-          <div className="p-6">
-            <h2 className="text-lg font-semibold mb-2">{position} Drawer</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Hello from {position} drawer 👋
+      <Drawer isOpen={open} onClose={() => setOpen(false)} position="left">
+        <DrawerContent>
+          <DrawerHeader title="Manual Drawer" onClose={() => setOpen(false)} />
+
+          <DrawerBody>
+            <p className="text-zinc-300">
+              This is a controlled drawer example 👋
             </p>
-          </div>
-        )}
+          </DrawerBody>
+
+          <DrawerFooter>
+            <Button variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+
+            <Button onClick={() => setOpen(false)}>Save</Button>
+          </DrawerFooter>
+        </DrawerContent>
       </Drawer>
-    </div>
+    </>
   );
 };
 
@@ -133,14 +127,16 @@ import { DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@neuctra/
 
             <CodePreviewBlock
               language="tsx"
-              code={`// Simple approach with DrawerTriggerButton
+              code={`// 1. Trigger-based (Simple)
 <DrawerTriggerButton
   drawerContent={({ close }) => (
     <DrawerContent>
       <DrawerHeader title="My Drawer" onClose={close} />
+
       <DrawerBody>
         <p>Hello from Drawer! 👋</p>
       </DrawerBody>
+
       <DrawerFooter>
         <Button onClick={close}>Close</Button>
       </DrawerFooter>
@@ -150,42 +146,36 @@ import { DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@neuctra/
   Open Drawer
 </DrawerTriggerButton>
 
-// Manual control approach
-const [isOpen, setIsOpen] = useState(false);
+// 2. Controlled Drawer (Recommended for apps)
+const [open, setOpen] = useState(false);
 
-<DrawerButton label="Open Drawer" onClick={() => setIsOpen(true)} />
+<Button onClick={() => setOpen(true)}>
+  Open Drawer
+</Button>
 
-<Drawer
-  isOpen={isOpen}
-  onClose={() => setIsOpen(false)}
-  position="right"
->
-  <div className="p-6">
-    <h2 className="text-lg font-semibold">Manual Drawer</h2>
-    <p>Hello from drawer!</p>
-  </div>
+<Drawer isOpen={open} onClose={() => setOpen(false)} position="left">
+  <DrawerContent>
+    <DrawerHeader
+      title="Manual Drawer"
+      onClose={() => setOpen(false)}
+    />
+
+    <DrawerBody>
+      <p>This is a controlled drawer example.</p>
+    </DrawerBody>
+
+    <DrawerFooter>
+      <Button variant="ghost" onClick={() => setOpen(false)}>
+        Cancel
+      </Button>
+
+      <Button onClick={() => setOpen(false)}>
+        Save
+      </Button>
+    </DrawerFooter>
+  </DrawerContent>
 </Drawer>`}
-              previewContent={
-                <DrawerTriggerButton
-                  variant="default"
-                  drawerContent={({ close }) => (
-                    <DrawerContent>
-                      <DrawerHeader title="My Drawer" onClose={close} />
-
-                      <DrawerBody>Hello from Drawer</DrawerBody>
-
-                      <DrawerFooter>
-                        <Button variant="ghost" onClick={close}>
-                          Cancel
-                        </Button>
-                        <Button onClick={close}>Save</Button>
-                      </DrawerFooter>
-                    </DrawerContent>
-                  )}
-                >
-                  Open Drawer
-                </DrawerTriggerButton>
-              }
+              previewContent={<ControlledDrawerPreview />}
             />
           </section>
 
