@@ -18,7 +18,8 @@ export interface SelectOption {
   label: string;
   value: string;
   icon?: React.ReactNode;
-  description?: string; // ✅ ADD THIS
+  description?: string;
+  onClick?: (option: SelectOption, event: React.MouseEvent) => void;
 }
 
 export interface SelectProps {
@@ -26,6 +27,7 @@ export interface SelectProps {
   name?: string;
   value?: string | string[];
   showDescription?: boolean;
+  showCheckIcon?: boolean;
   defaultValue?: string | string[];
   onValueChange?: (value: string | string[], name?: string) => void;
   options?: SelectOption[];
@@ -91,6 +93,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     helperText,
     multiple = false,
     showDescription = false,
+      showCheckIcon = true,
 
     labelIcon: LabelIcon,
     prefixIcon: PrefixIcon,
@@ -215,8 +218,10 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   }, [filteredOptions, open]);
 
   const handleSelect = useCallback(
-    (opt: SelectOption) => {
+    (opt: SelectOption, e?: React.MouseEvent) => {
       if (disabled) return;
+
+      opt.onClick?.(opt, e!);
 
       let newValue: string | string[];
 
@@ -316,7 +321,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
   const hasError = Boolean(error);
   const hasValue = selectedLabels.length > 0;
-  const helperTextId = helperText || error ? name || generatedHelperTextId : undefined;
+  const helperTextId =
+    helperText || error ? name || generatedHelperTextId : undefined;
 
   return (
     <div
@@ -408,9 +414,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.12 }}
               className={clsx(
+                dropdownClassName,
                 "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden",
                 "bg-background border border-border",
-                dropdownClassName,
               )}
               style={dropdownStyle}
               role="listbox"
@@ -448,14 +454,14 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                     return (
                       <li
                         key={opt.value}
-                        onClick={() => handleSelect(opt)}
+                        onClick={(e) => handleSelect(opt, e)}
                         role="option"
                         aria-selected={active}
                         className={clsx(
+                          itemClassName,
                           "flex items-center justify-between cursor-pointer transition-all relative hover:bg-accent",
                           sizeConfig[size].item,
-                          focused && "bg-accent/20",
-                          itemClassName,
+                          active && "bg-accent",
                         )}
                         style={{
                           ...itemStyle,
@@ -485,20 +491,20 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                           )}
                         </div>
 
-                        {active && (
-                          <div>
-                            <Check
-                              className={clsx(
-                                sizeConfig[size].checkIcon,
-                                checkIconClassName,
-                                "text-primary",
-                              )}
-                              style={{
-                                ...checkIconStyle,
-                              }}
-                            />
-                          </div>
-                        )}
+                     {showCheckIcon && active && (
+  <div>
+    <Check
+      className={clsx(
+        sizeConfig[size].checkIcon,
+        checkIconClassName,
+        "text-primary",
+      )}
+      style={{
+        ...checkIconStyle,
+      }}
+    />
+  </div>
+)}
                       </li>
                     );
                   })

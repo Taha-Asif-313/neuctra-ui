@@ -87,6 +87,41 @@ const SelectDocs = () => {
             </ul>
           </section>
 
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Option Structure
+            </h2>
+
+            <p className="text-gray-300 mb-4">
+              Each option in the Select component follows a structured format.
+              You can enhance options with icons, descriptions, and even attach
+              custom click handlers for advanced behaviors.
+            </p>
+
+            <CodeBlock
+              language="ts"
+              code={`type SelectOption = {
+  label: string; // Display text
+  value: string; // Unique value
+  icon?: React.ReactNode; // Optional icon
+  description?: string; // Optional secondary text
+  onClick?: (option, event) => void; // Custom click handler
+};`}
+            />
+
+            <div className="mt-4 text-sm text-gray-400 space-y-2">
+              <p>
+                <strong className="text-white">onClick:</strong> Trigger custom
+                logic when an option is clicked (e.g., navigation, analytics,
+                actions).
+              </p>
+              <p>
+                Note: The <code>onClick</code> runs <strong>before</strong>{" "}
+                selection logic.
+              </p>
+            </div>
+          </section>
+
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
@@ -188,6 +223,78 @@ function MultiSelectExample() {
                   onValueChange={setMultiValue}
                   multiple
                   placeholder="Select frameworks"
+                />
+              }
+            />
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Option Click Actions
+            </h2>
+
+            <p className="text-gray-300 mb-4">
+              You can attach custom click handlers to individual options for
+              advanced behaviors like logging, navigation, or triggering modals.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`const options = [
+  {
+    label: "Edit",
+    value: "edit",
+    onClick: () => console.log("Edit clicked"),
+  },
+  {
+    label: "Delete",
+    value: "delete",
+    onClick: () => console.log("Delete clicked"),
+  },
+];
+
+<Select options={options} />`}
+              previewContent={
+                <Select
+                  options={[
+                    {
+                      label: "Edit",
+                      value: "edit",
+                      onClick: () => console.log("Edit clicked"),
+                    },
+                    {
+                      label: "Delete",
+                      value: "delete",
+                      onClick: () => console.log("Delete clicked"),
+                    },
+                  ]}
+                  placeholder="Action menu"
+                />
+              }
+            />
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Hide Selection Indicator
+            </h2>
+
+            <p className="text-gray-300 mb-4">
+              Disable the check icon for a cleaner or menu-like appearance.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Select
+  options={sampleOptions}
+  showCheckIcon={false}
+  placeholder="No check icon"
+/>`}
+              previewContent={
+                <Select
+                  options={sampleOptions}
+                  showCheckIcon={false}
+                  placeholder="No check icon"
                 />
               }
             />
@@ -384,6 +491,16 @@ function SizeExample() {
                     <td className="p-3">false</td>
                     <td className="p-3">
                       Shows description text under each option.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">showCheckIcon</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">true</td>
+                    <td className="p-3">
+                      Controls visibility of the check icon for selected
+                      options.
                     </td>
                   </tr>
 
