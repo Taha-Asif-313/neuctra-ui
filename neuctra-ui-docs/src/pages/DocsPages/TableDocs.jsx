@@ -42,6 +42,44 @@ const TableDocs = () => {
             />
           </section>
 
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple table. The component provides responsive and
+              customizable data tables with striped rows, borders, and styling.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Table striped bordered>
+      <THead>
+        <TRow>
+          <TH>Name</TH>
+          <TH>Email</TH>
+        </TRow>
+      </THead>
+      <TBody>
+        <TRow>
+          <TD>John Doe</TD>
+          <TD>john@example.com</TD>
+        </TRow>
+        <TRow>
+          <TD>Jane Smith</TD>
+          <TD>jane@example.com</TD>
+        </TRow>
+      </TBody>
+    </Table>
+  );
+}`}
+            />
+          </section>
+
           {/* Basic Example */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">

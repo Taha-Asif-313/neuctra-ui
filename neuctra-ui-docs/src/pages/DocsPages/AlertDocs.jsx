@@ -13,6 +13,43 @@ const AlertDocsContent = () => {
 
   return (
     <>
+      {/* Import */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-2 text-white">
+          Import Component From Library
+        </h2>
+        <CodeBlock code={`import { useToast, ToastProvider } from "@neuctra/ui";`} />
+      </section>
+
+      {/* Basic Usage */}
+      <section>
+        <h2 className="text-2xl font-semibold mb-4 text-white">
+          Basic Usage Code
+        </h2>
+        <p className="text-gray-300 mb-4">
+          Start with a simple toast notification. The component provides a
+          global notification system that can be triggered from any component.
+        </p>
+        <CodeBlock
+          language="jsx"
+          code={`import { useToast } from '@neuctra/ui';
+
+function BasicExample() {
+  const { toast } = useToast();
+
+  const showToast = () => {
+    toast('Hello, this is a toast notification!');
+  };
+
+  return (
+    <button onClick={showToast}>
+      Show Toast
+    </button>
+  );
+}`}
+        />
+      </section>
+
       {/* Setup */}
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Setup</h2>

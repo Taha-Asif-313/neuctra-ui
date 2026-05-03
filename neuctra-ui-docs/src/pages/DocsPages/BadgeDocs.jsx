@@ -43,6 +43,31 @@ const BadgeDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple badge. The component supports text, icons,
+              notification dots, and various sizes and variants for different use cases.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Badge } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Badge 
+      text="New"
+      variant="default"
+      size="md"
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock

@@ -16,6 +16,8 @@ const cssFileTemplate = `
 
 body {
   font-family: "Poppins", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 button {

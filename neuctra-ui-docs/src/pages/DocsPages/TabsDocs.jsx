@@ -95,9 +95,53 @@ const TabsDocs = () => {
             </p>
           </header>
 
-          <CodeBlock
-            code={`import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@neuctra/ui";`}
-          />
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component From Library
+            </h2>
+            <CodeBlock
+              code={`import { Tabs, Tab, TabList, TabPanels, TabPanel } from "@neuctra/ui";`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple tab system. The component provides flexible
+              tab navigation with multiple layouts and responsive behavior.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Tabs>
+      <TabList>
+        <Tab index={0}>Overview</Tab>
+        <Tab index={1}>Settings</Tab>
+        <Tab index={2}>Profile</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel index={0}>
+          <div className="p-6">Overview content</div>
+        </TabPanel>
+        <TabPanel index={1}>
+          <div className="p-6">Settings content</div>
+        </TabPanel>
+        <TabPanel index={2}>
+          <div className="p-6">Profile content</div>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  );
+}`}
+            />
+          </section>
 
           {/* ── Basic Usage ─────────────────────────────────────────────── */}
           <section>

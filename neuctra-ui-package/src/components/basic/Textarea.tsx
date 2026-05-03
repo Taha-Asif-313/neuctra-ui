@@ -56,7 +56,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       maxLength,
 
       autoResize = true,
-      minRows = 1,
+      minRows = 3,
       maxRows = 6,
 
       submitOnEnter,
@@ -128,13 +128,13 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     return (
       <div
-        className={`w-full space-y-1 ${containerClassName}`}
+        className={`w-full space-y-1.5 ${containerClassName}`}
         style={containerStyle}
       >
         {label && (
           <label
             htmlFor={name}
-            className={`flex items-center gap-2 text-[13px] font-medium ${labelClassName}`}
+            className={`flex items-center gap-2 text-[13px] leading-none font-medium ${labelClassName}`}
             style={labelStyle}
           >
             {Icon && <Icon size={14} />}
@@ -164,7 +164,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               resize-none transition-all duration-200 ease-out
               outline-none border
 
-              bg-background text-foreground
+              bg-input/30 text-foreground
               placeholder:text-muted-foreground
 
               border-border

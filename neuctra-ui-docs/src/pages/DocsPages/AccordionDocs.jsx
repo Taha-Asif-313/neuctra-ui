@@ -76,6 +76,38 @@ const AccordionDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple accordion. The component supports collapsible
+              content sections with customizable headers and icons.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Accordion } from '@neuctra/ui';
+
+function BasicExample() {
+  const items = [
+    {
+      title: "What is Neuctra UI?",
+      content: "Neuctra UI is a modern React component library.",
+    },
+    {
+      title: "Is it customizable?",
+      content: "Yes, fully customizable via className and styles.",
+    }
+  ];
+
+  return (
+    <Accordion items={items} />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock

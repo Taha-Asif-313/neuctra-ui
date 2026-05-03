@@ -45,6 +45,31 @@ const InputDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple input field. The component supports various
+              input types including text, password, email, number, and textarea.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Input } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Input
+      label="Name"
+      placeholder="Enter your name"
+      onChange={(e) => console.log(e.target.value)}
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock

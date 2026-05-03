@@ -71,10 +71,37 @@ const ContainerDocs = () => {
             <CodeBlock code={`import { Container } from "@neuctra/ui";`} />
           </section>
 
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple container. The component provides responsive
+              layout control with customizable width, padding, and alignment.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`import { Container } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Container 
+      size="md" 
+      center 
+      className="bg-zinc-800 p-4 rounded-lg"
+    >
+      Hello Developer! I am a container.
+    </Container>
+  );
+}`}
+            />
+          </section>
+
           {/* ---------------- Basic Usage ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold text-white mb-4">
-              Basic Usage
+              Basic Example
             </h2>
 
             <CodePreviewBlock

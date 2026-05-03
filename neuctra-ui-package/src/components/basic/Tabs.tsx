@@ -125,7 +125,6 @@ export const Tabs: React.FC<TabsProps> = ({
   hoverColor = "var(--primary)",
   borderColor = "#e5e7eb",
   disabledColor = "#9ca3af",
-  backgroundColor = "transparent",
 
   onTabChange,
   tabCount = 0,
@@ -288,8 +287,6 @@ export const TabList: React.FC<TabListProps> = ({
     mobileVariant,
     drawerOpen,
     setDrawerOpen,
-    primaryColor,
-    activeColor,
     radius,
     active,
   } = useTabsContext();
@@ -437,28 +434,10 @@ export const Tab: React.FC<TabProps> = ({
   icon,
   disabled = false,
   ariaLabel,
-  style,
   className,
-  activeStyle,
-  inactiveStyle,
 }) => {
-  const {
-    active,
-    setActive,
-    variant,
-    primaryColor,
-    activeColor,
-    textColor,
-    hoverColor,
-    borderColor,
-    disabledColor,
-    radius,
-    transitionDuration,
-    fullWidth,
-    tabCount,
-    isMobile,
-    mobileVariant,
-  } = useTabsContext();
+  const { active, setActive, variant, tabCount, isMobile, mobileVariant } =
+    useTabsContext();
 
   const selfIndexRef = useRef<number | undefined>(index);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -466,19 +445,21 @@ export const Tab: React.FC<TabProps> = ({
   const resolvedIndex = (): number => {
     if (selfIndexRef.current !== undefined) return selfIndexRef.current;
     if (!buttonRef.current) return 0;
+
     const list = buttonRef.current
       .closest("[role=tablist], .tab-drawer-menu")
       ?.querySelectorAll("[data-tab-button]");
+
     if (!list) return 0;
     return Array.from(list).indexOf(buttonRef.current);
   };
 
-  const [hovered, setHovered] = useState(false);
   const isActive = resolvedIndex() === active;
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     const count = tabCount || 1;
     const idx = resolvedIndex();
+
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
       e.preventDefault();
       setActive((idx + 1) % count);
@@ -488,48 +469,38 @@ export const Tab: React.FC<TabProps> = ({
     }
   };
 
-  const variantBase: CSSProperties =
-    variant === "outline"
-      ? { border: "1px solid var(--border)" }
-      : variant === "underline"
-        ? { borderBottom: "2px solid transparent", borderRadius: 0 }
-        : variant === "pill"
-          ? { borderRadius: 999 }
-          : { border: "none" };
-
-  const variantActive: CSSProperties =
-    variant === "solid" || variant === "pill"
-      ? {
-          background: "var(--primary)",
-          color: "var(--primary-foreground)",
-          boxShadow: "0 2px 8px var(--primary) / 0.25",
-        }
-      : variant === "outline"
-        ? {
-            borderColor: "var(--primary)",
-            color: "var(--primary)",
-            background: "var(--accent)",
-          }
-        : variant === "underline"
-          ? {
-              borderBottomColor: "var(--primary)",
-              color: "var(--primary)",
-            }
-          : {};
-
-  const variantHover: CSSProperties =
-    variant === "underline"
-      ? { color: "var(--foreground)" }
-      : {
-          background: "var(--accent)",
-          color: "var(--foreground)",
-        };
-
   const forceFullWidth =
     isMobile &&
     (mobileVariant === "stack" ||
       mobileVariant === "drawer" ||
       mobileVariant === "collapse");
+
+  // -----------------------------
+  // VARIANT CLASSES (TAILWIND ONLY)
+  // -----------------------------
+
+  const baseVariant =
+    variant === "outline"
+      ? "border border-border bg-transparent"
+      : variant === "underline"
+        ? "!border-b-2 border-transparent rounded-none"
+        : variant === "pill"
+          ? "!rounded-full"
+          : "border-none";
+
+  const activeVariant =
+    variant === "solid" || variant === "pill"
+      ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
+      : variant === "outline"
+        ? "border-primary text-primary !bg-primary/5"
+        : variant === "underline"
+          ? "!border-primary !text-primary"
+          : "";
+
+  const hoverVariant =
+    variant === "underline"
+      ? "hover:text-foreground"
+      : "hover:bg-accent hover:text-foreground";
 
   return (
     <button
@@ -541,29 +512,22 @@ export const Tab: React.FC<TabProps> = ({
       disabled={disabled}
       onClick={() => !disabled && setActive(resolvedIndex())}
       onKeyDown={handleKeyDown}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       className={clsx(
-        "flex items-center justify-center gap-2 font-medium select-none transition-all",
-        (fullWidth || forceFullWidth) && "w-full",
-        "text-muted-foreground",
-        isActive && "text-foreground",
-        disabled && "opacity-60 cursor-not-allowed",
+        "flex items-center rounded-lg justify-center gap-2 font-medium select-none transition-all",
+        "text-muted-foreground text-sm whitespace-nowrap",
         !disabled && "cursor-pointer",
+        disabled && "opacity-60 cursor-not-allowed",
+        forceFullWidth && "w-full",
+
+        baseVariant,
+        !disabled && hoverVariant,
+        isActive && "text-foreground",
+        isActive && activeVariant,
+
         className,
       )}
       style={{
-        padding: "10px 16px",
-        borderRadius: radius,
-        transitionDuration: `${transitionDuration}ms`,
-        fontSize: 14,
-        whiteSpace: "nowrap",
-        ...variantBase,
-        ...(isActive ? variantActive : {}),
-        ...(isActive ? activeStyle : inactiveStyle),
-        ...(hovered && !isActive && !disabled ? variantHover : {}),
-        ...(disabled ? { color: "var(--muted-foreground)" } : {}),
-        ...style,
+        padding: "10px 16px", // kept minimal inline (safe, not theme-related)
       }}
     >
       {icon && <span className="shrink-0">{icon}</span>}
@@ -589,10 +553,7 @@ export const TabPanels: React.FC<TabPanelsProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
-        "flex-1 min-w-0 text-foreground",
-        className,
-      )}
+      className={clsx("flex-1 min-w-0 text-foreground", className)}
       style={{
         ...style,
       }}

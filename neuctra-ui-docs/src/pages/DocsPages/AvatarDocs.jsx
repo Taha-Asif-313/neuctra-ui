@@ -43,6 +43,31 @@ const AvatarDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple avatar. The component supports images, fallback
+              text, and various sizes and variants for different use cases.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Avatar } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Avatar 
+      src="https://i.pravatar.cc/150?img=1" 
+      alt="User avatar"
+      fallback="JD"
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock

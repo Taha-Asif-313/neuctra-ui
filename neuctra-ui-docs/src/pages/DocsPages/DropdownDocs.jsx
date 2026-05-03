@@ -52,6 +52,37 @@ const DropdownDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple dropdown menu. The component supports icons,
+              separators, danger states, and flexible positioning.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Dropdown } from '@neuctra/ui';
+
+function BasicExample() {
+  const items = [
+    { label: "Edit", onClick: () => console.log('Edit clicked') },
+    { label: "Copy", onClick: () => console.log('Copy clicked') },
+    { separator: true },
+    { label: "Delete", danger: true, onClick: () => console.log('Delete clicked') }
+  ];
+
+  return (
+    <Dropdown
+      trigger={<button>Open Menu</button>}
+      items={items}
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
               Basic Example
             </h2>
 

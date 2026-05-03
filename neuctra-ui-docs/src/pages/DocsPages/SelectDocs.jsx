@@ -136,6 +136,41 @@ const SelectDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple select dropdown. The component supports both
+              controlled and uncontrolled modes.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { Select } from '@neuctra/ui';
+
+function BasicExample() {
+  const [value, setValue] = useState('');
+
+  const options = [
+    { label: 'Option 1', value: '1' },
+    { label: 'Option 2', value: '2' },
+    { label: 'Option 3', value: '3' }
+  ];
+
+  return (
+    <Select
+      options={options}
+      value={value}
+      onValueChange={setValue}
+      placeholder="Choose an option"
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Usage
             </h2>
             <p className="text-gray-300 mb-4">

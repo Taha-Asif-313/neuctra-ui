@@ -46,6 +46,7 @@ export interface SelectProps {
 
   /** Configuration */
   size?: "sm" | "md" | "lg";
+  maxDropdownHeight?: string | number;
 
   searchable?: boolean;
   searchPlaceholder?: string;
@@ -93,7 +94,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     helperText,
     multiple = false,
     showDescription = false,
-      showCheckIcon = true,
+    showCheckIcon = true,
 
     labelIcon: LabelIcon,
     prefixIcon: PrefixIcon,
@@ -105,6 +106,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     searchable = false,
 
     size = "md",
+    maxDropdownHeight = "240px",
 
     className,
     containerClassName,
@@ -141,6 +143,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
+
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   // Size configuration
   const sizeConfig = {
@@ -197,10 +202,21 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   }, []);
 
   useEffect(() => {
-    if (!open) {
-      setSearch("");
-      setFocusedIndex(-1);
-    }
+    if (!open) return;
+
+    const selectedIndex = filteredOptions.findIndex((opt) =>
+      selectedValues.includes(opt.value),
+    );
+
+    setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+
+    requestAnimationFrame(() => {
+      const el = listRef.current?.children?.[
+        selectedIndex >= 0 ? selectedIndex : 0
+      ] as HTMLElement;
+
+      el?.scrollIntoView({ block: "nearest" });
+    });
   }, [open]);
 
   useEffect(() => {
@@ -216,6 +232,24 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       return prev >= filteredOptions.length ? filteredOptions.length - 1 : prev;
     });
   }, [filteredOptions, open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    // Focus trigger first (good accessibility baseline)
+    triggerRef.current?.focus();
+
+    // Then optionally move "logical focus" to first item
+    setFocusedIndex((prev) => {
+      if (filteredOptions.length === 0) return -1;
+
+      const selectedIndex = filteredOptions.findIndex((opt) =>
+        selectedValues.includes(opt.value),
+      );
+
+      return selectedIndex >= 0 ? selectedIndex : 0;
+    });
+  }, [open, filteredOptions, selectedValues]);
 
   const handleSelect = useCallback(
     (opt: SelectOption, e?: React.MouseEvent) => {
@@ -324,6 +358,13 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   const helperTextId =
     helperText || error ? name || generatedHelperTextId : undefined;
 
+  const dropdownListStyle = useMemo(() => {
+    if (typeof maxDropdownHeight === "number") {
+      return { maxHeight: `${maxDropdownHeight}px` };
+    }
+    return { maxHeight: maxDropdownHeight };
+  }, [maxDropdownHeight]);
+
   return (
     <div
       ref={containerRef}
@@ -333,7 +374,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       {label && (
         <label
           className={clsx(
-            "flex items-center gap-1.5 text-sm font-medium text-foreground",
+            "flex items-center gap-1.5 text-[13px] font-medium leading-none text-foreground",
             labelClassName,
           )}
         >
@@ -357,6 +398,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
         <button
           type="button"
+          ref={triggerRef}
           disabled={disabled}
           onClick={() => !disabled && setOpen((p) => !p)}
           onKeyDown={handleKeyDown}
@@ -369,7 +411,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           className={clsx(
             "w-full flex items-center justify-between gap-2",
             "rounded-lg transition-all outline-none",
-            "border border-border bg-background text-foreground",
+            "border border-border bg-input/30 text-foreground",
             "hover:bg-accent/10",
             PrefixIcon && "pl-9",
             disabled && "opacity-50 cursor-not-allowed pointer-events-none",
@@ -415,7 +457,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               transition={{ duration: 0.12 }}
               className={clsx(
                 dropdownClassName,
-                "absolute z-50 mt-1.5 w-full rounded-xl overflow-hidden",
+                "absolute z-50 mt-1.5 w-full rounded-lg p-[5px] overflow-hidden",
                 "bg-background border border-border",
               )}
               style={dropdownStyle}
@@ -441,7 +483,12 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                   />
                 </div>
               )}
-              <ul className="max-h-60 overflow-y-auto">
+
+              <ul
+                ref={listRef}
+                className="overflow-y-auto"
+                style={dropdownListStyle}
+              >
                 {filteredOptions.length === 0 ? (
                   <li className="px-3 py-2.5 text-sm text-muted-foreground text-center">
                     No options available
@@ -449,7 +496,6 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 ) : (
                   filteredOptions.map((opt, index) => {
                     const active = selectedValues.includes(opt.value);
-                    const focused = focusedIndex === index;
 
                     return (
                       <li
@@ -459,7 +505,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                         aria-selected={active}
                         className={clsx(
                           itemClassName,
-                          "flex items-center justify-between cursor-pointer transition-all relative hover:bg-accent",
+                          "flex items-center justify-between rounded-md cursor-pointer transition-all relative hover:bg-accent",
                           sizeConfig[size].item,
                           active && "bg-accent",
                         )}
@@ -491,20 +537,20 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                           )}
                         </div>
 
-                     {showCheckIcon && active && (
-  <div>
-    <Check
-      className={clsx(
-        sizeConfig[size].checkIcon,
-        checkIconClassName,
-        "text-primary",
-      )}
-      style={{
-        ...checkIconStyle,
-      }}
-    />
-  </div>
-)}
+                        {showCheckIcon && active && (
+                          <div>
+                            <Check
+                              className={clsx(
+                                sizeConfig[size].checkIcon,
+                                checkIconClassName,
+                                "text-primary",
+                              )}
+                              style={{
+                                ...checkIconStyle,
+                              }}
+                            />
+                          </div>
+                        )}
                       </li>
                     );
                   })

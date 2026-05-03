@@ -84,6 +84,49 @@ const RadioGroupDocs = () => {
             </p>
           </header>
 
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2 text-white">
+              Import Component From Library
+            </h2>
+            <CodeBlock code={`import { RadioGroup } from "@neuctra/ui";`} />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple radio group. The component supports single
+              selection with keyboard navigation, icons, and descriptions.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { RadioGroup } from '@neuctra/ui';
+
+function BasicExample() {
+  const [value, setValue] = useState('option1');
+
+  const options = [
+    { label: 'Option One', value: 'option1' },
+    { label: 'Option Two', value: 'option2' },
+    { label: 'Option Three', value: 'option3' }
+  ];
+
+  return (
+    <RadioGroup
+      options={options}
+      selectedValue={value}
+      onChange={setValue}
+      label="Choose an option"
+    />
+  );
+}`}
+            />
+          </section>
+
           {/* Overview */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">

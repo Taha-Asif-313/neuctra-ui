@@ -93,6 +93,35 @@ const SwitchDocs = () => {
             </p>
           </section>
 
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple switch. The component supports both single toggle
+              and group multi-select modes with full customization.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { Switch } from '@neuctra/ui';
+
+function BasicExample() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Switch
+      mode="single"
+      label="Enable notifications"
+      checked={checked}
+      onCheckedChange={setChecked}
+    />
+  );
+}`}
+            />
+          </section>
+
           {/* Single Mode */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">

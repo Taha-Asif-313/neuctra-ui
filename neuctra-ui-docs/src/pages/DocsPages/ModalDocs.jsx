@@ -25,7 +25,7 @@ const ControlledModalPreview = () => {
       <Button className="bg-destructive!" onClick={() => setOpen(true)}>
         Delete
       </Button>
- 
+
       <Modal isOpen={open} onClose={() => setOpen(false)}>
         <ModalContent
           className="w-full max-w-md"
@@ -107,15 +107,68 @@ const ModalDocs = () => {
               Import Component From Library
             </h2>
             <CodeBlock
-              code={`import {
+              code={`import { 
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
   ModalButton,
-  ModalTriggerButton
+  ModalTriggerButton,
+  Button
 } from "@neuctra/ui";`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple modal. The component provides overlay dialogs
+              with structured layouts, animations, and full customization.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { 
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button
+} from '@neuctra/ui';
+
+function BasicExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>
+        Open Modal
+      </Button>
+
+      <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <ModalContent onClose={() => setOpen(false)}>
+          <ModalHeader title="Modal Title" onClose={() => setOpen(false)} />
+          <ModalBody>
+            <p>Modal content goes here</p>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={() => setOpen(false)}>
+              Confirm
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}`}
             />
           </section>
 

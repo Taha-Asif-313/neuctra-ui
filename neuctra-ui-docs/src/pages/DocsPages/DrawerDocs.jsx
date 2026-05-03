@@ -90,6 +90,8 @@ const DrawerDocs = () => {
 
       <div className="font-primary min-h-screen">
         <div className="space-y-10">
+
+
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">
@@ -110,12 +112,64 @@ const DrawerDocs = () => {
               Import Component From Library
             </h2>
             <CodeBlock
-              language="tsx"
-              code={`// Main components
-import { Drawer, DrawerButton, DrawerTriggerButton } from "@neuctra/ui";
+              code={`import { 
+  Drawer,
+  DrawerBody,
+  DrawerButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTriggerButton
+} from "@neuctra/ui";`}
+            />
+          </section>
 
-// Sub-components for structured layouts
-import { DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@neuctra/ui";`}
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple drawer. The component provides sliding panels
+              from any screen edge with customizable content and positioning.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { 
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
+  Button
+} from '@neuctra/ui';
+
+function BasicExample() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>
+        Open Drawer
+      </Button>
+
+      <Drawer isOpen={open} onClose={() => setOpen(false)}>
+        <DrawerContent>
+          <DrawerHeader title="Drawer Title" onClose={() => setOpen(false)} />
+          <DrawerBody>
+            <p>Drawer content goes here</p>
+          </DrawerBody>
+          <DrawerFooter>
+            <Button onClick={() => setOpen(false)}>
+              Close
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+}`}
             />
           </section>
 

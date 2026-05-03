@@ -44,6 +44,33 @@ const ImageDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple image. The component provides responsive and
+              stylable image support with overlays, aspect ratios, and interactions.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Image } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Image 
+      src="https://via.placeholder.com/300" 
+      alt="Sample Image" 
+      width={300} 
+      height={200}
+      className="rounded-lg"
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock

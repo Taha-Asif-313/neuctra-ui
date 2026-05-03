@@ -53,6 +53,29 @@ const ButtonDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple button. The component supports various variants,
+              sizes, and states for different use cases.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { Button } from '@neuctra/ui';
+
+function BasicExample() {
+  return (
+    <Button onClick={() => console.log('Button clicked')}>
+      Click Me
+    </Button>
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
             <CodePreviewBlock

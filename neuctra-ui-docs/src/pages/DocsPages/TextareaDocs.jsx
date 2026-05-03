@@ -5,7 +5,7 @@ import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import { Textarea } from "@neuctra/ui";
 import Metadata from "../../MetaData";
 import CodeBlock from "../../components/Docs/CodeBlock";
-import { Check, X } from "lucide-react";
+import { Check, Code, X } from "lucide-react";
 import DocsFooter from "../../components/Docs/DocsFooter";
 
 const TextareaDocs = () => {
@@ -46,7 +46,22 @@ const TextareaDocs = () => {
             <CodeBlock
               language="tsx"
               code={`import { Textarea } from "@neuctra/ui";`}
-              previewContent={<Textarea placeholder="Type here..." />}
+            />
+          </section>
+
+          {/* Basic */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+
+            <CodeBlock
+              language="tsx"
+              code={`<Textarea
+  label="Description"
+  placeholder="Enter text..."
+/>`}
+
             />
           </section>
 

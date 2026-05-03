@@ -66,6 +66,41 @@ const CheckboxDocs = () => {
             />
           </section>
 
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Basic Usage Code
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Start with a simple checkbox group. The component supports both
+              single toggle and multi-select modes with full customization.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`import { useState } from 'react';
+import { CheckboxGroup } from '@neuctra/ui';
+
+function BasicExample() {
+  const [values, setValues] = useState([]);
+
+  const options = [
+    { label: 'React', value: 'react' },
+    { label: 'Vue', value: 'vue' },
+    { label: 'Angular', value: 'angular' }
+  ];
+
+  return (
+    <CheckboxGroup
+      options={options}
+      values={values}
+      onValuesChange={setValues}
+      label="Choose frameworks"
+    />
+  );
+}`}
+            />
+          </section>
+
           {/* Single Mode */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">

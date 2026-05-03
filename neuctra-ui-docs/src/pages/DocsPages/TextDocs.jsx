@@ -52,6 +52,20 @@ const TextDocs = () => {
           {/* ---------------- Basic ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+
+            <CodeBlock
+              language="tsx"
+              code={`<Text>
+  Welcome to <Text weight={700}>Neuctra UI</Text>
+</Text>`}
+            />
+          </section>
+
+          {/* ---------------- Basic ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Usage
             </h2>
 

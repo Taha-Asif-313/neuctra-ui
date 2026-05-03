@@ -62,6 +62,39 @@ const ListDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
+              Basic Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Start with a simple list. The component supports unordered, ordered,
+              inline layouts, nested structures, and tree visualization.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { List } from '@neuctra/ui';
+
+function BasicExample() {
+  const items = [
+    { text: "First item" },
+    { text: "Second item" },
+    {
+      text: "Third item",
+      subItems: [
+        { text: "Nested A" },
+        { text: "Nested B" }
+      ]
+    }
+  ];
+
+  return (
+    <List items={items} />
+  );
+}`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Example
             </h2>
 

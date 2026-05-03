@@ -1,6 +1,6 @@
 {
   "name": "@neuctra/ui-cli",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "description": "Official CLI for Neuctra UI - Instantly setup React projects with automatic theme configuration, CSS initialization, and ThemeProvider wrapping for seamless dark mode support",
   "author": {
