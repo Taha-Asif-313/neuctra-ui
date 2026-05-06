@@ -43,9 +43,9 @@ const SelectDocs = () => {
   return (
     <>
       <Metadata
-        title="Select Component — Neuctra UI"
-        description="Learn how to use the Select component in Neuctra UI with single and multi-select modes, searchable lists, rich option content, keyboard navigation, and styling hooks."
-        keywords="Neuctra UI Select, React select component, Tailwind select, dropdown, multi-select, searchable select, React UI library, keyboard navigation"
+        title="Select Component — Tailwind React Components for SaaS | Neuctra UI"
+        description="Select component for SaaS applications - React dropdown with Tailwind CSS. Perfect for SaaS dashboard UI with single/multi-select, searchable lists, and rich content."
+        keywords="Tailwind React components for SaaS apps, React UI library for SaaS, SaaS dashboard UI React Tailwind, Neuctra UI Select, React select component, Tailwind select, dropdown, multi-select, searchable select, React UI library, keyboard navigation"
       />
 
       <div className="font-primary min-h-screen">

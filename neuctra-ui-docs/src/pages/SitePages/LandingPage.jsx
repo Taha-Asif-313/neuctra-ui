@@ -256,8 +256,8 @@ const LandingPage = () => {
   return (
     <>
       <Metadata
-        title="Neuctra UI — Modern React Component Library"
-        description="Build modern, accessible, and customizable interfaces faster with Neuctra UI."
+        title="Neuctra UI — React UI Library for SaaS | Tailwind React Components"
+        description="Build SaaS applications faster with Neuctra UI - the modern React UI library for SaaS. Get Tailwind React components for SaaS dashboard UI, authentication forms, and admin interfaces."
       />
 
       <div className="relative bg-black text-white w-full overflow-hidden">

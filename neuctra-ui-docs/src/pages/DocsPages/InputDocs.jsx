@@ -12,9 +12,9 @@ const InputDocs = () => {
   return (
     <>
       <Metadata
-        title="Input Component — Neuctra UI"
-        description="Learn how to use the modern Input component in Neuctra UI — supports text, password, email, number, url, tel, search, and textarea inputs, with validation states, multiple sizes, and prefix/suffix icons."
-        keywords="Neuctra UI Input, React input component, Tailwind input, UI library, input validation, form component, modern input"
+        title="Input Component — React Form Builder Tailwind | Neuctra UI"
+        description="Input component for SaaS applications - modern React form inputs with Tailwind CSS. Perfect for React authentication UI and form builders in SaaS dashboard interfaces."
+        keywords="React UI library for SaaS, React form builder Tailwind, React authentication UI Tailwind, SaaS dashboard UI React Tailwind, Neuctra UI Input, React input component, Tailwind input, UI library, input validation, form component, modern input"
       />
 
       <div className="font-primary min-h-screen">
@@ -26,8 +26,9 @@ const InputDocs = () => {
             </h1>
             <p className="text-sm text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Input</span>{" "}
-              component is a flexible, modern form input with support for
-              multiple types (text, password, email, number, url, tel, search,
+              component is a flexible, modern form input designed for SaaS applications.
+              Perfect for React authentication UI, form builders, and SaaS dashboard interfaces.
+              Built with Tailwind CSS for responsive design and supports multiple types (text, password, email, number, url, tel, search,
               textarea). Features include prefix/suffix icons, inline validation
               states, helper text, multiple sizes, and a password visibility
               toggle.

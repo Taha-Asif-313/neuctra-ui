@@ -11,9 +11,9 @@ const TableDocs = () => {
   return (
     <>
       <Metadata
-        title="Table Component — Neuctra UI"
-        description="Fully customizable, responsive table component optimized for dark mode, with className overrides and inline styles."
-        keywords="Neuctra UI Table, React Table component, responsive table, customizable table, Tailwind table"
+        title="Table Component — Tailwind Admin Dashboard React | Neuctra UI"
+        description="Table component for SaaS applications - React data tables with Tailwind CSS. Perfect for Tailwind admin dashboard React and SaaS dashboard UI with responsive design."
+        keywords="Tailwind admin dashboard React, React UI library for SaaS, SaaS dashboard UI React Tailwind, Neuctra UI Table, React Table component, responsive table, customizable table, Tailwind table, data table"
       />
 
       <div className="font-primary min-h-screen">

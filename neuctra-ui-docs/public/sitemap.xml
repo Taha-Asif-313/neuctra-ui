@@ -1,13 +1,236 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://ui.neuctra.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <lastmod>2026-05-06</lastmod>
   </url>
+  
+  <!-- Main Documentation -->
   <url>
     <loc>https://ui.neuctra.com/docs</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Getting Started -->
+  <url>
+    <loc>https://ui.neuctra.com/docs/introduction</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/quick-start</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/full-setup</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Component Documentation -->
+  <url>
+    <loc>https://ui.neuctra.com/docs/button</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/input</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/select</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/textarea</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/checkbox</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/radio</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/switch</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/dropdown</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Display Components -->
+  <url>
+    <loc>https://ui.neuctra.com/docs/text</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/image</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/list</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/tabs</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/badge</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/avatar</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/container</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Feedback Components -->
+  <url>
+    <loc>https://ui.neuctra.com/docs/alert</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/modal</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/drawer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/accordion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/docs/table</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Layout & Advanced -->
+  <url>
+    <loc>https://ui.neuctra.com/docs/layout-playground</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Site Pages -->
+  <url>
+    <loc>https://ui.neuctra.com/about</loc>
+    <changefreq>quarterly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/contact</loc>
+    <changefreq>quarterly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ui.neuctra.com/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- Templates -->
+  <url>
+    <loc>https://ui.neuctra.com/templates</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
+  </url>
+  
+  <!-- AI Assistant -->
+  <url>
+    <loc>https://ui.neuctra.com/ai-assistant</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-05-06</lastmod>
   </url>
 </urlset>

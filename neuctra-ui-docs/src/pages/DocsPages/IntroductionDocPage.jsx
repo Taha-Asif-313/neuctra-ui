@@ -14,8 +14,8 @@ const IntroductionDocPage = () => {
   return (
     <>
       <Metadata
-        title="Introduction — Neuctra UI"
-        description="Learn what Neuctra UI is and why it's built for modern React development."
+        title="Introduction — React UI Library for SaaS | Neuctra UI"
+        description="Discover Neuctra UI, the modern React UI library for SaaS applications. Learn how our Tailwind React components help build SaaS dashboard UI and authentication interfaces."
       />
 
       <div className="text-gray-200 min-h-screen">
@@ -27,9 +27,10 @@ const IntroductionDocPage = () => {
             </h1>
 
             <p className="mt-4 text-zinc-200 max-w-2xl leading-relaxed">
-              Neuctra UI is a modern React component library powered by Tailwind
-              CSS. It helps you build clean, scalable, and customizable
-              interfaces without wasting time on repetitive UI work.
+              Neuctra UI is a modern React UI library for SaaS applications, powered by Tailwind
+              CSS. It helps developers build clean, scalable SaaS dashboard UI, authentication forms, 
+              and customizable interfaces without wasting time on repetitive UI work. Perfect for 
+              startups looking for reusable SaaS components React.
             </p>
           </section>
 

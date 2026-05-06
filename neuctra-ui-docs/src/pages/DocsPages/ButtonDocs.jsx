@@ -12,9 +12,9 @@ const ButtonDocs = () => {
   return (
     <>
       <Metadata
-        title="Button Component — Neuctra UI"
-        description="Learn how to use the Button component in Neuctra UI — customizable, responsive buttons with variants, sizes, icons, and loading states."
-        keywords="Neuctra UI Button, React button component, Tailwind button, responsive button, UI library, React button variants"
+        title="Button Component — React UI Library for SaaS | Neuctra UI"
+        description="Button component for SaaS applications - customizable React buttons with Tailwind CSS. Perfect for SaaS dashboard UI and authentication forms."
+        keywords="React UI library for SaaS, Tailwind React components for SaaS apps, SaaS dashboard UI React Tailwind, React authentication UI Tailwind, React form builder Tailwind, Neuctra UI Button, React button component, Tailwind button, responsive button, UI library, React button variants"
       />
 
       <div className="font-primary min-h-screen">
@@ -27,7 +27,9 @@ const ButtonDocs = () => {
 
             <p className="text-sm leading-relaxed">
               The <span className="text-primary font-semibold">Button</span>{" "}
-              component is a flexible, highly customizable UI primitive built
+              component is a flexible, highly customizable UI primitive built for SaaS applications.
+              Perfect for React authentication UI, form builders, and SaaS dashboard interfaces.
+              Built with Tailwind CSS for modern, responsive design.
               with TypeScript. It supports multiple variants, sizes, icon
               positioning, loading states, and full-width layout control —
               making it suitable for modern design systems and production apps.
