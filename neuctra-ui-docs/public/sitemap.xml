@@ -192,14 +192,14 @@
   <!-- Site Pages -->
   <url>
     <loc>https://ui.neuctra.com/about</loc>
-    <changefreq>quarterly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2026-05-06</lastmod>
   </url>
   
   <url>
     <loc>https://ui.neuctra.com/contact</loc>
-    <changefreq>quarterly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <lastmod>2026-05-06</lastmod>
   </url>
