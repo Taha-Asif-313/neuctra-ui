@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Container, Button, Text, Input } from "@neuctra/ui";
 import { Mail, Lock, User } from "lucide-react";
+import TemplateTableWithActions from "./TemplateTableWithActions";
 
 const TemplateAuthPages = () => {
   const [loading, setLoading] = useState(false);
@@ -183,6 +184,8 @@ const TemplateAuthPages = () => {
           </Container>
         </div>
       </div>
+
+      <TemplateTableWithActions/>
     </div>
   );
 };

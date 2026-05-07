@@ -9,6 +9,7 @@ import React, {
   useCallback,
   useMemo,
   useId,
+  useLayoutEffect,
 } from "react";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "framer-motion";
@@ -133,6 +134,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => containerRef.current!);
   const generatedHelperTextId = useId();
+  const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 });
+  const [position, setPosition] = useState<"top" | "bottom">("bottom");
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -186,6 +189,45 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       ),
     [options, search],
   );
+
+  useLayoutEffect(() => {
+    if (!open || !triggerRef.current || !listRef.current) return;
+
+    const updatePosition = () => {
+      const rect = triggerRef.current!.getBoundingClientRect();
+      const menuHeight = listRef.current!.offsetHeight || 240;
+
+      const spaceBottom = window.innerHeight - rect.bottom;
+      const spaceTop = rect.top;
+
+      const shouldOpenTop =
+        spaceBottom < menuHeight + 10 && spaceTop > menuHeight;
+
+      const top = shouldOpenTop ? rect.top - menuHeight - 8 : rect.bottom + 8;
+
+      const left = rect.left;
+
+      const width = rect.width;
+
+      setPosition(shouldOpenTop ? "top" : "bottom");
+
+      setCoords({
+        top,
+        left,
+        width,
+      });
+    };
+
+    updatePosition();
+
+    window.addEventListener("scroll", updatePosition, true);
+    window.addEventListener("resize", updatePosition);
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [open]);
 
   // Close on outside click
   useEffect(() => {
@@ -451,16 +493,33 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
+              initial={{
+                opacity: 0,
+                y: position === "bottom" ? -6 : 6,
+                scale: 0.98,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                y: position === "bottom" ? -6 : 6,
+                scale: 0.98,
+              }}
               transition={{ duration: 0.12 }}
               className={clsx(
                 dropdownClassName,
-                "absolute z-50 mt-1.5 w-full rounded-lg p-[5px] overflow-hidden",
+                "fixed z-[9999] rounded-lg p-[5px] overflow-hidden",
                 "bg-background border border-border",
               )}
-              style={dropdownStyle}
+              style={{
+                top: coords.top,
+                left: coords.left,
+                width: coords.width,
+                ...dropdownStyle,
+              }}
               role="listbox"
               aria-label="Options"
             >

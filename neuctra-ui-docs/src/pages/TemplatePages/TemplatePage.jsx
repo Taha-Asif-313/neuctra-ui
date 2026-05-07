@@ -1,6 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import TemplateAuthPages from "./TemplateAuthPages";
+import TemplateDashboardLayout from "./TemplateDashboardLayout";
+import TemplateStatCards from "./TemplateStatCards";
+import TemplateTableWithActions from "./TemplateTableWithActions";
 
 const TemplatePage = () => {
   const location = useLocation();
@@ -11,6 +14,9 @@ const TemplatePage = () => {
   // ✅ Simple check (you can expand later)
   const templateMap = {
     auth: () => <TemplateAuthPages />,
+    "dashboard-layout": () => <TemplateDashboardLayout />,
+    "stat-cards": () => <TemplateStatCards />,
+    "table-with-actions": () => <TemplateTableWithActions />,
   };
 
   const TemplateComponent = templateMap[fullSlug];
