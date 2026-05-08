@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import CodeBlock from "../../components/Docs/CodeBlock";
 import Metadata from "../../MetaData";
-import { CheckboxGroup } from "@neuctra/ui";
+import { Checkbox } from "@neuctra/ui";
 import { Check, X } from "lucide-react";
 import DocsFooter from "../../components/Docs/DocsFooter";
 
@@ -21,9 +21,9 @@ const CheckboxDocs = () => {
   return (
     <>
       <Metadata
-        title="Checkbox Group Component — Neuctra UI"
-        description="Fully customizable Checkbox Group component with single and group modes, custom rendering, keyboard navigation, and complete style control."
-        keywords="CheckboxGroup, React checkbox, checkbox component, multi select, form controls"
+        title="Checkbox Component — Neuctra UI"
+        description="Fully customizable Checkbox component with single and group modes, custom rendering, keyboard navigation, and complete style control."
+        keywords="Checkbox, React checkbox, checkbox component, multi select, form controls"
       />
 
       <div className="font-primary min-h-screen">
@@ -31,14 +31,14 @@ const CheckboxDocs = () => {
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-foreground">
-              Checkbox Group Component
+              Checkbox Component
             </h1>
             <p className="text-sm text-accent-foreground leading-relaxed">
               A flexible{" "}
               <span className="font-semibold text-primary">checkbox</span>{" "}
               component supporting both single toggles and multi-select groups.
-              Features keyboard navigation, custom rendering, comprehensive
-              styling options, and accessible defaults.
+              Features group keyboard navigation, custom rendering,
+              comprehensive styling options, and accessible defaults.
             </p>
           </header>
 
@@ -48,10 +48,11 @@ const CheckboxDocs = () => {
               Overview
             </h2>
             <p className="text-sm text-accent-foreground leading-relaxed">
-              CheckboxGroup works in two modes: <code>group</code> for
+              Checkbox works in two modes: <code>group</code> for
               multi-select lists and <code>single</code> for simple yes/no
-              toggles. Both modes support full keyboard navigation, custom
-              icons, disabled states, error messages, and unrestricted styling.
+              toggles. It supports custom icons, disabled states, read-only
+              behavior, error messages, unrestricted styling, and arrow-key
+              navigation in group mode.
             </p>
           </section>
 
@@ -62,39 +63,68 @@ const CheckboxDocs = () => {
             </h2>
             <CodeBlock
               language="tsx"
-              code={`import { CheckboxGroup } from "@neuctra/ui";`}
+              code={`import { Checkbox } from "@neuctra/ui";`}
             />
           </section>
 
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">
-              Basic Usage Code
+              Single Usage Code
             </h2>
             <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
-              Start with a simple checkbox group. The component supports both
-              single toggle and multi-select modes with full customization.
+              Use the default single mode for one boolean value. Pass
+              <code> checked</code> and <code>onCheckedChange</code> to control
+              the checkbox.
             </p>
             <CodeBlock
               language="tsx"
               code={`import { useState } from 'react';
-import { CheckboxGroup } from '@neuctra/ui';
+import { Checkbox } from '@neuctra/ui';
 
-function BasicExample() {
-  const [values, setValues] = useState([]);
+function SingleCheckboxExample() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Subscribe to newsletter"
+      checked={checked}
+      onCheckedChange={setChecked}
+    />
+  );
+}`}
+            />
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Group Usage Code
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Use <code>mode="group"</code> for multiple checkbox options.
+              Control selections with <code>selectedValues</code> and{" "}
+              <code>onChange</code>.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`import { useState } from 'react';
+import { Checkbox } from '@neuctra/ui';
+
+function CheckboxGroupExample() {
+  const [selectedValues, setSelectedValues] = useState(['react']);
 
   const options = [
     { label: 'React', value: 'react' },
     { label: 'Vue', value: 'vue' },
-    { label: 'Angular', value: 'angular' }
+    { label: 'Angular', value: 'angular' },
   ];
 
   return (
-    <CheckboxGroup
+    <Checkbox
+      mode="group"
       options={options}
-      values={values}
-      onValuesChange={setValues}
-      label="Choose frameworks"
+      selectedValues={selectedValues}
+      onChange={setSelectedValues}
     />
   );
 }`}
@@ -115,14 +145,13 @@ function BasicExample() {
               language="tsx"
               code={`const [checked, setChecked] = useState(false);
 
-<CheckboxGroup
-  mode="single"
+<Checkbox
   label="I agree to the terms"
   checked={checked}
   onCheckedChange={setChecked}
 />`}
               previewContent={
-                <CheckboxGroup
+                <Checkbox
                   mode="single"
                   label="I agree to the terms"
                   checked={singleChecked}
@@ -135,12 +164,12 @@ function BasicExample() {
           {/* Group Mode */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">
-              Group Mode (Default)
+              Group Mode
             </h2>
             <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
-              Use <code>mode="group"</code> (or omit it) to display a list of
-              checkboxes with multi-select behavior. Pass <code>options</code>,
-              track selections with <code>selectedValues</code> and
+              Use <code>mode="group"</code> to display a list of checkboxes
+              with multi-select behavior. Pass <code>options</code>, then track
+              selections with <code>selectedValues</code> and{" "}
               <code>onChange</code>.
             </p>
 
@@ -148,7 +177,8 @@ function BasicExample() {
               language="tsx"
               code={`const [values, setValues] = useState(["react"]);
 
-<CheckboxGroup
+<Checkbox
+  mode="group"
   options={[
     { label: "React", value: "react" },
     { label: "Vue", value: "vue" },
@@ -158,7 +188,8 @@ function BasicExample() {
   onChange={setValues}
 />`}
               previewContent={
-                <CheckboxGroup
+                <Checkbox
+                  mode="group"
                   options={options}
                   selectedValues={values}
                   onChange={setValues}
@@ -179,7 +210,8 @@ function BasicExample() {
 
             <CodePreviewBlock
               language="tsx"
-              code={`<CheckboxGroup
+              code={`<Checkbox
+  mode="group"
   options={[
     { label: "Enabled", value: "enabled" },
     { label: "Disabled", value: "disabled", disabled: true },
@@ -189,7 +221,8 @@ function BasicExample() {
   error="At least one option is required"
 />`}
               previewContent={
-                <CheckboxGroup
+                <Checkbox
+                  mode="group"
                   options={[
                     { label: "Enabled", value: "enabled" },
                     { label: "Disabled", value: "disabled", disabled: true },
@@ -215,7 +248,8 @@ function BasicExample() {
 
             <CodeBlock
               language="tsx"
-              code={`<CheckboxGroup
+              code={`<Checkbox
+  mode="group"
   options={[
     { label: "Option A", value: "a" },
     { label: "Option B", value: "b" },
@@ -225,10 +259,9 @@ function BasicExample() {
   renderItem={({ option, checked, toggle }) => (
     <div
       onClick={toggle}
-      className={clsx(
-        "p-3 border rounded cursor-pointer transition",
+      className={\`p-3 border rounded cursor-pointer transition \${
         checked ? "bg-blue-50 border-blue-500" : "bg-white border-gray-300"
-      )}
+      }\`}
     >
       <div className="font-medium">{option.label}</div>
       <div className="text-sm text-gray-600">Details about {option.label}</div>
@@ -275,7 +308,8 @@ function BasicExample() {
 
               <CodeBlock
                 language="tsx"
-                code={`<CheckboxGroup
+                code={`<Checkbox
+  mode="group"
   options={options}
   selectedValues={values}
   onChange={setValues}
@@ -311,7 +345,7 @@ function BasicExample() {
                   <tr>
                     <td className="p-3">mode</td>
                     <td className="p-3">"single" | "group"</td>
-                    <td className="p-3">"group"</td>
+                    <td className="p-3">"single"</td>
                     <td className="p-3">Single toggle or multi-select list.</td>
                   </tr>
 

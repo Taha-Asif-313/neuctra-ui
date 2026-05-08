@@ -41,18 +41,17 @@ const AccordionDocs = () => {
 
             <p className="text-sm leading-relaxed">
               The <span className="text-primary font-semibold">Accordion</span>{" "}
-              component is a flexible and accessible UI primitive built with
-              React and TypeScript. It allows users to expand and collapse
-              content sections, making it ideal for FAQs, documentation, and
+              component is a flexible UI primitive built with React and
+              TypeScript. It allows users to expand and collapse content
+              sections, making it ideal for FAQs, documentation, and
               content-heavy interfaces.
             </p>
 
             <p className="text-sm text-gray-300 mt-3 leading-relaxed">
               It supports single or multiple open sections via{" "}
               <code>allowMultiple</code>, controlled default state using{" "}
-              <code>defaultOpen</code>, and full customization of header, icon,
-              and content styling for seamless integration into any design
-              system.
+              <code>defaultOpen</code>, and customization hooks for the item,
+              header, title, icon, content wrapper, and content areas.
             </p>
 
             <p className="text-sm text-gray-300 mt-3 leading-relaxed">
@@ -188,6 +187,15 @@ function BasicExample() {
                 </thead>
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
+                    <td className="p-3">AccordionItem</td>
+                    <td className="p-3">
+                      {"{ title: string | ReactNode; content: ReactNode }"}
+                    </td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Shape used by each item in items</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">items</td>
                     <td className="p-3">AccordionItem[]</td>
                     <td className="p-3">—</td>
@@ -226,6 +234,12 @@ function BasicExample() {
                     <td className="p-3">Item wrapper class</td>
                   </tr>
                   <tr>
+                    <td className="p-3">itemStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Item wrapper inline styles</td>
+                  </tr>
+                  <tr>
                     <td className="p-3">headerClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
@@ -245,6 +259,42 @@ function BasicExample() {
                     <td className="p-3">Header inline styles</td>
                   </tr>
                   <tr>
+                    <td className="p-3">titleClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Title span class</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">titleStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Title span inline styles</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Icon wrapper class</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">iconStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Icon wrapper inline styles</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">contentWrapperClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Collapsible wrapper class</td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">contentWrapperStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Collapsible wrapper inline styles</td>
+                  </tr>
+                  <tr>
                     <td className="p-3">contentStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
@@ -255,13 +305,38 @@ function BasicExample() {
                     <td className="p-3">hoverClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Custom hover classes</td>
+                    <td className="p-3">Additional classes applied to header</td>
                   </tr>
                   <tr>
                     <td className="p-3">hoverStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Custom hover inline styles</td>
+                    <td className="p-3">Additional inline styles on header</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">borderColor</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">"var(--border)"</td>
+                    <td className="p-3">
+                      Available in the type for custom integrations
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">radius</td>
+                    <td className="p-3">string | number</td>
+                    <td className="p-3">"0.5rem"</td>
+                    <td className="p-3">
+                      Available in the type for custom integrations
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="p-3">shadow</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">"none"</td>
+                    <td className="p-3">
+                      Available in the type for custom integrations
+                    </td>
                   </tr>
 
                   <tr>

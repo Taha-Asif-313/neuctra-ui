@@ -4,7 +4,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@neuctra/ui";
 import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
 import DocsFooter from "../../components/Docs/DocsFooter";
 import Metadata from "../../MetaData";
-import { LayoutPanelTop, Settings, Star, Lock, Check, X } from "lucide-react";
+import { LayoutPanelTop, Settings, Star, Check, X } from "lucide-react";
 import CodeBlock from "../../components/Docs/CodeBlock";
 
 /* ------------------------------------------------------------------ */
@@ -14,9 +14,6 @@ import CodeBlock from "../../components/Docs/CodeBlock";
 const DemoTabs = ({
   variant,
   position,
-  primaryColor,
-  hoverColor,
-  activeColor,
   bordered,
   defaultActive,
   mobileVariant,
@@ -25,10 +22,6 @@ const DemoTabs = ({
   <Tabs
     variant={variant}
     position={position}
-    textColor="#fff"
-    primaryColor={primaryColor}
-    hoverColor={hoverColor}
-    activeColor={activeColor}
     bordered={bordered}
     defaultActive={defaultActive}
     mobileVariant={mobileVariant}
@@ -89,9 +82,9 @@ const TabsDocs = () => {
               Use <code>variant</code> and <code>position</code> to control
               layout and styling, <code>mobileVariant</code> for responsive
               behavior, and <code>TabList</code> + <code>TabPanels</code> for
-              structured composition. Customize appearance with design tokens
-              like <code>primaryColor</code> and <code>radius</code> for
-              consistent theming.
+              structured composition. Customize appearance with semantic theme
+              classes, CSS variables, <code>className</code>, and layout props
+              like <code>radius</code>.
             </p>
           </header>
 
@@ -187,6 +180,13 @@ function BasicExample() {
 
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
+                    <td className="p-3 font-mono">children</td>
+                    <td className="p-3">ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">TabList and TabPanels composition</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3 font-mono">defaultActive</td>
                     <td className="p-3">number</td>
                     <td className="p-3">0</td>
@@ -265,29 +265,37 @@ function BasicExample() {
                   <tr>
                     <td className="p-3 font-mono">primaryColor</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"#2563eb"</td>
-                    <td className="p-3">Active tab color theme</td>
+                    <td className="p-3">"var(--primary)"</td>
+                    <td className="p-3">
+                      Context color token for custom tab extensions
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">activeColor</td>
                     <td className="p-3">string</td>
                     <td className="p-3">"#ffffff"</td>
-                    <td className="p-3">Active text color</td>
+                    <td className="p-3">
+                      Context color token for custom tab extensions
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">textColor</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"#374151"</td>
-                    <td className="p-3">Default tab text color</td>
+                    <td className="p-3">""</td>
+                    <td className="p-3">
+                      Context color token for custom tab extensions
+                    </td>
                   </tr>
 
                   <tr>
                     <td className="p-3 font-mono">hoverColor</td>
                     <td className="p-3">string</td>
-                    <td className="p-3">"#1d4ed8"</td>
-                    <td className="p-3">Hover state color</td>
+                    <td className="p-3">"var(--primary)"</td>
+                    <td className="p-3">
+                      Context color token for custom tab extensions
+                    </td>
                   </tr>
 
                   <tr>
@@ -302,6 +310,15 @@ function BasicExample() {
                     <td className="p-3">string</td>
                     <td className="p-3">"#9ca3af"</td>
                     <td className="p-3">Disabled tab color</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">backgroundColor</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Available in the type for custom integrations
+                    </td>
                   </tr>
 
                   {/* 📦 Events */}
@@ -447,27 +464,6 @@ function BasicExample() {
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Tab button styling</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">style</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Inline styles</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">activeStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Style when tab is active</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3 font-mono">inactiveStyle</td>
-                    <td className="p-3">React.CSSProperties</td>
-                    <td className="p-3">—</td>
-                    <td className="p-3">Style when tab is inactive</td>
                   </tr>
                 </tbody>
               </table>

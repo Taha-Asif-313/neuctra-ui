@@ -490,7 +490,7 @@ export const Tab: React.FC<TabProps> = ({
 
   const activeVariant =
     variant === "solid" || variant === "pill"
-      ? "bg-primary text-primary-foreground shadow-sm shadow-primary/25"
+      ? "bg-primary text-primary-foreground"
       : variant === "outline"
         ? "border-primary text-primary !bg-primary/5"
         : variant === "underline"

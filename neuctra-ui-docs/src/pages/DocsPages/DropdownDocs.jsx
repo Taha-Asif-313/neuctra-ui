@@ -49,6 +49,32 @@ const DropdownDocs = () => {
             <CodeBlock code={`import { Dropdown } from "@neuctra/ui";`} />
           </section>
 
+          {/* Item Structure */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Dropdown Item Structure
+            </h2>
+            <p className="text-sm text-foreground mb-3 leading-relaxed">
+              Each entry in <code>items</code> can render a clickable menu item
+              or a separator. Items are rendered as buttons, so use{" "}
+              <code>onClick</code> for actions and navigation behavior.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`type DropdownItem = {
+  label?: React.ReactNode;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  href?: string;
+  danger?: boolean;
+  disabled?: boolean;
+  separator?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+};`}
+            />
+          </section>
+
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-foreground">
@@ -137,7 +163,7 @@ function BasicExample() {
             </h2>
             <p className="text-sm text-foreground mb-3 leading-relaxed">
               Each item supports icons, labels, click handlers, disabled state,
-              separators, and danger styling.
+              separators, danger styling, and per-item styling.
             </p>
 
             <CodeBlock
@@ -160,6 +186,10 @@ function BasicExample() {
     danger: true,
     onClick: handleDelete,
   },
+  {
+    label: "Disabled",
+    disabled: true,
+  },
 ];`}
             />
 
@@ -172,6 +202,10 @@ function BasicExample() {
               </li>
               <li>
                 <code>onClick</code>: action when the item is selected.
+              </li>
+              <li>
+                <code>href</code>: available in the item type, but the current
+                renderer uses buttons; use <code>onClick</code> for navigation.
               </li>
               <li>
                 <code>danger</code>: highlights destructive actions.
@@ -295,6 +329,38 @@ function BasicExample() {
             />
           </section>
 
+          {/* Styling */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Styling
+            </h2>
+            <p className="text-sm text-foreground mb-3 leading-relaxed">
+              Use wrapper, menu, and item class props for shared styling. Use
+              <code> className</code> or <code>style</code> on an individual
+              item when only one action needs custom styling.
+            </p>
+
+            <CodeBlock
+              language="jsx"
+              code={`<Dropdown
+  trigger={<button>Styled menu</button>}
+  width={260}
+  className="inline-flex"
+  menuClassName="rounded-xl"
+  itemClassName="font-medium"
+  menuStyle={{ padding: 4 }}
+  items={[
+    { label: "Edit", icon: <Edit size={16} /> },
+    {
+      label: "Custom item",
+      className: "text-primary",
+      style: { letterSpacing: 0 },
+    },
+  ]}
+/>`}
+            />
+          </section>
+
           {/* Props Table */}
           <section>
             <h2 className="text-2xl font-semibold text-foreground mb-4">
@@ -324,7 +390,9 @@ function BasicExample() {
                     <td className="p-3">items</td>
                     <td className="p-3">DropdownItem[]</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Array of menu items.</td>
+                    <td className="p-3">
+                      Array of action items or separator entries.
+                    </td>
                   </tr>
 
                   <tr>
@@ -352,7 +420,7 @@ function BasicExample() {
                     <td className="p-3">width</td>
                     <td className="p-3">number</td>
                     <td className="p-3">220</td>
-                    <td className="p-3">Dropdown width.</td>
+                    <td className="p-3">Dropdown menu width in pixels.</td>
                   </tr>
 
                   <tr>
@@ -429,7 +497,19 @@ function BasicExample() {
                 <div>
                   <code>{"<Dropdown trigger='Open' />"}</code>
                   <p className="text-xs mt-1">
-                    trigger should be a React element, not a string
+                    A string is allowed, but a button-like element gives users a
+                    clearer interactive target.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2 text-destructive">
+                <X size={16} />
+                <div>
+                  <code>{'{ label: "Docs", href: "/docs" }'}</code>
+                  <p className="text-xs mt-1">
+                    Items render as buttons, so use <code>onClick</code> for
+                    navigation behavior.
                   </p>
                 </div>
               </div>

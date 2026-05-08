@@ -30,7 +30,17 @@ export type { BadgeProps } from "./components/basic/Badge";
 
 // List Component Completed!
 export { List, ListItem } from "./components/basic/List";
-export type { ListProps, ListItemType } from "./components/basic/List";
+export type {
+  BulletVariant,
+  ListDensity,
+  ListItemType,
+  ListProps,
+  ListRenderItemParams,
+  ListSize,
+  ListType,
+  ListVariant,
+  NestedMode,
+} from "./components/basic/List";
 
 // Dropdown Component Completed!
 export { Dropdown } from "./components/basic/Dropdown";
@@ -43,7 +53,7 @@ export { ToastProvider, useToast } from "./components/basic/Alert"; // ✅ Moder
 export { Accordion } from "./components/basic/Accordion"; // ✅ Finalized
 
 // ✅ Checkbox, Radio & Switch Components
-export { CheckboxGroup } from "./components/basic/CheckboxGroup";
+export { Checkbox } from "./components/basic/Checkbox";
 export { RadioGroup } from "./components/basic/RadioGroup";
 export { Switch } from "./components/basic/Switch";
 

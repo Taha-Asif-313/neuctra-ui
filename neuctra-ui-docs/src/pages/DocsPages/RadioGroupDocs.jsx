@@ -84,6 +84,27 @@ const RadioGroupDocs = () => {
             </p>
           </header>
 
+          {/* Option Structure */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Option Structure
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Pass an <code>options</code> array with string labels and values.
+              Descriptions, icons, and per-option disabled states are optional.
+            </p>
+            <CodeBlock
+              language="ts"
+              code={`type RadioOption = {
+  label: string;
+  value: string;
+  description?: string;
+  icon?: React.ReactNode;
+  disabled?: boolean;
+};`}
+            />
+          </section>
+
           {/* Import */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
@@ -117,10 +138,10 @@ function BasicExample() {
 
   return (
     <RadioGroup
+      name="example"
       options={options}
       selectedValue={value}
       onChange={setValue}
-      label="Choose an option"
     />
   );
 }`}
@@ -179,25 +200,6 @@ function BasicExample() {
             </div>
           </section>
 
-          {/* Import */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 text-white">
-              Import Component From Library
-            </h2>
-
-            <CodeBlock
-              language="tsx"
-              code={`import { RadioGroup } from "@neuctra/ui";`}
-              previewContent={
-                <RadioGroup
-                  options={options}
-                  selectedValue={value}
-                  onChange={setValue}
-                />
-              }
-            />
-          </section>
-
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-2 text-white">
@@ -222,6 +224,7 @@ function BasicExample() {
               code={`const [value, setValue] = useState("one");
 
 <RadioGroup
+  name="basic"
   options={[
     { label: "Option One", value: "one" },
     { label: "Option Two", value: "two" },
@@ -232,6 +235,7 @@ function BasicExample() {
 />`}
               previewContent={
                 <RadioGroup
+                  name="basic"
                   options={options}
                   selectedValue={value}
                   onChange={setValue}
@@ -275,12 +279,14 @@ function BasicExample() {
 ];
 
 <RadioGroup
+  name="theme"
   options={optionsWithIcons}
   selectedValue={theme}
   onChange={setTheme}
 />`}
               previewContent={
                 <RadioGroup
+                  name="theme"
                   options={optionsWithIcons}
                   selectedValue={theme}
                   onChange={setTheme}
@@ -420,6 +426,7 @@ function BasicExample() {
 ];
 
 <RadioGroup
+  name="status"
   options={optionsWithDisabled}
   selectedValue="enabled"
   disabled={false}
@@ -430,6 +437,7 @@ function BasicExample() {
               previewContent={
                 <div className="space-y-4">
                   <RadioGroup
+                    name="status"
                     options={[
                       { label: "Enabled Option", value: "enabled" },
                       {
@@ -525,12 +533,14 @@ function BasicExample() {
               language="tsx"
               code={`// Try keyboard navigation - focus this radio group and use arrow keys
 <RadioGroup
+  name="keyboard-example"
   options={options}
   selectedValue={value}
   onChange={setValue}
 />`}
               previewContent={
                 <RadioGroup
+                  name="keyboard-example"
                   options={options}
                   selectedValue={value}
                   onChange={setValue}
@@ -803,6 +813,13 @@ function BasicExample() {
                     <td className="p-3">—</td>
                     <td className="p-3">Dot inline styles.</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3">errorStyle</td>
+                    <td className="p-3">React.CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Error message inline styles.</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -837,15 +854,13 @@ function BasicExample() {
                 </div>
               </div>
 
-              {/* Wrong controlled usage */}
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
                 <div>
-                  <code>
-                    {'<RadioGroup selectedValue="one" defaultValue="two" />'}
-                  </code>
+                  <code>{'<RadioGroup label="Choose one" />'}</code>
                   <p className="text-gray-400 text-xs mt-1">
-                    Do not mix controlled and uncontrolled modes.
+                    RadioGroup does not have a group label prop. Render your own
+                    label text above the component when needed.
                   </p>
                 </div>
               </div>

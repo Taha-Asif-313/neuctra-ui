@@ -136,11 +136,11 @@ const SelectDocs = () => {
           {/* Basic Usage */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
-              Basic Usage Code
+              Single Select Usage Code
             </h2>
             <p className="text-gray-300 mb-4">
-              Start with a simple select dropdown. The component supports both
-              controlled and uncontrolled modes.
+              Use a string value for standard single selection. The component
+              supports both controlled and uncontrolled modes.
             </p>
             <CodeBlock
               language="jsx"
@@ -162,6 +162,42 @@ function BasicExample() {
       value={value}
       onValueChange={setValue}
       placeholder="Choose an option"
+    />
+  );
+}`}
+            />
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Multiple Select Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Add <code>multiple</code> when the value should be an array of
+              selected option values.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { Select } from '@neuctra/ui';
+
+function MultipleSelectExample() {
+  const [values, setValues] = useState([]);
+
+  const options = [
+    { label: 'React', value: 'react' },
+    { label: 'Vue', value: 'vue' },
+    { label: 'Angular', value: 'angular' },
+    { label: 'Svelte', value: 'svelte' }
+  ];
+
+  return (
+    <Select
+      multiple
+      options={options}
+      value={values}
+      onValueChange={setValues}
+      placeholder="Select frameworks"
     />
   );
 }`}
@@ -342,7 +378,8 @@ function MultiSelectExample() {
             </h2>
             <p className="text-gray-300 mb-4">
               Add icons to options for better visual hierarchy and user
-              experience. Icons can be any React element or string.
+              experience. Icons can be any React node, such as a Lucide icon or
+              custom element.
             </p>
             <CodePreviewBlock
               language="jsx"
@@ -387,6 +424,62 @@ function IconExample() {
                   onValueChange={setIconValue}
                   placeholder="Choose assignee"
                 />
+              }
+            />
+          </section>
+
+          {/* Validation */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Labels, Helper Text & Validation
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Use <code>label</code>, <code>helperText</code>,{" "}
+              <code>required</code>, <code>error</code>, and{" "}
+              <code>success</code> for form-ready states.
+            </p>
+            <CodePreviewBlock
+              language="jsx"
+              code={`<Select
+  label="Priority"
+  name="priority"
+  required
+  options={[
+    { label: "Low", value: "low" },
+    { label: "Medium", value: "medium" },
+    { label: "High", value: "high" },
+  ]}
+  defaultValue="medium"
+  helperText="Choose the priority for this task."
+/>
+
+<Select
+  label="Owner"
+  options={sampleOptions}
+  error="Owner is required"
+  placeholder="Choose owner"
+/>`}
+              previewContent={
+                <div className="space-y-4">
+                  <Select
+                    label="Priority"
+                    name="priority"
+                    required
+                    options={[
+                      { label: "Low", value: "low" },
+                      { label: "Medium", value: "medium" },
+                      { label: "High", value: "high" },
+                    ]}
+                    defaultValue="medium"
+                    helperText="Choose the priority for this task."
+                  />
+                  <Select
+                    label="Owner"
+                    options={sampleOptions}
+                    error="Owner is required"
+                    placeholder="Choose owner"
+                  />
+                </div>
               }
             />
           </section>
@@ -631,6 +724,16 @@ function SizeExample() {
                     <td className="p-3">React.CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for the search input.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">maxDropdownHeight</td>
+                    <td className="p-3">string | number</td>
+                    <td className="p-3">"240px"</td>
+                    <td className="p-3">
+                      Maximum dropdown list height. Numbers are treated as
+                      pixels.
+                    </td>
                   </tr>
 
                   {/* Variants */}

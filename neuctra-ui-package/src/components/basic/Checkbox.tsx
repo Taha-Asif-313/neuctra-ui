@@ -65,8 +65,8 @@ interface CheckboxGroupProps {
 /* =========================
    Component
 ========================= */
-export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
-  mode = "group",
+export const Checkbox: React.FC<CheckboxGroupProps> = ({
+  mode = "single",
 
   name,
 

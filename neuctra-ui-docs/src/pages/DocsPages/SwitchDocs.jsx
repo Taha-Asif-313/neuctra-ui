@@ -11,7 +11,6 @@ import DocsFooter from "../../components/Docs/DocsFooter";
 const SwitchDocs = () => {
   const [values, setValues] = useState(["react"]);
   const [singleChecked, setSingleChecked] = useState(false);
-  const [disabledDemo, setDisabledDemo] = useState(false);
   const [styledDemo, setStyledDemo] = useState(false);
 
   const options = [
@@ -46,7 +45,8 @@ const SwitchDocs = () => {
                 group multi-select
               </span>{" "}
               modes. It is designed for modern design systems with full
-              customization support, accessibility, and keyboard navigation.
+              customization support, accessibility, and group keyboard
+              navigation.
             </p>
 
             <p className="text-sm text-gray-200 mt-3 leading-relaxed">
@@ -67,7 +67,7 @@ const SwitchDocs = () => {
             <p className="text-sm text-accent-foreground leading-relaxed">
               Switch works in two modes: <code>single</code> for simple on/off
               toggles and <code>group</code> for multi-select switch lists. It
-              supports full controlled state management, keyboard navigation,
+              supports controlled state management, group keyboard navigation,
               disabled/readOnly states, error handling, and highly customizable
               styling through Tailwind or inline styles.
             </p>
@@ -77,6 +77,25 @@ const SwitchDocs = () => {
               themes, and <code>group</code> mode for selecting multiple options
               such as features, permissions, or preferences.
             </p>
+          </section>
+
+          {/* Option Structure */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Option Structure
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Group mode receives an <code>options</code> array. Each option
+              needs a display <code>label</code> and a string{" "}
+              <code>value</code>.
+            </p>
+            <CodeBlock
+              language="ts"
+              code={`type SwitchOption = {
+  label: string;
+  value: string;
+};`}
+            />
           </section>
 
           {/* Import */}
@@ -116,6 +135,41 @@ function BasicExample() {
       label="Enable notifications"
       checked={checked}
       onCheckedChange={setChecked}
+    />
+  );
+}`}
+            />
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Group Usage Code
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Use <code>mode="group"</code> when several independent switches
+              should be controlled as a string array.
+            </p>
+            <CodeBlock
+              language="jsx"
+              code={`import { useState } from 'react';
+import { Switch } from '@neuctra/ui';
+
+function SwitchGroupExample() {
+  const [selectedValues, setSelectedValues] = useState(['email']);
+
+  const options = [
+    { label: 'Email alerts', value: 'email' },
+    { label: 'SMS alerts', value: 'sms' },
+    { label: 'Product updates', value: 'updates' }
+  ];
+
+  return (
+    <Switch
+      mode="group"
+      name="notifications"
+      options={options}
+      selectedValues={selectedValues}
+      onChange={setSelectedValues}
     />
   );
 }`}
@@ -166,6 +220,7 @@ function BasicExample() {
               code={`const [values, setValues] = useState(["react"]);
 
 <Switch
+  name="frameworks"
   mode="group"
   options={options}
   selectedValues={values}
@@ -173,6 +228,7 @@ function BasicExample() {
 />`}
               previewContent={
                 <Switch
+                  name="frameworks"
                   mode="group"
                   options={options}
                   selectedValues={values}
@@ -433,7 +489,10 @@ function BasicExample() {
                     <td className="p-3">iconSize</td>
                     <td className="p-3">number</td>
                     <td className="p-3">20</td>
-                    <td className="p-3">Size of switch thumb (px).</td>
+                    <td className="p-3">
+                      Base switch size in pixels. The track and thumb scale
+                      from this value.
+                    </td>
                   </tr>
 
                   {/* Form */}

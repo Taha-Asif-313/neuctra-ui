@@ -27,7 +27,7 @@ import TabsDocs from "./pages/DocsPages/TabsDocs";
 import BadgeDocs from "./pages/DocsPages/BadgeDocs";
 import AvatarDocs from "./pages/DocsPages/AvatarDocs";
 import RadioGroupDocs from "./pages/DocsPages/RadioGroupDocs";
-import CheckboxGroupDocs from "./pages/DocsPages/CheckboxGroupDocs";
+import CheckboxDocs from "./pages/DocsPages/CheckboxDocs";
 import SwitchGroupDocs from "./pages/DocsPages/SwitchDocs";
 import ContainerDocs from "./pages/DocsPages/ContainerDocs";
 
@@ -80,7 +80,7 @@ const App = () => {
           <Route path="badge" element={<BadgeDocs />} />
           <Route path="avatar" element={<AvatarDocs />} />
           <Route path="radio" element={<RadioGroupDocs />} />
-          <Route path="checkbox" element={<CheckboxGroupDocs />} />
+          <Route path="checkbox" element={<CheckboxDocs />} />
           <Route path="switch" element={<SwitchGroupDocs />} />
           <Route path="select" element={<SelectDocs />} />
           <Route path="container" element={<ContainerDocs />} />
