@@ -1,5 +1,5 @@
 import React from "react";
-import CodePreviewBlock from "../../components/Docs/CodePreviewBlock";
+import CodePreviewBlock from "../../components/docs/CodePreviewBlock";
 import {
   Container,
   Text,

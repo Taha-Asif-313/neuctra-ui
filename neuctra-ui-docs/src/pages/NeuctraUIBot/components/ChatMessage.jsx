@@ -2,9 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Bot, User, Copy, Check } from "lucide-react";
 import { LiveError, LivePreview, LiveProvider } from "react-live";
-import CodeBlock from "../../../components/Docs/CodeBlock";
-import ReactPageBlock from "../../../components/Docs/ReactPageBlock";
-import CodePreviewPage from "../../../components/Docs/CodePreviewPage";
+import CodeBlock from "../../../components/docs/CodeBlock";
+import ReactPageBlock from "../../../components/docs/ReactPageBlock";
+import CodePreviewPage from "../../../components/docs/CodePreviewPage";
 
 const BotCodeResult = ({
   title,

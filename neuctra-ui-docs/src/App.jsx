@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // import "@neuctra/ui/dist/ui.css";
@@ -11,43 +11,50 @@ import SiteLayout from "./layouts/SiteLayout";
 import DocsLayout from "./layouts/DocsLayout";
 
 // Site Pages
-import LandingPage from "./pages/SitePages/LandingPage";
-import AboutPage from "./pages/SitePages/AboutPage";
-import TermsPage from "./pages/SitePages/TermsPage";
-import ContactPage from "./pages/SitePages/ContactPage";
-import PrivacyPolicyPage from "./pages/SitePages/PrivacyPolicyPage";
+import LandingPage from "./pages/site/LandingPage";
+import TutorialsLayout from "./layouts/TutorialsLayout";
+import GuidesLayout from "./layouts/GuidesLayout";
 
-// Docs Pages
-import ButtonDocs from "./pages/DocsPages/ButtonDocs";
-import TextDocs from "./pages/DocsPages/TextDocs";
-import ImageDocs from "./pages/DocsPages/ImageDocs";
-import InputDocs from "./pages/DocsPages/InputDocs";
-import ListDocs from "./pages/DocsPages/ListDocs";
-import TabsDocs from "./pages/DocsPages/TabsDocs";
-import BadgeDocs from "./pages/DocsPages/BadgeDocs";
-import AvatarDocs from "./pages/DocsPages/AvatarDocs";
-import RadioGroupDocs from "./pages/DocsPages/RadioGroupDocs";
-import CheckboxDocs from "./pages/DocsPages/CheckboxDocs";
-import SwitchGroupDocs from "./pages/DocsPages/SwitchDocs";
-import ContainerDocs from "./pages/DocsPages/ContainerDocs";
+const AboutPage = lazy(() => import("./pages/site/AboutPage"));
+const TermsPage = lazy(() => import("./pages/site/TermsPage"));
+const ContactPage = lazy(() => import("./pages/site/ContactPage"));
+const PrivacyPolicyPage = lazy(
+  () => import("./pages/site/PrivacyPolicyPage"),
+);
 
-import DrawerDocs from "./pages/DocsPages/DrawerDocs";
+const IntroductionDocPage = lazy(
+  () => import("./pages/docs/IntroductionDocPage"),
+);
+const QuickStartDocsPage = lazy(
+  () => import("./pages/docs/QuickStartDocsPage"),
+);
+const FullSetupDocPage = lazy(() => import("./pages/docs/FullSetupDocPage"));
+const TextDocs = lazy(() => import("./pages/docs/TextDocs"));
+const ImageDocs = lazy(() => import("./pages/docs/ImageDocs"));
+const ButtonDocs = lazy(() => import("./pages/docs/ButtonDocs"));
+const DropdownDocs = lazy(() => import("./pages/docs/DropdownDocs"));
+const InputDocs = lazy(() => import("./pages/docs/InputDocs"));
+const ListDocs = lazy(() => import("./pages/docs/ListDocs"));
+const TabsDocs = lazy(() => import("./pages/docs/TabsDocs"));
+const BadgeDocs = lazy(() => import("./pages/docs/BadgeDocs"));
+const AvatarDocs = lazy(() => import("./pages/docs/AvatarDocs"));
+const RadioGroupDocs = lazy(() => import("./pages/docs/RadioGroupDocs"));
+const CheckboxDocs = lazy(() => import("./pages/docs/CheckboxDocs"));
+const SwitchGroupDocs = lazy(() => import("./pages/docs/SwitchDocs"));
+const SelectDocs = lazy(() => import("./pages/docs/SelectDocs"));
+const ContainerDocs = lazy(() => import("./pages/docs/ContainerDocs"));
+const LayoutPlayground = lazy(() => import("./pages/docs/LayoutPlayground"));
+const DrawerDocs = lazy(() => import("./pages/docs/DrawerDocs"));
+const TextareaDocs = lazy(() => import("./pages/docs/TextareaDocs"));
+const AlertDocs = lazy(() => import("./pages/docs/AlertDocs"));
+const ModalDocs = lazy(() => import("./pages/docs/ModalDocs"));
+const AccordionDocs = lazy(() => import("./pages/docs/AccordionDocs"));
+const TableDocs = lazy(() => import("./pages/docs/TableDocs"));
 
-import AlertDocs from "./pages/DocsPages/AlertDocs";
-import ModalDocs from "./pages/DocsPages/ModalDocs";
-import AccordionDocs from "./pages/DocsPages/AccordionDocs";
-import TableDocs from "./pages/DocsPages/TableDocs";
-import TemplatesLayout from "./layouts/TemplatesLayout";
-import TemplateHomePage from "./pages/TemplatePages/TemplateHomePage";
-import TemplatePage from "./pages/TemplatePages/TemplatePage";
-import SelectDocs from "./pages/DocsPages/SelectDocs";
-import TextareaDocs from "./pages/DocsPages/TextareaDocs";
-import NeuctraUiChatBotPage from "./pages/NeuctraUIBot/NeuctraUiChatBot";
-import IntroductionDocPage from "./pages/DocsPages/IntroductionDocPage";
-import QuickStartDocsPage from "./pages/DocsPages/QuickStartDocsPage";
-import FullSetupDocPage from "./pages/DocsPages/FullSetupDocPage";
-import DropdownDocs from "./pages/DocsPages/DropdownDocs";
-import LayoutPlayground from "./pages/DocsPages/LayoutPlayground";
+
+const NeuctraUiChatBotPage = lazy(
+  () => import("./pages/NeuctraUIBot/NeuctraUiChatBot"),
+);
 
 const App = () => {
   return (
@@ -55,51 +62,111 @@ const App = () => {
       {/* 🧭 Always scroll to top on route change */}
       <GoToTop />
 
-      <Routes>
-        {/* 🌐 Public Website Layout */}
-        <Route path="/" element={<SiteLayout />}>
-          <Route index element={<LandingPage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="terms" element={<TermsPage />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="privacypolicy" element={<PrivacyPolicyPage />} />
-        </Route>
+      <Suspense fallback={null}>
+        <Routes>
+          {/* 🌐 Public Routes */}
+          <Route path="/" element={<SiteLayout />}>
+            <Route index element={<LandingPage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="terms" element={<TermsPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="privacypolicy" element={<PrivacyPolicyPage />} />
+          </Route>
 
-        {/* 📘 Documentation Layout */}
-        <Route path="/docs" element={<DocsLayout />}>
-          <Route index element={<IntroductionDocPage />} />
-          <Route path="quick-start" element={<QuickStartDocsPage />} />
-          <Route path="full-setup" element={<FullSetupDocPage />} />
-          <Route path="text" element={<TextDocs />} />
-          <Route path="image" element={<ImageDocs />} />
-          <Route path="button" element={<ButtonDocs />} />
-          <Route path="dropdown" element={<DropdownDocs />} />
-          <Route path="input" element={<InputDocs />} />
-          <Route path="list" element={<ListDocs />} />
-          <Route path="tabs" element={<TabsDocs />} />
-          <Route path="badge" element={<BadgeDocs />} />
-          <Route path="avatar" element={<AvatarDocs />} />
-          <Route path="radio" element={<RadioGroupDocs />} />
-          <Route path="checkbox" element={<CheckboxDocs />} />
-          <Route path="switch" element={<SwitchGroupDocs />} />
-          <Route path="select" element={<SelectDocs />} />
-          <Route path="container" element={<ContainerDocs />} />
-          <Route path="layout-playground" element={<LayoutPlayground />} />
-          <Route path="drawer" element={<DrawerDocs />} />
-          <Route path="textarea" element={<TextareaDocs />} />
-          <Route path="alert" element={<AlertDocs />} />
-          <Route path="modal" element={<ModalDocs />} />
-          <Route path="accordion" element={<AccordionDocs />} />
-          <Route path="table" element={<TableDocs />} />
-        </Route>
+          {/* 📘 Documentation Routes */}
+          <Route path="/docs" element={<DocsLayout />}>
+            {/* Main introduction page */}
+            <Route index element={<IntroductionDocPage />} />
 
-        <Route path="/templates" element={<TemplatesLayout />}>
-          <Route index element={<TemplateHomePage />} />
-          <Route path=":slug" element={<TemplatePage />} />
-        </Route>
+            {/* Quick installation guide */}
+            <Route path="quick-start" element={<QuickStartDocsPage />} />
 
-        <Route path="/neuctra-ui-chatbot" element={<NeuctraUiChatBotPage />} />
-      </Routes>
+            {/* Complete project setup guide */}
+            <Route path="full-setup" element={<FullSetupDocPage />} />
+
+            {/* Text / typography component */}
+            <Route path="text" element={<TextDocs />} />
+
+            {/* Optimized image component */}
+            <Route path="image" element={<ImageDocs />} />
+
+            {/* Button component */}
+            <Route path="button" element={<ButtonDocs />} />
+
+            {/* Dropdown / menu component */}
+            <Route path="dropdown" element={<DropdownDocs />} />
+
+            {/* Input field component */}
+            <Route path="input" element={<InputDocs />} />
+
+            {/* List component */}
+            <Route path="list" element={<ListDocs />} />
+
+            {/* Tabs navigation component */}
+            <Route path="tabs" element={<TabsDocs />} />
+
+            {/* Badge / label component */}
+            <Route path="badge" element={<BadgeDocs />} />
+
+            {/* Avatar / profile image component */}
+            <Route path="avatar" element={<AvatarDocs />} />
+
+            {/* Radio group component */}
+            <Route path="radio" element={<RadioGroupDocs />} />
+
+            {/* Checkbox component */}
+            <Route path="checkbox" element={<CheckboxDocs />} />
+
+            {/* Toggle switch component */}
+            <Route path="switch" element={<SwitchGroupDocs />} />
+
+            {/* Select / dropdown input */}
+            <Route path="select" element={<SelectDocs />} />
+
+            {/* Textarea multiline input */}
+            <Route path="textarea" element={<TextareaDocs />} />
+
+            {/* Responsive container component */}
+            <Route path="container" element={<ContainerDocs />} />
+
+            {/* Interactive layout playground */}
+            <Route path="layout-playground" element={<LayoutPlayground />} />
+
+            {/* Drawer / slide panel component */}
+            <Route path="drawer" element={<DrawerDocs />} />
+
+            {/* Alert / notification component */}
+            <Route path="alert" element={<AlertDocs />} />
+
+            {/* Modal dialog component */}
+            <Route path="modal" element={<ModalDocs />} />
+
+            {/* Accordion / collapsible content */}
+            <Route path="accordion" element={<AccordionDocs />} />
+
+            {/* Table component */}
+            <Route path="table" element={<TableDocs />} />
+          </Route>
+
+          {/* 🎓 Tutorial Routes */}
+          <Route path="/tutorials" element={<TutorialsLayout />}>
+            <Route index element={<h1>Tutorials</h1>} />
+
+      
+          </Route>
+
+          {/* 🧠 Guide Routes */}
+          <Route path="/guides" element={<GuidesLayout />}>
+            <Route index element={< h1>Guides</h1>} />
+
+          </Route>
+
+          <Route
+            path="/neuctra-ui-chatbot"
+            element={<NeuctraUiChatBotPage />}
+          />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };

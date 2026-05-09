@@ -1,0 +1,681 @@
+"use client";
+
+import React, { useState } from "react";
+import CodePreviewBlock from "../../components/docs/CodePreviewBlock";
+import CodeBlock from "../../components/docs/CodeBlock";
+import Metadata from "../../MetaData";
+import { Checkbox } from "@neuctra/ui";
+import { Check, X } from "lucide-react";
+import DocsFooter from "../../components/docs/DocsFooter";
+
+const CheckboxDocs = () => {
+  const [values, setValues] = useState(["react"]);
+  const [singleChecked, setSingleChecked] = useState(false);
+
+  const options = [
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Angular", value: "angular" },
+  ];
+
+  return (
+    <>
+      <Metadata
+        title="Checkbox Component — Neuctra UI"
+        description="Fully customizable Checkbox component with single and group modes, custom rendering, keyboard navigation, and complete style control."
+        keywords="Checkbox, React checkbox, checkbox component, multi select, form controls"
+      />
+
+      <div className="font-primary min-h-screen">
+        <div className="space-y-10">
+          {/* Header */}
+          <header>
+            <h1 className="text-4xl font-extrabold mb-3 text-foreground">
+              Checkbox Component
+            </h1>
+            <p className="text-sm text-accent-foreground leading-relaxed">
+              A flexible{" "}
+              <span className="font-semibold text-primary">checkbox</span>{" "}
+              component supporting both single toggles and multi-select groups.
+              Features group keyboard navigation, custom rendering,
+              comprehensive styling options, and accessible defaults.
+            </p>
+          </header>
+
+          {/* Overview */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Overview
+            </h2>
+            <p className="text-sm text-accent-foreground leading-relaxed">
+              Checkbox works in two modes: <code>group</code> for
+              multi-select lists and <code>single</code> for simple yes/no
+              toggles. It supports custom icons, disabled states, read-only
+              behavior, error messages, unrestricted styling, and arrow-key
+              navigation in group mode.
+            </p>
+          </section>
+
+          {/* Import */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-2 text-foreground">
+              Import Component From Library
+            </h2>
+            <CodeBlock
+              language="tsx"
+              code={`import { Checkbox } from "@neuctra/ui";`}
+            />
+          </section>
+
+          {/* Basic Usage */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Single Usage Code
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Use the default single mode for one boolean value. Pass
+              <code> checked</code> and <code>onCheckedChange</code> to control
+              the checkbox.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`import { useState } from 'react';
+import { Checkbox } from '@neuctra/ui';
+
+function SingleCheckboxExample() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Checkbox
+      label="Subscribe to newsletter"
+      checked={checked}
+      onCheckedChange={setChecked}
+    />
+  );
+}`}
+            />
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Group Usage Code
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Use <code>mode="group"</code> for multiple checkbox options.
+              Control selections with <code>selectedValues</code> and{" "}
+              <code>onChange</code>.
+            </p>
+            <CodeBlock
+              language="tsx"
+              code={`import { useState } from 'react';
+import { Checkbox } from '@neuctra/ui';
+
+function CheckboxGroupExample() {
+  const [selectedValues, setSelectedValues] = useState(['react']);
+
+  const options = [
+    { label: 'React', value: 'react' },
+    { label: 'Vue', value: 'vue' },
+    { label: 'Angular', value: 'angular' },
+  ];
+
+  return (
+    <Checkbox
+      mode="group"
+      options={options}
+      selectedValues={selectedValues}
+      onChange={setSelectedValues}
+    />
+  );
+}`}
+            />
+          </section>
+
+          {/* Single Mode */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Single Mode
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Use <code>mode="single"</code> for a simple on/off checkbox. Track
+              state with <code>checked</code> and <code>onCheckedChange</code>.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`const [checked, setChecked] = useState(false);
+
+<Checkbox
+  label="I agree to the terms"
+  checked={checked}
+  onCheckedChange={setChecked}
+/>`}
+              previewContent={
+                <Checkbox
+                  mode="single"
+                  label="I agree to the terms"
+                  checked={singleChecked}
+                  onCheckedChange={setSingleChecked}
+                />
+              }
+            />
+          </section>
+
+          {/* Group Mode */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Group Mode
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Use <code>mode="group"</code> to display a list of checkboxes
+              with multi-select behavior. Pass <code>options</code>, then track
+              selections with <code>selectedValues</code> and{" "}
+              <code>onChange</code>.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`const [values, setValues] = useState(["react"]);
+
+<Checkbox
+  mode="group"
+  options={[
+    { label: "React", value: "react" },
+    { label: "Vue", value: "vue" },
+    { label: "Angular", value: "angular" },
+  ]}
+  selectedValues={values}
+  onChange={setValues}
+/>`}
+              previewContent={
+                <Checkbox
+                  mode="group"
+                  options={options}
+                  selectedValues={values}
+                  onChange={setValues}
+                />
+              }
+            />
+          </section>
+
+          {/* Disabled & Error States */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Disabled & Error States
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Disable the entire group or individual options, and show error
+              messages below the component.
+            </p>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Checkbox
+  mode="group"
+  options={[
+    { label: "Enabled", value: "enabled" },
+    { label: "Disabled", value: "disabled", disabled: true },
+  ]}
+  selectedValues={["enabled"]}
+  onChange={() => {}}
+  error="At least one option is required"
+/>`}
+              previewContent={
+                <Checkbox
+                  mode="group"
+                  options={[
+                    { label: "Enabled", value: "enabled" },
+                    { label: "Disabled", value: "disabled", disabled: true },
+                  ]}
+                  selectedValues={["enabled"]}
+                  onChange={() => {}}
+                  error="At least one option is required"
+                />
+              }
+            />
+          </section>
+
+          {/* Custom Rendering */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Custom Rendering
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Use <code>renderItem</code> to completely customize each checkbox
+              entry. Useful for building card grids, complex UIs, or branded
+              checkboxes.
+            </p>
+
+            <CodeBlock
+              language="tsx"
+              code={`<Checkbox
+  mode="group"
+  options={[
+    { label: "Option A", value: "a" },
+    { label: "Option B", value: "b" },
+  ]}
+  selectedValues={values}
+  onChange={setValues}
+  renderItem={({ option, checked, toggle }) => (
+    <div
+      onClick={toggle}
+      className={\`p-3 border rounded cursor-pointer transition \${
+        checked ? "bg-blue-50 border-blue-500" : "bg-white border-gray-300"
+      }\`}
+    >
+      <div className="font-medium">{option.label}</div>
+      <div className="text-sm text-gray-600">Details about {option.label}</div>
+    </div>
+  )}
+/>`}
+            />
+          </section>
+
+          {/* Styling & Customization */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-foreground">
+              Styling & Customization
+            </h2>
+            <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
+              Complete control over appearance via Tailwind classes, inline
+              styles, and custom icons.
+            </p>
+
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold text-sm text-foreground mb-2">
+                  Styling Layers
+                </h3>
+                <ul className="list-disc pl-5 space-y-1 text-sm text-accent-foreground">
+                  <li>
+                    <code>className / containerClassName</code> — wrapper styles
+                  </li>
+                  <li>
+                    <code>itemClassName / labelClassName</code> — per-item
+                    wrapper
+                  </li>
+                  <li>
+                    <code>textClassName</code> — label text styling
+                  </li>
+                  <li>
+                    <code>iconClassName / iconSize</code> — checkbox icon
+                  </li>
+                  <li>
+                    <code>errorClassName</code> — error message styling
+                  </li>
+                </ul>
+              </div>
+
+              <CodeBlock
+                language="tsx"
+                code={`<Checkbox
+  mode="group"
+  options={options}
+  selectedValues={values}
+  onChange={setValues}
+  className="space-y-3 p-4"
+  itemClassName="hover:bg-gray-50 px-2 py-1 rounded"
+  textClassName="text-blue-600 font-semibold"
+  iconSize={24}
+  iconClassName="bg-blue-100 border-blue-500"
+/>`}
+              />
+            </div>
+          </section>
+
+          {/* Props Table */}
+          <section>
+            <h2 className="text-2xl font-semibold text-foreground mb-4">
+              Props Table
+            </h2>
+
+            <div className="border border-border rounded-xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="bg-accent text-foreground">
+                  <tr>
+                    <th className="p-3 text-left">Prop</th>
+                    <th className="p-3 text-left">Type</th>
+                    <th className="p-3 text-left">Default</th>
+                    <th className="p-3 text-left">Description</th>
+                  </tr>
+                </thead>
+
+                <tbody className="divide-y divide-border text-accent-foreground">
+                  {/* Mode & State */}
+                  <tr>
+                    <td className="p-3">mode</td>
+                    <td className="p-3">"single" | "group"</td>
+                    <td className="p-3">"single"</td>
+                    <td className="p-3">Single toggle or multi-select list.</td>
+                  </tr>
+
+                  {/* Single Mode Props */}
+                  <tr>
+                    <td className="p-3">label</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Label text in single mode.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">checked</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Checked state in single mode.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">onCheckedChange</td>
+                    <td className="p-3">(checked: boolean) =&gt; void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Called when toggled in single mode.</td>
+                  </tr>
+
+                  {/* Group Mode Props */}
+                  <tr>
+                    <td className="p-3">options</td>
+                    <td className="p-3">Option[]</td>
+                    <td className="p-3">[]</td>
+                    <td className="p-3">
+                      List of options with label, value, disabled.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">selectedValues</td>
+                    <td className="p-3">string[]</td>
+                    <td className="p-3">[]</td>
+                    <td className="p-3">Currently selected values.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">onChange</td>
+                    <td className="p-3">(values: string[]) =&gt; void</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Called when selection changes.</td>
+                  </tr>
+
+                  {/* Common Props */}
+                  <tr>
+                    <td className="p-3">name</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      HTML name attribute for form submission.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">disabled</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">Disables all checkboxes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">readOnly</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Prevents selection changes (display only).
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">required</td>
+                    <td className="p-3">boolean</td>
+                    <td className="p-3">false</td>
+                    <td className="p-3">
+                      Marks inputs as required for validation.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">error</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Error message displayed below the group.
+                    </td>
+                  </tr>
+
+                  {/* Styling */}
+                  <tr>
+                    <td className="p-3">className</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Wrapper container classes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">containerClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Override wrapper classes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for each checkbox item.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">labelClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for label wrapper.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">textClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for label text.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for checkbox icon/box.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">errorClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for error message.</td>
+                  </tr>
+
+                  {/* Inline Styles */}
+                  <tr>
+                    <td className="p-3">style</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for wrapper.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">containerStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for container.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for items.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">labelStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for labels.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">textStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for text.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">iconStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for icon.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">errorStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Inline styles for error text.</td>
+                  </tr>
+
+                  {/* Icons & Rendering */}
+                  <tr>
+                    <td className="p-3">customIcon</td>
+                    <td className="p-3">(checked, option?) =&gt; ReactNode</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom checkbox icon renderer.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">iconSize</td>
+                    <td className="p-3">number</td>
+                    <td className="p-3">20</td>
+                    <td className="p-3">Icon size in pixels.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">renderItem</td>
+                    <td className="p-3">
+                      ({`{ option, checked, focused, toggle }`}) =&gt; ReactNode
+                    </td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Fully customize each checkbox item.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Common Mistakes */}
+          <section>
+            <h2 className="text-2xl font-semibold text-foreground mb-4">
+              Common Mistakes
+            </h2>
+
+            <div className="space-y-4 text-sm">
+              <div className="flex gap-2 text-destructive">
+                <X size={16} />
+                <div>
+                  <code>{'selectedValues="react"'}</code>
+                  <p className="text-accent-foreground text-xs mt-1">
+                    Must be an array. Use <code>["react"]</code> instead.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2 text-destructive">
+                <X size={16} />
+                <div>
+                  <code>{'mode="single" + selectedValues'}</code>
+                  <p className="text-accent-foreground text-xs mt-1">
+                    Use <code>checked</code> and <code>onCheckedChange</code> in
+                    single mode.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>{"selectedValues={['react', 'vue']}"}</code>
+                  <p className="text-accent-foreground text-xs mt-1">
+                    Correct: array of values.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-2 text-green-500">
+                <Check size={16} />
+                <div>
+                  <code>
+                    {'mode="single" checked={true} onCheckedChange={...}'}
+                  </code>
+                  <p className="text-accent-foreground text-xs mt-1">
+                    Use correct props for single mode.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Pro Tips */}
+          <section>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+
+            <div className="text-gray-300 space-y-3">
+              <ul className="list-disc list-inside space-y-2">
+                <li>
+                  Use <code>mode="group"</code> when handling multiple
+                  selections and <code>mode="single"</code> for boolean toggles
+                  like settings.
+                </li>
+
+                <li>
+                  Prefer <code>selectedValues</code> as the single source of
+                  truth — avoid mixing internal and external state.
+                </li>
+
+                <li>
+                  Use <code>customIcon</code> to fully match your design system
+                  (checkbox, toggle, or animated indicators).
+                </li>
+
+                <li>
+                  Use <code>renderItem</code> when you need fully custom layouts
+                  like cards, settings rows, or list items.
+                </li>
+
+                <li>
+                  Keep <code>readOnly</code> for UI display-only states instead
+                  of disabling interactions completely.
+                </li>
+
+                <li>
+                  Combine <code>itemClassName</code> +{" "}
+                  <code>textClassName</code> for clean separation between layout
+                  and typography styling.
+                </li>
+
+                <li>
+                  Avoid managing checked state manually inside each item —
+                  always lift state up to the parent via <code>onChange</code>.
+                </li>
+
+                <li>
+                  Use keyboard navigation support (Arrow keys + Enter/Space) for
+                  better accessibility in group mode.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <DocsFooter />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default CheckboxDocs;

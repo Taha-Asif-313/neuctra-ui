@@ -37,8 +37,9 @@ button {
    THEME SYSTEM
 ============================= */
 /* NEUCTRA_THEME_START */
-
-/* LIGHT THEME */
+/* =========================
+   LIGHT THEME
+========================= */
 :root {
   --primary: #00c214;
   --primary-foreground: #ffffff;
@@ -60,7 +61,9 @@ button {
   --destructive-foreground: #fafafa;
 }
 
-/* DARK THEME */
+/* =========================
+   DARK THEME
+========================= */
 .dark {
   --primary: #00c214;
   --primary-foreground: #ffffff;
@@ -85,25 +88,25 @@ button {
 /* SYSTEM DARK MODE */
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #00c214;
-    --primary-foreground: #ffffff;
+  --primary: #00c214;
+  --primary-foreground: #ffffff;
 
-    --background: #09090b;
-    --foreground: #fafafa;
+  --background: #09090b;
+  --foreground: #fafafa;
 
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
 
-    --accent: #18181b;
-    --accent-foreground: #fafafa;
+  --accent: #18181b;
+  --accent-foreground: #fafafa;
 
-    --border: #27272a;
-    --input: #18181b;
-    --ring: #3f3f46;
+  --border: #27272a;
+  --input: #18181b;
+  --ring: #3f3f46;
 
-    --destructive: #d40000;
-    --destructive-foreground: #fafafa;
-  }
+  --destructive: #d40000;
+  --destructive-foreground: #fafafa;
+}
 }
 
 /* NEUCTRA_THEME_END */
