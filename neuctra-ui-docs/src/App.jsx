@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // import "@neuctra/ui/dist/ui.css";
 
@@ -7,50 +7,65 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GoToTop from "./components/GoToTop";
 
 // Layouts
-import SiteLayout from "./layouts/SiteLayout";
-import DocsLayout from "./layouts/DocsLayout";
+import SiteLayout from "./layouts/site/SiteLayout";
+import DocsLayout from "./layouts/docs/DocsLayout";
+import BlogsLayout from "./layouts/blog/BlogsLayout";
+
+// Context
+import { AdminProvider } from "./layouts/blog/contexts/AdminContext";
+
+// Blog Pages
+const LoginPage = lazy(() => import("./layouts/blog/pages/LoginPage"));
+const AdminPage = lazy(() => import("./layouts/blog/pages/AdminPage"));
+const BlogPostPage = lazy(() => import("./layouts/blog/pages/BlogPostPage"));
 
 // Site Pages
-import LandingPage from "./pages/site/LandingPage";
-import TutorialsLayout from "./layouts/TutorialsLayout";
-import GuidesLayout from "./layouts/GuidesLayout";
-
-const AboutPage = lazy(() => import("./pages/site/AboutPage"));
-const TermsPage = lazy(() => import("./pages/site/TermsPage"));
-const ContactPage = lazy(() => import("./pages/site/ContactPage"));
+import LandingPage from "./layouts/site/pages/LandingPage";
+import AllBlogsPage from "./layouts/blog/pages/AllBlogsPage";
+import CreateBlogPage from "./layouts/blog/pages/CreateBlogPage";
+import { ReactSignedIn } from "@neuctra/authix";
+const AboutPage = lazy(() => import("./layouts/site/pages/AboutPage"));
+const TermsPage = lazy(() => import("./layouts/site/pages/TermsPage"));
+const ContactPage = lazy(() => import("./layouts/site/pages/ContactPage"));
 const PrivacyPolicyPage = lazy(
-  () => import("./pages/site/PrivacyPolicyPage"),
+  () => import("./layouts/site/pages/PrivacyPolicyPage"),
 );
 
+// Documentation Pages
 const IntroductionDocPage = lazy(
-  () => import("./pages/docs/IntroductionDocPage"),
+  () => import("./layouts/docs/pages/IntroductionDocPage"),
 );
 const QuickStartDocsPage = lazy(
-  () => import("./pages/docs/QuickStartDocsPage"),
+  () => import("./layouts/docs/pages/QuickStartDocsPage"),
 );
-const FullSetupDocPage = lazy(() => import("./pages/docs/FullSetupDocPage"));
-const TextDocs = lazy(() => import("./pages/docs/TextDocs"));
-const ImageDocs = lazy(() => import("./pages/docs/ImageDocs"));
-const ButtonDocs = lazy(() => import("./pages/docs/ButtonDocs"));
-const DropdownDocs = lazy(() => import("./pages/docs/DropdownDocs"));
-const InputDocs = lazy(() => import("./pages/docs/InputDocs"));
-const ListDocs = lazy(() => import("./pages/docs/ListDocs"));
-const TabsDocs = lazy(() => import("./pages/docs/TabsDocs"));
-const BadgeDocs = lazy(() => import("./pages/docs/BadgeDocs"));
-const AvatarDocs = lazy(() => import("./pages/docs/AvatarDocs"));
-const RadioGroupDocs = lazy(() => import("./pages/docs/RadioGroupDocs"));
-const CheckboxDocs = lazy(() => import("./pages/docs/CheckboxDocs"));
-const SwitchGroupDocs = lazy(() => import("./pages/docs/SwitchDocs"));
-const SelectDocs = lazy(() => import("./pages/docs/SelectDocs"));
-const ContainerDocs = lazy(() => import("./pages/docs/ContainerDocs"));
-const LayoutPlayground = lazy(() => import("./pages/docs/LayoutPlayground"));
-const DrawerDocs = lazy(() => import("./pages/docs/DrawerDocs"));
-const TextareaDocs = lazy(() => import("./pages/docs/TextareaDocs"));
-const AlertDocs = lazy(() => import("./pages/docs/AlertDocs"));
-const ModalDocs = lazy(() => import("./pages/docs/ModalDocs"));
-const AccordionDocs = lazy(() => import("./pages/docs/AccordionDocs"));
-const TableDocs = lazy(() => import("./pages/docs/TableDocs"));
-
+const FullSetupDocPage = lazy(
+  () => import("./layouts/docs/pages/FullSetupDocPage"),
+);
+const TextDocs = lazy(() => import("./layouts/docs/pages/TextDocs"));
+const ImageDocs = lazy(() => import("./layouts/docs/pages/ImageDocs"));
+const ButtonDocs = lazy(() => import("./layouts/docs/pages/ButtonDocs"));
+const DropdownDocs = lazy(() => import("./layouts/docs/pages/DropdownDocs"));
+const InputDocs = lazy(() => import("./layouts/docs/pages/InputDocs"));
+const ListDocs = lazy(() => import("./layouts/docs/pages/ListDocs"));
+const TabsDocs = lazy(() => import("./layouts/docs/pages/TabsDocs"));
+const BadgeDocs = lazy(() => import("./layouts/docs/pages/BadgeDocs"));
+const AvatarDocs = lazy(() => import("./layouts/docs/pages/AvatarDocs"));
+const RadioGroupDocs = lazy(
+  () => import("./layouts/docs/pages/RadioGroupDocs"),
+);
+const CheckboxDocs = lazy(() => import("./layouts/docs/pages/CheckboxDocs"));
+const SwitchGroupDocs = lazy(() => import("./layouts/docs/pages/SwitchDocs"));
+const SelectDocs = lazy(() => import("./layouts/docs/pages/SelectDocs"));
+const ContainerDocs = lazy(() => import("./layouts/docs/pages/ContainerDocs"));
+const LayoutPlayground = lazy(
+  () => import("./layouts/docs/pages/LayoutPlayground"),
+);
+const DrawerDocs = lazy(() => import("./layouts/docs/pages/DrawerDocs"));
+const TextareaDocs = lazy(() => import("./layouts/docs/pages/TextareaDocs"));
+const AlertDocs = lazy(() => import("./layouts/docs/pages/AlertDocs"));
+const ModalDocs = lazy(() => import("./layouts/docs/pages/ModalDocs"));
+const AccordionDocs = lazy(() => import("./layouts/docs/pages/AccordionDocs"));
+const TableDocs = lazy(() => import("./layouts/docs/pages/TableDocs"));
 
 const NeuctraUiChatBotPage = lazy(
   () => import("./pages/NeuctraUIBot/NeuctraUiChatBot"),
@@ -149,16 +164,21 @@ const App = () => {
           </Route>
 
           {/* 🎓 Tutorial Routes */}
-          <Route path="/tutorials" element={<TutorialsLayout />}>
-            <Route index element={<h1>Tutorials</h1>} />
-
-      
-          </Route>
-
-          {/* 🧠 Guide Routes */}
-          <Route path="/guides" element={<GuidesLayout />}>
-            <Route index element={< h1>Guides</h1>} />
-
+          <Route path="/blog" element={<BlogsLayout />}>
+            <Route index element={<AllBlogsPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="admin">
+              <Route
+                index
+                element={
+                  <ReactSignedIn fallback={<Navigate to={"/blog/login"} />}>
+                    <AdminPage />
+                  </ReactSignedIn>
+                }
+              />
+              <Route path="create" element={<CreateBlogPage />} />
+            </Route>
+            <Route path=":id" element={<BlogPostPage />} />
           </Route>
 
           <Route

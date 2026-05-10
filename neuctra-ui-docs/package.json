@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@neuctra/authix": "^1.2.13",
     "@neuctra/ui": "^0.2.39",
     "@tailwindcss/vite": "^4.1.16",
     "clsx": "^2.1.1",
