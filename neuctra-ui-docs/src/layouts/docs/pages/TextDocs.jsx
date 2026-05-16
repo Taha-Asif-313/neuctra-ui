@@ -13,8 +13,8 @@ const TextDocs = () => {
     <>
       <Metadata
         title="Text Component — Neuctra UI"
-        description="Learn how to use the Text component in Neuctra UI — a polymorphic React typography component with responsive font sizes, line clamping, text styling, and Tailwind CSS support."
-        keywords="Neuctra UI Text, React typography component, responsive text React, polymorphic component React, Tailwind typography, line clamp React, truncate text UI"
+        description="Learn how to use the Text component in Neuctra UI — a modern polymorphic typography component with semantic rendering, text styling utilities, and Tailwind CSS support."
+        keywords="Neuctra UI Text, React typography component, polymorphic component React, Tailwind typography, truncate text UI"
       />
 
       <div className="font-primary min-h-screen">
@@ -23,21 +23,20 @@ const TextDocs = () => {
           <header>
             <Text
               as="h1"
-              size="2xl"
-              className="text-4xl mb-3 font-extrabold! text-white"
+              className="text-4xl mb-3 font-extrabold text-white"
             >
               Text Component
             </Text>
 
-            <Text as="p" size="sm" className="leading-relaxed">
+            <Text as="p" className="leading-relaxed text-gray-300">
               The{" "}
-              <Text as="span" weight={600} color="primary">
+              <Text as="span" className="font-semibold text-primary">
                 Text
               </Text>{" "}
-              component is a modern, polymorphic typography primitive for React.
-              It allows you to render any HTML text element while controlling
-              font size, weight, alignment, truncation, and styling — all with
-              Tailwind-powered utilities and full TypeScript support.
+              component is a lightweight and modern typography primitive for
+              React. It supports semantic HTML rendering, text decorations,
+              transformations, truncation, and full Tailwind CSS customization
+              while keeping the API simple and clean.
             </Text>
           </header>
 
@@ -46,10 +45,11 @@ const TextDocs = () => {
             <h2 className="text-2xl font-semibold mb-3 text-white">
               Import Component From Library
             </h2>
+
             <CodeBlock code={`import { Text } from "@neuctra/ui";`} />
           </section>
 
-          {/* ---------------- Basic ---------------- */}
+          {/* ---------------- Basic Code ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Usage Code
@@ -58,12 +58,12 @@ const TextDocs = () => {
             <CodeBlock
               language="tsx"
               code={`<Text>
-  Welcome to <Text weight={700}>Neuctra UI</Text>
+  Welcome to <Text className="font-bold">Neuctra UI</Text>
 </Text>`}
             />
           </section>
 
-          {/* ---------------- Basic ---------------- */}
+          {/* ---------------- Basic Preview ---------------- */}
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-white">
               Basic Usage
@@ -72,12 +72,101 @@ const TextDocs = () => {
             <CodePreviewBlock
               language="tsx"
               code={`<Text>
-  Welcome to <Text weight={700}>Neuctra UI</Text>
+  Welcome to <Text className="font-bold">Neuctra UI</Text>
 </Text>`}
               previewContent={
                 <Text>
-                  Welcome to <Text weight={700}>Neuctra UI</Text>
+                  Welcome to{" "}
+                  <Text className="font-bold">Neuctra UI</Text>
                 </Text>
+              }
+            />
+          </section>
+
+          {/* ---------------- Transform ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Text Transform
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<Text transform="uppercase">
+  neuctra ui
+</Text>`}
+              previewContent={
+                <Text transform="uppercase">
+                  neuctra ui
+                </Text>
+              }
+            />
+          </section>
+
+          {/* ---------------- Decorations ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Text Decorations
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<div className="space-y-2">
+  <Text italic>Italic Text</Text>
+  <Text underline>Underline Text</Text>
+  <Text strikethrough>Strikethrough Text</Text>
+</div>`}
+              previewContent={
+                <div className="space-y-2">
+                  <Text italic>Italic Text</Text>
+                  <Text underline>Underline Text</Text>
+                  <Text strikethrough>Strikethrough Text</Text>
+                </div>
+              }
+            />
+          </section>
+
+          {/* ---------------- Colors ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Text Colors
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<div className="space-y-2">
+  <Text color="default">Default Text</Text>
+  <Text color="primary">Primary Text</Text>
+  <Text color="muted">Muted Text</Text>
+</div>`}
+              previewContent={
+                <div className="space-y-2">
+                  <Text color="default">Default Text</Text>
+                  <Text color="primary">Primary Text</Text>
+                  <Text color="muted">Muted Text</Text>
+                </div>
+              }
+            />
+          </section>
+
+          {/* ---------------- Truncate ---------------- */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Truncate Text
+            </h2>
+
+            <CodePreviewBlock
+              language="tsx"
+              code={`<div className="max-w-[220px]">
+  <Text truncate>
+    This is a very long text that will automatically truncate.
+  </Text>
+</div>`}
+              previewContent={
+                <div className="max-w-[220px]">
+                  <Text truncate>
+                    This is a very long text that will automatically truncate.
+                  </Text>
+                </div>
               }
             />
           </section>
@@ -90,11 +179,19 @@ const TextDocs = () => {
 
             <CodePreviewBlock
               language="tsx"
-              code={`<Text as="a" href="https://www.neuctra.com" target="_blank">
+              code={`<Text
+  as="a"
+  href="https://www.neuctra.com"
+  target="_blank"
+>
   Visit Neuctra
 </Text>`}
               previewContent={
-                <Text as="a" href="https://www.neuctra.com" target="_blank">
+                <Text
+                  as="a"
+                  href="https://www.neuctra.com"
+                  target="_blank"
+                >
                   Visit Neuctra
                 </Text>
               }
@@ -106,9 +203,10 @@ const TextDocs = () => {
             <h2 className="text-2xl font-semibold text-white mb-4">
               Props Table
             </h2>
+
             <p className="text-gray-400 mb-3">
-              Detailed list of all available props for the <code>Text</code>{" "}
-              component.
+              Complete list of available props for the{" "}
+              <code>Text</code> component.
             </p>
 
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
@@ -123,13 +221,12 @@ const TextDocs = () => {
                 </thead>
 
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
-                  {/* Core */}
                   <tr>
                     <td className="p-3">as</td>
                     <td className="p-3">HTMLElementTag</td>
-                    <td className="p-3">"span"</td>
+                    <td className="p-3">"p"</td>
                     <td className="p-3">
-                      Element type to render (e.g., "p", "span", "h1", "a").
+                      Element type to render such as p, span, h1, or a.
                     </td>
                   </tr>
 
@@ -137,31 +234,7 @@ const TextDocs = () => {
                     <td className="p-3">children</td>
                     <td className="p-3">React.ReactNode</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Content inside the Text component.</td>
-                  </tr>
-
-                  {/* Typography */}
-                  <tr>
-                    <td className="p-3">size</td>
-                    <td className="p-3">
-                      "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
-                    </td>
-                    <td className="p-3">"md"</td>
-                    <td className="p-3">Predefined font size.</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">weight</td>
-                    <td className="p-3">400 | 500 | 600 | 700</td>
-                    <td className="p-3">400</td>
-                    <td className="p-3">Font weight.</td>
-                  </tr>
-
-                  <tr>
-                    <td className="p-3">align</td>
-                    <td className="p-3">"left" | "center" | "right"</td>
-                    <td className="p-3">"left"</td>
-                    <td className="p-3">Text alignment.</td>
+                    <td className="p-3">Content inside the component.</td>
                   </tr>
 
                   <tr>
@@ -170,10 +243,9 @@ const TextDocs = () => {
                       "uppercase" | "lowercase" | "capitalize"
                     </td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Text transformation.</td>
+                    <td className="p-3">Applies text transformation.</td>
                   </tr>
 
-                  {/* Decorations */}
                   <tr>
                     <td className="p-3">italic</td>
                     <td className="p-3">boolean</td>
@@ -185,27 +257,25 @@ const TextDocs = () => {
                     <td className="p-3">underline</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Adds underline.</td>
+                    <td className="p-3">Adds underline decoration.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">strikethrough</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
-                    <td className="p-3">Applies line-through decoration.</td>
+                    <td className="p-3">Adds line-through decoration.</td>
                   </tr>
 
-                  {/* Truncate */}
                   <tr>
                     <td className="p-3">truncate</td>
                     <td className="p-3">boolean</td>
                     <td className="p-3">false</td>
                     <td className="p-3">
-                      Applies single-line truncation (ellipsis).
+                      Enables single-line text truncation.
                     </td>
                   </tr>
 
-                  {/* Color */}
                   <tr>
                     <td className="p-3">color</td>
                     <td className="p-3">
@@ -213,25 +283,23 @@ const TextDocs = () => {
                     </td>
                     <td className="p-3">"default"</td>
                     <td className="p-3">
-                      Text color. Accepts predefined keys or custom class.
+                      Text color or custom Tailwind class.
                     </td>
                   </tr>
 
-                  {/* Styling */}
                   <tr>
                     <td className="p-3">className</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Custom Tailwind or CSS classes.</td>
+                    <td className="p-3">Additional custom classes.</td>
                   </tr>
 
                   <tr>
                     <td className="p-3">...rest</td>
-                    <td className="p-3">ComponentPropsWithoutRef&lt;T&gt;</td>
+                    <td className="p-3">Native HTML Props</td>
                     <td className="p-3">—</td>
                     <td className="p-3">
-                      Native props of the rendered element (href, onClick,
-                      etc.).
+                      Additional props passed to the rendered element.
                     </td>
                   </tr>
                 </tbody>
@@ -248,40 +316,36 @@ const TextDocs = () => {
             <div className="space-y-4 text-sm text-gray-300">
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
-                <div>
-                  <code>{"<Text size={18} />"}</code>
-                  <p className="text-gray-500 text-xs mt-1">
-                    Size must be one of: xs, sm, md, lg, xl, 2xl
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-start gap-2 text-red-500">
-                <X size={16} className="mt-1" />
                 <div>
                   <code>{"<Text truncate={3} />"}</code>
+
                   <p className="text-gray-500 text-xs mt-1">
-                    truncate only supports boolean (true/false)
+                    truncate only accepts boolean values.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2 text-red-500">
                 <X size={16} className="mt-1" />
+
                 <div>
                   <code>{'<Text as="a" color="muted" />'}</code>
+
                   <p className="text-gray-500 text-xs mt-1">
-                    Anchor elements automatically get primary color styling
+                    Anchor elements automatically receive link styling.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-2 text-green-500">
                 <Check size={16} className="mt-1" />
+
                 <div>
-                  <code>{'<Text size="lg" weight={600} />'}</code>
+                  <code>{'<Text className="font-bold text-xl" />'}</code>
+
                   <p className="text-gray-500 text-xs mt-1">
-                    Use predefined tokens for consistent typography
+                    Use Tailwind utility classes for typography customization.
                   </p>
                 </div>
               </div>
@@ -290,46 +354,38 @@ const TextDocs = () => {
 
           {/* ---------------- Pro Tips ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
+            <h2 className="text-2xl font-semibold text-white mb-3">
+              Pro Tips
+            </h2>
 
             <ul className="text-gray-200 space-y-2 list-disc list-inside">
               <li>
-                Use <code>as</code> to keep semantic HTML:
-                <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
-                  <li>h1 → headings</li>
-                  <li>p → paragraphs</li>
-                  <li>a → links</li>
-                </ul>
+                Use <code>as</code> for semantic HTML structure.
               </li>
 
               <li>
-                Use predefined sizes (<code>sm</code>, <code>lg</code>) for
-                consistency across your design system.
+                Use Tailwind utility classes through{" "}
+                <code>className</code> for sizing and weight.
               </li>
 
               <li>
-                Anchor elements (<code>as="a"</code>) automatically get primary
-                color + underline styling.
+                Anchor elements automatically receive primary color and
+                underline styling.
               </li>
 
               <li>
-                Use <code>truncate</code> for single-line ellipsis in cards,
-                tables, and tight layouts.
+                Use <code>truncate</code> for compact layouts like tables,
+                cards, and navigation items.
               </li>
 
               <li>
-                Combine <code>weight</code> and <code>size</code> instead of
-                adding custom classes.
+                Keep the API minimal and rely on Tailwind utilities for advanced
+                styling.
               </li>
 
               <li>
-                Use <code>className</code> only when you need something outside
-                the system.
-              </li>
-
-              <li>
-                Keep the API simple — avoid over-engineering responsive props
-                unless necessary.
+                Combine utility classes with the built-in props for maximum
+                flexibility.
               </li>
             </ul>
           </section>

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@neuctra/authix": "^1.2.13",
-    "@neuctra/ui": "^0.2.39",
+    "@neuctra/ui": "^0.2.40",
     "@tailwindcss/vite": "^4.1.16",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",

@@ -5,13 +5,10 @@ import clsx from "clsx";
 
 type HTMLElementTag = keyof HTMLElementTagNameMap;
 
-export type TextProps<T extends HTMLElementTag = "p"> = {
+export type TextProps<T extends HTMLElementTag = "span"> = {
   as?: T;
   children: React.ReactNode;
 
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-  weight?: 400 | 500 | 600 | 700;
-  align?: "left" | "center" | "right";
   transform?: "uppercase" | "lowercase" | "capitalize";
 
   italic?: boolean;
@@ -26,28 +23,6 @@ export type TextProps<T extends HTMLElementTag = "p"> = {
 
 /* ------------------ MAPS ------------------ */
 
-const sizeMap = {
-  xs: "text-xs",
-  sm: "text-sm",
-  md: "text-base",
-  lg: "text-lg",
-  xl: "text-xl",
-  "2xl": "text-2xl",
-};
-
-const weightMap = {
-  400: "font-normal",
-  500: "font-medium",
-  600: "font-semibold",
-  700: "font-bold",
-};
-
-const alignMap = {
-  left: "text-left",
-  center: "text-center",
-  right: "text-right",
-};
-
 const transformMap = {
   uppercase: "uppercase",
   lowercase: "lowercase",
@@ -56,18 +31,15 @@ const transformMap = {
 
 const colorMap: Record<string, string> = {
   default: "text-foreground",
-  muted: "text-muted-foreground",
   primary: "text-primary",
+  muted: "text-muted-foreground",
 };
 
 /* ------------------ COMPONENT ------------------ */
 
-export function Text<T extends HTMLElementTag = "p">({
+export function Text<T extends HTMLElementTag = "span">({
   as,
   children,
-  size = "md",
-  weight = 400,
-  align = "left",
   transform,
   italic,
   underline,
@@ -77,16 +49,14 @@ export function Text<T extends HTMLElementTag = "p">({
   className,
   ...rest
 }: TextProps<T>) {
-  const Element = (as || "span") as any;
+  const Element = (as || "p") as any;
   const isAnchor = Element === "a";
 
   return (
     <Element
       className={clsx(
         className,
-        sizeMap[size],
-        weightMap[weight],
-        alignMap[align],
+
         transform && transformMap[transform],
 
         italic && "italic",
