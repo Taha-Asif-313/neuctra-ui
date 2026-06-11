@@ -217,20 +217,5 @@
     <priority>0.4</priority>
     <lastmod>2026-05-06</lastmod>
   </url>
-  
-  <!-- Templates -->
-  <url>
-    <loc>https://ui.neuctra.com/templates</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-06</lastmod>
-  </url>
-  
-  <!-- AI Assistant -->
-  <url>
-    <loc>https://ui.neuctra.com/ai-assistant</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <lastmod>2026-05-06</lastmod>
-  </url>
+
 </urlset>

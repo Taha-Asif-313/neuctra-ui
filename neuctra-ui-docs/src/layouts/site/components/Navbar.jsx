@@ -10,7 +10,6 @@ const Navbar = () => {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Docs", href: "/docs" },
-    { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
   ];
 
@@ -53,7 +52,7 @@ const Navbar = () => {
 
           <button
             onClick={() => navigate("/docs")}
-            className="flex items-center gap-2 border border-white px-4 py-1.5 rounded text-sm hover:bg-primary hover:border-primary font-semibold transition duration-300"
+            className="flex items-center gap-2 px-4 py-1.5 rounded text-sm bg-primary hover:bg-primary/80 hover:border-primary font-semibold transition duration-300"
           >
             Get started <ArrowRight size={18} />
           </button>

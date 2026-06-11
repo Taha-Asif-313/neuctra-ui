@@ -9,21 +9,10 @@ import GoToTop from "./components/GoToTop";
 // Layouts
 import SiteLayout from "./layouts/site/SiteLayout";
 import DocsLayout from "./layouts/docs/DocsLayout";
-import BlogsLayout from "./layouts/blog/BlogsLayout";
-
-// Context
-import { AdminProvider } from "./layouts/blog/contexts/AdminContext";
-
-// Blog Pages
-const LoginPage = lazy(() => import("./layouts/blog/pages/LoginPage"));
-const AdminPage = lazy(() => import("./layouts/blog/pages/AdminPage"));
-const BlogPostPage = lazy(() => import("./layouts/blog/pages/BlogPostPage"));
 
 // Site Pages
 import LandingPage from "./layouts/site/pages/LandingPage";
-import AllBlogsPage from "./layouts/blog/pages/AllBlogsPage";
-import CreateBlogPage from "./layouts/blog/pages/CreateBlogPage";
-import { ReactSignedIn } from "@neuctra/authix";
+
 const AboutPage = lazy(() => import("./layouts/site/pages/AboutPage"));
 const TermsPage = lazy(() => import("./layouts/site/pages/TermsPage"));
 const ContactPage = lazy(() => import("./layouts/site/pages/ContactPage"));
@@ -66,10 +55,6 @@ const AlertDocs = lazy(() => import("./layouts/docs/pages/AlertDocs"));
 const ModalDocs = lazy(() => import("./layouts/docs/pages/ModalDocs"));
 const AccordionDocs = lazy(() => import("./layouts/docs/pages/AccordionDocs"));
 const TableDocs = lazy(() => import("./layouts/docs/pages/TableDocs"));
-
-const NeuctraUiChatBotPage = lazy(
-  () => import("./pages/NeuctraUIBot/NeuctraUiChatBot"),
-);
 
 const App = () => {
   return (
@@ -162,29 +147,6 @@ const App = () => {
             {/* Table component */}
             <Route path="table" element={<TableDocs />} />
           </Route>
-
-          {/* 🎓 Tutorial Routes */}
-          <Route path="/blog" element={<BlogsLayout />}>
-            <Route index element={<AllBlogsPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="admin">
-              <Route
-                index
-                element={
-                  <ReactSignedIn fallback={<Navigate to={"/blog/login"} />}>
-                    <AdminPage />
-                  </ReactSignedIn>
-                }
-              />
-              <Route path="create" element={<CreateBlogPage />} />
-            </Route>
-            <Route path=":id" element={<BlogPostPage />} />
-          </Route>
-
-          <Route
-            path="/neuctra-ui-chatbot"
-            element={<NeuctraUiChatBotPage />}
-          />
         </Routes>
       </Suspense>
     </BrowserRouter>
