@@ -12,9 +12,9 @@ const AvatarDocs = () => {
   return (
     <>
       <Metadata
-        title="Avatar Component — Neuctra UI"
-        description="Learn how to use the Avatar component in Neuctra UI — customizable sizes, variants, online/offline status, rings, and fallbacks."
-        keywords="Neuctra UI Avatar, React Avatar component, profile image, user avatar, status dot, UI library"
+        title="Avatar Component — React User Profile UI | Neuctra UI"
+        description="Build flexible and accessible avatar components with Neuctra UI. Supports images, initials fallback, online/offline status, sizes, shapes, rings, and click interactions."
+        keywords="react avatar component, user avatar ui, profile image component, avatar fallback initials, online offline indicator react, avatar size variants, circular avatar react, neuctra ui avatar"
       />
 
       <div className="font-primary min-h-screen">
@@ -46,8 +46,9 @@ const AvatarDocs = () => {
               Basic Usage Code
             </h2>
             <p className="text-gray-300 mb-4">
-              Start with a simple avatar. The component supports images, fallback
-              text, and various sizes and variants for different use cases.
+              Start with a simple avatar. The component supports images,
+              fallback text, and various sizes and variants for different use
+              cases.
             </p>
             <CodeBlock
               language="jsx"

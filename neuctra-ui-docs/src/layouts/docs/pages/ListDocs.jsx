@@ -46,7 +46,6 @@ const navItems = [
     description: "Members and roles",
     icon: <Users size={16} />,
     trailing: <span className="text-xs text-foreground">12</span>,
-
   },
   {
     id: "settings",
@@ -287,9 +286,9 @@ const ListDocs = () => {
   return (
     <>
       <Metadata
-        title="List Component - Neuctra UI"
-        description="Flexible List component for content lists, nav drawers, submenus, dropdown menus, icon lists, and nested tree lists."
-        keywords="React List component, navigation list, menu list, nested list, tree list, icon list, Neuctra UI"
+        title="List Component — Flexible UI Lists, Navigation & Tree Views | Neuctra UI"
+        description="Explore the Neuctra UI List component for building flexible content lists, navigation menus, dropdown menus, icon lists, and nested tree structures. Supports React, TypeScript, and advanced features like collapsible submenus, active states, and custom renderers."
+        keywords="React List component, UI list library, navigation list React, menu component, tree view React, nested list UI, dropdown menu component, icon list React, sidebar navigation list, flexible list component, Neuctra UI List"
       />
 
       <div className="font-primary min-h-screen">

@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Shield } from "lucide-react";
+import Metadata from "../../../MetaData";
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="bg-zinc-950 text-gray-100 min-h-screen pt-24 pb-16">
+    <>
+      <Metadata
+        title="Privacy Policy — Neuctra UI"
+        description="Neuctra UI Privacy Policy: how we collect and use data, security practices, and user rights."
+      />
+
+      <div className="bg-zinc-950 text-gray-100 min-h-screen pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
@@ -86,6 +93,7 @@ const PrivacyPolicyPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

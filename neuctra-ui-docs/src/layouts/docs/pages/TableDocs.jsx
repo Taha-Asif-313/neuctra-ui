@@ -11,9 +11,9 @@ const TableDocs = () => {
   return (
     <>
       <Metadata
-        title="Table Component — Tailwind Admin Dashboard React | Neuctra UI"
-        description="Table component for SaaS applications - React data tables with Tailwind CSS. Perfect for Tailwind admin dashboard React and SaaS dashboard UI with responsive design."
-        keywords="Tailwind admin dashboard React, React UI library for SaaS, SaaS dashboard UI React Tailwind, Neuctra UI Table, React Table component, responsive table, customizable table, Tailwind table, data table"
+        title="Table Component — React Data Tables for SaaS Dashboards | Neuctra UI"
+        description="Highly customizable React Table component for SaaS and admin dashboards. Supports responsive layouts, striped rows, hover states, dense mode, and full control over headers, rows, and cells with Tailwind CSS styling."
+        keywords="react table component, saas dashboard table, tailwind data table, responsive table react, admin dashboard table ui, neuctra ui table, customizable table component, react data grid alternative, table head body row cell react, dark mode table ui, structured data table component"
       />
 
       <div className="font-primary min-h-screen">

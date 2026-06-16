@@ -22,9 +22,9 @@ const SwitchDocs = () => {
   return (
     <>
       <Metadata
-        title="Switch Component — Neuctra UI"
-        description="A fully customizable Switch component supporting single toggle and group multi-select modes with keyboard navigation and Tailwind-based styling."
-        keywords="Switch, Toggle, React Switch, UI Component, Tailwind Switch, Multi Switch, Form Controls"
+        title="Switch Component — React Toggle UI for SaaS Applications | Neuctra UI"
+        description="Flexible React Switch component for SaaS dashboards and forms. Supports single toggle and group multi-select modes, with full TypeScript support, keyboard accessibility, validation states, and Tailwind-based styling."
+        keywords="react switch component, toggle switch react, saas ui switch, tailwind switch component, multi switch group react, form toggle component, neuctra ui switch, accessible switch react, settings toggle ui, permissions switch react, dashboard toggle component, ui library switch"
       />
 
       <div className="font-primary min-h-screen">
@@ -86,8 +86,8 @@ const SwitchDocs = () => {
             </h2>
             <p className="text-gray-300 mb-4">
               Group mode receives an <code>options</code> array. Each option
-              needs a display <code>label</code> and a string{" "}
-              <code>value</code>.
+              needs a display <code>label</code> and a string <code>value</code>
+              .
             </p>
             <CodeBlock
               language="ts"
@@ -118,8 +118,8 @@ const SwitchDocs = () => {
               Basic Usage Code
             </h2>
             <p className="text-gray-300 mb-4">
-              Start with a simple switch. The component supports both single toggle
-              and group multi-select modes with full customization.
+              Start with a simple switch. The component supports both single
+              toggle and group multi-select modes with full customization.
             </p>
             <CodeBlock
               language="jsx"
@@ -490,8 +490,8 @@ function SwitchGroupExample() {
                     <td className="p-3">number</td>
                     <td className="p-3">20</td>
                     <td className="p-3">
-                      Base switch size in pixels. The track and thumb scale
-                      from this value.
+                      Base switch size in pixels. The track and thumb scale from
+                      this value.
                     </td>
                   </tr>
 

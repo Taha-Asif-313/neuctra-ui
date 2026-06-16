@@ -21,10 +21,7 @@ const TextDocs = () => {
         <div className="space-y-12">
           {/* ---------------- Header ---------------- */}
           <header>
-            <Text
-              as="h1"
-              className="text-4xl mb-3 font-extrabold text-white"
-            >
+            <Text as="h1" className="text-4xl mb-3 font-extrabold text-white">
               Text Component
             </Text>
 
@@ -76,8 +73,7 @@ const TextDocs = () => {
 </Text>`}
               previewContent={
                 <Text>
-                  Welcome to{" "}
-                  <Text className="font-bold">Neuctra UI</Text>
+                  Welcome to <Text className="font-bold">Neuctra UI</Text>
                 </Text>
               }
             />
@@ -94,11 +90,7 @@ const TextDocs = () => {
               code={`<Text transform="uppercase">
   neuctra ui
 </Text>`}
-              previewContent={
-                <Text transform="uppercase">
-                  neuctra ui
-                </Text>
-              }
+              previewContent={<Text transform="uppercase">neuctra ui</Text>}
             />
           </section>
 
@@ -187,11 +179,7 @@ const TextDocs = () => {
   Visit Neuctra
 </Text>`}
               previewContent={
-                <Text
-                  as="a"
-                  href="https://www.neuctra.com"
-                  target="_blank"
-                >
+                <Text as="a" href="https://www.neuctra.com" target="_blank">
                   Visit Neuctra
                 </Text>
               }
@@ -205,8 +193,8 @@ const TextDocs = () => {
             </h2>
 
             <p className="text-gray-400 mb-3">
-              Complete list of available props for the{" "}
-              <code>Text</code> component.
+              Complete list of available props for the <code>Text</code>{" "}
+              component.
             </p>
 
             <div className="border border-zinc-800 rounded-xl overflow-hidden">
@@ -354,9 +342,7 @@ const TextDocs = () => {
 
           {/* ---------------- Pro Tips ---------------- */}
           <section>
-            <h2 className="text-2xl font-semibold text-white mb-3">
-              Pro Tips
-            </h2>
+            <h2 className="text-2xl font-semibold text-white mb-3">Pro Tips</h2>
 
             <ul className="text-gray-200 space-y-2 list-disc list-inside">
               <li>
@@ -364,8 +350,8 @@ const TextDocs = () => {
               </li>
 
               <li>
-                Use Tailwind utility classes through{" "}
-                <code>className</code> for sizing and weight.
+                Use Tailwind utility classes through <code>className</code> for
+                sizing and weight.
               </li>
 
               <li>

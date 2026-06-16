@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNeuctraLlm } from "../../hooks/useNeuctraLlm";
-import neuctraAiReference from "../../../neuctra-ui-ai-reference.json";
+import { useNeuctraLlm } from "../hooks/useNeuctraLlm";
+import neuctraAiReference from "../../neuctra-ui-ai-reference.json";
 import { chatStorage, generateChatTitle, getLastMessagePreview } from "./utils/chatStorage";
 import { useStreamingChat } from "./hooks/useStreamingChat";
 

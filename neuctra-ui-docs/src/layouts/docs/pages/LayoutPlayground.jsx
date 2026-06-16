@@ -154,8 +154,9 @@ const LayoutPlayground = () => {
   return (
     <>
       <Metadata
-        title="Layout Playground — Neuctra UI"
-        description="Interactive layout builder for Container-based flex and grid patterns."
+        title="Layout Playground — Interactive Flex & Grid Builder | Neuctra UI"
+        description="Experiment with flexbox and grid layouts in real time using the Neuctra UI Layout Playground. Adjust columns, spacing, alignment, and sidebar layouts and generate production-ready React JSX instantly."
+        keywords="layout playground, react layout builder, flexbox generator, grid layout tool, ui layout playground, tailwind flex grid builder, container layout react, sidebar layout generator, dashboard layout builder, responsive ui builder, neuctra ui tools"
       />
 
       <div className="space-y-8 min-h-screen">

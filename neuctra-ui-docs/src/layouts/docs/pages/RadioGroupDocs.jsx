@@ -54,9 +54,9 @@ const RadioGroupDocs = () => {
   return (
     <>
       <Metadata
-        title="RadioGroup Component — Neuctra UI"
-        description="Fully customizable RadioGroup component with keyboard navigation, multiple sizes, orientations, and comprehensive styling control."
-        keywords="RadioGroup React, headless radio group, Tailwind radio component, customizable radio buttons, keyboard navigation, accessible radio group"
+        title="RadioGroup Component — Accessible React Selection Controls | Neuctra UI"
+        description="Build accessible and customizable RadioGroup components in React. Supports keyboard navigation, icons, descriptions, multiple sizes, orientations, validation states, and full Tailwind styling control for SaaS UI."
+        keywords="React RadioGroup component, accessible radio buttons React, Tailwind RadioGroup, form radio component React, custom radio UI, keyboard accessible radio group, React selection control, SaaS form components, Neuctra UI RadioGroup, headless radio group React"
       />
 
       <div className="font-primary min-h-screen">

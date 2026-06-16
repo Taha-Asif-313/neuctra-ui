@@ -21,9 +21,9 @@ const CheckboxDocs = () => {
   return (
     <>
       <Metadata
-        title="Checkbox Component — Neuctra UI"
-        description="Fully customizable Checkbox component with single and group modes, custom rendering, keyboard navigation, and complete style control."
-        keywords="Checkbox, React checkbox, checkbox component, multi select, form controls"
+        title="Checkbox Component — React Form Controls & Multi-Select UI | Neuctra UI"
+        description="Build accessible and flexible React checkbox components with Neuctra UI. Supports single and group modes, multi-select, custom rendering, keyboard navigation, and full styling control."
+        keywords="react checkbox component, form checkbox ui, multi select checkbox react, group checkbox component, controlled checkbox react, form controls ui library, accessible checkbox react, neuctra ui checkbox"
       />
 
       <div className="font-primary min-h-screen">
@@ -48,11 +48,11 @@ const CheckboxDocs = () => {
               Overview
             </h2>
             <p className="text-sm text-accent-foreground leading-relaxed">
-              Checkbox works in two modes: <code>group</code> for
-              multi-select lists and <code>single</code> for simple yes/no
-              toggles. It supports custom icons, disabled states, read-only
-              behavior, error messages, unrestricted styling, and arrow-key
-              navigation in group mode.
+              Checkbox works in two modes: <code>group</code> for multi-select
+              lists and <code>single</code> for simple yes/no toggles. It
+              supports custom icons, disabled states, read-only behavior, error
+              messages, unrestricted styling, and arrow-key navigation in group
+              mode.
             </p>
           </section>
 
@@ -167,8 +167,8 @@ function CheckboxGroupExample() {
               Group Mode
             </h2>
             <p className="text-sm text-accent-foreground mb-3 leading-relaxed">
-              Use <code>mode="group"</code> to display a list of checkboxes
-              with multi-select behavior. Pass <code>options</code>, then track
+              Use <code>mode="group"</code> to display a list of checkboxes with
+              multi-select behavior. Pass <code>options</code>, then track
               selections with <code>selectedValues</code> and{" "}
               <code>onChange</code>.
             </p>

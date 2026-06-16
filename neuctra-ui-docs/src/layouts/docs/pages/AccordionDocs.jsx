@@ -26,9 +26,9 @@ const AccordionDocs = () => {
   return (
     <>
       <Metadata
-        title="Accordion Component — Neuctra UI"
-        description="Learn how to use the Accordion component in Neuctra UI — fully customizable, responsive, and supports className & inline styling overrides."
-        keywords="Neuctra UI Accordion, React accordion component, collapsible UI, customizable accordion, UI library"
+        title="React Accordion Component - Expandable & Customizable | Neuctra UI"
+        description="Build responsive and accessible React accordion components with Neuctra UI. Support for multiple open panels, custom icons, animations, styling overrides, and TypeScript."
+        keywords="react accordion, accordion component react, expandable content, collapsible panel, faq accordion, react ui components, typescript accordion, customizable accordion, neuctra ui"
       />
 
       <div className="font-primary min-h-screen">
@@ -305,7 +305,9 @@ function BasicExample() {
                     <td className="p-3">hoverClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
-                    <td className="p-3">Additional classes applied to header</td>
+                    <td className="p-3">
+                      Additional classes applied to header
+                    </td>
                   </tr>
                   <tr>
                     <td className="p-3">hoverStyle</td>

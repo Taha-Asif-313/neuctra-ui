@@ -18,7 +18,9 @@ const AlertDocsContent = () => {
         <h2 className="text-2xl font-semibold mb-2 text-white">
           Import Component From Library
         </h2>
-        <CodeBlock code={`import { useToast, ToastProvider } from "@neuctra/ui";`} />
+        <CodeBlock
+          code={`import { useToast, ToastProvider } from "@neuctra/ui";`}
+        />
       </section>
 
       {/* Basic Usage */}
@@ -553,8 +555,9 @@ const AlertDocs = () => {
     <ToastProvider>
       <>
         <Metadata
-          title="Toast Component — Neuctra UI"
-          description="Modern toast notifications with simple and powerful API."
+          title="React Toast Notifications & useToast Hook | Neuctra UI"
+          description="Create beautiful toast notifications in React with Neuctra UI. Supports success, error, warning, info alerts, custom styling, auto-dismiss, and global notification management."
+          keywords="react toast, toast notifications react, useToast hook, notification component, react alerts, toast provider, react ui library, success notification, error notification, neuctra ui"
         />
 
         <div className="font-primary min-h-screen">

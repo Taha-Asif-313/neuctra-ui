@@ -1,76 +1,119 @@
 import { useEffect } from "react";
 
-/**
- * 🧠 Custom Metadata Component (Enhanced)
- * Dynamically injects SEO, OpenGraph, and Twitter meta tags.
- * - Works without Helmet.js
- * - Fully supports title overrides for OG & Twitter
- * - Avoids duplicate tag creation
- */
+const DEFAULT_IMAGE =
+  "https://ui.neuctra.com/docs-default-og.png";
+
 const Metadata = ({
   title,
   description,
   keywords,
   image,
-  ogTitle,
-  ogDescription,
-  twitterTitle,
-  twitterDescription,
-  twitterCard = "summary_large_image",
 }) => {
   useEffect(() => {
-    if (title) document.title = title;
+    if (title) {
+      document.title = title;
+    }
 
     const ensureMeta = (selector, key, attr, content) => {
       if (!content) return;
-      let tag = document.querySelector(selector);
-      if (!tag) {
-        tag = document.createElement("meta");
+
+      const nodes = Array.from(
+        document.querySelectorAll(selector)
+      );
+
+      if (nodes.length === 0) {
+        const tag = document.createElement("meta");
         tag.setAttribute(attr, key);
+        tag.setAttribute("content", content);
         document.head.appendChild(tag);
+        return;
       }
-      tag.setAttribute("content", content);
+
+      const first = nodes[0];
+      first.setAttribute(attr, key);
+      first.setAttribute("content", content);
+
+      nodes.slice(1).forEach((n) => n.remove());
     };
 
-    // 🧱 Standard Meta
-    ensureMeta('meta[name="description"]', "description", "name", description);
-    ensureMeta('meta[name="keywords"]', "keywords", "name", keywords);
+    const seoImage = image || DEFAULT_IMAGE;
+    const currentUrl = window.location.href;
 
-    // 🧩 Open Graph (for social media)
-    ensureMeta('meta[property="og:title"]', "og:title", "property", ogTitle || title);
+    // Basic SEO
+    ensureMeta(
+      'meta[name="description"]',
+      "description",
+      "name",
+      description
+    );
+
+    ensureMeta(
+      'meta[name="keywords"]',
+      "keywords",
+      "name",
+      keywords
+    );
+
+    // Open Graph
+    ensureMeta(
+      'meta[property="og:title"]',
+      "og:title",
+      "property",
+      title
+    );
+
     ensureMeta(
       'meta[property="og:description"]',
       "og:description",
       "property",
-      ogDescription || description
+      description
     );
-    ensureMeta('meta[property="og:image"]', "og:image", "property", image);
-    ensureMeta('meta[property="og:type"]', "og:type", "property", "website");
-    ensureMeta('meta[property="og:url"]', "og:url", "property", window.location.href);
 
-    // 🐦 Twitter Card
-    ensureMeta('meta[name="twitter:card"]', "twitter:card", "name", twitterCard);
-    ensureMeta('meta[name="twitter:title"]', "twitter:title", "name", twitterTitle || title);
+    ensureMeta(
+      'meta[property="og:image"]',
+      "og:image",
+      "property",
+      seoImage
+    );
+
+    ensureMeta(
+      'meta[property="og:url"]',
+      "og:url",
+      "property",
+      currentUrl
+    );
+
+    // Twitter
+    ensureMeta(
+      'meta[name="twitter:card"]',
+      "twitter:card",
+      "name",
+      "summary_large_image"
+    );
+
+    ensureMeta(
+      'meta[name="twitter:title"]',
+      "twitter:title",
+      "name",
+      title
+    );
+
     ensureMeta(
       'meta[name="twitter:description"]',
       "twitter:description",
       "name",
-      twitterDescription || description
+      description
     );
-    ensureMeta('meta[name="twitter:image"]', "twitter:image", "name", image);
-  }, [
-    title,
-    description,
-    keywords,
-    image,
-    ogTitle,
-    ogDescription,
-    twitterTitle,
-    twitterDescription,
-    twitterCard,
-  ]);
 
-  return null; // 🫥 nothing rendered visually
+    ensureMeta(
+      'meta[name="twitter:image"]',
+      "twitter:image",
+      "name",
+      seoImage
+    );
+  }, [title, description, keywords, image]);
+
+  return null;
 };
 
 export default Metadata;

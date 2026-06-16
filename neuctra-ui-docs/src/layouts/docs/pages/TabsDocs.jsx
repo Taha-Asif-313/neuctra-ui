@@ -59,7 +59,11 @@ const DemoTabs = ({
 const TabsDocs = () => {
   return (
     <>
-      <Metadata title="Tabs — Neuctra UI" />
+      <Metadata
+        title="Tabs Component — Flexible Navigation System for React | Neuctra UI"
+        description="Explore the Neuctra UI Tabs component for React. A fully accessible, responsive tab system with multiple variants, keyboard navigation, mobile support, and advanced customization for modern UI dashboards and apps."
+        keywords="react tabs component, tabs ui library, tab navigation react, flexible tabs system, responsive tabs component, headless tabs react, dashboard tabs ui, mobile tabs react, underline tabs, pill tabs, neuctra ui tabs"
+      />
 
       <div className="min-h-screen">
         <div className="space-y-12">

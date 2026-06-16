@@ -271,11 +271,6 @@ const LandingPage = () => {
         title="React UI Library for SaaS | SaaS Dashboard UI React Tailwind"
         description="Neuctra UI is a React UI library for SaaS teams building SaaS dashboard UI, React authentication UI, Tailwind admin dashboards, and React form builder interfaces."
         keywords={seoKeywords}
-        ogTitle="Neuctra UI - React UI Library for SaaS"
-        ogDescription="Build SaaS dashboard UI with React and Tailwind components for authentication, admin dashboards, form builders, and production-ready app screens."
-        twitterTitle="React UI Library for SaaS - Neuctra UI"
-        twitterDescription="Tailwind React components for SaaS dashboard UI, authentication screens, admin panels, and form builder workflows."
-        image="https://ui.neuctra.com/og-image.png"
       />
 
       <div className="relative bg-black text-white w-full overflow-hidden">

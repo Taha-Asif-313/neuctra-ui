@@ -14,9 +14,9 @@ const DropdownDocs = () => {
   return (
     <>
       <Metadata
-        title="Dropdown Component — Neuctra UI"
-        description="Learn how to use the Dropdown component in Neuctra UI — fully customizable action menus with icons, separators, and flexible positioning."
-        keywords="Neuctra UI Dropdown, React dropdown menu, action menu component, Tailwind dropdown, UI library React"
+        title="React Dropdown Component - Action Menu with Icons & Controls | Neuctra UI"
+        description="Build flexible dropdown menus in React with Neuctra UI. Supports icons, separators, controlled state, alignment, danger actions, and fully customizable styling for modern action menus."
+        keywords="react dropdown, dropdown menu component, action menu react, ui dropdown tailwind, customizable dropdown, react menu component, context menu react, neuctra ui dropdown, dropdown with icons, controlled dropdown"
       />
 
       <div className="font-primary min-h-screen">

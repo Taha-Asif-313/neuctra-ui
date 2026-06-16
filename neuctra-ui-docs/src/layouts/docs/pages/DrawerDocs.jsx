@@ -83,15 +83,13 @@ const DrawerDocs = () => {
   return (
     <>
       <Metadata
-        title="Drawer Component — Neuctra UI"
-        description="A fully customizable, headless Drawer component with overlay, positions, animations, and full styling control."
-        keywords="Drawer React, sidebar panel, modal drawer, headless drawer, Neuctra UI"
+        title="React Drawer Component - Sliding Sidebar & Headless UI Panel | Neuctra UI"
+        description="Build modern sliding drawer panels in React with Neuctra UI. Supports controlled and headless modes, multiple positions, overlay control, animations, and fully customizable layouts for sidebars, menus, and mobile sheets."
+        keywords="react drawer, drawer component react, sidebar drawer, sliding panel ui, headless drawer react, modal drawer, offcanvas menu react, react ui components, neuctra ui drawer, mobile bottom sheet, customizable drawer component"
       />
 
       <div className="font-primary min-h-screen">
         <div className="space-y-10">
-
-
           {/* Header */}
           <header>
             <h1 className="text-4xl font-extrabold mb-3 text-white">

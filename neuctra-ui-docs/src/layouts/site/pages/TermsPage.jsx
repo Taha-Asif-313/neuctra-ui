@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FileText } from "lucide-react";
+import Metadata from "../../../MetaData";
 
 const TermsPage = () => {
   return (
-    <div className="bg-zinc-950 text-gray-100 min-h-screen pt-24 pb-16">
+    <>
+      <Metadata
+        title="Terms of Service — Neuctra UI"
+        description="Terms of Service for Neuctra UI. Read the legal terms, license, and usage guidelines for using the Neuctra UI library."
+      />
+
+      <div className="bg-zinc-950 text-gray-100 min-h-screen pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
@@ -84,6 +91,7 @@ const TermsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

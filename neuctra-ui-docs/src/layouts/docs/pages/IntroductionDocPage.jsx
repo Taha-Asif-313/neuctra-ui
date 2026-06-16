@@ -15,7 +15,8 @@ const IntroductionDocPage = () => {
     <>
       <Metadata
         title="Introduction — React UI Library for SaaS | Neuctra UI"
-        description="Discover Neuctra UI, the modern React UI library for SaaS applications. Learn how our Tailwind React components help build SaaS dashboard UI and authentication interfaces."
+        description="Discover Neuctra UI, a modern React UI library for SaaS applications built with Tailwind CSS. Learn how to build scalable dashboards, authentication systems, and reusable UI components with a fast developer experience."
+        keywords="neuctra ui, react ui library, saas ui components, tailwind react components, dashboard ui react, authentication ui react, reusable ui system, component library react, modern ui framework, react saas boilerplate"
       />
 
       <div className="text-gray-200 min-h-screen">
@@ -23,13 +24,15 @@ const IntroductionDocPage = () => {
           {/* ================= HERO ================= */}
           <section>
             <h1 className="text-4xl font-extrabold text-white leading-tight">
-              Build modern UIs with <code className="text-primary">@neuctra/ui</code>
+              Build modern UIs with{" "}
+              <code className="text-primary">@neuctra/ui</code>
             </h1>
 
             <p className="mt-4 text-zinc-200 max-w-2xl leading-relaxed">
-              Neuctra UI is a modern React UI library for SaaS applications, powered by Tailwind
-              CSS. It helps developers build clean, scalable SaaS dashboard UI, authentication forms, 
-              and customizable interfaces without wasting time on repetitive UI work. Perfect for 
+              Neuctra UI is a modern React UI library for SaaS applications,
+              powered by Tailwind CSS. It helps developers build clean, scalable
+              SaaS dashboard UI, authentication forms, and customizable
+              interfaces without wasting time on repetitive UI work. Perfect for
               startups looking for reusable SaaS components React.
             </p>
           </section>

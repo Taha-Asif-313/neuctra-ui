@@ -61,7 +61,6 @@ const TextareaDocs = () => {
   label="Description"
   placeholder="Enter text..."
 />`}
-
             />
           </section>
 

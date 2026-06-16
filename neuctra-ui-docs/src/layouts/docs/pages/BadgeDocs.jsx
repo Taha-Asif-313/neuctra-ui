@@ -12,9 +12,9 @@ const BadgeDocs = () => {
   return (
     <>
       <Metadata
-        title="Badge Component — Neuctra UI"
-        description="Learn how to use the Badge component in Neuctra UI — customizable sizes, colors, icons, notification dots, and counts."
-        keywords="Neuctra UI Badge, React Badge component, notification badge, icon badge, UI library"
+        title="Badge Component — React Notification & Label UI | Neuctra UI"
+        description="Build flexible badge components with Neuctra UI. Supports notification dots, counts, icons, variants, sizes, and interactive states for modern UI indicators."
+        keywords="react badge component, notification badge ui, count badge react, icon badge, status badge ui, dot indicator react, ui badge component, neuctra ui badge"
       />
 
       <div className="font-primary min-h-screen">

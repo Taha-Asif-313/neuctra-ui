@@ -13,19 +13,22 @@ const QuickStartDocsPage = () => {
   return (
     <>
       <Metadata
-        title="Quick Start — React UI Library for SaaS | Neuctra UI"
-        description="Quick start guide for Neuctra UI - the React UI library for SaaS applications. Set up Tailwind React components for SaaS dashboard UI instantly."
+        title="Quick Start — Install React UI Library for SaaS Apps | Neuctra UI"
+        description="Get started with Neuctra UI in minutes using the CLI. Install and configure React Tailwind components for SaaS dashboards, including theme system, providers, and toast notifications."
+        keywords="Neuctra UI quick start, React UI library setup, SaaS dashboard setup React, Tailwind React components install, @neuctra/ui CLI, React theme provider setup, toast notifications React, dark mode React setup, UI library installation guide"
       />
-
       <div className="bg-transparent text-white min-h-screen">
         <div className="space-y-10">
           {/* Header */}
           <div>
-            <h1 className="text-4xl font-bold text-white">Quick Start For <code className="text-primary" >@neuctra/ui</code></h1>
+            <h1 className="text-4xl font-bold text-white">
+              Quick Start For <code className="text-primary">@neuctra/ui</code>
+            </h1>
             <p className="text-gray-200 mt-2">
               The fastest way to set up Neuctra UI is using the CLI. It
-              installs, configures, and prepares everything automatically for your SaaS applications.
-              Perfect for building SaaS dashboard UI with Tailwind React components.
+              installs, configures, and prepares everything automatically for
+              your SaaS applications. Perfect for building SaaS dashboard UI
+              with Tailwind React components.
             </p>
           </div>
 

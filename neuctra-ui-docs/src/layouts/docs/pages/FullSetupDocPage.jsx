@@ -7,15 +7,18 @@ const FullSetupDocPage = () => {
   return (
     <>
       <Metadata
-        title="Full Setup — Neuctra UI"
-        description="Complete from-scratch setup guide for Neuctra UI with Vite and Tailwind CSS v4."
+        title="Neuctra UI Full Setup Guide - Vite + Tailwind CSS v4 Installation"
+        description="Complete step-by-step setup guide for Neuctra UI. Learn how to configure Vite, install Tailwind CSS v4, set up theme variables, enable dark mode, and verify your React project is ready for production."
+        keywords="neuctra ui setup, react ui library setup, vite tailwind css v4 setup, install neuctra ui, tailwind v4 react setup, react component library setup guide, dark mode setup react, ui kit installation guide, modern react ui framework"
       />
 
       <div className="min-h-screen">
         <div className="space-y-10">
           {/* Header */}
           <div>
-            <h1 className="text-4xl font-bold text-white">Full Setup For <code className="text-primary" >@neuctra/ui</code></h1>
+            <h1 className="text-4xl font-bold text-white">
+              Full Setup For <code className="text-primary">@neuctra/ui</code>
+            </h1>
             <p className="text-zinc-200 mt-2 max-w-2xl">
               Follow this comprehensive from-scratch setup guide to configure
               Neuctra UI with Vite and Tailwind CSS v4 step by step.

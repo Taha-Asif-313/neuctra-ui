@@ -68,9 +68,9 @@ const ModalDocs = () => {
   return (
     <>
       <Metadata
-        title="Modal Component — React UI Library for SaaS | Neuctra UI"
-        description="Modal component for SaaS applications - React modal dialogs with Tailwind CSS. Perfect for SaaS dashboard UI, confirmations, and interactive forms."
-        keywords="React UI library for SaaS, SaaS dashboard UI React Tailwind, React authentication UI Tailwind, Neuctra UI Modal, React modal component, Tailwind modal, dialog, popup, modal overlay, UI library"
+        title="Modal Component — React Dialogs, Overlays & SaaS UI Patterns | Neuctra UI"
+        description="Build accessible modal dialogs with the Neuctra UI Modal component. Supports structured layouts, overlays, animations, async actions, and composable sections for SaaS dashboards, confirmations, and forms in React."
+        keywords="React modal component, UI modal dialog, SaaS modal UI, React popup component, overlay dialog React, Tailwind modal, confirmation modal React, Neuctra UI Modal, modal form component, accessible dialog React, React UI library modal"
       />
 
       <div className="font-primary min-h-screen">

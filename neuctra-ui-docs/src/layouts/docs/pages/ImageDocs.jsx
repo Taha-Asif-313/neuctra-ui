@@ -12,9 +12,9 @@ const ImageDocs = () => {
   return (
     <>
       <Metadata
-        title="Image Component — Neuctra UI"
-        description="Learn how to use the Image component in Neuctra UI — responsive, stylable images with overlays, aspect ratio, fallback, and interaction support."
-        keywords="Neuctra UI Image, React Image component, responsive image, overlay, lazy loading, UI library"
+        title="React Image Component - Responsive Images with Overlay & Fallback | Neuctra UI"
+        description="Build modern responsive image components in React with Neuctra UI. Supports lazy loading, overlays, aspect ratio control, fallback UI, click interactions, shadows, and full styling customization."
+        keywords="react image component, responsive image ui, image component react, lazy loading images, image overlay react, fallback image ui, ui image component, neuctra ui image, tailwind image component, customizable image component"
       />
 
       <div className="font-primary min-h-screen">
@@ -48,7 +48,8 @@ const ImageDocs = () => {
             </h2>
             <p className="text-gray-300 mb-4">
               Start with a simple image. The component provides responsive and
-              stylable image support with overlays, aspect ratios, and interactions.
+              stylable image support with overlays, aspect ratios, and
+              interactions.
             </p>
             <CodeBlock
               language="jsx"

@@ -24,8 +24,9 @@ const ContainerDocs = () => {
   return (
     <>
       <Metadata
-        title="Container Component — Neuctra UI"
-        description="Learn how to use the Container component — a responsive layout wrapper powered by Tailwind className."
+        title="Container Component — Responsive Layout Wrapper | Neuctra UI"
+        description="Build consistent layouts with the Container component in Neuctra UI. Control max-width, padding, and alignment for responsive React applications and design systems."
+        keywords="react container component, layout container ui, responsive wrapper react, max width container, tailwind layout wrapper, page container react, ui layout system, neuctra ui container"
       />
 
       <div className="min-h-screen">

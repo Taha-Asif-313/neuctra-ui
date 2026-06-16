@@ -12,9 +12,9 @@ const InputDocs = () => {
   return (
     <>
       <Metadata
-        title="Input Component — React Form Builder Tailwind | Neuctra UI"
-        description="Input component for SaaS applications - modern React form inputs with Tailwind CSS. Perfect for React authentication UI and form builders in SaaS dashboard interfaces."
-        keywords="React UI library for SaaS, React form builder Tailwind, React authentication UI Tailwind, SaaS dashboard UI React Tailwind, Neuctra UI Input, React input component, Tailwind input, UI library, input validation, form component, modern input"
+        title="React Input Component - Form Fields for SaaS & Dashboards | Neuctra UI"
+        description="Build modern form inputs in React with Neuctra UI. Supports validation states, prefixes, suffixes, password toggle, textarea, sizing, and full customization for SaaS apps and dashboards."
+        keywords="react input component, form input react, saas form ui, tailwind input component, react form builder, authentication input ui, input validation react, textarea component react, neuctra ui input, dashboard form components"
       />
 
       <div className="font-primary min-h-screen">
@@ -26,12 +26,13 @@ const InputDocs = () => {
             </h1>
             <p className="text-sm text-gray-200 leading-relaxed">
               The <span className="text-primary font-semibold">Input</span>{" "}
-              component is a flexible, modern form input designed for SaaS applications.
-              Perfect for React authentication UI, form builders, and SaaS dashboard interfaces.
-              Built with Tailwind CSS for responsive design and supports multiple types (text, password, email, number, url, tel, search,
-              textarea). Features include prefix/suffix icons, inline validation
-              states, helper text, multiple sizes, and a password visibility
-              toggle.
+              component is a flexible, modern form input designed for SaaS
+              applications. Perfect for React authentication UI, form builders,
+              and SaaS dashboard interfaces. Built with Tailwind CSS for
+              responsive design and supports multiple types (text, password,
+              email, number, url, tel, search, textarea). Features include
+              prefix/suffix icons, inline validation states, helper text,
+              multiple sizes, and a password visibility toggle.
             </p>
           </header>
 
