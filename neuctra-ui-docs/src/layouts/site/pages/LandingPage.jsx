@@ -16,6 +16,7 @@ import {
   Gauge,
   LockKeyhole,
   TableProperties,
+  RocketIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion as Motion, useReducedMotion } from "framer-motion";
@@ -377,13 +378,14 @@ const LandingPage = () => {
                     <ArrowRight className="h-5 w-5" />
                   </Link>
 
-                  <Link
-                    to={"/templates"}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                  <a
+                    href={"https://www.neuctra.com/space?tag=neuctra%20space"}
+                    target="_blank"
+                    className="inline-flex bg-zinc-950 items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
                   >
-                    <Code className="h-5 w-5" />
-                    View Templates
-                  </Link>
+                    <RocketIcon className="h-5 w-5" />
+                    View Sparks On Neuctra Space
+                  </a>
                 </Motion.div>
 
                 <Motion.div
