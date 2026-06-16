@@ -171,7 +171,7 @@ export const Input = forwardRef<
 
   const baseInputStyles =
     "w-full min-w-0 rounded-lg border border-input bg-transparent " +
-    "text-zinc-900 dark:text-white text-sm outline-none transition-colors " +
+    "text-foreground text-sm outline-none transition-colors " +
     "placeholder:text-muted-foreground " +
     "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 " +
     "dark:bg-input/30 dark:disabled:bg-input/80 " +

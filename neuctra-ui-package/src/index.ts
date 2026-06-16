@@ -104,3 +104,7 @@ export {
   TabPanels,
   TabPanel,
 } from "./components/basic/Tabs"; // ✅ Finalized
+
+// Theme Toggle Button
+export { ThemeToggleButton } from "./components/basic/ThemeToggleButton"; // ✅ Finalized
+export type { ThemeToggleContext, ThemeToggleProps } from "./components/basic/ThemeToggleButton";

@@ -14,8 +14,8 @@ const Sidebar = () => {
       title: "Getting Started",
       links: [
         { label: "Overview", href: "/docs" },
-        { label: "Quick Start", href: "/docs/quick-start" },
         { label: "Full Setup Guide", href: "/docs/full-setup" },
+        { label: "Theme Toggle", href: "/docs/theme-toggle" },
       ],
     },
 

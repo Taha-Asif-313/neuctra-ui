@@ -48,30 +48,8 @@ button {
 ============================= */
 ${THEME_MARKER_START}
 
-/* LIGHT THEME */
-:root {
-  --primary: #00c214;
-  --primary-foreground: #ffffff;
-
-  --background: #ffffff;
-  --foreground: #09090b;
-
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-
-  --accent: #e4e4e7;
-  --accent-foreground: #09090b;
-
-  --border: #e4e4e7;
-  --input: #f4f4f5;
-  --ring: #a1a1aa;
-
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-}
-
 /* DARK THEME */
-.dark {
+:root {
   --primary: #00c214;
   --primary-foreground: #ffffff;
 
@@ -92,29 +70,6 @@ ${THEME_MARKER_START}
   --destructive-foreground: #fafafa;
 }
 
-/* SYSTEM DARK MODE */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary: #00c214;
-    --primary-foreground: #ffffff;
-
-    --background: #09090b;
-    --foreground: #fafafa;
-
-    --muted: #27272a;
-    --muted-foreground: #a1a1aa;
-
-    --accent: #18181b;
-    --accent-foreground: #fafafa;
-
-    --border: #27272a;
-    --input: #18181b;
-    --ring: #3f3f46;
-
-    --destructive: #d40000;
-    --destructive-foreground: #fafafa;
-  }
-}
 
 ${THEME_MARKER_END}
 

@@ -12,6 +12,7 @@ import DocsLayout from "./layouts/docs/DocsLayout";
 
 // Site Pages
 import LandingPage from "./layouts/site/pages/LandingPage";
+import ThemeToggleDocsPage from "./layouts/docs/pages/ThemeToggleButtonDocs";
 
 const AboutPage = lazy(() => import("./layouts/site/pages/AboutPage"));
 const TermsPage = lazy(() => import("./layouts/site/pages/TermsPage"));
@@ -23,9 +24,6 @@ const PrivacyPolicyPage = lazy(
 // Documentation Pages
 const IntroductionDocPage = lazy(
   () => import("./layouts/docs/pages/IntroductionDocPage"),
-);
-const QuickStartDocsPage = lazy(
-  () => import("./layouts/docs/pages/QuickStartDocsPage"),
 );
 const FullSetupDocPage = lazy(
   () => import("./layouts/docs/pages/FullSetupDocPage"),
@@ -78,11 +76,10 @@ const App = () => {
             {/* Main introduction page */}
             <Route index element={<IntroductionDocPage />} />
 
-            {/* Quick installation guide */}
-            <Route path="quick-start" element={<QuickStartDocsPage />} />
-
             {/* Complete project setup guide */}
             <Route path="full-setup" element={<FullSetupDocPage />} />
+
+            <Route path="theme-toggle" element={<ThemeToggleDocsPage />} />
 
             {/* Text / typography component */}
             <Route path="text" element={<TextDocs />} />
