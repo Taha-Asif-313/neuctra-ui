@@ -1,0 +1,1484 @@
+{
+  "meta": {
+    "library": "@neuctra/ui",
+    "version": "1.0.0",
+    "theme": {
+      "type": "CSS variable based",
+      "tokens": {
+        "bg-primary": "--primary",
+        "text-primary": "--primary",
+        "text-foreground": "--foreground",
+        "text-muted-foreground": "--muted-foreground",
+        "bg-background": "--background",
+        "bg-accent": "--accent",
+        "border-border": "--border",
+        "text-destructive": "--destructive",
+        "bg-muted": "--muted",
+        "text-primary-foreground": "--primary-foreground"
+      }
+    },
+ "uiGuidelines": {
+    "description": "All components in Neuctra UI are fully customizable using className-based styling. Developers are encouraged to use className, contentClassName, and related style props to refine spacing, typography, colors, shadows, and layout behavior. This flexibility allows building modern, visually polished, and production-grade interfaces without modifying core components.",
+
+    "designPrinciple": "Use className overrides intentionally to enhance visual hierarchy, spacing balance, and modern UI aesthetics. Prefer subtle shadows, proper spacing (padding/gap), and consistent color tokens for a clean and attractive interface.",
+
+    "colorRules": [
+      "ONLY use colors from the provided theme tokens.",
+      "Never use hardcoded Tailwind colors such as text-blue-500, bg-red-500, border-gray-200, etc.",
+      "Never use inline hex colors (#000000, #ffffff, etc.).",
+      "Always use semantic token classes such as bg-primary, text-primary, bg-background, bg-accent, bg-muted, border-border, text-foreground, text-muted-foreground, text-destructive, and text-primary-foreground.",
+      "Primary buttons should typically use bg-primary text-primary-foreground.",
+      "Page backgrounds should use bg-background.",
+      "Cards and secondary surfaces should prefer bg-muted or bg-accent.",
+      "Body text should use text-foreground.",
+      "Secondary text should use text-muted-foreground.",
+      "Borders should use border-border.",
+      "Error or warning states should use text-destructive.",
+      "The generated UI must remain theme-compatible and automatically adapt to light and dark modes through CSS variables."
+    ],
+
+    "strictRules": [
+      "Do not invent new theme tokens.",
+      "Do not use arbitrary color values.",
+      "Do not use Tailwind color palettes.",
+      "All color styling must come from Neuctra theme tokens."
+    ]
+  }  },
+  "components": [
+    {
+      "name": "Button",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Interactive button component with support for states, loading indicators, icons, and custom styling overrides.",
+      "props": {
+        "variant": {
+          "type": "'default' | 'outline' | 'ghost'",
+          "default": "'default'",
+          "description": "Visual style of the button."
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
+          "default": "'sm'",
+          "description": "Size variant mapping to padding and font sizes."
+        },
+        "loading": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Shows a loading spinner and disables user interaction."
+        },
+        "loadingText": {
+          "type": "string",
+          "default": "'Loading...'",
+          "description": "Text displayed alongside the loading spinner."
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Stretches the button to fill its container width."
+        },
+        "iconBefore": {
+          "type": "ReactNode",
+          "description": "Icon element rendered before button children."
+        },
+        "iconAfter": {
+          "type": "ReactNode",
+          "description": "Icon element rendered after button children."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Disables interaction and applies disabled styles."
+        },
+        "className": {
+          "type": "string",
+          "description": "CSS class for the outer button element."
+        },
+        "contentClassName": {
+          "type": "string",
+          "description": "CSS class for internal flex content wrapper."
+        },
+        "iconClassName": {
+          "type": "string",
+          "description": "CSS class for internal icon containers."
+        },
+        "loaderClassName": {
+          "type": "string",
+          "description": "CSS class for the loader spinner."
+        },
+        "textClassName": {
+          "type": "string",
+          "description": "CSS class for children wrapper text."
+        }
+      },
+      "examples": [
+        {
+          "label": "Primary Button",
+          "code": "<Button variant=\"default\">Get Started</Button>"
+        },
+        {
+          "label": "Outline Button with Icon",
+          "code": "<Button variant=\"outline\" iconBefore={<Plus size={16} />}>Add Item</Button>"
+        },
+        {
+          "label": "Loading Button",
+          "code": "<Button loading loadingText=\"Saving...\">Save Changes</Button>"
+        }
+      ],
+      "designTokens": [
+        "bg-primary",
+        "border-border",
+        "bg-background",
+        "text-foreground",
+        "bg-accent"
+      ],
+      "bestPractices": [
+        "Use the primary ('default') variant for main call-to-actions.",
+        "Limit primary buttons to one per view/section.",
+        "Use 'outline' or 'ghost' for secondary actions.",
+        "Always provide an iconBefore or iconAfter to increase button visual cues when appropriate."
+      ],
+      "agentHints": [
+        "Compose inside ModalFooter or DrawerFooter for CTA actions.",
+        "Pair ghost buttons with Badge counts for interactive notifications.",
+        "Set fullWidth=true when displaying actions in mobile drawers or full-width forms."
+      ]
+    },
+    {
+      "name": "Text",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Typography wrapper component that maps semantic tags and handles casing transform, color mapping, truncate, and line decorations.",
+      "props": {
+        "as": {
+          "type": "keyof HTMLElementTagNameMap",
+          "default": "'span'",
+          "description": "The HTML element or tag to render the text as."
+        },
+        "transform": {
+          "type": "'uppercase' | 'lowercase' | 'capitalize'",
+          "description": "Text transformation style."
+        },
+        "italic": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Applies italic styling to the text."
+        },
+        "underline": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Applies underline decoration."
+        },
+        "strikethrough": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Applies line-through decoration."
+        },
+        "truncate": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Limits text to a single line, ending with an ellipsis."
+        },
+        "color": {
+          "type": "'default' | 'muted' | 'primary' | string",
+          "default": "'default'",
+          "description": "Predefined theme colors or custom color value."
+        }
+      },
+      "examples": [
+        {
+          "label": "Heading 1 Text",
+          "code": "<Text as=\"h1\" color=\"primary\" className=\"text-2xl font-bold\">Welcome Home</Text>"
+        },
+        {
+          "label": "Truncated Description",
+          "code": "<Text as=\"p\" color=\"muted\" truncate>This is a long description text that will be truncated on small viewports.</Text>"
+        }
+      ],
+      "designTokens": [
+        "text-foreground",
+        "text-primary",
+        "text-muted-foreground"
+      ],
+      "bestPractices": [
+        "Always use appropriate HTML tags (h1-h6 for titles, p for paragraphs, span for inline) for accessibility (SEO).",
+        "Do not style colors manually when using standard colors (default, primary, muted)."
+      ],
+      "agentHints": [
+        "Use 'as=\"a\"' to automatically get default link styles, external link tags, and underline formatting.",
+        "Use 'color=\"muted\"' for secondary descriptions or metadata lines."
+      ]
+    },
+    {
+      "name": "Image",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "An advanced Image component with responsive sizing, ratios, aspect ratios, overlays, error fallbacks, and click interactions.",
+      "props": {
+        "src": {
+          "type": "string",
+          "description": "Image source URL."
+        },
+        "alt": {
+          "type": "string",
+          "default": "''",
+          "description": "Alt description for assistive technologies."
+        },
+        "width": {
+          "type": "number | string | responsive object",
+          "default": "'100%'",
+          "description": "Image container width. Can be a number, CSS string, or responsive object."
+        },
+        "height": {
+          "type": "number | string | responsive object",
+          "description": "Image container height."
+        },
+        "aspectRatio": {
+          "type": "number",
+          "description": "Aspect ratio (width / height) to maintain."
+        },
+        "radius": {
+          "type": "number | string",
+          "description": "Border radius of the image container."
+        },
+        "border": {
+          "type": "string",
+          "description": "CSS border style to apply."
+        },
+        "shadow": {
+          "type": "boolean",
+          "description": "Enables drop shadow on container."
+        },
+        "opacity": {
+          "type": "number",
+          "default": "1",
+          "description": "Opacity value."
+        },
+        "objectFit": {
+          "type": "CSSProperties['objectFit']",
+          "default": "'cover'",
+          "description": "Image object-fit style behavior."
+        },
+        "overlay": {
+          "type": "ReactNode",
+          "description": "Custom content rendered over the image."
+        },
+        "overlayColor": {
+          "type": "string",
+          "default": "'hsl(var(--background) / 0.6)'",
+          "description": "Background color overlay."
+        },
+        "clickable": {
+          "type": "boolean",
+          "description": "Enables hover state overlays indicating clickable behavior."
+        },
+        "loading": {
+          "type": "'lazy' | 'eager'",
+          "default": "'lazy'",
+          "description": "Native image loading behavior."
+        }
+      },
+      "examples": [
+        {
+          "label": "Standard Image",
+          "code": "<Image src=\"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600\" aspectRatio={16/9} radius=\"12px\" shadow />"
+        },
+        {
+          "label": "Image with Hover Overlay",
+          "code": "<Image src=\"https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600\" clickable overlay={<div className=\"p-4 text-white\">Zoom In</div>} />"
+        }
+      ],
+      "designTokens": ["bg-muted", "border-border"],
+      "bestPractices": [
+        "Provide alternative text 'alt' to all images for accessibility.",
+        "Use aspectRatio to avoid content layout shifts (CLS) during loading.",
+        "Prefer loading='lazy' for below-the-fold images."
+      ],
+      "agentHints": [
+        "Use inside cards alongside Title/Description for visual-heavy layouts.",
+        "Set objectFit='cover' for profile banners and square grid thumbs."
+      ]
+    },
+    {
+      "name": "Container",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Layout wrapper component that centers content and provides optional padding. It is intentionally minimal and behaves like a div. Instead of relying on predefined size tokens (sm, md, lg), use className for full layout control including max-width, spacing, and responsiveness.",
+      "props": {
+        "padding": {
+          "type": "'none' | 'sm' | 'md' | 'lg' | 'xl'",
+          "default": "'none'",
+          "description": "Optional internal padding utility for quick spacing control."
+        },
+        "center": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Centers the container horizontally using auto margins."
+        },
+        "className": {
+          "type": "string",
+          "description": "Primary styling hook. Use this to control max-width, responsive layout, spacing, grid/flex behavior, and overall container design."
+        }
+      },
+      "examples": [
+        {
+          "label": "Page Container",
+          "code": "<Container className=\"max-w-6xl mx-auto px-4\">\n  <Text as=\"h1\">Inside Container</Text>\n</Container>"
+        }
+      ],
+      "designTokens": [],
+      "bestPractices": [
+        "Do NOT rely on size tokens like lg, md, xl for layout control.",
+        "Use className to define max-width, responsive breakpoints, and layout behavior (e.g. max-w-5xl, mx-auto, px-4).",
+        "Treat Container as a lightweight div wrapper rather than a rigid layout system.",
+        "Use padding prop only for quick spacing, not for full layout design.",
+        "Prefer Tailwind-style utility classes in className for modern and precise UI control."
+      ],
+      "agentHints": [
+        "Use Container as a base layout shell and control everything via className.",
+        "Combine with flex/grid utilities inside children instead of modifying Container structure."
+      ]
+    },
+    {
+      "name": "Avatar",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Visual representation of a user or identity, support initials, fallbacks, statuses, and responsive sizing.",
+      "props": {
+        "src": {
+          "type": "string",
+          "description": "Image avatar URL."
+        },
+        "alt": {
+          "type": "string",
+          "default": "'User avatar'",
+          "description": "Alt description used for screen readers and initials fallback."
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'responsive'",
+          "default": "'md'",
+          "description": "Avatar size variant."
+        },
+        "variant": {
+          "type": "'circular' | 'rounded' | 'square'",
+          "default": "'circular'",
+          "description": "Visual shape of the avatar."
+        },
+        "isOnline": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds a green online indicator dot."
+        },
+        "isOffline": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds a grey offline indicator dot."
+        },
+        "ring": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds a border ring around the avatar."
+        },
+        "fallback": {
+          "type": "string",
+          "description": "Explicit initials to render when src is loading or broken."
+        },
+        "statusPosition": {
+          "type": "'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'",
+          "default": "'bottom-right'",
+          "description": "Corner placement of the status dot."
+        }
+      },
+      "examples": [
+        {
+          "label": "Online Avatar",
+          "code": "<Avatar src=\"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100\" alt=\"John Doe\" isOnline />"
+        },
+        {
+          "label": "Initials Fallback",
+          "code": "<Avatar alt=\"Sarah Connor\" size=\"lg\" ring />"
+        }
+      ],
+      "designTokens": [
+        "bg-muted",
+        "text-foreground",
+        "ring-border",
+        "bg-primary"
+      ],
+      "bestPractices": [
+        "Supply alt names so initials fallback works automatically.",
+        "Ensure standard contrast for ring offsets when nesting over colorful background elements."
+      ],
+      "agentHints": [
+        "Use inside Navbar items or user profile headers.",
+        "Pair with Badge indicators in chat or dashboard sidebar lists."
+      ]
+    },
+    {
+      "name": "Badge",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "A small badge status component supporting counts, dots, pulses, and click events.",
+      "props": {
+        "text": {
+          "type": "string",
+          "description": "Inner label text."
+        },
+        "variant": {
+          "type": "'solid' | 'outline' | 'soft'",
+          "default": "'solid'",
+          "description": "Visual styling variants."
+        },
+        "icon": {
+          "type": "ReactNode",
+          "description": "Icon element within badge."
+        },
+        "iconPosition": {
+          "type": "'left' | 'right'",
+          "default": "'left'",
+          "description": "Position of the icon relative to text."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'sm'",
+          "description": "Badge size."
+        },
+        "rounded": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Uses full circular rounded-full style vs rounded-md."
+        },
+        "notificationDot": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Displays small notification indicator dot in top-right."
+        },
+        "pulse": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Animates the notification dot with a ping pulse."
+        },
+        "count": {
+          "type": "number | string",
+          "description": "Numeric count value. Will absolute position badge over children if wrapped."
+        }
+      },
+      "examples": [
+        {
+          "label": "Status Badge",
+          "code": "<Badge text=\"In Progress\" variant=\"soft\" />"
+        },
+        {
+          "label": "Notification Dot with Pulse",
+          "code": "<Badge text=\"Inbox\" notificationDot pulse />"
+        }
+      ],
+      "designTokens": [
+        "bg-primary",
+        "border-primary",
+        "bg-destructive",
+        "text-white"
+      ],
+      "bestPractices": [
+        "Use soft variant for low-priority categorization.",
+        "Use outline variant for secondary classifications.",
+        "Use solid or pulse badges for urgent alerts or unread counters."
+      ],
+      "agentHints": [
+        "Render beside navigation labels to show unread counters.",
+        "Pair with user avatars or icon buttons to indicate pending actions."
+      ]
+    },
+    {
+      "name": "List",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "An extremely rich and fully-featured List component for tree views, menus, cards, collapse drawers, shortcuts, and custom rendering.",
+      "subComponents": ["ListItem"],
+      "props": {
+        "items": {
+          "type": "ListItemType[]",
+          "description": "Structured data array for items, including nested subItems/items arrays."
+        },
+        "type": {
+          "type": "'unordered' | 'ordered' | 'inline'",
+          "default": "'unordered'",
+          "description": "Basic list tags."
+        },
+        "variant": {
+          "type": "'default' | 'nav' | 'menu' | 'card' | 'ghost'",
+          "default": "'default'",
+          "description": "Styling variants. 'menu' and 'nav' add selection effects; 'card' adds border cards."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "List sizing modifier."
+        },
+        "density": {
+          "type": "'compact' | 'normal' | 'comfortable'",
+          "default": "'normal'",
+          "description": "ListItem vertical padding spacings."
+        },
+        "bulletVariant": {
+          "type": "'dot' | 'line' | 'number' | 'none'",
+          "default": "'none'",
+          "description": "Visual marker styling."
+        },
+        "showTree": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Renders hierarchical connector lines for nested child items."
+        },
+        "showBullets": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Renders list bullet indicators."
+        },
+        "showDividers": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Inserts subtle separator borders between list items."
+        },
+        "interactive": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Enables hover click states and transitions."
+        },
+        "activeItemId": {
+          "type": "string | number",
+          "description": "Controlled selected item identifier."
+        },
+        "renderItem": {
+          "type": "(params: ListRenderItemParams) => ReactNode",
+          "description": "Custom ListItem render callback override."
+        }
+      },
+      "examples": [
+        {
+          "label": "Interactive Sidebar Menu",
+          "code": "<List variant=\"menu\" density=\"compact\" items={[{ id: 1, text: \"Dashboard\", icon: <Home /> }, { id: 2, text: \"Settings\", subItems: [{ id: 3, text: \"Profile\" }] }]} />"
+        }
+      ],
+      "designTokens": [
+        "bg-accent",
+        "border-border",
+        "text-primary",
+        "text-destructive"
+      ],
+      "bestPractices": [
+        "Use compact density for data lists, comfortable for dashboard nav cards.",
+        "For links, specify 'href' inside the item configuration so a semantic <a> tag is generated."
+      ],
+      "agentHints": [
+        "Create settings lists, nav drawers, and multi-tier side menus with List.",
+        "Use showTree=true to represent folder trees or tag hierarchies clearly."
+      ]
+    },
+    {
+      "name": "Dropdown",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "A flexible floating action menu component triggered by any element. Supports icons, separators, danger states, per-item customization, controlled/uncontrolled behavior, alignment control, width configuration, and full styling overrides using className and style props.",
+      "props": {
+        "trigger": {
+          "type": "ReactNode",
+          "description": "Element that toggles the dropdown menu when clicked."
+        },
+        "items": {
+          "type": "DropdownItem[]",
+          "description": "Array of menu items or separators. Each item can include label, icon, onClick, href, danger, disabled, separator, className, and style."
+        },
+        "align": {
+          "type": "'left' | 'right'",
+          "default": "'right'",
+          "description": "Controls dropdown alignment relative to trigger element."
+        },
+        "width": {
+          "type": "number",
+          "default": 220,
+          "description": "Width of the dropdown panel in pixels."
+        },
+        "closeOnClick": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Automatically closes dropdown when an item is clicked."
+        },
+        "open": {
+          "type": "boolean",
+          "description": "Controlled open state for external state management."
+        },
+        "onOpenChange": {
+          "type": "(open: boolean) => void",
+          "description": "Callback triggered when dropdown open state changes."
+        },
+        "className": {
+          "type": "string",
+          "description": "Wrapper class for trigger container styling."
+        },
+        "menuClassName": {
+          "type": "string",
+          "description": "Styling class for dropdown panel container."
+        },
+        "itemClassName": {
+          "type": "string",
+          "description": "Default styling applied to all menu items."
+        },
+        "menuStyle": {
+          "type": "CSSProperties",
+          "description": "Inline style overrides for dropdown panel."
+        },
+        "style": {
+          "type": "CSSProperties",
+          "description": "Inline styles for wrapper trigger container."
+        }
+      },
+      "examples": [
+        {
+          "label": "User Profile Menu",
+          "code": "<Dropdown\n  trigger={<Avatar src=\"/user.jpg\" />}\n  items={[\n    { label: \"My Profile\", onClick: () => {} },\n    { label: \"Settings\", onClick: () => {} },\n    { separator: true },\n    { label: \"Logout\", danger: true, onClick: () => {} }\n  ]}\n/>"
+        },
+        {
+          "label": "Styled Dropdown",
+          "code": "<Dropdown\n  trigger={<button>Open Menu</button>}\n  width={260}\n  menuClassName=\"rounded-xl shadow-lg\"\n  itemClassName=\"font-medium\"\n  items={items}\n/>"
+        }
+      ],
+      "designTokens": [
+        "bg-background",
+        "border-border",
+        "bg-accent",
+        "text-destructive"
+      ],
+      "bestPractices": [
+        "Use separators to visually group related actions.",
+        "Use danger flag for destructive actions like delete or remove.",
+        "Use icons in items to improve action clarity.",
+        "Prefer onClick over href since items render as buttons.",
+        "Use controlled mode (open + onOpenChange) for advanced UI flows.",
+        "Use className, menuClassName, and itemClassName for modern UI customization instead of modifying core component behavior."
+      ],
+      "agentHints": [
+        "Use for contextual actions like profile menus, table row actions, and navbar utilities.",
+        "Combine with Avatar or Button components for consistent UI patterns.",
+        "Ensure trigger elements are keyboard accessible for better UX."
+      ]
+    },
+    {
+      "name": "Alert",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Context-based alert and notification system (toast) supporting soft, light, and dark variants with automated dismiss timeouts.",
+      "subComponents": ["ToastProvider"],
+      "props": {
+        "toast": {
+          "type": "ToastFunction",
+          "description": "Toast trigger utility. Calling toast.success('Saved'), toast.error('Error'), toast.warning(), toast.info() creates messages dynamically."
+        },
+        "ToastOptions": {
+          "type": "{ title?: string, description?: string, type?: 'success'|'error'|'warning'|'info', variant?: 'soft'|'light'|'dark', duration?: number }",
+          "description": "Config parameters passed to toast methods."
+        }
+      },
+      "examples": [
+        {
+          "label": "Triggering Toasts",
+          "code": "const { toast } = useToast();\n// Call toast.success(\"Update Success\", { description: \"Record updated successfully.\" });"
+        }
+      ],
+      "designTokens": [
+        "bg-background",
+        "border-border",
+        "text-primary",
+        "text-destructive",
+        "bg-muted"
+      ],
+      "bestPractices": [
+        "Limit toast descriptions to single short sentences.",
+        "Avoid setting duration to 0 unless the user must read and explicitly dismiss a critical error message."
+      ],
+      "agentHints": [
+        "Always wrap the top-level App shell with <ToastProvider>.",
+        "Invoke toast notifications after form submissions, settings modifications, or asynchronous requests finishes."
+      ]
+    },
+    {
+      "name": "Accordion",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Collapsible drawer layout panels that show or hide sections of content, with options for multiselect, animations, and custom open items.",
+      "props": {
+        "items": {
+          "type": "AccordionItem[]",
+          "description": "Structured item array with { title, content } elements."
+        },
+        "allowMultiple": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Enables opening more than one accordion drawer section concurrently."
+        },
+        "defaultOpen": {
+          "type": "number[]",
+          "default": "[]",
+          "description": "Indexes of accordion items open by default."
+        },
+        "duration": {
+          "type": "number",
+          "description": "Framer motion collapse transition duration in seconds."
+        },
+        "iconOpen": {
+          "type": "ReactNode",
+          "description": "Custom indicator icon when open."
+        },
+        "iconClose": {
+          "type": "ReactNode",
+          "description": "Custom indicator icon when closed."
+        }
+      },
+      "examples": [
+        {
+          "label": "FAQ Accordion",
+          "code": "<Accordion items={[{ title: \"What is Neuctra UI?\", content: \"It is a modern, responsive React UI package built with Tailwind variables.\" }]} />"
+        }
+      ],
+      "designTokens": ["border-border", "bg-accent", "text-foreground"],
+      "bestPractices": [
+        "Use Accordions for FAQs or secondary layout configurations to clean up visually crowded pages.",
+        "Make sure titles are concise, descriptive strings."
+      ],
+      "agentHints": [
+        "Ensure lists are keyboard-accessible (accordions automatically support native keyboard focus toggle).",
+        "Set defaultOpen={[0]} to open the first entry when rendering instructions or initial forms."
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Form checkbox control that supports both standalone binary state and multiple value check group options.",
+      "props": {
+        "mode": {
+          "type": "'single' | 'group'",
+          "default": "'single'",
+          "description": "Enables standalone boolean state vs multi-selection array option modes."
+        },
+        "options": {
+          "type": "Option[]",
+          "description": "Available option checkboxes in group mode."
+        },
+        "selectedValues": {
+          "type": "string[]",
+          "description": "List of active checked strings in group mode."
+        },
+        "onChange": {
+          "type": "(values: string[]) => void",
+          "description": "Selection array change callback in group mode."
+        },
+        "label": {
+          "type": "string",
+          "description": "Text label shown alongside standalone checkbox."
+        },
+        "checked": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Standalone active state."
+        },
+        "onCheckedChange": {
+          "type": "(checked: boolean) => void",
+          "description": "Standalone active state change callback."
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Disables interaction and dims layout."
+        },
+        "readOnly": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Locks control values from modification."
+        },
+        "error": {
+          "type": "string",
+          "description": "Displays inline helper error messages below components."
+        },
+        "customIcon": {
+          "type": "(checked: boolean) => ReactNode",
+          "description": "Render custom checkmark icons."
+        }
+      },
+      "examples": [
+        {
+          "label": "Standalone Checkbox",
+          "code": "<Checkbox label=\"I accept the terms\" checked={val} onCheckedChange={setVal} />"
+        },
+        {
+          "label": "Checkbox Group",
+          "code": "<Checkbox mode=\"group\" options={[{ label: \"React\", value: \"react\" }, { label: \"Vue\", value: \"vue\" }]} selectedValues={grp} onChange={setGrp} />"
+        }
+      ],
+      "designTokens": [
+        "bg-primary",
+        "text-primary-foreground",
+        "border-border",
+        "text-destructive"
+      ],
+      "bestPractices": [
+        "Use standalone single checkbox for simple binary consent actions.",
+        "Provide a descriptive 'error' state text if validation fails on form submissions."
+      ],
+      "agentHints": [
+        "Compose inside vertical stacked forms.",
+        "Combine with helper text to build checkbox labels that require extended explanations."
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Form radio group selection control that allows picking a single value from list options, with custom icons, layouts, and sizes.",
+      "props": {
+        "options": {
+          "type": "Option[]",
+          "description": "Selection options containing labels, values, descriptions, and custom item icons."
+        },
+        "selectedValue": {
+          "type": "string",
+          "description": "Active chosen value."
+        },
+        "onChange": {
+          "type": "(value: string) => void",
+          "description": "Change callback."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Indicator diameter size."
+        },
+        "orientation": {
+          "type": "'vertical' | 'horizontal'",
+          "default": "'vertical'",
+          "description": "Lay out radio options vertically or in columns."
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Disables interaction."
+        },
+        "error": {
+          "type": "string",
+          "description": "Displays inline validation error message."
+        }
+      },
+      "examples": [
+        {
+          "label": "Horizontal Radio Group",
+          "code": "<RadioGroup orientation=\"horizontal\" options={[{ label: \"Basic\", value: \"basic\", description: \"Free plan\" }, { label: \"Pro\", value: \"pro\", description: \"Premium options\" }]} selectedValue={plan} onChange={setPlan} />"
+        }
+      ],
+      "designTokens": [
+        "bg-primary",
+        "border-border",
+        "text-foreground",
+        "text-destructive"
+      ],
+      "bestPractices": [
+        "Use RadioGroup instead of Select if the options are few (under 5 items) to reduce form click effort.",
+        "Use horizontal orientation for compact card-style plans."
+      ],
+      "agentHints": [
+        "Place descriptions inside option items to create elegant modern radio selection lists.",
+        "Bind selection to state triggers to change layouts on the fly."
+      ]
+    },
+    {
+      "name": "Switch",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "An interactive switch toggle control, matching checkbox APIs for standalone binary states and selection groups.",
+      "props": {
+        "mode": {
+          "type": "'single' | 'group'",
+          "default": "'single'",
+          "description": "Standalone toggle vs switch selection group mode."
+        },
+        "options": {
+          "type": "Option[]",
+          "description": "Group items list."
+        },
+        "selectedValues": {
+          "type": "string[]",
+          "description": "List of active values in group mode."
+        },
+        "onChange": {
+          "type": "(values: string[]) => void",
+          "description": "Selection array change callback in group mode."
+        },
+        "label": {
+          "type": "string",
+          "description": "Toggle label text in single mode."
+        },
+        "checked": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Toggle status in single mode."
+        },
+        "onCheckedChange": {
+          "type": "(checked: boolean) => void",
+          "description": "Toggle change callback in single mode."
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Disables interaction."
+        },
+        "error": {
+          "type": "string",
+          "description": "Error warning helper text."
+        }
+      },
+      "examples": [
+        {
+          "label": "Toggle Switch",
+          "code": "<Switch label=\"Enable Notifications\" checked={notify} onCheckedChange={setNotify} />"
+        }
+      ],
+      "designTokens": ["bg-primary", "bg-muted", "text-destructive"],
+      "bestPractices": [
+        "Use Switch for toggles that apply immediately (like theme toggle or instant feature activations).",
+        "Prefer Checkbox over Switch inside long forms where values are not saved until the user clicks Submit."
+      ],
+      "agentHints": [
+        "Pair inside settings grids or profile panels.",
+        "Set iconSize to fit constraints in small mobile layout templates."
+      ]
+    },
+    {
+      "name": "Drawer",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "A flexible sliding panel component that appears from any screen edge (left, right, top, bottom). Supports structured sub-components and headless rendering via renderContent. Designed for sidebars, settings panels, mobile sheets, and complex interactive layouts.",
+      "subComponents": [
+        "DrawerHeader",
+        "DrawerContent",
+        "DrawerBody",
+        "DrawerFooter",
+        "DrawerButton",
+        "DrawerTriggerButton"
+      ],
+      "props": {
+        "isOpen": {
+          "type": "boolean",
+          "description": "Controls whether the drawer is visible."
+        },
+        "onClose": {
+          "type": "() => void",
+          "description": "Callback fired when drawer should close (overlay click, escape key, or internal close action)."
+        },
+        "children": {
+          "type": "ReactNode",
+          "description": "Static drawer content rendered inside DrawerContent structure."
+        },
+        "renderContent": {
+          "type": "(close: () => void) => ReactNode",
+          "description": "Headless render function that gives full control over drawer content and receives a close handler."
+        },
+        "position": {
+          "type": "'left' | 'right' | 'top' | 'bottom'",
+          "default": "'right'",
+          "description": "Controls the screen edge from which the drawer appears."
+        },
+        "size": {
+          "type": "string",
+          "default": "'320px'",
+          "description": "Defines drawer width (left/right) or height (top/bottom)."
+        },
+        "disableOverlayClose": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Prevents closing drawer when clicking on the overlay backdrop."
+        },
+        "overlayClassName": {
+          "type": "string",
+          "description": "Custom class for styling the backdrop overlay."
+        },
+        "overlayStyle": {
+          "type": "CSSProperties",
+          "description": "Inline style override for overlay background and effects."
+        }
+      },
+      "examples": [
+        {
+          "label": "Basic Drawer",
+          "code": "<Drawer isOpen={open} onClose={() => setOpen(false)}>\n  <DrawerContent>\n    <DrawerHeader title=\"Drawer Title\" onClose={() => setOpen(false)} />\n    <DrawerBody>Drawer content goes here</DrawerBody>\n    <DrawerFooter>\n      <Button onClick={() => setOpen(false)}>Close</Button>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+        },
+        {
+          "label": "Headless Drawer (renderContent)",
+          "code": "<Drawer\n  isOpen={open}\n  onClose={() => setOpen(false)}\n  renderContent={(close) => (\n    <div>\n      <h2>Custom UI</h2>\n      <button onClick={close}>Close</button>\n    </div>\n  )}\n/>"
+        }
+      ],
+      "designTokens": ["bg-background", "border-border", "bg-accent"],
+      "bestPractices": [
+        "Always provide onClose to ensure proper overlay and escape handling.",
+        "Use renderContent for advanced layouts like dashboards, filters, or dynamic forms.",
+        "Prefer left for navigation sidebars, right for settings panels, and bottom for mobile sheets.",
+        "Use disableOverlayClose for critical workflows where accidental closing must be prevented.",
+        "Use overlayClassName with blur utilities (e.g. backdrop-blur-sm) for modern UI aesthetics."
+      ],
+      "agentHints": [
+        "Use DrawerTriggerButton to reduce boilerplate for open/close state management.",
+        "Combine DrawerBody with forms, filters, or analytics panels for structured UX.",
+        "Use DrawerFooter for action buttons like Save/Cancel to maintain consistency."
+      ]
+    },
+    {
+      "name": "Select",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "A rich, search-enabled dropdown selector component supporting multi-select list modes, search input filters, item descriptions, and success/error status helpers.",
+      "props": {
+        "options": {
+          "type": "SelectOption[]",
+          "description": "List of options, each containing label, value, description, and custom items icon."
+        },
+        "value": {
+          "type": "string | string[]",
+          "description": "Active selected option(s)."
+        },
+        "onValueChange": {
+          "type": "(value: string | string[], name?: string) => void",
+          "description": "Selection state change callback."
+        },
+        "placeholder": {
+          "type": "string",
+          "default": "'Select...'",
+          "description": "Default placeholder helper label."
+        },
+        "multiple": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Enables multi-selection badge layouts."
+        },
+        "searchable": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Injects search filters on long lists."
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Disables interaction."
+        },
+        "error": {
+          "type": "string | boolean",
+          "description": "Error feedback layout states."
+        },
+        "success": {
+          "type": "boolean",
+          "description": "Success validation feedback state indicator."
+        },
+        "label": {
+          "type": "string",
+          "description": "Input field form label text."
+        },
+        "helperText": {
+          "type": "string",
+          "description": "Displays validation support text below components."
+        }
+      },
+      "examples": [
+        {
+          "label": "Searchable Select",
+          "code": "<Select searchable label=\"Country\" options={[{ label: \"United States\", value: \"us\" }]} value={country} onValueChange={setCountry} />"
+        }
+      ],
+      "designTokens": [
+        "bg-background",
+        "border-border",
+        "text-primary",
+        "text-destructive",
+        "bg-accent"
+      ],
+      "bestPractices": [
+        "Turn on searchable=true for options lists exceeding 8 items.",
+        "Configure multi-select labels appropriately when utilizing Select with 'multiple' values."
+      ],
+      "agentHints": [
+        "Use on forms to capture taxonomy fields, categories, or country settings.",
+        "Combine with helperText to guide form data entry limits."
+      ]
+    },
+    {
+      "name": "Input",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "A comprehensive text input component supporting email, text, search, passwords (with built-in visibility toggle), icons, prefix text, and form helper statuses.",
+      "props": {
+        "type": {
+          "type": "'text' | 'password' | 'email' | 'number' | 'url' | 'tel' | 'search' | 'textarea'",
+          "default": "'text'",
+          "description": "Underlying HTML input types."
+        },
+        "label": {
+          "type": "string",
+          "description": "Input title label shown above text field."
+        },
+        "placeholder": {
+          "type": "string",
+          "default": "''",
+          "description": "Placeholder watermark text."
+        },
+        "value": {
+          "type": "string",
+          "description": "Controlled field value."
+        },
+        "onChange": {
+          "type": "(e: ChangeEvent) => void",
+          "description": "Change callback."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Marks field with red required indicator dot."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Locks element interaction."
+        },
+        "error": {
+          "type": "string | boolean",
+          "description": "Error status validation states."
+        },
+        "success": {
+          "type": "boolean",
+          "description": "Success style validation indicators."
+        },
+        "helperText": {
+          "type": "string",
+          "description": "Label hint text shown below component borders."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "Prepended inline text indicator (e.g. 'https://' or '$')."
+        },
+        "prefixIcon": {
+          "type": "ComponentType",
+          "description": "Left align layout icon."
+        },
+        "suffixIcon": {
+          "type": "ReactNode",
+          "description": "Right align layout content."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "default": "'md'",
+          "description": "Component padding and dimension sizing."
+        }
+      },
+      "examples": [
+        {
+          "label": "Password Field",
+          "code": "<Input type=\"password\" label=\"Password\" required helperText=\"Must be at least 8 characters.\" />"
+        },
+        {
+          "label": "Price prefix input",
+          "code": "<Input type=\"number\" prefix=\"$\" placeholder=\"0.00\" />"
+        }
+      ],
+      "designTokens": [
+        "bg-background",
+        "border-border",
+        "text-destructive",
+        "text-primary"
+      ],
+      "bestPractices": [
+        "Always specify a clear placeholder and helper text to optimize form usability.",
+        "Use prefix strings to restrict or display format units directly in inputs."
+      ],
+      "agentHints": [
+        "Automatically manages show/hide buttons when type='password' is configured.",
+        "Incorporate prefixIcon or suffixIcon (e.g. Search, Lock) to create familiar intuitive interface styles."
+      ]
+    },
+    {
+      "name": "Textarea",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Rich multiline textarea editor that handles auto-resize rows, max limits, character counts, and chat submit-on-enter configurations.",
+      "props": {
+        "label": {
+          "type": "string",
+          "description": "Field label text."
+        },
+        "value": {
+          "type": "string",
+          "description": "Controlled value."
+        },
+        "onChange": {
+          "type": "(e: ChangeEvent) => void",
+          "description": "Change callback."
+        },
+        "autoResize": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Automatically adapts rows height on content input."
+        },
+        "minRows": {
+          "type": "number",
+          "default": 3,
+          "description": "Starting rows height height."
+        },
+        "maxRows": {
+          "type": "number",
+          "default": 6,
+          "description": "Maximum height limit before overflow scroll triggers."
+        },
+        "submitOnEnter": {
+          "type": "boolean",
+          "description": "Sends form onSubmit callback when Enter key is pressed, ignoring newlines."
+        },
+        "onSubmit": {
+          "type": "() => void",
+          "description": "Triggered when submitOnEnter is active and key is entered."
+        },
+        "maxLength": {
+          "type": "number",
+          "description": "Enables character counts indicator badge."
+        },
+        "error": {
+          "type": "boolean",
+          "description": "Displays error validation layout bounds."
+        },
+        "helperText": {
+          "type": "string",
+          "description": "Helper messages text."
+        }
+      },
+      "examples": [
+        {
+          "label": "Auto-growing Text Area",
+          "code": "<Textarea label=\"Feedback Summary\" minRows={3} maxRows={8} autoResize maxLength={500} />"
+        }
+      ],
+      "designTokens": ["bg-background", "border-border", "text-destructive"],
+      "bestPractices": [
+        "Enable autoResize to prevent annoying vertical scroll scrollbars on short forms.",
+        "Add autoResize and submitOnEnter to build text inputs that act like modern chat app textboxes."
+      ],
+      "agentHints": [
+        "Pair with Button elements to construct chat window feeds.",
+        "Use helperText along with error status triggers to show validation checks on long copy sections."
+      ]
+    },
+    {
+      "name": "Modal",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "A flexible and composable overlay dialog system for confirmations, forms, and complex interactions. Supports structured layout components and quick integration via ModalTriggerButton. Includes animation support, scroll locking, ESC close behavior, and full styling control via className and style props.",
+      "subComponents": [
+        "ModalContent",
+        "ModalHeader",
+        "ModalBody",
+        "ModalFooter",
+        "ModalButton",
+        "ModalTriggerButton"
+      ],
+      "props": {
+        "isOpen": {
+          "type": "boolean",
+          "description": "Controls whether the modal is visible."
+        },
+        "onClose": {
+          "type": "() => void",
+          "description": "Triggered when modal should close (ESC key or overlay click)."
+        },
+        "disableOverlayClose": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Prevents modal from closing when clicking the overlay background."
+        },
+        "className": {
+          "type": "string",
+          "description": "Wrapper class for modal overlay container."
+        },
+        "style": {
+          "type": "CSSProperties",
+          "description": "Inline styles for modal overlay container."
+        },
+        "overlayClassName": {
+          "type": "string",
+          "description": "CSS class for overlay background styling."
+        },
+        "overlayStyle": {
+          "type": "CSSProperties",
+          "description": "Inline styles for overlay background (blur, opacity, etc.)."
+        }
+      },
+      "examples": [
+        {
+          "label": "Action Dialog Modal",
+          "code": "<Modal isOpen={open} onClose={() => setOpen(false)}>\n  <ModalContent onClose={() => setOpen(false)}>\n    <ModalHeader title=\"Confirm Delete\" onClose={() => setOpen(false)} />\n    <ModalBody>\n      Are you sure you want to delete this resource?\n    </ModalBody>\n    <ModalFooter>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>Cancel</Button>\n      <Button onClick={onDelete}>Delete</Button>\n    </ModalFooter>\n  </ModalContent>\n</Modal>"
+        },
+        {
+          "label": "Modal with Trigger Button",
+          "code": "<ModalTriggerButton\n  modalContent={(close) => (\n    <Modal>\n      <ModalContent onClose={close}>\n        <ModalHeader title=\"Hello\" onClose={close} />\n        <ModalBody>Dynamic modal content</ModalBody>\n        <ModalFooter>\n          <Button onClick={close}>Close</Button>\n        </ModalFooter>\n      </ModalContent>\n    </Modal>\n  )}\n>\n  Open Modal\n</ModalTriggerButton>"
+        }
+      ],
+      "designTokens": [
+        "bg-background",
+        "border-border",
+        "bg-accent",
+        "text-destructive"
+      ],
+      "bestPractices": [
+        "Always pass onClose to ModalContent and ModalHeader for consistent close behavior.",
+        "Use ModalTriggerButton for simple modal flows to reduce state boilerplate.",
+        "Use ModalButton for async actions like API calls with loading states.",
+        "Enable disableOverlayClose for destructive or critical workflows.",
+        "Use overlayClassName with blur utilities (e.g. backdrop-blur-sm) for modern UI aesthetics.",
+        "Avoid placing heavy applications inside modals; keep them focused and task-specific."
+      ],
+      "agentHints": [
+        "Use ModalHeader + ModalFooter structure for consistent dialog UX.",
+        "Use ModalButton for async-safe submit actions (auto loading + close handling).",
+        "Combine Modal with forms, confirmations, and delete flows for optimal UX patterns.",
+        "Prefer structured mode for simple dialogs and ModalTriggerButton for rapid implementations."
+      ]
+    },
+    {
+      "name": "Table",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Flexible data table element component supporting stripes, hovers, border lines, responsive overflow tables, and row click listeners.",
+      "subComponents": ["THead", "TBody", "TRow", "TH", "TD"],
+      "props": {
+        "responsive": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Wraps table inside scroll container to prevent layout breakages on mobile."
+        },
+        "striped": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Applies alternating row background hues."
+        },
+        "hoverable": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Highlights active table rows on hover."
+        },
+        "bordered": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Adds dividers between rows and cells."
+        },
+        "dense": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Reduces padding padding to display dense datasets."
+        }
+      },
+      "examples": [
+        {
+          "label": "Interactive Data Table",
+          "code": "<Table striped hoverable>\n  <THead>\n    <TRow><TH>Name</TH><TH>Status</TH></TRow>\n  </THead>\n  <TBody>\n    <TRow onClick={() => {}}>\n      <TD>Jane Cooper</TD>\n      <TD><Badge text=\"Active\" /></TD>\n    </TRow>\n  </TBody>\n</Table>"
+        }
+      ],
+      "designTokens": ["bg-background", "border-border", "bg-accent"],
+      "bestPractices": [
+        "Set responsive=true on all tables to prevent horizontal site scrolling on smaller screens.",
+        "Enable striped=true to make reading large multi-column text records easier."
+      ],
+      "agentHints": [
+        "Combine columns TD data with Badge and Avatar controls to construct gorgeous user management directories.",
+        "Set row onClick listeners to open detailed panels in drawers or modals on selections."
+      ]
+    },
+    {
+      "name": "Tabs",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Rich tab navigation layout with responsive collapsing drawer/scroll list modes, custom borders, shapes, and color configurations.",
+      "subComponents": ["TabList", "Tab", "TabPanels", "TabPanel"],
+      "props": {
+        "defaultActive": {
+          "type": "number",
+          "default": 0,
+          "description": "Index tab panel open initially."
+        },
+        "position": {
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "default": "'top'",
+          "description": "Tab layout placement relative to content panels."
+        },
+        "variant": {
+          "type": "'solid' | 'outline' | 'underline' | 'pill'",
+          "default": "'solid'",
+          "description": "Tabs border and background shape variants."
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Stretches tab list selections to fill wrapper bounds."
+        },
+        "mobileVariant": {
+          "type": "'drawer' | 'scroll' | 'stack' | 'collapse'",
+          "default": "'scroll'",
+          "description": "Mobile screen layout strategy. 'drawer' falls back to dropdown, 'scroll' scrolls, 'stack' columns items."
+        },
+        "primaryColor": {
+          "type": "string",
+          "default": "'var(--primary)'",
+          "description": "Border highlight or fill color."
+        },
+        "textColor": {
+          "type": "string",
+          "description": "Default text label colors."
+        },
+        "hoverColor": {
+          "type": "string",
+          "description": "Tabs hover styling feedback color."
+        },
+        "onTabChange": {
+          "type": "(index: number) => void",
+          "description": "Tab select callback."
+        }
+      },
+      "examples": [
+        {
+          "label": "Interactive Tab Panel",
+          "code": "<Tabs variant=\"underline\">\n  <TabList>\n    <Tab index={0}>Overview</Tab>\n    <Tab index={1}>Security</Tab>\n  </TabList>\n  <TabPanels>\n    <TabPanel index={0}>Dashboard Summary Content</TabPanel>\n    <TabPanel index={1}>Password Management Content</TabPanel>\n  </TabPanels>\n</Tabs>"
+        }
+      ],
+      "designTokens": ["bg-primary", "border-border", "bg-accent"],
+      "bestPractices": [
+        "Use underline variant for settings pages, solid/pill variants for secondary dashboards tab configurations.",
+        "Ensure children Tab and TabPanel index parameters match exactly to keep tabs in sync."
+      ],
+      "agentHints": [
+        "Utilize mobileVariant='drawer' or 'scroll' to maintain gorgeous layout proportions in mobile dashboard designs.",
+        "Configure keepMounted=true inside <TabPanel> to prevent React from unmounting states inside tabs when switching."
+      ]
+    },
+    {
+      "name": "ThemeToggleButton",
+      "importPath": "@neuctra/ui",
+      "category": "basic",
+      "description": "Self-contained interactive button to toggle between light and dark visual modes, featuring animated icons.",
+      "props": {
+        "context": {
+          "type": "{ isDark: boolean, toggleTheme: () => void }",
+          "description": "Underlying state control containing current mode and updater method."
+        }
+      },
+      "examples": [
+        {
+          "label": "Theme Switcher Toggle",
+          "code": "<ThemeToggleButton context={{ isDark, toggleTheme }} />"
+        }
+      ],
+      "designTokens": [],
+      "bestPractices": [
+        "Render inside navigation header settings elements to make theme selection easily discoverable."
+      ],
+      "agentHints": [
+        "Ensure context parameters are connected to the main App color mode framework states."
+      ]
+    }
+  ]
+}
