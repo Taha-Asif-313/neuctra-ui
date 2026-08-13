@@ -8,13 +8,15 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
 } from "react";
 import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
+import { cn } from "../../lib/cn";
 
-type AlertType = "success" | "error" | "warning" | "info";
-type ToastVariant = "soft" | "light" | "dark";
+export type AlertType = "success" | "error" | "warning" | "info";
+export type ToastVariant = "soft" | "light" | "dark";
 
-interface Toast {
+export interface Toast {
   id: string;
   title?: string;
   description?: string;
@@ -30,12 +32,12 @@ interface Toast {
   iconClassName?: string;
 }
 
-interface ToastContextProps {
+export interface ToastContextProps {
   toast: ToastFunction;
   dismiss: (id?: string) => void;
 }
 
-type ToastFunction = {
+export type ToastFunction = {
   (options: Omit<Toast, "id"> | string): void;
   success: (message: string, options?: Partial<Toast>) => void;
   error: (message: string, options?: Partial<Toast>) => void;
@@ -51,38 +53,88 @@ export const useToast = () => {
   return context;
 };
 
-export const ToastProvider: React.FC<{ children: ReactNode }> = ({
+export interface ToastProviderProps {
+  children: ReactNode;
+  /** Maximum toasts kept on screen at once. Oldest are dropped first. */
+  maxToasts?: number;
+}
+
+export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
+  maxToasts = 5,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  // Timers were previously fired and forgotten, so they kept running after the
+  // provider unmounted (or after the toast was dismissed some other way).
+  const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
+  const counter = useRef(0);
 
-  const dismiss = useCallback((id?: string) => {
-    if (id) {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    } else {
-      setToasts([]);
+  const clearTimer = useCallback((id: string) => {
+    const handle = timers.current.get(id);
+    if (handle) {
+      clearTimeout(handle);
+      timers.current.delete(id);
     }
+  }, []);
+
+  const dismiss = useCallback(
+    (id?: string) => {
+      if (id) {
+        clearTimer(id);
+        setToasts((prev) => prev.filter((t) => t.id !== id));
+      } else {
+        timers.current.forEach((handle) => clearTimeout(handle));
+        timers.current.clear();
+        setToasts([]);
+      }
+    },
+    [clearTimer],
+  );
+
+  useEffect(() => {
+    const pending = timers.current;
+    return () => {
+      pending.forEach((handle) => clearTimeout(handle));
+      pending.clear();
+    };
   }, []);
 
   const createToast = useCallback(
     (options: Omit<Toast, "id">) => {
-      const id = Math.random().toString(36).substring(2, 9);
+      // A 7-char random string has real collision odds, and a duplicate id
+      // means a duplicate React key and dismiss() removing both toasts.
+      counter.current += 1;
+      const id = `toast-${counter.current}`;
 
       const toastData: Toast = {
-        id,
-        type: "info",
-        variant: "soft",
-        duration: 4000,
         ...options,
+        id,
+        // `??` rather than relying on spread order: an explicit
+        // `duration: undefined` (trivially produced by forwarding a partial
+        // options object) used to overwrite the default, and
+        // setTimeout(fn, undefined) fires immediately — the toast flashed and
+        // vanished. Same for type/variant, where undefined then crashed the
+        // variantStyles lookup.
+        type: options.type ?? "info",
+        variant: options.variant ?? "soft",
+        duration: options.duration ?? 4000,
       };
 
-      setToasts((prev) => [...prev, toastData]);
+      setToasts((prev) => {
+        const next = [...prev, toastData];
+        // Cap the stack so a loop or a repeated click can't push toasts
+        // off-screen indefinitely.
+        return next.length > maxToasts ? next.slice(next.length - maxToasts) : next;
+      });
 
       if (toastData.duration !== 0) {
-        setTimeout(() => dismiss(id), toastData.duration);
+        timers.current.set(
+          id,
+          setTimeout(() => dismiss(id), toastData.duration),
+        );
       }
     },
-    [dismiss],
+    [dismiss, maxToasts],
   );
 
   const toast = useMemo(() => {
@@ -112,7 +164,15 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <ToastContext.Provider value={{ toast, dismiss }}>
       {children}
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 sm:bottom-6 sm:right-6">
+      <div
+        // The container is the live region, established up-front — role="alert"
+        // on a node inserted at the same moment is frequently missed by
+        // screen readers.
+        role="region"
+        aria-label="Notifications"
+        aria-live="polite"
+        className="fixed bottom-4 right-4 z-60 flex flex-col gap-2 sm:bottom-6 sm:right-6"
+      >
         {toasts.map((toast) => (
           <ToastItem
             key={toast.id}
@@ -125,85 +185,95 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
+/*
+ * All colors come from the theme's status tokens (--success / --destructive /
+ * --warning / --info + their foregrounds), so toasts follow whatever palette
+ * the consumer defines — in BOTH modes, with no dark: overrides needed: the
+ * token values themselves change when .dark is active.
+ *
+ *   soft  → tinted translucent surface
+ *   light → card surface with a status border
+ *   dark  → solid status surface (name kept for API compatibility)
+ */
 const variantStyles = {
   soft: {
     success: {
-      bg: "bg-green-500/10 dark:bg-green-500/15",
-      border: "border-green-500/30",
-      text: "text-green-600 dark:text-green-400",
-      icon: "text-green-500",
+      bg: "bg-success/10",
+      border: "border-success/30",
+      text: "text-success",
+      icon: "text-success",
     },
     error: {
-      bg: "bg-red-500/10 dark:bg-red-500/15",
-      border: "border-red-500/30",
-      text: "text-red-600 dark:text-red-400",
-      icon: "text-red-500",
+      bg: "bg-destructive/10",
+      border: "border-destructive/30",
+      text: "text-destructive",
+      icon: "text-destructive",
     },
     warning: {
-      bg: "bg-yellow-500/10 dark:bg-yellow-500/15",
-      border: "border-yellow-500/30",
-      text: "text-yellow-600 dark:text-yellow-400",
-      icon: "text-yellow-500",
+      bg: "bg-warning/10",
+      border: "border-warning/30",
+      text: "text-warning",
+      icon: "text-warning",
     },
     info: {
-      bg: "bg-blue-500/10 dark:bg-blue-500/15",
-      border: "border-blue-500/30",
-      text: "text-blue-600 dark:text-blue-400",
-      icon: "text-blue-500",
+      bg: "bg-info/10",
+      border: "border-info/30",
+      text: "text-info",
+      icon: "text-info",
     },
   },
 
   light: {
     success: {
-      bg: "bg-white dark:bg-green-950/70",
-      border: "border-green-500/40",
-      text: "text-green-600 dark:text-green-400",
-      icon: "text-green-500",
+      bg: "bg-card",
+      border: "border-success/40",
+      text: "text-success",
+      icon: "text-success",
     },
     error: {
-      bg: "bg-white dark:bg-red-950/80",
-      border: "border-red-500/40",
-      text: "text-red-600 dark:text-red-400",
-      icon: "text-red-500",
+      bg: "bg-card",
+      border: "border-destructive/40",
+      text: "text-destructive",
+      icon: "text-destructive",
     },
     warning: {
-      bg: "bg-white dark:bg-yellow-950/80",
-      border: "border-yellow-500/40",
-      text: "text-yellow-600 dark:text-yellow-400",
-      icon: "text-yellow-500",
+      bg: "bg-card",
+      border: "border-warning/40",
+      text: "text-warning",
+      icon: "text-warning",
     },
     info: {
-      bg: "bg-white dark:bg-blue-950/80",
-      border: "border-blue-500/40",
-      text: "text-blue-600 dark:text-blue-400",
-      icon: "text-blue-500",
+      bg: "bg-card",
+      border: "border-info/40",
+      text: "text-info",
+      icon: "text-info",
     },
   },
 
   dark: {
     success: {
-      bg: "bg-green-600 text-white",
-      border: "border-green-700",
-      text: "text-white",
-      icon: "text-white",
+      bg: "bg-success text-success-foreground",
+      border: "border-success",
+      text: "text-success-foreground",
+      icon: "text-success-foreground",
     },
     error: {
-      bg: "bg-red-600 text-white",
-      border: "border-red-700",
-      text: "text-white",
-      icon: "text-white",
+      bg: "bg-destructive text-destructive-foreground",
+      border: "border-destructive",
+      text: "text-destructive-foreground",
+      icon: "text-destructive-foreground",
     },
     warning: {
-      bg: "bg-yellow-500 text-black",
-      border: "border-yellow-600",
-      text: "text-black",
-      icon: "text-black",
+      bg: "bg-warning text-warning-foreground",
+      border: "border-warning",
+      text: "text-warning-foreground",
+      icon: "text-warning-foreground",
     },
     info: {
-      bg: "bg-blue-600 text-white",
-      border: "border-blue-700",
-      text: "text-white",
-      icon: "text-white",
+      bg: "bg-info text-info-foreground",
+      border: "border-info",
+      text: "text-info-foreground",
+      icon: "text-info-foreground",
     },
   },
 };
@@ -224,7 +294,10 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
     iconClassName,
   } = toast;
 
-  const config = variantStyles[variant][type];
+  // Guard the double lookup — an unexpected variant/type used to throw
+  // "Cannot read properties of undefined" and take down the provider subtree.
+  const config =
+    variantStyles[variant]?.[type] ?? variantStyles.soft.info;
 
   const IconMap = {
     success: CheckCircle,
@@ -233,39 +306,39 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
     info: Info,
   };
 
-  const Icon = IconMap[type];
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [onClose]);
+  const Icon = IconMap[type] ?? Info;
 
   return (
     <div
-      className={`
-        ${className || ""}
-        group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-2 rounded-xl
-        border ${config.border} ${config.bg}
-        p-4 pr-10
-        shadow-md dark:shadow-black/40
-        transition-all duration-300 ease-out
-        animate-in slide-in-from-right-full fade-in
-        hover:scale-[1.03] hover:shadow-lg
-      `}
+      className={cn(
+        "group relative flex w-full sm:min-w-[200px] sm:max-w-sm md:max-w-md lg:max-w-lg items-start gap-2 rounded-xl",
+        "border p-4 pr-10",
+        config.border,
+        config.bg,
+        "shadow-md dark:shadow-black/40",
+        "transition-shadow duration-300 ease-out",
+        // Only one animation-name class — `fade-in` and
+        // `slide-in-from-right-full` have the same specificity, so the later
+        // one in the stylesheet won and the slide never played.
+        "animate-in slide-in-from-right-full",
+        // hover:scale on a stacked flex column made toasts overlap their
+        // neighbours; a shadow change reads as interactive without reflowing.
+        "hover:shadow-lg",
+        className,
+      )}
       style={style}
-      role="alert"
+      // Errors interrupt; everything else waits for a pause.
+      role={type === "error" ? "alert" : "status"}
     >
       <Icon
-        className={` ${iconClassName || ""} h-5 w-5 shrink-0 ${config.icon}`}
+        aria-hidden="true"
+        className={cn("h-5 w-5 shrink-0", config.icon, iconClassName)}
       />
 
       <div className="flex-1">
         {title && (
           <div
-            className={`${titleClassName || ""} text-sm font-medium ${config.text}`}
+            className={cn("text-sm font-medium", config.text, titleClassName)}
           >
             {title}
           </div>
@@ -273,12 +346,33 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
 
         {description && (
           <div
-            className={`${descriptionClassName || ""} text-sm text-zinc-500 dark:text-zinc-300 `}
+            className={cn(
+              "text-sm text-muted-foreground",
+              descriptionClassName,
+            )}
           >
             {description}
           </div>
         )}
       </div>
+
+      {/* The container already reserved pr-10 for this button, but it was
+          never rendered — leaving a dead gutter and no way to dismiss by
+          pointer. */}
+      <button
+        type="button"
+        aria-label="Dismiss notification"
+        onClick={onClose}
+        className={cn(
+          // text-current: inherits the toast's own text color, so the button
+          // stays readable on soft, card and solid status surfaces alike.
+          "absolute right-2 top-2 rounded-md p-1.5 transition-opacity",
+          "text-current opacity-60 hover:opacity-100",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        )}
+      >
+        <X className="h-4 w-4" aria-hidden="true" />
+      </button>
     </div>
   );
 };

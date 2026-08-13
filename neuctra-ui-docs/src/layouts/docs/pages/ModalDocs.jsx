@@ -230,8 +230,8 @@ function BasicExample() {
               Modal Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -294,8 +294,8 @@ function BasicExample() {
               ModalButton Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -351,8 +351,8 @@ function BasicExample() {
               ModalContent Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -429,8 +429,8 @@ function BasicExample() {
               ModalHeader Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -486,8 +486,8 @@ function BasicExample() {
               ModalBody Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -529,8 +529,8 @@ function BasicExample() {
               ModalFooter Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -572,8 +572,8 @@ function BasicExample() {
               ModalTriggerButton Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>

@@ -122,10 +122,13 @@ export const Avatar: React.FC<AvatarProps> = ({
       .toUpperCase()
       .slice(0, 2);
 
+  // Presence uses the status palette: success = online, muted = offline —
+  // not the brand primary, which may be any hue the theme defines. Border
+  // width/color are applied once by the dot itself.
   const statusColor = isOnline
-    ? "bg-primary border border-foreground"
+    ? "bg-success"
     : isOffline
-      ? "bg-muted border border-foreground"
+      ? "bg-muted-foreground"
       : "";
 
   const statusDotSize = getStatusDotSize(resolvedSize);
@@ -179,14 +182,14 @@ export const Avatar: React.FC<AvatarProps> = ({
           aria-label={isOnline ? "Online" : "Offline"}
           title={isOnline ? "Online" : "Offline"}
           className={`
-            absolute 
-            ${statusPositionMap[statusPosition]} 
-            ${statusColor} 
-            ${statusDotSize} 
-            ${statusBorderWidth} 
-            border-border 
-            rounded-full 
-            shadow-md 
+            absolute
+            ${statusPositionMap[statusPosition]}
+            ${statusColor}
+            ${statusDotSize}
+            ${statusBorderWidth}
+            border-background
+            rounded-full
+            shadow-md
             z-10
             ${statusClassName}
           `}

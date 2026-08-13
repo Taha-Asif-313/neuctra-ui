@@ -119,12 +119,14 @@ export const Tabs: React.FC<TabsProps> = ({
   mobileBreakpoint = 768,
   mobileVariant = "scroll",
 
+  backgroundColor,
+
   primaryColor = "var(--primary)",
-  activeColor = "#ffffff",
+  activeColor = "var(--foreground)",
   textColor = "",
   hoverColor = "var(--primary)",
-  borderColor = "#e5e7eb",
-  disabledColor = "#9ca3af",
+  borderColor = "var(--border)",
+  disabledColor = "var(--muted-foreground)",
 
   onTabChange,
   tabCount = 0,
@@ -143,7 +145,9 @@ export const Tabs: React.FC<TabsProps> = ({
         containerRef.current.querySelectorAll("[data-tab-button]").length,
       );
     }
-  });
+    // Previously had NO dependency array while calling setState, so it re-ran
+    // and re-queried the DOM after every render of the whole subtree.
+  }, [tabCount, children]);
 
   useEffect(() => {
     if (!isMobile) setDrawerOpen(false);
@@ -198,7 +202,10 @@ export const Tabs: React.FC<TabsProps> = ({
           className,
         )}
         style={{
-          background: "bg-background",
+          // This was `background: "bg-background"` — a Tailwind class name in a
+          // CSS property, which the browser silently drops, so the root had no
+          // background at all. The `backgroundColor` prop belongs here.
+          background: backgroundColor ?? "var(--background)",
           borderRadius: radius,
           overflow: "hidden",
           ...style,

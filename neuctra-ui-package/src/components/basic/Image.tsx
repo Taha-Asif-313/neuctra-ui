@@ -91,7 +91,7 @@ export const Image = forwardRef<HTMLDivElement, ImageProps>(
       objectFit = "cover",
 
       overlay,
-      overlayColor = "hsl(var(--background) / 0.6)",
+      overlayColor = "color-mix(in srgb, var(--background) 60%, transparent)",
 
       clickable,
       onClick,
@@ -127,8 +127,8 @@ export const Image = forwardRef<HTMLDivElement, ImageProps>(
         position: "relative",
         display: "inline-block",
         cursor: clickable ? "pointer" : undefined,
-        boxShadow: shadow ? "0 4px 12px hsl(var(--foreground) / 0.15)" : undefined,
-        backgroundColor: "hsl(var(--background))",
+        boxShadow: shadow ? "0 4px 12px color-mix(in srgb, var(--foreground) 15%, transparent)" : undefined,
+        backgroundColor: "var(--background)",
         ...style,
       }),
       [
@@ -161,7 +161,7 @@ export const Image = forwardRef<HTMLDivElement, ImageProps>(
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      color: "hsl(var(--primary-foreground))",
+      color: "var(--primary-foreground)",
       ...overlayStyle,
     };
 
@@ -173,8 +173,8 @@ export const Image = forwardRef<HTMLDivElement, ImageProps>(
       alignItems: "center",
       justifyContent: "center",
       padding: 16,
-      color: "hsl(var(--muted-foreground))",
-      backgroundColor: "hsl(var(--muted))",
+      color: "var(--muted-foreground)",
+      backgroundColor: "var(--muted)",
       ...fallbackStyle,
     };
 

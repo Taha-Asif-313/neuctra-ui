@@ -54,6 +54,41 @@ const ModalDocs = lazy(() => import("./layouts/docs/pages/ModalDocs"));
 const AccordionDocs = lazy(() => import("./layouts/docs/pages/AccordionDocs"));
 const TableDocs = lazy(() => import("./layouts/docs/pages/TableDocs"));
 
+// v0.3.0 — Data display
+const CardDocs = lazy(() => import("./layouts/docs/pages/CardDocs"));
+const DividerDocs = lazy(() => import("./layouts/docs/pages/DividerDocs"));
+const ChipDocs = lazy(() => import("./layouts/docs/pages/ChipDocs"));
+const KbdDocs = lazy(() => import("./layouts/docs/pages/KbdDocs"));
+const SkeletonDocs = lazy(() => import("./layouts/docs/pages/SkeletonDocs"));
+const SpinnerDocs = lazy(() => import("./layouts/docs/pages/SpinnerDocs"));
+const ProgressDocs = lazy(() => import("./layouts/docs/pages/ProgressDocs"));
+const StatDocs = lazy(() => import("./layouts/docs/pages/StatDocs"));
+const EmptyStateDocs = lazy(() => import("./layouts/docs/pages/EmptyStateDocs"));
+const TimelineDocs = lazy(() => import("./layouts/docs/pages/TimelineDocs"));
+
+// v0.3.0 — Navigation & overlay
+const BreadcrumbDocs = lazy(() => import("./layouts/docs/pages/BreadcrumbDocs"));
+const PaginationDocs = lazy(() => import("./layouts/docs/pages/PaginationDocs"));
+const StepperDocs = lazy(() => import("./layouts/docs/pages/StepperDocs"));
+const TooltipDocs = lazy(() => import("./layouts/docs/pages/TooltipDocs"));
+const PopoverDocs = lazy(() => import("./layouts/docs/pages/PopoverDocs"));
+
+// v0.3.0 — Form
+const SliderDocs = lazy(() => import("./layouts/docs/pages/SliderDocs"));
+const NumberInputDocs = lazy(() => import("./layouts/docs/pages/NumberInputDocs"));
+const RatingDocs = lazy(() => import("./layouts/docs/pages/RatingDocs"));
+const TagInputDocs = lazy(() => import("./layouts/docs/pages/TagInputDocs"));
+const PinInputDocs = lazy(() => import("./layouts/docs/pages/PinInputDocs"));
+const FileUploadDocs = lazy(() => import("./layouts/docs/pages/FileUploadDocs"));
+
+// v0.4.0
+const CalloutDocs = lazy(() => import("./layouts/docs/pages/CalloutDocs"));
+const ToggleDocs = lazy(() => import("./layouts/docs/pages/ToggleDocs"));
+const CopyButtonDocs = lazy(() => import("./layouts/docs/pages/CopyButtonDocs"));
+const AvatarGroupDocs = lazy(() => import("./layouts/docs/pages/AvatarGroupDocs"));
+const DatePickerDocs = lazy(() => import("./layouts/docs/pages/DatePickerDocs"));
+const CarouselDocs = lazy(() => import("./layouts/docs/pages/CarouselDocs"));
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -143,6 +178,41 @@ const App = () => {
 
             {/* Table component */}
             <Route path="table" element={<TableDocs />} />
+
+            {/* v0.3.0 — Data display */}
+            <Route path="card" element={<CardDocs />} />
+            <Route path="divider" element={<DividerDocs />} />
+            <Route path="chip" element={<ChipDocs />} />
+            <Route path="kbd" element={<KbdDocs />} />
+            <Route path="skeleton" element={<SkeletonDocs />} />
+            <Route path="spinner" element={<SpinnerDocs />} />
+            <Route path="progress" element={<ProgressDocs />} />
+            <Route path="stat" element={<StatDocs />} />
+            <Route path="empty-state" element={<EmptyStateDocs />} />
+            <Route path="timeline" element={<TimelineDocs />} />
+
+            {/* v0.3.0 — Navigation & overlay */}
+            <Route path="breadcrumb" element={<BreadcrumbDocs />} />
+            <Route path="pagination" element={<PaginationDocs />} />
+            <Route path="stepper" element={<StepperDocs />} />
+            <Route path="tooltip" element={<TooltipDocs />} />
+            <Route path="popover" element={<PopoverDocs />} />
+
+            {/* v0.3.0 — Form */}
+            <Route path="slider" element={<SliderDocs />} />
+            <Route path="number-input" element={<NumberInputDocs />} />
+            <Route path="rating" element={<RatingDocs />} />
+            <Route path="tag-input" element={<TagInputDocs />} />
+            <Route path="pin-input" element={<PinInputDocs />} />
+            <Route path="file-upload" element={<FileUploadDocs />} />
+
+            {/* v0.4.0 */}
+            <Route path="callout" element={<CalloutDocs />} />
+            <Route path="toggle" element={<ToggleDocs />} />
+            <Route path="copy-button" element={<CopyButtonDocs />} />
+            <Route path="avatar-group" element={<AvatarGroupDocs />} />
+            <Route path="date-picker" element={<DatePickerDocs />} />
+            <Route path="carousel" element={<CarouselDocs />} />
           </Route>
         </Routes>
       </Suspense>

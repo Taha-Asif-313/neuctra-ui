@@ -2,6 +2,12 @@
 @import "tailwindcss";
 @source "../node_modules/@neuctra/ui";
 
+/* Tailwind v4's default `dark:` variant keys off prefers-color-scheme, but the
+   theme below swaps on a `.dark` class (see ThemeContext). Without this the two
+   disagree — toggling to dark on a light OS applies the tokens but not the
+   `dark:` utilities. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* =============================
    BASE GLOBAL STYLES
 ============================= */
@@ -59,6 +65,21 @@ button {
 
   --destructive: #d40000;
   --destructive-foreground: #fafafa;
+
+  --card: #ffffff;
+  --card-foreground: #09090b;
+
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+
+  --success: #16a34a;
+  --success-foreground: #fafafa;
+
+  --warning: #d97706;
+  --warning-foreground: #fafafa;
+
+  --info: #2563eb;
+  --info-foreground: #eff6ff;
 }
 
 /* =========================
@@ -83,31 +104,26 @@ button {
 
   --destructive: #d40000;
   --destructive-foreground: #fafafa;
+
+  --card: #18181b;
+  --card-foreground: #fafafa;
+
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+
+  --success: #22c55e;
+  --success-foreground: #052e16;
+
+  --warning: #f59e0b;
+  --warning-foreground: #451a03;
+
+  --info: #3b82f6;
+  --info-foreground: #eff6ff;
 }
 
-/* SYSTEM DARK MODE */
-@media (prefers-color-scheme: dark) {
-  :root {
-  --primary: #00c214;
-  --primary-foreground: #ffffff;
-
-  --background: #09090b;
-  --foreground: #fafafa;
-
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-
-  --accent: #18181b;
-  --accent-foreground: #fafafa;
-
-  --border: #27272a;
-  --input: #18181b;
-  --ring: #3f3f46;
-
-  --destructive: #d40000;
-  --destructive-foreground: #fafafa;
-}
-}
+/* System preference is applied in JS (ThemeContext reads matchMedia and sets
+   the .dark class), so a prefers-color-scheme block here would fight the
+   toggle: a dark-OS user switching to light kept getting dark tokens. */
 
 /* NEUCTRA_THEME_END */
 
@@ -134,4 +150,19 @@ button {
 
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
 }

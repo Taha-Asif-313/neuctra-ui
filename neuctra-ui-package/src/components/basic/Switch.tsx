@@ -1,13 +1,14 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useId, useRef } from "react";
 import clsx from "clsx";
+import { cn } from "../../lib/cn";
 
-interface Option {
+export interface Option {
   label: string;
   value: string;
 }
 
-interface SwitchGroupProps {
+export interface SwitchGroupProps {
   mode?: "single" | "group";
   name?: string;
   // For group mode
@@ -81,6 +82,16 @@ export const Switch: React.FC<SwitchGroupProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
+  const generatedId = useId();
+  const errorId = error ? `${generatedId}-error` : undefined;
+
+  // Track/thumb geometry, derived once so the thumb stays centered and its
+  // travel always matches the track width.
+  const trackWidth = iconSize * 2;
+  const trackHeight = Math.round(iconSize * 1.1);
+  const thumbInset = 2;
+  const thumbSize = trackHeight - thumbInset * 2;
+
   const handleGroupChange = (value: string) => {
     if (!onChange || disabled || readOnly || !options) return;
 
@@ -96,82 +107,67 @@ export const Switch: React.FC<SwitchGroupProps> = ({
     onCheckedChange(!checked);
   };
 
-  /* =========================
-     Keyboard Navigation (Group only)
-  ========================= */
-  useEffect(() => {
-    if (mode !== "group" || !options) return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (disabled || focusedIndex === null) return;
-
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        e.preventDefault();
-        setFocusedIndex((prev) => (prev! + 1) % options.length);
-      }
-
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        e.preventDefault();
-        setFocusedIndex(
-          (prev) => (prev! - 1 + options.length) % options.length,
-        );
-      }
-
-      if (e.key === " " || e.key === "Enter") {
-        e.preventDefault();
-        handleGroupChange(options[focusedIndex].value);
-      }
-    };
-
-    container.addEventListener("keydown", handleKeyDown);
-    return () => container.removeEventListener("keydown", handleKeyDown);
-  }, [focusedIndex, options, selectedValues, disabled, mode]);
+  /*
+   * The group keyboard handler that lived here was unreachable — it bailed on
+   * `focusedIndex === null`, and focusedIndex was only ever set by onFocus on a
+   * <label> whose input was display:none, so nothing could focus. With the
+   * inputs now `sr-only`, Tab + Space work natively, which is the correct
+   * interaction model for a list of switches.
+   */
 
   const renderSwitch = (
     isChecked: boolean,
     onToggle: () => void,
     inputValue?: string,
+    isRequired = false,
   ) => (
     <>
       <input
         type="checkbox"
-        hidden
+        // `hidden` removed this from the tab order and the a11y tree, so the
+        // switch was unreachable by keyboard and `required` blocked submits.
+        className="sr-only peer"
+        role="switch"
+        aria-checked={isChecked}
         name={name}
         value={inputValue}
         checked={isChecked}
         disabled={disabled || readOnly}
-        required={required}
+        required={isRequired}
+        aria-describedby={errorId}
         onChange={onToggle}
       />
 
       {/* SWITCH */}
       <span
-        className={clsx(
-          "relative inline-flex rounded-full transition-colors",
+        className={cn(
+          "relative inline-flex shrink-0 rounded-full transition-colors",
           isChecked ? "bg-primary" : "bg-muted",
+          "peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background",
           switchClassName,
         )}
         style={{
-          width: iconSize * 2,
-          height: iconSize * 1.1,
+          width: trackWidth,
+          height: trackHeight,
           ...switchStyle,
         }}
       >
         {/* THUMB */}
         <span
-          className={clsx(
-            "absolute top-1/2 -translate-y-1/2 rounded-full shadow",
-            "bg-white",
+          className={cn(
+            "absolute top-1/2 rounded-full shadow bg-background",
             thumbClassName,
           )}
           style={{
-            left: isChecked ? `calc(100% - ${iconSize - 4}px - 2px)` : "2px",
-            width: iconSize - 4,
-            height: iconSize - 4,
-            transition: "left 0.25s ease",
+            // Animate transform, not `left`, and keep the offsets symmetric so
+            // the thumb is actually centered in the track.
+            left: 0,
+            width: thumbSize,
+            height: thumbSize,
+            transform: `translate(${
+              isChecked ? trackWidth - thumbSize - thumbInset : thumbInset
+            }px, -50%)`,
+            transition: "transform 0.25s ease",
             ...thumbStyle,
           }}
         />
@@ -182,11 +178,13 @@ export const Switch: React.FC<SwitchGroupProps> = ({
   return (
     <div
       ref={containerRef}
-      role={mode === "group" ? "group" : "switch"}
-      tabIndex={mode === "group" ? 0 : undefined}
-      aria-disabled={disabled}
+      // role="switch" used to sit here, on a <div> wrapping the label, the
+      // control and the error text — and without aria-checked. The role now
+      // lives on the real input, where it belongs.
+      role={mode === "group" ? "group" : undefined}
       aria-invalid={!!error}
-      className={clsx("flex flex-col gap-2 text-foreground", className)}
+      aria-describedby={errorId}
+      className={cn("flex flex-col gap-2 text-foreground", className)}
       style={style}
     >
       {mode === "single" ? (
@@ -208,7 +206,7 @@ export const Switch: React.FC<SwitchGroupProps> = ({
             {label}
           </span>
 
-          {renderSwitch(checked, handleSingleChange)}
+          {renderSwitch(checked, handleSingleChange, undefined, required)}
         </label>
       ) : (
         options?.map((option, index) => {
@@ -247,8 +245,9 @@ export const Switch: React.FC<SwitchGroupProps> = ({
 
       {error && (
         <p
+          id={errorId}
           role="alert"
-          className={clsx("text-sm text-destructive", errorClassName)}
+          className={cn("text-sm text-destructive", errorClassName)}
           style={errorStyle}
         >
           {error}

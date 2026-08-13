@@ -1,14 +1,16 @@
 "use client";
 
 import React, { forwardRef } from "react";
-import clsx from "clsx";
+import { cn } from "../../lib/cn";
 
 /* -------------------------------------------------------------------------- */
 /* 🧩 Types                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Optional so icon-only buttons are possible — pair with `aria-label`. */
+  children?: React.ReactNode;
 
   iconBefore?: React.ReactNode;
   iconAfter?: React.ReactNode;
@@ -19,16 +21,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean;
 
   variant?: "default" | "outline" | "ghost";
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 
   /** 🔥 Full Customization */
-  className?: string;
   contentClassName?: string;
   iconClassName?: string;
   loaderClassName?: string;
   textClassName?: string;
 
-  style?: React.CSSProperties;
   contentStyle?: React.CSSProperties;
   iconStyle?: React.CSSProperties;
   loaderStyle?: React.CSSProperties;
@@ -80,6 +80,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       xl: "px-10 py-3.5 text-lg min-h-[56px] rounded-2xl",
     } as const;
 
+    /* ↔️ Gap between icon and label, scaled with the size */
+    const gapClasses = {
+      xs: "gap-1.5",
+      sm: "gap-2",
+      md: "gap-2",
+      lg: "gap-2.5",
+      xl: "gap-3",
+    } as const;
+
+    /* 🌀 Spinner stroke, so it doesn't look solid at xs */
+    const loaderBorder = {
+      xs: "border",
+      sm: "border-2",
+      md: "border-2",
+      lg: "border-2",
+      xl: "border-[3px]",
+    } as const;
+
     /* 🎨 VARIANTS (SHADCN STYLE) */
     const variantClasses: Record<
       NonNullable<ButtonProps["variant"]>,
@@ -105,32 +123,37 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         disabled={isDisabled}
-        aria-disabled={isDisabled}
-        className={clsx(
-          className,
-          sizeClasses[size],
-          variantClasses[variant],
-          fullWidth && "w-full",
-          isDisabled && "opacity-60 cursor-not-allowed pointer-events-none",
+        aria-busy={loading || undefined}
+        className={cn(
           "inline-flex items-center justify-center transition-all duration-200",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          sizeClasses[size] ?? sizeClasses.md,
+          variantClasses[variant] ?? variantClasses.default,
+          fullWidth && "w-full",
+          isDisabled && "opacity-60 cursor-not-allowed",
+          className,
         )}
-        style={{
-          ...style,
-        }}
+        style={style}
         {...rest}
       >
         {/* 🔥 CONTENT WRAPPER */}
         <span
-          className={clsx(contentClassName, "inline-flex items-center gap-2")}
+          className={cn(
+            "inline-flex items-center",
+            gapClasses[size] ?? gapClasses.md,
+            contentClassName,
+          )}
           style={contentStyle}
         >
           {loading ? (
             <>
               {/* Loader */}
               <span
-                className={clsx(
+                aria-hidden="true"
+                className={cn(
+                  "border-current border-t-transparent rounded-full animate-spin",
+                  loaderBorder[size] ?? loaderBorder.md,
                   loaderClassName,
-                  "border-2 border-current border-t-transparent rounded-full animate-spin",
                 )}
                 style={{
                   width: iconSizes[size],
@@ -142,9 +165,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
               {/* Loading Text */}
               <span
-                className={clsx(
+                className={cn(
+                  "whitespace-nowrap text-current",
                   textClassName,
-                  "whitespace-nowrap text-foreground",
                 )}
                 style={textStyle}
               >
@@ -155,10 +178,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <>
               {iconBefore && (
                 <span
-                  className={clsx(
+                  aria-hidden="true"
+                  className={cn(
+                    "inline-flex items-center justify-center shrink-0 text-current",
+                    // Size the SVG itself, not just its wrapper — otherwise a
+                    // default 24px lucide icon spills out of a 14px xs box.
+                    "[&_svg]:w-full [&_svg]:h-full",
                     iconClassName,
-                    "inline-flex items-center justify-center shrink-0",
-                    "text-current",
                   )}
                   style={{
                     width: iconSizes[size],
@@ -170,22 +196,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 </span>
               )}
 
-              <span
-                className={clsx(
-                  textClassName,
-                  "whitespace-nowrap text-current",
-                )}
-                style={textStyle}
-              >
-                {children}
-              </span>
+              {children !== undefined && children !== null && (
+                <span
+                  className={cn("whitespace-nowrap text-current", textClassName)}
+                  style={textStyle}
+                >
+                  {children}
+                </span>
+              )}
 
               {iconAfter && (
                 <span
-                  className={clsx(
+                  aria-hidden="true"
+                  className={cn(
+                    "inline-flex items-center justify-center shrink-0 text-current",
+                    "[&_svg]:w-full [&_svg]:h-full",
                     iconClassName,
-                    "inline-flex items-center justify-center shrink-0",
-                    "text-current",
                   )}
                   style={{
                     width: iconSizes[size],

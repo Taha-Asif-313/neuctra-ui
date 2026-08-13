@@ -21,12 +21,32 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
       name: "NeuctraUi",
-      fileName: (format) => `index.${format}.js`,
+      // `.cjs` (not `.cjs.js`) — package.json sets "type": "module", so Node
+      // parses every `.js` here as ESM and would choke on the CommonJS build.
+      fileName: (format) => (format === "es" ? "index.es.js" : "index.cjs"),
       formats: ["es", "cjs"],
+      // Emit dist/style.css. Without this, a function `fileName` makes Vite
+      // fall back to the sanitized package name (dist/ui.css).
+      cssFileName: "style",
     },
 
     rollupOptions: {
-      external: ["react", "react-dom"],
+      // Declared runtime dependencies stay external so consumers get a single
+      // deduped copy. framer-motion is intentionally NOT here — it is a
+      // devDependency and is bundled, so consumers don't have to install it.
+      external: [
+        /^react($|\/)/,
+        /^react-dom($|\/)/,
+        /^lucide-react($|\/)/,
+        "clsx",
+        "tailwind-merge",
+      ],
+      output: {
+        // Rollup drops module-level directives when concatenating into one
+        // chunk. Every export in the entry is a client component, so re-add it
+        // at the top of the bundle for the Next.js App Router.
+        banner: '"use client";',
+      },
     },
 
     sourcemap: true,

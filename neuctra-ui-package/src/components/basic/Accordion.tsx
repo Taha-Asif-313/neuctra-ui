@@ -1,15 +1,9 @@
 "use client";
 
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  memo,
-  ReactNode,
-  CSSProperties,
-} from "react";
+import React, { useState, useId, memo, ReactNode, CSSProperties } from "react";
 import clsx from "clsx";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { cn } from "../../lib/cn";
 
 /* ---------------- Types ---------------- */
 export interface AccordionItem {
@@ -119,19 +113,7 @@ export const Accordion: React.FC<AccordionProps> = memo(
     renderItem,
   }) => {
     const [openIndexes, setOpenIndexes] = useState<number[]>(defaultOpen);
-    const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-    const toCss = (v?: string | number) =>
-      typeof v === "number" ? `${v}px` : v;
-
-    useEffect(() => {
-      contentRefs.current.forEach((el, i) => {
-        if (!el) return;
-        el.style.maxHeight = openIndexes.includes(i)
-          ? `${el.scrollHeight}px`
-          : "0px";
-      });
-    }, [openIndexes]);
+    const accordionId = useId();
 
     const toggle = (i: number) => {
       setOpenIndexes((prev) =>
@@ -180,31 +162,41 @@ export const Accordion: React.FC<AccordionProps> = memo(
             >
               {/* Header */}
               <button
+                type="button"
+                id={`${accordionId}-trigger-${index}`}
+                aria-expanded={open}
+                aria-controls={`${accordionId}-panel-${index}`}
                 onClick={() => toggle(index)}
-                className={clsx(
-                  headerClassName,
-                  hoverClassName,
+                className={cn(
                   "w-full flex items-center justify-between",
                   "px-4 py-3.5 text-left transition-colors",
-                  "hover:bg-accent",
+                  // The item wrapper is already bg-accent, so hover:bg-accent
+                  // was a guaranteed no-op — there was no hover feedback at all.
+                  "hover:bg-accent-foreground/5",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+                  headerClassName,
+                  // hoverClassName is merged last so it can actually win, but
+                  // note it applies at rest too — see the note on hoverStyle.
+                  hoverClassName,
                 )}
                 style={{
+                  // hoverStyle is an inline style and so cannot express :hover;
+                  // it has always applied unconditionally. Kept for
+                  // compatibility, but prefer hoverClassName.
                   ...headerStyle,
                   ...hoverStyle,
                 }}
               >
                 <span
-                  className={clsx(
-                    titleClassName,
-                    "text-foreground",
-                  )}
+                  className={cn("text-sm text-foreground", titleClassName)}
                   style={titleStyle}
                 >
                   {item.title}
                 </span>
 
                 <span
-                  className={clsx(iconClassName, "text-muted-foreground")}
+                  aria-hidden="true"
+                  className={cn("text-muted-foreground", iconClassName)}
                   style={iconStyle}
                 >
                   {open
@@ -213,32 +205,40 @@ export const Accordion: React.FC<AccordionProps> = memo(
                 </span>
               </button>
 
-              {/* Content Wrapper */}
+              {/* Content Wrapper.
+                  Uses a grid-rows 0fr→1fr transition instead of measuring
+                  scrollHeight. The old approach had two sources of truth (an
+                  effect writing el.style.maxHeight and a render reading the ref)
+                  which fought each other: defaultOpen items rendered collapsed,
+                  and any unrelated re-render snapped open panels shut. */}
               <div
-                ref={(el) => {
-                  contentRefs.current[index] = el;
-                }}
-                className={clsx(
+                id={`${accordionId}-panel-${index}`}
+                role="region"
+                aria-labelledby={`${accordionId}-trigger-${index}`}
+                className={cn(
+                  "grid overflow-hidden",
+                  open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
                   contentWrapperClassName,
-                  "overflow-hidden transition-all",
                 )}
                 style={{
-                  maxHeight: open
-                    ? `${contentRefs.current[index]?.scrollHeight || 0}px`
-                    : "0px",
-                  transition: `max-height ${duration}ms ease`,
+                  transition: `grid-template-rows ${duration}ms ease`,
                   ...contentWrapperStyle,
                 }}
               >
-                {/* Content */}
-                <div
-                  className={clsx(
-                    contentClassName,
-                    "px-4 py-3.5 text-sm border-t border-border text-accent-foreground bg-background",
-                  )}
-                  style={contentStyle}
-                >
-                  {item.content}
+                {/* min-h-0 lets the grid row actually collapse to 0fr. */}
+                <div className="min-h-0 overflow-hidden">
+                  {/* Content — `inert` while collapsed so its links and buttons
+                      don't stay in the tab order behind a 0-height box. */}
+                  <div
+                    inert={!open ? true : undefined}
+                    className={cn(
+                      "px-4 py-3.5 text-sm border-t border-border text-accent-foreground bg-background",
+                      contentClassName,
+                    )}
+                    style={contentStyle}
+                  >
+                    {item.content}
+                  </div>
                 </div>
               </div>
             </div>

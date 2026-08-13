@@ -197,8 +197,8 @@ const TextDocs = () => {
               component.
             </p>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="text-left p-3">Prop</th>

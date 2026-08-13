@@ -4,6 +4,7 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useId,
   forwardRef,
   useLayoutEffect,
 } from "react";
@@ -87,32 +88,55 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     const dropdownRef = useRef<HTMLDivElement | null>(null);
     const menuRef = useRef<HTMLDivElement | null>(null);
+    const menuId = useId();
 
-    const setOpen = (val: boolean) => {
+    // Kept in a ref so the listener below can stay subscribed without going
+    // stale on onOpenChange, which consumers usually pass as an inline arrow.
+    const setOpenRef = useRef((val: boolean) => {
+      if (!isControlled) setInternalOpen(val);
+      onOpenChange?.(val);
+    });
+    setOpenRef.current = (val: boolean) => {
       if (!isControlled) setInternalOpen(val);
       onOpenChange?.(val);
     };
+
+    const setOpen = (val: boolean) => setOpenRef.current(val);
 
     /* ---------------------------------------------------------------------- */
     /* 🔒 Outside Click                                                       */
     /* ---------------------------------------------------------------------- */
 
     useEffect(() => {
+      // Gate on `open`. Previously this was mounted for the component's whole
+      // life with `[]` deps, so in controlled mode every mousedown anywhere on
+      // the page called onOpenChange(false) — and the empty deps froze the
+      // first render's handler.
+      if (!open) return;
+
       const handleOutside = (e: MouseEvent) => {
+        const target = e.target as Node;
         if (
           dropdownRef.current &&
-          !dropdownRef.current.contains(e.target as Node)
+          !dropdownRef.current.contains(target) &&
+          !menuRef.current?.contains(target)
         ) {
-          setOpen(false);
+          setOpenRef.current(false);
         }
       };
 
+      const handleEscape = (e: KeyboardEvent) => {
+        if (e.key === "Escape") setOpenRef.current(false);
+      };
+
       document.addEventListener("mousedown", handleOutside);
+      document.addEventListener("keydown", handleEscape);
 
       return () => {
         document.removeEventListener("mousedown", handleOutside);
+        document.removeEventListener("keydown", handleEscape);
       };
-    }, []);
+    }, [open]);
 
     /* ---------------------------------------------------------------------- */
     /* 📍 Smart Positioning                                                   */
@@ -183,6 +207,21 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
         <div
           className="flex"
+          // A plain <div> is not focusable and has no Enter/Space activation,
+          // so give it button semantics and the popup wiring screen readers
+          // need. (A real <button> would nest illegally if `trigger` is one.)
+          role="button"
+          tabIndex={0}
+          aria-haspopup="menu"
+          aria-expanded={open}
+          aria-controls={open ? menuId : undefined}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              e.stopPropagation();
+              setOpen(!open);
+            }
+          }}
           onClick={(e) => {
             e.stopPropagation();
             setOpen(!open);
@@ -232,12 +271,13 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 ...menuStyle,
               }}
             >
-              <div className="text-sm text-foreground">
+              <div id={menuId} role="menu" className="text-sm text-foreground">
                 {items.map((item, i) => {
                   if (item.separator) {
                     return (
                       <div
                         key={`separator-${i}`}
+                        role="separator"
                         className="my-1 h-px bg-border"
                       />
                     );
@@ -245,8 +285,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
                   return (
                     <button
-                      key={i}
+                      // Prefer a stable identity over the array index so
+                      // reordering or filtering `items` doesn't reuse the wrong
+                      // DOM node (and its hover/disabled state).
+                      key={typeof item.label === "string" ? item.label : i}
                       type="button"
+                      role="menuitem"
                       disabled={item.disabled}
                       onClick={() => {
                         if (item.disabled) return;
@@ -261,10 +305,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                         "flex w-full items-center gap-3 px-4 py-2.5 text-left",
                         "transition-all duration-150",
                         "hover:bg-accent",
-                        "focus:outline-none",
+                        // focus:outline-none with no replacement left keyboard
+                        // users with no visible focus at all.
+                        "focus:outline-none focus-visible:bg-accent focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
                         item.danger &&
                           "text-destructive hover:bg-destructive/10",
-                        item.disabled && "pointer-events-none opacity-50",
+                        item.disabled && "opacity-50",
                         itemClassName,
                         item.className,
                       )}

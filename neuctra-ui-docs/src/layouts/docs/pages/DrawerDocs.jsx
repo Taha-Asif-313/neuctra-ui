@@ -341,8 +341,8 @@ const [open, setOpen] = useState(false);
               Drawer Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -428,8 +428,8 @@ const [open, setOpen] = useState(false);
               DrawerButton Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -510,8 +510,8 @@ const [open, setOpen] = useState(false);
               Extends <code>ButtonProps</code>
             </p>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -548,8 +548,8 @@ const [open, setOpen] = useState(false);
               DrawerHeader Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <tbody className="divide-y divide-zinc-800 text-gray-300">
                   <tr>
                     <td className="p-3 font-mono">title</td>

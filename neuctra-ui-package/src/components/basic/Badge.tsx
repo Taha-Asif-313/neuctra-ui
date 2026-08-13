@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, CSSProperties } from "react";
-import clsx from "clsx";
+import { cn } from "../../lib/cn";
 
 /* -------------------------------------------------------------------------- */
 /*                                🧩 Types                                    */
@@ -65,48 +65,81 @@ export const Badge: React.FC<BadgeProps> = memo(
     onClick,
   }) => {
     const sizes = {
-      sm: "px-3 py-0.5 text-xs",
-      md: "px-4 py-1 text-xs",
-      lg: "px-5 py-1.5 text-sm",
-    };
+      sm: "px-2.5 py-0.5 text-[11px] gap-1",
+      md: "px-3 py-1 text-xs gap-1.5",
+      lg: "px-4 py-1.5 text-sm gap-2",
+    } as const;
+
+    // The icon slot has to scale with the size too — otherwise a `lg` badge
+    // renders the same icon box as an `sm` one.
+    const iconSizes = {
+      sm: "w-3 h-3",
+      md: "w-3.5 h-3.5",
+      lg: "w-4 h-4",
+    } as const;
 
     const variants = {
-      solid: "bg-primary text-white",
+      // text-primary-foreground, not text-white — a light --primary (the
+      // README's own example is a bright green) fails contrast against white.
+      solid: "bg-primary text-primary-foreground",
       outline: "border border-primary text-primary bg-transparent",
       soft: "bg-primary/10 text-primary",
-    };
+    } as const;
+
+    const isInteractive = Boolean(onClick);
 
     return (
       <span
         onClick={onClick}
+        // A clickable badge has to be reachable and operable by keyboard.
+        role={isInteractive ? "button" : undefined}
+        tabIndex={isInteractive ? 0 : undefined}
+        onKeyDown={
+          isInteractive
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onClick?.();
+                }
+              }
+            : undefined
+        }
         style={style}
-        className={clsx(
-          className,
-          "relative inline-flex items-center justify-center font-medium gap-1",
+        className={cn(
+          "relative inline-flex items-center justify-center font-medium",
           "transition-all duration-200 select-none",
 
-          variants[variant], // ✅ single source of truth
+          variants[variant] ?? variants.solid,
 
           rounded ? "rounded-full" : "rounded-md",
-          sizes[size],
+          sizes[size] ?? sizes.sm,
 
-          onClick &&
-            "cursor-pointer " +
+          isInteractive &&
+            "cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background " +
+              // Hover stays within the variant's own color ramp.
               (variant === "solid"
-                ? "hover:bg-accent/80"
+                ? "hover:bg-primary/90"
                 : variant === "outline"
                   ? "hover:bg-primary/10"
                   : "hover:bg-primary/20"),
+
+          className,
         )}
       >
-        {/* Dot */}
-        {notificationDot && (
+        {/* Dot — suppressed when a count is shown, since both sit in the same
+            corner and would overlap. */}
+        {notificationDot && count === undefined && (
           <span
+            aria-hidden="true"
             style={dotStyle}
-            className={clsx(
-              dotClassName,
+            className={cn(
               "absolute -top-1 -right-1 w-2 h-2 rounded-full bg-destructive",
-              pulse && "animate-ping",
+              // animate-ping scales the dot to 2x and fades it out, so on its
+              // own the dot vanishes. Render the ping as a sibling ring and
+              // keep a solid dot underneath.
+              pulse &&
+                "before:absolute before:inset-0 before:rounded-full before:bg-destructive before:animate-ping motion-reduce:before:animate-none",
+              dotClassName,
             )}
           />
         )}
@@ -114,12 +147,13 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* Count */}
         {count !== undefined && (
           <span
+            role="status"
             style={countStyle}
-            className={clsx(
-              countClassName,
+            className={cn(
               "absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 text-[10px]",
               "flex items-center justify-center rounded-full",
-              "bg-destructive text-white",
+              "bg-destructive text-destructive-foreground",
+              countClassName,
             )}
           >
             {count}
@@ -129,8 +163,13 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* Icon Left */}
         {icon && iconPosition === "left" && (
           <span
+            aria-hidden="true"
             style={iconStyle}
-            className={clsx(iconClassName, "flex items-center")}
+            className={cn(
+              "flex items-center shrink-0 [&_svg]:w-full [&_svg]:h-full",
+              iconSizes[size] ?? iconSizes.sm,
+              iconClassName,
+            )}
           >
             {icon}
           </span>
@@ -142,8 +181,13 @@ export const Badge: React.FC<BadgeProps> = memo(
         {/* Icon Right */}
         {icon && iconPosition === "right" && (
           <span
+            aria-hidden="true"
             style={iconStyle}
-            className={clsx(iconClassName, "flex items-center")}
+            className={cn(
+              "flex items-center shrink-0 [&_svg]:w-full [&_svg]:h-full",
+              iconSizes[size] ?? iconSizes.sm,
+              iconClassName,
+            )}
           >
             {icon}
           </span>

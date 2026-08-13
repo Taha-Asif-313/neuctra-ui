@@ -1,18 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useId, useRef } from "react";
 import clsx from "clsx";
+import { cn } from "../../lib/cn";
 
 /* =========================
    Types
 ========================= */
-interface Option {
+export interface Option {
   label: string;
   value: string;
   disabled?: boolean;
 }
 
-interface CheckboxGroupProps {
+export interface CheckboxGroupProps {
   mode?: "single" | "group";
 
   name?: string;
@@ -107,11 +108,18 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
+  const generatedId = useId();
+  const errorId = error ? `${generatedId}-error` : undefined;
+
   /* =========================
      Handlers
   ========================= */
   const handleGroupChange = (value: string) => {
     if (!onChange || disabled || readOnly) return;
+    // The click path runs through the <label>, so a per-option `disabled` has
+    // to be re-checked here — the input's own `disabled` attribute alone let
+    // disabled options stay toggleable.
+    if (options.find((o) => o.value === value)?.disabled) return;
 
     const updated = selectedValues.includes(value)
       ? selectedValues.filter((v) => v !== value)
@@ -125,49 +133,28 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
     onCheckedChange(!checked);
   };
 
-  /* =========================
-     Keyboard Navigation (group only)
-  ========================= */
-  useEffect(() => {
-    if (mode !== "group") return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (disabled || focusedIndex === null) return;
-
-      if (["ArrowDown", "ArrowRight"].includes(e.key)) {
-        e.preventDefault();
-        setFocusedIndex((prev) => (prev! + 1) % options.length);
-      }
-
-      if (["ArrowUp", "ArrowLeft"].includes(e.key)) {
-        e.preventDefault();
-        setFocusedIndex((prev) => (prev! - 1 + options.length) % options.length);
-      }
-
-      if ([" ", "Enter"].includes(e.key)) {
-        e.preventDefault();
-        handleGroupChange(options[focusedIndex].value);
-      }
-    };
-
-    container.addEventListener("keydown", handleKeyDown);
-    return () => container.removeEventListener("keydown", handleKeyDown);
-  }, [focusedIndex, options, selectedValues, disabled, mode]);
+  /*
+   * The old group keyboard handler lived here. It was unreachable: it bailed on
+   * `focusedIndex === null`, and the only thing that set focusedIndex was
+   * onFocus on a <label> whose input was display:none — so nothing was ever
+   * focusable. Now that each input is `sr-only` rather than `hidden`, Tab and
+   * Space work natively, which is the expected behavior for a checkbox group
+   * (unlike radios, checkboxes are not arrow-navigable by spec).
+   */
 
   /* =========================
      Default Icon
   ========================= */
   const DefaultIcon = (isChecked: boolean) => (
     <span
-      className={clsx(
-        "inline-flex items-center justify-center rounded border transition-colors",
+      className={cn(
+        "inline-flex items-center justify-center rounded border transition-colors shrink-0",
         isChecked
           ? "border-primary bg-primary"
           : "border-border bg-transparent",
-        iconClassName
+        // The real input is sr-only, so the focus ring has to be rendered here.
+        "peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background",
+        iconClassName,
       )}
       style={{
         width: iconSize,
@@ -178,7 +165,8 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
       {isChecked && (
         <svg
           viewBox="0 0 24 24"
-          className="text-white"
+          // Pairs with bg-primary, so a light --primary keeps a readable tick.
+          className="text-primary-foreground"
           fill="none"
           stroke="currentColor"
           strokeWidth={3}
@@ -211,16 +199,16 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
     return (
       <div className={className} style={style}>
         <label
-          className={clsx(
-            "flex items-center justify-between cursor-pointer",
-            disabled && "opacity-50 cursor-not-allowed",
+          className={cn(
+            "flex items-center justify-between",
+            disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
             itemClassName,
-            labelClassName
+            labelClassName,
           )}
           style={{ ...itemStyle, ...labelStyle }}
         >
           <span
-            className={clsx("text-sm text-foreground", textClassName)}
+            className={cn("text-sm text-foreground", textClassName)}
             style={textStyle}
           >
             {label}
@@ -228,11 +216,16 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
 
           <input
             type="checkbox"
-            hidden
+            // `hidden` (display:none) took this out of the tab order and the
+            // a11y tree, and made `required` block form submission. `sr-only`
+            // + `peer` keeps it invisible but focusable and announced.
+            className="sr-only peer"
             name={name}
             checked={checked}
             disabled={disabled || readOnly}
             required={required}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={errorId}
             onChange={toggle}
           />
 
@@ -241,7 +234,9 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
 
         {error && (
           <p
-            className={clsx("text-sm text-destructive mt-1", errorClassName)}
+            id={errorId}
+            role="alert"
+            className={cn("text-sm text-destructive mt-1", errorClassName)}
             style={errorStyle}
           >
             {error}
@@ -258,8 +253,9 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
     <div
       ref={containerRef}
       role="group"
-      tabIndex={0}
-      className={clsx("flex flex-col gap-2", containerClassName || className)}
+      aria-invalid={error ? true : undefined}
+      aria-describedby={errorId}
+      className={cn("flex flex-col gap-2", containerClassName || className)}
       style={containerStyle || style}
     >
       {options.map((option, index) => {
@@ -281,20 +277,24 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
           );
         }
 
+        const itemDisabled = disabled || option.disabled;
+
         return (
           <label
             key={option.value}
             onFocus={() => setFocusedIndex(index)}
-            className={clsx(
-              "flex items-center justify-between cursor-pointer",
-              disabled && "opacity-50 cursor-not-allowed",
+            className={cn(
+              "flex items-center justify-between",
+              itemDisabled
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer",
               itemClassName,
-              labelClassName
+              labelClassName,
             )}
             style={{ ...itemStyle, ...labelStyle }}
           >
             <span
-              className={clsx("text-sm text-foreground", textClassName)}
+              className={cn("text-sm text-foreground", textClassName)}
               style={textStyle}
             >
               {option.label}
@@ -302,12 +302,11 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
 
             <input
               type="checkbox"
-              hidden
+              className="sr-only peer"
               name={name}
               value={option.value}
               checked={isChecked}
-              disabled={disabled || readOnly || option.disabled}
-              required={required}
+              disabled={itemDisabled || readOnly}
               onChange={toggle}
             />
 
@@ -320,7 +319,9 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
 
       {error && (
         <p
-          className={clsx("text-sm text-destructive mt-1", errorClassName)}
+          id={errorId}
+          role="alert"
+          className={cn("text-sm text-destructive mt-1", errorClassName)}
           style={errorStyle}
         >
           {error}

@@ -171,8 +171,8 @@ function BasicExample() {
               Tabs Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -360,8 +360,8 @@ function BasicExample() {
               TabList Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -416,8 +416,8 @@ function BasicExample() {
               Tab Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -486,8 +486,8 @@ function BasicExample() {
               TabPanels Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>
@@ -537,8 +537,8 @@ function BasicExample() {
               TabPanel Props
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>

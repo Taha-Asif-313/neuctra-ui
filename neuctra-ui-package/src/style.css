@@ -19,3 +19,9 @@
 
 .slide-in-from-right-full { animation-name: slideInFromRight; }
 .fade-in { animation-name: fadeIn; }
+
+/* Used by <Progress /> when no value is provided (indeterminate). */
+@keyframes progress-indeterminate {
+  0% { margin-left: -35%; }
+  100% { margin-left: 100%; }
+}

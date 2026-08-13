@@ -259,8 +259,8 @@ function BasicExample() {
             <div className="space-y-8">
               <div>
                 <h4 className="text-lg font-semibold mb-2 text-white">Table</h4>
-                <div className="border border-zinc-800 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-sm">
                     <thead className="bg-zinc-900 text-gray-200">
                       <tr>
                         <th className="text-left p-3">Prop</th>
@@ -346,8 +346,8 @@ function BasicExample() {
 
               <div>
                 <h4 className="text-lg font-semibold mb-2 text-white">THead</h4>
-                <div className="border border-zinc-800 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-sm">
                     <thead className="bg-zinc-900 text-gray-200">
                       <tr>
                         <th className="text-left p-3">Prop</th>
@@ -394,8 +394,8 @@ function BasicExample() {
 
               <div>
                 <h4 className="text-lg font-semibold mb-2 text-white">TBody</h4>
-                <div className="border border-zinc-800 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-sm">
                     <thead className="bg-zinc-900 text-gray-200">
                       <tr>
                         <th className="text-left p-3">Prop</th>
@@ -458,8 +458,8 @@ function BasicExample() {
 
               <div>
                 <h4 className="text-lg font-semibold mb-2 text-white">TRow</h4>
-                <div className="border border-zinc-800 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-sm">
                     <thead className="bg-zinc-900 text-gray-200">
                       <tr>
                         <th className="text-left p-3">Prop</th>
@@ -530,8 +530,8 @@ function BasicExample() {
 
               <div>
                 <h4 className="text-lg font-semibold mb-2 text-white">TH</h4>
-                <div className="border border-zinc-800 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-sm">
                     <thead className="bg-zinc-900 text-gray-200">
                       <tr>
                         <th className="text-left p-3">Prop</th>
@@ -586,8 +586,8 @@ function BasicExample() {
 
               <div>
                 <h4 className="text-lg font-semibold mb-2 text-white">TD</h4>
-                <div className="border border-zinc-800 rounded-xl overflow-hidden">
-                  <table className="w-full text-sm">
+                <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+                  <table className="w-full min-w-[560px] text-sm">
                     <thead className="bg-zinc-900 text-gray-200">
                       <tr>
                         <th className="text-left p-3">Prop</th>

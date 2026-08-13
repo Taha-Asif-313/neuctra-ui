@@ -329,8 +329,8 @@ function CheckboxGroupExample() {
               Props Table
             </h2>
 
-            <div className="border border-border rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-border rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-accent text-foreground">
                   <tr>
                     <th className="p-3 text-left">Prop</th>

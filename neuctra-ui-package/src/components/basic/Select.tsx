@@ -149,38 +149,59 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
-  // Size configuration
+  // Size configuration. `triggerWithPrefix` has to reserve exactly
+  // inset + icon width + gap, so it is defined per size alongside the icon it
+  // makes room for rather than as one fixed `pl-9` for every size.
   const sizeConfig = {
     sm: {
       trigger: "px-2.5 py-1.5 text-xs",
+      triggerWithPrefix: "pl-7 pr-2.5 py-1.5 text-xs",
+      prefixInset: "left-2",
       item: "px-2.5 py-1.5 text-xs",
       icon: "w-3 h-3",
       checkIcon: "w-3 h-3",
+      search: "px-2 py-1 text-xs",
+      empty: "px-2.5 py-1.5 text-xs",
     },
     md: {
       trigger: "px-3 py-2 text-sm",
+      triggerWithPrefix: "pl-9 pr-3 py-2 text-sm",
+      prefixInset: "left-3",
       item: "px-3 py-2 text-sm",
       icon: "w-4 h-4",
       checkIcon: "w-4 h-4",
+      search: "px-2 py-1.5 text-sm",
+      empty: "px-3 py-2 text-sm",
     },
     lg: {
       trigger: "px-4 py-3 text-base",
+      triggerWithPrefix: "pl-11 pr-4 py-3 text-base",
+      prefixInset: "left-3.5",
       item: "px-4 py-3 text-base",
       icon: "w-5 h-5",
       checkIcon: "w-5 h-5",
+      search: "px-2.5 py-2 text-base",
+      empty: "px-4 py-3 text-base",
     },
-  };
+  } as const;
 
-  const selectedValues: string[] = multiple
-    ? Array.isArray(currentValue)
-      ? currentValue
-      : currentValue
-        ? [currentValue]
-        : []
-    : currentValue
-      ? [currentValue as string]
-      : [];
+  // Rebuilt every render if left inline, which re-fires the effects below that
+  // depend on it — including the one that calls trigger.focus().
+  const selectedValues: string[] = useMemo(
+    () =>
+      multiple
+        ? Array.isArray(currentValue)
+          ? currentValue
+          : currentValue
+            ? [currentValue]
+            : []
+        : currentValue
+          ? [currentValue as string]
+          : [],
+    [multiple, currentValue],
+  );
 
   const filteredOptions = useMemo(
     () =>
@@ -275,23 +296,18 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     });
   }, [filteredOptions, open]);
 
+  // NOTE: a third effect used to live here that called triggerRef.focus() with
+  // `selectedValues` in its deps. Because that array was rebuilt every render,
+  // the effect re-ran on every render while open and continuously yanked focus
+  // out of the search box, making `searchable` impossible to type in. The two
+  // effects above already cover setting and clamping focusedIndex.
+
+  // Move real focus into the search box when the menu opens, so typing works.
   useEffect(() => {
-    if (!open) return;
-
-    // Focus trigger first (good accessibility baseline)
-    triggerRef.current?.focus();
-
-    // Then optionally move "logical focus" to first item
-    setFocusedIndex((prev) => {
-      if (filteredOptions.length === 0) return -1;
-
-      const selectedIndex = filteredOptions.findIndex((opt) =>
-        selectedValues.includes(opt.value),
-      );
-
-      return selectedIndex >= 0 ? selectedIndex : 0;
-    });
-  }, [open, filteredOptions, selectedValues]);
+    if (!open || !searchable) return;
+    const id = requestAnimationFrame(() => searchRef.current?.focus());
+    return () => cancelAnimationFrame(id);
+  }, [open, searchable]);
 
   const handleSelect = useCallback(
     (opt: SelectOption, e?: React.MouseEvent) => {
@@ -319,7 +335,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   );
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    // Shared by the trigger button and the search input.
+    (e: React.KeyboardEvent<HTMLButtonElement | HTMLInputElement>) => {
       if (!open) {
         if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown") {
           e.preventDefault();
@@ -397,8 +414,12 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
 
   const hasError = Boolean(error);
   const hasValue = selectedLabels.length > 0;
+  // Derived from useId, never from `name` — two <Select name="country" /> on one
+  // page would otherwise emit duplicate DOM ids.
   const helperTextId =
-    helperText || error ? name || generatedHelperTextId : undefined;
+    helperText || error ? `${generatedHelperTextId}-description` : undefined;
+  const triggerId = `${generatedHelperTextId}-trigger`;
+  const labelId = `${generatedHelperTextId}-label`;
 
   const dropdownListStyle = useMemo(() => {
     if (typeof maxDropdownHeight === "number") {
@@ -415,12 +436,16 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     >
       {label && (
         <label
+          id={labelId}
+          htmlFor={triggerId}
           className={clsx(
             "flex items-center gap-1.5 text-[13px] font-medium leading-none text-foreground",
             labelClassName,
           )}
         >
-          {LabelIcon && <LabelIcon className="w-4 h-4 shrink-0" />}
+          {LabelIcon && (
+            <LabelIcon className={clsx(sizeConfig[size].icon, "shrink-0")} />
+          )}
           {label}
           {required && <span className="text-destructive">*</span>}
         </label>
@@ -430,7 +455,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         {PrefixIcon && (
           <div
             className={clsx(
-              "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground",
+              "pointer-events-none absolute top-1/2 -translate-y-1/2 text-muted-foreground",
+              sizeConfig[size].prefixInset,
               iconClassName,
             )}
           >
@@ -441,6 +467,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
         <button
           type="button"
           ref={triggerRef}
+          id={triggerId}
           disabled={disabled}
           onClick={() => !disabled && setOpen((p) => !p)}
           onKeyDown={handleKeyDown}
@@ -450,16 +477,21 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           aria-required={required}
           aria-invalid={hasError}
           aria-describedby={helperTextId}
+          aria-labelledby={label ? labelId : undefined}
           className={clsx(
             "w-full flex items-center justify-between gap-2",
             "rounded-lg transition-all outline-none",
             "border border-border bg-input/30 text-foreground",
             "hover:bg-accent/10",
-            PrefixIcon && "pl-9",
-            disabled && "opacity-50 cursor-not-allowed pointer-events-none",
-            hasError && "border-destructive focus:ring-destructive",
-            success && "border-success focus:ring-success",
-            sizeConfig[size].trigger,
+            // A ring color with no ring width renders nothing — set both.
+            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:border-ring",
+            disabled && "opacity-50 cursor-not-allowed",
+            hasError &&
+              "border-destructive focus-visible:ring-destructive/50",
+            success && "border-success focus-visible:ring-success/50",
+            PrefixIcon
+              ? sizeConfig[size].triggerWithPrefix
+              : sizeConfig[size].trigger,
             triggerClassName,
           )}
           style={{
@@ -526,16 +558,21 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               {searchable && (
                 <div className="p-2 border-b border-border">
                   <input
+                    ref={searchRef}
                     type="text"
                     value={search}
                     onChange={(e) => {
                       setSearch(e.target.value);
                       setFocusedIndex(0);
                     }}
+                    onKeyDown={handleKeyDown}
                     placeholder={searchPlaceholder || "Search..."}
+                    aria-label={searchPlaceholder || "Search options"}
                     className={clsx(
-                      "w-full px-2 py-1.5 text-sm rounded-md outline-none",
+                      "w-full rounded-md outline-none",
                       "bg-background border border-border text-foreground",
+                      "focus-visible:ring-2 focus-visible:ring-ring",
+                      sizeConfig[size].search,
                       searchClassName,
                     )}
                     style={searchStyle}
@@ -549,7 +586,15 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                 style={dropdownListStyle}
               >
                 {filteredOptions.length === 0 ? (
-                  <li className="px-3 py-2.5 text-sm text-muted-foreground text-center">
+                  <li
+                    role="option"
+                    aria-disabled
+                    aria-selected={false}
+                    className={clsx(
+                      "text-muted-foreground text-center",
+                      sizeConfig[size].empty,
+                    )}
+                  >
                     No options available
                   </li>
                 ) : (

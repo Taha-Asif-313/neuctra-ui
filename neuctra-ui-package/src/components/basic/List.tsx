@@ -150,7 +150,7 @@ export interface ListProps {
   separatorStyle?: CSSProperties;
 }
 
-interface ListItemProps {
+export interface ListItemProps {
   item?: ListItemType;
   index?: number;
   depth?: number;

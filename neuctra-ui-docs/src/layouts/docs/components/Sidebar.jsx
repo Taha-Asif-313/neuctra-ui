@@ -21,7 +21,11 @@ const Sidebar = () => {
 
     {
       title: "Layout & Structure",
-      links: [{ label: "Container", href: "/docs/container" }],
+      links: [
+        { label: "Container", href: "/docs/container" },
+        { label: "Card", href: "/docs/card" },
+        { label: "Divider", href: "/docs/divider" },
+      ],
     },
 
     {
@@ -30,7 +34,10 @@ const Sidebar = () => {
         { label: "Text", href: "/docs/text" },
         { label: "Image", href: "/docs/image" },
         { label: "Avatar", href: "/docs/avatar" },
+        { label: "Avatar Group", href: "/docs/avatar-group" },
         { label: "Badge", href: "/docs/badge" },
+        { label: "Chip", href: "/docs/chip" },
+        { label: "Kbd", href: "/docs/kbd" },
       ],
     },
 
@@ -40,22 +47,43 @@ const Sidebar = () => {
         { label: "List", href: "/docs/list" },
         { label: "Table", href: "/docs/table" },
         { label: "Accordion", href: "/docs/accordion" },
+        { label: "Stat", href: "/docs/stat" },
+        { label: "Timeline", href: "/docs/timeline" },
+        { label: "Empty State", href: "/docs/empty-state" },
+        { label: "Carousel", href: "/docs/carousel" },
       ],
     },
 
     {
-      title: "Feedback & Overlay",
+      title: "Feedback & Loading",
       links: [
         { label: "Alert", href: "/docs/alert" },
+        { label: "Callout", href: "/docs/callout" },
+        { label: "Progress", href: "/docs/progress" },
+        { label: "Skeleton", href: "/docs/skeleton" },
+        { label: "Spinner", href: "/docs/spinner" },
+      ],
+    },
+
+    {
+      title: "Overlay",
+      links: [
         { label: "Modal", href: "/docs/modal" },
         { label: "Drawer", href: "/docs/drawer" },
         { label: "Dropdown", href: "/docs/dropdown" },
+        { label: "Tooltip", href: "/docs/tooltip" },
+        { label: "Popover", href: "/docs/popover" },
       ],
     },
 
     {
       title: "Navigation",
-      links: [{ label: "Tabs", href: "/docs/tabs" }],
+      links: [
+        { label: "Tabs", href: "/docs/tabs" },
+        { label: "Breadcrumb", href: "/docs/breadcrumb" },
+        { label: "Pagination", href: "/docs/pagination" },
+        { label: "Stepper", href: "/docs/stepper" },
+      ],
     },
 
     {
@@ -68,6 +96,21 @@ const Sidebar = () => {
         { label: "Radio", href: "/docs/radio" },
         { label: "Switch", href: "/docs/switch" },
         { label: "Button", href: "/docs/button" },
+        { label: "Slider", href: "/docs/slider" },
+        { label: "Number Input", href: "/docs/number-input" },
+        { label: "Rating", href: "/docs/rating" },
+        { label: "Tag Input", href: "/docs/tag-input" },
+        { label: "Pin Input", href: "/docs/pin-input" },
+        { label: "File Upload", href: "/docs/file-upload" },
+        { label: "Date Picker", href: "/docs/date-picker" },
+        { label: "Toggle Group", href: "/docs/toggle" },
+      ],
+    },
+
+    {
+      title: "Utilities",
+      links: [
+        { label: "Copy Button", href: "/docs/copy-button" },
       ],
     },
 
@@ -105,20 +148,35 @@ const Sidebar = () => {
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => handleNavigation("/")}
         >
-          <img src="/logo.png" className="w-10 h-10" alt="logo" />
+          <img src="/logo.png" className="w-10 h-10" alt="Neuctra UI logo" />
           <h2 className="text-lg font-semibold tracking-tight">
             Neuctra<span className="text-primary">UI</span>
           </h2>
         </div>
         <button
           onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isOpen}
+          aria-controls="docs-sidebar"
           className="p-2 rounded-md hover:bg-zinc-800 transition"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
+      {/* Mobile backdrop — closes the drawer on tap and blocks the content
+          behind it from being interacted with. */}
+      {isOpen && (
+        <div
+          aria-hidden="true"
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+        />
+      )}
+
       <aside
+        id="docs-sidebar"
+        aria-label="Documentation navigation"
         className={`fixed z-50 top-0 left-0 h-full w-64 bg-zinc-950 border-r border-zinc-800 shadow-[0_18px_55px_rgba(0,0,0,0.28)] overflow-y-auto transition-transform duration-300 lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
@@ -142,7 +200,7 @@ const Sidebar = () => {
                 {/* Divider */}
                 <div className="h-4 w-px bg-zinc-700 rounded-full" />
 
-                <span className="text-xs text-gray-400">v0.2</span>
+                <span className="text-xs text-gray-400">v0.4</span>
               </div>
 
               <span className="text-[11px] text-gray-300 tracking-wide">

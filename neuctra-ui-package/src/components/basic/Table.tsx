@@ -6,7 +6,7 @@ import clsx from "clsx";
 /* =========================
    Table Root
 ========================= */
-interface TableProps {
+export interface TableProps {
   children: ReactNode;
 
   /** Wrapper */
@@ -76,7 +76,7 @@ export function Table({
 /* =========================
    Head
 ========================= */
-interface TableSectionProps {
+export interface TableSectionProps {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -140,7 +140,7 @@ export function TBody({
 /* =========================
    Row
 ========================= */
-interface TRowProps extends TableSectionProps {
+export interface TRowProps extends TableSectionProps {
   onClick?: () => void;
   index?: number;
 }
@@ -176,7 +176,7 @@ export function TRow({
 /* =========================
    Header Cell
 ========================= */
-interface TableCellProps {
+export interface TableCellProps {
   children: ReactNode;
   className?: string;
   style?: CSSProperties;

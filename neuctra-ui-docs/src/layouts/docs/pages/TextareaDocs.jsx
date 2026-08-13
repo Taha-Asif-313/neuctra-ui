@@ -243,8 +243,8 @@ const TextareaDocs = () => {
               Props Table
             </h2>
 
-            <div className="border border-zinc-800 rounded-xl overflow-hidden">
-              <table className="w-full text-sm">
+            <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+              <table className="w-full min-w-[560px] text-sm">
                 <thead className="bg-zinc-900 text-gray-200">
                   <tr>
                     <th className="p-3 text-left">Prop</th>

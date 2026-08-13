@@ -280,8 +280,20 @@ button {
   --input: #f4f4f5;
   --ring: #a1a1aa;
 
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --destructive: #d40000;
+  --destructive-foreground: #fafafa;
+
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+
+  --success: #16a34a;
+  --success-foreground: #fafafa;
+  --warning: #d97706;
+  --warning-foreground: #fafafa;
+  --info: #2563eb;
+  --info-foreground: #eff6ff;
 }
 
 .dark {
@@ -303,6 +315,18 @@ button {
 
   --destructive: #d40000;
   --destructive-foreground: #fafafa;
+
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+
+  --success: #22c55e;
+  --success-foreground: #052e16;
+  --warning: #f59e0b;
+  --warning-foreground: #451a03;
+  --info: #3b82f6;
+  --info-foreground: #eff6ff;
 }
 
 /* =============================
@@ -328,6 +352,17 @@ button {
 
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
 }`}
             />
 
