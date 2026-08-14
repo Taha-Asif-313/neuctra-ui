@@ -26,6 +26,7 @@ const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
 
 // Component -> category. Hand-curated once; new components need one line here.
 const CATEGORY = {
+  Accordion: "data-display",
   Container: "layout",
   Card: "layout",
   Divider: "layout",

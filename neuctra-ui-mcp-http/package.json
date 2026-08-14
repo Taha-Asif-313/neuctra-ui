@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
-    "@neuctra/ui-mcp": "^0.2.2",
+    "@neuctra/ui-mcp": "^0.2.3",
     "hono": "^4.13.2"
   },
   "devDependencies": {

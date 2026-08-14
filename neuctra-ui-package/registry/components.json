@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "0.5.2",
-  "generatedAt": "2026-08-14T05:45:27.177Z",
+  "version": "0.5.3",
+  "generatedAt": "2026-08-14T07:21:57.602Z",
   "componentCount": 76,
   "components": [
     {
       "name": "Accordion",
       "importFrom": "@neuctra/ui",
       "module": "Accordion",
-      "category": "uncategorized",
+      "category": "data-display",
       "propsInterface": "AccordionProps",
       "description": "The Accordion component is a flexible UI primitive built with React and TypeScript. It allows users to expand and collapse content sections, making it ideal for FAQs, documentation, and content-heavy interfaces.",
       "props": [
