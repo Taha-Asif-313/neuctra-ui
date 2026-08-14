@@ -1,0 +1,38 @@
+{
+  "name": "@neuctra/ui-mcp",
+  "version": "0.2.0",
+  "description": "MCP server exposing the @neuctra/ui component registry (props, defaults, examples, theme tokens) so AI coding tools generate accurate Neuctra UI code.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Your Name <tahaasifaqwe@gmail.com>",
+  "homepage": "https://github.com/Taha-Asif-313/neuctra-ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Taha-Asif-313/neuctra-ui.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "neuctra",
+    "ui",
+    "react",
+    "component-registry"
+  ],
+  "bin": {
+    "neuctra-ui-mcp": "./bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "data"
+  ],
+  "scripts": {
+    "sync-registry": "node scripts/sync-registry.mjs",
+    "start": "node bin/cli.mjs",
+    "prepublishOnly": "npm run sync-registry"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.0"
+  }
+}

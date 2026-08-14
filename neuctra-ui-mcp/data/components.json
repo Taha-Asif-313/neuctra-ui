@@ -1,0 +1,6130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema#",
+  "package": "@neuctra/ui",
+  "version": "0.5.1",
+  "generatedAt": "2026-08-14T05:17:59.722Z",
+  "componentCount": 76,
+  "components": [
+    {
+      "name": "Accordion",
+      "importFrom": "@neuctra/ui",
+      "module": "Accordion",
+      "category": "uncategorized",
+      "propsInterface": "AccordionProps",
+      "description": "The Accordion component is a flexible UI primitive built with React and TypeScript. It allows users to expand and collapse content sections, making it ideal for FAQs, documentation, and content-heavy interfaces.",
+      "props": [
+        {
+          "name": "items",
+          "type": "AccordionItem[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "allowMultiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "type": "number[]",
+          "required": false,
+          "default": "[]",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "headerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "headerStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentWrapperStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "hoverClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "hoverStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "borderColor",
+          "type": "string",
+          "required": false,
+          "default": "\"var(--border)\"",
+          "description": ""
+        },
+        {
+          "name": "radius",
+          "type": "string | number",
+          "required": false,
+          "default": "\"0.5rem\"",
+          "description": ""
+        },
+        {
+          "name": "shadow",
+          "type": "string",
+          "required": false,
+          "default": "\"none\"",
+          "description": ""
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "description": ""
+        },
+        {
+          "name": "iconOpen",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClose",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "renderItem",
+          "type": "(params: { item: AccordionItem; index: number; open: boolean; toggle: () => void; }) => ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Accordion } from '@neuctra/ui';\n\nfunction BasicExample() {\n  const items = [\n    {\n      title: \"What is Neuctra UI?\",\n      content: \"Neuctra UI is a modern React component library.\",\n    },\n    {\n      title: \"Is it customizable?\",\n      content: \"Yes, fully customizable via className and styles.\",\n    }\n  ];\n\n  return (\n    <Accordion items={items} />\n  );\n}"
+    },
+    {
+      "name": "Avatar",
+      "importFrom": "@neuctra/ui",
+      "module": "Avatar",
+      "category": "data-display",
+      "propsInterface": "AvatarProps",
+      "description": "The Avatar component displays profile images, user initials, or fallback icons. Supports multiple sizes, variants, online/offline status, rings, and click interactions.",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false,
+          "default": "\"User avatar\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "AvatarSize",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "AvatarVariant",
+          "required": false,
+          "default": "\"circular\"",
+          "description": ""
+        },
+        {
+          "name": "isOnline",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "isOffline",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "ring",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "fallback",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "statusPosition",
+          "type": "StatusPosition",
+          "required": false,
+          "default": "\"bottom-right\"",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "statusClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "statusStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Avatar } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Avatar \n      src=\"https://i.pravatar.cc/150?img=1\" \n      alt=\"User avatar\"\n      fallback=\"JD\"\n    />\n  );\n}"
+    },
+    {
+      "name": "AvatarGroup",
+      "importFrom": "@neuctra/ui",
+      "module": "AvatarGroup",
+      "category": "data-display",
+      "propsInterface": "AvatarGroupProps",
+      "description": "",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "Avatar elements (or any circular content)."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Show at most this many; the rest collapse into a \"+N\" counter."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "spacing",
+          "type": "\"tight\" | \"normal\"",
+          "required": false,
+          "default": "\"normal\"",
+          "description": "Overlap amount between items."
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "<AvatarGroup max={3}>\n  <Avatar src=\"/u1.jpg\" alt=\"Ana Silva\" size=\"md\" />\n  <Avatar src=\"/u2.jpg\" alt=\"Ben Cole\" size=\"md\" />\n  <Avatar src=\"/u3.jpg\" alt=\"Cara Diaz\" size=\"md\" />\n  <Avatar src=\"/u4.jpg\" alt=\"Dev Patel\" size=\"md\" />\n  <Avatar src=\"/u5.jpg\" alt=\"Eve Wong\" size=\"md\" />\n</AvatarGroup>"
+    },
+    {
+      "name": "Badge",
+      "importFrom": "@neuctra/ui",
+      "module": "Badge",
+      "category": "data-display",
+      "propsInterface": "BadgeProps",
+      "description": "The Badge component is a versatile UI element for displaying text, counts, notification dots, and icons. Supports multiple sizes, rounded shapes, colors, and click interactions.",
+      "props": [
+        {
+          "name": "text",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"solid\" | \"outline\" | \"soft\"",
+          "required": false,
+          "default": "\"solid\"",
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconPosition",
+          "type": "\"left\" | \"right\"",
+          "required": false,
+          "default": "\"left\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"sm\"",
+          "description": ""
+        },
+        {
+          "name": "rounded",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "notificationDot",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "dotColor",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "count",
+          "type": "number | string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "pulse",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dotClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dotStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "countClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "countStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Badge } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Badge \n      text=\"New\"\n      variant=\"default\"\n      size=\"md\"\n    />\n  );\n}"
+    },
+    {
+      "name": "Breadcrumb",
+      "importFrom": "@neuctra/ui",
+      "module": "Breadcrumb",
+      "category": "navigation",
+      "propsInterface": "BreadcrumbProps",
+      "description": "",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "separator",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxItems",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Collapse the middle into an ellipsis when there are more items than this."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLElement>, \"children\">"
+      ],
+      "example": "<Breadcrumb\n  items={[\n    { label: \"Home\", href: \"/\", icon: <Home /> },\n    { label: \"Docs\", href: \"/docs\" },\n    { label: \"Breadcrumb\" },\n  ]}\n/>"
+    },
+    {
+      "name": "Button",
+      "importFrom": "@neuctra/ui",
+      "module": "Button",
+      "category": "actions",
+      "propsInterface": "ButtonProps",
+      "description": "The Button component is a flexible, highly customizable UI primitive built for SaaS applications. Perfect for React authentication UI, form builders, and SaaS dashboard interfaces. Built with Tailwind CSS for modern, responsive design. with TypeScript. It supports multiple variants, sizes, icon positioning, loading states, and full-width layout control — making it suitable for modern design systems and production apps.",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Optional so icon-only buttons are possible — pair with `aria-label`."
+        },
+        {
+          "name": "iconBefore",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconAfter",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "loadingText",
+          "type": "string",
+          "required": false,
+          "default": "\"Loading...\"",
+          "description": ""
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"outline\" | \"ghost\"",
+          "required": false,
+          "default": "\"default\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+          "required": false,
+          "default": "\"sm\"",
+          "description": ""
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "loaderClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "loaderStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.ButtonHTMLAttributes<HTMLButtonElement>"
+      ],
+      "example": "import { Button } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Button onClick={() => console.log('Button clicked')}>\n      Click Me\n    </Button>\n  );\n}"
+    },
+    {
+      "name": "Calendar",
+      "importFrom": "@neuctra/ui",
+      "module": "Calendar",
+      "category": "form",
+      "propsInterface": "CalendarProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "default": null,
+          "description": "Selected day."
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "default": "null",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultMonth",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": "Month shown first (defaults to the selected day or today)."
+        },
+        {
+          "name": "minDate",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxDate",
+          "type": "Date",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "isDateDisabled",
+          "type": "(date: Date) => boolean",
+          "required": false,
+          "default": null,
+          "description": "Return true to disable a specific day."
+        },
+        {
+          "name": "weekStartsOn",
+          "type": "0 | 1",
+          "required": false,
+          "default": "1",
+          "description": "0 = Sunday, 1 = Monday."
+        },
+        {
+          "name": "locale",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<\n    React.HTMLAttributes<HTMLDivElement>,\n    \"onChange\" | \"defaultValue\"\n  >"
+      ],
+      "example": ""
+    },
+    {
+      "name": "Callout",
+      "importFrom": "@neuctra/ui",
+      "module": "Callout",
+      "category": "feedback",
+      "propsInterface": "CalloutProps",
+      "description": "",
+      "props": [
+        {
+          "name": "type",
+          "type": "\"info\" | \"success\" | \"warning\" | \"error\" | \"neutral\"",
+          "required": false,
+          "default": "\"info\"",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"soft\" | \"outline\"",
+          "required": false,
+          "default": "\"soft\"",
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode | null",
+          "required": false,
+          "default": null,
+          "description": "Override the default type icon; pass null to hide it."
+        },
+        {
+          "name": "dismissible",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Renders a close button; the callout removes itself unless controlled."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"title\">"
+      ],
+      "example": "<Callout type=\"info\" title=\"Heads up\">A new version is available.</Callout>\n<Callout type=\"success\" title=\"Payment received\">Your invoice has been settled.</Callout>\n<Callout type=\"warning\" title=\"Storage almost full\">You have used 90% of your quota.</Callout>\n<Callout type=\"error\" title=\"Sync failed\">We could not reach the server.</Callout>\n<Callout type=\"neutral\">A neutral note without a title.</Callout>"
+    },
+    {
+      "name": "Card",
+      "importFrom": "@neuctra/ui",
+      "module": "Card",
+      "category": "layout",
+      "propsInterface": "CardProps",
+      "description": "Cards group related content and actions.",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"default\" | \"outline\" | \"elevated\" | \"ghost\"",
+          "required": false,
+          "default": "\"default\"",
+          "description": "Visual style of the card surface."
+        },
+        {
+          "name": "padding",
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Inner padding scale applied by the sub-components."
+        },
+        {
+          "name": "hoverable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Lift the card slightly on hover."
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "<Card className=\"max-w-sm\">\n  <CardHeader\n    title=\"Project Settings\"\n    description=\"Manage your project configuration\"\n    icon={<Settings />}\n  />\n  <CardBody>\n    <p className=\"text-sm\">Cards group related content and actions.</p>\n  </CardBody>\n  <CardFooter>\n    <Button size=\"sm\" variant=\"outline\">Cancel</Button>\n    <Button size=\"sm\">Save</Button>\n  </CardFooter>\n</Card>"
+    },
+    {
+      "name": "CardBody",
+      "importFrom": "@neuctra/ui",
+      "module": "Card",
+      "category": "layout",
+      "propsInterface": null,
+      "description": "Cards group related content and actions.",
+      "props": [],
+      "extends": [],
+      "example": "<Card className=\"max-w-sm\">\n  <CardHeader\n    title=\"Project Settings\"\n    description=\"Manage your project configuration\"\n    icon={<Settings />}\n  />\n  <CardBody>\n    <p className=\"text-sm\">Cards group related content and actions.</p>\n  </CardBody>\n  <CardFooter>\n    <Button size=\"sm\" variant=\"outline\">Cancel</Button>\n    <Button size=\"sm\">Save</Button>\n  </CardFooter>\n</Card>"
+    },
+    {
+      "name": "CardFooter",
+      "importFrom": "@neuctra/ui",
+      "module": "Card",
+      "category": "layout",
+      "propsInterface": null,
+      "description": "Cards group related content and actions.",
+      "props": [],
+      "extends": [],
+      "example": "<Card className=\"max-w-sm\">\n  <CardHeader\n    title=\"Project Settings\"\n    description=\"Manage your project configuration\"\n    icon={<Settings />}\n  />\n  <CardBody>\n    <p className=\"text-sm\">Cards group related content and actions.</p>\n  </CardBody>\n  <CardFooter>\n    <Button size=\"sm\" variant=\"outline\">Cancel</Button>\n    <Button size=\"sm\">Save</Button>\n  </CardFooter>\n</Card>"
+    },
+    {
+      "name": "CardHeader",
+      "importFrom": "@neuctra/ui",
+      "module": "Card",
+      "category": "layout",
+      "propsInterface": "CardHeaderProps",
+      "description": "Cards group related content and actions.",
+      "props": [
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Slot rendered at the far right of the header (menu, action button…)."
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"title\">"
+      ],
+      "example": "<Card className=\"max-w-sm\">\n  <CardHeader\n    title=\"Project Settings\"\n    description=\"Manage your project configuration\"\n    icon={<Settings />}\n  />\n  <CardBody>\n    <p className=\"text-sm\">Cards group related content and actions.</p>\n  </CardBody>\n  <CardFooter>\n    <Button size=\"sm\" variant=\"outline\">Cancel</Button>\n    <Button size=\"sm\">Save</Button>\n  </CardFooter>\n</Card>"
+    },
+    {
+      "name": "Carousel",
+      "importFrom": "@neuctra/ui",
+      "module": "Carousel",
+      "category": "data-display",
+      "propsInterface": "CarouselProps",
+      "description": "",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultIndex",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": ""
+        },
+        {
+          "name": "onIndexChange",
+          "type": "(index: number) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "autoPlay",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Auto-advance interval in ms; 0 disables. Pauses on hover/focus."
+        },
+        {
+          "name": "loop",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Wrap from the last slide back to the first."
+        },
+        {
+          "name": "showArrows",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "showDots",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "\"Carousel\"",
+          "description": "Accessible name for the carousel region."
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\">"
+      ],
+      "example": "<Carousel label=\"Feature tour\">\n  <img src=\"/slide-1.jpg\" alt=\"Dashboard overview\" />\n  <img src=\"/slide-2.jpg\" alt=\"Team settings\" />\n  <img src=\"/slide-3.jpg\" alt=\"Billing page\" />\n</Carousel>"
+    },
+    {
+      "name": "Checkbox",
+      "importFrom": "@neuctra/ui",
+      "module": "Checkbox",
+      "category": "form",
+      "propsInterface": "CheckboxGroupProps",
+      "description": "A flexible checkbox component supporting both single toggles and multi-select groups. Features group keyboard navigation, custom rendering, comprehensive styling options, and accessible defaults.",
+      "props": [
+        {
+          "name": "mode",
+          "type": "\"single\" | \"group\"",
+          "required": false,
+          "default": "\"single\"",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "Option[]",
+          "required": false,
+          "default": "[]",
+          "description": ""
+        },
+        {
+          "name": "selectedValues",
+          "type": "string[]",
+          "required": false,
+          "default": "[]",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(values: string[]) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "errorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "containerStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "errorStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "customIcon",
+          "type": "(checked: boolean, option?: Option) => React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconSize",
+          "type": "number",
+          "required": false,
+          "default": "20",
+          "description": ""
+        },
+        {
+          "name": "renderItem",
+          "type": "(params: { option?: Option; checked: boolean; focused: boolean; toggle: () => void; }) => React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { Checkbox } from '@neuctra/ui';\n\nfunction SingleCheckboxExample() {\n  const [checked, setChecked] = useState(false);\n\n  return (\n    <Checkbox\n      label=\"Subscribe to newsletter\"\n      checked={checked}\n      onCheckedChange={setChecked}\n    />\n  );\n}"
+    },
+    {
+      "name": "Chip",
+      "importFrom": "@neuctra/ui",
+      "module": "Chip",
+      "category": "data-display",
+      "propsInterface": "ChipProps",
+      "description": "",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"solid\" | \"soft\" | \"outline\"",
+          "required": false,
+          "default": "\"soft\"",
+          "description": ""
+        },
+        {
+          "name": "color",
+          "type": "\"primary\" | \"neutral\" | \"destructive\" | \"success\"",
+          "required": false,
+          "default": "\"primary\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": "Renders a remove button and makes the chip dismissible."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLSpanElement>, \"children\">"
+      ],
+      "example": "<Chip label=\"Design\" />\n<Chip label=\"Engineering\" variant=\"outline\" />\n<Chip label=\"Marketing\" variant=\"solid\" />"
+    },
+    {
+      "name": "Container",
+      "importFrom": "@neuctra/ui",
+      "module": "Container",
+      "category": "layout",
+      "propsInterface": "ContainerProps",
+      "description": "The Container component is a layout utility designed to control content width, horizontal alignment, and spacing. It provides a simple and consistent way to structure page sections while remaining fully flexible for custom layouts and styling.",
+      "props": [
+        {
+          "name": "size",
+          "type": "ContainerSize",
+          "required": false,
+          "default": "\"full\"",
+          "description": ""
+        },
+        {
+          "name": "padding",
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+          "required": false,
+          "default": "\"none\"",
+          "description": ""
+        },
+        {
+          "name": "center",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": "Custom styles (framework independent)"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "import { Container } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Container \n      size=\"md\" \n      center \n      className=\"bg-zinc-800 p-4 rounded-lg\"\n    >\n      Hello Developer! I am a container.\n    </Container>\n  );\n}"
+    },
+    {
+      "name": "CopyButton",
+      "importFrom": "@neuctra/ui",
+      "module": "CopyButton",
+      "category": "actions",
+      "propsInterface": "CopyButtonProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "description": "Text placed on the clipboard."
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Optional visible label next to the icon."
+        },
+        {
+          "name": "feedbackDuration",
+          "type": "number",
+          "required": false,
+          "default": "1500",
+          "description": "How long the \"copied\" state shows, in ms."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "onCopied",
+          "type": "(value: string) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"value\">"
+      ],
+      "example": "<CopyButton value=\"npm install @neuctra/ui\" label=\"Copy command\" />"
+    },
+    {
+      "name": "DatePicker",
+      "importFrom": "@neuctra/ui",
+      "module": "DatePicker",
+      "category": "form",
+      "propsInterface": "DatePickerProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "default": "null",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date | null) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": "\"Pick a date\"",
+          "description": ""
+        },
+        {
+          "name": "formatDate",
+          "type": "(date: Date) => string",
+          "required": false,
+          "default": null,
+          "description": "Format the displayed date; defaults to the locale date string."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show an inline clear button while a date is selected."
+        },
+        {
+          "name": "calendarProps",
+          "type": "Omit< CalendarProps, \"value\" | \"defaultValue\" | \"onChange\" | \"className\" >",
+          "required": false,
+          "default": null,
+          "description": "Forwarded to the inner <Calendar />."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "const [date, setDate] = useState(null);\n\n<DatePicker\n  label=\"Due date\"\n  value={date}\n  onChange={setDate}\n  clearable\n/>"
+    },
+    {
+      "name": "Divider",
+      "importFrom": "@neuctra/ui",
+      "module": "Divider",
+      "category": "layout",
+      "propsInterface": "DividerProps",
+      "description": "Above",
+      "props": [
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "required": false,
+          "default": "\"horizontal\"",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Optional centered label — horizontal orientation only."
+        },
+        {
+          "name": "dashed",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "spacing",
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": "Vertical spacing (horizontal) or horizontal spacing (vertical)."
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "<p>Above</p>\n<Divider />\n<p>Below</p>"
+    },
+    {
+      "name": "Drawer",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": "DrawerProps",
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [
+        {
+          "name": "isOpen",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "renderContent",
+          "type": "(close: () => void) => ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "position",
+          "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+          "required": false,
+          "default": "\"right\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "string",
+          "required": false,
+          "default": "\"320px\"",
+          "description": ""
+        },
+        {
+          "name": "disableOverlayClose",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "disableEscapeClose",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Also block Escape. Defaults to `disableOverlayClose`."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Accessible name for the dialog when no DrawerHeader is used."
+        },
+        {
+          "name": "overlayClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "overlayStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Drawer,\n  DrawerContent,\n  DrawerHeader,\n  DrawerBody,\n  DrawerFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Drawer\n      </Button>\n\n      <Drawer isOpen={open} onClose={() => setOpen(false)}>\n        <DrawerContent>\n          <DrawerHeader title=\"Drawer Title\" onClose={() => setOpen(false)} />\n          <DrawerBody>\n            <p>Drawer content goes here</p>\n          </DrawerBody>\n          <DrawerFooter>\n            <Button onClick={() => setOpen(false)}>\n              Close\n            </Button>\n          </DrawerFooter>\n        </DrawerContent>\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "name": "DrawerBody",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": null,
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Drawer,\n  DrawerContent,\n  DrawerHeader,\n  DrawerBody,\n  DrawerFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Drawer\n      </Button>\n\n      <Drawer isOpen={open} onClose={() => setOpen(false)}>\n        <DrawerContent>\n          <DrawerHeader title=\"Drawer Title\" onClose={() => setOpen(false)} />\n          <DrawerBody>\n            <p>Drawer content goes here</p>\n          </DrawerBody>\n          <DrawerFooter>\n            <Button onClick={() => setOpen(false)}>\n              Close\n            </Button>\n          </DrawerFooter>\n        </DrawerContent>\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "name": "DrawerButton",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": "DrawerButtonProps",
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconPosition",
+          "type": "\"left\" | \"right\"",
+          "required": false,
+          "default": "\"left\"",
+          "description": ""
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "// Headless = you control everything inside\nconst [open, setOpen] = useState(false);\n\n<DrawerButton\n  label=\"Headless Drawer\"\n  onClick={() => setOpen(true)}\n/>\n\n<Drawer\n  isOpen={open}\n  onClose={() => setOpen(false)}\n  position=\"right\"\n  renderContent={(close) => (\n    <div className=\"p-6\">\n      <p className=\"mb-4 text-lg font-semibold\">\n        Fully custom content\n      </p>\n\n      <button\n        onClick={close}\n        className=\"px-4 py-2 rounded bg-primary text-white hover:opacity-90\"\n      >\n        Close Drawer\n      </button>\n    </div>\n  )}\n/>"
+    },
+    {
+      "name": "DrawerContent",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": "DrawerContentProps",
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Drawer,\n  DrawerContent,\n  DrawerHeader,\n  DrawerBody,\n  DrawerFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Drawer\n      </Button>\n\n      <Drawer isOpen={open} onClose={() => setOpen(false)}>\n        <DrawerContent>\n          <DrawerHeader title=\"Drawer Title\" onClose={() => setOpen(false)} />\n          <DrawerBody>\n            <p>Drawer content goes here</p>\n          </DrawerBody>\n          <DrawerFooter>\n            <Button onClick={() => setOpen(false)}>\n              Close\n            </Button>\n          </DrawerFooter>\n        </DrawerContent>\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "name": "DrawerFooter",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": null,
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Drawer,\n  DrawerContent,\n  DrawerHeader,\n  DrawerBody,\n  DrawerFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Drawer\n      </Button>\n\n      <Drawer isOpen={open} onClose={() => setOpen(false)}>\n        <DrawerContent>\n          <DrawerHeader title=\"Drawer Title\" onClose={() => setOpen(false)} />\n          <DrawerBody>\n            <p>Drawer content goes here</p>\n          </DrawerBody>\n          <DrawerFooter>\n            <Button onClick={() => setOpen(false)}>\n              Close\n            </Button>\n          </DrawerFooter>\n        </DrawerContent>\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "name": "DrawerHeader",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": "DrawerHeaderProps",
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Drawer,\n  DrawerContent,\n  DrawerHeader,\n  DrawerBody,\n  DrawerFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Drawer\n      </Button>\n\n      <Drawer isOpen={open} onClose={() => setOpen(false)}>\n        <DrawerContent>\n          <DrawerHeader title=\"Drawer Title\" onClose={() => setOpen(false)} />\n          <DrawerBody>\n            <p>Drawer content goes here</p>\n          </DrawerBody>\n          <DrawerFooter>\n            <Button onClick={() => setOpen(false)}>\n              Close\n            </Button>\n          </DrawerFooter>\n        </DrawerContent>\n      </Drawer>\n    </>\n  );\n}"
+    },
+    {
+      "name": "DrawerTriggerButton",
+      "importFrom": "@neuctra/ui",
+      "module": "Drawer",
+      "category": "overlay",
+      "propsInterface": null,
+      "description": "The Drawer component creates sliding panels that appear from any screen edge. Perfect for sidebars, mobile menus, settings panels, and more. Supports both structured layouts with sub-components and fully custom headless rendering.",
+      "props": [],
+      "extends": [],
+      "example": "// 1. Trigger-based (Simple)\n<DrawerTriggerButton\n  drawerContent={({ close }) => (\n    <DrawerContent>\n      <DrawerHeader title=\"My Drawer\" onClose={close} />\n\n      <DrawerBody>\n        <p>Hello from Drawer! 👋</p>\n      </DrawerBody>\n\n      <DrawerFooter>\n        <Button onClick={close}>Close</Button>\n      </DrawerFooter>\n    </DrawerContent>\n  )}\n>\n  Open Drawer\n</DrawerTriggerButton>\n\n// 2. Controlled Drawer (Recommended for apps)\nconst [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>\n  Open Drawer\n</Button>\n\n<Drawer isOpen={open} onClose={() => setOpen(false)} position=\"left\">\n  <DrawerContent>\n    <DrawerHeader\n      title=\"Manual Drawer\"\n      onClose={() => setOpen(false)}\n    />\n\n    <DrawerBody>\n      <p>This is a controlled drawer example.</p>\n    </DrawerBody>\n\n    <DrawerFooter>\n      <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n        Cancel\n      </Button>\n\n      <Button onClick={() => setOpen(false)}>\n        Save\n      </Button>\n    </DrawerFooter>\n  </DrawerContent>\n</Drawer>"
+    },
+    {
+      "name": "Dropdown",
+      "importFrom": "@neuctra/ui",
+      "module": "Dropdown",
+      "category": "overlay",
+      "propsInterface": "DropdownProps",
+      "description": "The Dropdown component is a flexible, fully customizable action menu built for modern applications. It supports icons, separators, danger states, controlled/uncontrolled behavior, and theme-aware styling.",
+      "props": [
+        {
+          "name": "trigger",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "DropdownItem[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "align",
+          "type": "\"left\" | \"right\"",
+          "required": false,
+          "default": "\"right\"",
+          "description": ""
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "required": false,
+          "default": "220",
+          "description": ""
+        },
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "menuClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "menuStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Dropdown } from '@neuctra/ui';\n\nfunction BasicExample() {\n  const items = [\n    { label: \"Edit\", onClick: () => console.log('Edit clicked') },\n    { label: \"Copy\", onClick: () => console.log('Copy clicked') },\n    { separator: true },\n    { label: \"Delete\", danger: true, onClick: () => console.log('Delete clicked') }\n  ];\n\n  return (\n    <Dropdown\n      trigger={<button>Open Menu</button>}\n      items={items}\n    />\n  );\n}"
+    },
+    {
+      "name": "EmptyState",
+      "importFrom": "@neuctra/ui",
+      "module": "EmptyState",
+      "category": "feedback",
+      "propsInterface": "EmptyStateProps",
+      "description": "",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Call-to-action slot (usually a <Button />)."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"title\">"
+      ],
+      "example": "<EmptyState\n  title=\"No projects yet\"\n  description=\"Create your first project to get started.\"\n/>"
+    },
+    {
+      "name": "FileUpload",
+      "importFrom": "@neuctra/ui",
+      "module": "FileUpload",
+      "category": "form",
+      "propsInterface": "FileUploadProps",
+      "description": "",
+      "props": [
+        {
+          "name": "onFilesChange",
+          "type": "(files: File[]) => void",
+          "required": false,
+          "default": null,
+          "description": "Fired with the full current file list on every change."
+        },
+        {
+          "name": "onError",
+          "type": "(message: string, file: File) => void",
+          "required": false,
+          "default": null,
+          "description": "Fired for each rejected file with the reason."
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "accept",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Native accept string, e.g. \"image/*,.pdf\"."
+        },
+        {
+          "name": "maxSizeMB",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "\"Click to upload or drag and drop\"",
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "hideFileList",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Hide the built-in selected-files list."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "<FileUpload\n  multiple\n  onFilesChange={(files) => console.log(files)}\n/>"
+    },
+    {
+      "name": "Image",
+      "importFrom": "@neuctra/ui",
+      "module": "Image",
+      "category": "data-display",
+      "propsInterface": "ImageProps",
+      "description": "The Image component provides a responsive and stylable wrapper for images. Supports aspect ratios, overlays, fallback content, lazy loading, click interactions, shadows, borders, and custom styles — all with full TypeScript support.",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "width",
+          "type": "Responsive<number | string>",
+          "required": false,
+          "default": null,
+          "description": "Layout"
+        },
+        {
+          "name": "height",
+          "type": "Responsive<number | string>",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "aspectRatio",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "radius",
+          "type": "number | string",
+          "required": false,
+          "default": null,
+          "description": "Styling"
+        },
+        {
+          "name": "border",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "shadow",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "opacity",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "objectFit",
+          "type": "React.CSSProperties[\"objectFit\"]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "overlay",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Overlay"
+        },
+        {
+          "name": "overlayColor",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "clickable",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Interaction"
+        },
+        {
+          "name": "onClick",
+          "type": "(e: React.MouseEvent<HTMLDivElement>) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fallback",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "States"
+        },
+        {
+          "name": "loading",
+          "type": "\"lazy\" | \"eager\"",
+          "required": false,
+          "default": null,
+          "description": "Behavior"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "imageClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "overlayClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fallbackClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "imageStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "overlayStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fallbackStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "import { Image } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Image \n      src=\"https://via.placeholder.com/300\" \n      alt=\"Sample Image\" \n      width={300} \n      height={200}\n      className=\"rounded-lg\"\n    />\n  );\n}"
+    },
+    {
+      "name": "Input",
+      "importFrom": "@neuctra/ui",
+      "module": "Input",
+      "category": "form",
+      "propsInterface": "InputFieldProps",
+      "description": "The Input component is a flexible, modern form input designed for SaaS applications. Perfect for React authentication UI, form builders, and SaaS dashboard interfaces. Built with Tailwind CSS for responsive design and supports multiple types (text, password, email, number, url, tel, search, textarea). Features include prefix/suffix icons, inline validation states, helper text, multiple sizes, and a password visibility toggle.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "| \"text\" | \"password\" | \"email\" | \"number\" | \"url\" | \"tel\" | \"search\" | \"textarea\"",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "( e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, ) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onFocus",
+          "type": "( e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>, ) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onBlur",
+          "type": "( e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>, ) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "success",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "prefix",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "prefixIcon",
+          "type": "React.ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "suffixIcon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "rows",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "inputClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textareaClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "prefixClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "suffixClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperTextClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "wrapperStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "inputStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Input } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Input\n      label=\"Name\"\n      placeholder=\"Enter your name\"\n      onChange={(e) => console.log(e.target.value)}\n    />\n  );\n}"
+    },
+    {
+      "name": "Kbd",
+      "importFrom": "@neuctra/ui",
+      "module": "Kbd",
+      "category": "typography",
+      "propsInterface": "KbdProps",
+      "description": "",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLElement>"
+      ],
+      "example": "<span>Press <Kbd>⌘</Kbd> + <Kbd>K</Kbd> to search</span>"
+    },
+    {
+      "name": "List",
+      "importFrom": "@neuctra/ui",
+      "module": "List",
+      "category": "data-display",
+      "propsInterface": "ListProps",
+      "description": "The List component is a flexible UI primitive for simple lists, icon lists, drawer navigation, dropdown menus, nested submenus, and tree-style structures. Items can render as static content, buttons, or links, with optional leading and trailing content.",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleIcon",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "items",
+          "type": "ListItemType[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "ListType",
+          "required": false,
+          "default": "\"unordered\"",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "ListVariant",
+          "required": false,
+          "default": "\"default\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "ListSize",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "density",
+          "type": "ListDensity",
+          "required": false,
+          "default": "\"normal\"",
+          "description": ""
+        },
+        {
+          "name": "nestedMode",
+          "type": "NestedMode",
+          "required": false,
+          "default": "\"collapse\"",
+          "description": ""
+        },
+        {
+          "name": "bulletVariant",
+          "type": "BulletVariant",
+          "required": false,
+          "default": "\"dot\"",
+          "description": ""
+        },
+        {
+          "name": "showTree",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "showBullets",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "activeItemId",
+          "type": "string | number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultActiveItemId",
+          "type": "string | number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onActiveChange",
+          "type": "(id: string | number, item: ListItemType) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "expandedIds",
+          "type": "Array<string | number>",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultExpandedIds",
+          "type": "Array<string | number>",
+          "required": false,
+          "default": "[]",
+          "description": ""
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "(ids: Array<string | number>) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "emptyState",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "linkComponent",
+          "type": "ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "renderItem",
+          "type": "(params: ListRenderItemParams) => ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "headerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "listClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemContentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "bulletClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "badgeClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "shortcutClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trailingClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "subListClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "separatorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "headerStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "listStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemContentStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "bulletStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "badgeStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "shortcutStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trailingStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "subListStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "separatorStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { List } from \"@neuctra/ui\";\n\nfunction BasicExample() {\n  const items = [\n    { text: \"First item\" },\n    { text: \"Second item\" },\n    {\n      text: \"Third item\",\n      subItems: [\n        { text: \"Nested A\" },\n        { text: \"Nested B\" }\n      ]\n    }\n  ];\n\n  return <List items={items} />;\n}"
+    },
+    {
+      "name": "ListItem",
+      "importFrom": "@neuctra/ui",
+      "module": "List",
+      "category": "data-display",
+      "propsInterface": "ListItemProps",
+      "description": "The List component is a flexible UI primitive for simple lists, icon lists, drawer navigation, dropdown menus, nested submenus, and tree-style structures. Items can render as static content, buttons, or links, with optional leading and trailing content.",
+      "props": [
+        {
+          "name": "item",
+          "type": "ListItemType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "depth",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "isInline",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "isOrdered",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showTree",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showBullets",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showDividers",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "interactive",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "ListVariant",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "ListSize",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "density",
+          "type": "ListDensity",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "nestedMode",
+          "type": "NestedMode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "bulletVariant",
+          "type": "BulletVariant",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "activeItemId",
+          "type": "string | number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "expandedIds",
+          "type": "Set<string | number>",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "toggleExpanded",
+          "type": "(id: string | number, item: ListItemType) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "selectItem",
+          "type": "(id: string | number, item: ListItemType) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "linkComponent",
+          "type": "ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "renderItem",
+          "type": "(params: ListRenderItemParams) => ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemContentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "bulletClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "badgeClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "shortcutClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trailingClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "subListClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "separatorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemContentStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "bulletStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "badgeStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "shortcutStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trailingStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "subListStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "separatorStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": ""
+    },
+    {
+      "name": "Modal",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "isOpen",
+          "type": "boolean",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disableOverlayClose",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "disableEscapeClose",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Also block Escape. Defaults to `disableOverlayClose`."
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Accessible name for the dialog when no ModalHeader is used."
+        },
+        {
+          "name": "overlayClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "overlayStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Modal,\n  ModalContent,\n  ModalHeader,\n  ModalBody,\n  ModalFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Modal\n      </Button>\n\n      <Modal isOpen={open} onClose={() => setOpen(false)}>\n        <ModalContent onClose={() => setOpen(false)}>\n          <ModalHeader title=\"Modal Title\" onClose={() => setOpen(false)} />\n          <ModalBody>\n            <p>Modal content goes here</p>\n          </ModalBody>\n          <ModalFooter>\n            <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n              Cancel\n            </Button>\n            <Button onClick={() => setOpen(false)}>\n              Confirm\n            </Button>\n          </ModalFooter>\n        </ModalContent>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "name": "ModalBody",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalBodyProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Modal,\n  ModalContent,\n  ModalHeader,\n  ModalBody,\n  ModalFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Modal\n      </Button>\n\n      <Modal isOpen={open} onClose={() => setOpen(false)}>\n        <ModalContent onClose={() => setOpen(false)}>\n          <ModalHeader title=\"Modal Title\" onClose={() => setOpen(false)} />\n          <ModalBody>\n            <p>Modal content goes here</p>\n          </ModalBody>\n          <ModalFooter>\n            <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n              Cancel\n            </Button>\n            <Button onClick={() => setOpen(false)}>\n              Confirm\n            </Button>\n          </ModalFooter>\n        </ModalContent>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "name": "ModalButton",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalButtonProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "closeOnClick",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "() => void | Promise<void>",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "ButtonProps"
+      ],
+      "example": "const [open, setOpen] = useState(false);\n\n<Button onClick={() => setOpen(true)}>\n  Delete\n</Button>\n\n<Modal isOpen={open} onClose={() => setOpen(false)}>\n  <ModalContent\n    className=\"w-full max-w-md\"\n    onClose={() => setOpen(false)}\n  >\n    <ModalHeader\n      title=\"Delete Item\"\n      onClose={() => setOpen(false)}\n      icon={<Trash2 size={18} />}\n    />\n\n    <ModalBody>\n      Are you sure you want to delete this item?\n    </ModalBody>\n\n    <ModalFooter>\n      <ModalButton\n        variant=\"ghost\"\n        onClick={() => setOpen(false)}\n      >\n        Cancel\n      </ModalButton>\n\n      <ModalButton\n        variant=\"default\"\n        className=\"bg-destructive!\"\n        onClick={() => {\n          alert(\"Deleted\");\n          setOpen(false);\n        }}\n      >\n        Confirm\n      </ModalButton>\n    </ModalFooter>\n  </ModalContent>\n</Modal>"
+    },
+    {
+      "name": "ModalContent",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalContentProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxWidth",
+          "type": "string",
+          "required": false,
+          "default": "\"max-w-md\"",
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showCloseButton",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "closeButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "closeButtonStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Modal,\n  ModalContent,\n  ModalHeader,\n  ModalBody,\n  ModalFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Modal\n      </Button>\n\n      <Modal isOpen={open} onClose={() => setOpen(false)}>\n        <ModalContent onClose={() => setOpen(false)}>\n          <ModalHeader title=\"Modal Title\" onClose={() => setOpen(false)} />\n          <ModalBody>\n            <p>Modal content goes here</p>\n          </ModalBody>\n          <ModalFooter>\n            <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n              Cancel\n            </Button>\n            <Button onClick={() => setOpen(false)}>\n              Confirm\n            </Button>\n          </ModalFooter>\n        </ModalContent>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "name": "ModalFooter",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalFooterProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Modal,\n  ModalContent,\n  ModalHeader,\n  ModalBody,\n  ModalFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Modal\n      </Button>\n\n      <Modal isOpen={open} onClose={() => setOpen(false)}>\n        <ModalContent onClose={() => setOpen(false)}>\n          <ModalHeader title=\"Modal Title\" onClose={() => setOpen(false)} />\n          <ModalBody>\n            <p>Modal content goes here</p>\n          </ModalBody>\n          <ModalFooter>\n            <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n              Cancel\n            </Button>\n            <Button onClick={() => setOpen(false)}>\n              Confirm\n            </Button>\n          </ModalFooter>\n        </ModalContent>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "name": "ModalHeader",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalHeaderProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { \n  Modal,\n  ModalContent,\n  ModalHeader,\n  ModalBody,\n  ModalFooter,\n  Button\n} from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>\n        Open Modal\n      </Button>\n\n      <Modal isOpen={open} onClose={() => setOpen(false)}>\n        <ModalContent onClose={() => setOpen(false)}>\n          <ModalHeader title=\"Modal Title\" onClose={() => setOpen(false)} />\n          <ModalBody>\n            <p>Modal content goes here</p>\n          </ModalBody>\n          <ModalFooter>\n            <Button variant=\"ghost\" onClick={() => setOpen(false)}>\n              Cancel\n            </Button>\n            <Button onClick={() => setOpen(false)}>\n              Confirm\n            </Button>\n          </ModalFooter>\n        </ModalContent>\n      </Modal>\n    </>\n  );\n}"
+    },
+    {
+      "name": "ModalTriggerButton",
+      "importFrom": "@neuctra/ui",
+      "module": "Modal",
+      "category": "overlay",
+      "propsInterface": "ModalTriggerButtonProps",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "modalContent",
+          "type": "(props: { close: () => void }) => React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "modalProps",
+          "type": "Omit<ModalProps, \"isOpen\" | \"onClose\" | \"children\">",
+          "required": false,
+          "default": null,
+          "description": "Forwarded to the underlying <Modal />."
+        }
+      ],
+      "extends": [
+        "ButtonProps"
+      ],
+      "example": ""
+    },
+    {
+      "name": "NumberInput",
+      "importFrom": "@neuctra/ui",
+      "module": "NumberInput",
+      "category": "form",
+      "propsInterface": "NumberInputProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | null",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: number | null) => void",
+          "required": false,
+          "default": null,
+          "description": "Fired with the parsed number, or null when the field is empty."
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<\n    React.InputHTMLAttributes<HTMLInputElement>,\n    \"value\" | \"defaultValue\" | \"onChange\" | \"size\" | \"type\"\n  >"
+      ],
+      "example": "const [qty, setQty] = useState(2);\n\n<NumberInput label=\"Quantity\" value={qty} onChange={setQty} min={1} max={10} />"
+    },
+    {
+      "name": "Pagination",
+      "importFrom": "@neuctra/ui",
+      "module": "Pagination",
+      "category": "navigation",
+      "propsInterface": "PaginationProps",
+      "description": "",
+      "props": [
+        {
+          "name": "page",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "Current page, 1-based."
+        },
+        {
+          "name": "totalPages",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onPageChange",
+          "type": "(page: number) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "siblingCount",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "How many pages to show on each side of the current page."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLElement>, \"onChange\">"
+      ],
+      "example": "const [page, setPage] = useState(5);\n\n<Pagination page={page} totalPages={20} onPageChange={setPage} />"
+    },
+    {
+      "name": "PinInput",
+      "importFrom": "@neuctra/ui",
+      "module": "PinInput",
+      "category": "form",
+      "propsInterface": "PinInputProps",
+      "description": "",
+      "props": [
+        {
+          "name": "length",
+          "type": "number",
+          "required": false,
+          "default": "4",
+          "description": "Number of character boxes."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onComplete",
+          "type": "(value: string) => void",
+          "required": false,
+          "default": null,
+          "description": "Fired once every box is filled."
+        },
+        {
+          "name": "type",
+          "type": "\"numeric\" | \"alphanumeric\"",
+          "required": false,
+          "default": "\"numeric\"",
+          "description": "Restrict accepted characters."
+        },
+        {
+          "name": "mask",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Render dots instead of the typed characters."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "autoFocus",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "\"PIN input\"",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "<PinInput length={6} onComplete={(code) => verify(code)} />"
+    },
+    {
+      "name": "Popover",
+      "importFrom": "@neuctra/ui",
+      "module": "Popover",
+      "category": "overlay",
+      "propsInterface": "PopoverProps",
+      "description": "Team plan",
+      "props": [
+        {
+          "name": "trigger",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "Element that toggles the popover."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "position",
+          "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+          "required": false,
+          "default": "\"bottom\"",
+          "description": ""
+        },
+        {
+          "name": "align",
+          "type": "\"start\" | \"center\" | \"end\"",
+          "required": false,
+          "default": "\"center\"",
+          "description": ""
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "closeOnClickOutside",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "closeOnEscape",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "<Popover trigger={<Button size=\"sm\">Open popover</Button>}>\n  <p className=\"font-medium text-foreground mb-1\">Team plan</p>\n  <p className=\"text-muted-foreground text-xs\">\n    Unlimited projects, priority support and SSO.\n  </p>\n</Popover>"
+    },
+    {
+      "name": "Progress",
+      "importFrom": "@neuctra/ui",
+      "module": "Progress",
+      "category": "feedback",
+      "propsInterface": "ProgressProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "0–max. Omit (undefined) for an indeterminate bar."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"linear\" | \"circular\"",
+          "required": false,
+          "default": "\"linear\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the percentage next to (linear) or inside (circular) the track."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Accessible label for the progress bar."
+        },
+        {
+          "name": "colorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"children\">"
+      ],
+      "example": "<Progress value={30} />\n<Progress value={65} showValue />\n<Progress value={65} size=\"lg\" colorClassName=\"bg-success\" />"
+    },
+    {
+      "name": "RadioGroup",
+      "importFrom": "@neuctra/ui",
+      "module": "RadioGroup",
+      "category": "form",
+      "propsInterface": "RadioGroupProps",
+      "description": "The RadioGroup component is a fully accessible and highly customizable selection control built with TypeScript and Tailwind CSS. It allows users to select a single option from a list with full keyboard navigation, rich content support, and complete styling flexibility.",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "Option[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "selectedValue",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Root Container"
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Item Container"
+        },
+        {
+          "name": "itemStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Label Text"
+        },
+        {
+          "name": "labelStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Description Text"
+        },
+        {
+          "name": "descriptionStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Icon Wrapper"
+        },
+        {
+          "name": "iconWrapperStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "indicatorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Radio Indicator"
+        },
+        {
+          "name": "indicatorStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dotClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Inner Dot"
+        },
+        {
+          "name": "dotStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "errorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Error Message"
+        },
+        {
+          "name": "errorStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": "⚙️ Configuration"
+        },
+        {
+          "name": "orientation",
+          "type": "\"vertical\" | \"horizontal\"",
+          "required": false,
+          "default": "\"vertical\"",
+          "description": ""
+        },
+        {
+          "name": "animationDuration",
+          "type": "number",
+          "required": false,
+          "default": "0.2",
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { RadioGroup } from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [value, setValue] = useState('option1');\n\n  const options = [\n    { label: 'Option One', value: 'option1' },\n    { label: 'Option Two', value: 'option2' },\n    { label: 'Option Three', value: 'option3' }\n  ];\n\n  return (\n    <RadioGroup\n      name=\"example\"\n      options={options}\n      selectedValue={value}\n      onChange={setValue}\n    />\n  );\n}"
+    },
+    {
+      "name": "Rating",
+      "importFrom": "@neuctra/ui",
+      "module": "Rating",
+      "category": "data-display",
+      "propsInterface": "RatingProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Current rating. Supports fractions when readOnly (e.g. 4.3)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: number) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Number of stars."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "allowClear",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Clicking the current value again resets the rating to 0."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "\"Rating\"",
+          "description": ""
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the numeric value next to the stars."
+        },
+        {
+          "name": "colorClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"text-warning\"",
+          "description": "Color class of filled stars; defaults to the theme's warning (amber)."
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\">"
+      ],
+      "example": "const [value, setValue] = useState(3);\n\n<Rating value={value} onChange={setValue} showValue />"
+    },
+    {
+      "name": "Select",
+      "importFrom": "@neuctra/ui",
+      "module": "Select",
+      "category": "form",
+      "propsInterface": "SelectProps",
+      "description": "The Select component provides a modern, accessible dropdown input with support for single or multiple selection, icons, enhanced keyboard navigation, smooth animations, and extensive customization options.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "string | string[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showDescription",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showCheckIcon",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string | string[], name?: string) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "SelectOption[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string | boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "success",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelIcon",
+          "type": "React.ElementType",
+          "required": false,
+          "default": null,
+          "description": "Icons"
+        },
+        {
+          "name": "prefixIcon",
+          "type": "React.ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dropdownIcon",
+          "type": "React.ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": null,
+          "description": "Configuration"
+        },
+        {
+          "name": "maxDropdownHeight",
+          "type": "string | number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "searchable",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "searchPlaceholder",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "searchClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "searchStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Customization"
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "triggerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "valueClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dropdownClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Item Icon Styling"
+        },
+        {
+          "name": "itemIconStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "checkIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Check Icon Styling"
+        },
+        {
+          "name": "checkIconStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "triggerStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dropdownStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { Select } from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [value, setValue] = useState('');\n\n  const options = [\n    { label: 'Option 1', value: '1' },\n    { label: 'Option 2', value: '2' },\n    { label: 'Option 3', value: '3' }\n  ];\n\n  return (\n    <Select\n      options={options}\n      value={value}\n      onValueChange={setValue}\n      placeholder=\"Choose an option\"\n    />\n  );\n}"
+    },
+    {
+      "name": "Skeleton",
+      "importFrom": "@neuctra/ui",
+      "module": "Skeleton",
+      "category": "feedback",
+      "propsInterface": "SkeletonProps",
+      "description": "",
+      "props": [
+        {
+          "name": "variant",
+          "type": "\"text\" | \"circular\" | \"rectangular\"",
+          "required": false,
+          "default": "\"text\"",
+          "description": ""
+        },
+        {
+          "name": "width",
+          "type": "number | string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number | string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "lines",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "For variant=\"text\": number of stacked lines (last one is shorter)."
+        },
+        {
+          "name": "animated",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Disable the pulse animation."
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "<Skeleton width={220} />\n<Skeleton variant=\"circular\" width={48} height={48} />\n<Skeleton variant=\"rectangular\" width={220} height={96} />"
+    },
+    {
+      "name": "Slider",
+      "importFrom": "@neuctra/ui",
+      "module": "Slider",
+      "category": "form",
+      "propsInterface": "SliderProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: number) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": ""
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": ""
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show the current value at the right edge of the label row."
+        },
+        {
+          "name": "formatValue",
+          "type": "(value: number) => React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Format the displayed value (e.g. v => `${v}%`)."
+        },
+        {
+          "name": "marks",
+          "type": "{ value: number; label?: React.ReactNode }[]",
+          "required": false,
+          "default": null,
+          "description": "Tick labels rendered under the track."
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<\n    React.InputHTMLAttributes<HTMLInputElement>,\n    \"value\" | \"defaultValue\" | \"onChange\" | \"size\" | \"type\"\n  >"
+      ],
+      "example": "const [value, setValue] = useState(40);\n\n<Slider\n  label=\"Volume\"\n  value={value}\n  onChange={setValue}\n  showValue\n  formatValue={(v) => \\"
+    },
+    {
+      "name": "Spinner",
+      "importFrom": "@neuctra/ui",
+      "module": "Spinner",
+      "category": "feedback",
+      "propsInterface": "SpinnerProps",
+      "description": "",
+      "props": [
+        {
+          "name": "size",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": "\"Loading…\"",
+          "description": "Accessible label announced to screen readers."
+        },
+        {
+          "name": "colorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Stroke color class; defaults to the current text color."
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLSpanElement>"
+      ],
+      "example": "<Spinner size=\"xs\" />\n<Spinner size=\"sm\" />\n<Spinner size=\"md\" />\n<Spinner size=\"lg\" />\n<Spinner size=\"xl\" />"
+    },
+    {
+      "name": "Stat",
+      "importFrom": "@neuctra/ui",
+      "module": "Stat",
+      "category": "data-display",
+      "propsInterface": "StatProps",
+      "description": "",
+      "props": [
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trend",
+          "type": "\"up\" | \"down\" | \"neutral\"",
+          "required": false,
+          "default": null,
+          "description": "Direction of the change indicator."
+        },
+        {
+          "name": "trendValue",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "e.g. \"+12.5%\" — rendered next to the trend arrow."
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Small helper line under the value (e.g. \"vs last month\")."
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Renders the stat inside a bordered card surface."
+        }
+      ],
+      "extends": [
+        "React.HTMLAttributes<HTMLDivElement>"
+      ],
+      "example": "<Stat\n  label=\"Total Revenue\"\n  value=\"$45,231\"\n  icon={<DollarSign />}\n  trend=\"up\"\n  trendValue=\"+20.1%\"\n  description=\"vs last month\"\n/>"
+    },
+    {
+      "name": "Stepper",
+      "importFrom": "@neuctra/ui",
+      "module": "Stepper",
+      "category": "navigation",
+      "propsInterface": "StepperProps",
+      "description": "",
+      "props": [
+        {
+          "name": "steps",
+          "type": "StepperStep[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "activeStep",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": "Index of the current step (0-based). Steps before it render as done."
+        },
+        {
+          "name": "onStepClick",
+          "type": "(index: number) => void",
+          "required": false,
+          "default": null,
+          "description": "Makes completed steps clickable for navigation."
+        },
+        {
+          "name": "orientation",
+          "type": "\"horizontal\" | \"vertical\"",
+          "required": false,
+          "default": "\"horizontal\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"children\">"
+      ],
+      "example": "const [step, setStep] = useState(1);\n\n<Stepper\n  steps={[\n    { label: \"Cart\", description: \"Review items\" },\n    { label: \"Shipping\", description: \"Address & method\" },\n    { label: \"Payment\", description: \"Card details\" },\n    { label: \"Done\" },\n  ]}\n  activeStep={step}\n  onStepClick={setStep}\n/>"
+    },
+    {
+      "name": "Switch",
+      "importFrom": "@neuctra/ui",
+      "module": "Switch",
+      "category": "form",
+      "propsInterface": "SwitchGroupProps",
+      "description": "The Switch component is a flexible UI primitive built with TypeScript that supports both single toggle and group multi-select modes. It is designed for modern design systems with full customization support, accessibility, and group keyboard navigation.",
+      "props": [
+        {
+          "name": "mode",
+          "type": "\"single\" | \"group\"",
+          "required": false,
+          "default": "\"single\"",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "options",
+          "type": "Option[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "selectedValues",
+          "type": "string[]",
+          "required": false,
+          "default": "[]",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(values: string[]) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "onCheckedChange",
+          "type": "(checked: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🎨 Customization"
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "switchClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "thumbClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "errorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "itemStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "switchStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "thumbStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "errorStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconSize",
+          "type": "number",
+          "required": false,
+          "default": "20",
+          "description": "⚙️ Config"
+        }
+      ],
+      "extends": [],
+      "example": "import { useState } from 'react';\nimport { Switch } from '@neuctra/ui';\n\nfunction BasicExample() {\n  const [checked, setChecked] = useState(false);\n\n  return (\n    <Switch\n      mode=\"single\"\n      label=\"Enable notifications\"\n      checked={checked}\n      onCheckedChange={setChecked}\n    />\n  );\n}"
+    },
+    {
+      "name": "Tab",
+      "importFrom": "@neuctra/ui",
+      "module": "Tabs",
+      "category": "navigation",
+      "propsInterface": "TabProps",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "activeStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "inactiveStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Tabs>\n      <TabList>\n        <Tab index={0}>Overview</Tab>\n        <Tab index={1}>Settings</Tab>\n        <Tab index={2}>Profile</Tab>\n      </TabList>\n      <TabPanels>\n        <TabPanel index={0}>\n          <div className=\"p-6\">Overview content</div>\n        </TabPanel>\n        <TabPanel index={1}>\n          <div className=\"p-6\">Settings content</div>\n        </TabPanel>\n        <TabPanel index={2}>\n          <div className=\"p-6\">Profile content</div>\n        </TabPanel>\n      </TabPanels>\n    </Tabs>\n  );\n}"
+    },
+    {
+      "name": "Table",
+      "importFrom": "@neuctra/ui",
+      "module": "Table",
+      "category": "data-display",
+      "propsInterface": "TableProps",
+      "description": "The Table component provides a fully responsive and highly customizable data table system. Optimized for dark mode, with inline styles, className overrides, and flexible structure using head, body, rows, and cells.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wrapper"
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "tableClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Table"
+        },
+        {
+          "name": "tableStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "responsive",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Behavior"
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "hoverable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": ""
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "dense",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "TabList",
+      "importFrom": "@neuctra/ui",
+      "module": "Tabs",
+      "category": "navigation",
+      "propsInterface": "TabListProps",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "description": ""
+        },
+        {
+          "name": "drawerLabel",
+          "type": "ReactNode",
+          "required": false,
+          "default": "\"Select tab\"",
+          "description": "Label shown in drawer trigger when no tab is active (fallback)"
+        },
+        {
+          "name": "drawerIcon",
+          "type": "ReactNode",
+          "required": false,
+          "default": null,
+          "description": "Icon for the drawer chevron area"
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Tabs>\n      <TabList>\n        <Tab index={0}>Overview</Tab>\n        <Tab index={1}>Settings</Tab>\n        <Tab index={2}>Profile</Tab>\n      </TabList>\n      <TabPanels>\n        <TabPanel index={0}>\n          <div className=\"p-6\">Overview content</div>\n        </TabPanel>\n        <TabPanel index={1}>\n          <div className=\"p-6\">Settings content</div>\n        </TabPanel>\n        <TabPanel index={2}>\n          <div className=\"p-6\">Profile content</div>\n        </TabPanel>\n      </TabPanels>\n    </Tabs>\n  );\n}"
+    },
+    {
+      "name": "TabPanel",
+      "importFrom": "@neuctra/ui",
+      "module": "Tabs",
+      "category": "navigation",
+      "propsInterface": "TabPanelProps",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "keepMounted",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Tabs>\n      <TabList>\n        <Tab index={0}>Overview</Tab>\n        <Tab index={1}>Settings</Tab>\n        <Tab index={2}>Profile</Tab>\n      </TabList>\n      <TabPanels>\n        <TabPanel index={0}>\n          <div className=\"p-6\">Overview content</div>\n        </TabPanel>\n        <TabPanel index={1}>\n          <div className=\"p-6\">Settings content</div>\n        </TabPanel>\n        <TabPanel index={2}>\n          <div className=\"p-6\">Profile content</div>\n        </TabPanel>\n      </TabPanels>\n    </Tabs>\n  );\n}"
+    },
+    {
+      "name": "TabPanels",
+      "importFrom": "@neuctra/ui",
+      "module": "Tabs",
+      "category": "navigation",
+      "propsInterface": "TabPanelsProps",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Tabs>\n      <TabList>\n        <Tab index={0}>Overview</Tab>\n        <Tab index={1}>Settings</Tab>\n        <Tab index={2}>Profile</Tab>\n      </TabList>\n      <TabPanels>\n        <TabPanel index={0}>\n          <div className=\"p-6\">Overview content</div>\n        </TabPanel>\n        <TabPanel index={1}>\n          <div className=\"p-6\">Settings content</div>\n        </TabPanel>\n        <TabPanel index={2}>\n          <div className=\"p-6\">Profile content</div>\n        </TabPanel>\n      </TabPanels>\n    </Tabs>\n  );\n}"
+    },
+    {
+      "name": "Tabs",
+      "importFrom": "@neuctra/ui",
+      "module": "Tabs",
+      "category": "navigation",
+      "propsInterface": "TabsProps",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultActive",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": ""
+        },
+        {
+          "name": "position",
+          "type": "Position",
+          "required": false,
+          "default": "\"top\"",
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "Variant",
+          "required": false,
+          "default": "\"solid\"",
+          "description": ""
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "radius",
+          "type": "number",
+          "required": false,
+          "default": "8",
+          "description": ""
+        },
+        {
+          "name": "transitionDuration",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "description": ""
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "mobileBreakpoint",
+          "type": "number",
+          "required": false,
+          "default": "768",
+          "description": "Responsive"
+        },
+        {
+          "name": "mobileVariant",
+          "type": "MobileVariant",
+          "required": false,
+          "default": "\"scroll\"",
+          "description": ""
+        },
+        {
+          "name": "primaryColor",
+          "type": "string",
+          "required": false,
+          "default": "\"var(--primary)\"",
+          "description": "Colors"
+        },
+        {
+          "name": "activeColor",
+          "type": "string",
+          "required": false,
+          "default": "\"var(--foreground)\"",
+          "description": ""
+        },
+        {
+          "name": "textColor",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "hoverColor",
+          "type": "string",
+          "required": false,
+          "default": "\"var(--primary)\"",
+          "description": ""
+        },
+        {
+          "name": "borderColor",
+          "type": "string",
+          "required": false,
+          "default": "\"var(--border)\"",
+          "description": ""
+        },
+        {
+          "name": "disabledColor",
+          "type": "string",
+          "required": false,
+          "default": "\"var(--muted-foreground)\"",
+          "description": ""
+        },
+        {
+          "name": "backgroundColor",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onTabChange",
+          "type": "(index: number) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "tabCount",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Tabs>\n      <TabList>\n        <Tab index={0}>Overview</Tab>\n        <Tab index={1}>Settings</Tab>\n        <Tab index={2}>Profile</Tab>\n      </TabList>\n      <TabPanels>\n        <TabPanel index={0}>\n          <div className=\"p-6\">Overview content</div>\n        </TabPanel>\n        <TabPanel index={1}>\n          <div className=\"p-6\">Settings content</div>\n        </TabPanel>\n        <TabPanel index={2}>\n          <div className=\"p-6\">Profile content</div>\n        </TabPanel>\n      </TabPanels>\n    </Tabs>\n  );\n}"
+    },
+    {
+      "name": "TagInput",
+      "importFrom": "@neuctra/ui",
+      "module": "TagInput",
+      "category": "form",
+      "propsInterface": "TagInputProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "default": "[]",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(tags: string[]) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": "\"Add a tag…\"",
+          "description": ""
+        },
+        {
+          "name": "maxTags",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": "Maximum number of tags; further entries are ignored."
+        },
+        {
+          "name": "validate",
+          "type": "(tag: string) => boolean",
+          "required": false,
+          "default": null,
+          "description": "Return false to reject a tag before it is added."
+        },
+        {
+          "name": "addOnBlur",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Also commit the pending text when the field loses focus."
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "const [tags, setTags] = useState([\"react\", \"tailwind\"]);\n\n<TagInput\n  label=\"Technologies\"\n  value={tags}\n  onChange={setTags}\n  placeholder=\"Type and press Enter…\"\n  maxTags={6}\n/>"
+    },
+    {
+      "name": "TBody",
+      "importFrom": "@neuctra/ui",
+      "module": "Table",
+      "category": "data-display",
+      "propsInterface": null,
+      "description": "The Table component provides a fully responsive and highly customizable data table system. Optimized for dark mode, with inline styles, className overrides, and flexible structure using head, body, rows, and cells.",
+      "props": [],
+      "extends": [],
+      "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "TD",
+      "importFrom": "@neuctra/ui",
+      "module": "Table",
+      "category": "data-display",
+      "propsInterface": null,
+      "description": "The Table component provides a fully responsive and highly customizable data table system. Optimized for dark mode, with inline styles, className overrides, and flexible structure using head, body, rows, and cells.",
+      "props": [],
+      "extends": [],
+      "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "Text",
+      "importFrom": "@neuctra/ui",
+      "module": "Text",
+      "category": "typography",
+      "propsInterface": "TextProps",
+      "description": "Complete list of available props for the Text component.",
+      "props": [],
+      "extends": [],
+      "example": "<Text>\n  Welcome to <Text className=\"font-bold\">Neuctra UI</Text>\n</Text>"
+    },
+    {
+      "name": "Textarea",
+      "importFrom": "@neuctra/ui",
+      "module": "Textarea",
+      "category": "form",
+      "propsInterface": "TextareaProps",
+      "description": "The Textarea component is a modern, flexible multiline input built for real-world applications. It supports auto-resizing behavior, ChatGPT-like input handling with Enter-to-submit support, character counting, validation states, and full styling customization. Designed for chat apps, forms, and content-heavy inputs.",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "React.ElementType",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "success",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxLength",
+          "type": "number",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "autoResize",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Auto resize"
+        },
+        {
+          "name": "minRows",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "description": ""
+        },
+        {
+          "name": "maxRows",
+          "type": "number",
+          "required": false,
+          "default": "6",
+          "description": ""
+        },
+        {
+          "name": "submitOnEnter",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": "Chat-like behavior"
+        },
+        {
+          "name": "onSubmit",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": "Customization"
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "helperClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "countClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "containerStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "countStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.TextareaHTMLAttributes<HTMLTextAreaElement>"
+      ],
+      "example": "<Textarea\n  label=\"Description\"\n  placeholder=\"Enter text...\"\n/>"
+    },
+    {
+      "name": "TH",
+      "importFrom": "@neuctra/ui",
+      "module": "Table",
+      "category": "data-display",
+      "propsInterface": null,
+      "description": "The Table component provides a fully responsive and highly customizable data table system. Optimized for dark mode, with inline styles, className overrides, and flexible structure using head, body, rows, and cells.",
+      "props": [],
+      "extends": [],
+      "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "THead",
+      "importFrom": "@neuctra/ui",
+      "module": "Table",
+      "category": "data-display",
+      "propsInterface": null,
+      "description": "The Table component provides a fully responsive and highly customizable data table system. Optimized for dark mode, with inline styles, className overrides, and flexible structure using head, body, rows, and cells.",
+      "props": [],
+      "extends": [],
+      "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "ThemeToggleButton",
+      "importFrom": "@neuctra/ui",
+      "module": "ThemeToggleButton",
+      "category": "actions",
+      "propsInterface": null,
+      "description": "A modern, animated dark mode toggle built for SaaS applications. It supports Sun/Moon icon transitions, smooth thumb animation, and works with a context-driven theme system.",
+      "props": [],
+      "extends": [],
+      "example": ""
+    },
+    {
+      "name": "Timeline",
+      "importFrom": "@neuctra/ui",
+      "module": "Timeline",
+      "category": "data-display",
+      "propsInterface": "TimelineProps",
+      "description": "",
+      "props": [
+        {
+          "name": "items",
+          "type": "TimelineItem[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLOListElement>, \"children\">"
+      ],
+      "example": "<Timeline\n  items={[\n    { title: \"Order placed\", time: \"09:12\", status: \"done\" },\n    { title: \"Payment confirmed\", time: \"09:14\", status: \"done\" },\n    { title: \"Out for delivery\", time: \"12:40\", status: \"active\",\n      description: \"Your package is on its way.\" },\n    { title: \"Delivered\", status: \"pending\" },\n  ]}\n/>"
+    },
+    {
+      "name": "ToastProvider",
+      "importFrom": "@neuctra/ui",
+      "module": "Alert",
+      "category": "feedback",
+      "propsInterface": "ToastProviderProps",
+      "description": "The Toast component is a lightweight notification system for delivering real-time feedback to users. It supports multiple alert types like success, error, warning, and info, each with distinct styling and icons for clear visual communication.",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "maxToasts",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Maximum toasts kept on screen at once. Oldest are dropped first."
+        }
+      ],
+      "extends": [],
+      "example": "import { ToastProvider } from \"@neuctra/ui\";\n\nexport default function App({ Component, pageProps }) {\n  return (\n    <ToastProvider>\n      <Component {...pageProps} />\n    </ToastProvider>\n  );\n}"
+    },
+    {
+      "name": "Toggle",
+      "importFrom": "@neuctra/ui",
+      "module": "Toggle",
+      "category": "form",
+      "propsInterface": "ToggleProps",
+      "description": "",
+      "props": [
+        {
+          "name": "pressed",
+          "type": "boolean",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultPressed",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "onPressedChange",
+          "type": "(pressed: boolean) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"outline\"",
+          "required": false,
+          "default": "\"default\"",
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"onChange\">"
+      ],
+      "example": "<Toggle defaultPressed><Bold size={16} /> Bold</Toggle>\n<Toggle variant=\"outline\"><Italic size={16} /> Italic</Toggle>\n<Toggle size=\"sm\"><Underline size={16} /></Toggle>"
+    },
+    {
+      "name": "ToggleGroup",
+      "importFrom": "@neuctra/ui",
+      "module": "ToggleGroup",
+      "category": "form",
+      "propsInterface": "ToggleGroupProps",
+      "description": "",
+      "props": [
+        {
+          "name": "options",
+          "type": "ToggleGroupOption[]",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "\"single\" | \"multiple\"",
+          "required": false,
+          "default": "\"single\"",
+          "description": "\"single\" behaves like a segmented control; \"multiple\" like toolbar toggles."
+        },
+        {
+          "name": "value",
+          "type": "string | string[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string | string[]) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\" | \"defaultValue\">"
+      ],
+      "example": ""
+    },
+    {
+      "name": "Tooltip",
+      "importFrom": "@neuctra/ui",
+      "module": "Tooltip",
+      "category": "overlay",
+      "propsInterface": "TooltipProps",
+      "description": "",
+      "props": [
+        {
+          "name": "content",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "Tooltip text/content."
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "position",
+          "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+          "required": false,
+          "default": "\"top\"",
+          "description": ""
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "default": "150",
+          "description": "Delay before showing, in ms."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "<Tooltip content=\"Save your changes\">\n  <Button size=\"sm\">Save</Button>\n</Tooltip>"
+    },
+    {
+      "name": "TRow",
+      "importFrom": "@neuctra/ui",
+      "module": "Table",
+      "category": "data-display",
+      "propsInterface": "TRowProps",
+      "description": "The Table component provides a fully responsive and highly customizable data table system. Optimized for dark mode, with inline styles, className overrides, and flexible structure using head, body, rows, and cells.",
+      "props": [
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": ""
+        }
+      ],
+      "extends": [
+        "TableSectionProps"
+      ],
+      "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "useToast",
+      "importFrom": "@neuctra/ui",
+      "module": "Alert",
+      "category": "feedback",
+      "propsInterface": null,
+      "description": "The Toast component is a lightweight notification system for delivering real-time feedback to users. It supports multiple alert types like success, error, warning, and info, each with distinct styling and icons for clear visual communication.",
+      "props": [],
+      "extends": [],
+      "example": ""
+    }
+  ]
+}

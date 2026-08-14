@@ -1,0 +1,37 @@
+{
+  "system": "Tailwind CSS v4, semantic CSS-variable tokens mapped via @theme, toggled by a .dark class (not prefers-color-scheme).",
+  "rules": [
+    "Never use hardcoded Tailwind palette colors (text-blue-500, bg-red-500, border-gray-200, etc.) or inline hex/rgb colors in generated UI.",
+    "Always use the semantic token classes below (bg-primary, text-foreground, border-border, ...) so generated UI automatically follows the consumer's theme in both light and dark mode.",
+    "Every base token except background/foreground/border/input/ring has a matching '-foreground' token for text/icons placed on top of it (e.g. bg-primary + text-primary-foreground, bg-destructive + text-destructive-foreground).",
+    "Page background: bg-background, text-foreground. Card/panel surfaces: bg-card (or bg-muted/bg-accent for secondary surfaces). Popovers/dropdowns/tooltips: bg-popover.",
+    "Status colors: success (positive/confirmation), warning (caution), info (neutral notice), destructive (danger/errors) — use these instead of ad-hoc green/yellow/blue/red.",
+    "Dark mode requires no extra work in generated code: the same class names resolve to the .dark palette automatically because the consumer's CSS defines both blocks. Do not write dark: variants for color — only use dark: for things the token system doesn't cover (rare)."
+  ],
+  "tokens": [
+    { "token": "primary", "className": "bg-primary / text-primary / border-primary", "pairsWith": "primary-foreground", "light": "#00c214", "dark": "#00c214", "usage": "Brand color: primary buttons, active states, links, focus accents." },
+    { "token": "primary-foreground", "className": "text-primary-foreground", "light": "#ffffff", "dark": "#ffffff", "usage": "Text/icons on top of bg-primary." },
+    { "token": "background", "className": "bg-background", "light": "#ffffff", "dark": "#09090b", "usage": "Page/app background." },
+    { "token": "foreground", "className": "text-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Default body text color." },
+    { "token": "muted", "className": "bg-muted", "pairsWith": "muted-foreground", "light": "#f4f4f5", "dark": "#27272a", "usage": "Subtle/secondary surfaces (skeletons, disabled fills, code blocks)." },
+    { "token": "muted-foreground", "className": "text-muted-foreground", "light": "#71717a", "dark": "#a1a1aa", "usage": "Secondary/helper text, placeholders, disabled text." },
+    { "token": "accent", "className": "bg-accent", "pairsWith": "accent-foreground", "light": "#e4e4e7", "dark": "#18181b", "usage": "Hover/active background for interactive rows and menu items." },
+    { "token": "accent-foreground", "className": "text-accent-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Text on bg-accent." },
+    { "token": "border", "className": "border-border", "light": "#e4e4e7", "dark": "#27272a", "usage": "Default border color for inputs, cards, dividers." },
+    { "token": "input", "className": "bg-input / border-input", "light": "#f4f4f5", "dark": "#18181b", "usage": "Form control backgrounds." },
+    { "token": "ring", "className": "ring-ring / focus-visible:ring-ring", "light": "#a1a1aa", "dark": "#3f3f46", "usage": "Focus ring color — always pair interactive elements with focus-visible:ring-2 focus-visible:ring-ring." },
+    { "token": "card", "className": "bg-card", "pairsWith": "card-foreground", "light": "#ffffff", "dark": "#09090b", "usage": "Card / panel surfaces, distinct from the page background." },
+    { "token": "card-foreground", "className": "text-card-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Text inside cards." },
+    { "token": "popover", "className": "bg-popover", "pairsWith": "popover-foreground", "light": "#ffffff", "dark": "#18181b", "usage": "Dropdowns, popovers, tooltips, menus." },
+    { "token": "popover-foreground", "className": "text-popover-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Text inside popovers/dropdowns." },
+    { "token": "destructive", "className": "bg-destructive / text-destructive / border-destructive", "pairsWith": "destructive-foreground", "light": "#d40000", "dark": "#e7000b", "usage": "Errors, delete/danger actions, invalid form states." },
+    { "token": "destructive-foreground", "className": "text-destructive-foreground", "light": "#fafafa", "dark": "#fafafa", "usage": "Text on bg-destructive." },
+    { "token": "success", "className": "bg-success / text-success / border-success", "pairsWith": "success-foreground", "light": "#16a34a", "dark": "#22c55e", "usage": "Confirmation, online status, valid form states, positive metrics." },
+    { "token": "success-foreground", "className": "text-success-foreground", "light": "#fafafa", "dark": "#052e16", "usage": "Text on bg-success." },
+    { "token": "warning", "className": "bg-warning / text-warning / border-warning", "pairsWith": "warning-foreground", "light": "#d97706", "dark": "#f59e0b", "usage": "Caution states, pending status, non-blocking alerts." },
+    { "token": "warning-foreground", "className": "text-warning-foreground", "light": "#fafafa", "dark": "#451a03", "usage": "Text on bg-warning." },
+    { "token": "info", "className": "bg-info / text-info / border-info", "pairsWith": "info-foreground", "light": "#2563eb", "dark": "#3b82f6", "usage": "Neutral notices, informational banners/badges." },
+    { "token": "info-foreground", "className": "text-info-foreground", "light": "#fafafa", "dark": "#eff6ff", "usage": "Text on bg-info." }
+  ],
+  "note": "Values shown are the CLI-generated defaults (npx @neuctra/ui-cli init). A consumer project may have redefined these hex values in its own CSS — the token NAMES and pairing rules are the stable contract; always prefer the class names over the hex values."
+}
