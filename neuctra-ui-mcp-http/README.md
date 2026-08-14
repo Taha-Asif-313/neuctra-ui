@@ -5,21 +5,21 @@ The remote (HTTP) deployment of the Neuctra UI MCP server — the same tools as
 as a Cloudflare Worker.
 
 This is not an npm package (`"private": true`) — it is a small application meant to be
-deployed, the same way `neuctra-ui-docs` is a folder that gets deployed to Vercel rather
-than published to npm.
+deployed, not installed.
 
 ---
 
 ## What this is, and what it is not
 
-This folder contains no tool logic of its own. It imports `createServer` from
-`@neuctra/ui-mcp` (the published npm package — linked locally here via a `file:`
-dependency in this repository) and wires it to an HTTP transport instead of the stdio
-transport `bin/cli.mjs` uses there. If you need to change what a tool does, add a tool,
-or update the component data, do it in `@neuctra/ui-mcp`, not here — see that package's
-README ("For contributors" section) for how its data is generated and kept in sync.
-This folder only ever needs to change when something about *how it's served over HTTP*
-changes: auth, rate limiting, routing, the deployment target itself.
+This project contains no tool logic of its own. It depends on `@neuctra/ui-mcp` as a
+normal published npm dependency, imports `createServer` from it, and wires that to an
+HTTP transport instead of the stdio transport the base package uses for local/`npx`
+use. If you need to change what a tool does, add a tool, or update the component data,
+that happens in the `@neuctra/ui-mcp` package and its own release — this project just
+picks up the new version the next time its dependency is bumped and reinstalled
+(`npm install @neuctra/ui-mcp@latest`). This project only ever needs its own changes for
+things specific to *how it's served over HTTP*: auth, rate limiting, routing, the
+deployment target itself.
 
 ---
 
