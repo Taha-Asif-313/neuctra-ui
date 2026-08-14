@@ -1,6 +1,6 @@
 {
   "name": "@neuctra/ui-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "MCP server exposing the @neuctra/ui component registry (props, defaults, examples, theme tokens) so AI coding tools generate accurate Neuctra UI code.",
   "type": "module",
   "license": "MIT",
