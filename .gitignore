@@ -53,6 +53,12 @@
 **/.vercel/
 
 # ========================
+# Cloudflare Workers (wrangler) local state
+# ========================
+**/.wrangler/
+**/.dev.vars
+
+# ========================
 # TypeScript artifacts
 # ========================
 **/*.tsbuildinfo

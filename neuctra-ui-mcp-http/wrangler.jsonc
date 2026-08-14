@@ -1,0 +1,12 @@
+{
+  "name": "neuctra-ui-mcp-http",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-14",
+
+  // Uncomment once this Worker has been deployed at least once (via
+  // `npm run deploy`) and the mcp.ui.neuctra.com DNS record has been added
+  // in the Cloudflare dashboard for this zone.
+  // "routes": [
+  //   { "pattern": "mcp.ui.neuctra.com/*", "custom_domain": true }
+  // ]
+}

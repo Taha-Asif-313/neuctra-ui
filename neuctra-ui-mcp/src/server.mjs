@@ -4,15 +4,22 @@ import { fileURLToPath } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.resolve(__dirname, "..", "data");
-
-const registry = JSON.parse(
-  fs.readFileSync(path.join(DATA_DIR, "components.json"), "utf8"),
-);
-const theme = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "theme.json"), "utf8"));
-
-const componentsByName = new Map(registry.components.map((c) => [c.name, c]));
+// Reads data/*.json from disk. Only works on runtimes with a filesystem
+// (Node, Bun, Deno) — callers on edge/serverless runtimes without one
+// (Cloudflare Workers) must import the JSON files themselves at build time
+// and pass them into createServer({ registry, theme }) instead. Resolving
+// __dirname is deferred inside this function (not module top-level) because
+// import.meta.url is unavailable in some bundled edge runtimes even when
+// this function itself is never called there.
+function loadDataFromDisk() {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const DATA_DIR = path.resolve(__dirname, "..", "data");
+  const registry = JSON.parse(
+    fs.readFileSync(path.join(DATA_DIR, "components.json"), "utf8"),
+  );
+  const theme = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "theme.json"), "utf8"));
+  return { registry, theme };
+}
 
 function summarize(component) {
   return {
@@ -31,7 +38,10 @@ function matchesQuery(component, query) {
   return component.props.some((p) => p.name.toLowerCase().includes(q));
 }
 
-export function createServer() {
+export function createServer(data) {
+  const { registry, theme } = data ?? loadDataFromDisk();
+  const componentsByName = new Map(registry.components.map((c) => [c.name, c]));
+
   const server = new McpServer({
     name: "neuctra-ui",
     version: "0.1.0",

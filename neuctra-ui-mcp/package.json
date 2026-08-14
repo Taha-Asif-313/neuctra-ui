@@ -21,6 +21,13 @@
   "bin": {
     "neuctra-ui-mcp": "./bin/cli.mjs"
   },
+  "main": "./src/server.mjs",
+  "exports": {
+    ".": "./src/server.mjs",
+    "./data/components.json": "./data/components.json",
+    "./data/theme.json": "./data/theme.json",
+    "./package.json": "./package.json"
+  },
   "files": [
     "bin",
     "src",

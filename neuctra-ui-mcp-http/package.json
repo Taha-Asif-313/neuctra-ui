@@ -1,0 +1,19 @@
+{
+  "name": "neuctra-ui-mcp-http",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Remote MCP server for @neuctra/ui, deployed as a Cloudflare Worker over Streamable HTTP.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@neuctra/ui-mcp": "file:../neuctra-ui-mcp",
+    "hono": "^4.13.2"
+  },
+  "devDependencies": {
+    "wrangler": "^4.123.0"
+  }
+}
