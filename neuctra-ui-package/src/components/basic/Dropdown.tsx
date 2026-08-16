@@ -8,6 +8,7 @@ import React, {
   forwardRef,
   useLayoutEffect,
 } from "react";
+import { createPortal } from "react-dom";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -195,47 +196,15 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       }
     };
 
-    return (
-      <div
-        ref={setRefs}
-        className={clsx("inline-flex", className)}
-        style={style}
-      >
-        {/* ------------------------------------------------------------------ */}
-        {/* 🔘 Trigger                                                         */}
-        {/* ------------------------------------------------------------------ */}
-
-        <div
-          className="flex"
-          // A plain <div> is not focusable and has no Enter/Space activation,
-          // so give it button semantics and the popup wiring screen readers
-          // need. (A real <button> would nest illegally if `trigger` is one.)
-          role="button"
-          tabIndex={0}
-          aria-haspopup="menu"
-          aria-expanded={open}
-          aria-controls={open ? menuId : undefined}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              e.stopPropagation();
-              setOpen(!open);
-            }
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpen(!open);
-          }}
-        >
-          {trigger}
-        </div>
-
-        {/* ------------------------------------------------------------------ */}
-        {/* 📦 Menu                                                            */}
-        {/* ------------------------------------------------------------------ */}
-
-        <AnimatePresence>
-          {open && (
+    // Rendered via a portal to document.body (below), not as a child here:
+    // `position: fixed` is only viewport-relative when no ancestor has a
+    // transform/filter/perspective. A hover-lift card (`hover:-translate-y-*`
+    // and similar) around the trigger would otherwise make that card the
+    // menu's containing block instead of the viewport, misplacing it while
+    // hovered — which looks like "the dropdown doesn't open."
+    const menu = (
+      <AnimatePresence>
+        {open && (
             <motion.div
               ref={menuRef}
               initial={{
@@ -328,9 +297,52 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 })}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        )}
+      </AnimatePresence>
+    );
+
+    return (
+      <>
+        <div
+          ref={setRefs}
+          className={clsx("inline-flex", className)}
+          style={style}
+        >
+          {/* -------------------------------------------------------------- */}
+          {/* 🔘 Trigger                                                     */}
+          {/* -------------------------------------------------------------- */}
+
+          <div
+            className="flex"
+            // A plain <div> is not focusable and has no Enter/Space activation,
+            // so give it button semantics and the popup wiring screen readers
+            // need. (A real <button> would nest illegally if `trigger` is one.)
+            role="button"
+            tabIndex={0}
+            aria-haspopup="menu"
+            aria-expanded={open}
+            aria-controls={open ? menuId : undefined}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                e.stopPropagation();
+                setOpen(!open);
+              }
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpen(!open);
+            }}
+          >
+            {trigger}
+          </div>
+        </div>
+
+        {/* -------------------------------------------------------------- */}
+        {/* 📦 Menu — portaled to <body>, see comment above `menu`          */}
+        {/* -------------------------------------------------------------- */}
+        {typeof document !== "undefined" && createPortal(menu, document.body)}
+      </>
     );
   },
 );
