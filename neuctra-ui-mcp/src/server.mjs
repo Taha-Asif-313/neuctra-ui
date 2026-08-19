@@ -44,7 +44,7 @@ export function createServer(data) {
 
   const server = new McpServer({
     name: "neuctra-ui",
-    version: "0.1.0",
+    version: "0.3.1",
   });
 
   server.registerTool(
@@ -141,7 +141,7 @@ export function createServer(data) {
     {
       title: "Get Neuctra UI theming rules and tokens",
       description:
-        "Get the semantic color token system (bg-primary, text-foreground, etc.) and the styling rules generated UI must follow. Call this before generating any UI so colors come from theme tokens instead of hardcoded Tailwind palette classes or hex values — hardcoded colors will not respect the consumer's light/dark theme.",
+        "Get the semantic color token system (bg-primary, text-foreground, etc.), the styling rules generated UI must follow, a set of rules for avoiding the visual tells that make UI look AI-generated (gradients, decorative shadows/blurs/glows, emoji-as-icons, etc.), the recommended `@neuctra/ui-cli` setup command, and how the toast notification API works. Call this before generating any UI — not just for colors.",
       inputSchema: {},
     },
     async () => {

@@ -60,8 +60,10 @@ Two independently-regenerable files feed the server:
   Never edit this by hand; run `npm run sync-registry` after the upstream file changes.
 - **`data/theme.json`** — hand-curated from `neuctra-ui-cli/lib/update-css.js` (the CSS
   the setup CLI generates for consumers). Update it manually if the token set changes —
-  it doesn't have an automated generator because it also encodes *rules* ("never
-  hardcode colors"), not just data.
+  it doesn't have an automated generator because it also encodes *rules*, not just data:
+  the color-token rules ("never hardcode colors"), the anti-AI-look rules ("no
+  gradients/shadows/blurs/glows/emoji-icons"), the recommended `@neuctra/ui-cli init`
+  setup command, and how the standalone `toast()` API works.
 
 ---
 
@@ -127,7 +129,7 @@ conversation.
     { "name": "children", "type": "React.ReactNode", "required": false, "default": null,
       "description": "Optional so icon-only buttons are possible — pair with `aria-label`." },
     { "name": "loading", "type": "boolean", "required": false, "default": "false", "description": "" },
-    { "name": "variant", "type": "\"default\" | \"outline\" | \"ghost\"", "required": false, "default": null, "description": "" }
+    { "name": "variant", "type": "\"default\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\"", "required": false, "default": null, "description": "" }
     // ...
   ],
   "example": "import { Button } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Button onClick={() => console.log('Button clicked')}>\n      Click Me\n    </Button>\n  );\n}"
@@ -155,10 +157,14 @@ state", "icon button". Matches against name, category, description, and prop nam
 
 ### `get_theme`
 
-Returns the semantic color token system and the styling rules for using it. This is the
-piece that stops generated UI from looking "off-brand" or breaking in dark mode —
-without it, an AI would happily write `className="bg-blue-500"`, which ignores whatever
-theme the consumer's project has configured.
+Returns the semantic color token system, the styling rules for using it, and three more
+sections aimed squarely at making generated UI indistinguishable from a human design
+pass: a set of **anti-AI-look rules** (no gradients, no decorative shadows/blurs/glows,
+no emoji-as-icons — see below), a **setup** block pointing the AI at the
+`@neuctra/ui-cli` `init` command instead of hand-writing token CSS or a theme context,
+and a **toastNote** explaining the standalone `toast()` import. Without `get_theme`, an
+AI would happily write `className="bg-blue-500"` or reach for a purple-to-pink gradient
+hero, both of which ignore the consumer's actual theme and read as generic AI output.
 
 **Response shape:**
 ```jsonc
@@ -169,12 +175,24 @@ theme the consumer's project has configured.
     "Always use the semantic token classes below...",
     // ...
   ],
+  "antiAiLookRules": [
+    "No gradients on backgrounds, buttons, or text...",
+    "No decorative box-shadows, drop-shadows, or glow effects...",
+    "No backdrop-blur / glassmorphism...",
+    // ...17 rules total — the visual tells that make UI read as AI-generated
+  ],
   "tokens": [
     { "token": "primary", "className": "bg-primary / text-primary / border-primary",
       "pairsWith": "primary-foreground", "light": "#00c214", "dark": "#00c214",
       "usage": "Brand color: primary buttons, active states, links, focus accents." },
     // ...23 tokens total
-  ]
+  ],
+  "setup": {
+    "recommendedCommand": "npx @neuctra/ui-cli@latest init",
+    "whatItDoes": ["Installs @neuctra/ui.", "Checks/upgrades React and Tailwind CSS.", "..."],
+    "whenToSuggestIt": "..."
+  },
+  "toastNote": "@neuctra/ui's toast notification system is a standalone function..."
 }
 ```
 
