@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "0.5.5",
-  "generatedAt": "2026-08-16T06:22:47.855Z",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-19T17:15:12.897Z",
   "componentCount": 76,
   "components": [
     {
@@ -304,6 +304,27 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "imageClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "fallbackClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
         }
       ],
       "extends": [],
@@ -344,6 +365,20 @@
           "required": false,
           "default": "\"normal\"",
           "description": "Overlap amount between items."
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Customize the wrapper span around each visible avatar item."
+        },
+        {
+          "name": "counterClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Customize the \"+N\" overflow counter."
         }
       ],
       "extends": [
@@ -486,6 +521,20 @@
           "description": ""
         },
         {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textStyle",
+          "type": "CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
           "name": "onClick",
           "type": "() => void",
           "required": false,
@@ -530,6 +579,62 @@
           "type": "\"sm\" | \"md\"",
           "required": false,
           "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "listClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "activeItemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "triggerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "separatorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "ellipsisClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
           "description": ""
         }
       ],
@@ -590,7 +695,7 @@
         },
         {
           "name": "variant",
-          "type": "\"default\" | \"outline\" | \"ghost\"",
+          "type": "| \"default\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\"",
           "required": false,
           "default": "\"default\"",
           "description": ""
@@ -734,6 +839,55 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "headerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "navButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "monthLabelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "weekdaysClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "weekdayClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "daysClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dayClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -794,6 +948,41 @@
         {
           "name": "onDismiss",
           "type": "() => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "closeButtonClassName",
+          "type": "string",
           "required": false,
           "default": null,
           "description": ""
@@ -896,6 +1085,34 @@
           "required": false,
           "default": null,
           "description": "Slot rendered at the far right of the header (menu, action button…)."
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "actionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -966,6 +1183,69 @@
           "required": false,
           "default": "\"Carousel\"",
           "description": "Accessible name for the carousel region."
+        },
+        {
+          "name": "trackClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "slidesClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "slideClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "arrowClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "prevArrowClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "nextArrowClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "arrowIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dotsClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dotClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -1108,6 +1388,13 @@
           "description": ""
         },
         {
+          "name": "checkClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
           "name": "errorClassName",
           "type": "string",
           "required": false,
@@ -1244,6 +1531,34 @@
           "required": false,
           "default": "false",
           "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "removeButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "removeIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -1346,6 +1661,20 @@
         {
           "name": "onCopied",
           "type": "(value: string) => void",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
           "required": false,
           "default": null,
           "description": ""
@@ -1468,6 +1797,55 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "clearButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "clearIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "panelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [],
@@ -1508,6 +1886,20 @@
           "required": false,
           "default": "\"md\"",
           "description": "Vertical spacing (horizontal) or horizontal spacing (vertical)."
+        },
+        {
+          "name": "lineClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization (labeled horizontal variant only)"
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -1599,6 +1991,13 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "panelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to the sliding panel that hosts the drawer content."
         }
       ],
       "extends": [],
@@ -1769,6 +2168,27 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "titleWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "closeButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [],
@@ -1864,6 +2284,41 @@
           "description": ""
         },
         {
+          "name": "triggerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to the wrapper around the `trigger` node."
+        },
+        {
+          "name": "menuListClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to the inner `role=\"menu\"` list container."
+        },
+        {
+          "name": "separatorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to each separator row (`item.separator`)."
+        },
+        {
+          "name": "itemIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to an item's leading icon wrapper."
+        },
+        {
+          "name": "itemLabelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to an item's label text."
+        },
+        {
           "name": "style",
           "type": "React.CSSProperties",
           "required": false,
@@ -1922,6 +2377,34 @@
           "type": "\"sm\" | \"md\" | \"lg\"",
           "required": false,
           "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "actionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
           "description": ""
         }
       ],
@@ -2017,6 +2500,83 @@
         },
         {
           "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "dropzoneClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "errorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "listClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fileItemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fileIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fileNameClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "fileSizeClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "removeButtonClassName",
           "type": "string",
           "required": false,
           "default": null,
@@ -2462,6 +3022,13 @@
           "description": ""
         },
         {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
           "name": "wrapperStyle",
           "type": "CSSProperties",
           "required": false,
@@ -2817,6 +3384,27 @@
           "description": ""
         },
         {
+          "name": "chevronClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "externalIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "emptyStateClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
           "name": "style",
           "type": "CSSProperties",
           "required": false,
@@ -3151,6 +3739,20 @@
           "description": ""
         },
         {
+          "name": "chevronClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "externalIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
           "name": "itemStyle",
           "type": "CSSProperties",
           "required": false,
@@ -3294,6 +3896,13 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "dialogClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The `role=\"dialog\"` wrapper around `children`."
         }
       ],
       "extends": [],
@@ -3510,6 +4119,34 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "titleWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wrapper around `icon` + `title`."
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "closeButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [],
@@ -3634,6 +4271,41 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "inputWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The bordered control wrapping the decrement button, input, and increment button."
+        },
+        {
+          "name": "decrementButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "incrementButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperTextClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -3689,6 +4361,41 @@
           "type": "boolean",
           "required": false,
           "default": "false",
+          "description": ""
+        },
+        {
+          "name": "prevButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "nextButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "pageButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to every numbered page button, in addition to the active/inactive styling."
+        },
+        {
+          "name": "activePageButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "ellipsisClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
           "description": ""
         }
       ],
@@ -3802,6 +4509,13 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "boxClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to each individual character box, in addition to the size/state styling."
         }
       ],
       "extends": [],
@@ -3893,6 +4607,13 @@
           "description": ""
         },
         {
+          "name": "triggerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The wrapper around `trigger` that handles open/close interactions."
+        },
+        {
           "name": "contentClassName",
           "type": "string",
           "required": false,
@@ -3966,6 +4687,27 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "trackClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The track behind the fill/indicator (the muted background)."
+        },
+        {
+          "name": "fillClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The filled portion (linear bar or circular arc), alongside `colorClassName`."
+        },
+        {
+          "name": "valueClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The percentage text shown when `showValue` is set."
         }
       ],
       "extends": [
@@ -4258,6 +5000,34 @@
           "required": false,
           "default": "\"text-warning\"",
           "description": "Color class of filled stars; defaults to the theme's warning (amber)."
+        },
+        {
+          "name": "starClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to every star icon, in addition to size/color/state classes."
+        },
+        {
+          "name": "emptyStarClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The unfilled star color/class."
+        },
+        {
+          "name": "starWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The clickable wrapper around each star, in interactive mode."
+        },
+        {
+          "name": "valueClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The numeric value shown when `showValue` is set."
         }
       ],
       "extends": [
@@ -4505,6 +5275,41 @@
           "description": ""
         },
         {
+          "name": "labelIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The label icon rendered before `label`."
+        },
+        {
+          "name": "searchWrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The wrapper around the search input, when `searchable` is set."
+        },
+        {
+          "name": "emptyClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The \"No options available\" empty state."
+        },
+        {
+          "name": "itemLabelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "An option's label text."
+        },
+        {
+          "name": "itemDescriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "An option's description text, when `showDescription` is set."
+        },
+        {
           "name": "itemIconClassName",
           "type": "string",
           "required": false,
@@ -4606,6 +5411,13 @@
           "required": false,
           "default": "true",
           "description": "Disable the pulse animation."
+        },
+        {
+          "name": "lineClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to each individual line when variant=\"text\" and lines > 1."
         }
       ],
       "extends": [
@@ -4704,6 +5516,41 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "labelRowClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Row wrapping the label and the current-value text."
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "valueClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "marksClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wrapper around the tick marks rendered under the track."
+        },
+        {
+          "name": "markClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to each individual tick mark."
         }
       ],
       "extends": [
@@ -4739,6 +5586,13 @@
           "required": false,
           "default": null,
           "description": "Stroke color class; defaults to the current text color."
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Applied to the visually-hidden (sr-only) accessible label."
         }
       ],
       "extends": [
@@ -4802,6 +5656,62 @@
           "required": false,
           "default": "true",
           "description": "Renders the stat inside a bordered card surface."
+        },
+        {
+          "name": "headerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "valueClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "footerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trendClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "trendIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
         }
       ],
       "extends": [
@@ -4850,6 +5760,55 @@
           "type": "\"sm\" | \"md\"",
           "required": false,
           "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "dotClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The circular step indicator/dot."
+        },
+        {
+          "name": "dotButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The `<button>` wrapping a clickable (completed) dot."
+        },
+        {
+          "name": "connectorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The connector line between steps."
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wraps a step's label + description."
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
           "description": ""
         }
       ],
@@ -5129,6 +6088,13 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wraps the `icon` node."
         }
       ],
       "extends": [],
@@ -5265,6 +6231,20 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "triggerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The drawer trigger `<button>` (mobileVariant=\"drawer\" only)."
+        },
+        {
+          "name": "menuClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The dropdown menu panel (mobileVariant=\"drawer\" only)."
         }
       ],
       "extends": [],
@@ -5621,6 +6601,48 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Field label."
+        },
+        {
+          "name": "chipClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Tag chip wrapper."
+        },
+        {
+          "name": "chipRemoveClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Remove (\"x\") button inside a chip."
+        },
+        {
+          "name": "inputClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The text input itself."
+        },
+        {
+          "name": "helperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Helper text / error message."
+        },
+        {
+          "name": "countClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Tag count indicator (e.g. \"2/5\")."
         }
       ],
       "extends": [],
@@ -5766,6 +6788,13 @@
           "description": ""
         },
         {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": "\"\"",
+          "description": ""
+        },
+        {
           "name": "helperClassName",
           "type": "string",
           "required": false,
@@ -5874,6 +6903,55 @@
           "required": false,
           "default": "\"md\"",
           "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Each `<li>` row."
+        },
+        {
+          "name": "connectorClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The vertical connector line between dots."
+        },
+        {
+          "name": "dotClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The status dot/icon bubble."
+        },
+        {
+          "name": "contentClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wrapper around the title/time/description block."
+        },
+        {
+          "name": "titleClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Item title."
+        },
+        {
+          "name": "timeClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Timestamp/meta text next to the title."
+        },
+        {
+          "name": "descriptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Item description."
         }
       ],
       "extends": [
@@ -5902,6 +6980,13 @@
           "required": false,
           "default": "5",
           "description": "Maximum toasts kept on screen at once. Oldest are dropped first."
+        },
+        {
+          "name": "containerClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Customize the fixed toast viewport that hosts all toasts."
         }
       ],
       "extends": [],
@@ -6019,6 +7104,20 @@
           "required": false,
           "default": "false",
           "description": ""
+        },
+        {
+          "name": "itemClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Each option's `<button>`."
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Wrapper around an option's icon."
         }
       ],
       "extends": [
@@ -6082,6 +7181,13 @@
           "required": false,
           "default": null,
           "description": ""
+        },
+        {
+          "name": "arrowClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "The small triangular pointer on the tooltip bubble."
         }
       ],
       "extends": [],
