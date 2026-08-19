@@ -1,10 +1,18 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
-const ThemeContext = createContext(undefined);
+type Theme = "light" | "dark";
 
-const getInitialTheme = () => {
+type ThemeContextValue = {
+  isDark: boolean;
+  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
+};
+
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+const getInitialTheme = (): boolean => {
   if (typeof window === "undefined") return false;
 
   const saved = window.localStorage.getItem("theme");
@@ -16,8 +24,8 @@ const getInitialTheme = () => {
   return dark;
 };
 
-export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(getInitialTheme);
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [isDark, setIsDark] = useState<boolean>(getInitialTheme);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
@@ -28,7 +36,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const handleChange = (event) => {
+    const handleChange = (event: MediaQueryListEvent) => {
       const saved = window.localStorage.getItem("theme");
       if (saved) return;
       setIsDark(event.matches);
@@ -46,7 +54,7 @@ export const ThemeProvider = ({ children }) => {
     });
   };
 
-  const setTheme = (theme) => {
+  const setTheme = (theme: Theme) => {
     window.localStorage.setItem("theme", theme);
     setIsDark(theme === "dark");
   };
@@ -58,7 +66,7 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-export const useTheme = () => {
+export const useTheme = (): ThemeContextValue => {
   const context = useContext(ThemeContext);
   if (!context) {
     throw new Error("useTheme must be used within ThemeProvider");

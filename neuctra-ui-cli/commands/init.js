@@ -6,6 +6,7 @@ import ora from "ora";
 import { findCSS } from "../lib/find-css-file.js";
 import { findSrcPath } from "../lib/find-src-path.js";
 import { installPackage } from "../lib/install-package.js";
+import { ensureReact, ensureTailwind } from "../lib/ensure-deps.js";
 import { generateThemeContextFile } from "../lib/theme-context-generator.js";
 import { updateCssFile } from "../lib/update-css.js";
 import { updateMainEntryFile } from "../lib/update-main.js";
@@ -39,6 +40,14 @@ export const init = async () => {
     log.space();
 
     // =============================
+    // CHECK / INSTALL PEER DEPS (React >=18, Tailwind >=4)
+    // =============================
+    await ensureReact(cwd);
+    await ensureTailwind(cwd);
+
+    log.space();
+
+    // =============================
     // FIND CSS
     // =============================
     const cssSpinner = ora("Locating CSS file...").start();
@@ -65,7 +74,7 @@ export const init = async () => {
     // =============================
     const updateSpinner = ora("Configuring CSS...").start();
 
-    const { updated } = await updateCssFile(cssFile);
+    const { updated } = await updateCssFile(cssFile, cwd);
     const relativePath = path.relative(cwd, cssFile);
 
     if (updated) {
@@ -82,7 +91,7 @@ export const init = async () => {
     const themeSpinner = ora("Setting up theme system...").start();
 
     const srcPath = await findSrcPath(cwd);
-    const themeContext = await generateThemeContextFile(srcPath);
+    const themeContext = await generateThemeContextFile(srcPath, cwd);
 
     if (themeContext.created) {
       const relativePath = path.relative(cwd, themeContext.path);

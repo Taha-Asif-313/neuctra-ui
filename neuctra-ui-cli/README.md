@@ -57,7 +57,7 @@ This automatically:
    - CSS custom properties (--primary, --background, etc.)
    - Light and dark theme support
    - Tailwind v4 @theme integration
-3. **Creates ThemeContext** at `src/contexts/ThemeContext.jsx`
+3. **Creates ThemeContext** at `src/contexts/ThemeContext.jsx` (or `.tsx` for TypeScript projects)
 4. **Wraps entry point** with `<ThemeProvider>`
 5. **Enables dark mode** with system preference detection
 

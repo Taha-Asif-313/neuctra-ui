@@ -164,7 +164,7 @@ component's markup resolves to whichever value is currently active.
   --popover: #ffffff;          --popover-foreground: #09090b;
   --success: #16a34a;          --success-foreground: #fafafa;
   --warning: #d97706;          --warning-foreground: #fafafa;
-  --info: #2563eb;             --info-foreground: #eff6ff;
+  --info: #2563eb;             --info-foreground: #fafafa;
 }
 
 .dark {

@@ -1,14 +1,26 @@
 import fs from "fs-extra";
+import path from "path";
 
 const THEME_MARKER_START = "/* NEUCTRA_THEME_START */";
 const THEME_MARKER_END = "/* NEUCTRA_THEME_END */";
 
-const cssFileTemplate = `
+// Resolves the correct relative @source path from the CSS file's own
+// location to node_modules/@neuctra/ui — "../node_modules/..." only
+// happens to be right for one-level-deep files like app/globals.css;
+// a root-level index.css needs "./node_modules/...".
+const resolveNeuctraSourcePath = (cssFile, cwd) => {
+  const cssDir = path.dirname(cssFile);
+  const neuctraPkgPath = path.join(cwd, "node_modules", "@neuctra", "ui");
+  const relPath = path.relative(cssDir, neuctraPkgPath).split(path.sep).join("/");
+  return relPath.startsWith(".") ? relPath : `./${relPath}`;
+};
+
+const buildCssFileTemplate = (sourcePath) => `
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
 
-@source "../node_modules/@neuctra/ui";
+@source "${sourcePath}";
 
 /* Tailwind v4's default \`dark:\` variant keys off prefers-color-scheme, but the
    theme below swaps on a \`.dark\` class (what <ThemeToggleButton /> toggles).
@@ -179,11 +191,13 @@ ${THEME_MARKER_END}
 }
 `;
 
-export const updateCssFile = async (cssFile) => {
+export const updateCssFile = async (cssFile, cwd = process.cwd()) => {
   let updated = false;
 
+  const sourcePath = resolveNeuctraSourcePath(cssFile, cwd);
+
   // ALWAYS REBUILD FULL FILE (shadcn style)
-  await fs.writeFile(cssFile, cssFileTemplate.trim());
+  await fs.writeFile(cssFile, buildCssFileTemplate(sourcePath).trim());
 
   updated = true;
 
