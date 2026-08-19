@@ -268,6 +268,34 @@ function BasicExample() {
                       Custom inline styles for the status dot
                     </td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">imageClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Styles the rendered avatar image element.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">fallbackClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Styles the fallback wrapper shown when there is no image.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Styles the default user icon shown when there is no
+                      image or initials.
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>

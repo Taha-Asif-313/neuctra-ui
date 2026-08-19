@@ -59,6 +59,11 @@ const PaginationDocs = () => (
       { prop: "siblingCount", type: "number", default: "1", description: "Pages shown on each side of the current page" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Button size scale" },
       { prop: "disabled", type: "boolean", default: "false", description: "Disable all controls" },
+      { prop: "prevButtonClassName", type: "string", default: "—", description: "Styles the previous-page button." },
+      { prop: "nextButtonClassName", type: "string", default: "—", description: "Styles the next-page button." },
+      { prop: "pageButtonClassName", type: "string", default: "—", description: "Styles every numbered page button, in addition to the active/inactive styling." },
+      { prop: "activePageButtonClassName", type: "string", default: "—", description: "Styles the currently active page button." },
+      { prop: "ellipsisClassName", type: "string", default: "—", description: "Styles the ellipsis (…) indicator." },
     ]}
     a11y={[
       'Wrapped in <nav aria-label="Pagination">; every button has an aria-label.',

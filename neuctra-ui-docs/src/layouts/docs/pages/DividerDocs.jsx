@@ -59,6 +59,8 @@ const DividerDocs = () => (
       { prop: "label", type: "ReactNode", default: "—", description: "Centered label (horizontal only)" },
       { prop: "dashed", type: "boolean", default: "false", description: "Dashed line style" },
       { prop: "spacing", type: '"none" | "sm" | "md" | "lg"', default: '"md"', description: "Outer margin along the axis" },
+      { prop: "lineClassName", type: "string", default: "—", description: "Styles the hairline segments (labeled horizontal variant only)." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the centered label (labeled horizontal variant only)." },
     ]}
     a11y={[
       'Renders role="separator" with the correct aria-orientation.',

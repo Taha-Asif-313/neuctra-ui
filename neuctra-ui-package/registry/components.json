@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.0",
-  "generatedAt": "2026-08-19T17:15:12.897Z",
-  "componentCount": 76,
+  "version": "1.0.1",
+  "generatedAt": "2026-08-19T18:15:49.677Z",
+  "componentCount": 77,
   "components": [
     {
       "name": "Accordion",
@@ -767,7 +767,7 @@
       "extends": [
         "React.ButtonHTMLAttributes<HTMLButtonElement>"
       ],
-      "example": "import { Button } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Button onClick={() => console.log('Button clicked')}>\n      Click Me\n    </Button>\n  );\n}"
+      "example": "<Button>Click Me</Button>"
     },
     {
       "name": "Calendar",
@@ -6880,7 +6880,7 @@
       "description": "A modern, animated dark mode toggle built for SaaS applications. It supports Sun/Moon icon transitions, smooth thumb animation, and works with a context-driven theme system.",
       "props": [],
       "extends": [],
-      "example": ""
+      "example": "<ThemeToggleButton\n  context={theme}\n  className=\"h-10 w-10\"\n  sunClassName=\"text-amber-400\"\n  moonClassName=\"text-indigo-400\"\n/>"
     },
     {
       "name": "Timeline",
@@ -6960,12 +6960,23 @@
       "example": "<Timeline\n  items={[\n    { title: \"Order placed\", time: \"09:12\", status: \"done\" },\n    { title: \"Payment confirmed\", time: \"09:14\", status: \"done\" },\n    { title: \"Out for delivery\", time: \"12:40\", status: \"active\",\n      description: \"Your package is on its way.\" },\n    { title: \"Delivered\", status: \"pending\" },\n  ]}\n/>"
     },
     {
+      "name": "toast",
+      "importFrom": "@neuctra/ui",
+      "module": "Alert",
+      "category": "feedback",
+      "propsInterface": null,
+      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere — no hook required — to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
+      "props": [],
+      "extends": [],
+      "example": ""
+    },
+    {
       "name": "ToastProvider",
       "importFrom": "@neuctra/ui",
       "module": "Alert",
       "category": "feedback",
       "propsInterface": "ToastProviderProps",
-      "description": "The Toast component is a lightweight notification system for delivering real-time feedback to users. It supports multiple alert types like success, error, warning, and info, each with distinct styling and icons for clear visual communication.",
+      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere — no hook required — to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
       "props": [
         {
           "name": "children",
@@ -6987,6 +6998,13 @@
           "required": false,
           "default": null,
           "description": "Customize the fixed toast viewport that hosts all toasts."
+        },
+        {
+          "name": "position",
+          "type": "ToastPosition",
+          "required": false,
+          "default": "\"bottom-right\"",
+          "description": "Corner (or edge-center) the toast stack anchors to."
         }
       ],
       "extends": [],
@@ -7227,7 +7245,7 @@
       "module": "Alert",
       "category": "feedback",
       "propsInterface": null,
-      "description": "The Toast component is a lightweight notification system for delivering real-time feedback to users. It supports multiple alert types like success, error, warning, and info, each with distinct styling and icons for clear visual communication.",
+      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere — no hook required — to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
       "props": [],
       "extends": [],
       "example": ""

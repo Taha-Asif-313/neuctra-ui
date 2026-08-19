@@ -67,6 +67,10 @@ const EmptyStateDocs = () => (
       { prop: "icon", type: "ReactNode", default: "Inbox icon", description: "Icon shown in the muted circle" },
       { prop: "action", type: "ReactNode", default: "—", description: "Call-to-action slot (usually a Button)" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Scales padding, icon and text together" },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles the icon wrapper circle." },
+      { prop: "titleClassName", type: "string", default: "—", description: "Styles the title heading." },
+      { prop: "descriptionClassName", type: "string", default: "—", description: "Styles the description text." },
+      { prop: "actionClassName", type: "string", default: "—", description: "Styles the wrapper around the action slot." },
     ]}
     a11y={[
       "The title renders as a semantic <h3>; the icon is decorative (aria-hidden).",

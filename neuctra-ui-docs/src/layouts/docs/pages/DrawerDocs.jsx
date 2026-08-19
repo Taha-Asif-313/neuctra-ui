@@ -417,6 +417,13 @@ const [open, setOpen] = useState(false);
                     <td className="p-3">—</td>
                     <td className="p-3">Inline overlay styles</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">panelClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the sliding panel that hosts the drawer content</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -568,6 +575,27 @@ const [open, setOpen] = useState(false);
                     <td className="p-3">() =&gt; void</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Shows close button if provided</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">titleWrapperClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the wrapper around the icon and title</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">titleClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the title heading</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">closeButtonClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the close button</td>
                   </tr>
                 </tbody>
               </table>

@@ -48,11 +48,12 @@ export { Dropdown } from "./components/basic/Dropdown";
 export type { DropdownProps, DropdownItem } from "./components/basic/Dropdown";
 
 // Alerts & Notifications
-export { ToastProvider, useToast } from "./components/basic/Alert"; // ✅ Modern ShadCN-style toast
+export { ToastProvider, useToast, toast } from "./components/basic/Alert"; // ✅ react-hot-toast-style API
 export type {
   AlertType,
   Toast,
   ToastVariant,
+  ToastPosition,
   ToastFunction,
   ToastContextProps,
   ToastProviderProps,

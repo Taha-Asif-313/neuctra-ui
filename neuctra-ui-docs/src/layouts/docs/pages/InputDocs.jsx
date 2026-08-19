@@ -513,6 +513,13 @@ function BasicExample() {
                   </tr>
 
                   <tr>
+                    <td className="p-3">descriptionClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom classes for the description text next to the label.</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">wrapperStyle</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>

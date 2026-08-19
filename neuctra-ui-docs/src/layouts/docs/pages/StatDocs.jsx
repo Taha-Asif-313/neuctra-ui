@@ -67,6 +67,14 @@ const StatDocs = () => (
       { prop: "trendValue", type: "ReactNode", default: "—", description: "Change amount, e.g. \"+12.5%\"" },
       { prop: "description", type: "ReactNode", default: "—", description: "Muted helper text next to the trend" },
       { prop: "bordered", type: "boolean", default: "true", description: "Wrap the stat in a card surface" },
+      { prop: "headerClassName", type: "string", default: "—", description: "Styles the header row wrapping the label and icon." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the label text." },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles the tinted icon wrapper." },
+      { prop: "valueClassName", type: "string", default: "—", description: "Styles the metric value text." },
+      { prop: "footerClassName", type: "string", default: "—", description: "Styles the footer row wrapping trend and description." },
+      { prop: "trendClassName", type: "string", default: "—", description: "Styles the trend badge." },
+      { prop: "trendIconClassName", type: "string", default: "—", description: "Styles the trend arrow icon." },
+      { prop: "descriptionClassName", type: "string", default: "—", description: "Styles the description text." },
     ]}
     a11y={[
       "Values use tabular numerals so columns of stats align.",

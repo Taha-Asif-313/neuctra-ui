@@ -86,6 +86,10 @@ const CardDocs = () => (
       { prop: "CardHeader.description", type: "ReactNode", default: "—", description: "Muted line under the title" },
       { prop: "CardHeader.icon", type: "ReactNode", default: "—", description: "Leading icon slot" },
       { prop: "CardHeader.action", type: "ReactNode", default: "—", description: "Right-aligned action slot (menu, button…)" },
+      { prop: "CardHeader.iconClassName", type: "string", default: "—", description: "Styles the leading icon wrapper." },
+      { prop: "CardHeader.titleClassName", type: "string", default: "—", description: "Styles the title heading." },
+      { prop: "CardHeader.descriptionClassName", type: "string", default: "—", description: "Styles the description text." },
+      { prop: "CardHeader.actionClassName", type: "string", default: "—", description: "Styles the right-aligned action wrapper." },
       { prop: "className / style", type: "string / CSSProperties", default: "—", description: "Available on Card and every section; native div props are forwarded" },
     ]}
     a11y={[

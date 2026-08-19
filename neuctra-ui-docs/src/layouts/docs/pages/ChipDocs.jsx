@@ -91,6 +91,10 @@ const ChipDocs = () => (
       { prop: "icon", type: "ReactNode", default: "—", description: "Leading icon, auto-sized to the chip size" },
       { prop: "onRemove", type: "() => void", default: "—", description: "Renders a remove button and fires on click" },
       { prop: "disabled", type: "boolean", default: "false", description: "Dims the chip and disables the remove button" },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles the leading icon wrapper." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the label text." },
+      { prop: "removeButtonClassName", type: "string", default: "—", description: "Styles the remove/dismiss button." },
+      { prop: "removeIconClassName", type: "string", default: "—", description: "Styles the icon inside the remove button." },
     ]}
     a11y={[
       'The remove button gets an explicit aria-label ("Remove {label}") and a visible focus ring.',

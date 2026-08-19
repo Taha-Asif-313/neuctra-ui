@@ -250,6 +250,9 @@ const styleRows = [
   ["trailingClassName", "trailingStyle", "Trailing item content."],
   ["subListClassName", "subListStyle", "Nested ul element."],
   ["separatorClassName", "separatorStyle", "Separator row."],
+  ["chevronClassName", "—", "Expand/collapse chevron icon."],
+  ["externalIconClassName", "—", "External-link icon on href items."],
+  ["emptyStateClassName", "—", "Empty state message container."],
 ];
 
 const PropTable = ({

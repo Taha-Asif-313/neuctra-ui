@@ -335,6 +335,22 @@ function BasicExample() {
                     <td className="p-3 text-gray-400">—</td>
                     <td className="p-3">Inline styles for the icon wrapper</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">textClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">
+                      Additional classes for the text label
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-medium">textStyle</td>
+                    <td className="p-3">CSSProperties</td>
+                    <td className="p-3 text-gray-400">—</td>
+                    <td className="p-3">Inline styles for the text label</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

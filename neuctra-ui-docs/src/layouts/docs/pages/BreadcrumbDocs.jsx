@@ -93,6 +93,14 @@ const BreadcrumbDocs = () => (
       { prop: "separator", type: "ReactNode", default: "chevron", description: "Custom separator between crumbs" },
       { prop: "maxItems", type: "number", default: "—", description: "Collapse the middle into an ellipsis beyond this count" },
       { prop: "size", type: '"sm" | "md"', default: '"md"', description: "Text and icon scale" },
+      { prop: "listClassName", type: "string", default: "—", description: "Styles the ordered list (<ol>) wrapping all crumbs." },
+      { prop: "itemClassName", type: "string", default: "—", description: "Styles each crumb's list item (<li>)." },
+      { prop: "activeItemClassName", type: "string", default: "—", description: "Styles the current-page crumb (last item)." },
+      { prop: "triggerClassName", type: "string", default: "—", description: "Styles each clickable crumb's link/button." },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles a crumb's leading icon wrapper." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles a crumb's label text." },
+      { prop: "separatorClassName", type: "string", default: "—", description: "Styles the separator between crumbs." },
+      { prop: "ellipsisClassName", type: "string", default: "—", description: "Styles the collapsed-middle ellipsis item." },
     ]}
     a11y={[
       'Wrapped in <nav aria-label="Breadcrumb"> with an ordered list.',

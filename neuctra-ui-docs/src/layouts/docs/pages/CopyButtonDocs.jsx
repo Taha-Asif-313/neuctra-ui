@@ -41,6 +41,8 @@ const CopyButtonDocs = () => (
       { prop: "feedbackDuration", type: "number", default: "1500", description: "How long the check state shows (ms)" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Button scale" },
       { prop: "onCopied", type: "(value: string) => void", default: "—", description: "Fired after a successful copy" },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles the copy/check icon." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the visible label text." },
     ]}
     a11y={[
       "aria-label switches between “Copy to clipboard” and “Copied”, with aria-live so the change is announced.",

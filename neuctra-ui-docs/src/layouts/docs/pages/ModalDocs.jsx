@@ -283,6 +283,12 @@ function BasicExample() {
                     <td className="p-3">—</td>
                     <td className="p-3">Overlay inline styles</td>
                   </tr>
+                  <tr>
+                    <td className="p-3 font-mono">dialogClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the role="dialog" wrapper around children</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -474,6 +480,34 @@ function BasicExample() {
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Header wrapper styles</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">titleWrapperClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the wrapper around icon + title</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the icon</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">titleClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the title heading</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">closeButtonClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the close button</td>
                   </tr>
                 </tbody>
               </table>

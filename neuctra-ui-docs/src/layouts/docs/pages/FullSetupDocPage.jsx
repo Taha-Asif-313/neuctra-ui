@@ -293,7 +293,7 @@ button {
   --warning: #d97706;
   --warning-foreground: #fafafa;
   --info: #2563eb;
-  --info-foreground: #eff6ff;
+  --info-foreground: #fafafa;
 }
 
 .dark {
@@ -313,7 +313,7 @@ button {
   --input: #18181b;
   --ring: #3f3f46;
 
-  --destructive: #d40000;
+  --destructive: #e7000b;
   --destructive-foreground: #fafafa;
 
   --card: #09090b;
@@ -379,70 +379,65 @@ button {
   description="Create a global theme context to manage light and dark mode across your entire application."
 >
   <CodeBlock
-    language="jsx"
-    code={`"use client";
+    tabs={[
+      {
+        name: "JavaScript",
+        language: "jsx",
+        code: `"use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext();
+const ThemeContext = createContext(undefined);
+
+const getInitialTheme = () => {
+  if (typeof window === "undefined") return false;
+
+  const saved = window.localStorage.getItem("theme");
+  const dark = saved
+    ? saved === "dark"
+    : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  document.documentElement.classList.toggle("dark", dark);
+  return dark;
+};
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(getInitialTheme);
 
   useEffect(() => {
-    const saved = localStorage.getItem("theme");
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
 
-    if (saved) {
-      const dark = saved === "dark";
-      setIsDark(dark);
-      applyTheme(dark);
-    } else {
-      const systemDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
+  // React to OS theme changes while the app is open, unless the user
+  // has already made an explicit choice.
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-      setIsDark(systemDark);
-      applyTheme(systemDark);
-    }
+    const handleChange = (event) => {
+      const saved = window.localStorage.getItem("theme");
+      if (saved) return;
+      setIsDark(event.matches);
+    };
+
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
   }, []);
 
-  const applyTheme = (dark) => {
-    if (dark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-
   const toggleTheme = () => {
-    const newDark = !isDark;
-
-    setIsDark(newDark);
-    applyTheme(newDark);
-
-    localStorage.setItem(
-      "theme",
-      newDark ? "dark" : "light"
-    );
+    setIsDark((prev) => {
+      const next = !prev;
+      window.localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
   };
 
   const setTheme = (theme) => {
-    const dark = theme === "dark";
-
-    setIsDark(dark);
-    applyTheme(dark);
-
-    localStorage.setItem("theme", theme);
+    window.localStorage.setItem("theme", theme);
+    setIsDark(theme === "dark");
   };
 
   return (
-    <ThemeContext.Provider
-      value={{
-        isDark,
-        toggleTheme,
-        setTheme,
-      }}
-    >
+    <ThemeContext.Provider value={{ isDark, toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -450,22 +445,110 @@ export const ThemeProvider = ({ children }) => {
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-
   if (!context) {
-    throw new Error(
-      "useTheme must be used within ThemeProvider"
-    );
+    throw new Error("useTheme must be used within ThemeProvider");
   }
-
   return context;
-};`}
+};`,
+      },
+      {
+        name: "TypeScript",
+        language: "tsx",
+        code: `"use client";
+
+import React, { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+
+type Theme = "light" | "dark";
+
+type ThemeContextValue = {
+  isDark: boolean;
+  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
+};
+
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+const getInitialTheme = (): boolean => {
+  if (typeof window === "undefined") return false;
+
+  const saved = window.localStorage.getItem("theme");
+  const dark = saved
+    ? saved === "dark"
+    : window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  document.documentElement.classList.toggle("dark", dark);
+  return dark;
+};
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [isDark, setIsDark] = useState<boolean>(getInitialTheme);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
+
+  // React to OS theme changes while the app is open, unless the user
+  // has already made an explicit choice.
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = (event: MediaQueryListEvent) => {
+      const saved = window.localStorage.getItem("theme");
+      if (saved) return;
+      setIsDark(event.matches);
+    };
+
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, []);
+
+  const toggleTheme = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      window.localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  };
+
+  const setTheme = (theme: Theme) => {
+    window.localStorage.setItem("theme", theme);
+    setIsDark(theme === "dark");
+  };
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = (): ThemeContextValue => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within ThemeProvider");
+  }
+  return context;
+};`,
+      },
+    ]}
   />
 
   <p className="text-zinc-200 text-sm">
-    Create a <code>ThemeContext.jsx</code> file and add this code. It
-    automatically detects system preferences, saves theme selection in
-    localStorage, and applies the <code>dark</code> class to your HTML
-    element.
+    Create <code>src/contexts/ThemeContext.jsx</code> (or{" "}
+    <code>.tsx</code> for TypeScript projects) and add this code. It reads
+    the saved preference (or system preference) and applies the{" "}
+    <code>dark</code> class <em>before paint</em> — via the lazy{" "}
+    <code>useState</code> initializer, not a post-mount effect — so there's
+    no flash of the wrong theme on load, and it stays in sync with OS theme
+    changes via a <code>matchMedia</code> listener as long as you haven't
+    made an explicit choice.
+  </p>
+
+  <p className="text-zinc-200 text-sm">
+    Running <code>npx @neuctra/ui-cli@latest init</code> generates this
+    exact file for you automatically — <code>.tsx</code> if it detects a{" "}
+    <code>tsconfig.json</code> or a TypeScript entry file, <code>.jsx</code>{" "}
+    otherwise.
   </p>
 </Step>
 
@@ -475,6 +558,12 @@ export const useTheme = () => {
   title="Step 6 — Wrap Your Application"
   description="Wrap your application with ThemeProvider so theme state can be accessed anywhere."
 >
+  <p className="text-zinc-200 text-sm">
+    The snippets below use plain JSX with no type annotations, so they work
+    identically whether your entry file is <code>.jsx</code> or{" "}
+    <code>.tsx</code>.
+  </p>
+
   <FrameworkTitle>Vite</FrameworkTitle>
   <CodeBlock
     language="jsx"
@@ -482,7 +571,7 @@ export const useTheme = () => {
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 ReactDOM.createRoot(
   document.getElementById("root")
@@ -506,7 +595,7 @@ ReactDOM.createRoot(
     language="jsx"
     code={`"use client";
 
-import { ThemeProvider } from "../context/ThemeContext";
+import { ThemeProvider } from "../contexts/ThemeContext";
 
 export function Providers({ children }) {
   return (
@@ -551,7 +640,7 @@ export default function RootLayout({ children }) {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import { ThemeProvider } from "./context/ThemeContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export default function App() {
   return (
@@ -587,7 +676,7 @@ export default function App() {
   <CodeBlock
     language="jsx"
     code={`import { ThemeToggleButton } from "@neuctra/ui";
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "./contexts/ThemeContext";
 
 export default function App() {
   const theme = useTheme();
@@ -617,7 +706,7 @@ export default function App() {
     language="jsx"
     code={`import { Button, Input } from "@neuctra/ui";
 import { ThemeToggleButton } from "@neuctra/ui";
-import { useTheme } from "./context/ThemeContext";
+import { useTheme } from "./contexts/ThemeContext";
 
 export default function App() {
   const theme = useTheme();

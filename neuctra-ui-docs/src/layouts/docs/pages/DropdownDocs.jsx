@@ -456,6 +456,41 @@ function BasicExample() {
                   </tr>
 
                   <tr>
+                    <td className="p-3">triggerClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the wrapper around the trigger node.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">menuListClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the inner role="menu" list container.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">separatorClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles each separator row between items.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemIconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles an item's leading icon wrapper.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemLabelClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles an item's label text.</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">style</td>
                     <td className="p-3">CSSProperties</td>
                     <td className="p-3">—</td>

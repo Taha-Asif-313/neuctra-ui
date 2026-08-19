@@ -66,6 +66,11 @@ const NumberInputDocs = () => (
       { prop: "helperText", type: "string", default: "—", description: "Muted helper line" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Field height and button scale" },
       { prop: "disabled", type: "boolean", default: "false", description: "Disable the field and steppers" },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the label above the field." },
+      { prop: "inputWrapperClassName", type: "string", default: "—", description: "Styles the bordered control wrapping the decrement button, input, and increment button." },
+      { prop: "decrementButtonClassName", type: "string", default: "—", description: "Styles the decrement (minus) button." },
+      { prop: "incrementButtonClassName", type: "string", default: "—", description: "Styles the increment (plus) button." },
+      { prop: "helperTextClassName", type: "string", default: "—", description: "Styles the helper/error text below the field." },
     ]}
     a11y={[
       'The input exposes role="spinbutton" with aria-valuenow / min / max.',

@@ -379,6 +379,13 @@ const TextareaDocs = () => {
                   </tr>
 
                   <tr>
+                    <td className="p-3">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Custom styling for the label icon.</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">helperClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>

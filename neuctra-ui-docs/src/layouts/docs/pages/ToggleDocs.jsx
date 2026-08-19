@@ -93,6 +93,8 @@ const ToggleDocs = () => (
       { prop: "ToggleGroup.value / defaultValue", type: "string | string[]", default: "—", description: "Controlled / uncontrolled selection" },
       { prop: "ToggleGroup.onChange", type: "(value) => void", default: "—", description: "String (single) or string[] (multiple)" },
       { prop: "ToggleGroup.fullWidth", type: "boolean", default: "false", description: "Stretch options evenly" },
+      { prop: "ToggleGroup.itemClassName", type: "string", default: "—", description: "Styles each option button" },
+      { prop: "ToggleGroup.iconClassName", type: "string", default: "—", description: "Styles the icon wrapper inside each option" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Both components" },
     ]}
     a11y={[

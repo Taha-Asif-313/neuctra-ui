@@ -87,6 +87,13 @@ const StepperDocs = () => (
       { prop: "onStepClick", type: "(index: number) => void", default: "—", description: "Makes completed steps clickable" },
       { prop: "orientation", type: '"horizontal" | "vertical"', default: '"horizontal"', description: "Layout direction" },
       { prop: "size", type: '"sm" | "md"', default: '"md"', description: "Marker and text scale" },
+      { prop: "itemClassName", type: "string", default: "—", description: "Styles each individual step (indicator + content) wrapper." },
+      { prop: "dotClassName", type: "string", default: "—", description: "Styles the circular step indicator/dot." },
+      { prop: "dotButtonClassName", type: "string", default: "—", description: "Styles the button wrapping a clickable (completed) dot." },
+      { prop: "connectorClassName", type: "string", default: "—", description: "Styles the connector line between steps." },
+      { prop: "contentClassName", type: "string", default: "—", description: "Styles the wrapper around a step's label and description." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles a step's label text." },
+      { prop: "descriptionClassName", type: "string", default: "—", description: "Styles a step's description text." },
     ]}
     a11y={[
       'The active step label carries aria-current="step".',

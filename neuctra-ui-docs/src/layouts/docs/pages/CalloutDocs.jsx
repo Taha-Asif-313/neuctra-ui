@@ -51,6 +51,11 @@ const CalloutDocs = () => (
       { prop: "icon", type: "ReactNode | null", default: "type icon", description: "Custom icon; null hides it" },
       { prop: "dismissible", type: "boolean", default: "false", description: "Show a close button; self-removes on click" },
       { prop: "onDismiss", type: "() => void", default: "—", description: "Fired when dismissed" },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles the leading icon wrapper." },
+      { prop: "contentClassName", type: "string", default: "—", description: "Styles the wrapper around the title and body content." },
+      { prop: "titleClassName", type: "string", default: "—", description: "Styles the title text." },
+      { prop: "descriptionClassName", type: "string", default: "—", description: "Styles the body content wrapper." },
+      { prop: "closeButtonClassName", type: "string", default: "—", description: "Styles the dismiss/close button." },
     ]}
     a11y={[
       'Error callouts render role="alert" (interruptive); all others role="status".',

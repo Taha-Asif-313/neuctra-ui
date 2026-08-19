@@ -55,6 +55,8 @@ const AvatarGroupDocs = () => (
       { prop: "max", type: "number", default: "—", description: "Visible limit; the rest becomes “+N”" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Size of the overflow counter (match your avatars)" },
       { prop: "spacing", type: '"tight" | "normal"', default: '"normal"', description: "Overlap amount" },
+      { prop: "itemClassName", type: "string", default: "—", description: "Styles the wrapper span around each visible avatar item." },
+      { prop: "counterClassName", type: "string", default: "—", description: "Styles the \"+N\" overflow counter." },
     ]}
     a11y={[
       "Each avatar keeps its own alt text; the overflow counter is labelled “N more”.",

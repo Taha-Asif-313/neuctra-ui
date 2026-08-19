@@ -401,6 +401,24 @@ function BasicExample() {
                     <td className="p-3">—</td>
                     <td className="p-3">Inline styles for TabList</td>
                   </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">triggerClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Styles the drawer trigger button (mobileVariant="drawer" only)
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">menuClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Styles the dropdown menu panel (mobileVariant="drawer" only)
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -468,6 +486,13 @@ function BasicExample() {
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Tab button styling</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3 font-mono">iconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the wrapper around the icon node</td>
                   </tr>
                 </tbody>
               </table>

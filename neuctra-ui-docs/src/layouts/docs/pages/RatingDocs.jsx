@@ -66,6 +66,10 @@ const RatingDocs = () => (
       { prop: "disabled", type: "boolean", default: "false", description: "Dim and lock the control" },
       { prop: "label", type: "string", default: '"Rating"', description: "Accessible group label" },
       { prop: "showValue", type: "boolean", default: "false", description: "Numeric value next to the stars" },
+      { prop: "starClassName", type: "string", default: "—", description: "Styles every star icon, in addition to size/color/state classes." },
+      { prop: "emptyStarClassName", type: "string", default: "—", description: "Styles the unfilled star color/class." },
+      { prop: "starWrapperClassName", type: "string", default: "—", description: "Styles the clickable wrapper around each star in interactive mode." },
+      { prop: "valueClassName", type: "string", default: "—", description: "Styles the numeric value shown when showValue is set." },
     ]}
     a11y={[
       "Interactive stars are real radio inputs (sr-only) inside a radiogroup — keyboard and screen-reader selection work natively.",

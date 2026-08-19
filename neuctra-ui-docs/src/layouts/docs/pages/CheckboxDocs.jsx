@@ -483,6 +483,13 @@ function CheckboxGroupExample() {
                   </tr>
 
                   <tr>
+                    <td className="p-3">checkClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Styles the checkmark SVG inside the checkbox.</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">errorClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>

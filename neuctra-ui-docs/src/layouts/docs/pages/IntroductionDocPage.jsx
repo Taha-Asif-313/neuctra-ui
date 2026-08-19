@@ -48,8 +48,12 @@ const IntroductionDocPage = () => {
 
             <p className="text-zinc-200 text-sm">
               The fastest way to start is using the official CLI. It
-              automatically: installs packages, configures Tailwind, sets up
-              theme system, and wraps your app with providers.
+              automatically: installs <code>@neuctra/ui</code>, checks React
+              (upgrading to ≥18 if needed) and Tailwind CSS (upgrading to v4
+              if needed), configures your global CSS with theme tokens,
+              generates a theme context (as <code>.tsx</code> in TypeScript
+              projects, <code>.jsx</code> otherwise), and wraps your app with{" "}
+              <code>ThemeProvider</code>.
             </p>
 
             <CodeBlock
@@ -109,8 +113,11 @@ const IntroductionDocPage = () => {
             </h2>
 
             <CodeBlock
-              language="tsx"
-              code={`import { Button } from "@neuctra/ui";
+              tabs={[
+                {
+                  name: "JavaScript",
+                  language: "jsx",
+                  code: `import { Button } from "@neuctra/ui";
 
 export default function App() {
   return (
@@ -120,7 +127,24 @@ export default function App() {
       </Button>
     </div>
   );
-}`}
+}`,
+                },
+                {
+                  name: "TypeScript",
+                  language: "tsx",
+                  code: `import { Button } from "@neuctra/ui";
+
+export default function App(): JSX.Element {
+  return (
+    <div className="p-6">
+      <Button>
+        Hello Neuctra UI
+      </Button>
+    </div>
+  );
+}`,
+                },
+              ]}
             />
           </section>
 

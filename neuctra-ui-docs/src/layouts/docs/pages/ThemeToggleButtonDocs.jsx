@@ -73,9 +73,9 @@ const ThemeToggleDocsPage = () => {
           >
             <CodeBlock
               language="tsx"
-              code={`const theme = {
-  isDark: boolean,
-  toggleTheme: () => void
+              code={`type ThemeToggleContext = {
+  isDark: boolean;
+  toggleTheme: () => void;
 };`}
             />
 
@@ -88,23 +88,68 @@ const ThemeToggleDocsPage = () => {
           <Step
             icon={Code2}
             title="Basic Usage"
-            description="Use ThemeToggle inside your app with ThemeContext."
+            description="Use ThemeToggleButton inside your app with ThemeContext."
           >
             <CodeBlock
-              language="tsx"
-              code={`import { ThemeToggleButton } from "@neuctra/ui";
-import { useTheme } from "./ThemeContext";
+              tabs={[
+                {
+                  name: "JavaScript",
+                  language: "jsx",
+                  code: `import { ThemeToggleButton } from "@neuctra/ui";
+import { useTheme } from "./contexts/ThemeContext";
 
 export default function App() {
   const theme = useTheme();
 
   return (
     <div className="p-10">
-      <ThemeToggle context={theme} />
+      <ThemeToggleButton context={theme} />
     </div>
   );
-}`}
+}`,
+                },
+                {
+                  name: "TypeScript",
+                  language: "tsx",
+                  code: `import { ThemeToggleButton } from "@neuctra/ui";
+import { useTheme } from "./contexts/ThemeContext";
+
+export default function App(): JSX.Element {
+  const theme = useTheme();
+
+  return (
+    <div className="p-10">
+      <ThemeToggleButton context={theme} />
+    </div>
+  );
+}`,
+                },
+              ]}
             />
+          </Step>
+
+          {/* STEP 4.5 */}
+          <Step
+            icon={Palette}
+            title="Customization"
+            description="Every part of the toggle accepts its own className, on top of the root className."
+          >
+            <CodeBlock
+              language="tsx"
+              code={`<ThemeToggleButton
+  context={theme}
+  className="h-10 w-10"
+  sunClassName="text-amber-400"
+  moonClassName="text-indigo-400"
+/>`}
+            />
+
+            <p className="text-gray-200 text-sm">
+              <code>sunClassName</code> and <code>moonClassName</code> style
+              the Sun/Moon icons independently — useful for matching the
+              toggle's colors to your brand instead of the default{" "}
+              <code>text-warning</code> / <code>text-info</code> tokens.
+            </p>
           </Step>
 
           {/* STEP 5 */}

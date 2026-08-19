@@ -61,6 +61,7 @@ const TooltipDocs = () => (
       { prop: "delay", type: "number", default: "150", description: "Show delay in milliseconds" },
       { prop: "disabled", type: "boolean", default: "false", description: "Never show the tooltip" },
       { prop: "contentClassName", type: "string", default: "—", description: "Extra classes for the bubble" },
+      { prop: "arrowClassName", type: "string", default: "—", description: "Extra classes for the triangular pointer" },
     ]}
     a11y={[
       'Uses role="tooltip" linked to the trigger with aria-describedby while visible.',

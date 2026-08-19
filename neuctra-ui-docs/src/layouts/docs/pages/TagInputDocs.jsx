@@ -87,6 +87,12 @@ const TagInputDocs = () => (
       { prop: "error / helperText", type: "string", default: "—", description: "Feedback line under the field" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Field and chip scale" },
       { prop: "disabled", type: "boolean", default: "false", description: "Lock the field" },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the field label." },
+      { prop: "chipClassName", type: "string", default: "—", description: "Styles each tag chip wrapper." },
+      { prop: "chipRemoveClassName", type: "string", default: "—", description: "Styles the remove (\"x\") button inside a chip." },
+      { prop: "inputClassName", type: "string", default: "—", description: "Styles the inline text input." },
+      { prop: "helperClassName", type: "string", default: "—", description: "Styles the helper text / error message." },
+      { prop: "countClassName", type: "string", default: "—", description: "Styles the tag count indicator (e.g. \"2/5\")." },
     ]}
     a11y={[
       'Every chip\'s remove button has an explicit aria-label ("Remove {tag}").',

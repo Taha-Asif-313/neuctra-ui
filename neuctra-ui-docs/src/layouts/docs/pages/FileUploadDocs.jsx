@@ -71,6 +71,17 @@ const FileUploadDocs = () => (
       { prop: "description", type: "string", default: "auto", description: "Sub-line; defaults to a summary of the active limits" },
       { prop: "hideFileList", type: "boolean", default: "false", description: "Hide the built-in selected-files list" },
       { prop: "disabled", type: "boolean", default: "false", description: "Lock the drop zone" },
+      { prop: "dropzoneClassName", type: "string", default: "—", description: "Styles the drop zone label/container." },
+      { prop: "iconClassName", type: "string", default: "—", description: "Styles the upload icon wrapper." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the headline text inside the drop zone." },
+      { prop: "descriptionClassName", type: "string", default: "—", description: "Styles the sub-line description text." },
+      { prop: "errorClassName", type: "string", default: "—", description: "Styles the inline rejection message." },
+      { prop: "listClassName", type: "string", default: "—", description: "Styles the selected-files list container." },
+      { prop: "fileItemClassName", type: "string", default: "—", description: "Styles each file row in the list." },
+      { prop: "fileIconClassName", type: "string", default: "—", description: "Styles the file icon in each row." },
+      { prop: "fileNameClassName", type: "string", default: "—", description: "Styles the file name text." },
+      { prop: "fileSizeClassName", type: "string", default: "—", description: "Styles the file size text." },
+      { prop: "removeButtonClassName", type: "string", default: "—", description: "Styles the per-file remove button." },
     ]}
     a11y={[
       "The drop zone is a real <label> wrapping a visually hidden file input — clicking and keyboard activation both open the browser dialog.",

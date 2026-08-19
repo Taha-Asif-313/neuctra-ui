@@ -76,6 +76,15 @@ const CarouselDocs = () => (
       { prop: "showArrows", type: "boolean", default: "true", description: "Prev/next buttons" },
       { prop: "showDots", type: "boolean", default: "true", description: "Dot indicators" },
       { prop: "label", type: "string", default: '"Carousel"', description: "Accessible region name" },
+      { prop: "trackClassName", type: "string", default: "—", description: "Styles the overflow-hidden track wrapper." },
+      { prop: "slidesClassName", type: "string", default: "—", description: "Styles the sliding flex container that holds all slides." },
+      { prop: "slideClassName", type: "string", default: "—", description: "Styles each individual slide wrapper." },
+      { prop: "arrowClassName", type: "string", default: "—", description: "Styles both the previous and next arrow buttons." },
+      { prop: "prevArrowClassName", type: "string", default: "—", description: "Styles the previous arrow button." },
+      { prop: "nextArrowClassName", type: "string", default: "—", description: "Styles the next arrow button." },
+      { prop: "arrowIconClassName", type: "string", default: "—", description: "Styles the chevron icons inside the arrow buttons." },
+      { prop: "dotsClassName", type: "string", default: "—", description: "Styles the dots container." },
+      { prop: "dotClassName", type: "string", default: "—", description: "Styles each individual dot button." },
     ]}
     a11y={[
       'Renders role="region" with aria-roledescription="carousel"; each slide is a labelled group ("Slide 2 of 5").',

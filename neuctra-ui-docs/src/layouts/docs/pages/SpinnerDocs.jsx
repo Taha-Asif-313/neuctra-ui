@@ -47,6 +47,7 @@ const SpinnerDocs = () => (
       { prop: "size", type: '"xs" | "sm" | "md" | "lg" | "xl"', default: '"md"', description: "Spinner diameter; stroke width scales with it" },
       { prop: "label", type: "string", default: '"Loading…"', description: "Screen-reader-only status text" },
       { prop: "colorClassName", type: "string", default: '"text-primary"', description: "Tailwind text color class for the stroke" },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the visually-hidden (sr-only) accessible label." },
     ]}
     a11y={[
       'Renders role="status" with a visually hidden label, so loading is announced.',

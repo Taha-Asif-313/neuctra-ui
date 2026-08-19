@@ -89,6 +89,7 @@ const PopoverDocs = () => (
       { prop: "closeOnClickOutside", type: "boolean", default: "true", description: "Dismiss when clicking outside" },
       { prop: "closeOnEscape", type: "boolean", default: "true", description: "Dismiss with the Escape key" },
       { prop: "disabled", type: "boolean", default: "false", description: "Disable the trigger" },
+      { prop: "triggerClassName", type: "string", default: "—", description: "Styles the wrapper around the trigger element." },
     ]}
     a11y={[
       'The trigger exposes aria-haspopup="dialog", aria-expanded and aria-controls.',

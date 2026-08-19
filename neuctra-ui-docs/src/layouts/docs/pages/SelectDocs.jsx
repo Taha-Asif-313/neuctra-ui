@@ -720,6 +720,16 @@ function SizeExample() {
                   </tr>
 
                   <tr>
+                    <td className="p-3">searchWrapperClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Classes for the wrapper around the search input, when
+                      searchable is set.
+                    </td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">searchStyle</td>
                     <td className="p-3">React.CSSProperties</td>
                     <td className="p-3">—</td>
@@ -769,6 +779,13 @@ function SizeExample() {
                   </tr>
 
                   <tr>
+                    <td className="p-3">labelIconClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for the label icon rendered before the label.</td>
+                  </tr>
+
+                  <tr>
                     <td className="p-3">triggerClassName</td>
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
@@ -787,6 +804,32 @@ function SizeExample() {
                     <td className="p-3">string</td>
                     <td className="p-3">—</td>
                     <td className="p-3">Option item classes.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemLabelClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">Classes for an option's label text.</td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">itemDescriptionClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Classes for an option's description text, when
+                      showDescription is set.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="p-3">emptyClassName</td>
+                    <td className="p-3">string</td>
+                    <td className="p-3">—</td>
+                    <td className="p-3">
+                      Classes for the "No options available" empty state.
+                    </td>
                   </tr>
 
                   <tr>

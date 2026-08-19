@@ -68,6 +68,13 @@ const TimelineDocs = () => (
       { prop: "items[].icon", type: "ReactNode", default: "check / dot", description: "Custom marker icon" },
       { prop: "items[].status", type: '"done" | "active" | "pending"', default: '"pending"', description: "Controls marker and text emphasis" },
       { prop: "size", type: '"sm" | "md"', default: '"md"', description: "Density of the list" },
+      { prop: "itemClassName", type: "string", default: "—", description: "Styles each entry's row" },
+      { prop: "connectorClassName", type: "string", default: "—", description: "Styles the vertical connector line" },
+      { prop: "dotClassName", type: "string", default: "—", description: "Styles the status marker/dot" },
+      { prop: "contentClassName", type: "string", default: "—", description: "Styles the title/time/description wrapper" },
+      { prop: "titleClassName", type: "string", default: "—", description: "Styles the entry title" },
+      { prop: "timeClassName", type: "string", default: "—", description: "Styles the timestamp text" },
+      { prop: "descriptionClassName", type: "string", default: "—", description: "Styles the entry description" },
     ]}
     a11y={[
       "Renders an ordered list (<ol>), so sequence is conveyed to screen readers.",

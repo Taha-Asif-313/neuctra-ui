@@ -67,6 +67,7 @@ const PinInputDocs = () => (
       { prop: "error", type: "boolean", default: "false", description: "Destructive border state" },
       { prop: "autoFocus", type: "boolean", default: "false", description: "Focus the first box on mount" },
       { prop: "disabled", type: "boolean", default: "false", description: "Lock all boxes" },
+      { prop: "boxClassName", type: "string", default: "—", description: "Styles each individual character box." },
     ]}
     a11y={[
       'Each box has an aria-label ("Character 2 of 6") inside a labelled group.',

@@ -63,8 +63,11 @@ const ButtonDocs = () => {
               variants, sizes, and states for different use cases.
             </p>
             <CodeBlock
-              language="jsx"
-              code={`import { Button } from '@neuctra/ui';
+              tabs={[
+                {
+                  name: "JavaScript",
+                  language: "jsx",
+                  code: `import { Button } from '@neuctra/ui';
 
 function BasicExample() {
   return (
@@ -72,7 +75,22 @@ function BasicExample() {
       Click Me
     </Button>
   );
-}`}
+}`,
+                },
+                {
+                  name: "TypeScript",
+                  language: "tsx",
+                  code: `import { Button } from '@neuctra/ui';
+
+function BasicExample(): JSX.Element {
+  return (
+    <Button onClick={() => console.log('Button clicked')}>
+      Click Me
+    </Button>
+  );
+}`,
+                },
+              ]}
             />
           </section>
 
@@ -88,6 +106,40 @@ function BasicExample() {
                 <Button onClick={() => alert("Hello Designer!")}>
                   Click Me
                 </Button>
+              }
+            />
+          </section>
+
+          {/* Variants */}
+          <section>
+            <h2 className="text-2xl font-semibold mb-4 text-white">
+              Variants
+            </h2>
+            <p className="text-gray-300 mb-4">
+              Eight variants cover brand, neutral, and semantic (status)
+              actions — pick the one that matches the action's intent.
+            </p>
+            <CodePreviewBlock
+              language="jsx"
+              code={`<Button variant="default">Default</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="success">Success</Button>
+<Button variant="warning">Warning</Button>
+<Button variant="info">Info</Button>`}
+              previewContent={
+                <>
+                  <Button variant="default">Default</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button variant="outline">Outline</Button>
+                  <Button variant="ghost">Ghost</Button>
+                  <Button variant="destructive">Destructive</Button>
+                  <Button variant="success">Success</Button>
+                  <Button variant="warning">Warning</Button>
+                  <Button variant="info">Info</Button>
+                </>
               }
             />
           </section>
@@ -162,10 +214,15 @@ function BasicExample() {
                   {/* Variants */}
                   <tr>
                     <td className="p-3">variant</td>
-                    <td className="p-3">"default" | "outline" | "ghost"</td>
+                    <td className="p-3 font-mono text-xs">
+                      "default" | "outline" | "ghost" | "secondary" |
+                      "destructive" | "success" | "warning" | "info"
+                    </td>
                     <td className="p-3">"default"</td>
                     <td className="p-3">
-                      Controls visual style of the button.
+                      Controls visual style of the button. The four status
+                      variants (destructive, success, warning, info) map to
+                      the same theme tokens used by Alert and Callout.
                     </td>
                   </tr>
 
@@ -290,7 +347,8 @@ function BasicExample() {
                 <div>
                   <code>{'<Button variant="rounded" />'}</code>
                   <p className="text-gray-400 text-xs mt-1">
-                    Variant must be: default, outline, or ghost
+                    Variant must be one of: default, outline, ghost,
+                    secondary, destructive, success, warning, info
                   </p>
                 </div>
               </div>

@@ -59,6 +59,9 @@ const ProgressDocs = () => (
       { prop: "showValue", type: "boolean", default: "false", description: "Show the percentage" },
       { prop: "label", type: "string", default: "—", description: "Accessible name for the progressbar" },
       { prop: "colorClassName", type: "string", default: "bg-primary / stroke-primary", description: "Fill color class" },
+      { prop: "trackClassName", type: "string", default: "—", description: "Styles the track behind the fill (the muted background)." },
+      { prop: "fillClassName", type: "string", default: "—", description: "Styles the filled portion — the linear bar or circular arc." },
+      { prop: "valueClassName", type: "string", default: "—", description: "Styles the percentage text shown when showValue is set." },
     ]}
     a11y={[
       'Renders role="progressbar" with aria-valuemin / aria-valuemax / aria-valuenow.',

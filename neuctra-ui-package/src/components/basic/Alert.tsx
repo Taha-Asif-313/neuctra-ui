@@ -1,20 +1,30 @@
 "use client";
 
 import React, {
-  createContext,
-  useContext,
-  useState,
   ReactNode,
-  useCallback,
   useEffect,
   useMemo,
-  useRef,
+  useState,
 } from "react";
-import { X, Info, CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
+import {
+  X,
+  Info,
+  CheckCircle,
+  AlertCircle,
+  AlertTriangle,
+  Loader2,
+} from "lucide-react";
 import { cn } from "../../lib/cn";
 
-export type AlertType = "success" | "error" | "warning" | "info";
+export type AlertType = "success" | "error" | "warning" | "info" | "loading";
 export type ToastVariant = "soft" | "light" | "dark";
+export type ToastPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
 
 export interface Toast {
   id: string;
@@ -23,6 +33,8 @@ export interface Toast {
   type?: AlertType;
   variant?: ToastVariant;
   duration?: number;
+  /** Overrides the default type icon (success/error/etc). Pass any node, or `null` to render no icon at all. */
+  icon?: ReactNode;
 
   className?: string;
   style?: React.CSSProperties;
@@ -40,20 +52,182 @@ export interface ToastContextProps {
 }
 
 export type ToastFunction = {
-  (options: Omit<Toast, "id"> | string): void;
-  success: (message: string, options?: Partial<Toast>) => void;
-  error: (message: string, options?: Partial<Toast>) => void;
-  warning: (message: string, options?: Partial<Toast>) => void;
-  info: (message: string, options?: Partial<Toast>) => void;
+  /** Returns the toast's id, so it can be updated (pass the same `id` back in) or dismissed later. */
+  (input: Omit<Toast, "id"> | string): string;
+  success: (message: string, options?: Partial<Toast>) => string;
+  error: (message: string, options?: Partial<Toast>) => string;
+  warning: (message: string, options?: Partial<Toast>) => string;
+  info: (message: string, options?: Partial<Toast>) => string;
+  /** Persists until dismissed or replaced — pair with `.promise()` or dismiss it manually once the async work finishes. */
+  loading: (message: string, options?: Partial<Toast>) => string;
+  /**
+   * Shows a loading toast, then morphs it in place into a success or error
+   * toast once `promise` settles — the react-hot-toast async pattern.
+   */
+  promise: <T>(
+    promise: Promise<T>,
+    messages: {
+      loading: string;
+      success: string | ((data: T) => string);
+      error: string | ((error: unknown) => string);
+    },
+    options?: Partial<Toast>,
+  ) => Promise<T>;
+  dismiss: (id?: string) => void;
 };
 
-const ToastContext = createContext<ToastContextProps | undefined>(undefined);
+/* -------------------------------------------------------------------------- */
+/* 🌍 Global toast store                                                     */
+/*                                                                            */
+/* Toasts are NOT React context state — they live in a module-level store,   */
+/* the same architecture react-hot-toast uses. That's what makes `toast()`   */
+/* callable from anywhere (event handlers, API clients, utils outside any    */
+/* component) instead of only from inside a component that called a hook.   */
+/* `<ToastProvider>` just subscribes to this store and renders what's in it. */
+/* -------------------------------------------------------------------------- */
 
-export const useToast = () => {
-  const context = useContext(ToastContext);
-  if (!context) throw new Error("useToast must be used within ToastProvider");
-  return context;
+type Listener = (toasts: Toast[]) => void;
+
+class ToastStore {
+  private toasts: Toast[] = [];
+  private listeners = new Set<Listener>();
+  private timers = new Map<string, ReturnType<typeof setTimeout>>();
+  private counter = 0;
+  private maxToasts = 5;
+
+  subscribe = (listener: Listener) => {
+    this.listeners.add(listener);
+    listener(this.toasts);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  };
+
+  setMaxToasts(max: number) {
+    this.maxToasts = max;
+  }
+
+  private emit() {
+    this.listeners.forEach((listener) => listener(this.toasts));
+  }
+
+  private clearTimer(id: string) {
+    const handle = this.timers.get(id);
+    if (handle) {
+      clearTimeout(handle);
+      this.timers.delete(id);
+    }
+  }
+
+  dismiss = (id?: string) => {
+    if (id) {
+      this.clearTimer(id);
+      this.toasts = this.toasts.filter((t) => t.id !== id);
+    } else {
+      this.timers.forEach((handle) => clearTimeout(handle));
+      this.timers.clear();
+      this.toasts = [];
+    }
+    this.emit();
+  };
+
+  create(options: Omit<Toast, "id"> & { id?: string }) {
+    // A supplied id lets a caller update a toast in place (e.g. loading -> success),
+    // matching the same toast's position in the stack instead of appending a new one.
+    const id = options.id ?? `toast-${++this.counter}`;
+    this.clearTimer(id);
+
+    const toastData: Toast = {
+      ...options,
+      id,
+      type: options.type ?? "info",
+      variant: options.variant ?? "light",
+      duration: options.duration ?? 4000,
+    };
+
+    const existingIndex = this.toasts.findIndex((t) => t.id === id);
+    if (existingIndex >= 0) {
+      const next = [...this.toasts];
+      next[existingIndex] = toastData;
+      this.toasts = next;
+    } else {
+      const next = [...this.toasts, toastData];
+      // Cap the stack so a loop or a repeated click can't push toasts off-screen indefinitely.
+      this.toasts =
+        next.length > this.maxToasts ? next.slice(next.length - this.maxToasts) : next;
+    }
+
+    if (toastData.duration && toastData.duration > 0) {
+      this.timers.set(id, setTimeout(() => this.dismiss(id), toastData.duration));
+    }
+
+    this.emit();
+    return id;
+  }
+}
+
+const store = new ToastStore();
+
+const base = ((input: Omit<Toast, "id"> | string) => {
+  if (typeof input === "string") {
+    return store.create({ description: input });
+  }
+  return store.create(input);
+}) as ToastFunction;
+
+base.success = (message, options) =>
+  store.create({ title: message, type: "success", ...options });
+
+base.error = (message, options) =>
+  store.create({ title: message, type: "error", ...options });
+
+base.warning = (message, options) =>
+  store.create({ title: message, type: "warning", ...options });
+
+base.info = (message, options) =>
+  store.create({ title: message, type: "info", ...options });
+
+base.loading = (message, options) =>
+  store.create({ title: message, type: "loading", duration: 0, ...options });
+
+base.dismiss = (id) => store.dismiss(id);
+
+base.promise = (promise, messages, options) => {
+  const id = store.create({
+    title: messages.loading,
+    type: "loading",
+    duration: 0,
+    ...options,
+  });
+
+  return promise.then(
+    (data) => {
+      const resolved =
+        typeof messages.success === "function" ? messages.success(data) : messages.success;
+      store.create({ id, title: resolved, type: "success", duration: 4000, ...options });
+      return data;
+    },
+    (error) => {
+      const resolved =
+        typeof messages.error === "function" ? messages.error(error) : messages.error;
+      store.create({ id, title: resolved, type: "error", duration: 4000, ...options });
+      throw error;
+    },
+  );
 };
+
+/** Standalone toast trigger — import and call from anywhere, no hook or provider lookup required. */
+export const toast: ToastFunction = base;
+
+/**
+ * Kept for consumers who prefer a hook — returns the exact same global
+ * `toast`/`dismiss`, so mixing `useToast()` and the standalone `toast` import
+ * in the same app is always in sync. No longer throws if called without a
+ * mounted `<ToastProvider>` (matches react-hot-toast: toasts just won't be
+ * visible until a provider is rendered somewhere in the tree).
+ */
+export const useToast = (): ToastContextProps =>
+  useMemo(() => ({ toast, dismiss: store.dismiss }), []);
 
 export interface ToastProviderProps {
   children: ReactNode;
@@ -61,113 +235,41 @@ export interface ToastProviderProps {
   maxToasts?: number;
   /** Customize the fixed toast viewport that hosts all toasts. */
   containerClassName?: string;
+  /** Corner (or edge-center) the toast stack anchors to. */
+  position?: ToastPosition;
 }
 
+const POSITION_CLASSES: Record<ToastPosition, string> = {
+  "top-left": "top-4 left-4 sm:top-6 sm:left-6 items-start",
+  "top-center": "top-4 left-1/2 -translate-x-1/2 sm:top-6 items-center",
+  "top-right": "top-4 right-4 sm:top-6 sm:right-6 items-end",
+  "bottom-left": "bottom-4 left-4 sm:bottom-6 sm:left-6 items-start",
+  "bottom-center": "bottom-4 left-1/2 -translate-x-1/2 sm:bottom-6 items-center",
+  "bottom-right": "bottom-4 right-4 sm:bottom-6 sm:right-6 items-end",
+};
+
+/**
+ * Renders the toast viewport for the whole app. Mount this ONCE near your
+ * root — every `toast()` call (standalone import or `useToast()`) renders
+ * into whichever `<ToastProvider>` is mounted, the same way there should
+ * only be one `<Toaster />` in a react-hot-toast app.
+ */
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
   maxToasts = 5,
   containerClassName,
+  position = "bottom-right",
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
-  // Timers were previously fired and forgotten, so they kept running after the
-  // provider unmounted (or after the toast was dismissed some other way).
-  const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>());
-  const counter = useRef(0);
-
-  const clearTimer = useCallback((id: string) => {
-    const handle = timers.current.get(id);
-    if (handle) {
-      clearTimeout(handle);
-      timers.current.delete(id);
-    }
-  }, []);
-
-  const dismiss = useCallback(
-    (id?: string) => {
-      if (id) {
-        clearTimer(id);
-        setToasts((prev) => prev.filter((t) => t.id !== id));
-      } else {
-        timers.current.forEach((handle) => clearTimeout(handle));
-        timers.current.clear();
-        setToasts([]);
-      }
-    },
-    [clearTimer],
-  );
 
   useEffect(() => {
-    const pending = timers.current;
-    return () => {
-      pending.forEach((handle) => clearTimeout(handle));
-      pending.clear();
-    };
-  }, []);
+    store.setMaxToasts(maxToasts);
+  }, [maxToasts]);
 
-  const createToast = useCallback(
-    (options: Omit<Toast, "id">) => {
-      // A 7-char random string has real collision odds, and a duplicate id
-      // means a duplicate React key and dismiss() removing both toasts.
-      counter.current += 1;
-      const id = `toast-${counter.current}`;
-
-      const toastData: Toast = {
-        ...options,
-        id,
-        // `??` rather than relying on spread order: an explicit
-        // `duration: undefined` (trivially produced by forwarding a partial
-        // options object) used to overwrite the default, and
-        // setTimeout(fn, undefined) fires immediately — the toast flashed and
-        // vanished. Same for type/variant, where undefined then crashed the
-        // variantStyles lookup.
-        type: options.type ?? "info",
-        variant: options.variant ?? "soft",
-        duration: options.duration ?? 4000,
-      };
-
-      setToasts((prev) => {
-        const next = [...prev, toastData];
-        // Cap the stack so a loop or a repeated click can't push toasts
-        // off-screen indefinitely.
-        return next.length > maxToasts ? next.slice(next.length - maxToasts) : next;
-      });
-
-      if (toastData.duration !== 0) {
-        timers.current.set(
-          id,
-          setTimeout(() => dismiss(id), toastData.duration),
-        );
-      }
-    },
-    [dismiss, maxToasts],
-  );
-
-  const toast = useMemo(() => {
-    const base = ((input: Omit<Toast, "id"> | string) => {
-      if (typeof input === "string") {
-        createToast({ description: input });
-      } else {
-        createToast(input);
-      }
-    }) as ToastFunction;
-
-    base.success = (message, options) =>
-      createToast({ title: message, type: "success", ...options });
-
-    base.error = (message, options) =>
-      createToast({ title: message, type: "error", ...options });
-
-    base.warning = (message, options) =>
-      createToast({ title: message, type: "warning", ...options });
-
-    base.info = (message, options) =>
-      createToast({ title: message, type: "info", ...options });
-
-    return base;
-  }, [createToast]);
+  useEffect(() => store.subscribe(setToasts), []);
 
   return (
-    <ToastContext.Provider value={{ toast, dismiss }}>
+    <>
       {children}
       <div
         // The container is the live region, established up-front — role="alert"
@@ -177,19 +279,16 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
         aria-label="Notifications"
         aria-live="polite"
         className={cn(
-          "fixed bottom-4 right-4 z-60 flex flex-col gap-2 sm:bottom-6 sm:right-6",
+          "fixed z-60 flex flex-col gap-2",
+          POSITION_CLASSES[position],
           containerClassName,
         )}
       >
-        {toasts.map((toast) => (
-          <ToastItem
-            key={toast.id}
-            toast={toast}
-            onClose={() => dismiss(toast.id)}
-          />
+        {toasts.map((t) => (
+          <ToastItem key={t.id} toast={t} onClose={() => store.dismiss(t.id)} />
         ))}
       </div>
-    </ToastContext.Provider>
+    </>
   );
 };
 
@@ -199,102 +298,56 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
  * the consumer defines — in BOTH modes, with no dark: overrides needed: the
  * token values themselves change when .dark is active.
  *
- *   soft  → tinted translucent surface
- *   light → card surface with a status border
- *   dark  → solid status surface (name kept for API compatibility)
+ *   light → the default: a clean neutral card (like react-hot-toast) — only
+ *           the icon carries the status color, title/description stay neutral
+ *   soft  → tinted translucent surface, for when the whole toast should read
+ *           as "this status" at a glance
+ *   dark  → solid status surface, for high-emphasis alerts
  */
 const variantStyles = {
-  soft: {
-    success: {
-      bg: "bg-success/10",
-      border: "border-success/30",
-      text: "text-success",
-      icon: "text-success",
-    },
-    error: {
-      bg: "bg-destructive/10",
-      border: "border-destructive/30",
-      text: "text-destructive",
-      icon: "text-destructive",
-    },
-    warning: {
-      bg: "bg-warning/10",
-      border: "border-warning/30",
-      text: "text-warning",
-      icon: "text-warning",
-    },
-    info: {
-      bg: "bg-info/10",
-      border: "border-info/30",
-      text: "text-info",
-      icon: "text-info",
-    },
+  light: {
+    success: { bg: "bg-popover", border: "border-border", text: "text-popover-foreground", icon: "text-success" },
+    error: { bg: "bg-popover", border: "border-border", text: "text-popover-foreground", icon: "text-destructive" },
+    warning: { bg: "bg-popover", border: "border-border", text: "text-popover-foreground", icon: "text-warning" },
+    info: { bg: "bg-popover", border: "border-border", text: "text-popover-foreground", icon: "text-info" },
+    loading: { bg: "bg-popover", border: "border-border", text: "text-popover-foreground", icon: "text-muted-foreground" },
   },
 
-  light: {
-    success: {
-      bg: "bg-card",
-      border: "border-success/40",
-      text: "text-success",
-      icon: "text-success",
-    },
-    error: {
-      bg: "bg-card",
-      border: "border-destructive/40",
-      text: "text-destructive",
-      icon: "text-destructive",
-    },
-    warning: {
-      bg: "bg-card",
-      border: "border-warning/40",
-      text: "text-warning",
-      icon: "text-warning",
-    },
-    info: {
-      bg: "bg-card",
-      border: "border-info/40",
-      text: "text-info",
-      icon: "text-info",
-    },
+  soft: {
+    success: { bg: "bg-success/10", border: "border-success/30", text: "text-success", icon: "text-success" },
+    error: { bg: "bg-destructive/10", border: "border-destructive/30", text: "text-destructive", icon: "text-destructive" },
+    warning: { bg: "bg-warning/10", border: "border-warning/30", text: "text-warning", icon: "text-warning" },
+    info: { bg: "bg-info/10", border: "border-info/30", text: "text-info", icon: "text-info" },
+    loading: { bg: "bg-muted", border: "border-border", text: "text-foreground", icon: "text-muted-foreground" },
   },
 
   dark: {
-    success: {
-      bg: "bg-success text-success-foreground",
-      border: "border-success",
-      text: "text-success-foreground",
-      icon: "text-success-foreground",
-    },
-    error: {
-      bg: "bg-destructive text-destructive-foreground",
-      border: "border-destructive",
-      text: "text-destructive-foreground",
-      icon: "text-destructive-foreground",
-    },
-    warning: {
-      bg: "bg-warning text-warning-foreground",
-      border: "border-warning",
-      text: "text-warning-foreground",
-      icon: "text-warning-foreground",
-    },
-    info: {
-      bg: "bg-info text-info-foreground",
-      border: "border-info",
-      text: "text-info-foreground",
-      icon: "text-info-foreground",
-    },
+    success: { bg: "bg-success text-success-foreground", border: "border-success", text: "text-success-foreground", icon: "text-success-foreground" },
+    error: { bg: "bg-destructive text-destructive-foreground", border: "border-destructive", text: "text-destructive-foreground", icon: "text-destructive-foreground" },
+    warning: { bg: "bg-warning text-warning-foreground", border: "border-warning", text: "text-warning-foreground", icon: "text-warning-foreground" },
+    info: { bg: "bg-info text-info-foreground", border: "border-info", text: "text-info-foreground", icon: "text-info-foreground" },
+    loading: { bg: "bg-muted text-foreground", border: "border-border", text: "text-foreground", icon: "text-muted-foreground" },
   },
 };
 
+const IconMap = {
+  success: CheckCircle,
+  error: AlertCircle,
+  warning: AlertTriangle,
+  info: Info,
+  loading: Loader2,
+};
+
 const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
-  toast,
+  toast: t,
   onClose,
 }) => {
   const {
     title,
     description,
     type = "info",
-    variant = "soft",
+    variant = "light",
+    icon,
     className,
     style,
     titleClassName,
@@ -302,21 +355,13 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
     iconClassName,
     contentClassName,
     closeButtonClassName,
-  } = toast;
+  } = t;
 
   // Guard the double lookup — an unexpected variant/type used to throw
   // "Cannot read properties of undefined" and take down the provider subtree.
-  const config =
-    variantStyles[variant]?.[type] ?? variantStyles.soft.info;
+  const config = variantStyles[variant]?.[type] ?? variantStyles.light.info;
 
-  const IconMap = {
-    success: CheckCircle,
-    error: AlertCircle,
-    warning: AlertTriangle,
-    info: Info,
-  };
-
-  const Icon = IconMap[type] ?? Info;
+  const DefaultIcon = IconMap[type] ?? Info;
 
   return (
     <div
@@ -340,16 +385,25 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
       // Errors interrupt; everything else waits for a pause.
       role={type === "error" ? "alert" : "status"}
     >
-      <Icon
-        aria-hidden="true"
-        className={cn("h-5 w-5 shrink-0", config.icon, iconClassName)}
-      />
+      {icon !== undefined ? (
+        icon !== null && (
+          <span
+            aria-hidden="true"
+            className={cn("inline-flex h-5 w-5 shrink-0 items-center justify-center", config.icon, iconClassName)}
+          >
+            {icon}
+          </span>
+        )
+      ) : (
+        <DefaultIcon
+          aria-hidden="true"
+          className={cn("h-5 w-5 shrink-0", config.icon, type === "loading" && "animate-spin", iconClassName)}
+        />
+      )}
 
       <div className={cn("flex-1", contentClassName)}>
         {title && (
-          <div
-            className={cn("text-sm font-medium", config.text, titleClassName)}
-          >
+          <div className={cn("text-sm font-medium", config.text, titleClassName)}>
             {title}
           </div>
         )}

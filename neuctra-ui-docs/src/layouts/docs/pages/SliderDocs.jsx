@@ -102,6 +102,11 @@ const SliderDocs = () => (
       { prop: "marks", type: "{ value, label? }[]", default: "—", description: "Tick labels under the track" },
       { prop: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Track and thumb scale" },
       { prop: "disabled", type: "boolean", default: "false", description: "Disable interaction" },
+      { prop: "labelRowClassName", type: "string", default: "—", description: "Styles the row wrapping the label and the current-value text." },
+      { prop: "labelClassName", type: "string", default: "—", description: "Styles the label text above the track." },
+      { prop: "valueClassName", type: "string", default: "—", description: "Styles the live value text shown when showValue is set." },
+      { prop: "marksClassName", type: "string", default: "—", description: "Styles the wrapper around the tick marks rendered under the track." },
+      { prop: "markClassName", type: "string", default: "—", description: "Styles each individual tick mark." },
     ]}
     a11y={[
       "Built on the native <input type=\"range\">, so arrow keys, Home/End and screen-reader value announcements work out of the box.",

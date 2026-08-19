@@ -58,6 +58,7 @@ const SkeletonDocs = () => (
       { prop: "height", type: "number | string", default: "—", description: "Explicit height" },
       { prop: "lines", type: "number", default: "1", description: "Stacked text lines (text variant)" },
       { prop: "animated", type: "boolean", default: "true", description: "Toggle the pulse animation" },
+      { prop: "lineClassName", type: "string", default: "—", description: "Styles each individual line when variant=\"text\" and lines > 1." },
     ]}
     a11y={[
       "Skeletons are aria-hidden — announce loading state separately (e.g. aria-busy on the container).",
