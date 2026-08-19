@@ -22,6 +22,15 @@ export interface CalendarProps
   /** 0 = Sunday, 1 = Monday. */
   weekStartsOn?: 0 | 1;
   locale?: string;
+
+  /** 🔥 Full Customization */
+  headerClassName?: string;
+  navButtonClassName?: string;
+  monthLabelClassName?: string;
+  weekdaysClassName?: string;
+  weekdayClassName?: string;
+  daysClassName?: string;
+  dayClassName?: string;
 }
 
 const isSameDay = (a: Date | null | undefined, b: Date | null | undefined) =>
@@ -47,6 +56,13 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       weekStartsOn = 1,
       locale,
       className,
+      headerClassName,
+      navButtonClassName,
+      monthLabelClassName,
+      weekdaysClassName,
+      weekdayClassName,
+      daysClassName,
+      dayClassName,
       ...rest
     },
     ref,
@@ -115,17 +131,23 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
         {...rest}
       >
         {/* Month header */}
-        <div className="mb-2 flex items-center justify-between">
+        <div className={cn("mb-2 flex items-center justify-between", headerClassName)}>
           <button
             type="button"
             aria-label="Previous month"
             onClick={() => shiftMonth(-1)}
-            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={cn(
+              "rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              navButtonClassName,
+            )}
           >
             <ChevronLeft aria-hidden="true" className="h-4 w-4" />
           </button>
 
-          <span aria-live="polite" className="text-sm font-semibold text-foreground">
+          <span
+            aria-live="polite"
+            className={cn("text-sm font-semibold text-foreground", monthLabelClassName)}
+          >
             {monthLabel}
           </span>
 
@@ -133,19 +155,25 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
             type="button"
             aria-label="Next month"
             onClick={() => shiftMonth(1)}
-            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={cn(
+              "rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              navButtonClassName,
+            )}
           >
             <ChevronRight aria-hidden="true" className="h-4 w-4" />
           </button>
         </div>
 
         {/* Weekday header */}
-        <div className="grid grid-cols-7 text-center">
+        <div className={cn("grid grid-cols-7 text-center", weekdaysClassName)}>
           {weekdays.map((day, i) => (
             <span
               key={i}
               aria-hidden="true"
-              className="py-1 text-[11px] font-medium text-muted-foreground"
+              className={cn(
+                "py-1 text-[11px] font-medium text-muted-foreground",
+                weekdayClassName,
+              )}
             >
               {day}
             </span>
@@ -153,7 +181,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
         </div>
 
         {/* Day grid */}
-        <div className="grid grid-cols-7">
+        <div className={cn("grid grid-cols-7", daysClassName)}>
           {cells.map((date) => {
             const outside = date.getMonth() !== viewMonth.getMonth();
             const disabled = isDisabled(date);
@@ -185,6 +213,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
                         outside ? "text-muted-foreground/50" : "text-foreground",
                         isToday && "border border-primary/50 font-semibold text-primary",
                       ),
+                  dayClassName,
                 )}
               >
                 {date.getDate()}

@@ -13,6 +13,8 @@ export interface TooltipProps {
   disabled?: boolean;
   className?: string;
   contentClassName?: string;
+  /** The small triangular pointer on the tooltip bubble. */
+  arrowClassName?: string;
 }
 
 const POSITIONS = {
@@ -37,6 +39,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   disabled = false,
   className,
   contentClassName,
+  arrowClassName,
 }) => {
   const tooltipId = useId();
   const [visible, setVisible] = useState(false);
@@ -98,7 +101,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
           {content}
           <span
             aria-hidden="true"
-            className={cn("absolute border-4", ARROWS[position] ?? ARROWS.top)}
+            className={cn(
+              "absolute border-4",
+              ARROWS[position] ?? ARROWS.top,
+              arrowClassName,
+            )}
           />
         </span>
       )}

@@ -32,6 +32,8 @@ export interface BadgeProps {
   countStyle?: CSSProperties;
   iconClassName?: string;
   iconStyle?: CSSProperties;
+  textClassName?: string;
+  textStyle?: CSSProperties;
 
   onClick?: () => void;
 }
@@ -61,6 +63,8 @@ export const Badge: React.FC<BadgeProps> = memo(
     countStyle,
     iconClassName,
     iconStyle,
+    textClassName,
+    textStyle,
 
     onClick,
   }) => {
@@ -176,7 +180,11 @@ export const Badge: React.FC<BadgeProps> = memo(
         )}
 
         {/* Text */}
-        {text && <span>{text}</span>}
+        {text && (
+          <span style={textStyle} className={cn(textClassName)}>
+            {text}
+          </span>
+        )}
 
         {/* Icon Right */}
         {icon && iconPosition === "right" && (

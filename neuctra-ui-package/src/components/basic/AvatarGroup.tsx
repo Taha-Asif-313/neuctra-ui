@@ -12,6 +12,10 @@ export interface AvatarGroupProps
   size?: "sm" | "md" | "lg";
   /** Overlap amount between items. */
   spacing?: "tight" | "normal";
+  /** Customize the wrapper span around each visible avatar item. */
+  itemClassName?: string;
+  /** Customize the "+N" overflow counter. */
+  counterClassName?: string;
 }
 
 const COUNTER_SIZES = {
@@ -22,7 +26,16 @@ const COUNTER_SIZES = {
 
 export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
   function AvatarGroup(
-    { children, max, size = "md", spacing = "normal", className, ...rest },
+    {
+      children,
+      max,
+      size = "md",
+      spacing = "normal",
+      className,
+      itemClassName,
+      counterClassName,
+      ...rest
+    },
     ref,
   ) {
     const items = React.Children.toArray(children);
@@ -43,7 +56,10 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
           <span
             key={i}
             // Ring separates overlapping avatars from each other.
-            className="relative inline-flex rounded-full ring-2 ring-background"
+            className={cn(
+              "relative inline-flex rounded-full ring-2 ring-background",
+              itemClassName,
+            )}
             style={{ zIndex: visible.length - i }}
           >
             {child}
@@ -57,6 +73,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
               "relative z-0 inline-flex items-center justify-center rounded-full",
               "bg-muted font-semibold text-muted-foreground ring-2 ring-background",
               COUNTER_SIZES[size] ?? COUNTER_SIZES.md,
+              counterClassName,
             )}
           >
             +{overflow}

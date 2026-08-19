@@ -17,6 +17,21 @@ export interface TimelineProps
   extends Omit<React.HTMLAttributes<HTMLOListElement>, "children"> {
   items: TimelineItem[];
   size?: "sm" | "md";
+
+  /** Each `<li>` row. */
+  itemClassName?: string;
+  /** The vertical connector line between dots. */
+  connectorClassName?: string;
+  /** The status dot/icon bubble. */
+  dotClassName?: string;
+  /** Wrapper around the title/time/description block. */
+  contentClassName?: string;
+  /** Item title. */
+  titleClassName?: string;
+  /** Timestamp/meta text next to the title. */
+  timeClassName?: string;
+  /** Item description. */
+  descriptionClassName?: string;
 }
 
 const DOT = {
@@ -26,7 +41,22 @@ const DOT = {
 } as const;
 
 export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(
-  function Timeline({ items, size = "md", className, ...rest }, ref) {
+  function Timeline(
+    {
+      items,
+      size = "md",
+      className,
+      itemClassName,
+      connectorClassName,
+      dotClassName,
+      contentClassName,
+      titleClassName,
+      timeClassName,
+      descriptionClassName,
+      ...rest
+    },
+    ref,
+  ) {
     const compact = size === "sm";
 
     return (
@@ -38,7 +68,11 @@ export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(
           return (
             <li
               key={i}
-              className={cn("relative flex gap-4", !isLast && (compact ? "pb-6" : "pb-8"))}
+              className={cn(
+                "relative flex gap-4",
+                !isLast && (compact ? "pb-6" : "pb-8"),
+                itemClassName,
+              )}
             >
               {/* Connector line */}
               {!isLast && (
@@ -49,6 +83,7 @@ export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(
                     // left = half the dot width, so the line runs through the
                     // dot's center at both sizes.
                     compact ? "left-3.5 top-7" : "left-4",
+                    connectorClassName,
                   )}
                 />
               )}
@@ -60,6 +95,7 @@ export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(
                   "relative z-10 flex shrink-0 items-center justify-center rounded-full border",
                   compact ? "h-7 w-7 [&_svg]:h-3 [&_svg]:w-3" : "h-8 w-8 [&_svg]:h-3.5 [&_svg]:w-3.5",
                   DOT[status],
+                  dotClassName,
                 )}
               >
                 {item.icon ?? (status === "done" ? <Check /> : (
@@ -74,7 +110,7 @@ export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(
               </span>
 
               {/* Content */}
-              <div className="min-w-0 flex-1 pt-1">
+              <div className={cn("min-w-0 flex-1 pt-1", contentClassName)}>
                 <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
                   <h4
                     className={cn(
@@ -83,18 +119,29 @@ export const Timeline = forwardRef<HTMLOListElement, TimelineProps>(
                       status === "pending"
                         ? "text-muted-foreground"
                         : "text-foreground",
+                      titleClassName,
                     )}
                   >
                     {item.title}
                   </h4>
                   {item.time && (
-                    <span className="text-xs text-muted-foreground">
+                    <span
+                      className={cn(
+                        "text-xs text-muted-foreground",
+                        timeClassName,
+                      )}
+                    >
                       {item.time}
                     </span>
                   )}
                 </div>
                 {item.description && (
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  <p
+                    className={cn(
+                      "mt-1 text-xs leading-relaxed text-muted-foreground",
+                      descriptionClassName,
+                    )}
+                  >
                     {item.description}
                   </p>
                 )}

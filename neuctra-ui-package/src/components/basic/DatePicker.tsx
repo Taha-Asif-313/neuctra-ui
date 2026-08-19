@@ -33,6 +33,15 @@ export interface DatePickerProps {
   id?: string;
   className?: string;
   wrapperClassName?: string;
+
+  /** 🔥 Full Customization */
+  labelClassName?: string;
+  iconClassName?: string;
+  textClassName?: string;
+  clearButtonClassName?: string;
+  clearIconClassName?: string;
+  panelClassName?: string;
+  helperClassName?: string;
 }
 
 const SIZES = {
@@ -59,6 +68,13 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
       id,
       className,
       wrapperClassName,
+      labelClassName,
+      iconClassName,
+      textClassName,
+      clearButtonClassName,
+      clearIconClassName,
+      panelClassName,
+      helperClassName,
     },
     ref,
   ) {
@@ -107,7 +123,10 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
         {label && (
           <label
             htmlFor={fieldId}
-            className="mb-1.5 block text-[13px] font-medium leading-none text-foreground"
+            className={cn(
+              "mb-1.5 block text-[13px] font-medium leading-none text-foreground",
+              labelClassName,
+            )}
           >
             {label}
           </label>
@@ -139,12 +158,13 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
           >
             <CalendarIcon
               aria-hidden="true"
-              className="shrink-0 text-muted-foreground"
+              className={cn("shrink-0 text-muted-foreground", iconClassName)}
             />
             <span
               className={cn(
                 "truncate",
                 display ? "text-foreground" : "text-muted-foreground",
+                textClassName,
               )}
             >
               {display ?? placeholder}
@@ -156,9 +176,12 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
               type="button"
               aria-label="Clear date"
               onClick={() => commit(null)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className={cn(
+                "absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                clearButtonClassName,
+              )}
             >
-              <X aria-hidden="true" className="h-3.5 w-3.5" />
+              <X aria-hidden="true" className={cn("h-3.5 w-3.5", clearIconClassName)} />
             </button>
           )}
         </div>
@@ -171,6 +194,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
             className={cn(
               "absolute left-0 z-50 mt-2 rounded-xl border border-border bg-popover p-3 shadow-xl",
               "animate-in fade-in",
+              panelClassName,
             )}
           >
             <Calendar
@@ -191,6 +215,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
             className={cn(
               "mt-1.5 text-xs font-medium",
               error ? "text-destructive" : "text-muted-foreground",
+              helperClassName,
             )}
           >
             {error || helperText}

@@ -11,6 +11,8 @@ export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   lines?: number;
   /** Disable the pulse animation. */
   animated?: boolean;
+  /** Applied to each individual line when variant="text" and lines > 1. */
+  lineClassName?: string;
 }
 
 export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
@@ -22,6 +24,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
       lines = 1,
       animated = true,
       className,
+      lineClassName,
       style,
       ...rest
     },
@@ -49,6 +52,7 @@ export const Skeleton = forwardRef<HTMLDivElement, SkeletonProps>(
                 "h-4 rounded",
                 // Shorter last line reads as a paragraph, not a block.
                 i === lines - 1 ? "w-3/5" : "w-full",
+                lineClassName,
               )}
             />
           ))}

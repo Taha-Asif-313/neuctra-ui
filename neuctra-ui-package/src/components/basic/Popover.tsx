@@ -22,6 +22,8 @@ export interface PopoverProps {
   closeOnEscape?: boolean;
   disabled?: boolean;
   className?: string;
+  /** The wrapper around `trigger` that handles open/close interactions. */
+  triggerClassName?: string;
   contentClassName?: string;
   contentStyle?: React.CSSProperties;
 }
@@ -47,6 +49,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
       closeOnEscape = true,
       disabled = false,
       className,
+      triggerClassName,
       contentClassName,
       contentStyle,
     },
@@ -116,6 +119,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
           className={cn(
             "inline-flex rounded-lg",
             disabled && "cursor-not-allowed opacity-50",
+            triggerClassName,
           )}
         >
           {trigger}

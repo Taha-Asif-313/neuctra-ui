@@ -14,6 +14,10 @@ export interface CopyButtonProps
   feedbackDuration?: number;
   size?: "sm" | "md" | "lg";
   onCopied?: (value: string) => void;
+
+  /** 🔥 Full Customization */
+  iconClassName?: string;
+  labelClassName?: string;
 }
 
 const SIZES = {
@@ -38,6 +42,8 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(
       size = "md",
       onCopied,
       className,
+      iconClassName,
+      labelClassName,
       onClick,
       ...rest
     },
@@ -97,11 +103,13 @@ export const CopyButton = forwardRef<HTMLButtonElement, CopyButtonProps>(
         {...rest}
       >
         {copied ? (
-          <Check aria-hidden="true" className="text-success" />
+          <Check aria-hidden="true" className={cn("text-success", iconClassName)} />
         ) : (
-          <Copy aria-hidden="true" />
+          <Copy aria-hidden="true" className={cn(iconClassName)} />
         )}
-        {label && <span>{copied ? "Copied" : label}</span>}
+        {label && (
+          <span className={cn(labelClassName)}>{copied ? "Copied" : label}</span>
+        )}
       </button>
     );
   },

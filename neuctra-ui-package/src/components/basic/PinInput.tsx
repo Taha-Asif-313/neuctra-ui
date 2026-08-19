@@ -22,6 +22,8 @@ export interface PinInputProps {
   label?: string;
   id?: string;
   className?: string;
+  /** Applied to each individual character box, in addition to the size/state styling. */
+  boxClassName?: string;
 }
 
 const SIZES = {
@@ -49,6 +51,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
       label = "PIN input",
       id,
       className,
+      boxClassName,
     },
     ref,
   ) {
@@ -159,6 +162,7 @@ export const PinInput = forwardRef<HTMLDivElement, PinInputProps>(
               error ? "border-destructive" : "border-input",
               "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:border-ring",
               disabled && "cursor-not-allowed opacity-50",
+              boxClassName,
             )}
           />
         ))}

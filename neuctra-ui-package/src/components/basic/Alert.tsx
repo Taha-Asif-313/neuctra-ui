@@ -30,6 +30,8 @@ export interface Toast {
   titleClassName?: string;
   descriptionClassName?: string;
   iconClassName?: string;
+  contentClassName?: string;
+  closeButtonClassName?: string;
 }
 
 export interface ToastContextProps {
@@ -57,11 +59,14 @@ export interface ToastProviderProps {
   children: ReactNode;
   /** Maximum toasts kept on screen at once. Oldest are dropped first. */
   maxToasts?: number;
+  /** Customize the fixed toast viewport that hosts all toasts. */
+  containerClassName?: string;
 }
 
 export const ToastProvider: React.FC<ToastProviderProps> = ({
   children,
   maxToasts = 5,
+  containerClassName,
 }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
   // Timers were previously fired and forgotten, so they kept running after the
@@ -171,7 +176,10 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
         role="region"
         aria-label="Notifications"
         aria-live="polite"
-        className="fixed bottom-4 right-4 z-60 flex flex-col gap-2 sm:bottom-6 sm:right-6"
+        className={cn(
+          "fixed bottom-4 right-4 z-60 flex flex-col gap-2 sm:bottom-6 sm:right-6",
+          containerClassName,
+        )}
       >
         {toasts.map((toast) => (
           <ToastItem
@@ -292,6 +300,8 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
     titleClassName,
     descriptionClassName,
     iconClassName,
+    contentClassName,
+    closeButtonClassName,
   } = toast;
 
   // Guard the double lookup — an unexpected variant/type used to throw
@@ -335,7 +345,7 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
         className={cn("h-5 w-5 shrink-0", config.icon, iconClassName)}
       />
 
-      <div className="flex-1">
+      <div className={cn("flex-1", contentClassName)}>
         {title && (
           <div
             className={cn("text-sm font-medium", config.text, titleClassName)}
@@ -369,6 +379,7 @@ const ToastItem: React.FC<{ toast: Toast; onClose: () => void }> = ({
           "absolute right-2 top-2 rounded-md p-1.5 transition-opacity",
           "text-current opacity-60 hover:opacity-100",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+          closeButtonClassName,
         )}
       >
         <X className="h-4 w-4" aria-hidden="true" />

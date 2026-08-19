@@ -25,6 +25,13 @@ export interface CalloutProps
   /** Renders a close button; the callout removes itself unless controlled. */
   dismissible?: boolean;
   onDismiss?: () => void;
+
+  /** 🔥 Full Customization */
+  iconClassName?: string;
+  contentClassName?: string;
+  titleClassName?: string;
+  descriptionClassName?: string;
+  closeButtonClassName?: string;
 }
 
 /* Every color is a theme status token, so callouts follow the user-defined
@@ -68,6 +75,11 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
       dismissible = false,
       onDismiss,
       className,
+      iconClassName,
+      contentClassName,
+      titleClassName,
+      descriptionClassName,
+      closeButtonClassName,
       ...rest
     },
     ref,
@@ -95,16 +107,29 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
             aria-hidden="true"
             // h-5 matches the title's text-sm line-height, so the icon centers
             // on the first line instead of hanging low from an mt nudge.
-            className="flex h-5 shrink-0 items-center [&_svg]:h-5 [&_svg]:w-5"
+            className={cn(
+              "flex h-5 shrink-0 items-center [&_svg]:h-5 [&_svg]:w-5",
+              iconClassName,
+            )}
           >
             {icon ?? <DefaultIcon />}
           </span>
         )}
 
-        <div className="min-w-0 flex-1">
-          {title && <p className="text-sm font-semibold">{title}</p>}
+        <div className={cn("min-w-0 flex-1", contentClassName)}>
+          {title && (
+            <p className={cn("text-sm font-semibold", titleClassName)}>
+              {title}
+            </p>
+          )}
           {children && (
-            <div className={cn("text-sm text-foreground/80", title && "mt-1")}>
+            <div
+              className={cn(
+                "text-sm text-foreground/80",
+                title && "mt-1",
+                descriptionClassName,
+              )}
+            >
               {children}
             </div>
           )}
@@ -118,7 +143,10 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
               onDismiss?.();
               setHidden(true);
             }}
-            className="shrink-0 rounded-md p-1 opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={cn(
+              "shrink-0 rounded-md p-1 opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              closeButtonClassName,
+            )}
           >
             <X aria-hidden="true" className="h-4 w-4" />
           </button>

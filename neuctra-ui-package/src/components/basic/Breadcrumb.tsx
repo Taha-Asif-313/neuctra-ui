@@ -19,6 +19,16 @@ export interface BreadcrumbProps
   /** Collapse the middle into an ellipsis when there are more items than this. */
   maxItems?: number;
   size?: "sm" | "md";
+
+  /** 🔥 Full Customization */
+  listClassName?: string;
+  itemClassName?: string;
+  activeItemClassName?: string;
+  triggerClassName?: string;
+  iconClassName?: string;
+  labelClassName?: string;
+  separatorClassName?: string;
+  ellipsisClassName?: string;
 }
 
 const SIZES = {
@@ -28,7 +38,22 @@ const SIZES = {
 
 export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
   function Breadcrumb(
-    { items, separator, maxItems, size = "md", className, ...rest },
+    {
+      items,
+      separator,
+      maxItems,
+      size = "md",
+      className,
+      listClassName,
+      itemClassName,
+      activeItemClassName,
+      triggerClassName,
+      iconClassName,
+      labelClassName,
+      separatorClassName,
+      ellipsisClassName,
+      ...rest
+    },
     ref,
   ) {
     const sizes = SIZES[size] ?? SIZES.md;
@@ -51,13 +76,22 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
         className={cn("min-w-0", className)}
         {...rest}
       >
-        <ol className={cn("flex flex-wrap items-center gap-1.5", sizes.text)}>
+        <ol
+          className={cn(
+            "flex flex-wrap items-center gap-1.5",
+            sizes.text,
+            listClassName,
+          )}
+        >
           {visible.map((item, i) => {
             if (item === "ellipsis") {
               return (
                 <li
                   key="ellipsis"
-                  className="flex items-center gap-1.5 text-muted-foreground"
+                  className={cn(
+                    "flex items-center gap-1.5 text-muted-foreground",
+                    ellipsisClassName,
+                  )}
                 >
                   <MoreHorizontal
                     aria-hidden="true"
@@ -72,23 +106,31 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
             const content = (
               <>
                 {item.icon && (
-                  <span aria-hidden="true" className={cn("shrink-0", sizes.icon)}>
+                  <span
+                    aria-hidden="true"
+                    className={cn("shrink-0", sizes.icon, iconClassName)}
+                  >
                     {item.icon}
                   </span>
                 )}
-                <span className="truncate">{item.label}</span>
+                <span className={cn("truncate", labelClassName)}>
+                  {item.label}
+                </span>
               </>
             );
 
             return (
               <li
                 key={`${i}-${typeof item.label === "string" ? item.label : "item"}`}
-                className="flex min-w-0 items-center gap-1.5"
+                className={cn("flex min-w-0 items-center gap-1.5", itemClassName)}
               >
                 {isLast ? (
                   <span
                     aria-current="page"
-                    className="flex min-w-0 items-center gap-1.5 font-medium text-foreground"
+                    className={cn(
+                      "flex min-w-0 items-center gap-1.5 font-medium text-foreground",
+                      activeItemClassName,
+                    )}
                   >
                     {content}
                   </span>
@@ -99,6 +141,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                     className={cn(
                       "flex min-w-0 items-center gap-1.5 rounded text-muted-foreground transition-colors",
                       "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      triggerClassName,
                     )}
                   >
                     {content}
@@ -110,6 +153,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                     className={cn(
                       "flex min-w-0 items-center gap-1.5 rounded text-muted-foreground transition-colors",
                       "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      triggerClassName,
                     )}
                   >
                     {content}
@@ -117,7 +161,13 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
                 )}
 
                 {!isLast && (
-                  <span aria-hidden="true" className="shrink-0 text-muted-foreground/60">
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "shrink-0 text-muted-foreground/60",
+                      separatorClassName,
+                    )}
+                  >
                     {separator ?? <ChevronRight className={sizes.sep} />}
                   </span>
                 )}

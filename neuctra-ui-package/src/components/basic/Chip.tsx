@@ -14,6 +14,12 @@ export interface ChipProps
   /** Renders a remove button and makes the chip dismissible. */
   onRemove?: () => void;
   disabled?: boolean;
+
+  /** 🔥 Full Customization */
+  iconClassName?: string;
+  labelClassName?: string;
+  removeButtonClassName?: string;
+  removeIconClassName?: string;
 }
 
 const SIZES = {
@@ -55,6 +61,10 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
     onRemove,
     disabled = false,
     className,
+    iconClassName,
+    labelClassName,
+    removeButtonClassName,
+    removeIconClassName,
     ...rest
   },
   ref,
@@ -78,12 +88,16 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
       {icon && (
         <span
           aria-hidden="true"
-          className={cn("shrink-0 [&_svg]:w-full [&_svg]:h-full", sizes.icon)}
+          className={cn(
+            "shrink-0 [&_svg]:w-full [&_svg]:h-full",
+            sizes.icon,
+            iconClassName,
+          )}
         >
           {icon}
         </span>
       )}
-      <span className="min-w-0 truncate">{label}</span>
+      <span className={cn("min-w-0 truncate", labelClassName)}>{label}</span>
       {onRemove && (
         <button
           type="button"
@@ -94,9 +108,10 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(function Chip(
             "shrink-0 -mr-0.5 rounded-full opacity-70 transition-opacity",
             "hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             disabled && "cursor-not-allowed",
+            removeButtonClassName,
           )}
         >
-          <X aria-hidden="true" className={sizes.remove} />
+          <X aria-hidden="true" className={cn(sizes.remove, removeIconClassName)} />
         </button>
       )}
     </span>

@@ -13,6 +13,11 @@ export interface EmptyStateProps
   /** Call-to-action slot (usually a <Button />). */
   action?: React.ReactNode;
   size?: "sm" | "md" | "lg";
+
+  iconClassName?: string;
+  titleClassName?: string;
+  descriptionClassName?: string;
+  actionClassName?: string;
 }
 
 const SIZES = {
@@ -23,7 +28,19 @@ const SIZES = {
 
 export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
   function EmptyState(
-    { icon, title, description, action, size = "md", className, ...rest },
+    {
+      icon,
+      title,
+      description,
+      action,
+      size = "md",
+      className,
+      iconClassName,
+      titleClassName,
+      descriptionClassName,
+      actionClassName,
+      ...rest
+    },
     ref,
   ) {
     const sizes = SIZES[size] ?? SIZES.md;
@@ -43,22 +60,23 @@ export const EmptyState = forwardRef<HTMLDivElement, EmptyStateProps>(
           className={cn(
             "mb-4 inline-flex items-center justify-center rounded-full bg-muted text-muted-foreground",
             sizes.icon,
+            iconClassName,
           )}
         >
           {icon ?? <Inbox />}
         </span>
 
-        <h3 className={cn("font-semibold text-foreground", sizes.title)}>
+        <h3 className={cn("font-semibold text-foreground", sizes.title, titleClassName)}>
           {title}
         </h3>
 
         {description && (
-          <p className={cn("mt-1 text-muted-foreground", sizes.desc)}>
+          <p className={cn("mt-1 text-muted-foreground", sizes.desc, descriptionClassName)}>
             {description}
           </p>
         )}
 
-        {action && <div className="mt-5">{action}</div>}
+        {action && <div className={cn("mt-5", actionClassName)}>{action}</div>}
       </div>
     );
   },

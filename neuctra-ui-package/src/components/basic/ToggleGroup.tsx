@@ -23,6 +23,10 @@ export interface ToggleGroupProps
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   disabled?: boolean;
+  /** Each option's `<button>`. */
+  itemClassName?: string;
+  /** Wrapper around an option's icon. */
+  iconClassName?: string;
 }
 
 const SIZES = {
@@ -43,6 +47,8 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
       fullWidth = false,
       disabled = false,
       className,
+      itemClassName,
+      iconClassName,
       ...rest
     },
     ref,
@@ -103,10 +109,14 @@ export const ToggleGroup = forwardRef<HTMLDivElement, ToggleGroupProps>(
                 selected
                   ? "bg-primary/10 text-primary"
                   : "bg-transparent text-muted-foreground hover:bg-accent/60 hover:text-foreground",
+                itemClassName,
               )}
             >
               {option.icon && (
-                <span aria-hidden="true" className="shrink-0">
+                <span
+                  aria-hidden="true"
+                  className={cn("shrink-0", iconClassName)}
+                >
                   {option.icon}
                 </span>
               )}

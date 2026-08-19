@@ -9,6 +9,8 @@ export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
   label?: string;
   /** Stroke color class; defaults to the current text color. */
   colorClassName?: string;
+  /** Applied to the visually-hidden (sr-only) accessible label. */
+  labelClassName?: string;
 }
 
 const SIZES = {
@@ -21,7 +23,14 @@ const SIZES = {
 
 export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
   function Spinner(
-    { size = "md", label = "Loading…", colorClassName, className, ...rest },
+    {
+      size = "md",
+      label = "Loading…",
+      colorClassName,
+      labelClassName,
+      className,
+      ...rest
+    },
     ref,
   ) {
     return (
@@ -39,7 +48,7 @@ export const Spinner = forwardRef<HTMLSpanElement, SpinnerProps>(
             colorClassName ?? "text-primary",
           )}
         />
-        <span className="sr-only">{label}</span>
+        <span className={cn("sr-only", labelClassName)}>{label}</span>
       </span>
     );
   },

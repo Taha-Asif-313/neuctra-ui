@@ -15,6 +15,12 @@ export interface ProgressProps
   /** Accessible label for the progress bar. */
   label?: string;
   colorClassName?: string;
+  /** The track behind the fill/indicator (the muted background). */
+  trackClassName?: string;
+  /** The filled portion (linear bar or circular arc), alongside `colorClassName`. */
+  fillClassName?: string;
+  /** The percentage text shown when `showValue` is set. */
+  valueClassName?: string;
 }
 
 const LINEAR_SIZES = { sm: "h-1", md: "h-2", lg: "h-3" } as const;
@@ -30,6 +36,9 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
       showValue = false,
       label,
       colorClassName,
+      trackClassName,
+      fillClassName,
+      valueClassName,
       className,
       ...rest
     },
@@ -77,7 +86,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
               r={radius}
               fill="none"
               strokeWidth={stroke}
-              className="stroke-muted"
+              className={cn("stroke-muted", trackClassName)}
             />
             <circle
               cx={box / 2}
@@ -92,6 +101,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
               className={cn(
                 "transition-[stroke-dashoffset] duration-300",
                 colorClassName ?? "stroke-primary",
+                fillClassName,
               )}
             />
           </svg>
@@ -100,6 +110,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
               className={cn(
                 "absolute font-semibold tabular-nums text-foreground",
                 size === "lg" ? "text-xs" : "text-[10px]",
+                valueClassName,
               )}
             >
               {percent}%
@@ -120,6 +131,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
           className={cn(
             "w-full overflow-hidden rounded-full bg-muted",
             LINEAR_SIZES[size] ?? LINEAR_SIZES.md,
+            trackClassName,
           )}
         >
           <div
@@ -128,12 +140,18 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
               colorClassName ?? "bg-primary",
               indeterminate &&
                 "w-1/3 animate-[progress-indeterminate_1.2s_ease-in-out_infinite] motion-reduce:animate-none",
+              fillClassName,
             )}
             style={indeterminate ? undefined : { width: `${percent}%` }}
           />
         </div>
         {showValue && !indeterminate && (
-          <span className="shrink-0 text-xs font-medium tabular-nums text-muted-foreground">
+          <span
+            className={cn(
+              "shrink-0 text-xs font-medium tabular-nums text-muted-foreground",
+              valueClassName,
+            )}
+          >
             {percent}%
           </span>
         )}

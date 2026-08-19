@@ -20,7 +20,15 @@ export interface ButtonProps
 
   fullWidth?: boolean;
 
-  variant?: "default" | "outline" | "ghost";
+  variant?:
+    | "default"
+    | "outline"
+    | "ghost"
+    | "secondary"
+    | "destructive"
+    | "success"
+    | "warning"
+    | "info";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 
   /** 🔥 Full Customization */
@@ -107,6 +115,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       outline:
         "border border-border bg-background text-foreground hover:bg-accent",
       ghost: "bg-transparent text-foreground hover:bg-accent",
+      secondary: "bg-muted text-muted-foreground hover:opacity-90",
+      destructive:
+        "bg-destructive text-destructive-foreground hover:opacity-90",
+      success: "bg-success text-success-foreground hover:opacity-90",
+      warning: "bg-warning text-warning-foreground hover:opacity-90",
+      info: "bg-info text-info-foreground hover:opacity-90",
     };
 
     /* 🔘 Icon sizes */

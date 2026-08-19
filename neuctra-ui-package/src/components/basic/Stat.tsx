@@ -16,6 +16,16 @@ export interface StatProps extends React.HTMLAttributes<HTMLDivElement> {
   description?: React.ReactNode;
   /** Renders the stat inside a bordered card surface. */
   bordered?: boolean;
+
+  /** 🔥 Full Customization */
+  headerClassName?: string;
+  labelClassName?: string;
+  iconClassName?: string;
+  valueClassName?: string;
+  footerClassName?: string;
+  trendClassName?: string;
+  trendIconClassName?: string;
+  descriptionClassName?: string;
 }
 
 export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
@@ -28,6 +38,14 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
     description,
     bordered = true,
     className,
+    headerClassName,
+    labelClassName,
+    iconClassName,
+    valueClassName,
+    footerClassName,
+    trendClassName,
+    trendIconClassName,
+    descriptionClassName,
     ...rest
   },
   ref,
@@ -45,26 +63,44 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
       )}
       {...rest}
     >
-      <div className="flex items-start justify-between gap-3">
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+      <div className={cn("flex items-start justify-between gap-3", headerClassName)}>
+        <p
+          className={cn(
+            "text-xs font-medium uppercase tracking-wide text-muted-foreground",
+            labelClassName,
+          )}
+        >
           {label}
         </p>
         {icon && (
           <span
             aria-hidden="true"
-            className="shrink-0 rounded-lg bg-primary/10 p-2 text-primary [&_svg]:h-4 [&_svg]:w-4"
+            className={cn(
+              "shrink-0 rounded-lg bg-primary/10 p-2 text-primary [&_svg]:h-4 [&_svg]:w-4",
+              iconClassName,
+            )}
           >
             {icon}
           </span>
         )}
       </div>
 
-      <p className="mt-2 truncate text-2xl font-bold tabular-nums text-foreground">
+      <p
+        className={cn(
+          "mt-2 truncate text-2xl font-bold tabular-nums text-foreground",
+          valueClassName,
+        )}
+      >
         {value}
       </p>
 
       {(trend || description) && (
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+        <div
+          className={cn(
+            "mt-2 flex flex-wrap items-center gap-2 text-xs",
+            footerClassName,
+          )}
+        >
           {trend && (
             <span
               className={cn(
@@ -72,14 +108,17 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
                 trend === "up" && "bg-success/10 text-success",
                 trend === "down" && "bg-destructive/10 text-destructive",
                 trend === "neutral" && "bg-muted text-muted-foreground",
+                trendClassName,
               )}
             >
-              <TrendIcon aria-hidden="true" className="h-3 w-3" />
+              <TrendIcon aria-hidden="true" className={cn("h-3 w-3", trendIconClassName)} />
               {trendValue}
             </span>
           )}
           {description && (
-            <span className="text-muted-foreground">{description}</span>
+            <span className={cn("text-muted-foreground", descriptionClassName)}>
+              {description}
+            </span>
           )}
         </div>
       )}

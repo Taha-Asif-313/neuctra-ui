@@ -40,6 +40,7 @@ export interface CheckboxGroupProps {
   labelClassName?: string;
   textClassName?: string;
   iconClassName?: string;
+  checkClassName?: string;
   errorClassName?: string;
 
   style?: React.CSSProperties;
@@ -90,6 +91,7 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
   labelClassName,
   textClassName,
   iconClassName,
+  checkClassName,
   errorClassName,
 
   style,
@@ -166,7 +168,7 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
         <svg
           viewBox="0 0 24 24"
           // Pairs with bg-primary, so a light --primary keeps a readable tick.
-          className="text-primary-foreground"
+          className={cn("text-primary-foreground", checkClassName)}
           fill="none"
           stroke="currentColor"
           strokeWidth={3}

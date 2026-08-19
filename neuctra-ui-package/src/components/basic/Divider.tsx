@@ -10,6 +10,10 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
   dashed?: boolean;
   /** Vertical spacing (horizontal) or horizontal spacing (vertical). */
   spacing?: "none" | "sm" | "md" | "lg";
+
+  /** 🔥 Full Customization (labeled horizontal variant only) */
+  lineClassName?: string;
+  labelClassName?: string;
 }
 
 const H_SPACING = { none: "my-0", sm: "my-2", md: "my-4", lg: "my-8" } as const;
@@ -23,6 +27,8 @@ export const Divider = forwardRef<HTMLDivElement, DividerProps>(
       dashed = false,
       spacing = "md",
       className,
+      lineClassName,
+      labelClassName,
       ...rest
     },
     ref,
@@ -62,14 +68,16 @@ export const Divider = forwardRef<HTMLDivElement, DividerProps>(
             className={cn(
               "h-px flex-1 bg-border",
               dashed && "bg-transparent border-t border-dashed border-border",
+              lineClassName,
             )}
           />
-          <span className="shrink-0">{label}</span>
+          <span className={cn("shrink-0", labelClassName)}>{label}</span>
           <span
             aria-hidden="true"
             className={cn(
               "h-px flex-1 bg-border",
               dashed && "bg-transparent border-t border-dashed border-border",
+              lineClassName,
             )}
           />
         </div>

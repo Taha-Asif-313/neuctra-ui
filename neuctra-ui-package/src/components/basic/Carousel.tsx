@@ -22,6 +22,17 @@ export interface CarouselProps
   showDots?: boolean;
   /** Accessible name for the carousel region. */
   label?: string;
+
+  /** 🔥 Full Customization */
+  trackClassName?: string;
+  slidesClassName?: string;
+  slideClassName?: string;
+  arrowClassName?: string;
+  prevArrowClassName?: string;
+  nextArrowClassName?: string;
+  arrowIconClassName?: string;
+  dotsClassName?: string;
+  dotClassName?: string;
 }
 
 export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
@@ -36,6 +47,15 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
       showDots = true,
       label = "Carousel",
       className,
+      trackClassName,
+      slidesClassName,
+      slideClassName,
+      arrowClassName,
+      prevArrowClassName,
+      nextArrowClassName,
+      arrowIconClassName,
+      dotsClassName,
+      dotClassName,
       ...rest
     },
     ref,
@@ -82,6 +102,7 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
       "text-foreground backdrop-blur transition-colors hover:bg-accent",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
       "disabled:pointer-events-none disabled:opacity-40",
+      arrowClassName,
     );
 
     return (
@@ -108,7 +129,7 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
       >
         {/* Track */}
         <div
-          className="overflow-hidden rounded-xl"
+          className={cn("overflow-hidden rounded-xl", trackClassName)}
           onTouchStart={(e) => {
             touchStartX.current = e.touches[0].clientX;
           }}
@@ -120,7 +141,10 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
           }}
         >
           <div
-            className="flex transition-transform duration-300 ease-out motion-reduce:transition-none"
+            className={cn(
+              "flex transition-transform duration-300 ease-out motion-reduce:transition-none",
+              slidesClassName,
+            )}
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
             {slides.map((slide, i) => (
@@ -132,7 +156,7 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
                 aria-hidden={i !== index}
                 // Hidden slides shouldn't be tabbable.
                 inert={i !== index ? true : undefined}
-                className="w-full shrink-0"
+                className={cn("w-full shrink-0", slideClassName)}
               >
                 {slide}
               </div>
@@ -148,25 +172,31 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
               aria-label="Previous slide"
               disabled={!loop && index === 0}
               onClick={() => goTo(index - 1)}
-              className={cn(arrowClasses, "left-3")}
+              className={cn(arrowClasses, "left-3", prevArrowClassName)}
             >
-              <ChevronLeft aria-hidden="true" className="h-4 w-4" />
+              <ChevronLeft
+                aria-hidden="true"
+                className={cn("h-4 w-4", arrowIconClassName)}
+              />
             </button>
             <button
               type="button"
               aria-label="Next slide"
               disabled={!loop && index === count - 1}
               onClick={() => goTo(index + 1)}
-              className={cn(arrowClasses, "right-3")}
+              className={cn(arrowClasses, "right-3", nextArrowClassName)}
             >
-              <ChevronRight aria-hidden="true" className="h-4 w-4" />
+              <ChevronRight
+                aria-hidden="true"
+                className={cn("h-4 w-4", arrowIconClassName)}
+              />
             </button>
           </>
         )}
 
         {/* Dots */}
         {showDots && count > 1 && (
-          <div className="mt-3 flex justify-center gap-1.5">
+          <div className={cn("mt-3 flex justify-center gap-1.5", dotsClassName)}>
             {slides.map((_, i) => (
               <button
                 key={i}
@@ -180,6 +210,7 @@ export const Carousel = forwardRef<HTMLDivElement, CarouselProps>(
                   i === index
                     ? "w-5 bg-primary"
                     : "w-2 bg-muted-foreground/40 hover:bg-muted-foreground/70",
+                  dotClassName,
                 )}
               />
             ))}

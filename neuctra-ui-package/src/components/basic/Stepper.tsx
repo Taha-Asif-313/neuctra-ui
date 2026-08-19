@@ -19,6 +19,20 @@ export interface StepperProps
   onStepClick?: (index: number) => void;
   orientation?: "horizontal" | "vertical";
   size?: "sm" | "md";
+
+  /** 🔥 Full Customization */
+  /** Wraps each individual step (indicator + content). */
+  itemClassName?: string;
+  /** The circular step indicator/dot. */
+  dotClassName?: string;
+  /** The `<button>` wrapping a clickable (completed) dot. */
+  dotButtonClassName?: string;
+  /** The connector line between steps. */
+  connectorClassName?: string;
+  /** Wraps a step's label + description. */
+  contentClassName?: string;
+  labelClassName?: string;
+  descriptionClassName?: string;
 }
 
 const SIZES = {
@@ -35,6 +49,13 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
       orientation = "horizontal",
       size = "md",
       className,
+      itemClassName,
+      dotClassName,
+      dotButtonClassName,
+      connectorClassName,
+      contentClassName,
+      labelClassName,
+      descriptionClassName,
       ...rest
     },
     ref,
@@ -56,6 +77,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
             done && "border-primary bg-primary text-primary-foreground",
             active && "border-primary bg-primary/10 text-primary",
             !done && !active && "border-border bg-transparent text-muted-foreground",
+            dotClassName,
           )}
         >
           {done ? <Check /> : step.icon ?? index + 1}
@@ -70,7 +92,10 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
           aria-label={
             typeof step.label === "string" ? `Go to step: ${step.label}` : `Go to step ${index + 1}`
           }
-          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className={cn(
+            "rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+            dotButtonClassName,
+          )}
         >
           {dot}
         </button>
@@ -93,7 +118,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
 
           if (vertical) {
             return (
-              <div key={i} className="flex gap-3">
+              <div key={i} className={cn("flex gap-3", itemClassName)}>
                 <div className="flex flex-col items-center">
                   {renderDot(i, step)}
                   {!isLast && (
@@ -102,23 +127,37 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
                       className={cn(
                         "my-1 w-0.5 flex-1 min-h-6 rounded-full",
                         done ? "bg-primary" : "bg-border",
+                        connectorClassName,
                       )}
                     />
                   )}
                 </div>
-                <div className={cn("min-w-0 pb-6 pt-1", isLast && "pb-0")}>
+                <div
+                  className={cn(
+                    "min-w-0 pb-6 pt-1",
+                    isLast && "pb-0",
+                    contentClassName,
+                  )}
+                >
                   <p
                     aria-current={active ? "step" : undefined}
                     className={cn(
                       "font-medium",
                       sizes.label,
                       active || done ? "text-foreground" : "text-muted-foreground",
+                      labelClassName,
                     )}
                   >
                     {step.label}
                   </p>
                   {step.description && (
-                    <p className={cn("mt-0.5 text-muted-foreground", sizes.desc)}>
+                    <p
+                      className={cn(
+                        "mt-0.5 text-muted-foreground",
+                        sizes.desc,
+                        descriptionClassName,
+                      )}
+                    >
                       {step.description}
                     </p>
                   )}
@@ -129,21 +168,33 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
 
           return (
             <React.Fragment key={i}>
-              <div className="flex min-w-0 flex-col items-center gap-2 text-center">
+              <div
+                className={cn(
+                  "flex min-w-0 flex-col items-center gap-2 text-center",
+                  itemClassName,
+                )}
+              >
                 {renderDot(i, step)}
-                <div className="min-w-0">
+                <div className={cn("min-w-0", contentClassName)}>
                   <p
                     aria-current={active ? "step" : undefined}
                     className={cn(
                       "font-medium",
                       sizes.label,
                       active || done ? "text-foreground" : "text-muted-foreground",
+                      labelClassName,
                     )}
                   >
                     {step.label}
                   </p>
                   {step.description && (
-                    <p className={cn("mt-0.5 text-muted-foreground", sizes.desc)}>
+                    <p
+                      className={cn(
+                        "mt-0.5 text-muted-foreground",
+                        sizes.desc,
+                        descriptionClassName,
+                      )}
+                    >
                       {step.description}
                     </p>
                   )}
@@ -157,6 +208,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
                     "mx-2 mt-4 h-0.5 flex-1 rounded-full",
                     size === "sm" && "mt-3.5",
                     done ? "bg-primary" : "bg-border",
+                    connectorClassName,
                   )}
                 />
               )}

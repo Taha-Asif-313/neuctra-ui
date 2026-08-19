@@ -32,6 +32,8 @@ export interface DrawerProps {
 
   overlayClassName?: string;
   overlayStyle?: CSSProperties;
+  /** Applied to the sliding panel that hosts the drawer content. */
+  panelClassName?: string;
 }
 
 export function Drawer({
@@ -46,6 +48,7 @@ export function Drawer({
   ariaLabel,
   overlayClassName,
   overlayStyle,
+  panelClassName,
 }: DrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const escapeDisabled = disableEscapeClose ?? disableOverlayClose;
@@ -152,6 +155,7 @@ export function Drawer({
               position === "left" && "left-0 top-0",
               position === "top" && "top-0 left-0 right-0",
               position === "bottom" && "bottom-0 left-0 right-0",
+              panelClassName,
             )}
             style={getSizeStyle()}
           >
@@ -203,6 +207,9 @@ export interface DrawerHeaderProps {
   onClose?: () => void;
   className?: string;
   style?: CSSProperties;
+  titleWrapperClassName?: string;
+  titleClassName?: string;
+  closeButtonClassName?: string;
 }
 
 export function DrawerHeader({
@@ -211,6 +218,9 @@ export function DrawerHeader({
   onClose,
   className,
   style,
+  titleWrapperClassName,
+  titleClassName,
+  closeButtonClassName,
 }: DrawerHeaderProps) {
   return (
     <div
@@ -220,9 +230,9 @@ export function DrawerHeader({
       )}
       style={style}
     >
-      <div className="flex items-center gap-2 font-semibold">
+      <div className={cn("flex items-center gap-2 font-semibold", titleWrapperClassName)}>
         {icon}
-        {title && <h3 className="text-sm">{title}</h3>}
+        {title && <h3 className={cn("text-sm", titleClassName)}>{title}</h3>}
       </div>
 
       {onClose && (
@@ -230,7 +240,10 @@ export function DrawerHeader({
           type="button"
           aria-label="Close drawer"
           onClick={onClose}
-          className="p-2 rounded-lg hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className={cn(
+            "p-2 rounded-lg hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            closeButtonClassName,
+          )}
         >
           <X size={18} aria-hidden="true" />
         </button>

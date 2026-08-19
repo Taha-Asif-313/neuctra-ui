@@ -29,6 +29,12 @@ export interface CardHeaderProps
   icon?: React.ReactNode;
   /** Slot rendered at the far right of the header (menu, action button…). */
   action?: React.ReactNode;
+
+  /** 🔥 Full Customization */
+  iconClassName?: string;
+  titleClassName?: string;
+  descriptionClassName?: string;
+  actionClassName?: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -84,7 +90,19 @@ Card.displayName = "Card";
 
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   function CardHeader(
-    { title, description, icon, action, className, children, ...rest },
+    {
+      title,
+      description,
+      icon,
+      action,
+      className,
+      iconClassName,
+      titleClassName,
+      descriptionClassName,
+      actionClassName,
+      children,
+      ...rest
+    },
     ref,
   ) {
     const padding = React.useContext(paddingContext);
@@ -106,24 +124,41 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
               // h-6 matches the title's leading-6, so the icon is optically
               // centered on the title line whether or not a description exists
               // (a fixed mt nudge previously left it visibly high).
-              className="flex h-6 shrink-0 items-center text-primary [&_svg]:h-5 [&_svg]:w-5"
+              className={cn(
+                "flex h-6 shrink-0 items-center text-primary [&_svg]:h-5 [&_svg]:w-5",
+                iconClassName,
+              )}
             >
               {icon}
             </span>
           )}
           <div className="min-w-0">
             {title && (
-              <h3 className="text-sm font-semibold leading-6 text-foreground">
+              <h3
+                className={cn(
+                  "text-sm font-semibold leading-6 text-foreground",
+                  titleClassName,
+                )}
+              >
                 {title}
               </h3>
             )}
             {description && (
-              <p className="text-xs text-muted-foreground">{description}</p>
+              <p
+                className={cn(
+                  "text-xs text-muted-foreground",
+                  descriptionClassName,
+                )}
+              >
+                {description}
+              </p>
             )}
             {children}
           </div>
         </div>
-        {action && <div className="shrink-0">{action}</div>}
+        {action && (
+          <div className={cn("shrink-0", actionClassName)}>{action}</div>
+        )}
       </div>
     );
   },

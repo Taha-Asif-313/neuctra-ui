@@ -23,6 +23,18 @@ export interface TagInputProps {
   id?: string;
   className?: string;
   wrapperClassName?: string;
+  /** Field label. */
+  labelClassName?: string;
+  /** Tag chip wrapper. */
+  chipClassName?: string;
+  /** Remove ("x") button inside a chip. */
+  chipRemoveClassName?: string;
+  /** The text input itself. */
+  inputClassName?: string;
+  /** Helper text / error message. */
+  helperClassName?: string;
+  /** Tag count indicator (e.g. "2/5"). */
+  countClassName?: string;
 }
 
 const SIZES = {
@@ -49,6 +61,12 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
       id,
       className,
       wrapperClassName,
+      labelClassName,
+      chipClassName,
+      chipRemoveClassName,
+      inputClassName,
+      helperClassName,
+      countClassName,
     },
     ref,
   ) {
@@ -100,7 +118,10 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
         {label && (
           <label
             htmlFor={fieldId}
-            className="mb-1.5 block text-[13px] font-medium leading-none text-foreground"
+            className={cn(
+              "mb-1.5 block text-[13px] font-medium leading-none text-foreground",
+              labelClassName,
+            )}
           >
             {label}
           </label>
@@ -124,6 +145,7 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
               className={cn(
                 "inline-flex items-center gap-1 rounded-full bg-primary/10 font-medium text-primary",
                 sizes.chip,
+                chipClassName,
               )}
             >
               <span className="max-w-40 truncate">{tag}</span>
@@ -135,7 +157,10 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
                   e.stopPropagation();
                   removeTag(i);
                 }}
-                className="rounded-full opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className={cn(
+                  "rounded-full opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  chipRemoveClassName,
+                )}
               >
                 <X aria-hidden="true" className="h-3 w-3" />
               </button>
@@ -162,6 +187,7 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
               "min-w-20 flex-1 bg-transparent text-foreground outline-none",
               "placeholder:text-muted-foreground disabled:cursor-not-allowed",
               sizes.input,
+              inputClassName,
             )}
           />
         </div>
@@ -174,12 +200,18 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
               className={cn(
                 "text-xs font-medium",
                 error ? "text-destructive" : "text-muted-foreground",
+                helperClassName,
               )}
             >
               {error || helperText}
             </p>
             {maxTags !== undefined && (
-              <span className="shrink-0 text-[11px] tabular-nums text-muted-foreground">
+              <span
+                className={cn(
+                  "shrink-0 text-[11px] tabular-nums text-muted-foreground",
+                  countClassName,
+                )}
+              >
                 {tags.length}/{maxTags}
               </span>
             )}

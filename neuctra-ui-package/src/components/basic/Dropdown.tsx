@@ -48,6 +48,17 @@ export interface DropdownProps {
   menuClassName?: string;
   itemClassName?: string;
 
+  /** Applied to the wrapper around the `trigger` node. */
+  triggerClassName?: string;
+  /** Applied to the inner `role="menu"` list container. */
+  menuListClassName?: string;
+  /** Applied to each separator row (`item.separator`). */
+  separatorClassName?: string;
+  /** Applied to an item's leading icon wrapper. */
+  itemIconClassName?: string;
+  /** Applied to an item's label text. */
+  itemLabelClassName?: string;
+
   style?: React.CSSProperties;
   menuStyle?: React.CSSProperties;
 }
@@ -72,6 +83,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       className,
       menuClassName,
       itemClassName,
+
+      triggerClassName,
+      menuListClassName,
+      separatorClassName,
+      itemIconClassName,
+      itemLabelClassName,
 
       style,
       menuStyle,
@@ -240,14 +257,18 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 ...menuStyle,
               }}
             >
-              <div id={menuId} role="menu" className="text-sm text-foreground">
+              <div
+                id={menuId}
+                role="menu"
+                className={clsx("text-sm text-foreground", menuListClassName)}
+              >
                 {items.map((item, i) => {
                   if (item.separator) {
                     return (
                       <div
                         key={`separator-${i}`}
                         role="separator"
-                        className="my-1 h-px bg-border"
+                        className={clsx("my-1 h-px bg-border", separatorClassName)}
                       />
                     );
                   }
@@ -286,12 +307,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                       style={item.style}
                     >
                       {item.icon && (
-                        <span className="shrink-0 text-current">
+                        <span className={clsx("shrink-0 text-current", itemIconClassName)}>
                           {item.icon}
                         </span>
                       )}
 
-                      <span className="truncate">{item.label}</span>
+                      <span className={clsx("truncate", itemLabelClassName)}>{item.label}</span>
                     </button>
                   );
                 })}
@@ -313,7 +334,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           {/* -------------------------------------------------------------- */}
 
           <div
-            className="flex"
+            className={clsx("flex", triggerClassName)}
             // A plain <div> is not focusable and has no Enter/Space activation,
             // so give it button semantics and the popup wiring screen readers
             // need. (A real <button> would nest illegally if `trigger` is one.)

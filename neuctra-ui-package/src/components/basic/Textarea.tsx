@@ -30,6 +30,7 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   className?: string;
   containerClassName?: string;
   labelClassName?: string;
+  iconClassName?: string;
   helperClassName?: string;
   countClassName?: string;
 
@@ -66,6 +67,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       className = "",
       containerClassName = "",
       labelClassName = "",
+      iconClassName = "",
       helperClassName = "",
       countClassName = "",
 
@@ -138,7 +140,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             className={`flex items-center gap-2 text-[13px] leading-none font-medium ${labelClassName}`}
             style={labelStyle}
           >
-            {Icon && <Icon size={14} />}
+            {Icon && <Icon size={14} className={iconClassName || undefined} />}
             {label}
             {required && <span className="text-destructive">*</span>}
           </label>

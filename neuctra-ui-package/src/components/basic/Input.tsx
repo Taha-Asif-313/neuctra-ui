@@ -111,6 +111,7 @@ export interface InputFieldProps {
   prefixClassName?: string;
   suffixClassName?: string;
   helperTextClassName?: string;
+  descriptionClassName?: string;
 
   wrapperStyle?: CSSProperties;
   inputStyle?: CSSProperties;
@@ -161,6 +162,7 @@ export const Input = forwardRef<
     prefixClassName = "",
     suffixClassName = "",
     helperTextClassName = "",
+    descriptionClassName = "",
 
     wrapperStyle,
     inputStyle,
@@ -247,7 +249,9 @@ export const Input = forwardRef<
           </label>
 
           {description && (
-            <span className="text-xs text-muted-foreground">{description}</span>
+            <span className={cn("text-xs text-muted-foreground", descriptionClassName)}>
+              {description}
+            </span>
           )}
         </div>
       )}

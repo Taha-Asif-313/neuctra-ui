@@ -10,6 +10,7 @@ import React, {
   KeyboardEvent,
 } from "react";
 import clsx from "clsx";
+import { cn } from "../../lib/cn";
 
 /* ------------------------------------------------------------------ */
 /*  Responsive hook                                                     */
@@ -258,6 +259,10 @@ export interface TabListProps {
   drawerIcon?: ReactNode;
   style?: CSSProperties;
   className?: string;
+  /** The drawer trigger `<button>` (mobileVariant="drawer" only). */
+  triggerClassName?: string;
+  /** The dropdown menu panel (mobileVariant="drawer" only). */
+  menuClassName?: string;
 }
 
 const ChevronIcon = ({ open }: { open: boolean }) => (
@@ -287,6 +292,8 @@ export const TabList: React.FC<TabListProps> = ({
   drawerLabel = "Select tab",
   style,
   className,
+  triggerClassName,
+  menuClassName,
 }) => {
   const {
     position,
@@ -319,7 +326,10 @@ export const TabList: React.FC<TabListProps> = ({
         {/* Trigger */}
         <button
           onClick={() => setDrawerOpen(!drawerOpen)}
-          className="flex items-center justify-between w-full font-medium border border-border bg-background text-foreground hover:bg-accent transition-colors"
+          className={cn(
+            "flex items-center justify-between w-full font-medium border border-border bg-background text-foreground hover:bg-accent transition-colors",
+            triggerClassName,
+          )}
           style={{
             padding: "10px 16px",
             borderRadius: radius,
@@ -334,7 +344,10 @@ export const TabList: React.FC<TabListProps> = ({
         {/* Dropdown */}
         {drawerOpen && (
           <div
-            className="tab-drawer-menu absolute left-0 right-0 z-50 flex flex-col bg-background text-foreground border border-border"
+            className={cn(
+              "tab-drawer-menu absolute left-0 right-0 z-50 flex flex-col bg-background text-foreground border border-border",
+              menuClassName,
+            )}
             style={{
               top: "calc(100% + 4px)",
               borderRadius: radius,
@@ -433,6 +446,8 @@ export interface TabProps {
   className?: string;
   activeStyle?: CSSProperties;
   inactiveStyle?: CSSProperties;
+  /** Wraps the `icon` node. */
+  iconClassName?: string;
 }
 
 export const Tab: React.FC<TabProps> = ({
@@ -442,6 +457,7 @@ export const Tab: React.FC<TabProps> = ({
   disabled = false,
   ariaLabel,
   className,
+  iconClassName,
 }) => {
   const { active, setActive, variant, tabCount, isMobile, mobileVariant } =
     useTabsContext();
@@ -537,7 +553,7 @@ export const Tab: React.FC<TabProps> = ({
         padding: "10px 16px", // kept minimal inline (safe, not theme-related)
       }}
     >
-      {icon && <span className="shrink-0">{icon}</span>}
+      {icon && <span className={cn("shrink-0", iconClassName)}>{icon}</span>}
       {children}
     </button>
   );

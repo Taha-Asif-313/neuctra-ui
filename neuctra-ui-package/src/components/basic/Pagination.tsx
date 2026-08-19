@@ -14,6 +14,12 @@ export interface PaginationProps
   siblingCount?: number;
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
+  prevButtonClassName?: string;
+  nextButtonClassName?: string;
+  /** Applied to every numbered page button, in addition to the active/inactive styling. */
+  pageButtonClassName?: string;
+  activePageButtonClassName?: string;
+  ellipsisClassName?: string;
 }
 
 const SIZES = {
@@ -65,6 +71,11 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
       size = "md",
       disabled = false,
       className,
+      prevButtonClassName,
+      nextButtonClassName,
+      pageButtonClassName,
+      activePageButtonClassName,
+      ellipsisClassName,
       ...rest
     },
     ref,
@@ -102,7 +113,11 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
           aria-label="Previous page"
           disabled={disabled || clampedPage <= 1}
           onClick={() => go(clampedPage - 1)}
-          className={cn(baseButton, "text-muted-foreground hover:bg-accent hover:text-foreground")}
+          className={cn(
+            baseButton,
+            "text-muted-foreground hover:bg-accent hover:text-foreground",
+            prevButtonClassName,
+          )}
         >
           <ChevronLeft aria-hidden="true" />
         </button>
@@ -115,6 +130,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
               className={cn(
                 "inline-flex items-center justify-center text-muted-foreground",
                 sizeClasses,
+                ellipsisClassName,
               )}
             >
               <MoreHorizontal />
@@ -133,6 +149,8 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
                 item === clampedPage
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                pageButtonClassName,
+                item === clampedPage && activePageButtonClassName,
               )}
             >
               {item}
@@ -145,7 +163,11 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(
           aria-label="Next page"
           disabled={disabled || clampedPage >= totalPages}
           onClick={() => go(clampedPage + 1)}
-          className={cn(baseButton, "text-muted-foreground hover:bg-accent hover:text-foreground")}
+          className={cn(
+            baseButton,
+            "text-muted-foreground hover:bg-accent hover:text-foreground",
+            nextButtonClassName,
+          )}
         >
           <ChevronRight aria-hidden="true" />
         </button>

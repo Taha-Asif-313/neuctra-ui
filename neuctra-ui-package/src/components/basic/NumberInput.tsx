@@ -21,6 +21,12 @@ export interface NumberInputProps
   helperText?: string;
   size?: "sm" | "md" | "lg";
   wrapperClassName?: string;
+  labelClassName?: string;
+  /** The bordered control wrapping the decrement button, input, and increment button. */
+  inputWrapperClassName?: string;
+  decrementButtonClassName?: string;
+  incrementButtonClassName?: string;
+  helperTextClassName?: string;
 }
 
 const SIZES = {
@@ -52,6 +58,11 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       id,
       className,
       wrapperClassName,
+      labelClassName,
+      inputWrapperClassName,
+      decrementButtonClassName,
+      incrementButtonClassName,
+      helperTextClassName,
       ...rest
     },
     ref,
@@ -104,7 +115,10 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         {label && (
           <label
             htmlFor={fieldId}
-            className="mb-1.5 block text-[13px] font-medium leading-none text-foreground"
+            className={cn(
+              "mb-1.5 block text-[13px] font-medium leading-none text-foreground",
+              labelClassName,
+            )}
           >
             {label}
           </label>
@@ -117,6 +131,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             error ? "border-destructive" : "border-input",
             "focus-within:ring-2 focus-within:ring-ring/40 focus-within:border-ring",
             disabled && "opacity-50",
+            inputWrapperClassName,
           )}
         >
           <button
@@ -125,7 +140,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             aria-label="Decrease value"
             disabled={disabled || (parsed !== null && min !== undefined && parsed <= min)}
             onClick={() => nudge(-1)}
-            className={cn(stepperButton, sizes.button, "border-r border-input")}
+            className={cn(stepperButton, sizes.button, "border-r border-input", decrementButtonClassName)}
           >
             <Minus aria-hidden="true" />
           </button>
@@ -169,7 +184,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             aria-label="Increase value"
             disabled={disabled || (parsed !== null && max !== undefined && parsed >= max)}
             onClick={() => nudge(1)}
-            className={cn(stepperButton, sizes.button, "border-l border-input")}
+            className={cn(stepperButton, sizes.button, "border-l border-input", incrementButtonClassName)}
           >
             <Plus aria-hidden="true" />
           </button>
@@ -182,6 +197,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
             className={cn(
               "mt-1.5 text-xs font-medium",
               error ? "text-destructive" : "text-muted-foreground",
+              helperTextClassName,
             )}
           >
             {error || helperText}

@@ -15,6 +15,7 @@ import {
   Music,
   Shuffle,
 } from "lucide-react";
+import { cn } from "../../lib/cn";
 
 interface AudioTrack {
   src: string;
@@ -37,6 +38,34 @@ interface AudioGalleryProps {
   border?: number;
   maxWidth?: number;
   loop?: boolean;
+
+  /** 🔥 Full Customization */
+  headerClassName?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
+  shuffleButtonClassName?: string;
+  trackListClassName?: string;
+  trackItemClassName?: string;
+  thumbnailClassName?: string;
+  trackInfoClassName?: string;
+  trackTitleClassName?: string;
+  trackArtistClassName?: string;
+  durationClassName?: string;
+  trackPlayButtonClassName?: string;
+  playerClassName?: string;
+  playerTitleClassName?: string;
+  playerArtistClassName?: string;
+  controlsClassName?: string;
+  controlButtonClassName?: string;
+  playButtonClassName?: string;
+  progressBarClassName?: string;
+  progressTrackClassName?: string;
+  progressFillClassName?: string;
+  secondaryControlsClassName?: string;
+  likeButtonClassName?: string;
+  loopButtonClassName?: string;
+  volumeSliderClassName?: string;
+  muteButtonClassName?: string;
 }
 
 const defaultTracks: AudioTrack[] = [
@@ -79,6 +108,33 @@ export function AudioGallery({
   maxWidth = 420,
   autoplay = false,
   loop = false,
+
+  headerClassName,
+  titleClassName,
+  subtitleClassName,
+  shuffleButtonClassName,
+  trackListClassName,
+  trackItemClassName,
+  thumbnailClassName,
+  trackInfoClassName,
+  trackTitleClassName,
+  trackArtistClassName,
+  durationClassName,
+  trackPlayButtonClassName,
+  playerClassName,
+  playerTitleClassName,
+  playerArtistClassName,
+  controlsClassName,
+  controlButtonClassName,
+  playButtonClassName,
+  progressBarClassName,
+  progressTrackClassName,
+  progressFillClassName,
+  secondaryControlsClassName,
+  likeButtonClassName,
+  loopButtonClassName,
+  volumeSliderClassName,
+  muteButtonClassName,
 }: AudioGalleryProps) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number | null>(
     null
@@ -239,6 +295,7 @@ export function AudioGallery({
     >
       {/* Header */}
       <div
+        className={cn(headerClassName)}
         style={{
           display: "flex",
           alignItems: "center",
@@ -262,6 +319,7 @@ export function AudioGallery({
           </div>
           <div>
             <h2
+              className={cn(titleClassName)}
               style={{
                 margin: 0,
                 fontSize: "1.25rem",
@@ -271,7 +329,10 @@ export function AudioGallery({
             >
               {galleryTitle}
             </h2>
-            <p style={{ margin: 0, fontSize: "0.875rem", opacity: 0.7 }}>
+            <p
+              className={cn(subtitleClassName)}
+              style={{ margin: 0, fontSize: "0.875rem", opacity: 0.7 }}
+            >
               {tracks.length} tracks
             </p>
           </div>
@@ -279,6 +340,7 @@ export function AudioGallery({
 
         <button
           onClick={() => setIsShuffle(!isShuffle)}
+          className={cn(shuffleButtonClassName)}
           style={{
             background: isShuffle ? primaryColor : "transparent",
             border: "none",
@@ -296,6 +358,7 @@ export function AudioGallery({
 
       {/* Track List */}
       <div
+        className={cn(trackListClassName)}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -314,6 +377,7 @@ export function AudioGallery({
             <div
               key={index}
               onClick={() => playPauseTrack(index)}
+              className={cn(trackItemClassName)}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -332,6 +396,7 @@ export function AudioGallery({
             >
               {/* Thumbnail */}
               <div
+                className={cn(thumbnailClassName)}
                 style={{
                   width: "48px",
                   height: "48px",
@@ -392,8 +457,9 @@ export function AudioGallery({
               </div>
 
               {/* Track Info */}
-              <div style={{ flex: 1, minWidth: 0 }}>
+              <div className={cn(trackInfoClassName)} style={{ flex: 1, minWidth: 0 }}>
                 <div
+                  className={cn(trackTitleClassName)}
                   style={{
                     fontWeight: "600",
                     fontSize: "0.95rem",
@@ -407,6 +473,7 @@ export function AudioGallery({
                 </div>
                 {track.artist && (
                   <div
+                    className={cn(trackArtistClassName)}
                     style={{
                       fontSize: "0.8rem",
                       opacity: 0.7,
@@ -425,11 +492,15 @@ export function AudioGallery({
                 style={{ display: "flex", alignItems: "center", gap: "12px" }}
               >
                 {track.duration && (
-                  <span style={{ fontSize: "0.8rem", opacity: 0.6 }}>
+                  <span
+                    className={cn(durationClassName)}
+                    style={{ fontSize: "0.8rem", opacity: 0.6 }}
+                  >
                     {track.duration}
                   </span>
                 )}
                 <div
+                  className={cn(trackPlayButtonClassName)}
                   style={{
                     width: "32px",
                     height: "32px",
@@ -459,6 +530,7 @@ export function AudioGallery({
       {currentTrack && (
         <div
           ref={playerRef}
+          className={cn(playerClassName)}
           style={{
             background: `linear-gradient(135deg, ${secondaryColor}, ${backgroundColor})`,
             borderRadius: "20px",
@@ -492,6 +564,7 @@ export function AudioGallery({
             {/* Track Info */}
             <div style={{ textAlign: "center", marginBottom: "20px" }}>
               <h3
+                className={cn(playerTitleClassName)}
                 style={{
                   margin: "0 0 4px 0",
                   fontSize: "1.1rem",
@@ -502,7 +575,10 @@ export function AudioGallery({
                 {currentTrack.title}
               </h3>
               {currentTrack.artist && (
-                <p style={{ margin: 0, opacity: 0.7, fontSize: "0.9rem" }}>
+                <p
+                  className={cn(playerArtistClassName)}
+                  style={{ margin: 0, opacity: 0.7, fontSize: "0.9rem" }}
+                >
                   {currentTrack.artist}
                 </p>
               )}
@@ -510,6 +586,7 @@ export function AudioGallery({
 
             {/* Main Controls */}
             <div
+              className={cn(controlsClassName)}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -520,6 +597,7 @@ export function AudioGallery({
             >
               <button
                 onClick={prevTrack}
+                className={cn(controlButtonClassName)}
                 style={controlButtonStyle(textColor, "rgba(255,255,255,0.1)")}
                 aria-label="Previous Track"
               >
@@ -528,6 +606,7 @@ export function AudioGallery({
 
               <button
                 onClick={() => skip(-10)}
+                className={cn(controlButtonClassName)}
                 style={controlButtonStyle(textColor, "rgba(255,255,255,0.1)")}
                 aria-label="Skip back 10 seconds"
               >
@@ -548,6 +627,7 @@ export function AudioGallery({
                     setIsPlaying(true);
                   }
                 }}
+                className={cn(playButtonClassName)}
                 style={{
                   ...controlButtonStyle("#fff", primaryColor),
                   width: "60px",
@@ -562,6 +642,7 @@ export function AudioGallery({
 
               <button
                 onClick={() => skip(10)}
+                className={cn(controlButtonClassName)}
                 style={controlButtonStyle(textColor, "rgba(255,255,255,0.1)")}
                 aria-label="Skip forward 10 seconds"
               >
@@ -573,6 +654,7 @@ export function AudioGallery({
 
               <button
                 onClick={nextTrack}
+                className={cn(controlButtonClassName)}
                 style={controlButtonStyle(textColor, "rgba(255,255,255,0.1)")}
                 aria-label="Next Track"
               >
@@ -581,7 +663,7 @@ export function AudioGallery({
             </div>
 
             {/* Progress Bar */}
-            <div style={{ marginBottom: "16px" }}>
+            <div className={cn(progressBarClassName)} style={{ marginBottom: "16px" }}>
               <div
                 style={{
                   display: "flex",
@@ -598,6 +680,7 @@ export function AudioGallery({
 
               <div
                 onClick={handleSeek}
+                className={cn(progressTrackClassName)}
                 style={{
                   height: "6px",
                   background: "rgba(255,255,255,0.2)",
@@ -608,6 +691,7 @@ export function AudioGallery({
                 }}
               >
                 <div
+                  className={cn(progressFillClassName)}
                   style={{
                     width: `${(currentTime / duration) * 100 || 0}%`,
                     height: "100%",
@@ -635,6 +719,7 @@ export function AudioGallery({
 
             {/* Additional Controls */}
             <div
+              className={cn(secondaryControlsClassName)}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -644,6 +729,7 @@ export function AudioGallery({
               <div style={{ display: "flex", gap: "8px" }}>
                 <button
                   onClick={() => setIsLiked(!isLiked)}
+                  className={cn(likeButtonClassName)}
                   style={controlButtonStyle(
                     isLiked ? "#ec4899" : textColor,
                     "rgba(255,255,255,0.1)"
@@ -655,6 +741,7 @@ export function AudioGallery({
 
                 <button
                   onClick={() => setIsLooping(!isLooping)}
+                  className={cn(loopButtonClassName)}
                   style={controlButtonStyle(
                     isLooping ? primaryColor : textColor,
                     "rgba(255,255,255,0.1)"
@@ -676,6 +763,7 @@ export function AudioGallery({
                 {showVolumeSlider && (
                   <div
                     onClick={handleVolumeChange}
+                    className={cn(volumeSliderClassName)}
                     style={{
                       width: "80px",
                       height: "4px",
@@ -699,6 +787,7 @@ export function AudioGallery({
                 <button
                   onClick={toggleMute}
                   onMouseEnter={showVolume}
+                  className={cn(muteButtonClassName)}
                   style={controlButtonStyle(textColor, "rgba(255,255,255,0.1)")}
                   aria-label={volume > 0 ? "Mute" : "Unmute"}
                 >

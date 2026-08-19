@@ -64,6 +64,16 @@ export interface SelectProps {
   itemClassName?: string;
   iconClassName?: string;
   helperClassName?: string;
+  /** The label icon rendered before `label`. */
+  labelIconClassName?: string;
+  /** The wrapper around the search input, when `searchable` is set. */
+  searchWrapperClassName?: string;
+  /** The "No options available" empty state. */
+  emptyClassName?: string;
+  /** An option's label text. */
+  itemLabelClassName?: string;
+  /** An option's description text, when `showDescription` is set. */
+  itemDescriptionClassName?: string;
 
   /** Item Icon Styling */
   itemIconClassName?: string;
@@ -118,6 +128,11 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
     itemClassName,
     iconClassName,
     helperClassName,
+    labelIconClassName,
+    searchWrapperClassName,
+    emptyClassName,
+    itemLabelClassName,
+    itemDescriptionClassName,
 
     itemIconClassName,
     itemIconStyle,
@@ -444,7 +459,9 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           )}
         >
           {LabelIcon && (
-            <LabelIcon className={clsx(sizeConfig[size].icon, "shrink-0")} />
+            <LabelIcon
+              className={clsx(sizeConfig[size].icon, "shrink-0", labelIconClassName)}
+            />
           )}
           {label}
           {required && <span className="text-destructive">*</span>}
@@ -556,7 +573,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
               aria-label="Options"
             >
               {searchable && (
-                <div className="p-2 border-b border-border">
+                <div className={clsx("p-2 border-b border-border", searchWrapperClassName)}>
                   <input
                     ref={searchRef}
                     type="text"
@@ -593,6 +610,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                     className={clsx(
                       "text-muted-foreground text-center",
                       sizeConfig[size].empty,
+                      emptyClassName,
                     )}
                   >
                     No options available
@@ -631,11 +649,18 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
                               </span>
                             )}
 
-                            <span className="font-medium">{opt.label}</span>
+                            <span className={clsx("font-medium", itemLabelClassName)}>
+                              {opt.label}
+                            </span>
                           </div>
 
                           {showDescription && opt.description && (
-                            <span className="text-xs text-muted-foreground mt-0.5">
+                            <span
+                              className={clsx(
+                                "text-xs text-muted-foreground mt-0.5",
+                                itemDescriptionClassName,
+                              )}
+                            >
                               {opt.description}
                             </span>
                           )}

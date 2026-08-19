@@ -23,6 +23,14 @@ export interface SliderProps
   marks?: { value: number; label?: React.ReactNode }[];
   size?: "sm" | "md" | "lg";
   wrapperClassName?: string;
+  /** Row wrapping the label and the current-value text. */
+  labelRowClassName?: string;
+  labelClassName?: string;
+  valueClassName?: string;
+  /** Wrapper around the tick marks rendered under the track. */
+  marksClassName?: string;
+  /** Applied to each individual tick mark. */
+  markClassName?: string;
 }
 
 const TRACK = {
@@ -49,6 +57,11 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
       id,
       className,
       wrapperClassName,
+      labelRowClassName,
+      labelClassName,
+      valueClassName,
+      marksClassName,
+      markClassName,
       ...rest
     },
     ref,
@@ -69,17 +82,30 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
     return (
       <div className={cn("w-full", wrapperClassName)}>
         {(label || showValue) && (
-          <div className="mb-2 flex items-baseline justify-between gap-2">
+          <div
+            className={cn(
+              "mb-2 flex items-baseline justify-between gap-2",
+              labelRowClassName,
+            )}
+          >
             {label && (
               <label
                 htmlFor={sliderId}
-                className="text-[13px] font-medium leading-none text-foreground"
+                className={cn(
+                  "text-[13px] font-medium leading-none text-foreground",
+                  labelClassName,
+                )}
               >
                 {label}
               </label>
             )}
             {showValue && (
-              <span className="text-xs font-medium tabular-nums text-muted-foreground">
+              <span
+                className={cn(
+                  "text-xs font-medium tabular-nums text-muted-foreground",
+                  valueClassName,
+                )}
+              >
                 {formatValue ? formatValue(current) : current}
               </span>
             )}
@@ -120,7 +146,12 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
         />
 
         {marks && marks.length > 0 && (
-          <div className="relative mt-1.5 h-4 text-[10px] text-muted-foreground">
+          <div
+            className={cn(
+              "relative mt-1.5 h-4 text-[10px] text-muted-foreground",
+              marksClassName,
+            )}
+          >
             {marks.map((mark) => {
               const markPercent =
                 max === min ? 0 : ((mark.value - min) / (max - min)) * 100;
@@ -136,6 +167,7 @@ export const Slider = forwardRef<HTMLInputElement, SliderProps>(
                       : markPercent >= 100
                         ? "-translate-x-full"
                         : "-translate-x-1/2",
+                    markClassName,
                   )}
                   style={{ left: `${markPercent}%` }}
                 >

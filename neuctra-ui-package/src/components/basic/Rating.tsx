@@ -22,6 +22,14 @@ export interface RatingProps
   showValue?: boolean;
   /** Color class of filled stars; defaults to the theme's warning (amber). */
   colorClassName?: string;
+  /** Applied to every star icon, in addition to size/color/state classes. */
+  starClassName?: string;
+  /** The unfilled star color/class. */
+  emptyStarClassName?: string;
+  /** The clickable wrapper around each star, in interactive mode. */
+  starWrapperClassName?: string;
+  /** The numeric value shown when `showValue` is set. */
+  valueClassName?: string;
 }
 
 const SIZES = { sm: "h-4 w-4", md: "h-5 w-5", lg: "h-6 w-6" } as const;
@@ -39,6 +47,10 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
     label = "Rating",
     showValue = false,
     colorClassName = "text-warning",
+    starClassName,
+    emptyStarClassName,
+    starWrapperClassName,
+    valueClassName,
     className,
     ...rest
   },
@@ -71,9 +83,9 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
         {...rest}
       >
         <span className="relative inline-flex" aria-hidden="true">
-          <span className="flex gap-0.5 text-muted-foreground/40">
+          <span className={cn("flex gap-0.5 text-muted-foreground/40", emptyStarClassName)}>
             {Array.from({ length: max }, (_, i) => (
-              <Star key={i} className={starSize} fill="currentColor" strokeWidth={0} />
+              <Star key={i} className={cn(starSize, starClassName)} fill="currentColor" strokeWidth={0} />
             ))}
           </span>
           <span
@@ -83,7 +95,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
             {Array.from({ length: max }, (_, i) => (
               <Star
                 key={i}
-                className={cn(starSize, "shrink-0")}
+                className={cn(starSize, "shrink-0", starClassName)}
                 fill="currentColor"
                 strokeWidth={0}
               />
@@ -91,7 +103,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
           </span>
         </span>
         {showValue && (
-          <span className="text-sm font-medium tabular-nums text-foreground">
+          <span className={cn("text-sm font-medium tabular-nums text-foreground", valueClassName)}>
             {current}
           </span>
         )}
@@ -120,7 +132,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
             <label
               key={starValue}
               onMouseEnter={() => !disabled && setHovered(starValue)}
-              className={cn(!disabled && "cursor-pointer")}
+              className={cn(!disabled && "cursor-pointer", starWrapperClassName)}
             >
               <input
                 type="radio"
@@ -137,8 +149,9 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
                 className={cn(
                   starSize,
                   "transition-colors",
-                  filled ? colorClassName : "text-muted-foreground/40",
+                  filled ? colorClassName : cn("text-muted-foreground/40", emptyStarClassName),
                   "peer-focus-visible:rounded peer-focus-visible:ring-2 peer-focus-visible:ring-ring",
+                  starClassName,
                 )}
                 fill={filled ? "currentColor" : "none"}
                 strokeWidth={filled ? 0 : 1.5}
@@ -148,7 +161,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
         })}
       </span>
       {showValue && (
-        <span className="text-sm font-medium tabular-nums text-foreground">
+        <span className={cn("text-sm font-medium tabular-nums text-foreground", valueClassName)}>
           {current}
         </span>
       )}

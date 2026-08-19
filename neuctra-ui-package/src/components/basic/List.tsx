@@ -132,6 +132,9 @@ export interface ListProps {
   trailingClassName?: string;
   subListClassName?: string;
   separatorClassName?: string;
+  chevronClassName?: string;
+  externalIconClassName?: string;
+  emptyStateClassName?: string;
 
   style?: CSSProperties;
   headerStyle?: CSSProperties;
@@ -183,6 +186,8 @@ export interface ListItemProps {
   trailingClassName?: string;
   subListClassName?: string;
   separatorClassName?: string;
+  chevronClassName?: string;
+  externalIconClassName?: string;
 
   itemStyle?: CSSProperties;
   itemContentStyle?: CSSProperties;
@@ -324,6 +329,8 @@ export const ListItem: React.FC<ListItemProps & Partial<ListItemType>> = (
     trailingClassName,
     subListClassName,
     separatorClassName,
+    chevronClassName,
+    externalIconClassName,
     itemStyle,
     itemContentStyle,
     bulletStyle,
@@ -485,12 +492,12 @@ export const ListItem: React.FC<ListItemProps & Partial<ListItemType>> = (
       {isExternal && (
         <ExternalLink
           aria-hidden="true"
-          className="h-3.5 w-3.5 shrink-0 text-foreground/60"
+          className={clsx("h-3.5 w-3.5 shrink-0 text-foreground/60", externalIconClassName)}
         />
       )}
 
       {hasChildren && collapsible && !item.trailing && (
-        <span className="shrink-0 text-foreground/60">
+        <span className={clsx("shrink-0 text-foreground/60", chevronClassName)}>
           {expanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
         </span>
       )}
@@ -631,6 +638,8 @@ export const ListItem: React.FC<ListItemProps & Partial<ListItemType>> = (
               trailingClassName={trailingClassName}
               subListClassName={subListClassName}
               separatorClassName={separatorClassName}
+              chevronClassName={chevronClassName}
+              externalIconClassName={externalIconClassName}
               itemStyle={itemStyle}
               itemContentStyle={itemContentStyle}
               bulletStyle={bulletStyle}
@@ -692,6 +701,9 @@ export const List: React.FC<ListProps> = ({
   trailingClassName,
   subListClassName,
   separatorClassName,
+  chevronClassName,
+  externalIconClassName,
+  emptyStateClassName,
   style,
   headerStyle,
   listStyle,
@@ -796,7 +808,12 @@ export const List: React.FC<ListProps> = ({
       )}
 
       {visibleItems.length === 0 ? (
-        <div className="rounded-md border border-dashed border-border px-3 py-4 text-sm text-foreground/70">
+        <div
+          className={clsx(
+            "rounded-md border border-dashed border-border px-3 py-4 text-sm text-foreground/70",
+            emptyStateClassName,
+          )}
+        >
           {emptyState ?? "No items to show."}
         </div>
       ) : (
@@ -849,6 +866,8 @@ export const List: React.FC<ListProps> = ({
               trailingClassName={trailingClassName}
               subListClassName={subListClassName}
               separatorClassName={separatorClassName}
+              chevronClassName={chevronClassName}
+              externalIconClassName={externalIconClassName}
               itemStyle={itemStyle}
               itemContentStyle={itemContentStyle}
               bulletStyle={bulletStyle}

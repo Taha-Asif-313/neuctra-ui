@@ -32,6 +32,8 @@ export interface ModalProps {
   overlayClassName?: string;
   overlayStyle?: CSSProperties;
   style?: CSSProperties;
+  /** The `role="dialog"` wrapper around `children`. */
+  dialogClassName?: string;
 }
 
 export function Modal({
@@ -44,6 +46,7 @@ export function Modal({
   overlayClassName,
   overlayStyle,
   style,
+  dialogClassName,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   // A "forced choice" modal that blocks the overlay should not be dismissible
@@ -101,7 +104,7 @@ export function Modal({
             aria-modal="true"
             aria-label={ariaLabel}
             tabIndex={-1}
-            className="contents outline-none"
+            className={cn("contents outline-none", dialogClassName)}
           >
             {children}
           </div>
@@ -182,6 +185,12 @@ export interface ModalHeaderProps {
 
   className?: string;
   style?: CSSProperties;
+
+  /** Wrapper around `icon` + `title`. */
+  titleWrapperClassName?: string;
+  iconClassName?: string;
+  titleClassName?: string;
+  closeButtonClassName?: string;
 }
 
 export function ModalHeader({
@@ -190,6 +199,10 @@ export function ModalHeader({
   onClose,
   className,
   style,
+  titleWrapperClassName,
+  iconClassName,
+  titleClassName,
+  closeButtonClassName,
 }: ModalHeaderProps) {
   return (
     <div
@@ -199,9 +212,14 @@ export function ModalHeader({
       )}
       style={style}
     >
-      <div className="flex items-center gap-2 font-semibold text-foreground">
-        {icon && <span>{icon}</span>}
-        {title && <h3 className="text-sm">{title}</h3>}
+      <div
+        className={cn(
+          "flex items-center gap-2 font-semibold text-foreground",
+          titleWrapperClassName,
+        )}
+      >
+        {icon && <span className={iconClassName}>{icon}</span>}
+        {title && <h3 className={cn("text-sm", titleClassName)}>{title}</h3>}
       </div>
 
       {onClose && (
@@ -211,7 +229,10 @@ export function ModalHeader({
           type="button"
           aria-label="Close modal"
           onClick={onClose}
-          className="p-2 rounded-lg hover:bg-accent transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className={cn(
+            "p-2 rounded-lg hover:bg-accent transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+            closeButtonClassName,
+          )}
         >
           <X size={18} aria-hidden="true" />
         </button>

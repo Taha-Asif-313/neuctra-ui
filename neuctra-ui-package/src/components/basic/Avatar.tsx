@@ -2,6 +2,7 @@
 
 import React, { useState, CSSProperties } from "react";
 import { User } from "lucide-react";
+import { cn } from "../../lib/cn";
 
 type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "responsive";
 type AvatarVariant = "circular" | "rounded" | "square";
@@ -22,6 +23,11 @@ export interface AvatarProps {
   statusClassName?: string;
   style?: CSSProperties;
   statusStyle?: CSSProperties;
+
+  /** 🔥 Full Customization */
+  imageClassName?: string;
+  fallbackClassName?: string;
+  iconClassName?: string;
 }
 
 // Size maps with proper pixel values for status dots
@@ -108,6 +114,9 @@ export const Avatar: React.FC<AvatarProps> = ({
   statusClassName = "",
   style,
   statusStyle,
+  imageClassName = "",
+  fallbackClassName = "",
+  iconClassName = "",
 }) => {
   const [imageError, setImageError] = useState(false);
   const clickable = !!onClick;
@@ -164,15 +173,26 @@ export const Avatar: React.FC<AvatarProps> = ({
           src={src}
           alt={alt}
           onError={() => setImageError(true)}
-          className={`w-full h-full object-cover ${variantMap[variant]}`}
+          className={cn(
+            "w-full h-full object-cover",
+            variantMap[variant],
+            imageClassName,
+          )}
         />
       ) : (
         <div
-          className={`w-full h-full flex items-center justify-center bg-muted text-foreground font-semibold 
-            ${fontSizeMap[resolvedSize]} 
-            ${variantMap[variant]}`}
+          className={cn(
+            "w-full h-full flex items-center justify-center bg-muted text-foreground font-semibold",
+            fontSizeMap[resolvedSize],
+            variantMap[variant],
+            fallbackClassName,
+          )}
         >
-          {initials || <User className="w-1/2 h-1/2 text-muted-foreground" />}
+          {initials || (
+            <User
+              className={cn("w-1/2 h-1/2 text-muted-foreground", iconClassName)}
+            />
+          )}
         </div>
       )}
 

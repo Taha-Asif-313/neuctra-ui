@@ -12,11 +12,17 @@ export type ThemeToggleContext = {
 export type ThemeToggleProps = {
   context: ThemeToggleContext;
   className?: string;
+  /** The sun icon (shown in dark mode). */
+  sunClassName?: string;
+  /** The moon icon (shown in light mode). */
+  moonClassName?: string;
 };
 
 export const ThemeToggleButton: React.FC<ThemeToggleProps> = ({
   context,
   className = "",
+  sunClassName,
+  moonClassName,
 }) => {
   const { isDark, toggleTheme } = context;
 
@@ -40,6 +46,7 @@ export const ThemeToggleButton: React.FC<ThemeToggleProps> = ({
         className={cn(
           "absolute text-warning transition-all duration-300",
           isDark ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0",
+          sunClassName,
         )}
       />
       <Moon
@@ -48,6 +55,7 @@ export const ThemeToggleButton: React.FC<ThemeToggleProps> = ({
         className={cn(
           "absolute text-info transition-all duration-300",
           isDark ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100",
+          moonClassName,
         )}
       />
     </button>

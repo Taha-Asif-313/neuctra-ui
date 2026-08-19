@@ -21,6 +21,18 @@ export interface FileUploadProps {
   hideFileList?: boolean;
   id?: string;
   className?: string;
+
+  dropzoneClassName?: string;
+  iconClassName?: string;
+  labelClassName?: string;
+  descriptionClassName?: string;
+  errorClassName?: string;
+  listClassName?: string;
+  fileItemClassName?: string;
+  fileIconClassName?: string;
+  fileNameClassName?: string;
+  fileSizeClassName?: string;
+  removeButtonClassName?: string;
 }
 
 const formatBytes = (bytes: number) => {
@@ -44,6 +56,18 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
       hideFileList = false,
       id,
       className,
+
+      dropzoneClassName,
+      iconClassName,
+      labelClassName,
+      descriptionClassName,
+      errorClassName,
+      listClassName,
+      fileItemClassName,
+      fileIconClassName,
+      fileNameClassName,
+      fileSizeClassName,
+      removeButtonClassName,
     },
     ref,
   ) {
@@ -111,6 +135,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
               : "border-border bg-transparent hover:border-muted-foreground/50 hover:bg-accent/30",
             disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
             "focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background",
+            dropzoneClassName,
           )}
         >
           <input
@@ -134,14 +159,14 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
 
           <span
             aria-hidden="true"
-            className="rounded-full bg-muted p-3 text-muted-foreground"
+            className={cn("rounded-full bg-muted p-3 text-muted-foreground", iconClassName)}
           >
             <UploadCloud className="h-6 w-6" />
           </span>
 
-          <p className="text-sm font-medium text-foreground">{label}</p>
+          <p className={cn("text-sm font-medium text-foreground", labelClassName)}>{label}</p>
 
-          <p className="text-xs text-muted-foreground">
+          <p className={cn("text-xs text-muted-foreground", descriptionClassName)}>
             {description ??
               [
                 accept ? `Accepted: ${accept}` : null,
@@ -154,27 +179,30 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
         </label>
 
         {message && (
-          <p role="alert" className="mt-2 text-xs font-medium text-destructive">
+          <p role="alert" className={cn("mt-2 text-xs font-medium text-destructive", errorClassName)}>
             {message}
           </p>
         )}
 
         {!hideFileList && files.length > 0 && (
-          <ul className="mt-3 space-y-2">
+          <ul className={cn("mt-3 space-y-2", listClassName)}>
             {files.map((file, i) => (
               <li
                 key={`${file.name}-${file.size}-${i}`}
-                className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
+                className={cn(
+                  "flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2",
+                  fileItemClassName,
+                )}
               >
                 <FileIcon
                   aria-hidden="true"
-                  className="h-4 w-4 shrink-0 text-muted-foreground"
+                  className={cn("h-4 w-4 shrink-0 text-muted-foreground", fileIconClassName)}
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-foreground">
+                  <p className={cn("truncate text-sm font-medium text-foreground", fileNameClassName)}>
                     {file.name}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className={cn("text-xs text-muted-foreground", fileSizeClassName)}>
                     {formatBytes(file.size)}
                   </p>
                 </div>
@@ -182,7 +210,10 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
                   type="button"
                   aria-label={`Remove ${file.name}`}
                   onClick={() => removeFile(i)}
-                  className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className={cn(
+                    "shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    removeButtonClassName,
+                  )}
                 >
                   <X aria-hidden="true" className="h-4 w-4" />
                 </button>
