@@ -200,7 +200,7 @@ const Sidebar = () => {
                 {/* Divider */}
                 <div className="h-4 w-px bg-zinc-700 rounded-full" />
 
-                <span className="text-xs text-gray-400">v0.4</span>
+                <span className="text-xs text-gray-400">v1.0</span>
               </div>
 
               <span className="text-[11px] text-gray-300 tracking-wide">

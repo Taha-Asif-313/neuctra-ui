@@ -7,7 +7,6 @@ import {
   Component,
   Palette,
   Layout,
-  CheckCircle2,
   ShieldCheck,
   Layers3,
   BookOpenText,
@@ -17,23 +16,40 @@ import {
   LockKeyhole,
   TableProperties,
   RocketIcon,
+  Bot,
+  Copy,
+  Check,
+  Terminal,
+  WandSparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion as Motion, useReducedMotion } from "framer-motion";
 import Metadata from "../../../MetaData";
 
 const seoKeywords = [
+  "Neuctra UI",
+  "React UI library",
+  "React component library",
   "React UI library for SaaS",
-  "SaaS dashboard UI React Tailwind",
-  "React authentication UI Tailwind",
-  "Tailwind admin dashboard React",
-  "React form builder Tailwind",
-  "Tailwind React components for SaaS",
-  "SaaS admin dashboard components",
-  "React SaaS component library",
+  "Tailwind CSS React components",
+  "React Tailwind UI components",
+  "SaaS UI library",
+  "React design system",
+  "React dashboard components",
+  "Tailwind dashboard UI",
+  "React admin dashboard",
+  "React authentication UI",
+  "React form components",
+  "AI coding assistant UI library",
+  "MCP UI library",
+  "Neuctra UI MCP",
+  "Model Context Protocol UI",
 ].join(", ");
 
-// Enhanced Circuit Line Component with animated nodes
+/* -------------------------------------------------------------------------- */
+/* Circuit Line                                                               */
+/* -------------------------------------------------------------------------- */
+
 const CircuitLine = ({
   top = 0,
   left = 0,
@@ -79,7 +95,7 @@ const CircuitLine = ({
             repeatType: "reverse",
           }}
         />
-        {/* Animated Circuit Node */}
+
         <Motion.circle
           cx={width / 2}
           cy={height / 2}
@@ -99,7 +115,10 @@ const CircuitLine = ({
   );
 };
 
-// Data Stream Component
+/* -------------------------------------------------------------------------- */
+/* Data Stream                                                                */
+/* -------------------------------------------------------------------------- */
+
 const DataStream = ({ delay = 0, left = 0, duration = 4 }) => {
   return (
     <Motion.div
@@ -118,7 +137,10 @@ const DataStream = ({ delay = 0, left = 0, duration = 4 }) => {
   );
 };
 
-// Floating Particles
+/* -------------------------------------------------------------------------- */
+/* Floating Particles                                                         */
+/* -------------------------------------------------------------------------- */
+
 const FloatingParticle = ({ delay = 0, x = 0, duration = 7 }) => {
   const [windowHeight, setWindowHeight] = useState(1000);
 
@@ -148,7 +170,10 @@ const FloatingParticle = ({ delay = 0, x = 0, duration = 7 }) => {
   );
 };
 
-// Grid Background
+/* -------------------------------------------------------------------------- */
+/* Grid Background                                                            */
+/* -------------------------------------------------------------------------- */
+
 const GridBackground = () => {
   return (
     <div className="absolute inset-0 opacity-20" aria-hidden="true">
@@ -166,111 +191,167 @@ const GridBackground = () => {
   );
 };
 
-// Feature Card
+/* -------------------------------------------------------------------------- */
+/* Feature Card                                                               */
+/* -------------------------------------------------------------------------- */
+
 const FeatureCard = ({ icon, title, description, delay }) => {
   return (
     <Motion.div
       initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.8, delay }}
       className="relative group"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg blur-xl group-hover:blur-2xl transition-all duration-300" />
-      <div className="relative bg-zinc-950/80 backdrop-blur-sm border border-primary/30 rounded-lg p-6 hover:border-primary/60 transition-all duration-300">
-        <div className="text-primary mb-3">{icon}</div>
+
+      <div className="relative h-full bg-zinc-950/80 backdrop-blur-sm border border-primary/30 rounded-lg p-6 hover:border-primary/60 transition-all duration-300">
+        <div className="text-primary mb-4">{icon}</div>
+
         <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-400 text-sm">{description}</p>
+
+        <p className="text-gray-400 text-sm leading-6">{description}</p>
       </div>
     </Motion.div>
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/* Data                                                                       */
+/* -------------------------------------------------------------------------- */
+
 const componentGroups = [
   {
-    title: "React UI Library for SaaS",
+    title: "Foundations",
     description:
-      "Buttons, inputs, badges, avatar, typography, and layout primitives for polished SaaS product screens.",
-    items: ["Button", "Input", "Textarea", "Badge", "Avatar", "Container"],
+      "Start with the building blocks used throughout modern React products.",
+    items: [
+      "Button",
+      "Text",
+      "Container",
+      "Card",
+      "Divider",
+      "Badge",
+      "Chip",
+      "Kbd",
+    ],
   },
   {
-    title: "SaaS Dashboard UI React Tailwind",
+    title: "Data & Navigation",
     description:
-      "Tables, lists, selects, accordions, and dropdowns for metrics, customers, billing, and admin workflows.",
-    items: ["Table", "List", "Accordion", "Dropdown", "Select"],
+      "Build interfaces for dashboards, settings, products, users, and other data-heavy screens.",
+    items: ["List", "Table", "Accordion", "Stat", "Timeline", "Carousel"],
   },
   {
-    title: "React Authentication UI Tailwind",
+    title: "Feedback & Interaction",
     description:
-      "Accessible form controls, modals, drawers, toasts, checkboxes, and radio groups for login and onboarding flows.",
-    items: ["Toast", "Modal", "Drawer", "Checkbox Group", "Radio Group"],
+      "Handle actions, states, empty screens, alerts, and interactive product workflows.",
+    items: ["Alert", "Empty State", "Modal", "Drawer", "Toast", "Dropdown"],
   },
 ];
 
 const buildFlow = [
   {
-    title: "Install a SaaS-ready React UI library",
-    text: "Add Neuctra UI, import only the Tailwind React components you need, and keep product pages lean.",
+    title: "Install Neuctra UI",
+    text: "Add the library to your React project and start composing interfaces from reusable components.",
   },
   {
-    title: "Compose dashboard and admin interfaces",
-    text: "Build SaaS dashboard UI in React and Tailwind by combining small primitives into reusable screens.",
+    title: "Build your product screens",
+    text: "Combine primitives into dashboards, settings pages, forms, authentication flows, landing pages, and internal tools.",
   },
   {
-    title: "Customize authentication and form flows",
-    text: "Use className and design tokens to create React authentication UI and React form builder layouts.",
+    title: "Customize the system",
+    text: "Adapt colors, typography, spacing, states, and component styling to match your own product.",
   },
   {
-    title: "Ship with Core Web Vitals in mind",
-    text: "Use documented patterns, accessible defaults, and lightweight components for reliable production releases.",
+    title: "Give your AI coding tool context",
+    text: "Connect the Neuctra UI MCP server so compatible AI development tools can work with your component library knowledge.",
   },
 ];
 
 const qualityPillars = [
-  "TypeScript-friendly APIs",
+  "React-first component APIs",
+  "Tailwind CSS friendly",
   "Accessible interaction patterns",
-  "Reusable composable primitives",
-  "Docs-first developer onboarding",
-  "Modern dark-mode ready aesthetics",
-  "Scalable for startups and enterprise",
+  "Composable primitives",
+  "Responsive by design",
+  "Dark mode ready",
 ];
 
 const seoUseCases = [
   {
     icon: <TableProperties className="h-6 w-6 text-primary" />,
-    title: "Tailwind admin dashboard React",
-    text: "Create admin panels with responsive tables, filters, sidebars, empty states, badges, and action menus that feel consistent across every product area.",
+    title: "SaaS dashboards",
+    text: "Build analytics, billing, customer, project, and administration screens from consistent tables, cards, lists, stats, and layout primitives.",
   },
   {
     icon: <LockKeyhole className="h-6 w-6 text-primary" />,
-    title: "React authentication UI Tailwind",
-    text: "Design login, signup, password reset, OTP, profile, and account security screens with reusable React form controls and accessible feedback.",
+    title: "Authentication flows",
+    text: "Create polished login, signup, account, verification, password, and security interfaces using reusable form and feedback components.",
   },
   {
     icon: <Workflow className="h-6 w-6 text-primary" />,
-    title: "React form builder Tailwind",
-    text: "Assemble product forms, settings pages, onboarding steps, and internal workflows with inputs, textareas, selects, checkboxes, radio groups, modals, and toasts.",
+    title: "Product workflows",
+    text: "Compose settings pages, onboarding flows, forms, modals, drawers, notifications, and interactive states without rebuilding every pattern.",
   },
   {
     icon: <Gauge className="h-6 w-6 text-primary" />,
-    title: "Performance-focused SaaS UI",
-    text: "Use composable components, stable layouts, semantic content, optimized motion, and readable markup to support strong Core Web Vitals scores.",
+    title: "Design systems",
+    text: "Use reusable primitives as a foundation for a consistent product interface instead of maintaining isolated UI patterns across every screen.",
   },
 ];
 
 const streamPositions = [8, 18, 31, 44, 57, 70, 83, 94];
+
 const particlePositions = [
   4, 11, 17, 23, 29, 34, 41, 48, 53, 59, 64, 69, 74, 79, 84, 88, 92, 95, 97, 99,
 ];
 
-// Main Page
+/* -------------------------------------------------------------------------- */
+/* MCP Installation                                                           */
+/* -------------------------------------------------------------------------- */
+
+const MCP_COMMAND = "npx @neuctra/ui-mcp@latest";
+
+const INIT_COMMAND = "npx @neuctra/ui-cli@latest init";
+
+const MCPConfig = `{
+  "mcpServers": {
+    "neuctra-ui": {
+      "command": "npx",
+      "args": ["-y", "@neuctra/ui-mcp@latest"]
+    }
+  }
+}`;
+
+/* -------------------------------------------------------------------------- */
+/* Main Page                                                                  */
+/* -------------------------------------------------------------------------- */
+
 const LandingPage = () => {
   const shouldReduceMotion = useReducedMotion();
+
+  const [copiedCommand, setCopiedCommand] = useState(false);
+
+  const copyCommand = async () => {
+    try {
+      await navigator.clipboard.writeText(MCP_COMMAND);
+      setCopiedCommand(true);
+
+      setTimeout(() => {
+        setCopiedCommand(false);
+      }, 2000);
+    } catch {
+      setCopiedCommand(false);
+    }
+  };
 
   return (
     <>
       <Metadata
-        title="React UI Library for SaaS | SaaS Dashboard UI React Tailwind"
-        description="Neuctra UI is a React UI library for SaaS teams building SaaS dashboard UI, React authentication UI, Tailwind admin dashboards, and React form builder interfaces."
+        title="Neuctra UI — React UI Library & MCP for Modern Products"
+        description="Neuctra UI is a React UI library for building SaaS products, dashboards, admin panels, forms, authentication flows, and responsive interfaces with reusable components. Connect Neuctra UI MCP to give AI coding tools context about your UI system."
         keywords={seoKeywords}
       />
 
@@ -298,8 +379,11 @@ const LandingPage = () => {
           ))}
 
         <CircuitLine top="5%" left="5%" delay={0.2} width={150} height={150} />
+
         <CircuitLine top="5%" left="85%" delay={0.4} width={150} height={150} />
+
         <CircuitLine top="85%" left="5%" delay={0.8} width={150} height={150} />
+
         <CircuitLine
           top="85%"
           left="85%"
@@ -307,7 +391,9 @@ const LandingPage = () => {
           width={150}
           height={150}
         />
+
         <CircuitLine top="45%" left="0%" delay={1.5} width={200} height={100} />
+
         <CircuitLine
           top="45%"
           left="92%"
@@ -316,75 +402,143 @@ const LandingPage = () => {
           height={100}
         />
 
-        {/* Hero Section */}
-        <div className="relative z-10 min-h-screen md:px-0 px-4 py-10 flex flex-col items-center justify-center">
+        {/* ------------------------------------------------------------------ */}
+        {/* HERO                                                               */}
+        {/* ------------------------------------------------------------------ */}
+
+        <div className="relative z-10 min-h-screen px-4 py-10 flex flex-col items-center justify-center">
           <div className="max-w-6xl mx-auto w-full">
-            <div className="grid lg:grid-cols-2 gap-2 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-2 items-center">
               {/* Left Content */}
+
               <div>
                 <Motion.div
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1 }}
-                  className="mb-2"
+                  className="mb-3"
                 >
-                  <span className="inline-block px-4 py-1 bg-primary/10 border border-primary/30 rounded-full text-primary text-xs font-semibold mb-1">
-                    React UI library for SaaS teams
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 border border-primary/30 rounded-full text-primary text-xs font-semibold">
+                      <Component className="h-3.5 w-3.5" />
+                      React UI Library
+                    </span>
+
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-zinc-950 border border-zinc-800 rounded-full text-zinc-300 text-xs font-semibold">
+                      <Bot className="h-3.5 w-3.5 text-primary" />
+                      MCP Ready
+                    </span>
+                  </div>
                 </Motion.div>
 
                 <Motion.h1
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.1 }}
-                  className="text-5xl md:text-6xl font-bold tracking-tight mb-2 leading-tight"
+                  className="text-5xl md:text-6xl font-bold tracking-tight mb-4 leading-none"
                 >
-                  Build <span className="text-primary">SaaS Dashboard UI</span>{" "}
-                  with React and Tailwind
+                  Build better
+                  <span className="text-primary"> React interfaces.</span>
                 </Motion.h1>
 
                 <Motion.p
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.2 }}
-                  className="text-gray-200 mb-4 text-sm leading-relaxed"
+                  className="text-gray-300 mb-5 text-sm md:text-base max-w-xl"
                 >
-                  Neuctra UI helps teams ship SaaS dashboard UI React Tailwind
-                  screens, React authentication UI Tailwind flows, Tailwind
-                  admin dashboard React layouts, and React form builder Tailwind
-                  workflows with reusable, accessible components.
+                  Neuctra UI is a reusable React component library for
+                  dashboards, SaaS products, admin panels, forms, authentication
+                  flows, and modern web interfaces.
                 </Motion.p>
 
+                {/* MCP Hero Callout */}
+
                 <Motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.3 }}
-                  className="relative group"
+                  className="relative group mb-5 max-w-xl"
                 >
-                  <div className="absolute inset-0 bg-primary/20 blur-xl group-hover:blur-2xl transition-all duration-300" />
+                  <div className="absolute inset-0 bg-primary/10 blur-xl opacity-60 group-hover:opacity-100 transition-all duration-300" />
+
+                  <div className="relative rounded-xl border border-primary/20 bg-zinc-950/90 backdrop-blur-sm overflow-hidden">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
+                      <div className="flex items-center gap-2">
+                        <Terminal className="h-4 w-4 text-primary" />
+
+                        <span className="text-sm font-semibold text-white">
+                          Neuctra UI CLI
+                        </span>
+
+                        <span className="text-[10px] uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full">
+                          Quick Setup
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-4">
+                      <p className="text-xs text-zinc-200 mb-3">
+                        Set up Neuctra UI in your React project automatically
+                        with the official CLI. It configures the required
+                        dependencies, Tailwind CSS, theme system, and project
+                        files for you.
+                      </p>
+
+                      <div className="flex items-center gap-2 rounded-lg bg-black border border-zinc-800 px-3 py-2.5">
+                        <Terminal className="h-4 w-4 text-primary shrink-0" />
+
+                        <code className="text-xs md:text-sm text-zinc-200 overflow-x-auto whitespace-nowrap flex-1">
+                          {INIT_COMMAND}
+                        </code>
+
+                        <button
+                          type="button"
+                          onClick={copyCommand}
+                          aria-label="Copy Neuctra UI setup command"
+                          className="shrink-0 p-1.5 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
+                        >
+                          {copiedCommand ? (
+                            <Check className="h-4 w-4 text-primary" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </Motion.div>
 
                 <Motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.4 }}
-                  className="flex flex-wrap gap-4 text-sm"
+                  className="flex flex-wrap gap-3 text-sm"
                 >
                   <Link
-                    to={"/docs"}
+                    to="/docs"
                     className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-all duration-200 font-medium"
                   >
                     Get Started
                     <ArrowRight className="h-5 w-5" />
                   </Link>
 
+                  <Link
+                    to="/docs/mcp"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                  >
+                    <Bot className="h-5 w-5 text-primary" />
+                    Explore MCP
+                  </Link>
+
                   <a
-                    href={"https://www.neuctra.com/space?tag=neuctra%20space"}
+                    href="https://www.neuctra.com/space?tag=neuctra%20space"
                     target="_blank"
-                    className="inline-flex bg-zinc-950 items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-900 bg-zinc-950 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
                   >
                     <RocketIcon className="h-5 w-5" />
-                    View Sparks On Neuctra Space
+                    Neuctra Space
                   </a>
                 </Motion.div>
 
@@ -392,24 +546,27 @@ const LandingPage = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 1, delay: 0.6 }}
-                  className="flex gap-8 mt-4"
+                  className="flex flex-wrap gap-8 mt-6"
                 >
                   <div>
                     <div className="text-3xl font-bold text-primary">20+</div>
                     <div className="text-xs text-gray-500">Components</div>
                   </div>
+
                   <div>
-                    <div className="text-3xl font-bold text-primary">1k+</div>
-                    <div className="text-xs text-gray-500">Downloads</div>
+                    <div className="text-3xl font-bold text-primary">React</div>
+                    <div className="text-xs text-gray-500">First</div>
                   </div>
+
                   <div>
-                    <div className="text-3xl font-bold text-primary">99%</div>
-                    <div className="text-xs text-gray-500">Satisfaction</div>
+                    <div className="text-3xl font-bold text-primary">MCP</div>
+                    <div className="text-xs text-gray-500">AI Ready</div>
                   </div>
                 </Motion.div>
               </div>
 
-              {/* Right 3D Logo Animation */}
+              {/* Right Logo Animation */}
+
               <Motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -426,6 +583,7 @@ const LandingPage = () => {
                       ease: "linear",
                     }}
                   />
+
                   <Motion.div
                     className="absolute inset-8 border-2 border-primary/20 rounded-full"
                     animate={{ rotate: -360 }}
@@ -435,6 +593,7 @@ const LandingPage = () => {
                       ease: "linear",
                     }}
                   />
+
                   <div className="absolute inset-0 flex items-center justify-center">
                     <Motion.div
                       className="w-32 z-50 h-32 bg-gradient-to-br from-zinc-950 to-black rounded-2xl flex items-center justify-center shadow-2xl"
@@ -445,12 +604,15 @@ const LandingPage = () => {
                           "0 0 20px var(--primary)",
                         ],
                       }}
-                      transition={{ duration: 4, repeat: Infinity }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                      }}
                     >
                       <img
-                        src={"/logo.png"}
-                        alt="Neuctra UI logo"
-                        className="w-16 z-20 h-16 text-black"
+                        src="/logo.png"
+                        alt="Neuctra UI React component library logo"
+                        className="w-16 z-20 h-16"
                         width="64"
                         height="64"
                         decoding="async"
@@ -487,75 +649,92 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Features */}
-        <div className="relative z-10 max-w-6xl mx-auto md:px-0 px-4 py-20">
+        {/* ------------------------------------------------------------------ */}
+        {/* FEATURES                                                           */}
+        {/* ------------------------------------------------------------------ */}
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-20">
           <Motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-center mb-16"
+            className="text-4xl md:text-5xl font-bold text-center mb-5"
           >
-            Why Choose <span className="text-primary">Neuctra</span>?
+            Everything you need to build
+            <span className="text-primary"> product UI.</span>
           </Motion.h2>
+
+          <p className="text-zinc-400 text-center max-w-2xl mx-auto mb-16">
+            Neuctra UI gives you the reusable pieces needed to move from an
+            empty React project to a consistent product interface.
+          </p>
 
           <div className="grid md:grid-cols-3 gap-8">
             <FeatureCard
               icon={<Zap className="w-8 h-8" />}
-              title="Core Web Vitals Friendly"
-              description="Built with lightweight React components, stable layouts, reduced decorative work, and performance-minded defaults for fast SaaS pages."
+              title="Build Faster"
+              description="Skip repetitive UI work and spend more time on the product logic that actually makes your application different."
               delay={0.2}
             />
+
             <FeatureCard
               icon={<Code className="w-8 h-8" />}
-              title="Developer First React APIs"
-              description="Clean component APIs, TypeScript-friendly usage, and predictable Tailwind customization for fast product development."
+              title="React First"
+              description="Use predictable component APIs that fit naturally into modern React applications and existing project structures."
               delay={0.4}
             />
-            <FeatureCard
-              icon={<Sparkles className="w-8 h-8" />}
-              title="SaaS Brand Customization"
-              description="Adapt colors, typography, spacing, dark mode, and interaction states to match your SaaS design system."
-              delay={0.6}
-            />
-            <FeatureCard
-              icon={<Layout className="w-8 h-8" />}
-              title="Responsive SaaS Screens"
-              description="Create dashboards, admin pages, auth flows, and forms that work across mobile, tablet, and desktop layouts."
-              delay={0.8}
-            />
+
             <FeatureCard
               icon={<Palette className="w-8 h-8" />}
-              title="Design System Ready"
-              description="Integrate brand tokens and reusable patterns for consistent SaaS dashboard UI and admin interfaces."
+              title="Make It Yours"
+              description="Shape the components around your brand instead of forcing your product into someone else's visual system."
+              delay={0.6}
+            />
+
+            <FeatureCard
+              icon={<Layout className="w-8 h-8" />}
+              title="Responsive Interfaces"
+              description="Build interfaces that remain useful and readable across mobile, tablet, and desktop screens."
+              delay={0.8}
+            />
+
+            <FeatureCard
+              icon={<ShieldCheck className="w-8 h-8" />}
+              title="Accessible Patterns"
+              description="Start from reusable interaction patterns designed with keyboard navigation, states, and usability in mind."
               delay={1.0}
             />
+
             <FeatureCard
-              icon={<Component className="w-8 h-8" />}
-              title="Composable Product Components"
-              description="Create complex SaaS interfaces from small building blocks that stay consistent across projects and teams."
+              icon={<Bot className="w-8 h-8" />}
+              title="AI-Aware Workflow"
+              description="Connect the Neuctra UI MCP server so compatible AI coding tools can work with your UI library context."
               delay={1.2}
             />
           </div>
         </div>
 
-        {/* Full Overview Sections */}
-        <div className="relative z-10 max-w-6xl mx-auto md:px-0 px-4 pb-24 space-y-24">
+        {/* ------------------------------------------------------------------ */}
+        {/* COMPONENT OVERVIEW                                                 */}
+        {/* ------------------------------------------------------------------ */}
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 pb-24 space-y-24">
           <section className="space-y-6">
-            <Motion.h3
+            <Motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-3xl md:text-4xl font-bold text-center"
             >
-              Complete <span className="text-primary">SaaS React UI</span>{" "}
-              Overview
-            </Motion.h3>
+              A component library that grows with your product
+            </Motion.h2>
+
             <p className="text-zinc-400 text-center max-w-3xl mx-auto leading-relaxed">
-              Neuctra UI gives SaaS teams a complete React UI foundation: core
-              primitives, Tailwind admin dashboard React patterns, structured
-              data components, React authentication UI Tailwind flows, and
-              production-ready interactive states.
+              Start with simple primitives and combine them into complete
+              product interfaces. Neuctra UI is designed around composition, so
+              your components can evolve with the rest of your application.
             </p>
+
             <div className="grid md:grid-cols-3 gap-5">
               {componentGroups.map((group, index) => (
                 <Motion.div
@@ -566,12 +745,14 @@ const LandingPage = () => {
                   transition={{ delay: index * 0.1 }}
                   className="rounded-xl border border-zinc-800 bg-zinc-950/80 p-5"
                 >
-                  <h4 className="text-white font-semibold mb-2">
+                  <h3 className="text-white font-semibold mb-2">
                     {group.title}
-                  </h4>
-                  <p className="text-zinc-400 text-sm mb-4">
+                  </h3>
+
+                  <p className="text-zinc-400 text-sm mb-4 leading-6">
                     {group.description}
                   </p>
+
                   <div className="flex flex-wrap gap-2">
                     {group.items.map((item) => (
                       <span
@@ -587,17 +768,124 @@ const LandingPage = () => {
             </div>
           </section>
 
+          {/* ---------------------------------------------------------------- */}
+          {/* MCP SECTION                                                      */}
+          {/* ---------------------------------------------------------------- */}
+
+          <section className="relative overflow-hidden rounded-[2.5rem] border border-primary/20 bg-primary/[0.04] px-6 py-8 md:px-10 md:py-12">
+            <div className="absolute -top-20 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+
+            <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
+
+            <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_1fr] items-center">
+              <div>
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-primary">
+                  <Bot className="h-4 w-4" />
+                  Model Context Protocol
+                </div>
+
+                <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                  Your AI coding tool can
+                  <span className="text-primary"> understand Neuctra UI.</span>
+                </h2>
+
+                <p className="mt-5 text-zinc-400 text-sm md:text-base leading-7 max-w-xl">
+                  The Neuctra UI MCP server brings your UI library context into
+                  compatible AI development workflows. Instead of repeatedly
+                  explaining component names, patterns, and usage, connect the
+                  MCP server and let your coding assistant work with that
+                  context directly.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    to="/docs/mcp"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-all duration-200 font-medium"
+                  >
+                    MCP Documentation
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+
+                  <Link
+                    to="/docs"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                  >
+                    View Components
+                  </Link>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="rounded-2xl border border-zinc-800 bg-black overflow-hidden shadow-2xl">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
+                    <div className="flex items-center gap-2">
+                      <Terminal className="h-4 w-4 text-primary" />
+
+                      <span className="text-xs text-zinc-400">Install MCP</span>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={copyCommand}
+                      className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition-colors"
+                    >
+                      {copiedCommand ? (
+                        <>
+                          <Check className="h-3.5 w-3.5 text-primary" />
+                          Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-3.5 w-3.5" />
+                          Copy
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="p-5">
+                    <div className="overflow-x-auto">
+                      <code className="text-sm text-zinc-200 whitespace-nowrap">
+                        <span className="text-primary">$</span> {MCP_COMMAND}
+                      </code>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 rounded-2xl border border-zinc-800 bg-zinc-950/80 p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Code className="h-4 w-4 text-primary" />
+
+                    <span className="text-sm font-semibold">
+                      MCP configuration
+                    </span>
+                  </div>
+
+                  <pre className="overflow-x-auto text-xs leading-6 text-zinc-400">
+                    <code>{MCPConfig}</code>
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ---------------------------------------------------------------- */}
+          {/* USE CASES                                                        */}
+          {/* ---------------------------------------------------------------- */}
+
           <section className="space-y-6">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                Built Around the SaaS UI Searches That Matter
+                Built for the interfaces you actually ship
               </h2>
+
               <p className="text-zinc-400 leading-relaxed">
-                From SaaS dashboard UI React Tailwind pages to React form
-                builder Tailwind workflows, Neuctra UI gives you practical
-                components for the screens real software teams ship every week.
+                From the first dashboard screen to a complete SaaS product,
+                Neuctra UI gives you reusable building blocks instead of
+                isolated templates.
               </p>
             </div>
+
             <div className="grid md:grid-cols-2 gap-5">
               {seoUseCases.map((item, index) => (
                 <Motion.article
@@ -609,9 +897,11 @@ const LandingPage = () => {
                   className="rounded-xl border border-zinc-800 bg-zinc-950/80 p-5"
                 >
                   <div className="mb-4">{item.icon}</div>
+
                   <h3 className="text-xl font-semibold text-white mb-2">
                     {item.title}
                   </h3>
+
                   <p className="text-sm leading-relaxed text-zinc-400">
                     {item.text}
                   </p>
@@ -620,9 +910,11 @@ const LandingPage = () => {
             </div>
           </section>
 
-          {/* Workflow & Quality Pillars  */}
+          {/* ---------------------------------------------------------------- */}
+          {/* WORKFLOW                                                         */}
+          {/* ---------------------------------------------------------------- */}
+
           <section className="relative z-10 grid lg:grid-cols-1 gap-8 xl:gap-10 items-start">
-            {/* ---------------- Workflow ---------------- */}
             <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8">
               <div className="relative">
                 <div className="mb-8 flex items-center justify-between">
@@ -631,9 +923,9 @@ const LandingPage = () => {
                       Development Flow
                     </span>
 
-                    <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                      Build Faster. Ship Cleaner.
-                    </h3>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                      From idea to interface
+                    </h2>
                   </div>
 
                   <div className="hidden md:flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
@@ -647,25 +939,21 @@ const LandingPage = () => {
                       key={step.title}
                       className="group/item relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 p-5 transition-all duration-300 hover:border-primary/30 hover:bg-zinc-900"
                     >
-                      <div className="absolute inset-y-0 left-0 w-[3px] bg-gradient-to-b from-primary to-primary/20 opacity-70" />
+
 
                       <div className="flex gap-4">
-                        {/* Step Number */}
                         <div className="relative flex-shrink-0">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/70 text-sm font-bold text-white shadow-lg shadow-primary/20">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
                             {index + 1}
                           </div>
 
-                          {index !== buildFlow.length - 1 && (
-                            <div className="absolute left-1/2 top-12 h-10 w-px -translate-x-1/2 bg-gradient-to-b from-primary/40 to-transparent" />
-                          )}
+                       
                         </div>
 
-                        {/* Content */}
                         <div className="flex-1">
-                          <h4 className="text-lg font-semibold text-white transition-colors group-hover/item:text-primary">
+                          <h3 className="text-lg font-semibold text-white transition-colors group-hover/item:text-primary">
                             {step.title}
-                          </h4>
+                          </h3>
 
                           <p className="mt-2 text-sm leading-7 text-zinc-400">
                             {step.text}
@@ -678,9 +966,9 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* ---------------- Quality Pillars ---------------- */}
+            {/* Quality */}
+
             <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8">
-              {/* Glow */}
               <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-primary/10 blur-3xl opacity-70" />
 
               <div className="relative">
@@ -690,9 +978,9 @@ const LandingPage = () => {
                       Quality Standards
                     </span>
 
-                    <h3 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-                      Built for Modern SaaS Teams
-                    </h3>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                      A foundation, not a cage
+                    </h2>
                   </div>
 
                   <div className="hidden md:flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
@@ -706,7 +994,6 @@ const LandingPage = () => {
                       key={pillar}
                       className="group/pillar relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-zinc-900"
                     >
-                      {/* Hover Glow */}
                       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/pillar:opacity-100" />
 
                       <div className="relative flex items-start gap-3">
@@ -726,83 +1013,70 @@ const LandingPage = () => {
                   ))}
                 </div>
 
-                {/* Bottom Highlight */}
                 <div className="mt-8 rounded-2xl border border-primary/10 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4">
                   <p className="text-sm leading-7 text-zinc-300">
-                    Designed for scalable products, rapid iteration, and premium
-                    user experiences across dashboards, authentication, forms,
-                    and admin interfaces.
+                    Use Neuctra UI where it makes sense, customize what you
+                    need, and keep ownership of your product's visual identity.
                   </p>
                 </div>
               </div>
             </div>
           </section>
 
-          <section className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#09090B] px-6 py-8 md:px-10 md:py-12">
+          {/* ---------------------------------------------------------------- */}
+          {/* PRODUCT SECTION                                                   */}
+          {/* ---------------------------------------------------------------- */}
 
-            {/* Floating Glow */}
+          <section className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#09090B] px-6 py-8 md:px-10 md:py-12">
             <div className="absolute -top-20 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+
             <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
             <div className="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-center">
-              {/* ---------------- Left Content ---------------- */}
               <div>
-                {/* Badge */}
                 <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-medium capitalize tracking-[0.18em] text-primary">
                   <Layers3 className="h-4 w-4" />
                   Product-Focused UI System
                 </div>
 
-                {/* Heading */}
-                <h3 className="max-w-2xl text-4xl md:text-5xl font-bold leading-tight text-white">
-                  Designed for
-                  <span className="bg-gradient-to-r from-white via-zinc-300 to-zinc-500 bg-clip-text text-transparent">
-                    {" "}
-                    Modern Products
-                  </span>
-                </h3>
+                <h2 className="max-w-2xl text-4xl md:text-5xl font-bold leading-tight text-white">
+                  Your product should own the design.
+                </h2>
 
-                {/* Description */}
                 <p className="mt-6 max-w-2xl text-[15px] md:text-base leading-8 text-zinc-400">
-                  Build polished SaaS dashboard interfaces, scalable admin
-                  panels, authentication flows, documentation systems, and
-                  advanced React workflows with production-ready UI primitives
-                  engineered for speed, consistency, and modern product
-                  experiences.
+                  Neuctra UI gives developers a solid starting point without
+                  taking over the identity of the application. Build consistent
+                  interfaces, introduce your own brand, and keep your components
+                  working together as the product grows.
                 </p>
 
-                {/* Stats / Highlights */}
                 <div className="mt-8 flex flex-wrap gap-4">
-                  {[
-                    "React + Tailwind",
-                    "Production Ready",
-                    "Dark Mode Native",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-sm"
-                    >
-                      <span className="text-sm font-medium text-zinc-200">
-                        {item}
-                      </span>
-                    </div>
-                  ))}
+                  {["React + Tailwind", "Reusable Components", "MCP Ready"].map(
+                    (item) => (
+                      <div
+                        key={item}
+                        className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-sm"
+                      >
+                        <span className="text-sm font-medium text-zinc-200">
+                          {item}
+                        </span>
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
 
-              {/* ---------------- Right Use Cases ---------------- */}
               <div className="relative">
-                {/* Card */}
                 <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl">
-                  {/* Header */}
                   <div className="relative mb-5 flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium capitalize tracking-[0.18em] text-primary">
                         Use Cases
                       </p>
-                      <h4 className="mt-2 text-2xl font-bold text-white">
-                        Ready for Any Workflow
-                      </h4>
+
+                      <h3 className="mt-2 text-2xl font-bold text-white">
+                        Start anywhere
+                      </h3>
                     </div>
 
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10">
@@ -810,29 +1084,25 @@ const LandingPage = () => {
                     </div>
                   </div>
 
-                  {/* Grid */}
                   <div className="relative grid gap-3">
                     {[
                       "SaaS dashboards",
                       "Admin panels",
-                      "Documentation portals",
-                      "Marketing websites",
-                      "Design system foundations",
+                      "Authentication flows",
+                      "Documentation websites",
+                      "Marketing interfaces",
                     ].map((useCase, index) => (
                       <div
                         key={useCase}
                         className="group relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/70 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:bg-zinc-900"
                       >
-                        {/* Hover Glow */}
                         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                         <div className="relative flex items-center gap-4">
-                          {/* Number */}
                           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-sm font-bold text-primary">
                             0{index + 1}
                           </div>
 
-                          {/* Text */}
                           <p className="text-sm md:text-base font-medium text-zinc-200">
                             {useCase}
                           </p>
@@ -845,14 +1115,21 @@ const LandingPage = () => {
             </div>
           </section>
 
-          <section className="text-center rounded-2xl border border-primary/30 bg-primary/5 p-8 space-y-5">
-            <h3 className="text-3xl font-bold">
-              Ready to build with Neuctra UI?
-            </h3>
-            <p className="text-zinc-400 max-w-2xl mx-auto">
-              Start with the docs, explore component APIs, and integrate
-              reusable patterns into your current React workflow.
+          {/* ---------------------------------------------------------------- */}
+          {/* FINAL CTA                                                        */}
+          {/* ---------------------------------------------------------------- */}
+
+          <section className="text-center rounded-2xl border border-primary/30 bg-primary/5 p-8 md:p-10 space-y-5">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Build your next interface with Neuctra UI.
+            </h2>
+
+            <p className="text-zinc-400 max-w-2xl mx-auto leading-7">
+              Explore the components, read the documentation, or connect the MCP
+              server and bring Neuctra UI into your AI-assisted development
+              workflow.
             </p>
+
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 to="/docs/introduction"
@@ -861,6 +1138,15 @@ const LandingPage = () => {
                 <BookOpenText className="h-5 w-5" />
                 Read Documentation
               </Link>
+
+              <Link
+                to="/docs/mcp"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+              >
+                <Bot className="h-5 w-5 text-primary" />
+                Setup MCP
+              </Link>
+
               <Link
                 to="/docs/layout-playground"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"

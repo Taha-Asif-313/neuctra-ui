@@ -13,6 +13,7 @@ import DocsLayout from "./layouts/docs/DocsLayout";
 // Site Pages
 import LandingPage from "./layouts/site/pages/LandingPage";
 import ThemeToggleDocsPage from "./layouts/docs/pages/ThemeToggleButtonDocs";
+import McpDocPage from "./layouts/docs/pages/McpDocPage";
 
 const AboutPage = lazy(() => import("./layouts/site/pages/AboutPage"));
 const TermsPage = lazy(() => import("./layouts/site/pages/TermsPage"));
@@ -63,30 +64,46 @@ const SkeletonDocs = lazy(() => import("./layouts/docs/pages/SkeletonDocs"));
 const SpinnerDocs = lazy(() => import("./layouts/docs/pages/SpinnerDocs"));
 const ProgressDocs = lazy(() => import("./layouts/docs/pages/ProgressDocs"));
 const StatDocs = lazy(() => import("./layouts/docs/pages/StatDocs"));
-const EmptyStateDocs = lazy(() => import("./layouts/docs/pages/EmptyStateDocs"));
+const EmptyStateDocs = lazy(
+  () => import("./layouts/docs/pages/EmptyStateDocs"),
+);
 const TimelineDocs = lazy(() => import("./layouts/docs/pages/TimelineDocs"));
 
 // v0.3.0 — Navigation & overlay
-const BreadcrumbDocs = lazy(() => import("./layouts/docs/pages/BreadcrumbDocs"));
-const PaginationDocs = lazy(() => import("./layouts/docs/pages/PaginationDocs"));
+const BreadcrumbDocs = lazy(
+  () => import("./layouts/docs/pages/BreadcrumbDocs"),
+);
+const PaginationDocs = lazy(
+  () => import("./layouts/docs/pages/PaginationDocs"),
+);
 const StepperDocs = lazy(() => import("./layouts/docs/pages/StepperDocs"));
 const TooltipDocs = lazy(() => import("./layouts/docs/pages/TooltipDocs"));
 const PopoverDocs = lazy(() => import("./layouts/docs/pages/PopoverDocs"));
 
 // v0.3.0 — Form
 const SliderDocs = lazy(() => import("./layouts/docs/pages/SliderDocs"));
-const NumberInputDocs = lazy(() => import("./layouts/docs/pages/NumberInputDocs"));
+const NumberInputDocs = lazy(
+  () => import("./layouts/docs/pages/NumberInputDocs"),
+);
 const RatingDocs = lazy(() => import("./layouts/docs/pages/RatingDocs"));
 const TagInputDocs = lazy(() => import("./layouts/docs/pages/TagInputDocs"));
 const PinInputDocs = lazy(() => import("./layouts/docs/pages/PinInputDocs"));
-const FileUploadDocs = lazy(() => import("./layouts/docs/pages/FileUploadDocs"));
+const FileUploadDocs = lazy(
+  () => import("./layouts/docs/pages/FileUploadDocs"),
+);
 
 // v0.4.0
 const CalloutDocs = lazy(() => import("./layouts/docs/pages/CalloutDocs"));
 const ToggleDocs = lazy(() => import("./layouts/docs/pages/ToggleDocs"));
-const CopyButtonDocs = lazy(() => import("./layouts/docs/pages/CopyButtonDocs"));
-const AvatarGroupDocs = lazy(() => import("./layouts/docs/pages/AvatarGroupDocs"));
-const DatePickerDocs = lazy(() => import("./layouts/docs/pages/DatePickerDocs"));
+const CopyButtonDocs = lazy(
+  () => import("./layouts/docs/pages/CopyButtonDocs"),
+);
+const AvatarGroupDocs = lazy(
+  () => import("./layouts/docs/pages/AvatarGroupDocs"),
+);
+const DatePickerDocs = lazy(
+  () => import("./layouts/docs/pages/DatePickerDocs"),
+);
 const CarouselDocs = lazy(() => import("./layouts/docs/pages/CarouselDocs"));
 
 const App = () => {
@@ -115,6 +132,7 @@ const App = () => {
             <Route path="full-setup" element={<FullSetupDocPage />} />
 
             <Route path="theme-toggle" element={<ThemeToggleDocsPage />} />
+            <Route path="mcp" element={<McpDocPage />} />
 
             {/* Text / typography component */}
             <Route path="text" element={<TextDocs />} />
