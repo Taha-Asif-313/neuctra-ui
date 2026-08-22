@@ -162,12 +162,12 @@ export default function App(): JSX.Element {
 
             {/* CTA Button */}
             <Link
-              to="/docs/quick-start"
+              to="/docs/full-setup"
               className="inline-flex items-center gap-2 mt-2 px-4 py-2 rounded-lg 
                bg-primary text-white text-sm font-medium 
                hover:opacity-90 transition"
             >
-              Go to Quick Guide
+              Go to full setup guide
               <ArrowRight size={14} />
             </Link>
           </section>
