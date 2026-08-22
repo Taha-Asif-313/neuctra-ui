@@ -20,6 +20,11 @@ const Sidebar = () => {
     },
 
     {
+      title: "AI & Integrations",
+      links: [{ label: "Neuctra UI MCP", href: "/docs/mcp" }],
+    },
+
+    {
       title: "Layout & Structure",
       links: [
         { label: "Container", href: "/docs/container" },
@@ -109,9 +114,7 @@ const Sidebar = () => {
 
     {
       title: "Utilities",
-      links: [
-        { label: "Copy Button", href: "/docs/copy-button" },
-      ],
+      links: [{ label: "Copy Button", href: "/docs/copy-button" }],
     },
 
     {

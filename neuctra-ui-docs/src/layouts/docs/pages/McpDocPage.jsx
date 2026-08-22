@@ -3,7 +3,6 @@ import CodeBlock from "../components/CodeBlock";
 import Metadata from "../../../MetaData";
 import {
   Bot,
-  Download,
   Search,
   Wrench,
   Palette,
@@ -11,322 +10,448 @@ import {
   Settings,
   Code2,
   CheckCircle2,
-  AlertCircle,
+  Globe,
+  Copy,
+  Sparkles,
+  HelpCircle,
 } from "lucide-react";
 import { Container, Text } from "@neuctra/ui";
+
+const REMOTE_MCP_URL = "https://mcp.ui.neuctra.com/mcp";
 
 const McpDocPage = () => {
   return (
     <>
       <Metadata
-        title="Neuctra UI MCP - AI Coding Assistant Integration"
-        description="Connect Neuctra UI with AI coding assistants using the Neuctra UI MCP server. Give AI assistants accurate component APIs, theme rules, examples, and styling guidance without guessing."
-        keywords="Neuctra UI MCP, Neuctra MCP, MCP server, Model Context Protocol, AI coding assistant, Claude Code Neuctra UI, Cursor Neuctra UI, Antigravity Neuctra UI, AI UI development, React AI tools"
+        title="Neuctra UI MCP - Connect AI to Neuctra UI"
+        description="Connect AI coding assistants to Neuctra UI using the remote MCP server. Let AI discover components, props, examples, theme tokens, and styling rules automatically."
+        keywords="Neuctra UI MCP, Neuctra MCP, remote MCP, MCP server, Model Context Protocol, AI coding assistant, Claude Code, Cursor, Antigravity, React UI, Neuctra UI"
       />
 
       <div className="min-h-screen">
-        <div className="space-y-10">
-          {/* HEADER */}
-          <div>
-            <h1 className="text-4xl font-bold text-white">
-              Neuctra UI <code className="text-primary">MCP</code>
-            </h1>
+        <div className="space-y-12">
 
-            <p className="text-zinc-200 mt-2 max-w-3xl">
-              Connect Neuctra UI with AI coding assistants and give them
-              accurate knowledge about components, props, themes, examples, and
-              styling rules.
-            </p>
+          {/* =====================================================
+              HEADER
+          ====================================================== */}
+
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/50 px-3 py-1 text-xs text-zinc-300">
+                <Sparkles size={13} className="text-primary" />
+                AI Integration
+              </span>
+            </div>
+
+            <div>
+              <h1 className="text-4xl font-bold text-white">
+                Neuctra UI <code className="text-primary">MCP</code>
+              </h1>
+
+              <p className="text-zinc-200 mt-3 max-w-3xl leading-7">
+                Give your AI coding assistant direct access to Neuctra UI's
+                components, props, examples, theme tokens, and design
+                guidelines.
+              </p>
+            </div>
           </div>
 
-          {/* WHAT IS MCP */}
+          {/* =====================================================
+              QUICK START
+          ====================================================== */}
+
           <DocSection
-            icon={Bot}
-            title="What Is Neuctra UI MCP?"
-            description="Neuctra UI MCP gives AI coding assistants a direct way to understand the Neuctra UI component library."
+            icon={Globe}
+            title="Connect Neuctra UI MCP"
+            description="The easiest way to use Neuctra UI with an AI coding assistant is through the hosted remote MCP server."
           >
-            <p className="text-zinc-200 text-sm leading-6">
-              AI coding assistants are powerful, but when they don't know a
-              library they may guess component APIs, invent props, or use
-              styling patterns from other libraries.
-            </p>
+            <div className="border border-primary/30 rounded-xl p-5 bg-primary/5 space-y-5">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle2
+                    size={17}
+                    className="text-primary"
+                  />
 
-            <p className="text-zinc-200 text-sm leading-6">
-              The Neuctra UI MCP server solves this by exposing structured
-              information from Neuctra UI to MCP-compatible AI tools.
-            </p>
+                  <h3 className="text-base font-semibold text-white">
+                    Remote MCP — Recommended
+                  </h3>
+                </div>
 
-            <p className="text-zinc-200 text-sm leading-6">
-              Instead of guessing how a component works, the AI can ask the MCP
-              server for the exact information it needs before generating code.
-            </p>
+                <p className="text-zinc-300 text-sm leading-6">
+                  If your AI tool supports remote MCP servers or MCP
+                  connectors, use the URL below. No package installation
+                  is required.
+                </p>
+              </div>
 
-            <div className="border border-border rounded-lg p-4 bg-background/40">
-              <p className="text-sm text-zinc-200">
-                <span className="text-primary font-semibold">
-                  Think of MCP as a knowledge bridge:
-                </span>{" "}
-                your AI assistant can query Neuctra UI's actual component and
-                theme information while working on your project.
+              <CodeBlock
+                language="text"
+                code={REMOTE_MCP_URL}
+              />
+
+              <p className="text-zinc-300 text-sm leading-6">
+                Add this URL as a remote MCP server in your AI coding
+                assistant. Once connected, the assistant can query Neuctra UI
+                whenever it needs component or design-system information.
               </p>
             </div>
           </DocSection>
 
-          {/* WHY USE IT */}
+          {/* =====================================================
+              WHAT IS MCP
+          ====================================================== */}
+
+          <DocSection
+            icon={Bot}
+            title="What Is Neuctra UI MCP?"
+            description="MCP connects your AI coding assistant to Neuctra UI's structured component knowledge."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              AI coding assistants can generate React interfaces very quickly,
+              but they may sometimes guess component names, props, or styling
+              when they don't know a library.
+            </p>
+
+            <p className="text-zinc-200 text-sm leading-6">
+              Neuctra UI MCP gives the AI a direct way to ask Neuctra UI for
+              the information it needs.
+            </p>
+
+            <CodeBlock
+              language="text"
+              code={`Your Project
+     │
+     ▼
+AI Coding Assistant
+     │
+     │  MCP request
+     ▼
+Neuctra UI MCP
+     │
+     ├── Components
+     ├── Props
+     ├── TypeScript types
+     ├── Examples
+     ├── Theme tokens
+     └── Design guidelines
+     │
+     ▼
+AI generates Neuctra UI code`}
+            />
+
+            <div className="border border-border rounded-lg p-4 bg-background/40">
+              <p className="text-sm text-zinc-200 leading-6">
+                <span className="text-primary font-semibold">
+                  Think of MCP as a knowledge bridge.
+                </span>{" "}
+                Your AI can look up Neuctra UI information instead of relying
+                only on its training data.
+              </p>
+            </div>
+          </DocSection>
+
+          {/* =====================================================
+              WHY MCP
+          ====================================================== */}
+
           <DocSection
             icon={CheckCircle2}
-            title="Why Use Neuctra UI MCP?"
-            description="MCP helps AI assistants generate code that follows the actual Neuctra UI API."
+            title="Why Use It?"
+            description="MCP helps your AI assistant work with the real Neuctra UI API."
           >
             <div className="grid gap-4 md:grid-cols-2">
               <Benefit
-                title="No API Guessing"
-                description="The AI can inspect the actual component API instead of inventing props based on other UI libraries."
+                title="Less Guessing"
+                description="The AI can check the actual Neuctra UI API instead of inventing component props."
               />
 
               <Benefit
-                title="Real Component Knowledge"
-                description="AI assistants can discover available components, categories, props, types, defaults, and examples."
+                title="Component Discovery"
+                description="The AI can find components based on names, categories, or what you want to build."
+              />
+
+              <Benefit
+                title="Correct Props"
+                description="The AI can inspect TypeScript types, required props, optional props, defaults, and descriptions."
               />
 
               <Benefit
                 title="Theme Awareness"
-                description="The AI can understand Neuctra UI's semantic color tokens and styling rules."
+                description="The AI can use Neuctra UI semantic tokens and follow the design system."
+              />
+            </div>
+          </DocSection>
+
+          {/* =====================================================
+              REMOTE MCP
+          ====================================================== */}
+
+          <DocSection
+            icon={Globe}
+            title="Remote MCP"
+            description="Use the hosted Neuctra UI MCP server without installing anything."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              The remote MCP server is already hosted by Neuctra. Your AI
+              application connects directly to it over the MCP protocol.
+            </p>
+
+            <InfoRow
+              title="Remote MCP URL"
+              value={REMOTE_MCP_URL}
+            />
+
+            <p className="text-zinc-200 text-sm leading-6">
+              This is the recommended option for MCP clients that support
+              remote HTTP-based MCP servers.
+            </p>
+
+            <div className="border border-border rounded-lg p-4 space-y-3">
+              <h3 className="text-sm font-semibold text-white">
+                You don't need to:
+              </h3>
+
+              <ul className="list-disc pl-5 space-y-2 text-zinc-300 text-sm">
+                <li>Install Node.js packages for the MCP server.</li>
+                <li>Run the MCP server manually.</li>
+                <li>Clone the Neuctra UI MCP repository.</li>
+                <li>Maintain a local MCP process.</li>
+              </ul>
+            </div>
+          </DocSection>
+
+          {/* =====================================================
+              CLAUDE CODE
+          ====================================================== */}
+
+          <DocSection
+            icon={Terminal}
+            title="Claude Code"
+            description="Connect Claude Code to the hosted Neuctra UI MCP server."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              If your Claude Code version supports remote MCP servers, add the
+              Neuctra UI MCP endpoint as a remote server.
+            </p>
+
+            <CodeBlock
+              language="bash"
+              code={`claude mcp add --scope user neuctra-ui --transport http ${REMOTE_MCP_URL}`}
+            />
+
+            <p className="text-zinc-300 text-sm leading-6">
+              The{" "}
+              <code className="text-primary">--scope user</code>{" "}
+              option makes the MCP server available across your projects for
+              your user account.
+            </p>
+
+            <div className="border border-border rounded-lg p-4 bg-background/40">
+              <p className="text-sm text-zinc-300 leading-6">
+                <span className="text-white font-semibold">
+                  Prefer local MCP?
+                </span>{" "}
+                You can also run the Neuctra UI MCP package locally. See{" "}
+                <span className="text-primary">
+                  Local MCP
+                </span>{" "}
+                below.
+              </p>
+            </div>
+          </DocSection>
+
+          {/* =====================================================
+              CURSOR
+          ====================================================== */}
+
+          <DocSection
+            icon={Code2}
+            title="Cursor"
+            description="Add Neuctra UI MCP to Cursor using the remote server URL."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              Open Cursor's MCP settings and add a new remote MCP server.
+            </p>
+
+            <InfoRow
+              title="Server name"
+              value="neuctra-ui"
+            />
+
+            <InfoRow
+              title="Server URL"
+              value={REMOTE_MCP_URL}
+            />
+
+            <p className="text-zinc-300 text-sm leading-6">
+              Once connected, Cursor can use Neuctra UI MCP tools while
+              generating and modifying your application.
+            </p>
+          </DocSection>
+
+          {/* =====================================================
+              ANTIGRAVITY
+          ====================================================== */}
+
+          <DocSection
+            icon={Bot}
+            title="Antigravity"
+            description="Connect Antigravity to the hosted Neuctra UI MCP server."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              Open the MCP configuration in Antigravity and add the remote
+              Neuctra UI MCP endpoint.
+            </p>
+
+            <InfoRow
+              title="Server name"
+              value="neuctra-ui"
+            />
+
+            <InfoRow
+              title="Server URL"
+              value={REMOTE_MCP_URL}
+            />
+
+            <p className="text-zinc-300 text-sm leading-6">
+              After connecting, the AI can query Neuctra UI information while
+              building your application.
+            </p>
+          </DocSection>
+
+          {/* =====================================================
+              CHATGPT / CONNECTORS
+          ====================================================== */}
+
+          <DocSection
+            icon={Bot}
+            title="AI Apps With MCP Connectors"
+            description="Some AI applications allow you to connect remote MCP servers as connectors or integrations."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              If your AI application provides a remote MCP or connector
+              interface, use the Neuctra UI MCP URL:
+            </p>
+
+            <CodeBlock
+              language="text"
+              code={REMOTE_MCP_URL}
+            />
+
+            <p className="text-zinc-300 text-sm leading-6">
+              Look for an option such as{" "}
+              <span className="text-white font-medium">
+                Connect MCP
+              </span>
+              ,{" "}
+              <span className="text-white font-medium">
+                Remote MCP
+              </span>
+              , or{" "}
+              <span className="text-white font-medium">
+                MCP Connector
+              </span>
+              .
+            </p>
+
+            <div className="border border-border rounded-lg p-4">
+              <p className="text-sm text-zinc-300 leading-6">
+                The exact UI and setup process depends on the AI application
+                and its current MCP support.
+              </p>
+            </div>
+          </DocSection>
+
+          {/* =====================================================
+              WHAT AI CAN DO
+          ====================================================== */}
+
+          <DocSection
+            icon={Sparkles}
+            title="What Can the AI Do?"
+            description="After connecting MCP, you can work with Neuctra UI naturally."
+          >
+            <div className="grid gap-4 md:grid-cols-2">
+              <Benefit
+                title="Find Components"
+                description="Ask the AI to find the best Neuctra UI component for a specific UI requirement."
               />
 
               <Benefit
-                title="Better Generated UI"
-                description="The assistant can follow Neuctra UI conventions instead of producing generic library-independent designs."
+                title="Check Props"
+                description="Ask the AI to inspect the correct props before using a component."
+              />
+
+              <Benefit
+                title="Build Interfaces"
+                description="Ask the AI to create pages and features using actual Neuctra UI components."
+              />
+
+              <Benefit
+                title="Follow the Theme"
+                description="Ask the AI to use Neuctra UI semantic colors and design rules."
               />
             </div>
           </DocSection>
 
-          {/* HOW IT WORKS */}
-          <DocSection
-            icon={Code2}
-            title="How It Works"
-            description="The MCP server acts as a bridge between your AI assistant and Neuctra UI's component knowledge."
-          >
-            <CodeBlock
-              language="text"
-              code={`Your React Project
-       │
-       │  AI asks for UI help
-       ▼
-AI Coding Assistant
-Claude Code / Cursor / Antigravity
-       │
-       │  MCP request
-       ▼
-@neuctra/ui-mcp
-       │
-       ├── Component information
-       ├── Props and TypeScript types
-       ├── Usage examples
-       ├── Theme tokens
-       └── Styling rules
-       │
-       ▼
-AI receives accurate information
-       │
-       ▼
-Correct Neuctra UI code`}
-            />
+          {/* =====================================================
+              AVAILABLE TOOLS
+          ====================================================== */}
 
-            <p className="text-zinc-200 text-sm">
-              The AI decides when it needs additional Neuctra UI knowledge. You
-              don't have to manually copy documentation into every conversation.
-            </p>
-          </DocSection>
-
-          {/* INSTALL */}
-          <DocSection
-            icon={Download}
-            title="Step 1 — Install Neuctra UI MCP"
-            description="The MCP server can be launched directly through npx."
-          >
-            <CodeBlock language="bash" code={`npx -y @neuctra/ui-mcp`} />
-
-            <p className="text-zinc-200 text-sm">
-              You normally don't need to install the package globally. MCP
-              clients can launch the package automatically using{" "}
-              <code>npx</code>.
-            </p>
-          </DocSection>
-
-          {/* MCP CONCEPT */}
-          <DocSection
-            icon={Settings}
-            title="Step 2 — Understand the MCP Connection"
-            description="MCP clients start the Neuctra UI server and communicate with it through the MCP protocol."
-          >
-            <p className="text-zinc-200 text-sm leading-6">
-              MCP-compatible applications generally need three pieces of
-              information:
-            </p>
-
-            <div className="space-y-3">
-              <InfoRow title="Server name" value="neuctra-ui" />
-
-              <InfoRow title="Command" value="npx" />
-
-              <InfoRow title="Arguments" value="-y @neuctra/ui-mcp" />
-            </div>
-
-            <CodeBlock
-              language="json"
-              code={`{
-  "mcpServers": {
-    "neuctra-ui": {
-      "command": "npx",
-      "args": ["-y", "@neuctra/ui-mcp"]
-    }
-  }
-}`}
-            />
-          </DocSection>
-
-          {/* CLAUDE CODE */}
-          <DocSection
-            icon={Terminal}
-            title="Step 3 — Connect Claude Code"
-            description="Add Neuctra UI MCP directly from the Claude Code CLI."
-          >
-            <CodeBlock
-              language="bash"
-              code={`claude mcp add --scope user neuctra-ui -- npx -y @neuctra/ui-mcp`}
-            />
-
-            <p className="text-zinc-200 text-sm">
-              After adding the server, Claude Code can access Neuctra UI MCP
-              tools during development.
-            </p>
-
-            <FrameworkTitle>Project Configuration</FrameworkTitle>
-
-            <p className="text-zinc-200 text-sm">
-              You can also configure the server in your project's{" "}
-              <code>.mcp.json</code> file.
-            </p>
-
-            <CodeBlock
-              language="json"
-              code={`{
-  "mcpServers": {
-    "neuctra-ui": {
-      "command": "npx",
-      "args": ["-y", "@neuctra/ui-mcp"]
-    }
-  }
-}`}
-            />
-          </DocSection>
-
-          {/* CURSOR */}
-          <DocSection
-            icon={Code2}
-            title="Step 4 — Connect Cursor"
-            description="Add Neuctra UI MCP to Cursor's MCP configuration."
-          >
-            <p className="text-zinc-200 text-sm">
-              Open Cursor's MCP settings and add a new server using the
-              following configuration.
-            </p>
-
-            <CodeBlock
-              language="json"
-              code={`{
-  "mcpServers": {
-    "neuctra-ui": {
-      "command": "npx",
-      "args": ["-y", "@neuctra/ui-mcp"]
-    }
-  }
-}`}
-            />
-
-            <p className="text-zinc-200 text-sm">
-              Cursor will launch the server and make its tools available to the
-              AI agent.
-            </p>
-          </DocSection>
-
-          {/* ANTIGRAVITY */}
-          <DocSection
-            icon={Bot}
-            title="Step 5 — Connect Antigravity"
-            description="Use the same MCP server configuration with MCP-compatible development environments."
-          >
-            <p className="text-zinc-200 text-sm">
-              Open your MCP server configuration in Antigravity and add Neuctra
-              UI using the standard MCP command configuration.
-            </p>
-
-            <CodeBlock
-              language="json"
-              code={`{
-  "mcpServers": {
-    "neuctra-ui": {
-      "command": "npx",
-      "args": ["-y", "@neuctra/ui-mcp"]
-    }
-  }
-}`}
-            />
-
-            <p className="text-zinc-200 text-sm">
-              Once connected, the assistant can query Neuctra UI knowledge while
-              generating or modifying your application.
-            </p>
-          </DocSection>
-
-          {/* TOOLS */}
           <DocSection
             icon={Wrench}
             title="Available MCP Tools"
-            description="Neuctra UI MCP provides focused tools so AI assistants can retrieve only the information they need."
+            description="Neuctra UI MCP exposes focused tools that the AI can use when it needs information."
           >
             <ToolCard
               name="list_components"
-              description="Browse the available Neuctra UI components, optionally filtered by category."
+              description="List available Neuctra UI components."
               input={`{
   "category": "form"
 }`}
-              useCase="Useful when the AI needs to discover what components are available before choosing one."
+              useCase="Use this when the AI needs to discover available components."
             />
 
             <ToolCard
               name="get_component"
-              description="Retrieve the complete specification for one component."
+              description="Get the complete specification for a specific component."
               input={`{
   "name": "Button"
 }`}
-              useCase="Useful when the AI needs exact props, types, defaults, descriptions, and an example before writing code."
+              useCase="Use this when the AI needs exact props, types, defaults, and examples."
             />
 
             <ToolCard
               name="search_components"
-              description="Search components when the exact component name is unknown."
+              description="Search for components using a natural-language query."
               input={`{
   "query": "date picker"
 }`}
-              useCase="Useful when the AI knows the UI functionality it needs but doesn't know which Neuctra UI component provides it."
+              useCase="Use this when the AI knows what it wants to build but doesn't know the component name."
             />
 
             <ToolCard
               name="get_theme"
-              description="Retrieve Neuctra UI theme tokens, styling rules, and visual design guidance."
+              description="Get Neuctra UI theme tokens and design guidance."
               input={`{}`}
-              useCase="Useful when the AI needs to generate styling that follows the Neuctra UI design system."
+              useCase="Use this when the AI needs to style an interface according to Neuctra UI."
             />
           </DocSection>
 
-          {/* LIST COMPONENTS */}
+          {/* =====================================================
+              COMPONENT SEARCH
+          ====================================================== */}
+
           <DocSection
             icon={Search}
-            title="list_components"
-            description="Discover available components without retrieving their complete specifications."
+            title="Component Discovery"
+            description="The AI can discover components before writing your code."
           >
+            <FrameworkTitle>
+              list_components
+            </FrameworkTitle>
+
             <CodeBlock
               language="json"
               code={`{
@@ -334,9 +459,9 @@ Correct Neuctra UI code`}
 }`}
             />
 
-            <p className="text-zinc-200 text-sm">
-              The category is optional. Without a category, the assistant can
-              browse the complete component registry.
+            <p className="text-zinc-200 text-sm leading-6">
+              The category is optional. Without a category, the AI can browse
+              the complete component registry.
             </p>
 
             <CodeBlock
@@ -359,13 +484,32 @@ Correct Neuctra UI code`}
   }
 ]`}
             />
+
+            <FrameworkTitle>
+              search_components
+            </FrameworkTitle>
+
+            <CodeBlock
+              language="json"
+              code={`{
+  "query": "loading state"
+}`}
+            />
+
+            <p className="text-zinc-200 text-sm leading-6">
+              This allows the AI to search using functionality, descriptions,
+              categories, component names, and prop information.
+            </p>
           </DocSection>
 
-          {/* GET COMPONENT */}
+          {/* =====================================================
+              COMPONENT DETAILS
+          ====================================================== */}
+
           <DocSection
             icon={Code2}
-            title="get_component"
-            description="Get the exact API and usage information for a specific component."
+            title="Get Component Details"
+            description="The AI can inspect a component before using it."
           >
             <CodeBlock
               language="json"
@@ -375,65 +519,52 @@ Correct Neuctra UI code`}
             />
 
             <p className="text-zinc-200 text-sm">
-              The response contains information such as:
+              The response can provide information such as:
             </p>
 
             <ul className="list-disc pl-5 space-y-2 text-zinc-200 text-sm">
               <li>Component name</li>
-              <li>Component category</li>
-              <li>Component description</li>
-              <li>Prop names</li>
+              <li>Category</li>
+              <li>Description</li>
+              <li>Props</li>
               <li>TypeScript types</li>
               <li>Required and optional props</li>
               <li>Default values</li>
               <li>Prop descriptions</li>
-              <li>Usage example</li>
+              <li>Usage examples</li>
             </ul>
 
-            <p className="text-zinc-200 text-sm">
-              This makes the tool especially useful before the AI writes code
-              using a component it has not previously inspected.
+            <p className="text-zinc-300 text-sm leading-6">
+              This is especially useful when the AI has never used a particular
+              Neuctra UI component before.
             </p>
           </DocSection>
 
-          {/* SEARCH */}
-          <DocSection
-            icon={Search}
-            title="search_components"
-            description="Find components using natural descriptions instead of exact component names."
-          >
-            <CodeBlock
-              language="json"
-              code={`{
-  "query": "loading state"
-}`}
-            />
+          {/* =====================================================
+              THEME
+          ====================================================== */}
 
-            <p className="text-zinc-200 text-sm">
-              Search can use component names, categories, descriptions, and prop
-              information to find relevant components.
-            </p>
-
-            <p className="text-zinc-200 text-sm">
-              This is useful when an AI agent knows the UI it wants to build but
-              doesn't know which Neuctra UI component should be used.
-            </p>
-          </DocSection>
-
-          {/* THEME */}
           <DocSection
             icon={Palette}
-            title="get_theme"
-            description="Give AI assistants the Neuctra UI visual system instead of allowing them to invent arbitrary styling."
+            title="Theme & Design System"
+            description="Help AI-generated interfaces follow the Neuctra UI visual system."
           >
-            <CodeBlock language="json" code={`{}`} />
-
-            <p className="text-zinc-200 text-sm">
-              The theme information includes semantic color tokens and guidance
-              for using them correctly.
+            <p className="text-zinc-200 text-sm leading-6">
+              The{" "}
+              <code className="text-primary">
+                get_theme
+              </code>{" "}
+              tool provides theme information and styling guidance.
             </p>
 
-            <FrameworkTitle>Semantic Tokens</FrameworkTitle>
+            <CodeBlock
+              language="json"
+              code={`{}`}
+            />
+
+            <FrameworkTitle>
+              Semantic Tokens
+            </FrameworkTitle>
 
             <CodeBlock
               language="text"
@@ -456,29 +587,34 @@ bg-warning
 bg-info`}
             />
 
-            <p className="text-zinc-200 text-sm">
-              This helps the AI use the application's semantic theme rather than
-              replacing the design system with arbitrary Tailwind palette
-              colors.
+            <p className="text-zinc-200 text-sm leading-6">
+              Semantic tokens allow the AI to work with your application's
+              theme instead of randomly choosing colors from a Tailwind
+              palette.
             </p>
 
-            <FrameworkTitle>Design Guidance</FrameworkTitle>
+            <FrameworkTitle>
+              Design Guidelines
+            </FrameworkTitle>
 
             <ul className="list-disc pl-5 space-y-2 text-zinc-200 text-sm">
               <li>Prefer semantic theme tokens.</li>
-              <li>Avoid arbitrary hardcoded brand colors.</li>
+              <li>Avoid unnecessary hardcoded brand colors.</li>
+              <li>Use existing Neuctra UI components.</li>
               <li>Keep layouts clean and purposeful.</li>
               <li>Avoid unnecessary visual effects.</li>
-              <li>Use actual UI components instead of recreating them.</li>
-              <li>Follow the existing application's visual language.</li>
+              <li>Follow the application's existing visual language.</li>
             </ul>
           </DocSection>
 
-          {/* AI WORKFLOW */}
+          {/* =====================================================
+              AI WORKFLOW
+          ====================================================== */}
+
           <DocSection
             icon={Bot}
             title="How AI Uses MCP"
-            description="The MCP server is designed to be queried during development rather than manually copied into every prompt."
+            description="The AI can query Neuctra UI whenever it needs additional information."
           >
             <CodeBlock
               language="text"
@@ -487,87 +623,123 @@ bg-info`}
 
         ↓
 
-AI:
-"I need to know which form components exist."
+AI searches for relevant components
 
         ↓
 
 search_components
+
         ↓
 
-AI:
-"I found Input, Checkbox and Button."
+AI finds Input, Checkbox and Button
 
         ↓
 
 get_component
+
         ↓
 
-AI:
-"Now I know the exact props and usage."
+AI checks the exact props and examples
 
         ↓
 
 get_theme
-        ↓
-
-AI:
-"I know which semantic colors and styling rules to use."
 
         ↓
 
-Generated React code
+AI checks the correct theme tokens
+
         ↓
 
-Correct Neuctra UI implementation`}
+AI generates the React implementation`}
             />
 
-            <p className="text-zinc-200 text-sm">
-              The important difference is that the AI can{" "}
-              <span className="text-primary font-medium">
-                ask for knowledge when it needs it
-              </span>{" "}
-              instead of relying entirely on its training data.
+            <p className="text-zinc-200 text-sm leading-6">
+              You don't have to manually paste Neuctra UI documentation into
+              every prompt. The AI can retrieve the information it needs
+              through MCP.
             </p>
           </DocSection>
 
-          {/* EXAMPLE PROMPTS */}
+          {/* =====================================================
+              EXAMPLES
+          ====================================================== */}
+
           <DocSection
-            icon={Bot}
-            title="Example AI Requests"
-            description="Once MCP is connected, you can ask your AI assistant to work naturally with Neuctra UI."
+            icon={Sparkles}
+            title="Example Requests"
+            description="After connecting MCP, you can simply ask your AI assistant to use Neuctra UI."
           >
             <CodeBlock
               language="text"
               code={`Create a login page using Neuctra UI.
 
-Use Neuctra UI components for the form fields.
+Build a registration form using Neuctra UI components.
 
 Find the best Neuctra UI component for selecting a date.
 
-Build a dashboard using Neuctra UI.
+Create a dashboard using Neuctra UI.
 
-Use the Neuctra UI theme tokens instead of hardcoded colors.
+Use Neuctra UI semantic theme tokens instead of hardcoded colors.
 
 Create a responsive settings page using Neuctra UI.
 
-Check the correct props for the Button component before
-using it.
+Check the correct props for the Button component before using it.
 
-Find a component suitable for displaying loading states.`}
+Find a Neuctra UI component suitable for displaying a loading state.`}
             />
-
-            <p className="text-zinc-200 text-sm">
-              You don't need to paste the component documentation into the
-              prompt. The AI can retrieve the relevant information through MCP.
-            </p>
           </DocSection>
 
-          {/* LOCAL DEVELOPMENT */}
+          {/* =====================================================
+              LOCAL MCP
+          ====================================================== */}
+
           <DocSection
             icon={Terminal}
-            title="Local Development"
-            description="You can also run the MCP server directly from a local checkout while developing the package."
+            title="Advanced: Local MCP"
+            description="Run the MCP server locally when you need a local development setup."
+          >
+            <p className="text-zinc-200 text-sm leading-6">
+              Most users should use the remote MCP server. A local installation
+              is mainly useful when you are developing or testing the MCP
+              package locally.
+            </p>
+
+            <CodeBlock
+              language="bash"
+              code={`npx -y @neuctra/ui-mcp`}
+            />
+
+            <p className="text-zinc-300 text-sm leading-6">
+              MCP clients can launch the package automatically, so you normally
+              don't need to install it globally.
+            </p>
+
+            <FrameworkTitle>
+              Example Local Configuration
+            </FrameworkTitle>
+
+            <CodeBlock
+              language="json"
+              code={`{
+  "mcpServers": {
+    "neuctra-ui": {
+      "command": "npx",
+      "args": ["-y", "@neuctra/ui-mcp"]
+    }
+  }
+}`}
+            />
+          </DocSection>
+
+          {/* =====================================================
+              LOCAL DEVELOPMENT
+          ====================================================== */}
+
+          <DocSection
+            icon={Settings}
+            title="Developing the MCP Server"
+            description="Contributors can run the MCP package directly from a local checkout."
           >
             <CodeBlock
               language="bash"
@@ -575,13 +747,15 @@ Find a component suitable for displaying loading states.`}
 npm start`}
             />
 
-            <p className="text-zinc-200 text-sm">
-              An MCP server normally waits for an MCP client to communicate with
-              it. Therefore, running it directly from your terminal may appear
-              to do nothing. This is expected behavior.
+            <p className="text-zinc-200 text-sm leading-6">
+              An MCP server normally waits for an MCP client to communicate
+              with it. Seeing little or no output in the terminal can therefore
+              be normal.
             </p>
 
-            <FrameworkTitle>Using a Local Server</FrameworkTitle>
+            <FrameworkTitle>
+              Local Server Configuration
+            </FrameworkTitle>
 
             <CodeBlock
               language="json"
@@ -598,15 +772,19 @@ npm start`}
             />
           </DocSection>
 
-          {/* REGISTRY */}
+          {/* =====================================================
+              REGISTRY
+          ====================================================== */}
+
           <DocSection
             icon={Settings}
-            title="Component Knowledge & Registry"
-            description="Neuctra UI MCP uses structured component information rather than asking the AI to reverse-engineer source code."
+            title="Component Registry"
+            description="Neuctra UI MCP uses structured component information to provide reliable answers."
           >
             <p className="text-zinc-200 text-sm leading-6">
-              Component information is maintained in a registry containing
-              metadata generated from the Neuctra UI component source.
+              Neuctra UI component information is maintained in a structured
+              registry. The MCP server uses this data when responding to AI
+              requests.
             </p>
 
             <CodeBlock
@@ -617,97 +795,74 @@ npm start`}
 Component registry
        │
        ▼
-MCP data
+Neuctra UI MCP
        │
        ▼
 AI assistant`}
             />
 
-            <p className="text-zinc-200 text-sm">
-              This gives the MCP server a structured source of component
-              knowledge that can be queried quickly during AI-assisted
-              development.
+            <p className="text-zinc-300 text-sm leading-6">
+              This allows the AI to query structured component knowledge rather
+              than trying to reverse-engineer the library from scratch.
             </p>
           </DocSection>
 
-          {/* PROJECT STRUCTURE */}
-          <DocSection
-            icon={Code2}
-            title="Project Structure"
-            description="The MCP package contains the server entry point, tool definitions, and structured data."
-          >
-            <CodeBlock
-              language="text"
-              code={`neuctra-ui-mcp/
-├── bin/
-│   └── cli.mjs
-│
-├── src/
-│   └── server.mjs
-│
-├── data/
-│   ├── components.json
-│   └── theme.json
-│
-├── scripts/
-│   └── sync-registry.mjs
-│
-└── package.json`}
+          {/* =====================================================
+              TROUBLESHOOTING
+          ====================================================== */}
+
+          <Container className="border-t border-border pt-6 space-y-8">
+            <div className="flex items-center gap-3">
+              <HelpCircle
+                className="text-primary"
+                size={18}
+              />
+
+              <Text as="h2" size="2xl" weight={700}>
+                Troubleshooting
+              </Text>
+            </div>
+
+            <Trouble
+              title="The remote MCP server isn't connecting"
+              description="Check that your AI application supports remote MCP servers and that you entered the complete endpoint."
+            >
+              <CodeBlock
+                language="text"
+                code={REMOTE_MCP_URL}
+              />
+            </Trouble>
+
+            <Trouble
+              title="The AI isn't using Neuctra UI"
+              description="Make sure the MCP connection is active and ask the AI explicitly to use Neuctra UI components."
             />
 
-            <p className="text-zinc-200 text-sm">
-              The CLI starts the MCP server, while the server implementation
-              registers the tools exposed to MCP clients.
-            </p>
-          </DocSection>
+            <Trouble
+              title="The AI is guessing component props"
+              description="Ask the AI to inspect the component through MCP before generating the implementation. Also verify that the MCP tools are visible to the AI client."
+            />
 
-          {/* TROUBLESHOOTING */}
-          <Container className="border-t border-border pt-5 space-y-8">
-            <Text as="h2" size="2xl" weight={700}>
-              Troubleshooting
-            </Text>
+            <Trouble
+              title="The local MCP server doesn't show anything"
+              description="This can be normal. MCP servers wait for an MCP client instead of behaving like interactive terminal applications."
+            />
 
-            <div className="space-y-8">
-              <Trouble
-                title="MCP server is not appearing"
-                description="Make sure your MCP configuration uses the correct command and package name."
-              >
-                <CodeBlock
-                  language="json"
-                  code={`{
-  "mcpServers": {
-    "neuctra-ui": {
-      "command": "npx",
-      "args": ["-y", "@neuctra/ui-mcp"]
-    }
-  }
-}`}
-                />
-              </Trouble>
+            <Trouble
+              title="Local changes aren't reflected"
+              description="If you're developing the MCP package locally, regenerate or synchronize the component registry after changing component APIs."
+            />
 
-              <Trouble
-                title="The server appears to do nothing in the terminal"
-                description="This is normally expected. MCP servers communicate with clients over the protocol instead of displaying an interactive terminal interface."
-              />
-
-              <Trouble
-                title="AI is still guessing component props"
-                description="Make sure the MCP server is actually connected to your AI client and that the client has access to the Neuctra UI tools."
-              />
-
-              <Trouble
-                title="Changes to Neuctra UI are not reflected"
-                description="If you're developing the MCP package locally, make sure the component registry has been regenerated or synchronized after changing component APIs."
-              />
-
-              <Trouble
-                title="MCP connection stopped working after configuration changes"
-                description="Restart your AI coding application after modifying its MCP configuration. Many clients initialize MCP servers when they start."
-              />
-            </div>
+            <Trouble
+              title="MCP stopped working after configuration changes"
+              description="Restart your AI application after changing MCP configuration so it can initialize the connection again."
+            />
           </Container>
 
-          {/* FINAL */}
+          {/* =====================================================
+              FINAL
+          ====================================================== */}
+
           <Container className="border-t border-border pt-6">
             <div className="flex items-start gap-3">
               {createElement(CheckCircle2, {
@@ -716,14 +871,23 @@ AI assistant`}
               })}
 
               <div>
-                <Text as="h2" size="xl" weight={700} className="mb-2">
+                <Text
+                  as="h2"
+                  size="xl"
+                  weight={700}
+                  className="mb-2"
+                >
                   You're Ready
                 </Text>
 
-                <Text size="sm" color="muted">
-                  Once Neuctra UI MCP is connected, your AI coding assistant can
-                  discover components, inspect APIs, understand the theme, and
-                  generate Neuctra UI code with much less guesswork.
+                <Text
+                  size="sm"
+                  color="muted"
+                  className="leading-6"
+                >
+                  Connect the remote Neuctra UI MCP server to your AI coding
+                  assistant and let it discover components, inspect APIs,
+                  understand the theme, and build with Neuctra UI.
                 </Text>
               </div>
             </div>
@@ -738,7 +902,12 @@ AI assistant`}
    COMPONENTS
 ========================================================= */
 
-const DocSection = ({ icon: Icon, title, description, children }) => (
+const DocSection = ({
+  icon: Icon,
+  title,
+  description,
+  children,
+}) => (
   <div className="space-y-4">
     <div className="flex items-center gap-3">
       {createElement(Icon, {
@@ -746,65 +915,108 @@ const DocSection = ({ icon: Icon, title, description, children }) => (
         size: 18,
       })}
 
-      <h2 className="text-lg font-semibold text-white">{title}</h2>
+      <h2 className="text-lg font-semibold text-white">
+        {title}
+      </h2>
     </div>
 
-    <p className="text-zinc-200 text-sm">{description}</p>
+    <p className="text-zinc-200 text-sm leading-6">
+      {description}
+    </p>
 
-    <div className="space-y-4">{children}</div>
+    <div className="space-y-4">
+      {children}
+    </div>
   </div>
 );
 
 const FrameworkTitle = ({ children }) => (
-  <h3 className="pt-2 text-sm font-semibold text-primary">{children}</h3>
+  <h3 className="pt-2 text-sm font-semibold text-primary">
+    {children}
+  </h3>
 );
 
-const Benefit = ({ title, description }) => (
+const Benefit = ({
+  title,
+  description,
+}) => (
   <div className="border border-border rounded-lg p-4 space-y-2">
-    <h3 className="text-sm font-semibold text-white">{title}</h3>
+    <h3 className="text-sm font-semibold text-white">
+      {title}
+    </h3>
 
-    <p className="text-zinc-200 text-sm leading-6">{description}</p>
+    <p className="text-zinc-200 text-sm leading-6">
+      {description}
+    </p>
   </div>
 );
 
-const InfoRow = ({ title, value }) => (
+const InfoRow = ({
+  title,
+  value,
+}) => (
   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border border-border rounded-lg px-4 py-3">
-    <span className="text-sm text-zinc-200">{title}</span>
+    <span className="text-sm text-zinc-200">
+      {title}
+    </span>
 
-    <code className="text-sm text-primary">{value}</code>
+    <code className="text-sm text-primary break-all">
+      {value}
+    </code>
   </div>
 );
 
-const ToolCard = ({ name, description, input, useCase }) => (
+const ToolCard = ({
+  name,
+  description,
+  input,
+  useCase,
+}) => (
   <div className="border border-border rounded-lg p-4 space-y-4">
     <div>
       <h3 className="text-base font-semibold text-primary">
         <code>{name}</code>
       </h3>
 
-      <p className="text-zinc-200 text-sm mt-2 leading-6">{description}</p>
+      <p className="text-zinc-200 text-sm mt-2 leading-6">
+        {description}
+      </p>
     </div>
 
-    <CodeBlock language="json" code={input} />
+    <CodeBlock
+      language="json"
+      code={input}
+    />
 
-    <p className="text-zinc-300 text-sm">
-      <span className="font-semibold text-white">When to use:</span> {useCase}
+    <p className="text-zinc-300 text-sm leading-6">
+      <span className="font-semibold text-white">
+        When to use:
+      </span>{" "}
+      {useCase}
     </p>
   </div>
 );
 
-const Trouble = ({ title, description, children }) => (
+const Trouble = ({
+  title,
+  description,
+  children,
+}) => (
   <div>
     <Text
       as="h3"
       size="lg"
       weight={600}
-      className="mb-2 flex items-center gap-2"
+      className="mb-2"
     >
       {title}
     </Text>
 
-    <Text size="sm" color="muted" className="mb-3">
+    <Text
+      size="sm"
+      color="muted"
+      className="mb-3 leading-6"
+    >
       {description}
     </Text>
 

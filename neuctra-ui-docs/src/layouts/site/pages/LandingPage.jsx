@@ -478,7 +478,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="p-4">
-                      <p className="text-xs text-zinc-200 mb-3">
+                      <p className="text-xs text-zinc-300 mb-3">
                         Set up Neuctra UI in your React project automatically
                         with the official CLI. It configures the required
                         dependencies, Tailwind CSS, theme system, and project
