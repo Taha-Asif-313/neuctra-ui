@@ -66,7 +66,7 @@ export const Stat = forwardRef<HTMLDivElement, StatProps>(function Stat(
       <div className={cn("flex items-start justify-between gap-3", headerClassName)}>
         <p
           className={cn(
-            "text-xs font-medium uppercase tracking-wide text-muted-foreground",
+            "text-xs font-medium tracking-wide text-muted-foreground",
             labelClassName,
           )}
         >

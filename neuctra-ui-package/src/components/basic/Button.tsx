@@ -7,8 +7,7 @@ import { cn } from "../../lib/cn";
 /* 🧩 Types                                                                  */
 /* -------------------------------------------------------------------------- */
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Optional so icon-only buttons are possible — pair with `aria-label`. */
   children?: React.ReactNode;
 
@@ -28,7 +27,8 @@ export interface ButtonProps
     | "destructive"
     | "success"
     | "warning"
-    | "info";
+    | "info"
+    | "link";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 
   /** 🔥 Full Customization */
@@ -121,6 +121,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       success: "bg-success text-success-foreground hover:opacity-90",
       warning: "bg-warning text-warning-foreground hover:opacity-90",
       info: "bg-info text-info-foreground hover:opacity-90",
+      link: "bg-transparent text-primary hover:underline hover:opacity-90",
     };
 
     /* 🔘 Icon sizes */
@@ -179,10 +180,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
               {/* Loading Text */}
               <span
-                className={cn(
-                  "whitespace-nowrap text-current",
-                  textClassName,
-                )}
+                className={cn("whitespace-nowrap text-current", textClassName)}
                 style={textStyle}
               >
                 {loadingText}
@@ -212,7 +210,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
               {children !== undefined && children !== null && (
                 <span
-                  className={cn("whitespace-nowrap text-current", textClassName)}
+                  className={cn(
+                    "whitespace-nowrap text-current",
+                    textClassName,
+                  )}
                   style={textStyle}
                 >
                   {children}

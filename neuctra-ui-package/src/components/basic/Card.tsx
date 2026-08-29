@@ -117,7 +117,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
         )}
         {...rest}
       >
-        <div className="flex min-w-0 items-start gap-3">
+        <div className="flex min-w-0 items-center gap-3">
           {icon && (
             <span
               aria-hidden="true"
