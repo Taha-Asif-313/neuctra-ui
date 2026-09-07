@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.3",
-  "generatedAt": "2026-08-29T07:21:30.210Z",
-  "componentCount": 77,
+  "version": "1.0.4",
+  "generatedAt": "2026-09-07T06:09:18.965Z",
+  "componentCount": 78,
   "components": [
     {
       "name": "Accordion",
@@ -2585,6 +2585,62 @@
       ],
       "extends": [],
       "example": "<FileUpload\n  multiple\n  onFilesChange={(files) => console.log(files)}\n/>"
+    },
+    {
+      "name": "IconButton",
+      "importFrom": "@neuctra/ui",
+      "module": "IconButton",
+      "category": "uncategorized",
+      "propsInterface": "IconButtonProps",
+      "description": "",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "The icon displayed inside the button"
+        },
+        {
+          "name": "variant",
+          "type": "| \"default\" | \"soft\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\" | \"link\"",
+          "required": false,
+          "default": "\"default\"",
+          "description": "Visual style of the icon button"
+        },
+        {
+          "name": "size",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+          "required": false,
+          "default": "\"sm\"",
+          "description": "Size of the icon button"
+        },
+        {
+          "name": "\"aria-label\"",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Optional tooltip / accessible label"
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Full customization"
+        },
+        {
+          "name": "iconStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.ButtonHTMLAttributes<HTMLButtonElement>"
+      ],
+      "example": ""
     },
     {
       "name": "Image",

@@ -12,6 +12,10 @@ export type { TextProps } from "./components/basic/Text";
 export { Button } from "./components/basic/Button";
 export type { ButtonProps } from "./components/basic/Button";
 
+// IconButton Component Completed!
+export { IconButton } from "./components/basic/IconButton";
+export type { IconButtonProps } from "./components/basic/IconButton";
+
 // Image Component Completed!
 export { Image } from "./components/basic/Image";
 export type { ImageProps } from "./components/basic/Image";
