@@ -48,6 +48,7 @@ const CATEGORY = {
   DatePicker: "form",
   Calendar: "form",
   Button: "actions",
+  IconButton: "actions",
   CopyButton: "actions",
   ThemeToggleButton: "actions",
   Table: "data-display",

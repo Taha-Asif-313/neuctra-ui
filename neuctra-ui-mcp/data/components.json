@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.1",
-  "generatedAt": "2026-08-19T18:15:49.677Z",
-  "componentCount": 77,
+  "version": "1.0.4",
+  "generatedAt": "2026-09-08T05:00:45.191Z",
+  "componentCount": 78,
   "components": [
     {
       "name": "Accordion",
@@ -695,7 +695,7 @@
         },
         {
           "name": "variant",
-          "type": "| \"default\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\"",
+          "type": "| \"default\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\" | \"link\"",
           "required": false,
           "default": "\"default\"",
           "description": ""
@@ -2585,6 +2585,62 @@
       ],
       "extends": [],
       "example": "<FileUpload\n  multiple\n  onFilesChange={(files) => console.log(files)}\n/>"
+    },
+    {
+      "name": "IconButton",
+      "importFrom": "@neuctra/ui",
+      "module": "IconButton",
+      "category": "actions",
+      "propsInterface": "IconButtonProps",
+      "description": "The IconButton component is a compact, icon-only button built for toolbars, tables, cards, and dashboard actions. It shares the same variant system as Button for visual consistency, while sizing the icon and touch target together so the icon never looks lost inside the button.",
+      "props": [
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": true,
+          "default": null,
+          "description": "The icon displayed inside the button"
+        },
+        {
+          "name": "variant",
+          "type": "| \"default\" | \"soft\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\" | \"link\"",
+          "required": false,
+          "default": "\"default\"",
+          "description": "Visual style of the icon button"
+        },
+        {
+          "name": "size",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+          "required": false,
+          "default": "\"sm\"",
+          "description": "Size of the icon button"
+        },
+        {
+          "name": "\"aria-label\"",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Optional tooltip / accessible label"
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Full customization"
+        },
+        {
+          "name": "iconStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [
+        "React.ButtonHTMLAttributes<HTMLButtonElement>"
+      ],
+      "example": "<IconButton icon={<Heart size={16} />} aria-label=\"Like\" />"
     },
     {
       "name": "Image",

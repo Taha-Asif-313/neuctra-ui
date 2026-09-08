@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
   "version": "1.0.4",
-  "generatedAt": "2026-09-07T06:09:18.965Z",
+  "generatedAt": "2026-09-08T05:00:45.191Z",
   "componentCount": 78,
   "components": [
     {
@@ -2590,9 +2590,9 @@
       "name": "IconButton",
       "importFrom": "@neuctra/ui",
       "module": "IconButton",
-      "category": "uncategorized",
+      "category": "actions",
       "propsInterface": "IconButtonProps",
-      "description": "",
+      "description": "The IconButton component is a compact, icon-only button built for toolbars, tables, cards, and dashboard actions. It shares the same variant system as Button for visual consistency, while sizing the icon and touch target together so the icon never looks lost inside the button.",
       "props": [
         {
           "name": "icon",
@@ -2640,7 +2640,7 @@
       "extends": [
         "React.ButtonHTMLAttributes<HTMLButtonElement>"
       ],
-      "example": ""
+      "example": "<IconButton icon={<Heart size={16} />} aria-label=\"Like\" />"
     },
     {
       "name": "Image",

@@ -20,6 +20,38 @@ export const Components = [
     example: `<Button variant="default" size="md" iconBefore={<Icon />} loading>Submit</Button>`,
   },
   {
+    name: "IconButton",
+    description:
+      "Compact, icon-only button for toolbars, tables, and cards. Shares the same variant system as Button and sizes the icon together with the button footprint",
+    props: {
+      icon: "ReactNode",
+      variant: [
+        "default",
+        "soft",
+        "outline",
+        "ghost",
+        "secondary",
+        "destructive",
+        "success",
+        "warning",
+        "info",
+        "link",
+      ],
+      size: ["xs", "sm", "md", "lg", "xl"],
+      "aria-label": "string",
+      disabled: "boolean",
+      className: "string",
+      iconClassName: "string",
+      iconStyle: "object",
+    },
+    behaviors: [
+      "Requires aria-label since it has no visible text",
+      "Icon size scales automatically with the size prop",
+      "disabled state dims the button and disables interaction",
+    ],
+    example: `<IconButton icon={<Trash2 />} aria-label="Delete" variant="destructive" size="md" />`,
+  },
+  {
     name: "Container",
     description:
       "Responsive layout wrapper with max width, padding, and centering. Use this as the base wrapper. Apply flex or grid classes via className for layout control.",

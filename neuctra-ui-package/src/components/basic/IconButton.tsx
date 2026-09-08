@@ -75,7 +75,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       NonNullable<IconButtonProps["variant"]>,
       string
     > = {
-      default: "bg-primary text-primary-foreground hover:opacity-90",
+      default: "bg-primary text-foreground hover:opacity-90",
 
       soft: "bg-primary/10 text-primary hover:bg-primary/15",
 

@@ -101,6 +101,7 @@ const Sidebar = () => {
         { label: "Radio", href: "/docs/radio" },
         { label: "Switch", href: "/docs/switch" },
         { label: "Button", href: "/docs/button" },
+        { label: "Icon Button", href: "/docs/icon-button" },
         { label: "Slider", href: "/docs/slider" },
         { label: "Number Input", href: "/docs/number-input" },
         { label: "Rating", href: "/docs/rating" },

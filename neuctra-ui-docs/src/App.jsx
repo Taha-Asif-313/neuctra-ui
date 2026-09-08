@@ -32,6 +32,9 @@ const FullSetupDocPage = lazy(
 const TextDocs = lazy(() => import("./layouts/docs/pages/TextDocs"));
 const ImageDocs = lazy(() => import("./layouts/docs/pages/ImageDocs"));
 const ButtonDocs = lazy(() => import("./layouts/docs/pages/ButtonDocs"));
+const IconButtonDocs = lazy(
+  () => import("./layouts/docs/pages/IconButtonDocs"),
+);
 const DropdownDocs = lazy(() => import("./layouts/docs/pages/DropdownDocs"));
 const InputDocs = lazy(() => import("./layouts/docs/pages/InputDocs"));
 const ListDocs = lazy(() => import("./layouts/docs/pages/ListDocs"));
@@ -142,6 +145,9 @@ const App = () => {
 
             {/* Button component */}
             <Route path="button" element={<ButtonDocs />} />
+
+            {/* Icon button component */}
+            <Route path="icon-button" element={<IconButtonDocs />} />
 
             {/* Dropdown / menu component */}
             <Route path="dropdown" element={<DropdownDocs />} />
