@@ -1,0 +1,89 @@
+# Neuctra UI
+
+> Neuctra UI is a React component library for building SaaS dashboards and applications, styled with Tailwind CSS. This file indexes the documentation site for LLMs and AI coding assistants.
+
+Docs home: https://ui.neuctra.com/docs
+Full setup guide: https://ui.neuctra.com/docs/full-setup
+MCP server (AI tool integration): https://ui.neuctra.com/docs/mcp
+
+## Getting Started
+
+- [Overview](https://ui.neuctra.com/docs)
+- [Full Setup Guide](https://ui.neuctra.com/docs/full-setup)
+- [Theme Toggle](https://ui.neuctra.com/docs/theme-toggle)
+
+## AI & Integrations
+
+- [Neuctra UI MCP](https://ui.neuctra.com/docs/mcp)
+
+## Layout & Structure
+
+- [Container](https://ui.neuctra.com/docs/container)
+- [Card](https://ui.neuctra.com/docs/card)
+- [Divider](https://ui.neuctra.com/docs/divider)
+
+## Typography & Media
+
+- [Text](https://ui.neuctra.com/docs/text)
+- [Image](https://ui.neuctra.com/docs/image)
+- [Avatar](https://ui.neuctra.com/docs/avatar)
+- [Avatar Group](https://ui.neuctra.com/docs/avatar-group)
+- [Badge](https://ui.neuctra.com/docs/badge)
+- [Chip](https://ui.neuctra.com/docs/chip)
+- [Kbd](https://ui.neuctra.com/docs/kbd)
+
+## Data Display
+
+- [List](https://ui.neuctra.com/docs/list)
+- [Table](https://ui.neuctra.com/docs/table)
+- [Accordion](https://ui.neuctra.com/docs/accordion)
+- [Stat](https://ui.neuctra.com/docs/stat)
+- [Timeline](https://ui.neuctra.com/docs/timeline)
+- [Empty State](https://ui.neuctra.com/docs/empty-state)
+- [Carousel](https://ui.neuctra.com/docs/carousel)
+
+## Feedback & Loading
+
+- [Alert](https://ui.neuctra.com/docs/alert)
+- [Callout](https://ui.neuctra.com/docs/callout)
+- [Progress](https://ui.neuctra.com/docs/progress)
+- [Skeleton](https://ui.neuctra.com/docs/skeleton)
+- [Spinner](https://ui.neuctra.com/docs/spinner)
+
+## Overlay
+
+- [Modal](https://ui.neuctra.com/docs/modal)
+- [Drawer](https://ui.neuctra.com/docs/drawer)
+- [Dropdown](https://ui.neuctra.com/docs/dropdown)
+- [Tooltip](https://ui.neuctra.com/docs/tooltip)
+- [Popover](https://ui.neuctra.com/docs/popover)
+
+## Navigation
+
+- [Tabs](https://ui.neuctra.com/docs/tabs)
+- [Breadcrumb](https://ui.neuctra.com/docs/breadcrumb)
+- [Pagination](https://ui.neuctra.com/docs/pagination)
+- [Stepper](https://ui.neuctra.com/docs/stepper)
+
+## Form Components
+
+- [Input](https://ui.neuctra.com/docs/input)
+- [Textarea](https://ui.neuctra.com/docs/textarea)
+- [Select](https://ui.neuctra.com/docs/select)
+- [Checkbox](https://ui.neuctra.com/docs/checkbox)
+- [Radio](https://ui.neuctra.com/docs/radio)
+- [Switch](https://ui.neuctra.com/docs/switch)
+- [Button](https://ui.neuctra.com/docs/button)
+- [Icon Button](https://ui.neuctra.com/docs/icon-button)
+- [Slider](https://ui.neuctra.com/docs/slider)
+- [Number Input](https://ui.neuctra.com/docs/number-input)
+- [Rating](https://ui.neuctra.com/docs/rating)
+- [Tag Input](https://ui.neuctra.com/docs/tag-input)
+- [Pin Input](https://ui.neuctra.com/docs/pin-input)
+- [File Upload](https://ui.neuctra.com/docs/file-upload)
+- [Date Picker](https://ui.neuctra.com/docs/date-picker)
+- [Toggle Group](https://ui.neuctra.com/docs/toggle)
+
+## Utilities
+
+- [Copy Button](https://ui.neuctra.com/docs/copy-button)
