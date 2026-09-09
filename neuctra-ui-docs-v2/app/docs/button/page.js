@@ -128,7 +128,7 @@ function BasicExample(): JSX.Element {
             Variants
           </h2>
           <p className="text-gray-300 mb-4">
-            Eight variants cover brand, neutral, and semantic (status)
+            Nine variants cover brand, neutral, semantic (status), and link-style
             actions — pick the one that matches the action's intent.
           </p>
           <CodePreviewBlock
@@ -140,7 +140,8 @@ function BasicExample(): JSX.Element {
 <Button variant="destructive">Destructive</Button>
 <Button variant="success">Success</Button>
 <Button variant="warning">Warning</Button>
-<Button variant="info">Info</Button>`}
+<Button variant="info">Info</Button>
+<Button variant="link">Link</Button>`}
             previewContent={
               <>
                 <Button variant="default">Default</Button>
@@ -151,6 +152,7 @@ function BasicExample(): JSX.Element {
                 <Button variant="success">Success</Button>
                 <Button variant="warning">Warning</Button>
                 <Button variant="info">Info</Button>
+                <Button variant="link">Link</Button>
               </>
             }
           />
@@ -228,13 +230,15 @@ function BasicExample(): JSX.Element {
                   <td className="p-3">variant</td>
                   <td className="p-3 font-mono text-xs">
                     "default" | "outline" | "ghost" | "secondary" |
-                    "destructive" | "success" | "warning" | "info"
+                    "destructive" | "success" | "warning" | "info" | "link"
                   </td>
                   <td className="p-3">"default"</td>
                   <td className="p-3">
                     Controls visual style of the button. The four status
                     variants (destructive, success, warning, info) map to
-                    the same theme tokens used by Alert and Callout.
+                    the same theme tokens used by Alert and Callout; "link"
+                    is transparent with text-primary and underlines on
+                    hover, reading as a text link rather than a button.
                   </td>
                 </tr>
 

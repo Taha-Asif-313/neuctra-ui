@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -28,12 +29,10 @@ export interface PopoverProps {
   contentStyle?: React.CSSProperties;
 }
 
-const POSITIONS = {
-  top: { start: "bottom-full left-0 mb-2", center: "bottom-full left-1/2 -translate-x-1/2 mb-2", end: "bottom-full right-0 mb-2" },
-  bottom: { start: "top-full left-0 mt-2", center: "top-full left-1/2 -translate-x-1/2 mt-2", end: "top-full right-0 mt-2" },
-  left: { start: "right-full top-0 mr-2", center: "right-full top-1/2 -translate-y-1/2 mr-2", end: "right-full bottom-0 mr-2" },
-  right: { start: "left-full top-0 ml-2", center: "left-full top-1/2 -translate-y-1/2 ml-2", end: "left-full bottom-0 ml-2" },
-} as const;
+// Gap between the trigger and the panel, and the minimum distance the panel
+// is kept from the viewport edge (see the positioning effect below).
+const GAP = 8;
+const VIEWPORT_MARGIN = 8;
 
 export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
   function Popover(
@@ -57,7 +56,12 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
   ) {
     const panelId = useId();
     const rootRef = useRef<HTMLDivElement | null>(null);
+    const triggerRef = useRef<HTMLDivElement | null>(null);
+    const panelRef = useRef<HTMLDivElement | null>(null);
     const [internalOpen, setInternalOpen] = useState(defaultOpen);
+    const [coords, setCoords] = useState<{ top: number; left: number } | null>(
+      null,
+    );
 
     const isControlled = controlledOpen !== undefined;
     const open = isControlled ? controlledOpen : internalOpen;
@@ -93,6 +97,82 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
       };
     }, [open, closeOnClickOutside, closeOnEscape]);
 
+    // Position the panel with measured, viewport-clamped fixed coordinates
+    // instead of a CSS-only absolute offset (see Tooltip.tsx for the same
+    // technique). A trigger near the edge of a narrow/max-width container
+    // would otherwise let the panel extend past the viewport edge; nothing
+    // clips that overflow, so it grew the page's scrollWidth and produced a
+    // spurious horizontal scrollbar. Clamping here makes that structurally
+    // impossible.
+    useLayoutEffect(() => {
+      if (!open) {
+        setCoords(null);
+        return;
+      }
+      const trigger = triggerRef.current;
+      const panel = panelRef.current;
+      if (!trigger || !panel) return;
+
+      const triggerRect = trigger.getBoundingClientRect();
+      const panelRect = panel.getBoundingClientRect();
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      let top = 0;
+      let left = 0;
+
+      switch (position) {
+        case "top":
+          top = triggerRect.top - panelRect.height - GAP;
+          left =
+            align === "start"
+              ? triggerRect.left
+              : align === "end"
+                ? triggerRect.right - panelRect.width
+                : triggerRect.left + triggerRect.width / 2 - panelRect.width / 2;
+          break;
+        case "left":
+          left = triggerRect.left - panelRect.width - GAP;
+          top =
+            align === "start"
+              ? triggerRect.top
+              : align === "end"
+                ? triggerRect.bottom - panelRect.height
+                : triggerRect.top + triggerRect.height / 2 - panelRect.height / 2;
+          break;
+        case "right":
+          left = triggerRect.right + GAP;
+          top =
+            align === "start"
+              ? triggerRect.top
+              : align === "end"
+                ? triggerRect.bottom - panelRect.height
+                : triggerRect.top + triggerRect.height / 2 - panelRect.height / 2;
+          break;
+        case "bottom":
+        default:
+          top = triggerRect.bottom + GAP;
+          left =
+            align === "start"
+              ? triggerRect.left
+              : align === "end"
+                ? triggerRect.right - panelRect.width
+                : triggerRect.left + triggerRect.width / 2 - panelRect.width / 2;
+          break;
+      }
+
+      left = Math.min(
+        Math.max(left, VIEWPORT_MARGIN),
+        vw - panelRect.width - VIEWPORT_MARGIN,
+      );
+      top = Math.min(
+        Math.max(top, VIEWPORT_MARGIN),
+        vh - panelRect.height - VIEWPORT_MARGIN,
+      );
+
+      setCoords({ top, left });
+    }, [open, position, align, children]);
+
     return (
       <div
         ref={(el) => {
@@ -103,6 +183,7 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
         className={cn("relative inline-flex", className)}
       >
         <div
+          ref={triggerRef}
           role="button"
           tabIndex={disabled ? -1 : 0}
           aria-haspopup="dialog"
@@ -127,16 +208,17 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
 
         {open && (
           <div
+            ref={panelRef}
             id={panelId}
             role="dialog"
             className={cn(
-              "absolute z-50 min-w-48 rounded-xl border border-border bg-popover p-4",
+              "fixed z-50 min-w-48 rounded-xl border border-border bg-popover p-4",
               "text-sm text-popover-foreground shadow-xl",
               "animate-in fade-in",
-              POSITIONS[position]?.[align] ?? POSITIONS.bottom.center,
+              !coords && "invisible",
               contentClassName,
             )}
-            style={contentStyle}
+            style={{ ...(coords ? { top: coords.top, left: coords.left } : {}), ...contentStyle }}
           >
             {children}
           </div>

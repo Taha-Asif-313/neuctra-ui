@@ -5,32 +5,37 @@ import React, {
   useEffect,
   useId,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
-import { Calendar as CalendarIcon, X } from "lucide-react";
+import { Clock, X } from "lucide-react";
 import { cn } from "../../lib/cn";
-import { Calendar, type CalendarProps } from "./Calendar";
 
-export interface DatePickerProps {
+export interface TimePickerProps {
   value?: Date | null;
   defaultValue?: Date | null;
+  /** Fired with a Date carrying the picked hour/minute. If `value` (or the
+   * uncontrolled internal value) is already set, only its hours/minutes are
+   * replaced — the rest of the date is preserved, so pairing this with a
+   * DatePicker's value works without extra glue code. */
   onChange?: (date: Date | null) => void;
   placeholder?: string;
-  /** Format the displayed date; defaults to the locale date string. */
-  formatDate?: (date: Date) => string;
+  /** Format the displayed time; defaults to a locale "HH:MM" string. */
+  formatTime?: (date: Date) => string;
+  /** Minutes between each selectable option in the list. */
+  step?: number;
+  /** Earliest selectable hour, 0-23. */
+  minHour?: number;
+  /** Latest selectable hour, 0-23 (inclusive). */
+  maxHour?: number;
   label?: string;
   error?: string;
   helperText?: string;
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
-  /** Show an inline clear button while a date is selected. */
+  /** Show an inline clear button while a time is selected. */
   clearable?: boolean;
-  /** Forwarded to the inner <Calendar />. */
-  calendarProps?: Omit<
-    CalendarProps,
-    "value" | "defaultValue" | "onChange" | "className"
-  >;
   id?: string;
   className?: string;
   wrapperClassName?: string;
@@ -42,6 +47,8 @@ export interface DatePickerProps {
   clearButtonClassName?: string;
   clearIconClassName?: string;
   panelClassName?: string;
+  optionClassName?: string;
+  activeOptionClassName?: string;
   helperClassName?: string;
 }
 
@@ -51,27 +58,45 @@ const SIZES = {
   lg: "h-12 px-4 text-base [&_svg]:h-5 [&_svg]:w-5",
 } as const;
 
-// Gap between the field and the calendar panel, and the minimum distance
-// the panel is kept from the viewport edge (see the positioning effect
-// below — same technique as Tooltip.tsx/Popover.tsx).
+// Gap between the field and the panel, and the minimum distance the panel
+// is kept from the viewport edge (see the positioning effect below — same
+// technique as Tooltip.tsx/Popover.tsx/DatePicker.tsx).
 const GAP = 8;
 const VIEWPORT_MARGIN = 8;
 
-export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
-  function DatePicker(
+const defaultFormatTime = (date: Date) =>
+  date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+// A fixed reference day, not "today" — only the hour/minute of each option
+// is ever read, so anchoring to a real day would just risk DST edge cases
+// for no benefit.
+function buildTimeOptions(minHour: number, maxHour: number, step: number) {
+  const options: Date[] = [];
+  for (let h = minHour; h <= maxHour; h++) {
+    for (let m = 0; m < 60; m += step) {
+      options.push(new Date(2000, 0, 1, h, m, 0, 0));
+    }
+  }
+  return options;
+}
+
+export const TimePicker = forwardRef<HTMLButtonElement, TimePickerProps>(
+  function TimePicker(
     {
       value,
       defaultValue = null,
       onChange,
-      placeholder = "Pick a date",
-      formatDate,
+      placeholder = "Pick a time",
+      formatTime = defaultFormatTime,
+      step = 30,
+      minHour = 0,
+      maxHour = 23,
       label,
       error,
       helperText,
       size = "md",
       disabled = false,
       clearable = false,
-      calendarProps,
       id,
       className,
       wrapperClassName,
@@ -81,6 +106,8 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
       clearButtonClassName,
       clearIconClassName,
       panelClassName,
+      optionClassName,
+      activeOptionClassName,
       helperClassName,
     },
     ref,
@@ -93,6 +120,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
     const rootRef = useRef<HTMLDivElement | null>(null);
     const fieldRef = useRef<HTMLButtonElement | null>(null);
     const panelRef = useRef<HTMLDivElement | null>(null);
+    const activeOptionRef = useRef<HTMLButtonElement | null>(null);
     const [open, setOpen] = useState(false);
     const [internal, setInternal] = useState<Date | null>(defaultValue);
     const [coords, setCoords] = useState<{ top: number; left: number } | null>(
@@ -100,9 +128,21 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
     );
     const selected = value !== undefined ? value : internal;
 
+    const options = useMemo(
+      () => buildTimeOptions(minHour, maxHour, step),
+      [minHour, maxHour, step],
+    );
+
     const commit = (next: Date | null) => {
       if (value === undefined) setInternal(next);
       onChange?.(next);
+    };
+
+    const selectOption = (option: Date) => {
+      const base = selected ? new Date(selected) : new Date();
+      base.setHours(option.getHours(), option.getMinutes(), 0, 0);
+      commit(base);
+      setOpen(false);
     };
 
     // Outside-click + Escape, attached only while open.
@@ -124,14 +164,10 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
       };
     }, [open]);
 
-    // Position the calendar panel with measured, viewport-clamped fixed
-    // coordinates instead of a CSS-only absolute offset (see Tooltip.tsx /
-    // Popover.tsx for the same technique). A field near the edge of a
-    // narrow/max-width container would otherwise let the calendar's real
-    // 7-column grid extend past the viewport edge; nothing clips that
-    // overflow, so it grew the page's scrollWidth and produced a spurious
-    // horizontal scrollbar (or clipped the calendar off-screen). Clamping
-    // here makes that structurally impossible.
+    // Position the panel with measured, viewport-clamped fixed coordinates
+    // instead of a CSS-only absolute offset (see Tooltip.tsx / Popover.tsx /
+    // DatePicker.tsx for the same technique) — keeps the panel on-screen
+    // regardless of where the field sits.
     useLayoutEffect(() => {
       if (!open) {
         setCoords(null);
@@ -161,11 +197,14 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
       setCoords({ top, left });
     }, [open]);
 
-    const display = selected
-      ? formatDate
-        ? formatDate(selected)
-        : selected.toLocaleDateString()
-      : null;
+    // Keep the selected (or first) option in view when the panel opens,
+    // rather than always starting scrolled to the top of the list.
+    useEffect(() => {
+      if (!open) return;
+      activeOptionRef.current?.scrollIntoView({ block: "center" });
+    }, [open]);
+
+    const display = selected ? formatTime(selected) : null;
 
     return (
       <div ref={rootRef} className={cn("relative w-full", wrapperClassName)}>
@@ -209,7 +248,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
               className,
             )}
           >
-            <CalendarIcon
+            <Clock
               aria-hidden="true"
               className={cn("shrink-0 text-muted-foreground", iconClassName)}
             />
@@ -227,7 +266,7 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
           {clearable && selected && !disabled && (
             <button
               type="button"
-              aria-label="Clear date"
+              aria-label="Clear time"
               onClick={() => commit(null)}
               className={cn(
                 "absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
@@ -244,23 +283,42 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
             ref={panelRef}
             id={panelId}
             role="dialog"
-            aria-label="Choose date"
+            aria-label="Choose time"
             className={cn(
-              "fixed z-50 rounded-xl border border-border bg-popover p-3 shadow-xl",
+              "fixed z-50 max-h-60 w-40 overflow-y-auto rounded-xl border border-border bg-popover p-1.5 shadow-xl",
               "animate-in fade-in",
               !coords && "invisible",
               panelClassName,
             )}
             style={coords ? { top: coords.top, left: coords.left } : undefined}
           >
-            <Calendar
-              {...calendarProps}
-              value={selected}
-              onChange={(date) => {
-                commit(date);
-                setOpen(false);
-              }}
-            />
+            {options.map((option) => {
+              const active =
+                selected != null &&
+                selected.getHours() === option.getHours() &&
+                selected.getMinutes() === option.getMinutes();
+
+              return (
+                <button
+                  key={option.getTime()}
+                  ref={active ? activeOptionRef : undefined}
+                  type="button"
+                  role="option"
+                  aria-selected={active}
+                  onClick={() => selectOption(option)}
+                  className={cn(
+                    "block w-full rounded-lg px-3 py-1.5 text-left text-sm transition-colors",
+                    "hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                    active
+                      ? cn("bg-primary/10 font-medium text-primary", activeOptionClassName)
+                      : "text-foreground",
+                    optionClassName,
+                  )}
+                >
+                  {formatTime(option)}
+                </button>
+              );
+            })}
           </div>
         )}
 
@@ -282,4 +340,4 @@ export const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
   },
 );
 
-DatePicker.displayName = "DatePicker";
+TimePicker.displayName = "TimePicker";

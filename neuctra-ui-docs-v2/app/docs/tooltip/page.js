@@ -231,6 +231,16 @@ const TooltipDocs = () => {
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    className
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3">Extra classes for the trigger wrapper</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     contentClassName
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">

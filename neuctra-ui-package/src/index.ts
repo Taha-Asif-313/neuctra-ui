@@ -269,6 +269,9 @@ export type { CalendarProps } from "./components/basic/Calendar";
 export { DatePicker } from "./components/basic/DatePicker";
 export type { DatePickerProps } from "./components/basic/DatePicker";
 
+export { TimePicker } from "./components/basic/TimePicker";
+export type { TimePickerProps } from "./components/basic/TimePicker";
+
 export { Carousel } from "./components/basic/Carousel";
 export type { CarouselProps } from "./components/basic/Carousel";
 

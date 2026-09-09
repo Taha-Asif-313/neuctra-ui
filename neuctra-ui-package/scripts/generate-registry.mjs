@@ -46,6 +46,7 @@ const CATEGORY = {
   Toggle: "form",
   ToggleGroup: "form",
   DatePicker: "form",
+  TimePicker: "form",
   Calendar: "form",
   Button: "actions",
   IconButton: "actions",
@@ -230,7 +231,6 @@ function main() {
   const components = [];
 
   for (const [file, { components: compNames, types }] of byFile) {
-    if (file === "AudioGallery") continue; // not exported from index.ts anyway
     const filePath = path.join(SRC, "components", "basic", `${file}.tsx`);
     if (!fs.existsSync(filePath)) continue;
     const sourceFile = project.addSourceFileAtPath(filePath);

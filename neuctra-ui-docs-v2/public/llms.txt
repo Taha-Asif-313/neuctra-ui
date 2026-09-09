@@ -82,6 +82,7 @@ MCP server (AI tool integration): https://ui.neuctra.com/docs/mcp
 - [Pin Input](https://ui.neuctra.com/docs/pin-input)
 - [File Upload](https://ui.neuctra.com/docs/file-upload)
 - [Date Picker](https://ui.neuctra.com/docs/date-picker)
+- [Time Picker](https://ui.neuctra.com/docs/time-picker)
 - [Toggle Group](https://ui.neuctra.com/docs/toggle)
 
 ## Utilities

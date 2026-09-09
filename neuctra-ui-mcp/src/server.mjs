@@ -7,18 +7,23 @@ import { z } from "zod";
 // Reads data/*.json from disk. Only works on runtimes with a filesystem
 // (Node, Bun, Deno) — callers on edge/serverless runtimes without one
 // (Cloudflare Workers) must import the JSON files themselves at build time
-// and pass them into createServer({ registry, theme }) instead. Resolving
-// __dirname is deferred inside this function (not module top-level) because
-// import.meta.url is unavailable in some bundled edge runtimes even when
-// this function itself is never called there.
+// and pass them into createServer({ registry, theme, aiDesignRules }) instead.
+// Resolving __dirname is deferred inside this function (not module top-level)
+// because import.meta.url is unavailable in some bundled edge runtimes even
+// when this function itself is never called there.
 function loadDataFromDisk() {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
   const DATA_DIR = path.resolve(__dirname, "..", "data");
   const registry = JSON.parse(
     fs.readFileSync(path.join(DATA_DIR, "components.json"), "utf8"),
   );
-  const theme = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "theme.json"), "utf8"));
-  return { registry, theme };
+  const theme = JSON.parse(
+    fs.readFileSync(path.join(DATA_DIR, "theme.json"), "utf8"),
+  );
+  const aiDesignRules = JSON.parse(
+    fs.readFileSync(path.join(DATA_DIR, "aiDesignRules.json"), "utf8"),
+  );
+  return { registry, theme, aiDesignRules };
 }
 
 function summarize(component) {
@@ -39,12 +44,12 @@ function matchesQuery(component, query) {
 }
 
 export function createServer(data) {
-  const { registry, theme } = data ?? loadDataFromDisk();
+  const { registry, theme, aiDesignRules } = data ?? loadDataFromDisk();
   const componentsByName = new Map(registry.components.map((c) => [c.name, c]));
 
   const server = new McpServer({
     name: "neuctra-ui",
-    version: "0.3.1",
+    version: "0.4.0",
   });
 
   server.registerTool(
@@ -88,7 +93,9 @@ export function createServer(data) {
       inputSchema: {
         name: z
           .string()
-          .describe('Exact component name, e.g. "Input", "Select", "Modal", "CardHeader".'),
+          .describe(
+            'Exact component name, e.g. "Input", "Select", "Modal", "CardHeader".',
+          ),
       },
     },
     async ({ name }) => {
@@ -123,13 +130,15 @@ export function createServer(data) {
     {
       title: "Search Neuctra UI components",
       description:
-        "Search components by keyword against name, category, description, and prop names. Use this when you know what you need (e.g. \"date picker\", \"loading state\", \"icon button\") but not the exact component name.",
+        'Search components by keyword against name, category, description, and prop names. Use this when you know what you need (e.g. "date picker", "loading state", "icon button") but not the exact component name.',
       inputSchema: {
         query: z.string().describe("Keyword or short phrase to search for."),
       },
     },
     async ({ query }) => {
-      const results = registry.components.filter((c) => matchesQuery(c, query)).map(summarize);
+      const results = registry.components
+        .filter((c) => matchesQuery(c, query))
+        .map(summarize);
       return {
         content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
       };
@@ -139,14 +148,40 @@ export function createServer(data) {
   server.registerTool(
     "get_theme",
     {
-      title: "Get Neuctra UI theming rules and tokens",
+      title: "Get Neuctra UI theming tokens",
       description:
-        "Get the semantic color token system (bg-primary, text-foreground, etc.), the styling rules generated UI must follow, a set of rules for avoiding the visual tells that make UI look AI-generated (gradients, decorative shadows/blurs/glows, emoji-as-icons, etc.), the recommended `@neuctra/ui-cli` setup command, and how the toast notification API works. Call this before generating any UI — not just for colors.",
+        "Get the semantic color token system (bg-primary, text-foreground, etc.), the recommended `@neuctra/ui-cli` setup command, and how the toast notification API works. Call get_design_rules alongside this before generating any UI — not just for colors.",
       inputSchema: {},
     },
     async () => {
+      const { rules, antiAiLookRules, ...themeOnly } = theme;
       return {
-        content: [{ type: "text", text: JSON.stringify(theme, null, 2) }],
+        content: [{ type: "text", text: JSON.stringify(themeOnly, null, 2) }],
+      };
+    },
+  );
+
+  server.registerTool(
+    "get_design_rules",
+    {
+      title: "Get Neuctra UI design rules",
+      description:
+        "Get every design rule generated UI must follow when using @neuctra/ui. Covers two levels: (1) styling rules — token usage, surface/background conventions, component composition requirements like CardBody being compulsory whenever Card has body content, component-specific gotchas like Dropdown's trigger propagation, and the full set of rules for avoiding the visual tells that make UI look AI-generated (gradients, decorative shadows/blurs/glows, emoji-as-icons, etc.); (2) product/UX design rules — a numbered 50-section guide covering design philosophy, visual hierarchy, page/sidebar/navigation structure, per-component usage guidance (when to use Card, Modal vs Drawer, Table vs List, etc.), spacing/color/border/radius/shadow conventions, responsive design, accessibility, interaction design, a final UI quality checklist, and the rule against overwriting a component's built-in design. Call this before generating any UI — not just get_theme.",
+      inputSchema: {},
+    },
+    async () => {
+      const { rules, antiAiLookRules } = theme;
+      return {
+        content: [
+          {
+            type: "text",
+            text: JSON.stringify(
+              { stylingRules: rules, antiAiLookRules, productDesignGuide: aiDesignRules },
+              null,
+              2,
+            ),
+          },
+        ],
       };
     },
   );

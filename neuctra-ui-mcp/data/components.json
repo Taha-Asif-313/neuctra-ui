@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.4",
-  "generatedAt": "2026-09-08T05:00:45.191Z",
-  "componentCount": 78,
+  "version": "1.0.5",
+  "generatedAt": "2026-09-09T19:01:09.750Z",
+  "componentCount": 79,
   "components": [
     {
       "name": "Accordion",
@@ -7014,6 +7014,200 @@
         "Omit<React.HTMLAttributes<HTMLOListElement>, \"children\">"
       ],
       "example": "<Timeline\n  items={[\n    { title: \"Order placed\", time: \"09:12\", status: \"done\" },\n    { title: \"Payment confirmed\", time: \"09:14\", status: \"done\" },\n    { title: \"Out for delivery\", time: \"12:40\", status: \"active\",\n      description: \"Your package is on its way.\" },\n    { title: \"Delivered\", status: \"pending\" },\n  ]}\n/>"
+    },
+    {
+      "name": "TimePicker",
+      "importFrom": "@neuctra/ui",
+      "module": "TimePicker",
+      "category": "form",
+      "propsInterface": "TimePickerProps",
+      "description": "",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date | null",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date | null",
+          "required": false,
+          "default": "null",
+          "description": ""
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date | null) => void",
+          "required": false,
+          "default": null,
+          "description": "Fired with a Date carrying the picked hour/minute. If `value` (or the\nuncontrolled internal value) is already set, only its hours/minutes are\nreplaced — the rest of the date is preserved, so pairing this with a\nDatePicker's value works without extra glue code."
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "default": "\"Pick a time\"",
+          "description": ""
+        },
+        {
+          "name": "formatTime",
+          "type": "(date: Date) => string",
+          "required": false,
+          "default": "defaultFormatTime",
+          "description": "Format the displayed time; defaults to a locale \"HH:MM\" string."
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "30",
+          "description": "Minutes between each selectable option in the list."
+        },
+        {
+          "name": "minHour",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Earliest selectable hour, 0-23."
+        },
+        {
+          "name": "maxHour",
+          "type": "number",
+          "required": false,
+          "default": "23",
+          "description": "Latest selectable hour, 0-23 (inclusive)."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "required": false,
+          "default": "\"md\"",
+          "description": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": ""
+        },
+        {
+          "name": "clearable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show an inline clear button while a time is selected."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "wrapperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "labelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "🔥 Full Customization"
+        },
+        {
+          "name": "iconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "textClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "clearButtonClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "clearIconClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "panelClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "optionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "activeOptionClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        },
+        {
+          "name": "helperClassName",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": ""
+        }
+      ],
+      "extends": [],
+      "example": "const [time, setTime] = useState(null);\n\n<TimePicker\n  label=\"Meeting time\"\n  value={time}\n  onChange={setTime}\n  clearable\n/>"
     },
     {
       "name": "toast",

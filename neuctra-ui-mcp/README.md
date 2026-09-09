@@ -47,14 +47,14 @@ neuctra-ui-mcp/data/components.json                 (this package's local copy)
         │
         │  read once at server startup
         ▼
-neuctra-ui-mcp/src/server.mjs                        (defines 4 MCP tools over that data)
+neuctra-ui-mcp/src/server.mjs                        (defines 5 MCP tools over that data)
         │
         │  spoken over stdio (stdin/stdout), JSON-RPC under the hood
         ▼
    Claude Code / Cursor / Antigravity / any MCP client
 ```
 
-Two independently-regenerable files feed the server:
+Three independently-regenerable files feed the server:
 
 - **`data/components.json`** — synced from `neuctra-ui-package/registry/components.json`.
   Never edit this by hand; run `npm run sync-registry` after the upstream file changes.
@@ -64,6 +64,13 @@ Two independently-regenerable files feed the server:
   the color-token rules ("never hardcode colors"), the anti-AI-look rules ("no
   gradients/shadows/blurs/glows/emoji-icons"), the recommended `@neuctra/ui-cli init`
   setup command, and how the standalone `toast()` API works.
+- **`data/aiDesignRules.json`** — also hand-curated, no generator. A 50-section
+  product/UX design guide (design philosophy, visual hierarchy, page/sidebar/navigation
+  structure, per-component usage guidance, spacing/color/border/radius/shadow
+  conventions, responsive design, accessibility, and a final UI quality checklist).
+  `theme.json`'s `rules`/`antiAiLookRules` are the mechanical, CSS-level rules; this file
+  is the higher-level product-design layer — both are served together by
+  `get_design_rules`.
 
 ---
 
@@ -81,14 +88,45 @@ The host starts your server as a subprocess and talks to it over **stdio** — y
 server's stdout carries JSON-RPC messages, not human-readable logs (that's why
 `bin/cli.mjs` prints nothing except protocol traffic; use `console.error`, never
 `console.log`, if you ever add debug output). On connect, the client asks "what tools do
-you have?", gets back the 4 tool definitions below, and adds them to the AI's available
+you have?", gets back the 5 tool definitions below, and adds them to the AI's available
 actions — the same way the tools listed in *this* conversation's system prompt work.
 From then on, the AI decides on its own when a tool call would help, calls it, and reads
 the result back into its context before continuing.
 
 ---
 
-## 4. The four tools, in detail
+## 4. Recommended workflow
+
+The tools are designed to be called in roughly this order when generating UI, not
+grabbed ad hoc:
+
+1. **`get_design_rules`** — call this first, before picking any component. It returns
+   the styling rules, the anti-AI-look rules, and the 50-section product/UX guide. This
+   shapes *what* to build (hierarchy, when a group actually needs `Card`, when `Modal`
+   vs `Drawer`, etc.) before you start reaching for components.
+2. **`get_theme`** — call alongside step 1, not instead of it. Tokens without the design
+   rules just tell you which colors exist, not how to use them well.
+3. **`list_components`** (filtered by category) or **`search_components`** (keyword) —
+   confirm which real components exist for what you need. This matters specifically
+   because the design guide can describe a *pattern* (e.g. a sidebar nav item) without
+   there being a dedicated component for it — don't assume one exists, confirm here.
+4. **`get_component`** — full spec for every component before writing code against it.
+   Do this every time you touch a component you haven't already pulled specs for in the
+   current conversation, not just once at the start. Never guess prop names from memory.
+5. **Write the UI**, applying the design rules, the tokens, and the exact props from
+   step 4.
+6. **Self-check** against the "Final UI Quality Checklist" section (§49, found by
+   its `number` field in `productDesignGuide.sections` — not by array index) and
+   `antiAiLookRules` from `get_design_rules` before considering the UI
+   done — reread them, don't just rely on having read them once at the start.
+
+Steps 1–2 only need to happen once per session/task, not once per component — refetching
+`get_theme`/`get_design_rules` for every single component would be wasteful. Step 4 is
+the one that repeats for every new component.
+
+---
+
+## 5. The five tools, in detail
 
 ### `list_components`
 
@@ -157,36 +195,24 @@ state", "icon button". Matches against name, category, description, and prop nam
 
 ### `get_theme`
 
-Returns the semantic color token system, the styling rules for using it, and three more
-sections aimed squarely at making generated UI indistinguishable from a human design
-pass: a set of **anti-AI-look rules** (no gradients, no decorative shadows/blurs/glows,
-no emoji-as-icons — see below), a **setup** block pointing the AI at the
-`@neuctra/ui-cli` `init` command instead of hand-writing token CSS or a theme context,
-and a **toastNote** explaining the standalone `toast()` import. Without `get_theme`, an
-AI would happily write `className="bg-blue-500"` or reach for a purple-to-pink gradient
-hero, both of which ignore the consumer's actual theme and read as generic AI output.
+Returns the semantic color token system: the token list itself, a **setup** block
+pointing the AI at the `@neuctra/ui-cli` `init` command instead of hand-writing token CSS
+or a theme context, and a **toastNote** explaining the standalone `toast()` import.
+Without `get_theme`, an AI would happily write `className="bg-blue-500"`, ignoring the
+consumer's actual theme. `get_theme` does **not** carry the design/anti-AI-look rules —
+see `get_design_rules` below for those; call both together, not one instead of the other.
 
 **Response shape:**
 ```jsonc
 {
   "system": "Tailwind CSS v4, semantic CSS-variable tokens mapped via @theme, toggled by a .dark class...",
-  "rules": [
-    "Never use hardcoded Tailwind palette colors...",
-    "Always use the semantic token classes below...",
-    // ...
-  ],
-  "antiAiLookRules": [
-    "No gradients on backgrounds, buttons, or text...",
-    "No decorative box-shadows, drop-shadows, or glow effects...",
-    "No backdrop-blur / glassmorphism...",
-    // ...17 rules total — the visual tells that make UI read as AI-generated
-  ],
   "tokens": [
     { "token": "primary", "className": "bg-primary / text-primary / border-primary",
       "pairsWith": "primary-foreground", "light": "#00c214", "dark": "#00c214",
       "usage": "Brand color: primary buttons, active states, links, focus accents." },
     // ...23 tokens total
   ],
+  "note": "Values shown are the CLI-generated defaults...",
   "setup": {
     "recommendedCommand": "npx @neuctra/ui-cli@latest init",
     "whatItDoes": ["Installs @neuctra/ui.", "Checks/upgrades React and Tailwind CSS.", "..."],
@@ -196,9 +222,52 @@ hero, both of which ignore the consumer's actual theme and read as generic AI ou
 }
 ```
 
+### `get_design_rules`
+
+Returns every design rule generated UI must follow, at two levels: the mechanical
+**`stylingRules`** (token usage, surface/background conventions, component composition
+requirements — e.g. `CardBody` is compulsory whenever `Card` has body content, since
+`Card` itself renders no padding — and component-specific gotchas like Dropdown's
+trigger already stopping propagation internally) and **`antiAiLookRules`** (no
+gradients/shadows/blurs/glows/emoji-icons/em-dashes — the visual tells that make UI read
+as AI-generated), plus **`productDesignGuide`** — a 50-section product/UX design guide
+covering design philosophy, visual hierarchy, page/sidebar/navigation structure,
+per-component usage guidance (when to reach for `Card` vs plain whitespace, `Modal` vs
+`Drawer`, `Table` vs `List`, etc.), spacing/color/border/radius/shadow conventions,
+responsive design, accessibility, interaction design, and a final UI quality checklist.
+
+Call this before generating any UI — see the recommended workflow above.
+
+**Response shape (trimmed):**
+```jsonc
+{
+  "stylingRules": [
+    "Theme colors only, compulsory, no exceptions...",
+    "Use the Card component, not a hand-rolled lookalike...",
+    // ...9 rules total
+  ],
+  "antiAiLookRules": [
+    "No gradients, compulsory...",
+    "No shadows, compulsory...",
+    "No blur effects, compulsory...",
+    // ...17 rules total
+  ],
+  "productDesignGuide": {
+    "title": "Neuctra UI — AI Design Rules",
+    "intro": "You are a senior product designer and frontend UI engineer using `@neuctra/ui`...",
+    "sections": [
+      { "number": 1, "title": "Core Design Philosophy", "content": "..." },
+      { "number": 7, "title": "Cards", "content": "..." },
+      // ...50 sections total
+    ],
+    "goldenRule": { "title": "Golden Rule", "content": "..." }
+  }
+}
+```
+
 ---
 
-## 5. Local development
+## 6. Local development
 
 ```bash
 npm install
@@ -208,14 +277,14 @@ npm start                # runs the server on stdio — it will sit there silent
 
 `npm start` alone won't show you anything (it's waiting for a client to speak JSON-RPC
 to it, not for a human to type at it). To actually exercise it, either wire it into a
-real client (section 6) or write a small script using
+real client (section 7) or write a small script using
 `@modelcontextprotocol/sdk`'s `Client` + `StdioClientTransport` to spawn `bin/cli.mjs`
 and call the tools programmatically — that's how this server was verified while building
 it.
 
 ---
 
-## 6. Connecting it to a client
+## 7. Connecting it to a client
 
 All MCP clients use the same JSON shape — the differences are just *where* the config
 file lives.
@@ -256,7 +325,7 @@ Restart the client after editing its config — servers are only launched on sta
 
 ---
 
-## 7. Keeping the registry in sync
+## 8. Keeping the registry in sync
 
 The registry is generated, not hand-maintained. Whenever a component's props change:
 
@@ -271,12 +340,14 @@ npm run sync-registry         # copies the updated file in
 `registry:generate` also runs automatically as part of `neuctra-ui-package`'s
 `prepublishOnly`, and `sync-registry` runs automatically as part of this package's own
 `prepublishOnly` — so a normal `npm publish` in each package keeps things current without
-remembering these steps by hand. `data/theme.json` is the one file with no generator;
-edit it directly if the token set in `neuctra-ui-cli/lib/update-css.js` ever changes.
+remembering these steps by hand. `data/theme.json` and `data/aiDesignRules.json` are the
+two files with no generator; edit them directly — `theme.json` if the token set in
+`neuctra-ui-cli/lib/update-css.js` ever changes or a rule needs adding, `aiDesignRules.json`
+if the product-design guidance itself needs revising.
 
 ---
 
-## 8. Publishing
+## 9. Publishing
 
 ```bash
 npm run sync-registry
@@ -285,25 +356,26 @@ npm publish --access public   # --access public is required: scoped packages def
 
 ---
 
-## 9. Project structure
+## 10. Project structure
 
 ```
 neuctra-ui-mcp/
 ├── bin/
 │   └── cli.mjs              # entry point: connects the server to a stdio transport
 ├── src/
-│   └── server.mjs           # defines the 4 tools and their handlers
+│   └── server.mjs           # defines the 5 tools and their handlers
 ├── scripts/
 │   └── sync-registry.mjs    # copies registry/components.json from neuctra-ui-package
 ├── data/
 │   ├── components.json      # synced (generated) — don't edit by hand
-│   └── theme.json           # hand-curated token/rules data
+│   ├── theme.json           # hand-curated token + styling/anti-AI-look rules
+│   └── aiDesignRules.json   # hand-curated 50-section product/UX design guide
 └── package.json
 ```
 
 ---
 
-## 10. Extending it
+## 11. Extending it
 
 To add a new tool (e.g. `get_example` returning just the code snippet, or
 `list_categories`), open `src/server.mjs` and add another `server.registerTool(...)`

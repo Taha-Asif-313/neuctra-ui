@@ -106,6 +106,7 @@ const sidebarSections = [
       { label: "Pin Input", href: "/docs/pin-input" },
       { label: "File Upload", href: "/docs/file-upload" },
       { label: "Date Picker", href: "/docs/date-picker" },
+      { label: "Time Picker", href: "/docs/time-picker" },
       { label: "Toggle Group", href: "/docs/toggle" },
     ],
   },
