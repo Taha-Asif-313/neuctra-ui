@@ -6,11 +6,14 @@ const SITE_URL = "https://ui.neuctra.com";
 module.exports = {
   siteUrl: SITE_URL,
   generateRobotsTxt: true,
-  // next build (output: 'export') writes the final static site to ./out —
-  // running as a "postbuild" step means ./out already exists, so we must
-  // write directly into it rather than into ./public (which is only copied
-  // into ./out during the build step, not after).
-  outDir: "./out",
+  // Written to ./public (not ./out) so sitemap.xml/sitemap-0.xml/robots.txt
+  // are checked into the repo like llms.txt, instead of only existing
+  // inside a gitignored build artifact. Since this runs as a "postbuild"
+  // step, ./public's own copy into ./out has already happened by the time
+  // this runs — scripts/copy-seo-files-to-out.js (chained after this in
+  // package.json's "postbuild") copies these 3 generated files into ./out
+  // too, so the actual static export still serves them.
+  outDir: "./public",
   exclude: ["/docs/layout-playground"],
   robotsTxtOptions: {
     additionalSitemaps: [`${SITE_URL}/sitemap.xml`],
@@ -21,13 +24,13 @@ module.exports = {
 
     if (path === "/") {
       priority = 1.0;
-      changefreq = "weekly";
+      changefreq = "daily";
     } else if (path === "/docs") {
       priority = 0.9;
-      changefreq = "weekly";
+      changefreq = "daily";
     } else if (docsRoutes.includes(path)) {
       priority = 0.8;
-      changefreq = "monthly";
+      changefreq = "daily";
     } else if (["/about", "/contact"].includes(path)) {
       priority = 0.6;
       changefreq = "monthly";
