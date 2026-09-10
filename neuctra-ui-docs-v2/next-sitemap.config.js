@@ -15,9 +15,6 @@ module.exports = {
   // too, so the actual static export still serves them.
   outDir: "./public",
   exclude: ["/docs/layout-playground"],
-  robotsTxtOptions: {
-    additionalSitemaps: [`${SITE_URL}/sitemap.xml`],
-  },
   transform: async (config, path) => {
     let priority = 0.7;
     let changefreq = "monthly";
