@@ -9,7 +9,7 @@ import { cn } from "../../lib/cn";
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Visual style of the card surface. */
-  variant?: "default" | "outline" | "elevated" | "ghost";
+  variant?: "default" | "outline" | "elevated" | "ghost" | "transparent";
   /** Inner padding scale applied by the sub-components. */
   padding?: "none" | "sm" | "md" | "lg";
   /** Lift the card slightly on hover. */
@@ -60,6 +60,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(function Card(
     elevated:
       "bg-card text-card-foreground border border-border shadow-lg shadow-black/5",
     ghost: "bg-muted/50 text-foreground border border-transparent",
+    transparent: "bg-transparent text-foreground border-none",
   } as const;
 
   return (

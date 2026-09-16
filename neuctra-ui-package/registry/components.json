@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.6",
-  "generatedAt": "2026-09-09T19:09:40.003Z",
+  "version": "1.0.7",
+  "generatedAt": "2026-09-16T04:40:05.359Z",
   "componentCount": 79,
   "components": [
     {
@@ -1003,7 +1003,7 @@
       "props": [
         {
           "name": "variant",
-          "type": "\"default\" | \"outline\" | \"elevated\" | \"ghost\"",
+          "type": "\"default\" | \"outline\" | \"elevated\" | \"ghost\" | \"transparent\"",
           "required": false,
           "default": "\"default\"",
           "description": "Visual style of the card surface."
