@@ -1,15 +1,18 @@
 "use client";
 
 import React, {
-  ReactNode,
   CSSProperties,
+  ReactNode,
+  useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { X } from "lucide-react";
+
 import { Button, ButtonProps } from "./Button";
 import { cn } from "../../lib/cn";
 import { useScrollLock } from "../../lib/useScrollLock";
@@ -20,16 +23,13 @@ export interface DrawerProps {
   onClose: () => void;
   children?: ReactNode;
   renderContent?: (close: () => void) => ReactNode;
-
   position?: "left" | "right" | "top" | "bottom";
   size?: string;
-
   disableOverlayClose?: boolean;
   /** Also block Escape. Defaults to `disableOverlayClose`. */
   disableEscapeClose?: boolean;
   /** Accessible name for the dialog when no DrawerHeader is used. */
   ariaLabel?: string;
-
   overlayClassName?: string;
   overlayStyle?: CSSProperties;
   /** Applied to the sliding panel that hosts the drawer content. */
@@ -51,25 +51,33 @@ export function Drawer({
   panelClassName,
 }: DrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const escapeDisabled = disableEscapeClose ?? disableOverlayClose;
-
   const onCloseRef = useRef(onClose);
+
   onCloseRef.current = onClose;
+
+  const escapeDisabled =
+    disableEscapeClose ?? disableOverlayClose;
 
   useEffect(() => {
     if (!isOpen || escapeDisabled) return;
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onCloseRef.current();
+
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onCloseRef.current();
+      }
     };
+
     document.addEventListener("keydown", handleEsc);
-    return () => document.removeEventListener("keydown", handleEsc);
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+    };
   }, [isOpen, escapeDisabled]);
 
-  // Drawer previously had no scroll lock at all, so the page scrolled behind it.
   useScrollLock(isOpen);
   useFocusTrap(panelRef, isOpen);
 
-  const getMotion = () => {
+  const motionProps = useMemo(() => {
     switch (position) {
       case "left":
         return {
@@ -77,18 +85,21 @@ export function Drawer({
           animate: { x: 0 },
           exit: { x: "-100%" },
         };
+
       case "right":
         return {
           initial: { x: "100%" },
           animate: { x: 0 },
           exit: { x: "100%" },
         };
+
       case "top":
         return {
           initial: { y: "-100%" },
           animate: { y: 0 },
           exit: { y: "-100%" },
         };
+
       case "bottom":
         return {
           initial: { y: "100%" },
@@ -96,41 +107,48 @@ export function Drawer({
           exit: { y: "100%" },
         };
     }
-  };
+  }, [position]);
 
-  const getSizeStyle = (): CSSProperties => {
-    switch (position) {
-      case "left":
-      case "right":
-        // Clamp to the viewport: an unclamped size="400px" overflowed a 320px
-        // phone and created a horizontal scrollbar.
-        return { width: `min(${size}, 100vw)`, height: "100%" };
-      case "top":
-      case "bottom":
-        return { height: `min(${size}, 100vh)`, width: "100%" };
-      default:
-        return { width: `min(${size}, 100vw)`, height: "100%" };
+  const sizeStyle = useMemo<CSSProperties>(() => {
+    if (position === "left" || position === "right") {
+      return {
+        width: `min(${size}, 100vw)`,
+        height: "100%",
+      };
     }
-  };
 
-  const handleOverlayClick = () => {
-    if (!disableOverlayClose) onClose();
-  };
+    return {
+      height: `min(${size}, 100vh)`,
+      width: "100%",
+    };
+  }, [position, size]);
 
-  const motionProps = getMotion();
+  const handleOverlayClick = useCallback(() => {
+    if (!disableOverlayClose) {
+      onCloseRef.current();
+    }
+  }, [disableOverlayClose]);
+
+  const content = renderContent
+    ? renderContent(onCloseRef.current)
+    : children;
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div key="drawer-root" className="fixed inset-0 z-50">
+        <div
+          key="drawer-root"
+          className="fixed inset-0 z-50"
+        >
           {/* Overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
             onClick={handleOverlayClick}
             className={cn(
-              "absolute inset-0 bg-background/80 backdrop-blur-sm",
+              "absolute inset-0 bg-background/80",
               overlayClassName,
             )}
             style={overlayStyle}
@@ -144,22 +162,21 @@ export function Drawer({
             aria-modal="true"
             aria-label={ariaLabel}
             tabIndex={-1}
-            transition={{ duration: 0.25 }}
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
             className={cn(
-              // `absolute`, not `fixed`: the parent is already a fixed,
-              // full-viewport layer, and a nested fixed element competed with
-              // its own parent's z-50.
-              "absolute flex flex-col bg-background border-border shadow-2xl outline-none",
-              "border",
+              "absolute flex flex-col bg-background border border-border shadow-2xl outline-none",
               position === "right" && "right-0 top-0",
               position === "left" && "left-0 top-0",
               position === "top" && "top-0 left-0 right-0",
               position === "bottom" && "bottom-0 left-0 right-0",
               panelClassName,
             )}
-            style={getSizeStyle()}
+            style={sizeStyle}
           >
-            {renderContent ? renderContent(onClose) : children}
+            {content}
           </motion.div>
         </div>
       )}
@@ -179,7 +196,10 @@ export function DrawerContent({
   style,
 }: DrawerContentProps) {
   return (
-    <div className={clsx("flex flex-col h-full", className)} style={style}>
+    <div
+      className={cn("flex flex-col h-full", className)}
+      style={style}
+    >
       {children}
     </div>
   );
@@ -195,7 +215,13 @@ export function DrawerBody({
   style?: CSSProperties;
 }) {
   return (
-    <div className={cn("flex-1 p-6 overflow-auto", className)} style={style}>
+    <div
+      className={cn(
+        "flex-1 p-6 overflow-auto",
+        className,
+      )}
+      style={style}
+    >
       {children}
     </div>
   );
@@ -230,9 +256,24 @@ export function DrawerHeader({
       )}
       style={style}
     >
-      <div className={cn("flex items-center gap-2 font-semibold", titleWrapperClassName)}>
+      <div
+        className={cn(
+          "flex items-center gap-2 font-semibold",
+          titleWrapperClassName,
+        )}
+      >
         {icon}
-        {title && <h3 className={cn("text-sm", titleClassName)}>{title}</h3>}
+
+        {title && (
+          <h3
+            className={cn(
+              "text-sm",
+              titleClassName,
+            )}
+          >
+            {title}
+          </h3>
+        )}
       </div>
 
       {onClose && (
@@ -245,7 +286,10 @@ export function DrawerHeader({
             closeButtonClassName,
           )}
         >
-          <X size={18} aria-hidden="true" />
+          <X
+            size={18}
+            aria-hidden="true"
+          />
         </button>
       )}
     </div>
@@ -274,11 +318,16 @@ export function DrawerFooter({
   );
 }
 
-export interface DrawerTriggerProps extends ButtonProps {
+export interface DrawerTriggerProps
+  extends ButtonProps {
   children: React.ReactNode;
-  drawerContent: (props: { close: () => void }) => React.ReactNode;
-  /** Forwarded to the underlying <Drawer />. */
-  drawerProps?: Omit<DrawerProps, "isOpen" | "onClose" | "children">;
+  drawerContent: (props: {
+    close: () => void;
+  }) => React.ReactNode;
+  drawerProps?: Omit<
+    DrawerProps,
+    "isOpen" | "onClose" | "children"
+  >;
 }
 
 export function DrawerTriggerButton({
@@ -290,27 +339,38 @@ export function DrawerTriggerButton({
 }: DrawerTriggerProps) {
   const [open, setOpen] = useState(false);
 
+  const close = useCallback(() => {
+    setOpen(false);
+  }, []);
+
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      onClick?.(event);
+      setOpen(true);
+    },
+    [onClick],
+  );
+
   return (
     <>
       <Button
         {...props}
-        // Chain rather than replace — this used to drop a consumer's onClick.
-        onClick={(e) => {
-          onClick?.(e);
-          setOpen(true);
-        }}
+        onClick={handleClick}
       >
         {children}
       </Button>
 
-      <Drawer {...drawerProps} isOpen={open} onClose={() => setOpen(false)}>
-        {drawerContent({ close: () => setOpen(false) })}
+      <Drawer
+        {...drawerProps}
+        isOpen={open}
+        onClose={close}
+      >
+        {drawerContent({ close })}
       </Drawer>
     </>
   );
 }
 
-/* ---------------- 🧩 Drawer Button ---------------- */
 export interface DrawerButtonProps {
   label?: string;
   icon?: ReactNode;
@@ -322,7 +382,9 @@ export interface DrawerButtonProps {
   iconClassName?: string;
 }
 
-export const DrawerButton: React.FC<DrawerButtonProps> = ({
+export const DrawerButton: React.FC<
+  DrawerButtonProps
+> = ({
   label = "",
   icon,
   iconPosition = "left",
@@ -337,18 +399,24 @@ export const DrawerButton: React.FC<DrawerButtonProps> = ({
     onClick={onClick}
     style={style}
     className={clsx(
-      // Missing space here fused these into "justify-centertransition-all",
-      // a class that doesn't exist — both utilities were silently lost.
       "inline-flex items-center justify-center transition-all",
       className,
     )}
   >
     {icon && iconPosition === "left" && (
-      <span className={iconClassName}>{icon}</span>
+      <span className={iconClassName}>
+        {icon}
+      </span>
     )}
-    <span className={labelClassName}>{label}</span>
+
+    <span className={labelClassName}>
+      {label}
+    </span>
+
     {icon && iconPosition === "right" && (
-      <span className={iconClassName}>{icon}</span>
+      <span className={iconClassName}>
+        {icon}
+      </span>
     )}
   </button>
 );

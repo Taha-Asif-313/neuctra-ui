@@ -1,6 +1,6 @@
 {
   "name": "@neuctra/ui",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "type": "module",
   "description": "A modern, responsive, customizable React UI component library powered by Tailwind CSS and Vite.",
   "author": "Your Name <tahaasifaqwe@gmail.com>",
