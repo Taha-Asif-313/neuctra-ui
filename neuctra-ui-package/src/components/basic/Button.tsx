@@ -128,7 +128,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     > = {
       default: "bg-primary text-primary-foreground hover:opacity-90",
       outline:
-        "border border-border bg-background text-foreground hover:bg-accent",
+        "border border-border bg-transparent text-foreground hover:bg-accent",
       ghost: "bg-transparent text-foreground hover:bg-accent",
       secondary: "bg-muted text-muted-foreground hover:opacity-90",
       destructive:
