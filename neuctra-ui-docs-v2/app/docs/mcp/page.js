@@ -447,6 +447,48 @@ AI generates Neuctra UI code`}
             input={`{}`}
             useCase="Use this when the AI needs to style an interface according to Neuctra UI."
           />
+
+          <ToolCard
+            name="get_design_rules"
+            description="Get the styling rules, anti-AI-look rules and the full product design guide."
+            input={`{}`}
+            useCase="Use this before generating any UI, so layout, hierarchy and styling follow Neuctra UI's design rules."
+          />
+
+          <ToolCard
+            name="get_seo_guide"
+            description="Get the SEO, AEO and GEO playbook, or one topic of it."
+            input={`{
+  "topic": "geo"
+}`}
+            useCase="Use this before building public pages that need to rank in search and be cited by AI answer engines."
+          />
+
+          <ToolCard
+            name="generate_page_seo"
+            description="Generate a page's meta title, description, canonical, OpenGraph tags and a linked JSON-LD schema graph, as a ready snippet for your framework."
+            input={`{
+  "framework": "nextjs-app",
+  "pageType": "docs",
+  "siteName": "Neuctra UI",
+  "siteUrl": "https://ui.neuctra.com",
+  "path": "/docs/card",
+  "primaryKeyword": "react card component"
+}`}
+            useCase="Use this for every public page to get correct metadata and structured data in Next.js, Vite, React Router, Astro, TanStack Start, Gatsby or plain HTML."
+          />
+
+          <ToolCard
+            name="audit_page_seo"
+            description="Score a page's SEO, AEO and schema and list every fix."
+            input={`{
+  "url": "https://example.com/docs/card",
+  "title": "Card",
+  "h1s": ["Card"],
+  "faqCount": 0
+}`}
+            useCase="Use this to check a finished page before it goes live."
+          />
         </DocSection>
 
         {/* =====================================================

@@ -64,13 +64,20 @@ Three independently-regenerable files feed the server:
   the color-token rules ("never hardcode colors"), the anti-AI-look rules ("no
   gradients/shadows/blurs/glows/emoji-icons"), the recommended `@neuctra/ui-cli init`
   setup command, and how the standalone `toast()` API works.
-- **`data/aiDesignRules.json`** — also hand-curated, no generator. A 51-section
+- **`data/aiDesignRules.json`** — also hand-curated, no generator. A 63-section
   product/UX design guide (design philosophy, visual hierarchy, page/sidebar/navigation
   structure, per-component usage guidance, spacing/color/border/radius/shadow
   conventions, responsive design, accessibility, and a final UI quality checklist).
   `theme.json`'s `rules`/`antiAiLookRules` are the mechanical, CSS-level rules; this file
   is the higher-level product-design layer — both are served together by
   `get_design_rules`.
+- **`data/seoGuide.json`** — hand-curated, no generator. A 16-topic SEO / AEO / GEO
+  playbook (technical SEO, Core Web Vitals, on-page, keywords and intent, E-E-A-T, answer
+  engine and generative engine optimisation, schema weaving, FAQs, the per-page meta
+  checklist, where metadata goes in each framework plus Next.js metadata gotchas, page
+  templates for tool/category/home pages, site-wide essentials, ads readiness, off-page
+  and monitoring, and a launch checklist). Served by `get_seo_guide`; the logic behind `generate_page_seo` and
+  `audit_page_seo` lives in `src/seo.mjs`.
 
 ---
 
@@ -101,7 +108,7 @@ The tools are designed to be called in roughly this order when generating UI, no
 grabbed ad hoc:
 
 1. **`get_design_rules`** — call this first, before picking any component. It returns
-   the styling rules, the anti-AI-look rules, and the 51-section product/UX guide. This
+   the styling rules, the anti-AI-look rules, and the 63-section product/UX guide. This
    shapes *what* to build (hierarchy, when a group actually needs `Card`, when `Modal`
    vs `Drawer`, etc.) before you start reaching for components.
 2. **`get_theme`** — call alongside step 1, not instead of it. Tokens without the design
@@ -120,13 +127,17 @@ grabbed ad hoc:
    `antiAiLookRules` from `get_design_rules` before considering the UI
    done — reread them, don't just rely on having read them once at the start.
 
+7. **For public pages**, call **`get_seo_guide`** once, then **`generate_page_seo`** for
+   each page (meta, OpenGraph and a woven JSON-LD graph in the project's framework) and
+   **`audit_page_seo`** to check the finished page.
+
 Steps 1–2 only need to happen once per session/task, not once per component — refetching
 `get_theme`/`get_design_rules` for every single component would be wasteful. Step 4 is
 the one that repeats for every new component.
 
 ---
 
-## 5. The five tools, in detail
+## 5. The eight tools, in detail
 
 ### `list_components`
 
@@ -230,7 +241,7 @@ requirements — e.g. `CardBody` is compulsory whenever `Card` has body content,
 `Card` itself renders no padding — and component-specific gotchas like Dropdown's
 trigger already stopping propagation internally) and **`antiAiLookRules`** (no
 gradients/shadows/blurs/glows/emoji-icons/em-dashes — the visual tells that make UI read
-as AI-generated), plus **`productDesignGuide`** — a 51-section product/UX design guide
+as AI-generated), plus **`productDesignGuide`** — a 63-section product/UX design guide
 covering design philosophy, visual hierarchy, page/sidebar/navigation structure,
 per-component usage guidance (when to reach for `Card` vs plain whitespace, `Modal` vs
 `Drawer`, `Table` vs `List`, etc.), spacing/color/border/radius/shadow conventions,
@@ -258,12 +269,58 @@ Call this before generating any UI — see the recommended workflow above.
     "sections": [
       { "number": 1, "title": "Core Design Philosophy", "content": "..." },
       { "number": 7, "title": "Cards", "content": "..." },
-      // ...51 sections total
+      // ...63 sections total
     ],
     "goldenRule": { "title": "Golden Rule", "content": "..." }
   }
 }
 ```
+
+### `get_seo_guide`
+
+Returns the SEO / AEO / GEO playbook from `data/seoGuide.json`: the whole guide, or one
+topic via `topic` (`technical`, `performance`, `on-page`, `keywords-intent`, `eeat`,
+`aeo`, `geo`, `schema`, `faq`, `meta-checklist`, `frameworks`, `page-templates`,
+`site-wide`, `ads-readiness`, `off-page-monitoring`, `launch-checklist`).
+
+```json
+{ "topic": "geo" }
+```
+
+### `generate_page_seo`
+
+Deterministic generator (no LLM, never invents facts) for everything one page needs:
+a meta title (60 chars max) and description (155 max), canonical, robots, OpenGraph
+and Twitter tags, and one JSON-LD `@graph` weaving Organization, WebSite, WebPage,
+BreadcrumbList, the page-type node (TechArticle, BlogPosting, SoftwareApplication for
+tool and product pages, Product with offers), HowTo (from the visible `steps`), ItemList
+(from a category's `items`) and FAQPage together by stable `@id`s (the same scheme as
+`neuctra-ui-docs-v2/lib/seo/schemas`). Returns a ready-to-paste snippet for
+`nextjs-app`, `nextjs-pages`, `react-vite`, `react-router`, `astro`, `tanstack-start`,
+`gatsby` or `html`, plus warnings and AEO/GEO follow-ups.
+
+```json
+{
+  "framework": "nextjs-app",
+  "pageType": "docs",
+  "siteName": "Neuctra UI",
+  "siteUrl": "https://ui.neuctra.com",
+  "path": "/docs/card",
+  "primaryKeyword": "react card component",
+  "description": "Composable React card component with header, body and footer sections...",
+  "faqs": [{ "question": "Does Card support dark mode?", "answer": "Yes. ..." }]
+}
+```
+
+### `audit_page_seo`
+
+Rule-based check of one page. The easiest input is the page's built HTML (`html`, from
+view-source or the `out/` / `dist/` folder): title, description, canonical, headings,
+og:image, JSON-LD types, alt text and word count are extracted from it. Explicit fields
+override the extracted ones, and checks without input are skipped. It catches doubled or
+missing brand suffixes (with `brandName`), duplicate schema nodes, JSON-LD that doesn't
+parse, and pages that render client-only (no H1 in the HTML). Returns a 0–100 score and a sorted
+list of `fail` / `warn` / `pass` items, each with the exact fix.
 
 ---
 
@@ -363,13 +420,15 @@ neuctra-ui-mcp/
 ├── bin/
 │   └── cli.mjs              # entry point: connects the server to a stdio transport
 ├── src/
-│   └── server.mjs           # defines the 5 tools and their handlers
+│   ├── server.mjs           # defines the 8 tools and their handlers
+│   └── seo.mjs              # pure builders behind generate_page_seo / audit_page_seo
 ├── scripts/
 │   └── sync-registry.mjs    # copies registry/components.json from neuctra-ui-package
 ├── data/
 │   ├── components.json      # synced (generated) — don't edit by hand
 │   ├── theme.json           # hand-curated token + styling/anti-AI-look rules
-│   └── aiDesignRules.json   # hand-curated 51-section product/UX design guide
+│   ├── aiDesignRules.json   # hand-curated 63-section product/UX design guide
+│   └── seoGuide.json        # hand-curated SEO / AEO / GEO playbook
 └── package.json
 ```
 

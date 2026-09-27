@@ -50,7 +50,7 @@
     {
       "number": 10,
       "title": "Typography",
-      "content": "Typography should create hierarchy without requiring excessive decoration.\n\nRecommended hierarchy:\n\n```text\nPage title\n↓\nSection title\n↓\nComponent title\n↓\nBody text\n↓\nMetadata\n```\n\nUse:\n\n* Strong weight for headings\n* Regular weight for descriptions\n* `text-secondary` for paragraphs and descriptions\n* Muted color for metadata\n* Comfortable line-height for reading\n\nAvoid:\n\n* Excessive bold text\n* Too many font sizes\n* All-caps body text\n* Huge headings on every page\n* Centering everything"
+      "content": "Typography should create hierarchy without requiring excessive decoration.\n\nRecommended hierarchy:\n\n```text\nPage title\n↓\nSection title\n↓\nComponent title\n↓\nBody text\n↓\nMetadata\n```\n\nUse:\n\n* Strong weight for headings\n* Regular weight for descriptions\n* `text-secondary` for paragraphs and descriptions\n* Muted color for metadata\n* Comfortable line-height for reading — but from the text-size class itself (text-sm, text-base, text-lg, ...), not a separate leading-* utility layered on top; the text-size class already pairs a line-height, so adding leading-* alongside it is redundant\n\nSee Type Scale (section 52) and Readable Measure (section 53) for exact classes.\n\nAvoid:\n\n* Excessive bold text\n* Too many font sizes\n* All-caps body text\n* Huge headings on every page\n* Centering everything\n* Adding leading-* on top of a text-size class that already sets line-height"
     },
     {
       "number": 11,
@@ -175,7 +175,7 @@
     {
       "number": 35,
       "title": "Responsive Design",
-      "content": "Design mobile-first.\n\nDesktop:\n\n```text\nSidebar + Main Content\n```\n\nTablet:\n\n```text\nCollapsed Sidebar + Main Content\n```\n\nMobile:\n\n```text\nTop Bar\nContent\n```\n\nNavigation should become more compact rather than simply shrinking.\n\nForms should become single-column where necessary.\n\nCards should stack naturally.\n\nTables may require:\n\n* horizontal scrolling\n* responsive transformation\n* reduced columns\n\nNever allow the layout to become horizontally broken."
+      "content": "Design mobile-first.\n\nDesktop:\n\n```text\nSidebar + Main Content\n```\n\nTablet:\n\n```text\nCollapsed Sidebar + Main Content\n```\n\nMobile:\n\n```text\nTop Bar\nContent\n```\n\nNavigation should become more compact rather than simply shrinking.\n\nForms should become single-column where necessary.\n\nCards should stack naturally.\n\nTables may require:\n\n* horizontal scrolling\n* responsive transformation\n* reduced columns\n\nNever allow the layout to become horizontally broken.\n\nSee the Breakpoint Checklist (section 59) for the widths and checks every page must pass."
     },
     {
       "number": 36,
@@ -256,6 +256,66 @@
       "number": 51,
       "title": "Paragraph Text Color",
       "content": "Use `text-secondary` for all paragraph text: body copy, section descriptions, card descriptions, and supporting text under headings.\n\nDo not use `text-muted-foreground` for paragraphs. It is too low-contrast for reading text.\n\nKeep `text-muted-foreground` for small, low-priority text only:\n\n* Timestamps\n* Metadata\n* Captions\n* Placeholders\n* Helper and hint text\n* Disabled states\n\nUse `text-foreground` for headings, titles, and anything that needs full emphasis.\n\n`secondary` is a text color only. Do not use it as a background (`bg-secondary`).\n\nOrder of emphasis:\n\n```text\ntext-foreground        ← headings\n↓\ntext-secondary         ← paragraphs\n↓\ntext-muted-foreground  ← metadata and hints\n```\n\nToken values:\n\n* Light theme: `--secondary: #3f3f46`\n* Dark theme: `--secondary: #d4d4d8`"
+    },
+    {
+      "number": 52,
+      "title": "Type Scale",
+      "content": "Use one fixed, responsive type scale on every page:\n\n```text\nDisplay / H1  text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight\nH2            text-3xl sm:text-4xl font-semibold tracking-tight\nH3            text-xl sm:text-2xl font-semibold\nBody          text-base\nSmall         text-sm\nMeta          text-xs\n```\n\nRules:\n\n* Never use more than 4 text sizes on one screen.\n* Add `text-balance` to headings so lines break evenly.\n* Add `text-pretty` to paragraphs to avoid single-word last lines.\n* Step headings down one level at a time. Do not jump from H1 straight to small text.\n* `tracking-tight` only on `text-3xl` and larger. Everything smaller stays at the default tracking.\n* Line-height comes from the text-size class. Do not add `leading-*` on top of it."
+    },
+    {
+      "number": 53,
+      "title": "Readable Measure",
+      "content": "Long lines are hard to read.\n\n* Paragraphs: `max-w-prose` or `max-w-2xl`.\n* Headings may run wider: `max-w-3xl`.\n* Never let body text stretch the full width of a wide container.\n\nThe layout can be wide. The reading column should not be."
+    },
+    {
+      "number": 54,
+      "title": "Spacing Rhythm",
+      "content": "Use the 4/8 spacing scale only. Space shrinks as you go deeper into the layout.\n\n```text\nPage gutters        px-4 sm:px-6 lg:px-8\nBetween sections    py-16 sm:py-20 lg:py-28\nBetween blocks      mt-10 / mt-12\nHeading to body     mt-4\nInside a component  gap-2 / gap-3\n```\n\nBig gaps separate ideas. Small gaps group them. If everything has the same gap, nothing is grouped."
+    },
+    {
+      "number": 55,
+      "title": "Grid & Layout Patterns",
+      "content": "Build layouts from a few reliable patterns:\n\n* **Card grid:** `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6`.\n* **Split:** text and visual side by side with `lg:grid-cols-2`, alternating sides from one section to the next.\n* **Bento:** one large tile (`lg:col-span-2`) with smaller tiles around it, instead of identical boxes.\n* **Asymmetric:** `lg:grid-cols-[2fr_1fr]` for main content plus a side column. Grid templates like this are the one allowed exception to the no-arbitrary-values rule.\n\nAdd `min-w-0` to flex and grid children that contain text, so truncation works instead of overflowing.\n\nAvoid the default \"three equal cards in a row\" on every section."
+    },
+    {
+      "number": 56,
+      "title": "Hero / Above the Fold",
+      "content": "The hero must answer \"what is this and why should I care\" within 5 seconds.\n\nRecommended order:\n\n```text\nBadge            short eyebrow (New, Beta, v2.0)\nH1               value proposition, under 10 words\nLead text        text-lg text-secondary, one or two sentences\nActions          one primary Button + one secondary Button\nProof            real product screenshot, stat row, or customer logos\n```\n\n* Left-align by default. Center only short, single-message heroes.\n* Use a split layout (text left, visual right) on `lg` and stack on mobile.\n* One primary action only. The second action is outline or ghost."
+    },
+    {
+      "number": 57,
+      "title": "Focal Point & Visual Interest",
+      "content": "Eye-catching does not mean effects. Gradients, shadows and blur stay banned.\n\nVisual interest comes from:\n\n* **Scale contrast:** a very large headline next to small, quiet metadata.\n* **One bold element per viewport:** a single `bg-primary` block, button or highlight that the eye lands on first.\n* **Surface layering:** alternate sections between `bg-background`, `bg-card` and `bg-accent` bands to create depth without shadows.\n* **Big numbers:** metrics in large type with `tabular-nums`.\n* **Real imagery:** product screenshots and photos, not decorative filler.\n* **Whitespace:** give the most important element more space than anything around it.\n\nColor ratio: roughly 60% neutral surfaces, 30% text and borders, 10% primary."
+    },
+    {
+      "number": 58,
+      "title": "Section Variety",
+      "content": "A page should feel composed, not stamped out.\n\n* Never use the same layout for two sections in a row.\n* Mix patterns: split, card grid, bento, full-width band, stat row, testimonial, FAQ, CTA band.\n* Alternate background surfaces between neighbouring sections.\n* End every landing page with a clear call-to-action section."
+    },
+    {
+      "number": 59,
+      "title": "Breakpoint Checklist",
+      "content": "Design mobile-first, then check every page at:\n\n```text\n360px   small phone\n768px   tablet\n1024px  small laptop\n1280px  desktop\n1536px  large desktop\n```\n\nAt every width:\n\n* No horizontal scroll.\n* Touch targets are at least 44px.\n* Navigation collapses into a Drawer below `md`.\n* Tables sit inside `overflow-x-auto`.\n* Images use an `aspect-*` class with `object-cover`, so nothing shifts while loading.\n* On mobile, stack content in order of importance (use `order-*` when the source order differs)."
+    },
+    {
+      "number": 60,
+      "title": "Imagery & Media",
+      "content": "* Use consistent aspect ratios: `aspect-video`, `aspect-square`, or `aspect-[4/3]` (allowed ratio).\n* Use one corner radius for all images on a page.\n* Always write real, descriptive `alt` text.\n* Lazy-load images below the fold.\n* Prefer real product screenshots over stock illustrations or abstract shapes."
+    },
+    {
+      "number": 61,
+      "title": "Iconography",
+      "content": "* Use lucide-react icons only.\n* Match icon size to the text beside it: 16px with `text-sm`, 20px with `text-base`, 24px next to headings.\n* Keep the same stroke width across the whole interface.\n* Icons support labels. They do not replace them, except in an IconButton with a Tooltip.\n* Do not wrap every icon in a colored circle."
+    },
+    {
+      "number": 62,
+      "title": "Motion Timing",
+      "content": "Motion explains a change. It is never decoration.\n\n```text\nHover / press     transition-colors duration-150\nOpen / close      200 to 300ms, ease-out\nPage load         no entrance animations\n```\n\n* Respect reduced motion with `motion-reduce:` variants.\n* Animate color and opacity. Do not animate layout or add hover-scale."
+    },
+    {
+      "number": 63,
+      "title": "Microcopy",
+      "content": "Words are part of the design.\n\n* Sentence case for headings, buttons and labels.\n* Buttons start with a verb: \"Create project\", not \"Submit\".\n* Headlines state the benefit, not the feature name.\n* One idea per sentence. Short sentences.\n* No em dashes. Use a period, comma or colon instead."
     }
   ],
   "goldenRule": {
