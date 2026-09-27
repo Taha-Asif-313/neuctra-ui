@@ -280,6 +280,7 @@ button {
 
   --background: #ffffff;
   --foreground: #09090b;
+  --secondary: #3f3f46;
 
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
@@ -313,6 +314,7 @@ button {
 
   --background: #09090b;
   --foreground: #fafafa;
+  --secondary: #d4d4d8;
 
   --muted: #27272a;
   --muted-foreground: #a1a1aa;
@@ -349,6 +351,7 @@ button {
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
 
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
@@ -820,6 +823,7 @@ export default defineConfig({
   --color-primary: var(--primary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
 }`}
               />
             </div>

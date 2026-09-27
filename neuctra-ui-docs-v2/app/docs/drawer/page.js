@@ -402,7 +402,21 @@ const [open, setOpen] = useState(false);
                   <td className="p-3 font-mono">disableOverlayClose</td>
                   <td className="p-3">boolean</td>
                   <td className="p-3">false</td>
-                  <td className="p-3">Prevents closing on overlay click</td>
+                  <td className="p-3">Prevents closing on overlay click (also blocks Escape unless disableEscapeClose says otherwise)</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">disableEscapeClose</td>
+                  <td className="p-3">boolean</td>
+                  <td className="p-3">disableOverlayClose</td>
+                  <td className="p-3">Also blocks the Escape key</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">ariaLabel</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Accessible name for the dialog when no DrawerHeader is used</td>
                 </tr>
 
                 <tr>
@@ -545,6 +559,15 @@ const [open, setOpen] = useState(false);
                   <td className="p-3">—</td>
                   <td className="p-3">Trigger button content</td>
                 </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">drawerProps</td>
+                  <td className="p-3">
+                    Omit&lt;DrawerProps, "isOpen" | "onClose" | "children"&gt;
+                  </td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Forwarded to the underlying Drawer</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -579,6 +602,20 @@ const [open, setOpen] = useState(false);
                 </tr>
 
                 <tr>
+                  <td className="p-3 font-mono">className</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Header wrapper class</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">style</td>
+                  <td className="p-3">CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Header wrapper styles</td>
+                </tr>
+
+                <tr>
                   <td className="p-3 font-mono">titleWrapperClassName</td>
                   <td className="p-3">string</td>
                   <td className="p-3">—</td>
@@ -603,20 +640,137 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* DrawerContent */}
-        <p className="text-sm text-gray-200">
-          Wrapper for full-height layout inside Drawer.
-        </p>
+        {/* Props Table — DrawerContent */}
+        <section>
+          <h2 className="text-2xl font-semibold text-white mb-4">
+            DrawerContent Props
+          </h2>
+          <p className="text-gray-200 mb-4">
+            Wrapper for full-height layout inside Drawer.
+          </p>
 
-        {/* DrawerBody */}
-        <p className="text-sm text-gray-200">
-          Scrollable content area with padding.
-        </p>
+          <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+            <table className="w-full min-w-[560px] text-sm">
+              <thead className="bg-zinc-900 text-gray-200">
+                <tr>
+                  <th className="p-3 text-left">Prop</th>
+                  <th className="p-3 text-left">Type</th>
+                  <th className="p-3 text-left">Default</th>
+                  <th className="p-3 text-left">Description</th>
+                </tr>
+              </thead>
 
-        {/* DrawerFooter */}
-        <p className="text-sm text-gray-200">
-          Footer actions container (buttons, etc).
-        </p>
+              <tbody className="divide-y divide-zinc-800 text-gray-300">
+                <tr>
+                  <td className="p-3 font-mono">children</td>
+                  <td className="p-3">ReactNode</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Full drawer layout (header/body/footer)</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">className</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Wrapper class</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">style</td>
+                  <td className="p-3">CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Wrapper styles</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Props Table — DrawerBody */}
+        <section>
+          <h2 className="text-2xl font-semibold text-white mb-4">
+            DrawerBody Props
+          </h2>
+          <p className="text-gray-200 mb-4">
+            Scrollable content area with padding.
+          </p>
+
+          <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+            <table className="w-full min-w-[560px] text-sm">
+              <thead className="bg-zinc-900 text-gray-200">
+                <tr>
+                  <th className="p-3 text-left">Prop</th>
+                  <th className="p-3 text-left">Type</th>
+                  <th className="p-3 text-left">Default</th>
+                  <th className="p-3 text-left">Description</th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-zinc-800 text-gray-300">
+                <tr>
+                  <td className="p-3 font-mono">children</td>
+                  <td className="p-3">ReactNode</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Scrollable body content</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">className</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Body wrapper class</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">style</td>
+                  <td className="p-3">CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Body wrapper styles</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Props Table — DrawerFooter */}
+        <section>
+          <h2 className="text-2xl font-semibold text-white mb-4">
+            DrawerFooter Props
+          </h2>
+          <p className="text-gray-200 mb-4">
+            Footer actions container (buttons, etc).
+          </p>
+
+          <div className="border border-zinc-800 rounded-xl overflow-x-auto">
+            <table className="w-full min-w-[560px] text-sm">
+              <thead className="bg-zinc-900 text-gray-200">
+                <tr>
+                  <th className="p-3 text-left">Prop</th>
+                  <th className="p-3 text-left">Type</th>
+                  <th className="p-3 text-left">Default</th>
+                  <th className="p-3 text-left">Description</th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-zinc-800 text-gray-300">
+                <tr>
+                  <td className="p-3 font-mono">children</td>
+                  <td className="p-3">ReactNode</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Footer actions</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">className</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Footer wrapper class</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">style</td>
+                  <td className="p-3">CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Footer wrapper styles</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
         {/* Common Mistakes */}
         <section>

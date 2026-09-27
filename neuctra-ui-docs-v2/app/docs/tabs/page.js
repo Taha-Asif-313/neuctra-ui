@@ -280,7 +280,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">activeColor</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">"#ffffff"</td>
+                  <td className="p-3">"var(--foreground)"</td>
                   <td className="p-3">
                     Context color token for custom tab extensions
                   </td>
@@ -307,15 +307,19 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">borderColor</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">"#e5e7eb"</td>
-                  <td className="p-3">Outline/underline border color</td>
+                  <td className="p-3">"var(--border)"</td>
+                  <td className="p-3">
+                    Context color token for custom tab extensions
+                  </td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">disabledColor</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">"#9ca3af"</td>
-                  <td className="p-3">Disabled tab color</td>
+                  <td className="p-3">"var(--muted-foreground)"</td>
+                  <td className="p-3">
+                    Context color token for custom tab extensions
+                  </td>
                 </tr>
 
                 <tr>
@@ -323,7 +327,8 @@ function BasicExample() {
                   <td className="p-3">string</td>
                   <td className="p-3">—</td>
                   <td className="p-3">
-                    Available in the type for custom integrations
+                    Root container background color (falls back to
+                    var(--background))
                   </td>
                 </tr>
 
@@ -387,6 +392,16 @@ function BasicExample() {
                   <td className="p-3">"Select tab"</td>
                   <td className="p-3">
                     Label shown in mobile drawer trigger
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">drawerIcon</td>
+                  <td className="p-3">ReactNode</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">
+                    Accepted for a custom drawer chevron icon, but not yet
+                    rendered (the built-in chevron is always used)
                   </td>
                 </tr>
 
@@ -493,6 +508,36 @@ function BasicExample() {
                   <td className="p-3">string</td>
                   <td className="p-3">—</td>
                   <td className="p-3">Styles the wrapper around the icon node</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">style</td>
+                  <td className="p-3">React.CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">
+                    Accepted by the type, but not currently applied by the
+                    component
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">activeStyle</td>
+                  <td className="p-3">React.CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">
+                    Accepted by the type, but not currently applied by the
+                    component
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-mono">inactiveStyle</td>
+                  <td className="p-3">React.CSSProperties</td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">
+                    Accepted by the type, but not currently applied by the
+                    component
+                  </td>
                 </tr>
               </tbody>
             </table>

@@ -11,27 +11,41 @@ import { cn } from "../../lib/cn";
 
 export interface CarouselProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  /** Each child renders as one slide. */
   children: React.ReactNode;
+  /** Initial slide index, clamped to the available slides. */
   defaultIndex?: number;
+  /** Fired whenever the active slide changes (arrows, dots, swipe, keys or autoplay). */
   onIndexChange?: (index: number) => void;
   /** Auto-advance interval in ms; 0 disables. Pauses on hover/focus. */
   autoPlay?: number;
   /** Wrap from the last slide back to the first. */
   loop?: boolean;
+  /** Renders the previous/next arrow buttons. */
   showArrows?: boolean;
+  /** Renders the dot indicators below the track. */
   showDots?: boolean;
   /** Accessible name for the carousel region. */
   label?: string;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Styles the overflow-hidden track wrapper. */
   trackClassName?: string;
+  /** Styles the sliding flex container that holds all slides. */
   slidesClassName?: string;
+  /** Styles each individual slide wrapper. */
   slideClassName?: string;
+  /** Styles both the previous and next arrow buttons. */
   arrowClassName?: string;
+  /** Styles the previous arrow button. */
   prevArrowClassName?: string;
+  /** Styles the next arrow button. */
   nextArrowClassName?: string;
+  /** Styles the chevron icons inside the arrow buttons. */
   arrowIconClassName?: string;
+  /** Styles the dots container. */
   dotsClassName?: string;
+  /** Styles each individual dot button. */
   dotClassName?: string;
 }
 

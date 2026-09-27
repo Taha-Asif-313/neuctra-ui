@@ -280,6 +280,19 @@ const RatingDocs = () => {
 
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    colorClassName
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">
+                    "text-warning"
+                  </td>
+                  <td className="p-3">Color class applied to filled stars</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     starClassName
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">

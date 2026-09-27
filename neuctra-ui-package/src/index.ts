@@ -92,7 +92,9 @@ export type {
   DrawerProps,
   DrawerButtonProps,
   DrawerContentProps,
+  DrawerBodyProps,
   DrawerHeaderProps,
+  DrawerFooterProps,
   DrawerTriggerProps,
 } from "./components/basic/Drawer";
 

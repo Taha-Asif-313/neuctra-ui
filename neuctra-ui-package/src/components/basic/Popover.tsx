@@ -13,19 +13,31 @@ import { cn } from "../../lib/cn";
 export interface PopoverProps {
   /** Element that toggles the popover. */
   trigger: React.ReactNode;
+  /** Panel content shown while open. */
   children: React.ReactNode;
+  /** Side of the trigger the panel opens on. */
   position?: "top" | "bottom" | "left" | "right";
+  /** Alignment of the panel along that side. */
   align?: "start" | "center" | "end";
+  /** Controlled open state; omit to let Popover manage it internally. */
   open?: boolean;
+  /** Initial open state in uncontrolled mode. */
   defaultOpen?: boolean;
+  /** Fired whenever the open state changes, controlled or not. */
   onOpenChange?: (open: boolean) => void;
+  /** Dismiss the popover when clicking outside it. */
   closeOnClickOutside?: boolean;
+  /** Dismiss the popover with the Escape key. */
   closeOnEscape?: boolean;
+  /** Disables the trigger and prevents opening. */
   disabled?: boolean;
+  /** Styles the root wrapper around trigger + panel. */
   className?: string;
   /** The wrapper around `trigger` that handles open/close interactions. */
   triggerClassName?: string;
+  /** Styles the floating panel. */
   contentClassName?: string;
+  /** Inline styles for the floating panel, merged with its computed position. */
   contentStyle?: React.CSSProperties;
 }
 

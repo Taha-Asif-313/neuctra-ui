@@ -4,6 +4,7 @@ import React, { forwardRef } from "react";
 import { cn } from "../../lib/cn";
 
 export interface SpinnerProps extends React.HTMLAttributes<HTMLSpanElement> {
+  /** Spinner diameter; the stroke width scales with it. */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   /** Accessible label announced to screen readers. */
   label?: string;

@@ -18,22 +18,30 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface CardSectionProps
   extends React.HTMLAttributes<HTMLDivElement> {
+  /** Content of the section (CardBody's or CardFooter's body). */
   children?: React.ReactNode;
 }
 
 export interface CardHeaderProps
   // `title` here is a ReactNode slot, not the native tooltip attribute.
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Heading text/node shown next to the optional icon. */
   title?: React.ReactNode;
+  /** Supporting text/node rendered under the title, in muted styling. */
   description?: React.ReactNode;
+  /** Leading icon rendered before the title, tinted with the primary color. */
   icon?: React.ReactNode;
   /** Slot rendered at the far right of the header (menu, action button…). */
   action?: React.ReactNode;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Additional classes for the icon wrapper. */
   iconClassName?: string;
+  /** Additional classes for the title heading element. */
   titleClassName?: string;
+  /** Additional classes for the description paragraph. */
   descriptionClassName?: string;
+  /** Additional classes for the action slot's wrapper. */
   actionClassName?: string;
 }
 

@@ -228,6 +228,19 @@ const DatePickerDocs = () => {
 
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    disabled
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    boolean
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">
+                    false
+                  </td>
+                  <td className="p-3">Disables the trigger</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     clearable
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">
@@ -246,7 +259,7 @@ const DatePickerDocs = () => {
                     calendarProps
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">
-                    CalendarProps
+                    Omit&lt;CalendarProps, "value" | "defaultValue" | "onChange" | "className"&gt;
                   </td>
                   <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
                   <td className="p-3">
@@ -300,6 +313,17 @@ const DatePickerDocs = () => {
                     browser
                   </td>
                   <td className="p-3">Locale for month/weekday names</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    wrapperClassName
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3">Styles the outermost wrapper.</td>
                 </tr>
 
                 <tr>

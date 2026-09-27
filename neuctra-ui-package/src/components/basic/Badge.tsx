@@ -8,33 +8,54 @@ import { cn } from "../../lib/cn";
 /* -------------------------------------------------------------------------- */
 
 export interface BadgeProps {
+  /** Label text rendered inside the badge. */
   text?: string;
 
+  /** Visual style: solid fill, outlined border, or soft tinted background. */
   variant?: "solid" | "outline" | "soft";
 
+  /** Icon rendered alongside the text. */
   icon?: React.ReactNode;
+  /** Which side of the text the icon renders on. */
   iconPosition?: "left" | "right";
 
+  /** Controls the badge's padding, font size, and icon size. */
   size?: "sm" | "md" | "lg";
 
+  /** Fully rounded pill shape when true, rounded-md corners when false. */
   rounded?: boolean;
 
+  /** Shows a small dot in the top-right corner; hidden whenever count is set. */
   notificationDot?: boolean;
+  /** Declared for a custom dot color, but not wired into the render — the dot always uses the destructive color. Use dotStyle or dotClassName instead. */
   dotColor?: string;
+  /** Displays a numeric or custom count badge in the top-right corner; suppresses notificationDot when set. */
   count?: number | string;
+  /** Adds an animated ping ring behind the notification dot. Has no effect when count is shown, since the dot itself doesn't render then. */
   pulse?: boolean;
 
+  /** Additional classes for the badge's root element. */
   className?: string;
+  /** Inline styles for the badge's root element. */
   style?: CSSProperties;
+  /** Additional classes for the notification dot. */
   dotClassName?: string;
+  /** Inline styles for the notification dot. */
   dotStyle?: CSSProperties;
+  /** Additional classes for the count indicator. */
   countClassName?: string;
+  /** Inline styles for the count indicator. */
   countStyle?: CSSProperties;
+  /** Additional classes for the icon wrapper. */
   iconClassName?: string;
+  /** Inline styles for the icon wrapper. */
   iconStyle?: CSSProperties;
+  /** Additional classes for the text label. */
   textClassName?: string;
+  /** Inline styles for the text label. */
   textStyle?: CSSProperties;
 
+  /** Click handler; when provided, the badge becomes a keyboard-focusable button. */
   onClick?: () => void;
 }
 

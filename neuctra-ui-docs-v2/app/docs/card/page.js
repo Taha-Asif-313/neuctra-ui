@@ -14,7 +14,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
 const cardFaq = buildComponentFaq("Card", {
-  variants: ["default", "outline", "elevated", "ghost"],
+  variants: ["default", "outline", "elevated", "ghost", "transparent"],
 });
 
 const CardDocs = () => {
@@ -28,8 +28,9 @@ const CardDocs = () => {
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             Composable React card component with header, body and footer
-            sections. Supports outline, elevated and ghost variants, hover
-            states and padding scales — built with Tailwind CSS.
+            sections. Supports outline, elevated, ghost and transparent
+            variants, hover states and padding scales — built with Tailwind
+            CSS.
           </p>
         </header>
 
@@ -108,14 +109,16 @@ const CardDocs = () => {
             Variants
           </h2>
           <p className="text-sm text-gray-300 mb-4 max-w-3xl">
-            Four surface styles: default, outline, elevated and ghost.
+            Five surface styles: default, outline, elevated, ghost and
+            transparent.
           </p>
           <CodePreviewBlock
             language="jsx"
             code={`<Card variant="default"><CardBody>Default</CardBody></Card>
 <Card variant="outline"><CardBody>Outline</CardBody></Card>
 <Card variant="elevated"><CardBody>Elevated</CardBody></Card>
-<Card variant="ghost"><CardBody>Ghost</CardBody></Card>`}
+<Card variant="ghost"><CardBody>Ghost</CardBody></Card>
+<Card variant="transparent"><CardBody>Transparent</CardBody></Card>`}
             previewContent={
               <div className="flex w-full flex-wrap items-center gap-4 py-4">
                 <Card variant="default" className="w-36">
@@ -129,6 +132,9 @@ const CardDocs = () => {
                 </Card>
                 <Card variant="ghost" className="w-36">
                   <CardBody>Ghost</CardBody>
+                </Card>
+                <Card variant="transparent" className="w-36">
+                  <CardBody>Transparent</CardBody>
                 </Card>
               </div>
             }
@@ -197,7 +203,7 @@ const CardDocs = () => {
                     variant
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">
-                    "default" | "outline" | "elevated" | "ghost"
+                    "default" | "outline" | "elevated" | "ghost" | "transparent"
                   </td>
                   <td className="p-3 text-gray-400 whitespace-nowrap">
                     "default"

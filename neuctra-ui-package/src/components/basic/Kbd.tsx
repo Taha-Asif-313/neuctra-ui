@@ -4,7 +4,9 @@ import React, { forwardRef } from "react";
 import { cn } from "../../lib/cn";
 
 export interface KbdProps extends React.HTMLAttributes<HTMLElement> {
+  /** Key label(s) rendered inside the keycap. */
   children: React.ReactNode;
+  /** Keycap size. */
   size?: "sm" | "md";
 }
 

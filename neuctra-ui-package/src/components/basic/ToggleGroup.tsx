@@ -4,9 +4,13 @@ import React, { forwardRef, useState } from "react";
 import { cn } from "../../lib/cn";
 
 export interface ToggleGroupOption {
+  /** Unique value identifying this option. */
   value: string;
+  /** Visible label rendered next to the icon. */
   label?: React.ReactNode;
+  /** Icon rendered before the label. */
   icon?: React.ReactNode;
+  /** Disables just this option. */
   disabled?: boolean;
   /** Accessible name when the option is icon-only. */
   ariaLabel?: string;
@@ -14,14 +18,21 @@ export interface ToggleGroupOption {
 
 export interface ToggleGroupProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue"> {
+  /** Options rendered as segmented buttons. */
   options: ToggleGroupOption[];
   /** "single" behaves like a segmented control; "multiple" like toolbar toggles. */
   type?: "single" | "multiple";
+  /** Controlled value: a string in `"single"` mode, a string array in `"multiple"` mode. */
   value?: string | string[];
+  /** Initial value for uncontrolled usage. */
   defaultValue?: string | string[];
+  /** Called with the new value whenever the selection changes. In `"single"` mode, clicking the active option clears the selection to `""`. */
   onChange?: (value: string | string[]) => void;
+  /** Size variant controlling item height, padding and icon sizing. */
   size?: "sm" | "md" | "lg";
+  /** Stretches the group to fill its container, giving each option equal width. */
   fullWidth?: boolean;
+  /** Disables every option in the group. */
   disabled?: boolean;
   /** Each option's `<button>`. */
   itemClassName?: string;

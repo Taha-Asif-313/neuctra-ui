@@ -4,45 +4,74 @@ import clsx from "clsx";
 import { cn } from "../../lib/cn";
 
 export interface Option {
+  /** Text shown next to the switch. */
   label: string;
+  /** Value reported in `selectedValues`/`onChange` for this switch. */
   value: string;
 }
 
 export interface SwitchGroupProps {
+  /** `"single"` renders one on/off switch; `"group"` renders an independently-toggleable list of switches from `options` (not mutually exclusive, unlike RadioGroup). */
   mode?: "single" | "group";
+  /** `name` attribute shared by the underlying checkbox input(s). */
   name?: string;
   // For group mode
+  /** Switches to render in `"group"` mode. */
   options?: Option[];
+  /** Values of the currently-checked switches in `"group"` mode. */
   selectedValues?: string[];
+  /** Called with the full updated array of checked values in `"group"` mode. */
   onChange?: (values: string[]) => void;
   // For single mode
+  /** Text shown next to the switch in `"single"` mode. */
   label?: string;
+  /** Checked state of the switch in `"single"` mode. */
   checked?: boolean;
+  /** Called with the new checked state in `"single"` mode. */
   onCheckedChange?: (checked: boolean) => void;
 
+  /** Disables all switches and dims them. */
   disabled?: boolean;
+  /** Prevents toggling while still allowing focus (no visual dimming). */
   readOnly?: boolean;
+  /** Marks the (single-mode) input as required for form submission. */
   required?: boolean;
+  /** Error message shown below the switch(es); also sets `aria-invalid`. */
   error?: string;
 
-  /** 🎨 Customization */
+  // 🎨 Customization
+  /** Additional classes for the root wrapper. */
   className?: string;
+  /** Additional classes for each switch's row (label + control). */
   itemClassName?: string;
+  /** Additional classes for each switch's `<label>` element. */
   labelClassName?: string;
+  /** Additional classes for the label text. */
   textClassName?: string;
+  /** Additional classes for the track (the pill-shaped switch body). */
   switchClassName?: string;
+  /** Additional classes for the sliding thumb/knob. */
   thumbClassName?: string;
+  /** Additional classes for the error message. */
   errorClassName?: string;
 
+  /** Inline styles for the root wrapper. */
   style?: React.CSSProperties;
+  /** Inline styles for each switch's row. */
   itemStyle?: React.CSSProperties;
+  /** Inline styles for each switch's `<label>` element. */
   labelStyle?: React.CSSProperties;
+  /** Inline styles for the label text. */
   textStyle?: React.CSSProperties;
+  /** Inline styles for the track. */
   switchStyle?: React.CSSProperties;
+  /** Inline styles for the sliding thumb/knob. */
   thumbStyle?: React.CSSProperties;
+  /** Inline styles for the error message. */
   errorStyle?: React.CSSProperties;
 
-  /** ⚙️ Config */
+  // ⚙️ Config
+  /** Icon-scale size in px; track/thumb dimensions are derived from it (default 20). */
   iconSize?: number;
 }
 

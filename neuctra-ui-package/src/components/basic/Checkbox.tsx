@@ -14,48 +14,78 @@ export interface Option {
 }
 
 export interface CheckboxGroupProps {
+  /** `"single"` renders one standalone checkbox; `"group"` renders an independent multi-select list from `options`. */
   mode?: "single" | "group";
 
+  /** Name attribute applied to the underlying checkbox input(s). */
   name?: string;
 
   /* ---------- GROUP MODE ---------- */
+  /** Options rendered in `mode="group"`. Each is toggled independently (not mutually exclusive). */
   options?: Option[];
+  /** Currently checked values in `mode="group"`. */
   selectedValues?: string[];
+  /** Called with the full updated array of checked values in `mode="group"`. */
   onChange?: (values: string[]) => void;
 
   /* ---------- SINGLE MODE ---------- */
+  /** Label text shown next to the checkbox in `mode="single"`. */
   label?: string;
+  /** Checked state in `mode="single"`. */
   checked?: boolean;
+  /** Called with the next checked state in `mode="single"`. */
   onCheckedChange?: (checked: boolean) => void;
 
+  /** Disables the checkbox(es) and prevents toggling. */
   disabled?: boolean;
+  /** Prevents toggling while keeping the checkbox(es) visually active. */
   readOnly?: boolean;
+  /** Marks the input(s) as required for native form validation. */
   required?: boolean;
+  /** Error message rendered below the component. */
   error?: string;
 
   /* ---------- Styling ---------- */
+  /** Additional classes for the outer wrapper. */
   className?: string;
+  /** Additional classes for the group container (falls back to `className`). */
   containerClassName?: string;
+  /** Additional classes for each checkbox's `<label>` row. */
   itemClassName?: string;
+  /** Additional classes for each checkbox's `<label>` row (merged with `itemClassName`). */
   labelClassName?: string;
+  /** Additional classes for the label text. */
   textClassName?: string;
+  /** Additional classes for the checkbox box/icon. */
   iconClassName?: string;
+  /** Additional classes for the checkmark SVG inside the checkbox. */
   checkClassName?: string;
+  /** Additional classes for the error message. */
   errorClassName?: string;
 
+  /** Inline styles for the outer wrapper. */
   style?: React.CSSProperties;
+  /** Inline styles for the group container. */
   containerStyle?: React.CSSProperties;
+  /** Inline styles for each checkbox's row. */
   itemStyle?: React.CSSProperties;
+  /** Inline styles for each checkbox's row. */
   labelStyle?: React.CSSProperties;
+  /** Inline styles for the label text. */
   textStyle?: React.CSSProperties;
+  /** Inline styles for the checkbox box/icon. */
   iconStyle?: React.CSSProperties;
+  /** Inline styles for the error message. */
   errorStyle?: React.CSSProperties;
 
   /* ---------- Icon ---------- */
+  /** Renders a custom checkbox indicator in place of the default box/checkmark. */
   customIcon?: (checked: boolean, option?: Option) => React.ReactNode;
+  /** Size (in pixels) of the default checkbox icon. */
   iconSize?: number;
 
   /* ---------- Advanced ---------- */
+  /** Fully replaces the rendering of each checkbox (or the single checkbox) with custom markup. */
   renderItem?: (params: {
     option?: Option;
     checked: boolean;

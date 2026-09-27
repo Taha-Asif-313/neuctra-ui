@@ -4,8 +4,11 @@ import React, { forwardRef } from "react";
 import { cn } from "../../lib/cn";
 
 export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Placeholder shape. */
   variant?: "text" | "circular" | "rectangular";
+  /** Explicit width (number = px, or any CSS value string). */
   width?: number | string;
+  /** Explicit height (number = px, or any CSS value string). */
   height?: number | string;
   /** For variant="text": number of stacked lines (last one is shorter). */
   lines?: number;

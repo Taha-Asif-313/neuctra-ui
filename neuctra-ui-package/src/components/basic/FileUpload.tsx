@@ -9,29 +9,48 @@ export interface FileUploadProps {
   onFilesChange?: (files: File[]) => void;
   /** Fired for each rejected file with the reason. */
   onError?: (message: string, file: File) => void;
+  /** Allow selecting or dropping more than one file. */
   multiple?: boolean;
   /** Native accept string, e.g. "image/*,.pdf". */
   accept?: string;
+  /** Per-file size limit in megabytes; oversized files are rejected. */
   maxSizeMB?: number;
+  /** Maximum number of files allowed in total; extra files are rejected. */
   maxFiles?: number;
+  /** Headline text inside the drop zone. */
   label?: string;
+  /** Sub-line text inside the drop zone; defaults to a summary of accept/maxSizeMB/maxFiles. */
   description?: string;
+  /** Disables the drop zone and file input. */
   disabled?: boolean;
   /** Hide the built-in selected-files list. */
   hideFileList?: boolean;
+  /** Id applied to the hidden file input. */
   id?: string;
+  /** Additional classes for the outermost wrapper. */
   className?: string;
 
+  /** Additional classes for the drop zone label/container. */
   dropzoneClassName?: string;
+  /** Additional classes for the upload icon wrapper. */
   iconClassName?: string;
+  /** Additional classes for the headline text. */
   labelClassName?: string;
+  /** Additional classes for the sub-line description text. */
   descriptionClassName?: string;
+  /** Additional classes for the inline rejection message. */
   errorClassName?: string;
+  /** Additional classes for the selected-files list container. */
   listClassName?: string;
+  /** Additional classes for each file row in the list. */
   fileItemClassName?: string;
+  /** Additional classes for the file icon in each row. */
   fileIconClassName?: string;
+  /** Additional classes for the file name text. */
   fileNameClassName?: string;
+  /** Additional classes for the file size text. */
   fileSizeClassName?: string;
+  /** Additional classes for the per-file remove button. */
   removeButtonClassName?: string;
 }
 

@@ -18,52 +18,79 @@ export interface Option {
 }
 
 export interface RadioGroupProps {
+  /** Shared `name` for the native radio inputs; auto-generated when omitted. */
   name?: string;
+  /** Mutually-exclusive options to render — selecting one always deselects the rest. */
   options: Option[];
+  /** Currently selected option value (controlled). */
   selectedValue?: string;
+  /** Called with the newly selected option's value. */
   onChange?: (value: string) => void;
 
+  /** Disables every option and prevents selection. */
   disabled?: boolean;
+  /** Prevents selection changes while keeping the group visually active. */
   readOnly?: boolean;
+  /** Marks the group as required for native form validation. */
   required?: boolean;
+  /** Error message rendered below the group. */
   error?: string;
 
-  /** 🎨 Root Container */
+  // 🎨 Root Container
+  /** Additional classes for the root container. */
   className?: string;
+  /** Inline styles for the root container. */
   style?: React.CSSProperties;
 
-  /** 🎨 Item Container */
+  // 🎨 Item Container
+  /** Additional classes for each option's row. */
   itemClassName?: string;
+  /** Inline styles for each option's row. */
   itemStyle?: React.CSSProperties;
 
-  /** 🎨 Label Text */
+  // 🎨 Label Text
+  /** Additional classes for an option's label text. */
   labelClassName?: string;
+  /** Inline styles for an option's label text. */
   labelStyle?: React.CSSProperties;
 
-  /** 🎨 Description Text */
+  // 🎨 Description Text
+  /** Additional classes for an option's description text. */
   descriptionClassName?: string;
+  /** Inline styles for an option's description text. */
   descriptionStyle?: React.CSSProperties;
 
-  /** 🎨 Icon Wrapper */
+  // 🎨 Icon Wrapper
+  /** Additional classes for an option's icon wrapper. */
   iconWrapperClassName?: string;
+  /** Inline styles for an option's icon wrapper. */
   iconWrapperStyle?: React.CSSProperties;
 
-  /** 🎨 Radio Indicator */
+  // 🎨 Radio Indicator
+  /** Additional classes for the outer radio circle. */
   indicatorClassName?: string;
+  /** Inline styles for the outer radio circle. */
   indicatorStyle?: React.CSSProperties;
 
-  /** 🎨 Inner Dot */
+  // 🎨 Inner Dot
+  /** Additional classes for the inner selected dot. */
   dotClassName?: string;
+  /** Inline styles for the inner selected dot. */
   dotStyle?: React.CSSProperties;
 
-  /** 🎨 Error Message */
+  // 🎨 Error Message
+  /** Additional classes for the error message. */
   errorClassName?: string;
+  /** Inline styles for the error message. */
   errorStyle?: React.CSSProperties;
 
-  /** ⚙️ Configuration */
+  // ⚙️ Configuration
+  /** Size variant controlling item padding, indicator and dot sizing. */
   size?: "sm" | "md" | "lg";
+  /** Stacks options vertically or lays them out horizontally. */
   orientation?: "vertical" | "horizontal";
 
+  /** Duration (in seconds) of the selected-dot scale animation. */
   animationDuration?: number;
 }
 

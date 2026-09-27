@@ -163,12 +163,12 @@ export default function App(): JSX.Element {
           <div className="space-y-2 text-gray-200 text-sm">
             <p className="flex items-center gap-2">
               <Sun size={14} className="text-yellow-400" />
-              Light mode shows Sun icon
+              Dark mode shows the Sun icon
             </p>
 
             <p className="flex items-center gap-2">
               <Moon size={14} className="text-blue-400" />
-              Dark mode shows Moon icon
+              Light mode shows the Moon icon
             </p>
 
             <p>✔ Smooth transition animations</p>

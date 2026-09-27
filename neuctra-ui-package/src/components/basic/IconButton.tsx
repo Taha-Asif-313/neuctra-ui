@@ -31,8 +31,10 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   /** Optional tooltip / accessible label */
   "aria-label"?: string;
 
-  /** Full customization */
+  // Full customization
+  /** Styles the icon wrapper. */
   iconClassName?: string;
+  /** Inline styles for the icon wrapper. */
   iconStyle?: React.CSSProperties;
 }
 

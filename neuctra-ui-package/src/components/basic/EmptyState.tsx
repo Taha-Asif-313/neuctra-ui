@@ -7,16 +7,24 @@ import { cn } from "../../lib/cn";
 export interface EmptyStateProps
   // `title` here is a ReactNode slot, not the native tooltip attribute.
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Icon shown in the muted circle; defaults to an Inbox icon. */
   icon?: React.ReactNode;
+  /** Headline (required). */
   title: React.ReactNode;
+  /** Supporting copy shown under the title. */
   description?: React.ReactNode;
   /** Call-to-action slot (usually a <Button />). */
   action?: React.ReactNode;
+  /** Scales padding, icon, and text together. */
   size?: "sm" | "md" | "lg";
 
+  /** Styles the icon wrapper circle. */
   iconClassName?: string;
+  /** Styles the title heading. */
   titleClassName?: string;
+  /** Styles the description text. */
   descriptionClassName?: string;
+  /** Styles the wrapper around the action slot. */
   actionClassName?: string;
 }
 

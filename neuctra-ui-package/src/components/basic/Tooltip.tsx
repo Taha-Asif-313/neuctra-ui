@@ -12,12 +12,17 @@ import { cn } from "../../lib/cn";
 export interface TooltipProps {
   /** Tooltip text/content. */
   content: React.ReactNode;
+  /** Trigger element; the tooltip shows on its hover and keyboard focus. */
   children: React.ReactNode;
+  /** Side of the trigger the bubble appears on. */
   position?: "top" | "bottom" | "left" | "right";
   /** Delay before showing, in ms. */
   delay?: number;
+  /** Never show the tooltip. */
   disabled?: boolean;
+  /** Styles the inline wrapper around `children`. */
   className?: string;
+  /** Styles the tooltip bubble. */
   contentClassName?: string;
   /** The small triangular pointer on the tooltip bubble. */
   arrowClassName?: string;

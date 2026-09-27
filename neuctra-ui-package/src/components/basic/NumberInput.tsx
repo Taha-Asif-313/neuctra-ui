@@ -9,23 +9,37 @@ export interface NumberInputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     "value" | "defaultValue" | "onChange" | "size" | "type"
   > {
+  /** Controlled value; pass null to represent an empty field. */
   value?: number | null;
+  /** Initial value when uncontrolled. */
   defaultValue?: number;
   /** Fired with the parsed number, or null when the field is empty. */
   onChange?: (value: number | null) => void;
+  /** Minimum allowed value; clamped on blur and disables the decrement button at the limit. */
   min?: number;
+  /** Maximum allowed value; clamped on blur and disables the increment button at the limit. */
   max?: number;
+  /** Amount added or subtracted per stepper click or Arrow key press. */
   step?: number;
+  /** Label rendered above the field. */
   label?: string;
+  /** Error message; paints the border and replaces helperText below the field. */
   error?: string;
+  /** Helper text shown below the field when there is no error. */
   helperText?: string;
+  /** Field height and stepper button scale. */
   size?: "sm" | "md" | "lg";
+  /** Additional classes for the outermost wrapper. */
   wrapperClassName?: string;
+  /** Additional classes for the label. */
   labelClassName?: string;
   /** The bordered control wrapping the decrement button, input, and increment button. */
   inputWrapperClassName?: string;
+  /** Additional classes for the decrement (minus) button. */
   decrementButtonClassName?: string;
+  /** Additional classes for the increment (plus) button. */
   incrementButtonClassName?: string;
+  /** Additional classes for the helper/error text. */
   helperTextClassName?: string;
 }
 

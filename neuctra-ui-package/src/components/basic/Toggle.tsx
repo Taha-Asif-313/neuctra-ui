@@ -5,10 +5,15 @@ import { cn } from "../../lib/cn";
 
 export interface ToggleProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange"> {
+  /** Controlled pressed state; when set, the toggle no longer manages its own state. */
   pressed?: boolean;
+  /** Initial pressed state for uncontrolled usage. */
   defaultPressed?: boolean;
+  /** Called with the next pressed state whenever the toggle is clicked. */
   onPressedChange?: (pressed: boolean) => void;
+  /** Visual style: borderless (`default`) or bordered (`outline`). */
   variant?: "default" | "outline";
+  /** Size variant controlling height, padding and icon sizing. */
   size?: "sm" | "md" | "lg";
 }
 

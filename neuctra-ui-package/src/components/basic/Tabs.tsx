@@ -79,31 +79,52 @@ function useTabsContext() {
 /* ------------------------------------------------------------------ */
 
 export interface TabsProps {
+  /** `TabList` + `TabPanels` composition. */
   children: ReactNode;
+  /** Initial active tab index (uncontrolled — Tabs owns the active-tab state internally). */
   defaultActive?: number;
+  /** Where the tab list sits relative to the panels; collapses to `"top"` on mobile for `"left"`/`"right"`. */
   position?: Position;
+  /** Visual style applied to each `Tab`. */
   variant?: Variant;
+  /** Stretches tabs to fill the available width. */
   fullWidth?: boolean;
+  /** Border radius (px) of the root container. */
   radius?: number;
+  /** Duration (ms) of the panel fade-in / drawer-open animations. */
   transitionDuration?: number;
+  /** Adds an outer border around the whole root container. */
   bordered?: boolean;
 
-  /** Responsive */
+  // Responsive
+  /** Max-width (px) below which mobile behavior (`mobileVariant`) kicks in. */
   mobileBreakpoint?: number;
+  /** How `TabList` behaves on small screens — see `MobileVariant`. */
   mobileVariant?: MobileVariant;
 
-  /** Colors */
+  // Colors
+  /** Exposed via context for custom tab extensions; not applied directly by `Tab`/`TabList` styling. */
   primaryColor?: string;
+  /** Exposed via context for custom tab extensions; not applied directly by `Tab`/`TabList` styling. */
   activeColor?: string;
+  /** Exposed via context for custom tab extensions; not applied directly by `Tab`/`TabList` styling. */
   textColor?: string;
+  /** Exposed via context for custom tab extensions; not applied directly by `Tab`/`TabList` styling. */
   hoverColor?: string;
+  /** Exposed via context for custom tab extensions; not applied directly by `Tab`/`TabList` styling. */
   borderColor?: string;
+  /** Exposed via context for custom tab extensions; not applied directly by `Tab`/`TabList` styling. */
   disabledColor?: string;
+  /** Root container background color; falls back to `var(--background)`. */
   backgroundColor?: string;
 
+  /** Fired with the new index whenever the active tab changes. */
   onTabChange?: (index: number) => void;
+  /** Overrides the auto-detected number of rendered tabs (used for keyboard wraparound); 0 or omitted auto-detects. */
   tabCount?: number;
+  /** Inline styles for the root container. */
   style?: CSSProperties;
+  /** Styles the root container. */
   className?: string;
 }
 
@@ -251,13 +272,17 @@ export const Tabs: React.FC<TabsProps> = ({
 /* ------------------------------------------------------------------ */
 
 export interface TabListProps {
+  /** `Tab` elements (or the drawer menu's tabs on mobile). */
   children: ReactNode;
+  /** Spacing (px) between tabs. */
   gap?: number;
   /** Label shown in drawer trigger when no tab is active (fallback) */
   drawerLabel?: ReactNode;
-  /** Icon for the drawer chevron area */
+  /** Accepted for a custom drawer chevron icon, but not yet rendered by TabList (the built-in chevron is always used). */
   drawerIcon?: ReactNode;
+  /** Inline styles for the tab list container. */
   style?: CSSProperties;
+  /** Styles the tab list container. */
   className?: string;
   /** The drawer trigger `<button>` (mobileVariant="drawer" only). */
   triggerClassName?: string;
@@ -437,14 +462,23 @@ export const TabList: React.FC<TabListProps> = ({
 /* ------------------------------------------------------------------ */
 
 export interface TabProps {
+  /** Tab label content. */
   children: ReactNode;
+  /** Explicit tab index; omit to let it resolve automatically from DOM position among sibling tabs. */
   index?: number;
+  /** Optional leading icon. */
   icon?: ReactNode;
+  /** Disables interaction; a disabled tab never calls `setActive`. */
   disabled?: boolean;
+  /** Accessible label for the tab button. */
   ariaLabel?: string;
+  /** Accepted by the type, but not currently applied by the component. */
   style?: CSSProperties;
+  /** Styles the tab button. */
   className?: string;
+  /** Accepted by the type, but not currently applied by the component. */
   activeStyle?: CSSProperties;
+  /** Accepted by the type, but not currently applied by the component. */
   inactiveStyle?: CSSProperties;
   /** Wraps the `icon` node. */
   iconClassName?: string;
@@ -564,8 +598,11 @@ export const Tab: React.FC<TabProps> = ({
 /* ------------------------------------------------------------------ */
 
 export interface TabPanelsProps {
+  /** `TabPanel` elements, one per `Tab`. */
   children: ReactNode;
+  /** Inline styles for the panels wrapper. */
   style?: CSSProperties;
+  /** Styles the panels wrapper. */
   className?: string;
 }
 
@@ -591,10 +628,15 @@ export const TabPanels: React.FC<TabPanelsProps> = ({
 /* ------------------------------------------------------------------ */
 
 export interface TabPanelProps {
+  /** Panel content. */
   children: ReactNode;
+  /** The tab index this panel is shown for. */
   index: number;
+  /** Keep the panel mounted (hidden via CSS) instead of unmounting it while inactive. */
   keepMounted?: boolean;
+  /** Inline styles for the panel wrapper. */
   style?: CSSProperties;
+  /** Styles the panel wrapper. */
   className?: string;
 }
 

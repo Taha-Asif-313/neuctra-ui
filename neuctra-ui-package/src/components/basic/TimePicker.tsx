@@ -13,13 +13,16 @@ import { Clock, X } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 export interface TimePickerProps {
+  /** Controlled selected time; pass null to represent no selection. */
   value?: Date | null;
+  /** Initial selected time when uncontrolled. */
   defaultValue?: Date | null;
   /** Fired with a Date carrying the picked hour/minute. If `value` (or the
    * uncontrolled internal value) is already set, only its hours/minutes are
    * replaced — the rest of the date is preserved, so pairing this with a
    * DatePicker's value works without extra glue code. */
   onChange?: (date: Date | null) => void;
+  /** Trigger text shown while no time is selected. */
   placeholder?: string;
   /** Format the displayed time; defaults to a locale "HH:MM" string. */
   formatTime?: (date: Date) => string;
@@ -29,26 +32,43 @@ export interface TimePickerProps {
   minHour?: number;
   /** Latest selectable hour, 0-23 (inclusive). */
   maxHour?: number;
+  /** Label rendered above the trigger. */
   label?: string;
+  /** Error message; paints the border and replaces helperText below the trigger. */
   error?: string;
+  /** Helper text shown below the trigger when there is no error. */
   helperText?: string;
+  /** Trigger height. */
   size?: "sm" | "md" | "lg";
+  /** Disables the trigger and prevents opening the time list. */
   disabled?: boolean;
   /** Show an inline clear button while a time is selected. */
   clearable?: boolean;
+  /** Id applied to the trigger button. */
   id?: string;
+  /** Additional classes for the trigger button. */
   className?: string;
+  /** Additional classes for the outermost wrapper. */
   wrapperClassName?: string;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Additional classes for the label. */
   labelClassName?: string;
+  /** Additional classes for the clock icon in the trigger. */
   iconClassName?: string;
+  /** Additional classes for the displayed time text. */
   textClassName?: string;
+  /** Additional classes for the clear button. */
   clearButtonClassName?: string;
+  /** Additional classes for the icon inside the clear button. */
   clearIconClassName?: string;
+  /** Additional classes for the popover panel containing the time list. */
   panelClassName?: string;
+  /** Additional classes for every time option button. */
   optionClassName?: string;
+  /** Additional classes for the currently selected time option, on top of its active styling. */
   activeOptionClassName?: string;
+  /** Additional classes for the helper/error text below the trigger. */
   helperClassName?: string;
 }
 

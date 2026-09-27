@@ -11,14 +11,20 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   /** Optional so icon-only buttons are possible — pair with `aria-label`. */
   children?: React.ReactNode;
 
+  /** Icon rendered before the label (hidden while `loading`). */
   iconBefore?: React.ReactNode;
+  /** Icon rendered after the label (hidden while `loading`). */
   iconAfter?: React.ReactNode;
 
+  /** Shows a spinner + `loadingText` in place of the icons/children and disables the button. */
   loading?: boolean;
+  /** Text shown next to the spinner while `loading` is true. */
   loadingText?: string;
 
+  /** Stretches the button to the full width of its container. */
   fullWidth?: boolean;
 
+  /** Visual style of the button. */
   variant?:
     | "default"
     | "outline"
@@ -29,17 +35,26 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     | "warning"
     | "info"
     | "link";
+  /** Controls padding, height, font size, and the icon/loader scale. */
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 
-  /** 🔥 Full Customization */
+  // Full customization
+  /** Styles the inline-flex wrapper around the icon(s)/text/loader. */
   contentClassName?: string;
+  /** Styles the icon wrapper (both `iconBefore` and `iconAfter`). */
   iconClassName?: string;
+  /** Styles the spinner shown while `loading`. */
   loaderClassName?: string;
+  /** Styles the label text (and the `loadingText`). */
   textClassName?: string;
 
+  /** Inline styles for the content wrapper. */
   contentStyle?: React.CSSProperties;
+  /** Inline styles for the icon wrapper. */
   iconStyle?: React.CSSProperties;
+  /** Inline styles for the loading spinner. */
   loaderStyle?: React.CSSProperties;
+  /** Inline styles for the label text. */
   textStyle?: React.CSSProperties;
 }
 

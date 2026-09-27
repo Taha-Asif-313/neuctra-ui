@@ -97,9 +97,9 @@ function BasicExample() {
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Avatar fallback="JS" ring ringColor="#10b981" />`}
+              code={`<Avatar fallback="JS" ring className="ring-emerald-500" />`}
               previewContent={
-                <Avatar fallback="JS" ring ringColor="#10b981" />
+                <Avatar fallback="JS" ring className="ring-emerald-500" />
               }
             />
 
@@ -388,9 +388,10 @@ function BasicExample() {
               for apps/icons.
             </li>
             <li>
-              For fully responsive avatars, use <code>size="responsive"</code>{" "}
-              and control size via parent container + Tailwind responsive
-              classes.
+              <code>size="responsive"</code> currently falls back to the same
+              fixed dimensions as <code>"md"</code> internally — for
+              breakpoint-based sizing, override the width/height with your own
+              responsive Tailwind classes via <code>className</code>.
             </li>
             <li>
               You can customize status dot appearance using{" "}

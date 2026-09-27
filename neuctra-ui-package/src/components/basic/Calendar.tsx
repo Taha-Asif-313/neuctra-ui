@@ -11,25 +11,37 @@ export interface CalendarProps
   > {
   /** Selected day. */
   value?: Date | null;
+  /** Initial selected day when uncontrolled. */
   defaultValue?: Date | null;
+  /** Fired with the clicked day when a non-disabled cell is selected. */
   onChange?: (date: Date) => void;
   /** Month shown first (defaults to the selected day or today). */
   defaultMonth?: Date;
+  /** Earliest selectable day; earlier days are rendered disabled. */
   minDate?: Date;
+  /** Latest selectable day; later days are rendered disabled. */
   maxDate?: Date;
   /** Return true to disable a specific day. */
   isDateDisabled?: (date: Date) => boolean;
   /** 0 = Sunday, 1 = Monday. */
   weekStartsOn?: 0 | 1;
+  /** Locale used to format the month label and weekday header. */
   locale?: string;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Additional classes for the month header row (prev/next buttons and label). */
   headerClassName?: string;
+  /** Additional classes for the previous/next month buttons. */
   navButtonClassName?: string;
+  /** Additional classes for the current month/year label. */
   monthLabelClassName?: string;
+  /** Additional classes for the weekday header row. */
   weekdaysClassName?: string;
+  /** Additional classes for each weekday header cell. */
   weekdayClassName?: string;
+  /** Additional classes for the day grid container. */
   daysClassName?: string;
+  /** Additional classes for each individual day cell. */
   dayClassName?: string;
 }
 

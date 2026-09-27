@@ -550,6 +550,20 @@ function BasicExample() {
               </div>
             </div>
 
+            <div className="flex items-start gap-2 text-destructive">
+              <X size={16} />
+              <div>
+                <code>{"<button onClick={(e) => e.stopPropagation()}>"}</code>
+                <p className="text-xs mt-1">
+                  Never call <code>e.stopPropagation()</code> in the{" "}
+                  <code>trigger</code>'s own onClick — Dropdown already stops
+                  propagation on its wrapper, and doing it again in the
+                  trigger prevents that wrapper handler from running, so the
+                  menu never opens.
+                </p>
+              </div>
+            </div>
+
             <div className="flex items-start gap-2 text-green-500">
               <Check size={16} />
               <div>

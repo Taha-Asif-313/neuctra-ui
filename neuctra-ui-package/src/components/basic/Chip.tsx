@@ -6,19 +6,29 @@ import { cn } from "../../lib/cn";
 
 export interface ChipProps
   extends Omit<React.HTMLAttributes<HTMLSpanElement>, "children"> {
+  /** Chip content. */
   label: React.ReactNode;
+  /** Visual style: filled, tinted, or bordered. */
   variant?: "solid" | "soft" | "outline";
+  /** Color palette drawn from the theme tokens. */
   color?: "primary" | "neutral" | "destructive" | "success";
+  /** Chip height, font and icon size scale together. */
   size?: "sm" | "md" | "lg";
+  /** Leading icon, auto-sized to the chip size. */
   icon?: React.ReactNode;
   /** Renders a remove button and makes the chip dismissible. */
   onRemove?: () => void;
+  /** Dims the chip and disables the remove button. */
   disabled?: boolean;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Styles the leading icon wrapper. */
   iconClassName?: string;
+  /** Styles the label text. */
   labelClassName?: string;
+  /** Styles the remove/dismiss button. */
   removeButtonClassName?: string;
+  /** Styles the icon inside the remove button. */
   removeIconClassName?: string;
 }
 

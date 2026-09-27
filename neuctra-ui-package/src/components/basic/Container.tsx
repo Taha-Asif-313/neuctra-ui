@@ -6,14 +6,19 @@ import clsx from "clsx";
 type ContainerSize = "sm" | "md" | "lg" | "xl" | "2xl" | "full";
 
 export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Caps the content width (maps to a Tailwind max-w-* class); "full" spans the parent's full width. */
   size?: ContainerSize;
+  /** Internal spacing applied on all sides. */
   padding?: "none" | "sm" | "md" | "lg" | "xl";
+  /** Centers the container horizontally with auto margins. */
   center?: boolean;
 
   /** Custom styles (framework independent) */
   style?: React.CSSProperties;
 
+  /** Additional classes merged onto the root div. */
   className?: string;
+  /** Content rendered inside the container. */
   children?: React.ReactNode;
 }
 

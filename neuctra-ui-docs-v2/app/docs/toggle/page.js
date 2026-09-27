@@ -307,6 +307,19 @@ const ToggleDocs = () => {
 
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    ToggleGroup.disabled
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    boolean
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">
+                    false
+                  </td>
+                  <td className="p-3">Disables every option in the group</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     ToggleGroup.itemClassName
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">

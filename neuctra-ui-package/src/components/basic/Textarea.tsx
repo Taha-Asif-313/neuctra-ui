@@ -10,34 +10,56 @@ import React, {
 import { cn } from "../../lib/cn";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** Label text rendered above the textarea. */
   label?: string;
+  /** Icon rendered next to the label. */
   icon?: React.ElementType;
+  /** Applies error styling (destructive border/ring). */
   error?: boolean;
+  /** Applies success styling (primary border). */
   success?: boolean;
+  /** Helper or validation message rendered below the textarea. */
   helperText?: string;
+  /** Maximum character length; also shows a live character counter when set. */
   maxLength?: number;
 
-  /** Auto resize */
+  // Auto resize
+  /** Grows the textarea to fit its content, between `minRows` and `maxRows`. */
   autoResize?: boolean;
+  /** Minimum number of rows to render when `autoResize` is enabled. */
   minRows?: number;
+  /** Maximum number of rows before the textarea becomes scrollable. */
   maxRows?: number;
 
-  /** Chat-like behavior */
+  // Chat-like behavior
+  /** When true, Enter submits (calling `onSubmit`) and Shift+Enter inserts a newline. */
   submitOnEnter?: boolean; // Enter submits
+  /** Called when the user submits via Enter while `submitOnEnter` is set. */
   onSubmit?: () => void;
 
-  /** Customization */
+  // Customization
+  /** Additional classes for the textarea element. */
   className?: string;
+  /** Additional classes for the outer wrapper. */
   containerClassName?: string;
+  /** Additional classes for the label. */
   labelClassName?: string;
+  /** Additional classes for the label icon. */
   iconClassName?: string;
+  /** Additional classes for the helper/validation text. */
   helperClassName?: string;
+  /** Additional classes for the character counter. */
   countClassName?: string;
 
+  /** Inline styles for the textarea element. */
   style?: CSSProperties;
+  /** Inline styles for the outer wrapper. */
   containerStyle?: CSSProperties;
+  /** Inline styles for the label. */
   labelStyle?: CSSProperties;
+  /** Inline styles for the helper/validation text. */
   helperStyle?: CSSProperties;
+  /** Inline styles for the character counter. */
   countStyle?: CSSProperties;
 }
 

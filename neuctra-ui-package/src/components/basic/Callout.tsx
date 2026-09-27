@@ -16,21 +16,31 @@ import { cn } from "../../lib/cn";
  */
 export interface CalloutProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  /** Semantic status; drives the color palette and default icon. */
   type?: "info" | "success" | "warning" | "error" | "neutral";
+  /** Tinted background, or border-only. */
   variant?: "soft" | "outline";
+  /** Bold headline shown above the body content. */
   title?: React.ReactNode;
+  /** Body content shown below the title. */
   children?: React.ReactNode;
   /** Override the default type icon; pass null to hide it. */
   icon?: React.ReactNode | null;
   /** Renders a close button; the callout removes itself unless controlled. */
   dismissible?: boolean;
+  /** Fired when the callout is dismissed, before it hides itself. */
   onDismiss?: () => void;
 
-  /** 🔥 Full Customization */
+  // Full customization
+  /** Styles the leading icon wrapper. */
   iconClassName?: string;
+  /** Styles the wrapper around the title and body content. */
   contentClassName?: string;
+  /** Styles the title text. */
   titleClassName?: string;
+  /** Styles the body content wrapper. */
   descriptionClassName?: string;
+  /** Styles the dismiss (close) button. */
   closeButtonClassName?: string;
 }
 

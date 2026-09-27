@@ -265,7 +265,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">shadow</td>
                   <td className="p-3">boolean</td>
-                  <td className="p-3">false</td>
+                  <td className="p-3">—</td>
                   <td className="p-3">Enable shadow around image.</td>
                 </tr>
 
@@ -295,7 +295,10 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">overlayColor</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">"hsl(var(--background) / 0.6)"</td>
+                  <td className="p-3">
+                    "color-mix(in srgb, var(--background) 60%,
+                    transparent)"
+                  </td>
                   <td className="p-3">Overlay background color.</td>
                 </tr>
 

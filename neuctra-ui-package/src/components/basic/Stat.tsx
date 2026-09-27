@@ -5,8 +5,11 @@ import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 export interface StatProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Metric name shown above the value. */
   label: React.ReactNode;
+  /** Metric value, rendered large and bold. */
   value: React.ReactNode;
+  /** Icon shown in a tinted square next to the label. */
   icon?: React.ReactNode;
   /** Direction of the change indicator. */
   trend?: "up" | "down" | "neutral";
@@ -17,14 +20,22 @@ export interface StatProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Renders the stat inside a bordered card surface. */
   bordered?: boolean;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Styles the header row wrapping the label and icon. */
   headerClassName?: string;
+  /** Styles the label text. */
   labelClassName?: string;
+  /** Styles the tinted icon wrapper. */
   iconClassName?: string;
+  /** Styles the metric value text. */
   valueClassName?: string;
+  /** Styles the footer row wrapping trend and description. */
   footerClassName?: string;
+  /** Styles the trend badge. */
   trendClassName?: string;
+  /** Styles the trend arrow icon. */
   trendIconClassName?: string;
+  /** Styles the description text. */
   descriptionClassName?: string;
 }
 

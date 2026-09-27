@@ -8,15 +8,21 @@ export interface RatingProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
   /** Current rating. Supports fractions when readOnly (e.g. 4.3). */
   value?: number;
+  /** Initial rating for uncontrolled usage. */
   defaultValue?: number;
+  /** Fired with the selected star value (or 0 when cleared). */
   onChange?: (value: number) => void;
   /** Number of stars. */
   max?: number;
+  /** Star size. */
   size?: "sm" | "md" | "lg";
+  /** Renders a non-interactive display that supports fractional values. */
   readOnly?: boolean;
+  /** Dims the control and blocks selection. */
   disabled?: boolean;
   /** Clicking the current value again resets the rating to 0. */
   allowClear?: boolean;
+  /** Accessible label for the radiogroup/image. */
   label?: string;
   /** Show the numeric value next to the stars. */
   showValue?: boolean;

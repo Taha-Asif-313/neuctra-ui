@@ -258,13 +258,19 @@ function BasicExample() {
                   <td className="p-3 font-mono">disableOverlayClose</td>
                   <td className="p-3">boolean</td>
                   <td className="p-3">false</td>
-                  <td className="p-3">Prevents closing on overlay click</td>
+                  <td className="p-3">Prevents closing on overlay click (also blocks Escape unless disableEscapeClose says otherwise)</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-mono">className</td>
+                  <td className="p-3 font-mono">disableEscapeClose</td>
+                  <td className="p-3">boolean</td>
+                  <td className="p-3">disableOverlayClose</td>
+                  <td className="p-3">Also blocks the Escape key</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-mono">ariaLabel</td>
                   <td className="p-3">string</td>
                   <td className="p-3">—</td>
-                  <td className="p-3">Overlay wrapper class</td>
+                  <td className="p-3">Accessible name for the dialog when no ModalHeader is used</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">style</td>
@@ -634,10 +640,12 @@ function BasicExample() {
                 </tr>
 
                 <tr>
-                  <td className="p-3 font-mono">defaultOpen</td>
-                  <td className="p-3">boolean</td>
-                  <td className="p-3">false</td>
-                  <td className="p-3">Initial open state</td>
+                  <td className="p-3 font-mono">modalProps</td>
+                  <td className="p-3">
+                    Omit&lt;ModalProps, "isOpen" | "onClose" | "children"&gt;
+                  </td>
+                  <td className="p-3">—</td>
+                  <td className="p-3">Forwarded to the underlying Modal</td>
                 </tr>
               </tbody>
             </table>
@@ -653,6 +661,7 @@ function BasicExample() {
           <ul className="list-disc list-inside text-gray-200 space-y-1">
             <li>Modal automatically locks scroll when open.</li>
             <li>Supports ESC key to close.</li>
+            <li>Traps keyboard focus inside the dialog while it's open.</li>
             <li>Overlay click behavior is configurable.</li>
             <li>
               Use <code>ModalButton</code> for async-safe actions.

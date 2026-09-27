@@ -12,11 +12,15 @@ export interface CopyButtonProps
   label?: React.ReactNode;
   /** How long the "copied" state shows, in ms. */
   feedbackDuration?: number;
+  /** Button scale (also toggles the icon-only square layout when there's no `label`). */
   size?: "sm" | "md" | "lg";
+  /** Fired after a successful copy, with the copied `value`. */
   onCopied?: (value: string) => void;
 
-  /** 🔥 Full Customization */
+  // Full customization
+  /** Styles the copy/check icon. */
   iconClassName?: string;
+  /** Styles the visible label text. */
   labelClassName?: string;
 }
 

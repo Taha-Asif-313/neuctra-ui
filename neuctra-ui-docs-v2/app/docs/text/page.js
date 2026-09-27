@@ -27,9 +27,7 @@ const TextDocs = () => {
 
           <Text as="p" className="leading-relaxed text-gray-300">
             The{" "}
-            <Text as="span" className="font-semibold text-primary">
-              Text
-            </Text>{" "}
+            <span className="font-semibold text-primary">Text</span>{" "}
             component is a lightweight and modern typography primitive for
             React. It supports semantic HTML rendering, text decorations,
             transformations, truncation, and full Tailwind CSS customization

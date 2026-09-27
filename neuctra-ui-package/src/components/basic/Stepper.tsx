@@ -5,22 +5,28 @@ import { Check } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 export interface StepperStep {
+  /** Step title. */
   label: React.ReactNode;
+  /** Muted line rendered under the title. */
   description?: React.ReactNode;
+  /** Custom marker content shown instead of the step number (hidden once the step is done, replaced by a checkmark). */
   icon?: React.ReactNode;
 }
 
 export interface StepperProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+  /** Step definitions, in order. */
   steps: StepperStep[];
   /** Index of the current step (0-based). Steps before it render as done. */
   activeStep: number;
   /** Makes completed steps clickable for navigation. */
   onStepClick?: (index: number) => void;
+  /** Layout direction of the step list. */
   orientation?: "horizontal" | "vertical";
+  /** Marker and text scale. */
   size?: "sm" | "md";
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
   /** Wraps each individual step (indicator + content). */
   itemClassName?: string;
   /** The circular step indicator/dot. */
@@ -31,7 +37,9 @@ export interface StepperProps
   connectorClassName?: string;
   /** Wraps a step's label + description. */
   contentClassName?: string;
+  /** Styles a step's label text. */
   labelClassName?: string;
+  /** Styles a step's description text. */
   descriptionClassName?: string;
 }
 

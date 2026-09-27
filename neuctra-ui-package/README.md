@@ -156,6 +156,7 @@ component's markup resolves to whichever value is currently active.
 :root {
   --primary: #00c214;          --primary-foreground: #ffffff;
   --background: #ffffff;       --foreground: #09090b;
+  --secondary: #3f3f46;
   --muted: #f4f4f5;            --muted-foreground: #71717a;
   --accent: #e4e4e7;           --accent-foreground: #09090b;
   --border: #e4e4e7;           --input: #f4f4f5;         --ring: #a1a1aa;
@@ -170,6 +171,7 @@ component's markup resolves to whichever value is currently active.
 .dark {
   --primary: #00c214;          --primary-foreground: #ffffff;
   --background: #09090b;       --foreground: #fafafa;
+  --secondary: #d4d4d8;
   --muted: #27272a;            --muted-foreground: #a1a1aa;
   --accent: #18181b;           --accent-foreground: #fafafa;
   --border: #27272a;           --input: #18181b;         --ring: #3f3f46;
@@ -187,6 +189,7 @@ component's markup resolves to whichever value is currently active.
   --color-primary-foreground: var(--primary-foreground);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);

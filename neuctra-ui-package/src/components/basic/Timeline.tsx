@@ -5,17 +5,23 @@ import { Check } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 export interface TimelineItem {
+  /** Entry heading. */
   title: React.ReactNode;
+  /** Muted body text shown below the title. */
   description?: React.ReactNode;
   /** Timestamp or meta text shown next to the title. */
   time?: React.ReactNode;
+  /** Custom marker icon; defaults to a checkmark (done) or a plain dot. */
   icon?: React.ReactNode;
+  /** Controls the dot marker style and text emphasis. Defaults to "pending". */
   status?: "done" | "active" | "pending";
 }
 
 export interface TimelineProps
   extends Omit<React.HTMLAttributes<HTMLOListElement>, "children"> {
+  /** Entries to render, top to bottom. */
   items: TimelineItem[];
+  /** Density of the list — spacing and dot/icon size. */
   size?: "sm" | "md";
 
   /** Each `<li>` row. */

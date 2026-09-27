@@ -27,36 +27,55 @@ export type ToastPosition =
   | "bottom-right";
 
 export interface Toast {
+  /** Unique id for this toast; pass the same id back into `toast()` to update it in place. */
   id: string;
+  /** Bold headline shown above the description. */
   title?: string;
+  /** Body text; also what a plain string passed to `toast()` becomes. */
   description?: string;
+  /** Status that drives the default icon and color. */
   type?: AlertType;
+  /** Surface emphasis: neutral card, tinted, or solid status background. */
   variant?: ToastVariant;
+  /** Auto-dismiss delay in ms; `0` (or omitted for `loading`) persists until dismissed. */
   duration?: number;
   /** Overrides the default type icon (success/error/etc). Pass any node, or `null` to render no icon at all. */
   icon?: ReactNode;
 
+  /** Additional classes for the toast's root card. */
   className?: string;
+  /** Inline styles for the toast's root card. */
   style?: React.CSSProperties;
 
+  /** Styles the title text. */
   titleClassName?: string;
+  /** Styles the description text. */
   descriptionClassName?: string;
+  /** Styles the leading status icon. */
   iconClassName?: string;
+  /** Styles the wrapper around title + description. */
   contentClassName?: string;
+  /** Styles the dismiss (close) button. */
   closeButtonClassName?: string;
 }
 
 export interface ToastContextProps {
+  /** The same global `toast` function returned by the standalone `toast` import. */
   toast: ToastFunction;
+  /** Dismisses one toast by id, or every toast when called with no id. */
   dismiss: (id?: string) => void;
 }
 
 export type ToastFunction = {
   /** Returns the toast's id, so it can be updated (pass the same `id` back in) or dismissed later. */
   (input: Omit<Toast, "id"> | string): string;
+  /** Shows a success-styled toast with `message` as the title. */
   success: (message: string, options?: Partial<Toast>) => string;
+  /** Shows an error-styled toast with `message` as the title. */
   error: (message: string, options?: Partial<Toast>) => string;
+  /** Shows a warning-styled toast with `message` as the title. */
   warning: (message: string, options?: Partial<Toast>) => string;
+  /** Shows an info-styled toast with `message` as the title. */
   info: (message: string, options?: Partial<Toast>) => string;
   /** Persists until dismissed or replaced — pair with `.promise()` or dismiss it manually once the async work finishes. */
   loading: (message: string, options?: Partial<Toast>) => string;
@@ -73,6 +92,7 @@ export type ToastFunction = {
     },
     options?: Partial<Toast>,
   ) => Promise<T>;
+  /** Dismisses one toast by id, or every toast when called with no id. */
   dismiss: (id?: string) => void;
 };
 
@@ -230,6 +250,7 @@ export const useToast = (): ToastContextProps =>
   useMemo(() => ({ toast, dismiss: store.dismiss }), []);
 
 export interface ToastProviderProps {
+  /** The app tree to render; the toast viewport is mounted alongside it. */
   children: ReactNode;
   /** Maximum toasts kept on screen at once. Oldest are dropped first. */
   maxToasts?: number;

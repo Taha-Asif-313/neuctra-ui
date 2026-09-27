@@ -36,8 +36,8 @@ generated from your actual TypeScript source. No guessing, no file-spelunking.
 neuctra-ui-package/src/components/basic/*.tsx     (your actual component source)
         │
         │  npm run registry:generate  (ts-morph reads props/JSDoc/defaults,
-        │                               scrapes one example per component
-        │                               from neuctra-ui-docs)
+        │                               scrapes one description + example per
+        │                               component from neuctra-ui-docs-v2)
         ▼
 neuctra-ui-package/registry/components.json        (source of truth)
         │
@@ -64,7 +64,7 @@ Three independently-regenerable files feed the server:
   the color-token rules ("never hardcode colors"), the anti-AI-look rules ("no
   gradients/shadows/blurs/glows/emoji-icons"), the recommended `@neuctra/ui-cli init`
   setup command, and how the standalone `toast()` API works.
-- **`data/aiDesignRules.json`** — also hand-curated, no generator. A 50-section
+- **`data/aiDesignRules.json`** — also hand-curated, no generator. A 51-section
   product/UX design guide (design philosophy, visual hierarchy, page/sidebar/navigation
   structure, per-component usage guidance, spacing/color/border/radius/shadow
   conventions, responsive design, accessibility, and a final UI quality checklist).
@@ -101,7 +101,7 @@ The tools are designed to be called in roughly this order when generating UI, no
 grabbed ad hoc:
 
 1. **`get_design_rules`** — call this first, before picking any component. It returns
-   the styling rules, the anti-AI-look rules, and the 50-section product/UX guide. This
+   the styling rules, the anti-AI-look rules, and the 51-section product/UX guide. This
    shapes *what* to build (hierarchy, when a group actually needs `Card`, when `Modal`
    vs `Drawer`, etc.) before you start reaching for components.
 2. **`get_theme`** — call alongside step 1, not instead of it. Tokens without the design
@@ -230,7 +230,7 @@ requirements — e.g. `CardBody` is compulsory whenever `Card` has body content,
 `Card` itself renders no padding — and component-specific gotchas like Dropdown's
 trigger already stopping propagation internally) and **`antiAiLookRules`** (no
 gradients/shadows/blurs/glows/emoji-icons/em-dashes — the visual tells that make UI read
-as AI-generated), plus **`productDesignGuide`** — a 50-section product/UX design guide
+as AI-generated), plus **`productDesignGuide`** — a 51-section product/UX design guide
 covering design philosophy, visual hierarchy, page/sidebar/navigation structure,
 per-component usage guidance (when to reach for `Card` vs plain whitespace, `Modal` vs
 `Drawer`, `Table` vs `List`, etc.), spacing/color/border/radius/shadow conventions,
@@ -258,7 +258,7 @@ Call this before generating any UI — see the recommended workflow above.
     "sections": [
       { "number": 1, "title": "Core Design Philosophy", "content": "..." },
       { "number": 7, "title": "Cards", "content": "..." },
-      // ...50 sections total
+      // ...51 sections total
     ],
     "goldenRule": { "title": "Golden Rule", "content": "..." }
   }
@@ -369,7 +369,7 @@ neuctra-ui-mcp/
 ├── data/
 │   ├── components.json      # synced (generated) — don't edit by hand
 │   ├── theme.json           # hand-curated token + styling/anti-AI-look rules
-│   └── aiDesignRules.json   # hand-curated 50-section product/UX design guide
+│   └── aiDesignRules.json   # hand-curated 51-section product/UX design guide
 └── package.json
 ```
 

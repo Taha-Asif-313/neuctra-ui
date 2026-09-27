@@ -287,6 +287,21 @@ const PinInputDocs = () => {
 
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    label
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">
+                    &quot;PIN input&quot;
+                  </td>
+                  <td className="p-3">
+                    Accessible group label (aria-label); not rendered visibly
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     boxClassName
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">

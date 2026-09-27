@@ -5,10 +5,15 @@ import { X } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 export interface TagInputProps {
+  /** Controlled tag list. */
   value?: string[];
+  /** Initial tag list when uncontrolled. */
   defaultValue?: string[];
+  /** Fired with the full next tag list. */
   onChange?: (tags: string[]) => void;
+  /** Label rendered above the field. */
   label?: string;
+  /** Placeholder for the inline text input. */
   placeholder?: string;
   /** Maximum number of tags; further entries are ignored. */
   maxTags?: number;
@@ -16,12 +21,19 @@ export interface TagInputProps {
   validate?: (tag: string) => boolean;
   /** Also commit the pending text when the field loses focus. */
   addOnBlur?: boolean;
+  /** Error message; paints the border and replaces helperText below the field. */
   error?: string;
+  /** Helper text shown below the field when there is no error. */
   helperText?: string;
+  /** Field and chip scale. */
   size?: "sm" | "md" | "lg";
+  /** Disables the field and prevents adding or removing tags. */
   disabled?: boolean;
+  /** Id applied to the inline text input. */
   id?: string;
+  /** Additional classes for the field's bordered container. */
   className?: string;
+  /** Additional classes for the outermost wrapper. */
   wrapperClassName?: string;
   /** Field label. */
   labelClassName?: string;

@@ -4,15 +4,19 @@ import React, { forwardRef } from "react";
 import { cn } from "../../lib/cn";
 
 export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Direction of the separator; "vertical" stretches to the height of its flex row. */
   orientation?: "horizontal" | "vertical";
   /** Optional centered label — horizontal orientation only. */
   label?: React.ReactNode;
+  /** Renders a dashed line instead of a solid hairline. */
   dashed?: boolean;
   /** Vertical spacing (horizontal) or horizontal spacing (vertical). */
   spacing?: "none" | "sm" | "md" | "lg";
 
-  /** 🔥 Full Customization (labeled horizontal variant only) */
+  // Full customization (labeled horizontal variant only)
+  /** Styles the hairline segments either side of the label. */
   lineClassName?: string;
+  /** Styles the centered label. */
   labelClassName?: string;
 }
 

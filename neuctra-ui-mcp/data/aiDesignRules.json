@@ -50,7 +50,7 @@
     {
       "number": 10,
       "title": "Typography",
-      "content": "Typography should create hierarchy without requiring excessive decoration.\n\nRecommended hierarchy:\n\n```text\nPage title\n↓\nSection title\n↓\nComponent title\n↓\nBody text\n↓\nMetadata\n```\n\nUse:\n\n* Strong weight for headings\n* Regular weight for descriptions\n* Muted color for metadata\n* Comfortable line-height for reading\n\nAvoid:\n\n* Excessive bold text\n* Too many font sizes\n* All-caps body text\n* Huge headings on every page\n* Centering everything"
+      "content": "Typography should create hierarchy without requiring excessive decoration.\n\nRecommended hierarchy:\n\n```text\nPage title\n↓\nSection title\n↓\nComponent title\n↓\nBody text\n↓\nMetadata\n```\n\nUse:\n\n* Strong weight for headings\n* Regular weight for descriptions\n* `text-secondary` for paragraphs and descriptions\n* Muted color for metadata\n* Comfortable line-height for reading\n\nAvoid:\n\n* Excessive bold text\n* Too many font sizes\n* All-caps body text\n* Huge headings on every page\n* Centering everything"
     },
     {
       "number": 11,
@@ -185,7 +185,7 @@
     {
       "number": 37,
       "title": "Color Rules",
-      "content": "Use color semantically.\n\nPrimary color:\n\n* Primary actions\n* Active navigation\n* Important interactive elements\n* Focus states\n\nMuted colors:\n\n* Secondary information\n* Metadata\n* Supporting text\n\nSemantic colors:\n\n* Success\n* Warning\n* Error\n* Info\n\nDo not use many unrelated accent colors.\n\nA modern interface should generally have:\n\n```text\n1 primary brand color\n+\nneutral system\n+\nsemantic colors\n```"
+      "content": "Use color semantically.\n\nPrimary color:\n\n* Primary actions\n* Active navigation\n* Important interactive elements\n* Focus states\n\nText colors:\n\n* `text-foreground` for headings and titles\n* `text-secondary` for paragraphs and supporting text\n* `text-muted-foreground` for metadata and hints\n\nSemantic colors:\n\n* Success\n* Warning\n* Error\n* Info\n\nDo not use many unrelated accent colors.\n\nA modern interface should generally have:\n\n```text\n1 primary brand color\n+\nneutral system\n+\nsemantic colors\n```"
     },
     {
       "number": 38,
@@ -251,6 +251,11 @@
       "number": 50,
       "title": "Do Not Overwrite Built-in Component Design",
       "content": "Use each `@neuctra/ui` component's built-in design — its default spacing, radius, colors, and layout — as-is.\n\nDo not pass a `className` just to restyle a component's built-in appearance because of personal preference. The component's own design is already the intended, consistent look.\n\nOnly override with Tailwind's `!` important-modifier (e.g. `!bg-red-500`, `!p-2`, `!rounded-lg`) when there is a real, specific need:\n\n* The component's default would otherwise break the current page's existing layout.\n* The default collides or conflicts with the current UI/design of the site.\n* The component has no prop for the needed variation, and leaving the default would visually damage the surrounding design.\n\nNever reach for `!important` overrides as a routine styling habit, a stylistic preference, or 'just because'.\n\nPrefer:\n\n> built-in component design → prop-based variation (variant, size, etc.) → `!important` override (rare, only to prevent breakage)\n\nover:\n\n> restyle every component by default with className overrides\n\nA component that has been overridden with `!important` on every use is a sign the component itself, or the way it's being used, is wrong — not that every instance needs forcing."
+    },
+    {
+      "number": 51,
+      "title": "Paragraph Text Color",
+      "content": "Use `text-secondary` for all paragraph text: body copy, section descriptions, card descriptions, and supporting text under headings.\n\nDo not use `text-muted-foreground` for paragraphs. It is too low-contrast for reading text.\n\nKeep `text-muted-foreground` for small, low-priority text only:\n\n* Timestamps\n* Metadata\n* Captions\n* Placeholders\n* Helper and hint text\n* Disabled states\n\nUse `text-foreground` for headings, titles, and anything that needs full emphasis.\n\n`secondary` is a text color only. Do not use it as a background (`bg-secondary`).\n\nOrder of emphasis:\n\n```text\ntext-foreground        ← headings\n↓\ntext-secondary         ← paragraphs\n↓\ntext-muted-foreground  ← metadata and hints\n```\n\nToken values:\n\n* Light theme: `--secondary: #3f3f46`\n* Dark theme: `--secondary: #d4d4d8`"
     }
   ],
   "goldenRule": {

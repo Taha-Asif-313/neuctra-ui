@@ -19,185 +19,343 @@ export type NestedMode = "always" | "collapse";
 export type BulletVariant = "dot" | "line" | "number" | "none";
 
 export interface ListItemType {
+  /** Stable identifier used for active/expanded state tracking; falls back to a depth/index/text-derived key when omitted. */
   id?: string | number;
+  /** Primary row label. */
   text?: ReactNode;
+  /** Alternative to text for the primary row label (text takes precedence when both are set). */
   label?: ReactNode;
+  /** Secondary text rendered under the label. */
   description?: ReactNode;
+  /** Leading icon; used as a fallback when leading is not set. */
   icon?: ReactNode;
+  /** Leading custom content, rendered before the label. Falls back to icon. */
   leading?: ReactNode;
+  /** Custom content rendered after the label/badge/shortcut. */
   trailing?: ReactNode;
+  /** Small badge rendered next to the label. */
   badge?: ReactNode;
+  /** Keyboard shortcut hint rendered in a <kbd>. */
   shortcut?: ReactNode;
 
+  /** Renders the row as a link to this URL. */
   href?: string;
+  /** Anchor target for href rows, e.g. "_blank". */
   target?: React.HTMLAttributeAnchorTarget;
+  /** Anchor rel attribute; defaults to "noreferrer" when target is "_blank". */
   rel?: string;
+  /** Anchor download attribute for href rows. */
   download?: boolean | string;
+  /** Click handler, called with the event and this item. */
   onClick?: (
     event: MouseEvent<HTMLElement>,
     item: ListItemType,
   ) => void;
 
+  /** Nested child items rendered in a collapsible sub-list. */
   subItems?: ListItemType[];
+  /** Alias for subItems. */
   items?: ListItemType[];
+  /** Controlled expanded state for this item's sub-list. */
   expanded?: boolean;
+  /** Initial expanded state for uncontrolled usage. */
   defaultExpanded?: boolean;
+  /** Whether the sub-list can be toggled closed; defaults to true when the list's nestedMode is "collapse". */
   collapsible?: boolean;
 
+  /** Marks the item as the active/selected row. */
   active?: boolean;
+  /** Disables interaction with the item. */
   disabled?: boolean;
+  /** Applies destructive styling, for actions like "Sign out" or "Delete". */
   danger?: boolean;
+  /** Renders this entry as a horizontal divider instead of a row. */
   separator?: boolean;
+  /** Excludes the item from rendering entirely. */
   hidden?: boolean;
 
+  /** Native title attribute (tooltip) on the row element. */
   title?: string;
+  /** Accessible label for the row element. */
   ariaLabel?: string;
+  /** Role applied to the row's <li> element. */
   role?: string;
 
+  /** Classes for the item's <li> wrapper. */
   className?: string;
+  /** Classes for the item's clickable content element (link/button/div). */
   contentClassName?: string;
+  /** Classes for this item's leading icon, merged with the list-level iconClassName. */
   iconClassName?: string;
+  /** Classes for this item's label text, merged with the list-level textClassName. */
   textClassName?: string;
+  /** Classes for this item's description text. */
   descriptionClassName?: string;
+  /** Classes for this item's badge, merged with the list-level badgeClassName. */
   badgeClassName?: string;
+  /** Classes for this item's nested <ul>, merged with the list-level subListClassName. */
   subListClassName?: string;
 
+  /** Inline styles for the item's <li> wrapper. */
   style?: CSSProperties;
+  /** Inline styles for the item's clickable content element. */
   contentStyle?: CSSProperties;
+  /** Inline styles for this item's leading icon, merged with the list-level iconStyle. */
   iconStyle?: CSSProperties;
+  /** Inline styles for this item's label text, merged with the list-level textStyle. */
   textStyle?: CSSProperties;
+  /** Inline styles for this item's description text. */
   descriptionStyle?: CSSProperties;
+  /** Inline styles for this item's badge, merged with the list-level badgeStyle. */
   badgeStyle?: CSSProperties;
+  /** Inline styles for this item's nested <ul>, merged with the list-level subListStyle. */
   subListStyle?: CSSProperties;
 }
 
 export interface ListRenderItemParams {
+  /** The item being rendered. */
   item: ListItemType;
+  /** Index among its siblings. */
   index: number;
+  /** Nesting depth, 0 for top-level items. */
   depth: number;
+  /** Whether this item is the active/selected one. */
   active: boolean;
+  /** Whether this item's sub-list is currently expanded. */
   expanded: boolean;
+  /** Whether this item is disabled (own disabled flag or inherited from the list). */
   disabled: boolean;
+  /** Whether this item has nested subItems/items. */
   hasChildren: boolean;
+  /** Toggles this item's sub-list open/closed. */
   toggle: () => void;
+  /** Selects this item, firing onClick and active/expand state updates as if it were clicked. */
   select: (event: MouseEvent<HTMLElement>) => void;
 }
 
 export interface ListProps {
+  /** Optional heading rendered above the list. */
   title?: ReactNode;
+  /** Icon rendered before the title. */
   titleIcon?: ReactNode;
+  /** Supporting text rendered under the title. */
   description?: ReactNode;
+  /** The data source for rows, including any nested rows. */
   items: ListItemType[];
 
+  /** Controls the root element and layout: "unordered"/"ordered" render a ul/ol, "inline" lays items out horizontally. */
   type?: ListType;
+  /** Visual style applied to each row. */
   variant?: ListVariant;
+  /** Controls row text size. */
   size?: ListSize;
+  /** Controls row padding. */
   density?: ListDensity;
+  /** Whether nested sub-lists are always expanded or start collapsed and can be toggled. */
   nestedMode?: NestedMode;
+  /** Marker style shown when showBullets is enabled and a row has no icon. */
   bulletVariant?: BulletVariant;
 
+  /** Shows hierarchy connector lines for nested items. */
   showTree?: boolean;
+  /** Shows bullet markers on rows that have no icon. */
   showBullets?: boolean;
+  /** Adds divider borders between rows. */
   showDividers?: boolean;
+  /** Enables clickable/keyboard-focusable row behavior for rows with an href, onClick, or children. */
   interactive?: boolean;
+  /** Makes the root element fill the available width instead of sizing to content. */
   fullWidth?: boolean;
+  /** Disables every item in the list. */
   disabled?: boolean;
 
+  /** Controlled id of the active item. */
   activeItemId?: string | number;
+  /** Initial active item id for uncontrolled usage. */
   defaultActiveItemId?: string | number;
+  /** Called with the id and item whenever a selectable row is activated. */
   onActiveChange?: (id: string | number, item: ListItemType) => void;
 
+  /** Controlled set of expanded sub-list ids. */
   expandedIds?: Array<string | number>;
+  /** Initial expanded sub-list ids for uncontrolled usage. */
   defaultExpandedIds?: Array<string | number>;
+  /** Called with the full list of expanded ids whenever a sub-list is toggled. */
   onExpandedChange?: (ids: Array<string | number>) => void;
 
+  /** Role applied to the root ul/ol element. */
   role?: string;
+  /** Accessible label for the root ul/ol element. */
   ariaLabel?: string;
+  /** Content shown instead of the list when items (after filtering hidden ones) is empty. Defaults to "No items to show." */
   emptyState?: ReactNode;
+  /** Component used to render href items, e.g. a router's Link. Defaults to a plain "a". */
   linkComponent?: ElementType;
+  /** Fully custom row renderer, replacing the default markup for every item. */
   renderItem?: (params: ListRenderItemParams) => ReactNode;
 
+  /** Classes for the root wrapper element. */
   className?: string;
+  /** Classes for the title/description header wrapper. */
   headerClassName?: string;
+  /** Classes for the root ul/ol element. */
   listClassName?: string;
+  /** Classes for each item's <li> wrapper. */
   itemClassName?: string;
+  /** Classes for each item's clickable content element. */
   itemContentClassName?: string;
+  /** Classes for the list heading text. */
   titleClassName?: string;
+  /** Classes for the list heading's description text. */
   descriptionClassName?: string;
+  /** Classes for the bullet marker shown via showBullets. */
   bulletClassName?: string;
+  /** Classes for each item's label text. */
   textClassName?: string;
+  /** Classes for the title icon and each item's leading icon. */
   iconClassName?: string;
+  /** Classes for each item's badge. */
   badgeClassName?: string;
+  /** Classes for each item's shortcut <kbd>. */
   shortcutClassName?: string;
+  /** Classes for each item's trailing content. */
   trailingClassName?: string;
+  /** Classes for nested <ul> sub-lists. */
   subListClassName?: string;
+  /** Classes for separator rows. */
   separatorClassName?: string;
+  /** Classes for the expand/collapse chevron icon. */
   chevronClassName?: string;
+  /** Classes for the external-link icon shown on target="_blank" items. */
   externalIconClassName?: string;
+  /** Classes for the empty-state container. */
   emptyStateClassName?: string;
 
+  /** Inline styles for the root wrapper element. */
   style?: CSSProperties;
+  /** Inline styles for the title/description header wrapper. */
   headerStyle?: CSSProperties;
+  /** Inline styles for the root ul/ol element. */
   listStyle?: CSSProperties;
+  /** Inline styles for each item's <li> wrapper. */
   itemStyle?: CSSProperties;
+  /** Inline styles for each item's clickable content element. */
   itemContentStyle?: CSSProperties;
+  /** Inline styles for the list heading text. */
   titleStyle?: CSSProperties;
+  /** Inline styles for the list heading's description text. */
   descriptionStyle?: CSSProperties;
+  /** Inline styles for the bullet marker shown via showBullets. */
   bulletStyle?: CSSProperties;
+  /** Inline styles for each item's label text. */
   textStyle?: CSSProperties;
+  /** Inline styles for the title icon and each item's leading icon. */
   iconStyle?: CSSProperties;
+  /** Inline styles for each item's badge. */
   badgeStyle?: CSSProperties;
+  /** Inline styles for each item's shortcut <kbd>. */
   shortcutStyle?: CSSProperties;
+  /** Inline styles for each item's trailing content. */
   trailingStyle?: CSSProperties;
+  /** Inline styles for nested <ul> sub-lists. */
   subListStyle?: CSSProperties;
+  /** Inline styles for separator rows. */
   separatorStyle?: CSSProperties;
 }
 
+/**
+ * Props for the standalone ListItem component — the same row renderer List uses
+ * internally for each entry, exposed for cases where you want to render a single
+ * row (or build a custom list) outside of the List component itself.
+ */
 export interface ListItemProps {
+  /** The item data to render. When omitted, falls back to the individual ListItemType fields passed directly as props. */
   item?: ListItemType;
+  /** Index among its siblings; used for numbered bullets and default id generation. */
   index?: number;
+  /** Nesting depth, 0 for top-level items; controls tree indentation. */
   depth?: number;
+  /** Renders as a shrink-to-fit inline entry instead of a block row. */
   isInline?: boolean;
+  /** Whether the parent list is an ordered (ol) list. */
   isOrdered?: boolean;
+  /** Shows hierarchy connector lines for nested items. */
   showTree?: boolean;
+  /** Shows a bullet marker when the item has no icon. */
   showBullets?: boolean;
+  /** Adds a divider border below the item. */
   showDividers?: boolean;
+  /** Enables clickable/keyboard-focusable behavior for rows with an href, onClick, or children. */
   interactive?: boolean;
+  /** Disables the item (inherited from the parent list's disabled prop). */
   disabled?: boolean;
+  /** Visual style applied to the row. */
   variant?: ListVariant;
+  /** Row text size. */
   size?: ListSize;
+  /** Row padding. */
   density?: ListDensity;
+  /** Whether nested sub-lists are always expanded or collapsible. */
   nestedMode?: NestedMode;
+  /** Marker style shown when showBullets is enabled. */
   bulletVariant?: BulletVariant;
+  /** Id of the currently active item, compared against this item's resolved id. */
   activeItemId?: string | number;
+  /** Set of currently expanded item ids. */
   expandedIds?: Set<string | number>;
+  /** Called to toggle this item's sub-list open/closed. */
   toggleExpanded?: (id: string | number, item: ListItemType) => void;
+  /** Called to mark this item as the active/selected one. */
   selectItem?: (id: string | number, item: ListItemType) => void;
+  /** Component used to render href items, e.g. a router's Link. Defaults to a plain "a". */
   linkComponent?: ElementType;
+  /** Fully custom renderer replacing this item's default markup. */
   renderItem?: (params: ListRenderItemParams) => ReactNode;
 
+  /** Classes for the item's <li> wrapper. */
   itemClassName?: string;
+  /** Classes for the item's clickable content element. */
   itemContentClassName?: string;
+  /** Classes for the bullet marker. */
   bulletClassName?: string;
+  /** Classes for the item's label text. */
   textClassName?: string;
+  /** Classes for the item's leading icon. */
   iconClassName?: string;
+  /** Classes for the item's badge. */
   badgeClassName?: string;
+  /** Classes for the item's shortcut <kbd>. */
   shortcutClassName?: string;
+  /** Classes for the item's trailing content. */
   trailingClassName?: string;
+  /** Classes for the nested <ul> sub-list. */
   subListClassName?: string;
+  /** Classes for the separator row. */
   separatorClassName?: string;
+  /** Classes for the expand/collapse chevron icon. */
   chevronClassName?: string;
+  /** Classes for the external-link icon shown on target="_blank" items. */
   externalIconClassName?: string;
 
+  /** Inline styles for the item's <li> wrapper. */
   itemStyle?: CSSProperties;
+  /** Inline styles for the item's clickable content element. */
   itemContentStyle?: CSSProperties;
+  /** Inline styles for the bullet marker. */
   bulletStyle?: CSSProperties;
+  /** Inline styles for the item's label text. */
   textStyle?: CSSProperties;
+  /** Inline styles for the item's leading icon. */
   iconStyle?: CSSProperties;
+  /** Inline styles for the item's badge. */
   badgeStyle?: CSSProperties;
+  /** Inline styles for the item's shortcut <kbd>. */
   shortcutStyle?: CSSProperties;
+  /** Inline styles for the item's trailing content. */
   trailingStyle?: CSSProperties;
+  /** Inline styles for the nested <ul> sub-list. */
   subListStyle?: CSSProperties;
+  /** Inline styles for the separator row. */
   separatorStyle?: CSSProperties;
 }
 

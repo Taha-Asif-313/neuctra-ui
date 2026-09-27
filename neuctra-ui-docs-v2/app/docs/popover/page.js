@@ -312,6 +312,18 @@ const PopoverDocs = () => {
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    className
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3">
+                    Styles the root wrapper around trigger + panel.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     triggerClassName
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">
@@ -320,6 +332,28 @@ const PopoverDocs = () => {
                   <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
                   <td className="p-3">
                     Styles the wrapper around the trigger element.
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    contentClassName
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3">Styles the floating panel.</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    contentStyle
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    CSSProperties
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3">
+                    Inline styles for the floating panel.
                   </td>
                 </tr>
               </tbody>

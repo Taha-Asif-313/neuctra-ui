@@ -24,45 +24,78 @@ export interface SelectOption {
 }
 
 export interface SelectProps {
+  /** Label text rendered above the select. */
   label?: string;
+  /** Name passed through to `onValueChange`, useful when handling multiple selects with one handler. */
   name?: string;
+  /** Controlled value: a string in single-select mode, a string array when `multiple` is set. */
   value?: string | string[];
+  /** Shows each option's `description` under its label in the dropdown. */
   showDescription?: boolean;
+  /** Shows a check icon next to selected option(s) in the dropdown. */
   showCheckIcon?: boolean;
+  /** Initial value for uncontrolled usage. */
   defaultValue?: string | string[];
+  /** Called with the new value (and `name`) whenever the selection changes. */
   onValueChange?: (value: string | string[], name?: string) => void;
+  /** List of selectable options. */
   options?: SelectOption[];
+  /** Text shown in the trigger when nothing is selected. */
   placeholder?: string;
+  /** Marks the field as required and shows a `*` next to the label. */
   required?: boolean;
+  /** Disables the trigger and prevents opening the dropdown. */
   disabled?: boolean;
+  /** Error state. A string is rendered as the error message; a boolean only toggles error styling. */
   error?: string | boolean;
+  /** Applies success styling to the trigger. */
   success?: boolean;
+  /** Helper or error text rendered below the select. */
   helperText?: string;
+  /** Enables multi-select mode, where `value`/`defaultValue` are string arrays. */
   multiple?: boolean;
 
-  /** Icons */
+  // Icons
+  /** Icon rendered before the label text. */
   labelIcon?: React.ElementType;
+  /** Icon rendered inside the trigger, before the selected value. */
   prefixIcon?: React.ElementType;
+  /** Icon rendered on the right of the trigger; defaults to a chevron that flips when open. */
   dropdownIcon?: React.ElementType;
 
-  /** Configuration */
+  // Configuration
+  /** Size variant controlling trigger/item padding and icon sizing. */
   size?: "sm" | "md" | "lg";
+  /** Maximum height of the dropdown list before it scrolls. Numbers are treated as pixels. */
   maxDropdownHeight?: string | number;
 
+  /** Shows a search input at the top of the dropdown for filtering options. */
   searchable?: boolean;
+  /** Placeholder for the search input, when `searchable` is set. */
   searchPlaceholder?: string;
+  /** Additional classes for the search input, when `searchable` is set. */
   searchClassName?: string;
+  /** Inline styles for the search input, when `searchable` is set. */
   searchStyle?: React.CSSProperties;
 
-  /** Customization */
+  // Customization
+  /** Additional classes for the root container. */
   className?: string;
+  /** Additional classes for the root container. */
   containerClassName?: string;
+  /** Additional classes for the label. */
   labelClassName?: string;
+  /** Additional classes for the trigger button. */
   triggerClassName?: string;
+  /** Additional classes for the selected value text inside the trigger. */
   valueClassName?: string;
+  /** Additional classes for the dropdown panel. */
   dropdownClassName?: string;
+  /** Additional classes for each option item. */
   itemClassName?: string;
+  /** Additional classes for the prefix and dropdown icons. */
   iconClassName?: string;
+  /** Additional classes for the helper/error text. */
   helperClassName?: string;
   /** The label icon rendered before `label`. */
   labelIconClassName?: string;
@@ -75,17 +108,25 @@ export interface SelectProps {
   /** An option's description text, when `showDescription` is set. */
   itemDescriptionClassName?: string;
 
-  /** Item Icon Styling */
+  // Item Icon Styling
+  /** Additional classes for an option's icon. */
   itemIconClassName?: string;
+  /** Inline styles for an option's icon. */
   itemIconStyle?: React.CSSProperties;
 
-  /** Check Icon Styling */
+  // Check Icon Styling
+  /** Additional classes for the selected-option check icon. */
   checkIconClassName?: string;
+  /** Inline styles for the selected-option check icon. */
   checkIconStyle?: React.CSSProperties;
 
+  /** Inline styles for the root container. */
   style?: React.CSSProperties;
+  /** Inline styles for the trigger button. */
   triggerStyle?: React.CSSProperties;
+  /** Inline styles for the dropdown panel. */
   dropdownStyle?: React.CSSProperties;
+  /** Inline styles for each option item. */
   itemStyle?: React.CSSProperties;
 }
 

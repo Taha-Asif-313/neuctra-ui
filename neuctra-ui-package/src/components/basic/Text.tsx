@@ -6,18 +6,27 @@ import clsx from "clsx";
 type HTMLElementTag = keyof HTMLElementTagNameMap;
 
 export type TextProps<T extends HTMLElementTag = "span"> = {
+  /** Element/tag to render (e.g. "p", "span", "h1", "a"). Defaults to "p". */
   as?: T;
+  /** Content rendered inside the element. */
   children: React.ReactNode;
 
+  /** CSS text-transform to apply. */
   transform?: "uppercase" | "lowercase" | "capitalize";
 
+  /** Renders the text in italics. */
   italic?: boolean;
+  /** Adds an underline decoration. */
   underline?: boolean;
+  /** Adds a line-through (strikethrough) decoration. */
   strikethrough?: boolean;
+  /** Truncates overflowing text to a single line with an ellipsis. */
   truncate?: boolean;
 
+  /** Named theme color, or any custom Tailwind/CSS class string. */
   color?: "default" | "muted" | "primary" | string;
 
+  /** Additional classes merged onto the rendered element. */
   className?: string;
 } & Omit<React.ComponentPropsWithoutRef<T>, "className">;
 

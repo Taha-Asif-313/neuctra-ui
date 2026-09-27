@@ -19,18 +19,27 @@ import { useScrollLock } from "../../lib/useScrollLock";
 import { useFocusTrap } from "../../lib/useFocusTrap";
 
 export interface DrawerProps {
+  /** Whether the drawer is mounted and visible. */
   isOpen: boolean;
+  /** Called on Escape or overlay click — drive `isOpen` from it. */
   onClose: () => void;
+  /** Static drawer content, ignored when `renderContent` is provided. */
   children?: ReactNode;
+  /** Render prop for the panel content, given a `close` callback; takes priority over `children`. */
   renderContent?: (close: () => void) => ReactNode;
+  /** Screen edge the panel slides in from. */
   position?: "left" | "right" | "top" | "bottom";
+  /** Panel width (left/right) or height (top/bottom); any valid CSS length. */
   size?: string;
+  /** Prevents closing on overlay click; also blocks Escape unless `disableEscapeClose` overrides it. */
   disableOverlayClose?: boolean;
   /** Also block Escape. Defaults to `disableOverlayClose`. */
   disableEscapeClose?: boolean;
   /** Accessible name for the dialog when no DrawerHeader is used. */
   ariaLabel?: string;
+  /** Styles the fixed, full-screen overlay behind the panel. */
   overlayClassName?: string;
+  /** Inline styles for the overlay. */
   overlayStyle?: CSSProperties;
   /** Applied to the sliding panel that hosts the drawer content. */
   panelClassName?: string;
@@ -185,8 +194,11 @@ export function Drawer({
 }
 
 export interface DrawerContentProps {
+  /** Full drawer layout, typically DrawerHeader/DrawerBody/DrawerFooter. */
   children: ReactNode;
+  /** Styles the full-height flex column wrapper. */
   className?: string;
+  /** Inline styles for the wrapper. */
   style?: CSSProperties;
 }
 
@@ -205,15 +217,20 @@ export function DrawerContent({
   );
 }
 
+export interface DrawerBodyProps {
+  /** Scrollable main content of the drawer. */
+  children: ReactNode;
+  /** Styles the scrollable body wrapper. */
+  className?: string;
+  /** Inline styles for the body wrapper. */
+  style?: CSSProperties;
+}
+
 export function DrawerBody({
   children,
   className,
   style,
-}: {
-  children: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-}) {
+}: DrawerBodyProps) {
   return (
     <div
       className={cn(
@@ -228,13 +245,21 @@ export function DrawerBody({
 }
 
 export interface DrawerHeaderProps {
+  /** Heading text shown next to the optional icon. */
   title?: string;
+  /** Optional leading icon rendered before the title. */
   icon?: ReactNode;
+  /** Renders a close button in the header when provided. */
   onClose?: () => void;
+  /** Styles the header row. */
   className?: string;
+  /** Inline styles for the header row. */
   style?: CSSProperties;
+  /** Wrapper around `icon` + `title`. */
   titleWrapperClassName?: string;
+  /** Styles the title heading element. */
   titleClassName?: string;
+  /** Styles the close button. */
   closeButtonClassName?: string;
 }
 
@@ -296,15 +321,20 @@ export function DrawerHeader({
   );
 }
 
+export interface DrawerFooterProps {
+  /** Footer actions, typically `Button` elements. */
+  children: ReactNode;
+  /** Styles the footer wrapper. */
+  className?: string;
+  /** Inline styles for the footer wrapper. */
+  style?: CSSProperties;
+}
+
 export function DrawerFooter({
   children,
   className,
   style,
-}: {
-  children: ReactNode;
-  className?: string;
-  style?: CSSProperties;
-}) {
+}: DrawerFooterProps) {
   return (
     <div
       className={cn(
@@ -320,10 +350,13 @@ export function DrawerFooter({
 
 export interface DrawerTriggerProps
   extends ButtonProps {
+  /** Label/content rendered inside the trigger `Button`. */
   children: React.ReactNode;
+  /** Render function for the drawer's content, given a `close` callback. */
   drawerContent: (props: {
     close: () => void;
   }) => React.ReactNode;
+  /** Forwarded to the underlying <Drawer />. */
   drawerProps?: Omit<
     DrawerProps,
     "isOpen" | "onClose" | "children"
@@ -372,13 +405,21 @@ export function DrawerTriggerButton({
 }
 
 export interface DrawerButtonProps {
+  /** Button text content. */
   label?: string;
+  /** Optional icon rendered next to the label. */
   icon?: ReactNode;
+  /** Side of the label the icon renders on. */
   iconPosition?: "left" | "right";
+  /** Click handler; this is a plain button, not wired to any Drawer state. */
   onClick?: () => void;
+  /** Styles the root button. */
   className?: string;
+  /** Inline styles for the root button. */
   style?: React.CSSProperties;
+  /** Styles the label span. */
   labelClassName?: string;
+  /** Styles the icon wrapper span. */
   iconClassName?: string;
 }
 

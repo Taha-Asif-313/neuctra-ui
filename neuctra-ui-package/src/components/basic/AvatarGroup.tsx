@@ -9,6 +9,7 @@ export interface AvatarGroupProps
   children: React.ReactNode;
   /** Show at most this many; the rest collapse into a "+N" counter. */
   max?: number;
+  /** Size of the "+N" overflow counter only — it does not resize the avatar children, so match it to their size yourself. */
   size?: "sm" | "md" | "lg";
   /** Overlap amount between items. */
   spacing?: "tight" | "normal";

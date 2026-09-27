@@ -61,7 +61,7 @@ function BasicExample() {
   return (
     <Badge
       text="New"
-      variant="default"
+      variant="solid"
       size="md"
     />
   );
@@ -95,10 +95,8 @@ function BasicExample() {
 
             <CodePreviewBlock
               language="jsx"
-              code={`<Badge text="Alerts" count={5} dotColor="#EF4444" pulse />`}
-              previewContent={
-                <Badge text="Alerts" count={5} dotColor="#EF4444" />
-              }
+              code={`<Badge text="Alerts" notificationDot pulse />`}
+              previewContent={<Badge text="Alerts" notificationDot pulse />}
             />
 
             <CodePreviewBlock
@@ -237,8 +235,10 @@ function BasicExample() {
                   <td className="p-3">string</td>
                   <td className="p-3 text-gray-400">—</td>
                   <td className="p-3">
-                    Custom color for the notification dot (overrides default
-                    destructive color)
+                    Present in the prop types but not currently wired up — the
+                    dot always renders in the destructive color. Use{" "}
+                    <code>dotStyle</code> or <code>dotClassName</code> to
+                    change it.
                   </td>
                 </tr>
 

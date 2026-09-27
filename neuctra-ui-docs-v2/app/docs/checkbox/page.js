@@ -52,8 +52,9 @@ const CheckboxDocs = () => {
             Checkbox works in two modes: <code>group</code> for multi-select
             lists and <code>single</code> for simple yes/no toggles. It
             supports custom icons, disabled states, read-only behavior, error
-            messages, unrestricted styling, and arrow-key navigation in group
-            mode.
+            messages, unrestricted styling, and native Tab/Space keyboard
+            support in group mode (checkboxes are independently focusable and
+            are not arrow-navigable, unlike radio groups).
           </p>
         </section>
 
@@ -671,8 +672,9 @@ function CheckboxGroupExample() {
               </li>
 
               <li>
-                Use keyboard navigation support (Arrow keys + Enter/Space) for
-                better accessibility in group mode.
+                Each checkbox is independently focusable — use Tab to move
+                between options and Space to toggle. Unlike RadioGroup,
+                Checkbox groups are not arrow-key navigable.
               </li>
             </ul>
           </div>

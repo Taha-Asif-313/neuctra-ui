@@ -321,7 +321,7 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">minRows</td>
                   <td className="p-3">number</td>
-                  <td className="p-3">1</td>
+                  <td className="p-3">3</td>
                   <td className="p-3">
                     Minimum visible rows when autoResize is enabled.
                   </td>
@@ -435,16 +435,6 @@ const TextareaDocs = () => {
                   <td className="p-3">—</td>
                   <td className="p-3">
                     Inline styles for character counter.
-                  </td>
-                </tr>
-
-                {/* Theme */}
-                <tr>
-                  <td className="p-3">darkMode</td>
-                  <td className="p-3">boolean</td>
-                  <td className="p-3">system</td>
-                  <td className="p-3">
-                    Force dark/light mode. Defaults to system preference.
                   </td>
                 </tr>
 

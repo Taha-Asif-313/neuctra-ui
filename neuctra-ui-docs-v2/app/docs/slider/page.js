@@ -318,6 +318,17 @@ const SliderDocs = () => {
 
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">
+                    wrapperClassName
+                  </td>
+                  <td className="p-3 font-mono text-xs text-gray-300">
+                    string
+                  </td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3">Styles the outermost wrapper.</td>
+                </tr>
+
+                <tr>
+                  <td className="p-3 font-medium text-primary whitespace-nowrap">
                     labelRowClassName
                   </td>
                   <td className="p-3 font-mono text-xs text-gray-300">

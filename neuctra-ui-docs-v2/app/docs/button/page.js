@@ -364,7 +364,7 @@ function BasicExample(): JSX.Element {
                 <code>{'<Button variant="rounded" />'}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   Variant must be one of: default, outline, ghost,
-                  secondary, destructive, success, warning, info
+                  secondary, destructive, success, warning, info, link
                 </p>
               </div>
             </div>

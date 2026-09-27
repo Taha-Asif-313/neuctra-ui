@@ -20,17 +20,24 @@ import { useFocusTrap } from "../../lib/useFocusTrap";
    Modal Root
 ========================= */
 export interface ModalProps {
+  /** Whether the modal is mounted and visible. */
   isOpen: boolean;
+  /** Called on Escape, overlay click, or a close button — drive `isOpen` from it. */
   onClose: () => void;
+  /** Modal content, typically `ModalContent` and its sub-components. */
   children: ReactNode;
+  /** Prevents closing on overlay click; also blocks Escape unless `disableEscapeClose` overrides it. */
   disableOverlayClose?: boolean;
   /** Also block Escape. Defaults to `disableOverlayClose`. */
   disableEscapeClose?: boolean;
   /** Accessible name for the dialog when no ModalHeader is used. */
   ariaLabel?: string;
 
+  /** Styles the fixed, full-screen overlay behind the dialog. */
   overlayClassName?: string;
+  /** Inline styles for the overlay; merged before `style`. */
   overlayStyle?: CSSProperties;
+  /** Inline styles for the overlay; merged after `overlayStyle`, so it wins on conflicts. */
   style?: CSSProperties;
   /** The `role="dialog"` wrapper around `children`. */
   dialogClassName?: string;
@@ -118,13 +125,21 @@ export function Modal({
    Modal Content (Card)
 ========================= */
 export interface ModalContentProps {
+  /** The dialog card's content (header/body/footer sub-components or custom markup). */
   children: ReactNode;
+  /** Styles the dialog card. */
   className?: string;
+  /** Inline styles for the dialog card. */
   style?: CSSProperties;
+  /** Max-width utility class applied to the card. */
   maxWidth?: string;
+  /** Called by the built-in close button when `showCloseButton` is set. */
   onClose?: () => void;
+  /** Renders a top-right close button; requires `onClose` to also be passed. */
   showCloseButton?: boolean;
+  /** Styles the top-right close button. */
   closeButtonClassName?: string;
+  /** Inline styles for the top-right close button. */
   closeButtonStyle?: CSSProperties;
 }
 
@@ -179,17 +194,25 @@ export function ModalContent({
    Header
 ========================= */
 export interface ModalHeaderProps {
+  /** Heading text shown next to the optional icon. */
   title?: string;
+  /** Optional leading icon rendered before the title. */
   icon?: ReactNode;
+  /** Renders a close button in the header when provided. */
   onClose?: () => void;
 
+  /** Styles the header row. */
   className?: string;
+  /** Inline styles for the header row. */
   style?: CSSProperties;
 
   /** Wrapper around `icon` + `title`. */
   titleWrapperClassName?: string;
+  /** Styles the icon wrapper. */
   iconClassName?: string;
+  /** Styles the title heading element. */
   titleClassName?: string;
+  /** Styles the close button. */
   closeButtonClassName?: string;
 }
 
@@ -245,8 +268,11 @@ export function ModalHeader({
    Body
 ========================= */
 export interface ModalBodyProps {
+  /** Scrollable main content of the dialog. */
   children: ReactNode;
+  /** Styles the body wrapper. */
   className?: string;
+  /** Inline styles for the body wrapper. */
   style?: CSSProperties;
 }
 
@@ -262,8 +288,11 @@ export function ModalBody({ children, className, style }: ModalBodyProps) {
    Footer
 ========================= */
 export interface ModalFooterProps {
+  /** Footer actions, typically `Button`/`ModalButton` elements. */
   children: ReactNode;
+  /** Styles the footer wrapper. */
   className?: string;
+  /** Inline styles for the footer wrapper. */
   style?: CSSProperties;
 }
 
@@ -285,8 +314,11 @@ export function ModalFooter({ children, className, style }: ModalFooterProps) {
    Modal Button
 ========================= */
 export interface ModalButtonProps extends ButtonProps {
+  /** Called after `action` resolves, when `closeOnClick` is true. */
   onClose?: () => void;
+  /** Close the modal (via `onClose`) once `onClick`/`action` finish. */
   closeOnClick?: boolean;
+  /** Optional async handler; the button shows a loading/disabled state while it runs. */
   action?: () => void | Promise<void>;
 }
 
@@ -335,7 +367,9 @@ export function ModalButton({
    Trigger
 ========================= */
 export interface ModalTriggerButtonProps extends ButtonProps {
+  /** Label/content rendered inside the trigger `Button`. */
   children: React.ReactNode;
+  /** Render function for the modal's content, given a `close` callback. */
   modalContent: (props: { close: () => void }) => React.ReactNode;
   /** Forwarded to the underlying <Modal />. */
   modalProps?: Omit<ModalProps, "isOpen" | "onClose" | "children">;

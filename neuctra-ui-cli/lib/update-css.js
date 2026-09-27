@@ -77,6 +77,7 @@ ${THEME_MARKER_START}
 
   --background: #ffffff;
   --foreground: #09090b;
+  --secondary: #3f3f46;
 
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
@@ -118,6 +119,7 @@ ${THEME_MARKER_START}
 
   --background: #09090b;
   --foreground: #fafafa;
+  --secondary: #d4d4d8;
 
   --muted: #27272a;
   --muted-foreground: #a1a1aa;
@@ -159,6 +161,7 @@ ${THEME_MARKER_END}
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
 
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);

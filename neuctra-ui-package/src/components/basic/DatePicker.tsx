@@ -13,16 +13,25 @@ import { cn } from "../../lib/cn";
 import { Calendar, type CalendarProps } from "./Calendar";
 
 export interface DatePickerProps {
+  /** Controlled selected date; pass null to represent no selection. */
   value?: Date | null;
+  /** Initial selected date when uncontrolled. */
   defaultValue?: Date | null;
+  /** Fired with the newly selected date, or null when cleared. */
   onChange?: (date: Date | null) => void;
+  /** Trigger text shown while no date is selected. */
   placeholder?: string;
   /** Format the displayed date; defaults to the locale date string. */
   formatDate?: (date: Date) => string;
+  /** Label rendered above the trigger. */
   label?: string;
+  /** Error message; paints the border and replaces helperText below the trigger. */
   error?: string;
+  /** Helper text shown below the trigger when there is no error. */
   helperText?: string;
+  /** Trigger height. */
   size?: "sm" | "md" | "lg";
+  /** Disables the trigger and prevents opening the calendar. */
   disabled?: boolean;
   /** Show an inline clear button while a date is selected. */
   clearable?: boolean;
@@ -31,17 +40,27 @@ export interface DatePickerProps {
     CalendarProps,
     "value" | "defaultValue" | "onChange" | "className"
   >;
+  /** Id applied to the trigger button. */
   id?: string;
+  /** Additional classes for the trigger button. */
   className?: string;
+  /** Additional classes for the outermost wrapper. */
   wrapperClassName?: string;
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Additional classes for the label. */
   labelClassName?: string;
+  /** Additional classes for the calendar icon in the trigger. */
   iconClassName?: string;
+  /** Additional classes for the displayed date text. */
   textClassName?: string;
+  /** Additional classes for the clear button. */
   clearButtonClassName?: string;
+  /** Additional classes for the icon inside the clear button. */
   clearIconClassName?: string;
+  /** Additional classes for the popover panel containing the calendar. */
   panelClassName?: string;
+  /** Additional classes for the helper/error text below the trigger. */
   helperClassName?: string;
 }
 

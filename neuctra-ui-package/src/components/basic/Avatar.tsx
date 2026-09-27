@@ -9,24 +9,41 @@ type AvatarVariant = "circular" | "rounded" | "square";
 type StatusPosition = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
 export interface AvatarProps {
+  /** Image source URL. When missing, or when it fails to load, the fallback initials (or icon) render instead. */
   src?: string;
+  /** Accessibility label for the image, and the source used to derive initials when fallback isn't provided. */
   alt?: string;
+  /** Avatar dimensions. "responsive" currently resolves to the same fixed size as "md" internally. */
   size?: AvatarSize;
+  /** Shape of the avatar: full circle, rounded corners, or square. */
   variant?: AvatarVariant;
+  /** Shows a status dot using the success color to indicate the user is online. */
   isOnline?: boolean;
+  /** Shows a status dot using the muted color to indicate the user is offline. */
   isOffline?: boolean;
+  /** Adds a ring outline around the avatar. */
   ring?: boolean;
+  /** Explicit fallback text (e.g. initials) shown instead of the image; not auto-truncated, unlike the initials derived from alt. */
   fallback?: string;
+  /** Click handler; when provided, the avatar becomes a focusable, keyboard-activatable button. */
   onClick?: () => void;
+  /** Corner where the online/offline status dot is placed. */
   statusPosition?: StatusPosition;
+  /** Additional classes for the avatar's root element. */
   className?: string;
+  /** Additional classes for the status dot. */
   statusClassName?: string;
+  /** Inline styles for the avatar's root element. */
   style?: CSSProperties;
+  /** Inline styles for the status dot. */
   statusStyle?: CSSProperties;
 
-  /** 🔥 Full Customization */
+  // Full customization hooks below — style the image, fallback, and default icon independently.
+  /** Additional classes for the rendered <img> element. */
   imageClassName?: string;
+  /** Additional classes for the fallback wrapper shown when there is no image. */
   fallbackClassName?: string;
+  /** Additional classes for the default user icon shown when there is no image and no initials. */
   iconClassName?: string;
 }
 

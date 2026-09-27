@@ -56,9 +56,13 @@ const SIZE_CONFIG = {
 } as const;
 
 export interface InputFieldProps {
+  /** Label text rendered above the field. */
   label?: string;
+  /** Name attribute for the underlying input/textarea element. */
   name?: string;
+  /** HTML id for the field; falls back to a generated id when omitted. */
   id?: string;
+  /** Field type. `"textarea"` renders a `<textarea>` instead of an `<input>`. */
   type?:
     | "text"
     | "password"
@@ -68,53 +72,87 @@ export interface InputFieldProps {
     | "tel"
     | "search"
     | "textarea";
+  /** Placeholder text shown inside the field. */
   placeholder?: string;
+  /** Short descriptive text shown next to the label. */
   description?: string;
 
+  /** Controlled value. When provided, the component ignores its internal state. */
   value?: string;
+  /** Initial value for uncontrolled usage. */
   defaultValue?: string;
+  /** Fires on every change to the input/textarea value. */
   onChange?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
+  /** Fires when the field gains focus. */
   onFocus?: (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
+  /** Fires when the field loses focus. */
   onBlur?: (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
 
+  /** Marks the field as required and shows a `*` next to the label. */
   required?: boolean;
+  /** Disables the field. */
   disabled?: boolean;
+  /** Makes the field read-only. */
   readOnly?: boolean;
 
+  /** Error state. A string is rendered as the error message; a boolean only toggles error styling. */
   error?: string | boolean;
+  /** Applies success styling (border/ring). */
   success?: boolean;
+  /** Helper text shown below the field when there is no error. */
   helperText?: string;
 
+  /** Icon rendered inside the label, before the label text. */
   icon?: React.ElementType;
+  /** Static text prefix rendered before the field value. */
   prefix?: string;
+  /** Icon rendered before the field value, alongside `prefix`. */
   prefixIcon?: React.ElementType;
+  /** Content rendered after the field value; ignored when `type="password"` (the visibility toggle takes that slot). */
   suffixIcon?: React.ReactNode;
 
+  /** Minimum value, applied only when `type="number"`. */
   min?: number;
+  /** Maximum value, applied only when `type="number"`. */
   max?: number;
+  /** Step increment, applied only when `type="number"`. */
   step?: number;
+  /** Maximum character length. */
   maxLength?: number;
 
+  /** Number of rows when `type="textarea"`. */
   rows?: number;
+  /** Size variant controlling padding, font size and icon sizing. */
   size?: "sm" | "md" | "lg";
 
+  /** Additional classes for the outer wrapper. */
   wrapperClassName?: string;
+  /** Additional classes for the label. */
   labelClassName?: string;
+  /** Additional classes for the `<input>` element. */
   inputClassName?: string;
+  /** Additional classes for the `<textarea>` element when `type="textarea"`. */
   textareaClassName?: string;
+  /** Additional classes for the prefix icon/text wrapper. */
   prefixClassName?: string;
+  /** Additional classes for the suffix icon/password-toggle wrapper. */
   suffixClassName?: string;
+  /** Additional classes for the helper/error text. */
   helperTextClassName?: string;
+  /** Additional classes for the description text next to the label. */
   descriptionClassName?: string;
 
+  /** Inline styles for the outer wrapper. */
   wrapperStyle?: CSSProperties;
+  /** Inline styles for the `<input>`/`<textarea>` element. */
   inputStyle?: CSSProperties;
+  /** Inline styles for the label. */
   labelStyle?: CSSProperties;
 }
 

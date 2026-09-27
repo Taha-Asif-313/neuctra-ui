@@ -8,17 +8,25 @@ export interface PaginationProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "onChange"> {
   /** Current page, 1-based. */
   page: number;
+  /** Total number of pages. */
   totalPages: number;
+  /** Fired with the target page when the user navigates. */
   onPageChange?: (page: number) => void;
   /** How many pages to show on each side of the current page. */
   siblingCount?: number;
+  /** Button size scale. */
   size?: "sm" | "md" | "lg";
+  /** Disables every control (prev, next, and page buttons). */
   disabled?: boolean;
+  /** Styles the previous-page button. */
   prevButtonClassName?: string;
+  /** Styles the next-page button. */
   nextButtonClassName?: string;
   /** Applied to every numbered page button, in addition to the active/inactive styling. */
   pageButtonClassName?: string;
+  /** Applied to the currently active page button, in addition to `pageButtonClassName`. */
   activePageButtonClassName?: string;
+  /** Styles the ellipsis (…) indicator. */
   ellipsisClassName?: string;
 }
 

@@ -8,12 +8,19 @@ export interface SliderProps
     React.InputHTMLAttributes<HTMLInputElement>,
     "value" | "defaultValue" | "onChange" | "size" | "type"
   > {
+  /** Controlled value. */
   value?: number;
+  /** Initial value when uncontrolled; defaults to min. */
   defaultValue?: number;
+  /** Fired with the numeric value on every change. */
   onChange?: (value: number) => void;
+  /** Minimum selectable value. */
   min?: number;
+  /** Maximum selectable value. */
   max?: number;
+  /** Increment size for dragging, arrow keys, and Home/End. */
   step?: number;
+  /** Label rendered above the track, linked via htmlFor. */
   label?: string;
   /** Show the current value at the right edge of the label row. */
   showValue?: boolean;
@@ -21,11 +28,15 @@ export interface SliderProps
   formatValue?: (value: number) => React.ReactNode;
   /** Tick labels rendered under the track. */
   marks?: { value: number; label?: React.ReactNode }[];
+  /** Track and thumb scale. */
   size?: "sm" | "md" | "lg";
+  /** Additional classes for the outermost wrapper. */
   wrapperClassName?: string;
   /** Row wrapping the label and the current-value text. */
   labelRowClassName?: string;
+  /** Additional classes for the label text. */
   labelClassName?: string;
+  /** Additional classes for the live value text shown when showValue is set. */
   valueClassName?: string;
   /** Wrapper around the tick marks rendered under the track. */
   marksClassName?: string;

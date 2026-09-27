@@ -238,6 +238,36 @@ const itemRows = [
     "-",
     "Per-item clickable/content row customization.",
   ],
+  [
+    "iconClassName / iconStyle",
+    "string / CSSProperties",
+    "-",
+    "Per-item icon override, merged with the list's iconClassName/iconStyle.",
+  ],
+  [
+    "textClassName / textStyle",
+    "string / CSSProperties",
+    "-",
+    "Per-item label override, merged with the list's textClassName/textStyle.",
+  ],
+  [
+    "descriptionClassName / descriptionStyle",
+    "string / CSSProperties",
+    "-",
+    "Per-item description text override.",
+  ],
+  [
+    "badgeClassName / badgeStyle",
+    "string / CSSProperties",
+    "-",
+    "Per-item badge override, merged with the list's badgeClassName/badgeStyle.",
+  ],
+  [
+    "subListClassName / subListStyle",
+    "string / CSSProperties",
+    "-",
+    "Per-item nested <ul> override, merged with the list's subListClassName/subListStyle.",
+  ],
 ];
 
 const styleRows = [

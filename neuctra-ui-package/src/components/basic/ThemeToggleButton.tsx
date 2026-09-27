@@ -10,7 +10,9 @@ export type ThemeToggleContext = {
 };
 
 export type ThemeToggleProps = {
+  /** The current theme state and the toggle callback, typically from a `useTheme()` hook. */
   context: ThemeToggleContext;
+  /** Additional classes for the root toggle button. */
   className?: string;
   /** The sun icon (shown in dark mode). */
   sunClassName?: string;

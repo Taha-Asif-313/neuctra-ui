@@ -7,61 +7,89 @@ import { cn } from "../../lib/cn";
 
 /* ---------------- Types ---------------- */
 export interface AccordionItem {
+  /** Header content for the item, shown next to the expand/collapse icon. */
   title: string | ReactNode;
+  /** Body content revealed when the item is open. */
   content: ReactNode;
 }
 
 export interface AccordionProps {
+  /** The accordion items to render, in order. */
   items: AccordionItem[];
 
+  /** When true, multiple items can stay open at once; when false (default), opening an item closes any other open item. */
   allowMultiple?: boolean;
+  /** Indexes of items that start open. */
   defaultOpen?: number[];
 
   /* Root */
+  /** Classes for the root wrapper element. */
   className?: string;
+  /** Inline styles for the root wrapper element. */
   style?: CSSProperties;
 
   /* Item */
+  /** Classes for each item's outer container. */
   itemClassName?: string;
+  /** Inline styles for each item's outer container. */
   itemStyle?: CSSProperties;
 
   /* Header */
+  /** Classes for each item's clickable header button. */
   headerClassName?: string;
+  /** Inline styles for each item's clickable header button — applied unconditionally, not only on hover. */
   headerStyle?: CSSProperties;
 
   /* Title */
+  /** Classes for the title text span inside the header. */
   titleClassName?: string;
+  /** Inline styles for the title text span inside the header. */
   titleStyle?: CSSProperties;
 
   /* Icon */
+  /** Classes for the expand/collapse icon wrapper. */
   iconClassName?: string;
+  /** Inline styles for the expand/collapse icon wrapper. */
   iconStyle?: CSSProperties;
 
   /* Content wrapper */
+  /** Classes for the collapsible grid wrapper around the content. */
   contentWrapperClassName?: string;
+  /** Inline styles for the collapsible grid wrapper around the content. */
   contentWrapperStyle?: CSSProperties;
 
   /* Content */
+  /** Classes for the inner content container. */
   contentClassName?: string;
+  /** Inline styles for the inner content container. */
   contentStyle?: CSSProperties;
 
   /* Hover (optional override) */
+  /** Extra classes merged onto the header last, so they can override the built-in hover styling; note they apply at rest too, not only on hover. */
   hoverClassName?: string;
+  /** Extra inline styles merged onto the header; since inline styles can't express :hover, these apply unconditionally. Prefer hoverClassName. */
   hoverStyle?: CSSProperties;
 
   /* Defaults (fallback design system) */
+  /** Declared for future theming but not currently applied anywhere in the render. */
   borderColor?: string;
+  /** Declared for future theming but not currently applied anywhere in the render. */
   radius?: string | number;
+  /** Declared for future theming but not currently applied anywhere in the render. */
   shadow?: string;
 
   /* Motion */
+  /** Duration in milliseconds of the expand/collapse grid-row transition. */
   duration?: number;
 
   /* Icon */
+  /** Custom icon shown when an item is open; defaults to a ChevronUp. */
   iconOpen?: ReactNode;
+  /** Custom icon shown when an item is closed; defaults to a ChevronDown. */
   iconClose?: ReactNode;
 
   /* Render override */
+  /** Fully custom renderer for each item, replacing the default header/content markup. Receives the item, its index, open state, and a toggle callback. */
   renderItem?: (params: {
     item: AccordionItem;
     index: number;

@@ -17,35 +17,54 @@ import { AnimatePresence, motion } from "framer-motion";
 /* -------------------------------------------------------------------------- */
 
 export interface DropdownItem {
+  /** Item text or custom node. */
   label?: React.ReactNode;
+  /** Optional leading icon. */
   icon?: React.ReactNode;
 
+  /** Action fired when the item is selected; use this for navigation too (items render as buttons). */
   onClick?: () => void;
+  /** Accepted by the type, but the current renderer always uses a `<button>` — use `onClick` for navigation. */
   href?: string;
 
+  /** Styles the item as a destructive action. */
   danger?: boolean;
+  /** Disables the item and prevents clicks. */
   disabled?: boolean;
 
+  /** Renders a divider line instead of a clickable item. */
   separator?: boolean;
 
+  /** Styles this individual item's button. */
   className?: string;
+  /** Inline styles for this individual item's button. */
   style?: React.CSSProperties;
 }
 
 export interface DropdownProps {
+  /** Element that toggles the dropdown; do not call `e.stopPropagation()` in its own onClick — Dropdown already handles that on its wrapper, and doing so there prevents the menu from opening. */
   trigger: React.ReactNode;
+  /** Menu entries; use `{ separator: true }` for a divider row. */
   items: DropdownItem[];
 
+  /** Controlled open state; omit to let Dropdown manage it internally. */
   open?: boolean;
+  /** Fired whenever the open state changes, controlled or not. */
   onOpenChange?: (open: boolean) => void;
 
+  /** Anchors the menu's edge to the trigger's left or right side. */
   align?: "left" | "right";
+  /** Menu width in pixels. */
   width?: number;
 
+  /** Close the menu after an item is clicked. */
   closeOnClick?: boolean;
 
+  /** Styles the wrapper around the trigger. */
   className?: string;
+  /** Styles the floating menu panel. */
   menuClassName?: string;
+  /** Applied to every menu item's button. */
   itemClassName?: string;
 
   /** Applied to the wrapper around the `trigger` node. */
@@ -59,7 +78,9 @@ export interface DropdownProps {
   /** Applied to an item's label text. */
   itemLabelClassName?: string;
 
+  /** Inline styles for the wrapper around the trigger. */
   style?: React.CSSProperties;
+  /** Inline styles for the floating menu panel. */
   menuStyle?: React.CSSProperties;
 }
 

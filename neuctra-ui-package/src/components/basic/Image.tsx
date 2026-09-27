@@ -17,45 +17,70 @@ type Responsive<T> =
     };
 
 export interface ImageProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Image source URL. When omitted, the fallback content is rendered instead. */
   src?: string;
+  /** Alternative text for accessibility; also used to build the clickable aria-label. */
   alt?: string;
+  /** Native title attribute, shown as a tooltip on hover. */
   title?: string;
 
-  /** Layout */
+  // Layout
+  /** Width of the wrapper; accepts a number/string or a responsive object. */
   width?: Responsive<number | string>;
+  /** Height of the wrapper; accepts a number/string or a responsive object. */
   height?: Responsive<number | string>;
+  /** Fixed width/height ratio applied via CSS aspect-ratio. */
   aspectRatio?: number;
 
-  /** Styling */
+  // Styling
+  /** Border radius of the wrapper. */
   radius?: number | string;
+  /** Custom CSS border value for the wrapper. */
   border?: string;
+  /** Adds a soft drop shadow around the wrapper. */
   shadow?: boolean;
+  /** Opacity applied to the `<img>` element. */
   opacity?: number;
+  /** CSS object-fit applied to the `<img>` element. */
   objectFit?: React.CSSProperties["objectFit"];
 
-  /** Overlay */
+  // Overlay
+  /** Content rendered on top of the image, e.g. a caption or badge. */
   overlay?: React.ReactNode;
+  /** Background color/CSS value behind the overlay content. */
   overlayColor?: string;
 
-  /** Interaction */
+  // Interaction
+  /** Makes the wrapper a keyboard-accessible button (role="button", Enter/Space support). */
   clickable?: boolean;
+  /** Click handler; also triggered by Enter/Space when `clickable` is set. */
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 
-  /** States */
+  // States
+  /** Content shown instead of the `<img>` when `src` is not provided; defaults to "No Image". */
   fallback?: React.ReactNode;
 
-  /** Behavior */
+  // Behavior
+  /** Native `<img>` loading behavior. */
   loading?: "lazy" | "eager";
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Classes applied to the wrapper element. */
   className?: string;
+  /** Classes applied to the `<img>` element. */
   imageClassName?: string;
+  /** Classes applied to the overlay container. */
   overlayClassName?: string;
+  /** Classes applied to the fallback container. */
   fallbackClassName?: string;
 
+  /** Inline styles merged into the wrapper element's styles. */
   style?: React.CSSProperties;
+  /** Inline styles merged into the `<img>` element's styles. */
   imageStyle?: React.CSSProperties;
+  /** Inline styles merged into the overlay container's styles. */
   overlayStyle?: React.CSSProperties;
+  /** Inline styles merged into the fallback container's styles. */
   fallbackStyle?: React.CSSProperties;
 }
 

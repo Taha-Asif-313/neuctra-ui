@@ -5,8 +5,11 @@ import { ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 export interface BreadcrumbItem {
+  /** Crumb text or custom node. */
   label: React.ReactNode;
+  /** Renders an `<a>`; omit (with `onClick`) to render a `<button>` instead. */
   href?: string;
+  /** Optional leading icon. */
   icon?: React.ReactNode;
   /** SPA navigation hook — called instead of full page loads when provided. */
   onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
@@ -14,20 +17,31 @@ export interface BreadcrumbItem {
 
 export interface BreadcrumbProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "children"> {
+  /** Trail entries; the last item renders as the current page. */
   items: BreadcrumbItem[];
+  /** Custom node between crumbs; defaults to a chevron icon. */
   separator?: React.ReactNode;
   /** Collapse the middle into an ellipsis when there are more items than this. */
   maxItems?: number;
+  /** Text and icon scale. */
   size?: "sm" | "md";
 
-  /** 🔥 Full Customization */
+  // 🔥 Full Customization
+  /** Styles the ordered list wrapping all crumbs. */
   listClassName?: string;
+  /** Styles each crumb's list item. */
   itemClassName?: string;
+  /** Styles the current-page crumb (the last item). */
   activeItemClassName?: string;
+  /** Styles each clickable crumb's link/button. */
   triggerClassName?: string;
+  /** Styles a crumb's leading icon wrapper. */
   iconClassName?: string;
+  /** Styles a crumb's label text. */
   labelClassName?: string;
+  /** Styles the separator between crumbs. */
   separatorClassName?: string;
+  /** Styles the collapsed-middle ellipsis item. */
   ellipsisClassName?: string;
 }
 

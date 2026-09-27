@@ -7,13 +7,17 @@ export interface ProgressProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
   /** 0–max. Omit (undefined) for an indeterminate bar. */
   value?: number;
+  /** The value that represents 100%. */
   max?: number;
+  /** Renders a horizontal bar or a circular ring. */
   variant?: "linear" | "circular";
+  /** Track thickness (linear) or ring diameter (circular). */
   size?: "sm" | "md" | "lg";
   /** Show the percentage next to (linear) or inside (circular) the track. */
   showValue?: boolean;
   /** Accessible label for the progress bar. */
   label?: string;
+  /** Fill color class for the bar/arc; defaults to bg-primary / stroke-primary. */
   colorClassName?: string;
   /** The track behind the fill/indicator (the muted background). */
   trackClassName?: string;

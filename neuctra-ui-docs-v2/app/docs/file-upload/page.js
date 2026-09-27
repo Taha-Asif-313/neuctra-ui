@@ -245,7 +245,7 @@ const FileUploadDocs = () => {
                     string
                   </td>
                   <td className="p-3 text-gray-400 whitespace-nowrap">
-                    "Click to upload…"
+                    "Click to upload or drag and drop"
                   </td>
                   <td className="p-3">Headline inside the drop zone</td>
                 </tr>

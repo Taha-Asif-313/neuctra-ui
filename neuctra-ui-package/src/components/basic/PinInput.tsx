@@ -6,8 +6,11 @@ import { cn } from "../../lib/cn";
 export interface PinInputProps {
   /** Number of character boxes. */
   length?: number;
+  /** Controlled code string. */
   value?: string;
+  /** Initial code when uncontrolled. */
   defaultValue?: string;
+  /** Fired with the current code on every keystroke, paste, or clear. */
   onChange?: (value: string) => void;
   /** Fired once every box is filled. */
   onComplete?: (value: string) => void;
@@ -15,12 +18,19 @@ export interface PinInputProps {
   type?: "numeric" | "alphanumeric";
   /** Render dots instead of the typed characters. */
   mask?: boolean;
+  /** Box size. */
   size?: "sm" | "md" | "lg";
+  /** Disables all boxes. */
   disabled?: boolean;
+  /** Shows the destructive border state. */
   error?: boolean;
+  /** Focuses the first box on mount. */
   autoFocus?: boolean;
+  /** Accessible label for the group (aria-label); not rendered visibly. */
   label?: string;
+  /** Id applied to the first box; also used to derive the group's DOM id. */
   id?: string;
+  /** Additional classes for the group wrapper. */
   className?: string;
   /** Applied to each individual character box, in addition to the size/state styling. */
   boxClassName?: string;
