@@ -289,7 +289,7 @@ export const Input = forwardRef<
           <label
             htmlFor={fieldId}
             className={cn(
-              "flex items-center gap-1.5 font-medium leading-none",
+              "flex items-center leading-none gap-1.5 font-medium leading-none",
               sizes.labelText,
               labelClassName,
             )}
