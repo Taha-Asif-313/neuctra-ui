@@ -14,7 +14,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
 const inputFaq = buildComponentFaq("Input", {
-  sizes: ["sm", "md", "lg"],
+  sizes: ["xs", "sm", "md", "lg"],
 });
 
 const InputDocs = () => {
@@ -233,9 +233,14 @@ function BasicExample() {
           <div className="space-y-6">
             <CodePreviewBlock
               language="jsx"
-              code={`<Input size="sm" label="Small" placeholder="Compact input" />\n<Input size="md" label="Medium" placeholder="Default size" />\n<Input size="lg" label="Large" placeholder="Spacious input" />`}
+              code={`<Input size="xs" label="Extra Small" placeholder="Tiny input" />\n<Input size="sm" label="Small" placeholder="Compact input" />\n<Input size="md" label="Medium" placeholder="Default size" />\n<Input size="lg" label="Large" placeholder="Spacious input" />`}
               previewContent={
                 <div className="space-y-4">
+                  <Input
+                    size="xs"
+                    label="Extra Small"
+                    placeholder="Tiny input"
+                  />
                   <Input
                     size="sm"
                     label="Small"

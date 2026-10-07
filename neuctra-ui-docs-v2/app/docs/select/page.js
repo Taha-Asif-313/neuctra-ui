@@ -15,7 +15,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
 const selectFaq = buildComponentFaq("Select", {
-  sizes: ["sm", "md", "lg"],
+  sizes: ["xs", "sm", "md", "lg"],
 });
 
 const sampleOptions = [
@@ -79,7 +79,7 @@ const SelectDocs = () => {
               Escape
             </li>
             <li>Smooth animations with Framer Motion</li>
-            <li>Multiple size variants (sm/md/lg)</li>
+            <li>Multiple size variants (xs/sm/md/lg)</li>
             <li>
               Comprehensive accessibility (ARIA attributes, screen reader
               support)

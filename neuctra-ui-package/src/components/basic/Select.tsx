@@ -65,7 +65,7 @@ export interface SelectProps {
 
   // Configuration
   /** Size variant controlling trigger/item padding and icon sizing. */
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
   /** Maximum height of the dropdown list before it scrolls. Numbers are treated as pixels. */
   maxDropdownHeight?: string | number;
 
@@ -211,6 +211,17 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
   // inset + icon width + gap, so it is defined per size alongside the icon it
   // makes room for rather than as one fixed `pl-9` for every size.
   const sizeConfig = {
+    xs: {
+      trigger: "px-2 py-1 text-[11px]",
+      triggerWithPrefix: "pl-6 pr-2 py-1 text-[11px]",
+      prefixInset: "left-2",
+      item: "px-2 py-1 text-[11px]",
+      icon: "w-3 h-3",
+      checkIcon: "w-3 h-3",
+      search: "px-2 py-1 text-[11px]",
+      empty: "px-2 py-1 text-[11px]",
+      labelText: "text-[10px]",
+    },
     sm: {
       trigger: "px-2.5 py-1.5 text-xs",
       triggerWithPrefix: "pl-7 pr-2.5 py-1.5 text-xs",
@@ -220,6 +231,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       checkIcon: "w-3 h-3",
       search: "px-2 py-1 text-xs",
       empty: "px-2.5 py-1.5 text-xs",
+      labelText: "text-[13px]",
     },
     md: {
       trigger: "px-3 py-2 text-sm",
@@ -230,6 +242,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       checkIcon: "w-4 h-4",
       search: "px-2 py-1.5 text-sm",
       empty: "px-3 py-2 text-sm",
+      labelText: "text-[13px]",
     },
     lg: {
       trigger: "px-4 py-3 text-base",
@@ -240,6 +253,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       checkIcon: "w-5 h-5",
       search: "px-2.5 py-2 text-base",
       empty: "px-4 py-3 text-base",
+      labelText: "text-[13px]",
     },
   } as const;
 
@@ -495,7 +509,8 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           id={labelId}
           htmlFor={triggerId}
           className={clsx(
-            "flex items-center gap-1.5 text-[13px] font-medium leading-none text-foreground",
+            "flex items-center gap-1.5 font-medium leading-none text-foreground",
+            sizeConfig[size].labelText,
             labelClassName,
           )}
         >

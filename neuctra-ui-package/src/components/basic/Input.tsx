@@ -20,6 +20,18 @@ import { cn } from "../../lib/cn";
  * Every class here is a complete literal so Tailwind's scanner still sees it.
  */
 const SIZE_CONFIG = {
+  xs: {
+    base: "py-1 text-[11px]",
+    padLeft: { none: "pl-2.5", icon: "pl-7", text: "pl-7", both: "pl-10" },
+    padRight: { none: "pr-2.5", suffix: "pr-7" },
+    iconSize: 12,
+    prefixInset: "left-2",
+    suffixInset: "right-2",
+    gap: "gap-1",
+    labelIconSize: 12,
+    textSize: "text-[10px]",
+    labelText: "text-[10px]",
+  },
   sm: {
     base: "py-1.5 text-xs",
     padLeft: { none: "pl-3", icon: "pl-8", text: "pl-8", both: "pl-12" },
@@ -30,6 +42,7 @@ const SIZE_CONFIG = {
     gap: "gap-1",
     labelIconSize: 14,
     textSize: "text-[11px]",
+    labelText: "text-[13px]",
   },
   md: {
     base: "py-2 text-sm",
@@ -41,6 +54,7 @@ const SIZE_CONFIG = {
     gap: "gap-1.5",
     labelIconSize: 16,
     textSize: "text-xs",
+    labelText: "text-[13px]",
   },
   lg: {
     base: "py-2.5 text-base",
@@ -52,6 +66,7 @@ const SIZE_CONFIG = {
     gap: "gap-2",
     labelIconSize: 18,
     textSize: "text-sm",
+    labelText: "text-[13px]",
   },
 } as const;
 
@@ -129,7 +144,7 @@ export interface InputFieldProps {
   /** Number of rows when `type="textarea"`. */
   rows?: number;
   /** Size variant controlling padding, font size and icon sizing. */
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
 
   /** Additional classes for the outer wrapper. */
   wrapperClassName?: string;
@@ -257,7 +272,7 @@ export const Input = forwardRef<
   };
 
   const baseInputStyles =
-    "w-full min-w-0 rounded-lg border border-input bg-transparent " +
+    "w-full min-w-0 rounded-lg border border-border bg-input/30 " +
     "text-foreground outline-none transition-colors " +
     "placeholder:text-muted-foreground " +
     "disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 " +
@@ -274,7 +289,8 @@ export const Input = forwardRef<
           <label
             htmlFor={fieldId}
             className={cn(
-              "flex items-center gap-1.5 text-[13px] font-medium leading-none",
+              "flex items-center gap-1.5 font-medium leading-none",
+              sizes.labelText,
               labelClassName,
             )}
             style={labelStyle}
