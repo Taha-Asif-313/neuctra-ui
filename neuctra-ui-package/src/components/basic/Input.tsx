@@ -285,7 +285,7 @@ export const Input = forwardRef<
       style={wrapperStyle}
     >
       {label && (
-        <div className="flex items-baseline justify-between gap-2">
+        <div className="flex items-center justify-between gap-2">
           <label
             htmlFor={fieldId}
             className={cn(

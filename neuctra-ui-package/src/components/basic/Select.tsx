@@ -505,23 +505,25 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
       style={style}
     >
       {label && (
-        <label
-          id={labelId}
-          htmlFor={triggerId}
-          className={clsx(
-            "flex items-center gap-1.5 font-medium leading-none text-foreground",
-            sizeConfig[size].labelText,
-            labelClassName,
-          )}
-        >
-          {LabelIcon && (
-            <LabelIcon
-              className={clsx(sizeConfig[size].icon, "shrink-0", labelIconClassName)}
-            />
-          )}
-          {label}
-          {required && <span className="text-destructive">*</span>}
-        </label>
+        <div className="flex items-center justify-between gap-2">
+          <label
+            id={labelId}
+            htmlFor={triggerId}
+            className={clsx(
+              "flex items-center gap-1.5 font-medium leading-none text-foreground",
+              sizeConfig[size].labelText,
+              labelClassName,
+            )}
+          >
+            {LabelIcon && (
+              <LabelIcon
+                className={clsx(sizeConfig[size].icon, "shrink-0", labelIconClassName)}
+              />
+            )}
+            {label}
+            {required && <span className="text-destructive">*</span>}
+          </label>
+        </div>
       )}
 
       <div className="relative">
@@ -552,7 +554,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>((props, ref) => {
           aria-describedby={helperTextId}
           aria-labelledby={label ? labelId : undefined}
           className={clsx(
-            "w-full flex items-center justify-between gap-2",
+            "w-full flex items-center justify-between gap-1.5",
             "rounded-lg transition-all outline-none",
             "border border-border bg-input/30 text-foreground",
             "hover:bg-accent/10",
