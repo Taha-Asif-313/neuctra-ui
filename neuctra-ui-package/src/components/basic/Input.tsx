@@ -285,11 +285,11 @@ export const Input = forwardRef<
       style={wrapperStyle}
     >
       {label && (
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center justify-between leading-none gap-2">
           <label
             htmlFor={fieldId}
             className={cn(
-              "flex items-center leading-none gap-1.5 font-medium leading-none",
+              "flex items-center gap-1.5 font-medium leading-none",
               sizes.labelText,
               labelClassName,
             )}
@@ -303,7 +303,7 @@ export const Input = forwardRef<
           </label>
 
           {description && (
-            <span className={cn("text-xs text-muted-foreground", descriptionClassName)}>
+            <span className={cn("text-xs leading-none text-muted-foreground", descriptionClassName)}>
               {description}
             </span>
           )}
