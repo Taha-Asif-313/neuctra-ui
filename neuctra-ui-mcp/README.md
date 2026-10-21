@@ -1,463 +1,186 @@
 # @neuctra/ui-mcp
 
-An MCP server that gives AI coding assistants (Claude Code, Claude Desktop, Cursor,
-Antigravity, or anything else that speaks MCP) ground-truth knowledge of the
-[`@neuctra/ui`](../neuctra-ui-package) component library, so they write correct code
-instead of guessing.
+Give your AI coding assistant accurate, ready-to-use knowledge of [`@neuctra/ui`](https://www.npmjs.com/package/@neuctra/ui). The Neuctra UI MCP server helps an assistant set up a project, plan pages, find components with their real props, apply Neuctra design rules, and follow framework-specific SEO guidance.
 
-This document explains what that means, why it exists, and how every piece of it works.
+## What you can do
 
----
+- Set up Neuctra UI in a React project with the guided setup tool.
+- Plan a tool page, blog, dashboard, form, store page, and more with the page builder.
+- Find the right prebuilt component from a natural-language description and get its exact import, props, and example.
+- Retrieve Neuctra UI theme tokens and design rules.
+- Get SEO, AEO, and GEO rules with implementation guidance for your framework.
 
-## 1. The problem this solves
+## Install and connect
 
-Ask an AI assistant to "build a login form with Neuctra UI" and it has two options:
+You do not need to install this package into your app. Add it as an MCP server in your AI coding client; the client runs it with `npx`.
 
-- **Recall from training data.** If Neuctra UI wasn't in its training set (likely — it's
-  a small library), it has nothing to recall. It will pattern-match against libraries it
-  *does* know (shadcn/ui, MUI, Chakra) and invent plausible-looking but wrong props —
-  `<Input variant="outline" />` when your `Input` has no `variant` prop, or
-  `<Button color="blue">` when colors come from `bg-primary`-style tokens, not a `color`
-  prop.
-- **Read your source files.** Possible, but slow (it has to find and open several
-  `.tsx` files), token-expensive, and it still has to reverse-engineer the API from
-  implementation code rather than being told it directly.
+### Claude Code
 
-This package gives it a third option: **ask**. It exposes a small set of tools an AI can
-call mid-conversation — "what props does `Select` take?", "what components exist for
-forms?", "what color classes should I use?" — and gets back exact, structured answers
-generated from your actual TypeScript source. No guessing, no file-spelunking.
-
----
-
-## 2. How the pieces fit together
-
-```
-neuctra-ui-package/src/components/basic/*.tsx     (your actual component source)
-        │
-        │  npm run registry:generate  (ts-morph reads props/JSDoc/defaults,
-        │                               scrapes one description + example per
-        │                               component from neuctra-ui-docs-v2)
-        ▼
-neuctra-ui-package/registry/components.json        (source of truth)
-        │
-        │  npm run sync-registry  (plain file copy)
-        ▼
-neuctra-ui-mcp/data/components.json                 (this package's local copy)
-        │
-        │  read once at server startup
-        ▼
-neuctra-ui-mcp/src/server.mjs                        (defines 5 MCP tools over that data)
-        │
-        │  spoken over stdio (stdin/stdout), JSON-RPC under the hood
-        ▼
-   Claude Code / Cursor / Antigravity / any MCP client
-```
-
-Three independently-regenerable files feed the server:
-
-- **`data/components.json`** — synced from `neuctra-ui-package/registry/components.json`.
-  Never edit this by hand; run `npm run sync-registry` after the upstream file changes.
-- **`data/theme.json`** — hand-curated from `neuctra-ui-cli/lib/update-css.js` (the CSS
-  the setup CLI generates for consumers). Update it manually if the token set changes —
-  it doesn't have an automated generator because it also encodes *rules*, not just data:
-  the color-token rules ("never hardcode colors"), the anti-AI-look rules ("no
-  gradients/shadows/blurs/glows/emoji-icons"), the recommended `@neuctra/ui-cli init`
-  setup command, and how the standalone `toast()` API works.
-- **`data/aiDesignRules.json`** — also hand-curated, no generator. A 63-section
-  product/UX design guide (design philosophy, visual hierarchy, page/sidebar/navigation
-  structure, per-component usage guidance, spacing/color/border/radius/shadow
-  conventions, responsive design, accessibility, and a final UI quality checklist).
-  `theme.json`'s `rules`/`antiAiLookRules` are the mechanical, CSS-level rules; this file
-  is the higher-level product-design layer — both are served together by
-  `get_design_rules`.
-- **`data/seoGuide.json`** — hand-curated, no generator. A 16-topic SEO / AEO / GEO
-  playbook (technical SEO, Core Web Vitals, on-page, keywords and intent, E-E-A-T, answer
-  engine and generative engine optimisation, schema weaving, FAQs, the per-page meta
-  checklist, where metadata goes in each framework plus Next.js metadata gotchas, page
-  templates for tool/category/home pages, site-wide essentials, ads readiness, off-page
-  and monitoring, and a launch checklist). Served by `get_seo_guide`; the logic behind `generate_page_seo` and
-  `audit_page_seo` lives in `src/seo.mjs`.
-
----
-
-## 3. What MCP actually is (30-second primer)
-
-MCP (**M**odel **C**ontext **P**rotocol) is a standard for connecting an AI assistant to
-external tools. Three roles:
-
-- **Host** — the AI app itself (Claude Code, Cursor, Antigravity).
-- **Client** — the part of the host that manages a connection to one server.
-- **Server** — a small program (this package) that exposes **tools** (named actions with
-  typed inputs) the AI can decide to call.
-
-The host starts your server as a subprocess and talks to it over **stdio** — your
-server's stdout carries JSON-RPC messages, not human-readable logs (that's why
-`bin/cli.mjs` prints nothing except protocol traffic; use `console.error`, never
-`console.log`, if you ever add debug output). On connect, the client asks "what tools do
-you have?", gets back the 5 tool definitions below, and adds them to the AI's available
-actions — the same way the tools listed in *this* conversation's system prompt work.
-From then on, the AI decides on its own when a tool call would help, calls it, and reads
-the result back into its context before continuing.
-
----
-
-## 4. Recommended workflow
-
-The tools are designed to be called in roughly this order when generating UI, not
-grabbed ad hoc:
-
-1. **`neuctra-ui-builder`** — use this for routine UI generation. It infers the UI
-   category, returns a focused UX plan, core styling and accessibility rules, relevant
-   design-guide sections, component candidates, and preference questions when useful.
-2. Ask any high-impact questions returned in `uxPlan.preferenceQuestions`, then pass
-   answers back through `preferences` if they change the implementation.
-3. **`list_components`** (filtered by category) or **`search_components`** (keyword) —
-   confirm which real components exist for what you need. This matters specifically
-   because the design guide can describe a *pattern* (e.g. a sidebar nav item) without
-   there being a dedicated component for it — don't assume one exists, confirm here.
-4. **`get_component`** — full spec for every unfamiliar component before writing code against it.
-   Do this every time you touch a component you haven't already pulled specs for in the
-   current conversation, not just once at the start. Never guess prop names from memory.
-5. **Write the UI**, applying the design rules, the tokens, and the exact props from
-   step 4.
-6. **Self-check** against the "Final UI Quality Checklist" section (§49, found by
-   its `number` field in `productDesignGuide.sections` — not by array index) and
-   `antiAiLookRules` from `get_design_rules` before considering the UI
-   done — reread them, don't just rely on having read them once at the start.
-
-7. **For public pages**, call **`get_seo_guide`** once, then **`generate_page_seo`** for
-   each page (meta, OpenGraph and a woven JSON-LD graph in the project's framework) and
-   **`audit_page_seo`** to check the finished page.
-
-Call `get_design_rules` for broad design reviews or unresolved edge cases, and `get_theme`
-when the complete token/setup reference is needed. The full guide remains the source of
-truth; the builder selects relevant sections for each request.
-
----
-
-## 5. The nine tools, in detail
-
-### `neuctra-ui-builder`
-
-Creates a compact, category-aware brief for the host model. It infers or accepts a UI
-category, selects relevant UX rules and component candidates, includes essential Neuctra
-styling rules and semantic token names, and asks about visual direction, density, or the
-primary action when those preferences are missing. It plans and curates context; the host
-model writes the UI. Use `get_component` for exact props before implementing an unfamiliar
-component.
-
-**Input:** `{ request: string, category?: "auto" | "dashboard" | "landing-page" | "form" | "settings" | "authentication" | "data-table" | "ecommerce" | "documentation" | "custom", preferences?: { visualDirection?, density?, primaryAction?, platform?, audience? } }`
-
-```json
-{
-  "request": "Build a project dashboard where a team can review activity and invite members.",
-  "category": "auto",
-  "preferences": { "density": "balanced", "platform": "responsive" }
-}
-```
-
-### `list_components`
-
-Lists every exported component, optionally filtered to one category. Cheap and compact
-(no props) — meant for browsing, not for writing code against.
-
-**Input:** `{ category?: "layout" | "typography" | "form" | "actions" | "data-display" | "feedback" | "overlay" | "navigation" }`
-
-**Example call → response:**
-```jsonc
-// list_components({ category: "form" })
-[
-  { "name": "Calendar", "category": "form", "description": "", "propCount": 9 },
-  { "name": "Checkbox", "category": "form", "description": "A flexible checkbox component...", "propCount": 29 },
-  { "name": "DatePicker", "category": "form", "description": "", "propCount": 15 }
-  // ...
-]
-```
-
-### `get_component`
-
-The main tool. Full spec for exactly one component — every prop's name, TypeScript
-type, whether it's required, its default value, its JSDoc description if it has one,
-and a real usage snippet. The AI is instructed (via the tool's own description) to call
-this before writing code against any component it hasn't already used in the
-conversation.
-
-**Input:** `{ name: string }` — exact component name, e.g. `"Input"`, `"CardHeader"`.
-
-**Example call → response** (trimmed):
-```jsonc
-// get_component({ name: "Button" })
-{
-  "name": "Button",
-  "category": "actions",
-  "description": "The Button component is a flexible, highly customizable UI primitive...",
-  "props": [
-    { "name": "children", "type": "React.ReactNode", "required": false, "default": null,
-      "description": "Optional so icon-only buttons are possible — pair with `aria-label`." },
-    { "name": "loading", "type": "boolean", "required": false, "default": "false", "description": "" },
-    { "name": "variant", "type": "\"default\" | \"outline\" | \"ghost\" | \"secondary\" | \"destructive\" | \"success\" | \"warning\" | \"info\"", "required": false, "default": null, "description": "" }
-    // ...
-  ],
-  "example": "import { Button } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Button onClick={() => console.log('Button clicked')}>\n      Click Me\n    </Button>\n  );\n}"
-}
-```
-
-If the name doesn't match, it doesn't just fail — it returns an error result with
-substring-matched suggestions (e.g. asking for `"Inpu"` suggests `"Input"`), so the AI
-can self-correct instead of giving up.
-
-### `search_components`
-
-For when the AI knows what it needs but not the exact name — "date picker", "loading
-state", "icon button". Matches against name, category, description, and prop names.
-
-**Example:**
-```jsonc
-// search_components({ query: "date" })
-[
-  { "name": "Calendar", ... },
-  { "name": "DatePicker", ... },
-  { "name": "TagInput", ... }  // matched because it has an "updatedAt"-style prop, etc.
-]
-```
-
-### `get_theme`
-
-Returns the semantic color token system: the token list itself, a **setup** block
-pointing the AI at the `@neuctra/ui-cli` `init` command instead of hand-writing token CSS
-or a theme context, and a **toastNote** explaining the standalone `toast()` import.
-Without `get_theme`, an AI would happily write `className="bg-blue-500"`, ignoring the
-consumer's actual theme. `get_theme` does **not** carry the design/anti-AI-look rules —
-see `get_design_rules` below for those; call both together, not one instead of the other.
-
-**Response shape:**
-```jsonc
-{
-  "system": "Tailwind CSS v4, semantic CSS-variable tokens mapped via @theme, toggled by a .dark class...",
-  "tokens": [
-    { "token": "primary", "className": "bg-primary / text-primary / border-primary",
-      "pairsWith": "primary-foreground", "light": "#00c214", "dark": "#00c214",
-      "usage": "Brand color: primary buttons, active states, links, focus accents." },
-    // ...23 tokens total
-  ],
-  "note": "Values shown are the CLI-generated defaults...",
-  "setup": {
-    "recommendedCommand": "npx @neuctra/ui-cli@latest init",
-    "whatItDoes": ["Installs @neuctra/ui.", "Checks/upgrades React and Tailwind CSS.", "..."],
-    "whenToSuggestIt": "..."
-  },
-  "toastNote": "@neuctra/ui's toast notification system is a standalone function..."
-}
-```
-
-### `get_design_rules`
-
-Returns every design rule generated UI must follow, at two levels: the mechanical
-**`stylingRules`** (token usage, surface/background conventions, component composition
-requirements — e.g. `CardBody` is compulsory whenever `Card` has body content, since
-`Card` itself renders no padding — and component-specific gotchas like Dropdown's
-trigger already stopping propagation internally) and **`antiAiLookRules`** (no
-gradients/shadows/blurs/glows/emoji-icons/em-dashes — the visual tells that make UI read
-as AI-generated), plus **`productDesignGuide`** — a 63-section product/UX design guide
-covering design philosophy, visual hierarchy, page/sidebar/navigation structure,
-per-component usage guidance (when to reach for `Card` vs plain whitespace, `Modal` vs
-`Drawer`, `Table` vs `List`, etc.), spacing/color/border/radius/shadow conventions,
-responsive design, accessibility, interaction design, and a final UI quality checklist.
-
-Use this for full-guide reviews and edge cases. For routine generation, use
-`neuctra-ui-builder` to retrieve the rules relevant to the request.
-
-**Response shape (trimmed):**
-```jsonc
-{
-  "stylingRules": [
-    "Theme colors only, compulsory, no exceptions...",
-    "Use the Card component, not a hand-rolled lookalike...",
-    // ...9 rules total
-  ],
-  "antiAiLookRules": [
-    "No gradients, compulsory...",
-    "No shadows, compulsory...",
-    "No blur effects, compulsory...",
-    // ...17 rules total
-  ],
-  "productDesignGuide": {
-    "title": "Neuctra UI — AI Design Rules",
-    "intro": "You are a senior product designer and frontend UI engineer using `@neuctra/ui`...",
-    "sections": [
-      { "number": 1, "title": "Core Design Philosophy", "content": "..." },
-      { "number": 7, "title": "Cards", "content": "..." },
-      // ...63 sections total
-    ],
-    "goldenRule": { "title": "Golden Rule", "content": "..." }
-  }
-}
-```
-
-### `get_seo_guide`
-
-Returns the SEO / AEO / GEO playbook from `data/seoGuide.json`: the whole guide, or one
-topic via `topic` (`technical`, `performance`, `on-page`, `keywords-intent`, `eeat`,
-`aeo`, `geo`, `schema`, `faq`, `meta-checklist`, `frameworks`, `page-templates`,
-`site-wide`, `ads-readiness`, `off-page-monitoring`, `launch-checklist`).
-
-```json
-{ "topic": "geo" }
-```
-
-### `generate_page_seo`
-
-Deterministic generator (no LLM, never invents facts) for everything one page needs:
-a meta title (60 chars max) and description (155 max), canonical, robots, OpenGraph
-and Twitter tags, and one JSON-LD `@graph` weaving Organization, WebSite, WebPage,
-BreadcrumbList, the page-type node (TechArticle, BlogPosting, SoftwareApplication for
-tool and product pages, Product with offers), HowTo (from the visible `steps`), ItemList
-(from a category's `items`) and FAQPage together by stable `@id`s (the same scheme as
-`neuctra-ui-docs-v2/lib/seo/schemas`). Returns a ready-to-paste snippet for
-`nextjs-app`, `nextjs-pages`, `react-vite`, `react-router`, `astro`, `tanstack-start`,
-`gatsby` or `html`, plus warnings and AEO/GEO follow-ups.
-
-```json
-{
-  "framework": "nextjs-app",
-  "pageType": "docs",
-  "siteName": "Neuctra UI",
-  "siteUrl": "https://ui.neuctra.com",
-  "path": "/docs/card",
-  "primaryKeyword": "react card component",
-  "description": "Composable React card component with header, body and footer sections...",
-  "faqs": [{ "question": "Does Card support dark mode?", "answer": "Yes. ..." }]
-}
-```
-
-### `audit_page_seo`
-
-Rule-based check of one page. The easiest input is the page's built HTML (`html`, from
-view-source or the `out/` / `dist/` folder): title, description, canonical, headings,
-og:image, JSON-LD types, alt text and word count are extracted from it. Explicit fields
-override the extracted ones, and checks without input are skipped. It catches doubled or
-missing brand suffixes (with `brandName`), duplicate schema nodes, JSON-LD that doesn't
-parse, and pages that render client-only (no H1 in the HTML). Returns a 0–100 score and a sorted
-list of `fail` / `warn` / `pass` items, each with the exact fix.
-
----
-
-## 6. Local development
-
-```bash
-npm install
-npm run sync-registry   # pulls the latest registry.json from neuctra-ui-package
-npm start                # runs the server on stdio — it will sit there silently, that's correct
-```
-
-`npm start` alone won't show you anything (it's waiting for a client to speak JSON-RPC
-to it, not for a human to type at it). To actually exercise it, either wire it into a
-real client (section 7) or write a small script using
-`@modelcontextprotocol/sdk`'s `Client` + `StdioClientTransport` to spawn `bin/cli.mjs`
-and call the tools programmatically — that's how this server was verified while building
-it.
-
----
-
-## 7. Connecting it to a client
-
-All MCP clients use the same JSON shape — the differences are just *where* the config
-file lives.
-
-**Claude Code** — project-scoped, via CLI:
 ```bash
 claude mcp add neuctra-ui -- npx -y @neuctra/ui-mcp
 ```
-or by hand in `.mcp.json` at the repo root:
-```json
-{
-  "mcpServers": {
-    "neuctra-ui": { "command": "npx", "args": ["-y", "@neuctra/ui-mcp"] }
-  }
-}
-```
 
-**Cursor** — Settings → MCP → "Add new MCP server", or edit `.cursor/mcp.json`
-(project) / `~/.cursor/mcp.json` (global) with the same JSON shape as above.
+### Cursor
 
-**Antigravity** — Settings → search "MCP" → "Manage MCP Servers" opens a JSON config
-using the same `mcpServers` shape (or a form asking for command + args — use `npx` and
-`-y @neuctra/ui-mcp`).
+Add this server to your project’s `.cursor/mcp.json` (create the file if needed):
 
-**Local development, any client** (before publishing, or to test changes):
 ```json
 {
   "mcpServers": {
     "neuctra-ui": {
-      "command": "node",
-      "args": ["/absolute/path/to/neuctra-ui-mcp/bin/cli.mjs"]
+      "command": "npx",
+      "args": ["-y", "@neuctra/ui-mcp"]
     }
   }
 }
 ```
 
-Restart the client after editing its config — servers are only launched on startup.
+### Other MCP clients
 
----
+Add a server with command `npx` and arguments `-y`, `@neuctra/ui-mcp`. If your client uses JSON configuration, the server entry is:
 
-## 8. Keeping the registry in sync
-
-The registry is generated, not hand-maintained. Whenever a component's props change:
-
-```bash
-cd neuctra-ui-package
-npm run registry:generate     # re-parses source, re-scrapes docs examples
-
-cd ../neuctra-ui-mcp
-npm run sync-registry         # copies the updated file in
+```json
+{
+  "command": "npx",
+  "args": ["-y", "@neuctra/ui-mcp"]
+}
 ```
 
-`registry:generate` also runs automatically as part of `neuctra-ui-package`'s
-`prepublishOnly`, and `sync-registry` runs automatically as part of this package's own
-`prepublishOnly` — so a normal `npm publish` in each package keeps things current without
-remembering these steps by hand. `data/theme.json` and `data/aiDesignRules.json` are the
-two files with no generator; edit them directly — `theme.json` if the token set in
-`neuctra-ui-cli/lib/update-css.js` ever changes or a rule needs adding, `aiDesignRules.json`
-if the product-design guidance itself needs revising.
+Restart or reload your AI client after changing its MCP settings. On first launch, `npx` downloads the package from npm.
 
----
+## Recommended workflow
 
-## 9. Publishing
+1. Ask your assistant to analyze the current project with `neuctra-ui-setup`.
+2. Use `neuctra-ui-page-builder` to plan a page from its goal and user needs.
+3. Use the returned component specs and examples to implement the page. For additional component discovery, call `get-neuctra-ui-component`.
+4. Use `neuctra-ui-theme-setup` and `get_design_rules` for theme tokens, composition guidance, accessibility, and visual rules.
+5. For public pages, use `neuctra-ui-seo-setup` with the project’s framework so the assistant can apply the right SEO steps.
 
-```bash
-npm run sync-registry
-npm publish --access public   # --access public is required: scoped packages default to private
+The assistant writes the application code. The page builder supplies a layout plan and verified component guidance; it does not generate an entire page file by itself.
+
+## Available tools
+
+### `neuctra-ui-setup`
+
+Analyze a project and guide or run Neuctra UI setup.
+
+- First call with `action: "analyze"` to detect the existing framework and project state.
+- Then call with `action: "setup"` and choose `setupMode: "cli"` or `"manual"`.
+- Supported setup frameworks: `nextjs`, `vite`, `remix`, and `react-router`.
+- If no framework is specified, Next.js App Router with JavaScript, Tailwind, and static export is the recommended default.
+- Existing matching projects are initialized in place. Replacing or clearing files requires explicit confirmation.
+- CLI setup runs `npx @neuctra/ui-cli@latest init` and installs `lucide-react`.
+
+Example analyze request:
+
+```json
+{
+  "action": "analyze"
+}
 ```
 
----
+Example setup request after selecting Next.js and CLI setup:
 
-## 10. Project structure
-
-```
-neuctra-ui-mcp/
-├── bin/
-│   └── cli.mjs              # entry point: connects the server to a stdio transport
-├── src/
-│   ├── server.mjs           # defines the 9 tools and their handlers
-│   └── seo.mjs              # pure builders behind generate_page_seo / audit_page_seo
-├── scripts/
-│   └── sync-registry.mjs    # copies registry/components.json from neuctra-ui-package
-├── data/
-│   ├── components.json      # synced (generated) — don't edit by hand
-│   ├── theme.json           # hand-curated token + styling/anti-AI-look rules
-│   ├── aiDesignRules.json   # hand-curated 63-section product/UX design guide
-│   └── seoGuide.json        # hand-curated SEO / AEO / GEO playbook
-└── package.json
+```json
+{
+  "action": "setup",
+  "framework": "nextjs",
+  "setupMode": "cli"
+}
 ```
 
----
+### `neuctra-ui-page-builder`
 
-## 11. Extending it
+Describe the page and the task it should support. The tool infers a page type, selects a matching layout recipe, and combines it with relevant Neuctra UI component specs, design rules, and framework-aware SEO guidance.
 
-To add a new tool (e.g. `get_example` returning just the code snippet, or
-`list_categories`), open `src/server.mjs` and add another `server.registerTool(...)`
-call following the existing pattern: a name, a `title`/`description` (the description is
-what the AI reads to decide *when* to call it — be specific), a `zod` input schema, and
-an async handler returning `{ content: [{ type: "text", text: ... }] }`. No other file
-needs to change — `bin/cli.mjs` just connects whatever `createServer()` returns.
+Supported page recipes include tool pages, blog pages, dashboards, landing pages, forms, authentication, settings, data tables, ecommerce, documentation, and custom pages.
+
+```json
+{
+  "request": "Build an online image compressor with upload, preview, and download steps.",
+  "pageType": "auto",
+  "framework": "auto"
+}
+```
+
+Use `pageType: "auto"` to infer the layout from the request. The assistant can also choose a specific page type, such as `tool-page`, `blog-page`, or `dashboard`. Use `framework: "auto"` to have the assistant identify the project framework, or provide a framework such as `nextjs-app`, `react-vite`, `react-router`, or `remix`.
+
+### `get-neuctra-ui-component`
+
+Find components by describing what the interface needs. Results include the component’s exact package import, full prop definitions, and documented usage example.
+
+```json
+{
+  "request": "A responsive carousel for product images",
+  "limit": 3
+}
+```
+
+You can also provide an exact `componentName` such as `Container`, `Input`, `Carousel`, `Card`, `Modal`, or `Drawer`. Use `category` to browse a component group (`layout`, `typography`, `form`, `actions`, `data-display`, `feedback`, `overlay`, or `navigation`).
+
+Example component usage:
+
+```jsx
+import { Container } from "@neuctra/ui";
+
+function BasicExample() {
+  return (
+    <Container size="md" center className="bg-zinc-800 p-4 rounded-lg">
+      Hello Developer! I am a container.
+    </Container>
+  );
+}
+```
+
+Check the returned props and example before using a component. Component APIs can differ from similarly named components in other libraries.
+
+### `neuctra-ui-theme-setup`
+
+Returns the Neuctra UI semantic theme tokens, Tailwind theme mappings, and theme setup guidance. Use these tokens (such as `bg-primary` and `text-foreground`) so components work with the configured light and dark themes. The tool also explains the `toast()` API.
+
+### `get_design_rules`
+
+Returns Neuctra UI’s design guidance, including component composition requirements, theme usage, accessibility, responsive behavior, spacing, hierarchy, and visual consistency. Use it when planning or reviewing an interface. The page builder includes the rules most relevant to its selected page layout.
+
+### `neuctra-ui-seo-setup`
+
+Returns the complete SEO, AEO, and GEO rules and ordered implementation steps. Framework matters: Next.js metadata APIs differ from Vite React, Remix, and React Router. Pass a framework or use `auto` and give the assistant the project context when useful.
+
+```json
+{
+  "framework": "auto",
+  "projectContext": "React Router app using server rendering"
+}
+```
+
+The guidance covers titles and descriptions, keyword and search intent, heading structure, canonical URLs, robots directives, sitemaps, structured data (JSON-LD), visible FAQs, performance, trust signals, and framework-specific implementation. It is a reference for the assistant; it does not generate a one-off metadata snippet or audit a page.
+
+## Tips for better results
+
+- Describe the page’s purpose and the user’s main task, not just its visual style.
+- Mention the framework and router when you know them.
+- Include important constraints such as mobile-first layout, primary actions, or existing project conventions.
+- Ask the assistant to inspect component specs before writing code with unfamiliar components.
+- For public pages, ask it to keep metadata and JSON-LD consistent with content that is actually visible.
+
+## Troubleshooting
+
+**The tools do not appear in my client**
+
+Check that the MCP server entry uses command `npx` with arguments `-y` and `@neuctra/ui-mcp`, then restart or reload the client. Confirm that Node.js and npm are installed and available to the client process.
+
+**The assistant selected the wrong page layout**
+
+Specify `pageType` directly (for example, `tool-page`, `blog-page`, or `dashboard`) and describe the main user task more clearly.
+
+**The assistant is unsure which component to use**
+
+Call `get-neuctra-ui-component` with a concrete need, such as “date input with calendar selection” or “drawer for mobile filters.” Review the returned component names and props before implementation.
+
+**SEO instructions do not match my app**
+
+Pass the actual framework and router, such as `nextjs-app`, `react-vite`, `react-router`, or `remix`. For `auto`, provide relevant project details or ask the assistant to inspect the project configuration first.
+
+## License
+
+MIT

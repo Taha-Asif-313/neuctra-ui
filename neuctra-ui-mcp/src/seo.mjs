@@ -1,5 +1,5 @@
-// Pure, deterministic SEO builders behind the generate_page_seo and
-// audit_page_seo tools. No I/O and no LLM calls: the same input always gives
+// Pure, deterministic SEO builders used by internal page generation and audit logic.
+// No I/O and no LLM calls: the same input always gives
 // the same output, so it runs identically on Node and on edge runtimes.
 //
 // The @id scheme and node shapes mirror neuctra-ui-docs-v2/lib/seo/schemas
@@ -1050,7 +1050,7 @@ export function auditPageSeo(input) {
     const pageNodes = types.filter((t) => WEBPAGE_TYPES.includes(t) && t !== "FAQPage");
     if (pageNodes.length) add("pass", "Schema: WebPage", `Present (${pageNodes[0]}).`);
     else if (types.includes("FAQPage")) add("warn", "Schema: WebPage", "Only an FAQPage node stands in for the page.", "Fine for a dedicated FAQ page. Any other page needs its own WebPage (or subtype) node, with the FAQPage linked to it via isPartOf.");
-    else add("warn", "Schema: WebPage", "No WebPage (or subtype) node.", "Weave a WebPage node linked to WebSite and Organization (use generate_page_seo).");
+    else add("warn", "Schema: WebPage", "No WebPage (or subtype) node.", "Weave a WebPage node linked to WebSite and Organization (use the SEO rules and implementation steps in neuctra-ui-seo-setup).");
     const isHome = sameUrl(p.url, p.url.replace(/^(https?:\/\/[^/]+).*$/, "$1"));
     if (!isHome) types.includes("BreadcrumbList") ? add("pass", "Schema: BreadcrumbList", "Present.") : add("warn", "Schema: BreadcrumbList", "Missing.", "Add a BreadcrumbList matching the visible breadcrumb/URL path.");
     types.includes("Organization") ? add("pass", "Schema: Organization", "Present.") : add("warn", "Schema: Organization", "Missing.", "Add Organization with logo and sameAs, referenced by @id from every page.");

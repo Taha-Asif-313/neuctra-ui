@@ -1,0 +1,790 @@
+{
+  "version": 1,
+  "description": "Editable page layout recipes used by neuctra-ui-page-builder. Add a layout object with a unique id, aliases, keywords, outline, componentQueries, designRuleNumbers, seoRuleIds, and responsiveNotes to extend the catalog.",
+  "layouts": [
+    {
+      "id": "tool-page",
+      "name": "Online Tool Page",
+      "aliases": [
+        "tool page",
+        "tools page",
+        "tool",
+        "tools",
+        "online tool",
+        "online tools",
+        "utility page",
+        "calculator",
+        "converter",
+        "generator",
+        "editor",
+        "web app"
+      ],
+      "keywords": [
+        "tool",
+        "tools",
+        "converter",
+        "calculator",
+        "generator",
+        "editor",
+        "upload",
+        "process",
+        "download"
+      ],
+      "purpose": "Help visitors understand, use, and trust one focused online tool.",
+      "outline": [
+        "Breadcrumb and concise value proposition",
+        "Single H1 naming the tool and outcome",
+        "Short direct explanation and trust notes",
+        "Primary tool workspace with clear inputs and output",
+        "How-to steps and supported formats or limits",
+        "Related tools and internal links",
+        "Visible FAQs with matching FAQ schema"
+      ],
+      "componentQueries": [
+        "input form controls",
+        "upload dropzone",
+        "progress and status feedback",
+        "tool result or preview",
+        "action buttons",
+        "FAQ accordion"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        24,
+        35,
+        37,
+        43,
+        44,
+        47,
+        48,
+        49,
+        50,
+        51,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "keywords-intent",
+        "aeo",
+        "geo",
+        "schema",
+        "faq",
+        "meta-checklist",
+        "frameworks",
+        "page-templates",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Use SoftwareApplication/Product schema only when accurate; include visible steps as HowTo data when useful.",
+        "Keep the page explanation, H1, metadata, and tool behavior aligned.",
+        "If the tool is client-only, prerender the page frame, text, FAQs, and JSON-LD."
+      ],
+      "responsiveNotes": "Keep the tool task prominent on mobile, stack controls and results in task order, and avoid horizontal overflow."
+    },
+    {
+      "id": "blog-page",
+      "name": "Blog Article Page",
+      "aliases": [
+        "blog page",
+        "blog",
+        "blogs",
+        "article",
+        "post",
+        "guide",
+        "tutorial",
+        "news story"
+      ],
+      "keywords": [
+        "blog",
+        "article",
+        "author",
+        "published",
+        "tutorial",
+        "guide",
+        "read"
+      ],
+      "purpose": "Make an article easy to scan, understand, cite, and continue reading.",
+      "outline": [
+        "Breadcrumbs and topic label",
+        "Article H1 and useful summary",
+        "Author and accurate publication/update dates",
+        "Table of contents for long articles",
+        "Readable article sections with ordered headings",
+        "Examples, lists, or comparisons where useful",
+        "Related reading",
+        "Visible FAQs when they answer real follow-up questions"
+      ],
+      "componentQueries": [
+        "breadcrumb navigation",
+        "table of contents navigation",
+        "article content typography",
+        "callout and code block",
+        "related content list",
+        "FAQ accordion"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        8,
+        9,
+        10,
+        21,
+        30,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        53,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "keywords-intent",
+        "eeat",
+        "aeo",
+        "geo",
+        "schema",
+        "faq",
+        "meta-checklist",
+        "frameworks",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Use BlogPosting only for a genuine article and provide real author and date details.",
+        "Answer the primary query near the start; use descriptive question headings for relevant subsections."
+      ],
+      "responsiveNotes": "Use a readable text measure, a collapsible or compact table of contents, and ensure code or tables remain usable on small screens."
+    },
+    {
+      "id": "dashboard",
+      "name": "Application Dashboard",
+      "aliases": [
+        "dashboard page",
+        "dashboard",
+        "admin panel",
+        "analytics dashboard",
+        "workspace",
+        "control panel"
+      ],
+      "keywords": [
+        "dashboard",
+        "analytics",
+        "admin",
+        "workspace",
+        "metrics",
+        "activity",
+        "manage"
+      ],
+      "purpose": "Help signed-in users monitor key information and complete frequent actions.",
+      "outline": [
+        "Responsive application shell and primary navigation",
+        "Page title, context, and one primary action",
+        "Key status or metric summary",
+        "Main chart, table, or activity view",
+        "Filters and scoped secondary actions",
+        "Loading, empty, error, and success states"
+      ],
+      "componentQueries": [
+        "dashboard layout container",
+        "sidebar navigation",
+        "metric cards",
+        "charts and data display",
+        "data table and filters",
+        "tabs and menus"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        22,
+        23,
+        24,
+        27,
+        31,
+        35,
+        37,
+        43,
+        44,
+        47,
+        48,
+        49,
+        50,
+        51,
+        55,
+        57,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "frameworks",
+        "site-wide",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Private dashboards should normally be noindex and require authentication; do not expose private data in public structured data or sitemaps."
+      ],
+      "responsiveNotes": "Prioritize the main task and key metrics; adapt navigation, charts, and tables for narrow screens without hiding essential status."
+    },
+    {
+      "id": "landing-page",
+      "name": "Marketing Landing Page",
+      "aliases": [
+        "landing page",
+        "homepage",
+        "marketing page",
+        "product page",
+        "campaign page"
+      ],
+      "keywords": [
+        "landing",
+        "homepage",
+        "marketing",
+        "campaign",
+        "conversion",
+        "pricing",
+        "features"
+      ],
+      "purpose": "Explain the product value and guide visitors toward one clear conversion action.",
+      "outline": [
+        "Header with focused navigation",
+        "Hero with specific value proposition and primary CTA",
+        "Product or workflow proof",
+        "Benefits and capabilities",
+        "Trust evidence or testimonials when real",
+        "Pricing or plan details when relevant",
+        "FAQs and final CTA"
+      ],
+      "componentQueries": [
+        "navigation header",
+        "hero section container",
+        "feature cards",
+        "testimonial or quote",
+        "pricing cards",
+        "FAQ accordion",
+        "call to action buttons"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        3,
+        7,
+        13,
+        24,
+        33,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        53,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "keywords-intent",
+        "eeat",
+        "aeo",
+        "geo",
+        "schema",
+        "faq",
+        "meta-checklist",
+        "frameworks",
+        "page-templates",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Keep page claims and any Product/SoftwareApplication schema factual and visible."
+      ],
+      "responsiveNotes": "Keep the value proposition and CTA visible early on mobile, vary section layouts, and avoid oversized decorative content."
+    },
+    {
+      "id": "form",
+      "name": "Form Workflow Page",
+      "aliases": [
+        "form",
+        "survey",
+        "application",
+        "onboarding",
+        "contact form",
+        "multi-step form"
+      ],
+      "keywords": [
+        "form",
+        "input",
+        "submit",
+        "survey",
+        "application",
+        "onboarding",
+        "validation"
+      ],
+      "purpose": "Let users enter information with clear instructions, validation, and recovery from errors.",
+      "outline": [
+        "Form purpose and expected completion time",
+        "Fields grouped into meaningful sections",
+        "Inline help and clear required/optional labels",
+        "Validation beside the relevant field",
+        "Review or confirmation step for complex forms",
+        "Success and recovery states"
+      ],
+      "componentQueries": [
+        "text input form",
+        "select checkbox radio controls",
+        "date picker",
+        "form validation feedback",
+        "buttons",
+        "progress stepper"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        15,
+        16,
+        17,
+        24,
+        25,
+        27,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "on-page",
+        "frameworks",
+        "site-wide",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Index public informational form pages when useful; noindex private submission or account flows."
+      ],
+      "responsiveNotes": "Use full-width controls on small screens, preserve entered values after validation errors, and keep labels and errors readable."
+    },
+    {
+      "id": "authentication",
+      "name": "Authentication Page",
+      "aliases": [
+        "login",
+        "sign in",
+        "sign up",
+        "register",
+        "password reset",
+        "authentication"
+      ],
+      "keywords": [
+        "login",
+        "signin",
+        "signup",
+        "register",
+        "password",
+        "authentication",
+        "account"
+      ],
+      "purpose": "Help users securely sign in, create an account, or recover access with minimal distraction.",
+      "outline": [
+        "Brand and concise task heading",
+        "Focused credential form",
+        "Inline validation and password guidance",
+        "Primary submit action",
+        "Recovery and alternate authentication paths",
+        "Privacy and trust links",
+        "Loading, error, and success states"
+      ],
+      "componentQueries": [
+        "email and password input",
+        "checkbox remember me",
+        "form validation",
+        "buttons",
+        "alert feedback"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        13,
+        15,
+        24,
+        25,
+        27,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        56,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "on-page",
+        "frameworks",
+        "site-wide",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Authentication and recovery routes are usually noindex and excluded from the sitemap."
+      ],
+      "responsiveNotes": "Keep the form usable with one hand, preserve accessible focus and errors, and avoid forcing horizontal scrolling."
+    },
+    {
+      "id": "settings",
+      "name": "Settings Page",
+      "aliases": [
+        "settings",
+        "preferences",
+        "configuration",
+        "profile settings",
+        "account settings"
+      ],
+      "keywords": [
+        "settings",
+        "preferences",
+        "configuration",
+        "profile",
+        "account",
+        "toggle"
+      ],
+      "purpose": "Let users find related preferences and understand which changes are saved.",
+      "outline": [
+        "Settings navigation grouped by mental model",
+        "Page heading and short context",
+        "Related controls grouped into sections",
+        "Clear save/apply behavior and unsaved state",
+        "Destructive actions separated and explained",
+        "Confirmation and feedback states"
+      ],
+      "componentQueries": [
+        "settings tabs navigation",
+        "input form controls",
+        "switch toggle",
+        "select dropdown",
+        "confirmation dialog",
+        "toast feedback"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        3,
+        7,
+        13,
+        15,
+        16,
+        17,
+        18,
+        21,
+        24,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "frameworks",
+        "site-wide",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Signed-in settings should require authentication, be noindex, and stay out of public sitemaps."
+      ],
+      "responsiveNotes": "Convert side navigation to a compact selector or stacked navigation and keep save actions reachable."
+    },
+    {
+      "id": "data-table",
+      "name": "Data Listing Page",
+      "aliases": [
+        "data table",
+        "table page",
+        "records list",
+        "directory",
+        "inventory list"
+      ],
+      "keywords": [
+        "table",
+        "records",
+        "listing",
+        "directory",
+        "inventory",
+        "filter",
+        "sort"
+      ],
+      "purpose": "Help users scan, search, filter, and act on a collection of records.",
+      "outline": [
+        "Page heading, record count, and primary action",
+        "Search and relevant filters",
+        "Sortable data table or suitable list",
+        "Row-level actions with clear labels",
+        "Pagination or incremental loading",
+        "Empty, loading, error, and no-results states"
+      ],
+      "componentQueries": [
+        "data table rows columns",
+        "search input",
+        "filters select",
+        "pagination",
+        "empty state",
+        "action menu"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        3,
+        7,
+        22,
+        23,
+        24,
+        27,
+        31,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "frameworks",
+        "site-wide",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Index curated public directories when they provide unique value; noindex private, thin, or arbitrary filtered result URLs."
+      ],
+      "responsiveNotes": "Prioritize columns and actions; use a responsive list/card pattern or controlled horizontal scrolling for genuinely tabular data."
+    },
+    {
+      "id": "ecommerce",
+      "name": "E-commerce Page",
+      "aliases": [
+        "ecommerce",
+        "e-commerce",
+        "store",
+        "shop",
+        "product detail",
+        "checkout"
+      ],
+      "keywords": [
+        "product",
+        "shop",
+        "store",
+        "cart",
+        "checkout",
+        "price",
+        "purchase"
+      ],
+      "purpose": "Help customers understand an item, trust the offer, and complete the next purchase step.",
+      "outline": [
+        "Product title, images, price, and availability",
+        "Key benefits and product details",
+        "Variant or quantity selection",
+        "Clear add-to-cart or checkout action",
+        "Shipping, return, and trust information",
+        "Reviews only when genuine",
+        "Related products and visible FAQs"
+      ],
+      "componentQueries": [
+        "product image carousel",
+        "product cards",
+        "select variant",
+        "quantity input",
+        "cart action buttons",
+        "tabs and accordion"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        7,
+        13,
+        15,
+        22,
+        24,
+        25,
+        31,
+        33,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        55,
+        57,
+        59,
+        60
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "keywords-intent",
+        "eeat",
+        "aeo",
+        "geo",
+        "schema",
+        "faq",
+        "meta-checklist",
+        "frameworks",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Use Product and Offer structured data only for visible, current product information and real prices."
+      ],
+      "responsiveNotes": "Place product choice, price, availability, and purchase action in a clear mobile order; keep galleries touch friendly."
+    },
+    {
+      "id": "documentation",
+      "name": "Documentation Page",
+      "aliases": [
+        "documentation",
+        "docs",
+        "reference page",
+        "knowledge base",
+        "component docs"
+      ],
+      "keywords": [
+        "docs",
+        "documentation",
+        "reference",
+        "api",
+        "guide",
+        "knowledge",
+        "component"
+      ],
+      "purpose": "Help readers locate accurate information and follow examples without losing their place.",
+      "outline": [
+        "Documentation navigation and breadcrumbs",
+        "Clear page title and concise summary",
+        "Table of contents for long pages",
+        "Ordered content sections",
+        "Copyable examples and API details",
+        "Previous/next and related pages",
+        "FAQs where they answer common questions"
+      ],
+      "componentQueries": [
+        "documentation sidebar navigation",
+        "breadcrumbs",
+        "table of contents",
+        "code blocks",
+        "tabs",
+        "callout",
+        "accordion"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        8,
+        9,
+        10,
+        21,
+        23,
+        30,
+        35,
+        43,
+        44,
+        45,
+        47,
+        48,
+        49,
+        53,
+        59,
+        61
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "keywords-intent",
+        "eeat",
+        "aeo",
+        "geo",
+        "schema",
+        "faq",
+        "meta-checklist",
+        "frameworks",
+        "site-wide",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Use TechArticle only when the content is genuinely an article; otherwise describe the page with an appropriate WebPage type."
+      ],
+      "responsiveNotes": "Keep navigation discoverable, code readable, and the article measure comfortable across breakpoints."
+    },
+    {
+      "id": "custom",
+      "name": "Custom Page Layout",
+      "aliases": [
+        "custom page",
+        "other page",
+        "bespoke page"
+      ],
+      "keywords": [],
+      "purpose": "Select a structure from the request rather than forcing it into an unrelated template.",
+      "outline": [
+        "Page heading and context",
+        "Primary task or content",
+        "Supporting information",
+        "Relevant next action",
+        "Required interaction and feedback states"
+      ],
+      "componentQueries": [
+        "components that fit the requested interaction and content"
+      ],
+      "designRuleNumbers": [
+        1,
+        2,
+        35,
+        43,
+        44,
+        47,
+        48,
+        49,
+        59
+      ],
+      "seoRuleIds": [
+        "technical",
+        "performance",
+        "on-page",
+        "frameworks",
+        "meta-checklist",
+        "launch-checklist"
+      ],
+      "seoNotes": [
+        "Apply only SEO elements relevant to a public, indexable page and the content it actually contains."
+      ],
+      "responsiveNotes": "Preserve task order and readability at narrow widths; adapt controls to touch and keyboard use."
+    }
+  ]
+}
