@@ -52,6 +52,150 @@ function matchesQuery(component, query) {
   return component.props.some((p) => p.name.toLowerCase().includes(q));
 }
 
+const UI_CATEGORIES = [
+  "dashboard", "landing-page", "form", "settings", "authentication",
+  "data-table", "ecommerce", "documentation", "custom",
+];
+
+const CATEGORY_RULES = {
+  dashboard: [3, 4, 5, 7, 22, 23, 24, 27, 31, 35, 55, 57, 59],
+  "landing-page": [3, 7, 13, 24, 33, 35, 53, 55, 56, 57, 58, 59, 60],
+  form: [15, 16, 17, 24, 25, 27, 35, 47, 48, 59],
+  settings: [3, 7, 13, 15, 16, 17, 18, 21, 24, 35, 47, 48, 59],
+  authentication: [3, 13, 15, 24, 25, 27, 35, 47, 48, 56, 59],
+  "data-table": [3, 7, 22, 23, 24, 27, 31, 35, 47, 48, 59],
+  ecommerce: [3, 7, 13, 15, 22, 24, 25, 31, 33, 35, 47, 48, 55, 57, 59, 60],
+  documentation: [3, 4, 5, 8, 9, 10, 21, 23, 30, 35, 45, 47, 48, 53, 59, 61],
+  custom: [3, 35, 44, 47, 48, 49, 53, 59],
+};
+
+const CATEGORY_TERMS = {
+  dashboard: "dashboard analytics metric chart sidebar",
+  "landing-page": "hero marketing testimonial feature pricing",
+  form: "form input select checkbox radio date picker",
+  settings: "settings preferences profile toggle tabs",
+  authentication: "login sign up password email verification",
+  "data-table": "table data pagination filter sort",
+  ecommerce: "product cart checkout price inventory",
+  documentation: "docs article navigation breadcrumb code",
+  custom: "",
+};
+
+function inferUiCategory(request) {
+  const text = request.toLowerCase();
+  const patterns = [
+    ["authentication", /\b(login|log in|sign.?up|sign.?in|authentication|password reset)\b/],
+    ["data-table", /\b(data.?table|table|records|spreadsheet|listing)\b/],
+    ["ecommerce", /\b(e.?commerce|checkout|cart|product page|storefront|shop)\b/],
+    ["documentation", /\b(documentation|docs page|knowledge base|article)\b/],
+    ["settings", /\b(settings|preferences|configuration|profile)\b/],
+    ["form", /\b(form|survey|wizard|application form)\b/],
+    ["landing-page", /\b(landing page|homepage|marketing page|hero section)\b/],
+    ["dashboard", /\b(dashboard|admin panel|analytics|metrics)\b/],
+  ];
+  return patterns.find(([, pattern]) => pattern.test(text))?.[0] ?? "custom";
+}
+
+function makeUiBuildBrief({ request, category, preferences, registry, theme, aiDesignRules }) {
+  const resolvedCategory = category === "auto" ? inferUiCategory(request) : category;
+  const requestSignals = [
+    ["create", /\b(create|add|new|invite|register)\b/i],
+    ["review", /\b(review|view|inspect|monitor|track|activity|analytics)\b/i],
+    ["search", /\b(search|find|filter|sort)\b/i],
+    ["edit", /\b(edit|update|change|manage|configure)\b/i],
+    ["complete", /\b(complete|submit|checkout|send|publish|save)\b/i],
+    ["compare", /\b(compare|pricing|plan|option|alternative)\b/i],
+  ].filter(([, pattern]) => pattern.test(request)).map(([signal]) => signal);
+  const sections = new Map(aiDesignRules.sections.map((section) => [section.number, section]));
+  const sharedRuleNumbers = [1, 2, 35, 37, 43, 44, 47, 48, 49, 50, 51, 59];
+  const selectedNumbers = [...new Set([...sharedRuleNumbers, ...(CATEGORY_RULES[resolvedCategory] ?? [])])];
+  const relevantRules = selectedNumbers
+    .map((number) => sections.get(number))
+    .filter(Boolean)
+    .map(({ number, title, content }) => ({ number, title, content }));
+  const terms = CATEGORY_TERMS[resolvedCategory] ?? "";
+  const candidates = terms
+    ? registry.components
+        .filter((component) => terms.split(" ").some((term) => matchesQuery(component, term)))
+        .slice(0, 8)
+        .map(summarize)
+    : [];
+
+  const missingPreferences = [];
+  if (!preferences.visualDirection) missingPreferences.push({
+    id: "visualDirection", question: "What visual direction should this use?",
+    options: ["Neuctra default", "Minimal", "Editorial", "Dense and utilitarian"],
+  });
+  if (!preferences.density) missingPreferences.push({
+    id: "density", question: "How dense should the interface feel?",
+    options: ["Balanced", "Compact", "Spacious"],
+  });
+  if (!preferences.primaryAction && resolvedCategory !== "documentation") missingPreferences.push({
+    id: "primaryAction", question: "What is the main action users should take?",
+    options: [],
+  });
+
+  const compactTheme = {
+    system: theme.system,
+    tokens: theme.tokens.map(({ token, className, pairsWith, usage }) => ({ token, className, ...(pairsWith ? { pairsWith } : {}), usage })),
+    toastNote: theme.toastNote,
+  };
+
+  return {
+    category: resolvedCategory,
+    categoryWasInferred: category === "auto",
+    request,
+    requestAnalysis: {
+      detectedTaskSignals: requestSignals,
+      userGoal: requestSignals.length
+        ? `Support the requested ${requestSignals.join(", ")} task${requestSignals.length > 1 ? "s" : ""} with a clear primary path.`
+        : "Use the request's stated outcome to define the primary path; do not add unrelated features.",
+      categoryConsiderations: {
+        dashboard: "Prioritize the most actionable metrics and provide clear routes to underlying records.",
+        "landing-page": "Make the value proposition and primary conversion action clear before secondary details.",
+        form: "Group fields by meaning, explain validation, and preserve entered data when errors occur.",
+        settings: "Group controls by user mental model and make saved versus unsaved changes clear.",
+        authentication: "Keep the entry task focused and make recovery and validation paths easy to find.",
+        "data-table": "Make scanning, filtering, row actions, and narrow-screen behavior usable.",
+        ecommerce: "Keep product choice, price, availability, and the next purchase action easy to understand.",
+        documentation: "Prioritize readable content, table of contents, and predictable navigation.",
+        custom: "Choose patterns from the user's task and content; avoid adding interface chrome without a need.",
+      }[resolvedCategory],
+    },
+    preferences,
+    uxPlan: {
+      objective: "Make the user's primary task obvious, then keep supporting choices and information in a clear hierarchy.",
+      layoutApproach: resolvedCategory === "dashboard" || resolvedCategory === "documentation"
+        ? "Use a responsive app shell with grouped navigation and a focused content area."
+        : resolvedCategory === "landing-page"
+          ? "Lead with the value proposition and primary action, then vary section layouts to support the story."
+          : "Keep the primary task prominent, group related content, and avoid panels where whitespace is enough.",
+      interactionAndStates: ["Define loading, empty, error, success, and disabled states where applicable.", "Use clear labels, keyboard-accessible controls, visible focus, and touch-friendly targets."],
+      responsiveBehavior: preferences.platform === "desktop"
+        ? "Prioritize desktop workflows while keeping the layout usable at narrower widths and preventing horizontal overflow."
+        : preferences.platform === "mobile"
+          ? "Prioritize the mobile task flow, touch targets, and compact navigation; prevent horizontal overflow."
+          : "Design mobile-first; preserve task order, prevent horizontal overflow, and adapt navigation and data views to narrow screens.",
+      performanceGuidance: ["Keep client-side state limited to interactive needs and avoid unnecessary rerenders.", "Paginate or virtualize large data sets; lazy-load below-the-fold media."],
+      preferenceQuestions: missingPreferences,
+    },
+    recommendedComponents: candidates,
+    designContext: {
+      coreStylingRules: theme.rules,
+      antiAiLookRules: theme.antiAiLookRules,
+      theme: compactTheme,
+      relevantProductRules: relevantRules,
+      goldenRule: aiDesignRules.goldenRule,
+    },
+    implementationNotes: [
+      "Use semantic Neuctra theme classes so light and dark themes work; do not hardcode palette colors.",
+      "Use the selected components' built-in design and exact documented props.",
+      "Call get_component for each unfamiliar component before writing its code.",
+      "Apply only the included category rules; retrieve get_design_rules for any unresolved edge case.",
+    ],
+  };
+}
+
 export function createServer(data) {
   const { registry, theme, aiDesignRules, seoGuide } = data ?? loadDataFromDisk();
   const componentsByName = new Map(registry.components.map((c) => [c.name, c]));
@@ -152,6 +296,32 @@ export function createServer(data) {
         content: [{ type: "text", text: JSON.stringify(results, null, 2) }],
       };
     },
+  );
+
+  server.registerTool(
+    "neuctra-ui-builder",
+    {
+      title: "Plan Neuctra UI with focused design context",
+      description:
+        "Prepare a compact, category-aware implementation brief for a UI request. Infers or accepts the UI category, identifies relevant Neuctra components and design-guide sections, includes essential theme/accessibility/responsive rules, and returns optional preference questions. Use this instead of loading the full design guide for routine UI generation. It plans and curates context; the host model writes the UI. Call get_component for exact props before using unfamiliar components, and get_design_rules for edge cases.",
+      inputSchema: {
+        request: z.string().min(8).describe("What UI to build and what users need to accomplish."),
+        category: z.enum(["auto", ...UI_CATEGORIES]).default("auto").describe("UI category, or auto to infer it from the request."),
+        preferences: z.object({
+          visualDirection: z.string().optional().describe("Visual style preference, if known."),
+          density: z.enum(["compact", "balanced", "spacious"]).optional(),
+          primaryAction: z.string().optional().describe("The main user action, if known."),
+          platform: z.enum(["desktop", "mobile", "responsive"]).optional(),
+          audience: z.string().optional(),
+        }).default({}).describe("Optional user preferences; unanswered high-impact choices are returned as concise questions."),
+      },
+    },
+    async ({ request, category, preferences }) => ({
+      content: [{
+        type: "text",
+        text: JSON.stringify(makeUiBuildBrief({ request, category, preferences, registry, theme, aiDesignRules }), null, 2),
+      }],
+    }),
   );
 
   server.registerTool(

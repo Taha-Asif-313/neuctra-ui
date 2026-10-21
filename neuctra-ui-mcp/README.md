@@ -107,17 +107,16 @@ the result back into its context before continuing.
 The tools are designed to be called in roughly this order when generating UI, not
 grabbed ad hoc:
 
-1. **`get_design_rules`** — call this first, before picking any component. It returns
-   the styling rules, the anti-AI-look rules, and the 63-section product/UX guide. This
-   shapes *what* to build (hierarchy, when a group actually needs `Card`, when `Modal`
-   vs `Drawer`, etc.) before you start reaching for components.
-2. **`get_theme`** — call alongside step 1, not instead of it. Tokens without the design
-   rules just tell you which colors exist, not how to use them well.
+1. **`neuctra-ui-builder`** — use this for routine UI generation. It infers the UI
+   category, returns a focused UX plan, core styling and accessibility rules, relevant
+   design-guide sections, component candidates, and preference questions when useful.
+2. Ask any high-impact questions returned in `uxPlan.preferenceQuestions`, then pass
+   answers back through `preferences` if they change the implementation.
 3. **`list_components`** (filtered by category) or **`search_components`** (keyword) —
    confirm which real components exist for what you need. This matters specifically
    because the design guide can describe a *pattern* (e.g. a sidebar nav item) without
    there being a dedicated component for it — don't assume one exists, confirm here.
-4. **`get_component`** — full spec for every component before writing code against it.
+4. **`get_component`** — full spec for every unfamiliar component before writing code against it.
    Do this every time you touch a component you haven't already pulled specs for in the
    current conversation, not just once at the start. Never guess prop names from memory.
 5. **Write the UI**, applying the design rules, the tokens, and the exact props from
@@ -131,13 +130,32 @@ grabbed ad hoc:
    each page (meta, OpenGraph and a woven JSON-LD graph in the project's framework) and
    **`audit_page_seo`** to check the finished page.
 
-Steps 1–2 only need to happen once per session/task, not once per component — refetching
-`get_theme`/`get_design_rules` for every single component would be wasteful. Step 4 is
-the one that repeats for every new component.
+Call `get_design_rules` for broad design reviews or unresolved edge cases, and `get_theme`
+when the complete token/setup reference is needed. The full guide remains the source of
+truth; the builder selects relevant sections for each request.
 
 ---
 
-## 5. The eight tools, in detail
+## 5. The nine tools, in detail
+
+### `neuctra-ui-builder`
+
+Creates a compact, category-aware brief for the host model. It infers or accepts a UI
+category, selects relevant UX rules and component candidates, includes essential Neuctra
+styling rules and semantic token names, and asks about visual direction, density, or the
+primary action when those preferences are missing. It plans and curates context; the host
+model writes the UI. Use `get_component` for exact props before implementing an unfamiliar
+component.
+
+**Input:** `{ request: string, category?: "auto" | "dashboard" | "landing-page" | "form" | "settings" | "authentication" | "data-table" | "ecommerce" | "documentation" | "custom", preferences?: { visualDirection?, density?, primaryAction?, platform?, audience? } }`
+
+```json
+{
+  "request": "Build a project dashboard where a team can review activity and invite members.",
+  "category": "auto",
+  "preferences": { "density": "balanced", "platform": "responsive" }
+}
+```
 
 ### `list_components`
 
@@ -247,7 +265,8 @@ per-component usage guidance (when to reach for `Card` vs plain whitespace, `Mod
 `Drawer`, `Table` vs `List`, etc.), spacing/color/border/radius/shadow conventions,
 responsive design, accessibility, interaction design, and a final UI quality checklist.
 
-Call this before generating any UI — see the recommended workflow above.
+Use this for full-guide reviews and edge cases. For routine generation, use
+`neuctra-ui-builder` to retrieve the rules relevant to the request.
 
 **Response shape (trimmed):**
 ```jsonc
@@ -420,7 +439,7 @@ neuctra-ui-mcp/
 ├── bin/
 │   └── cli.mjs              # entry point: connects the server to a stdio transport
 ├── src/
-│   ├── server.mjs           # defines the 8 tools and their handlers
+│   ├── server.mjs           # defines the 9 tools and their handlers
 │   └── seo.mjs              # pure builders behind generate_page_seo / audit_page_seo
 ├── scripts/
 │   └── sync-registry.mjs    # copies registry/components.json from neuctra-ui-package
