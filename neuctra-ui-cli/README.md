@@ -15,6 +15,8 @@ Official command-line interface for **Neuctra UI** - a modern, accessible React 
 - 📦 **Zero Configuration** - Works with Vite, Create React App, and other build tools
 - 🔧 **Auto-Wrapping** - Automatically wraps your entry point with ThemeProvider
 - 📱 **TypeScript Ready** - Full support for .tsx projects
+- 🧭 **Framework-aware setup** - Detects and configures Vite, Next.js App Router, Remix, or React Router
+- 🎨 **Choose your primary color** - Select a preset or enter a custom hex color
 - ♿ **Accessible** - WCAG compliant components and theme switching
 - 🚀 **Production Ready** - Used in production by Neuctra
 
@@ -50,16 +52,26 @@ In your React project directory:
 neuctra-ui init
 ```
 
-This automatically:
+The CLI detects your framework and asks you to confirm it. It also asks you to choose a primary color from the preset palette or enter a custom hex value. For example, you can choose Next.js and `#2563eb`.
+
+Then it:
 
 1. **Installs @neuctra/ui** package
 2. **Configures your CSS** with theme tokens:
    - CSS custom properties (--primary, --background, etc.)
    - Light and dark theme support
    - Tailwind v4 @theme integration
-3. **Creates ThemeContext** at `src/contexts/ThemeContext.jsx` (or `.tsx` for TypeScript projects)
-4. **Wraps entry point** with `<ThemeProvider>`
+3. **Creates ThemeContext** in the framework's app source (`src/contexts` for Vite; `app/contexts` for Next.js, Remix, and React Router)
+4. **Connects the providers** at the framework root (Vite entry, Next.js layout providers, or Remix/React Router root route)
 5. **Enables dark mode** with system preference detection
+
+For automation, pass the framework and color directly:
+
+```bash
+npx @neuctra/ui-cli init --framework=next --primary-color=#2563eb --yes
+```
+
+Supported framework values are `vite`, `next`, `remix`, and `react-router`. The custom color must be a 3- or 6-digit hex value.
 
 ### Result
 
@@ -218,6 +230,10 @@ createRoot(document.getElementById('root')).render(
 | Node 18+ | ✅ Optimized | Latest stable |
 | npm 7+ | ✅ Supported | |
 | pnpm | ✅ Compatible | |
+| Vite React | ✅ Supported | Wraps the client entry point |
+| Next.js App Router | ✅ Supported | Adds a client Providers component and connects it to the root layout |
+| Remix | ✅ Supported | Connects providers at the root route |
+| React Router | ✅ Supported | Connects providers at the root route |
 | yarn | ✅ Compatible | |
 | Windows | ✅ Full | All features work |
 | macOS | ✅ Full | All features work |

@@ -3,6 +3,7 @@ import path from "path";
 
 export const findCSS = async (cwd) => {
   const files = [
+    "src/app/globals.css",
     "app/globals.css",
     "src/index.css",
     "src/app.css",

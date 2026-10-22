@@ -15,7 +15,7 @@ const resolveNeuctraSourcePath = (cssFile, cwd) => {
   return relPath.startsWith(".") ? relPath : `./${relPath}`;
 };
 
-const buildCssFileTemplate = (sourcePath) => `
+const buildCssFileTemplate = (sourcePath, primaryColor) => `
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "tailwindcss";
@@ -72,49 +72,53 @@ ${THEME_MARKER_START}
    switches the whole UI between the two.
 ========================= */
 :root {
-  --primary: #00c214;
+  --primary: ${primaryColor};
   --primary-foreground: #ffffff;
 
-  --background: #ffffff;
-  --foreground: #09090b;
-  --secondary: #3f3f46;
+  /* Main page */
+  --background: #fafbfa;
+  --foreground: #18181b;
+  --secondary: #52525b;
 
-  --muted: #f4f4f5;
+  /* Subtle backgrounds */
+  --muted: #f1f3f1;
   --muted-foreground: #71717a;
 
-  --accent: #e4e4e7;
-  --accent-foreground: #09090b;
+  --accent: #e9f8eb;
+  --accent-foreground: #166526;
 
-  --border: #e4e4e7;
-  --input: #f4f4f5;
-  --ring: #a1a1aa;
+  /* Borders and inputs */
+  --border: #e4e7e4;
+  --input: #f5f6f5;
+  --ring: ${primaryColor};
 
-  --destructive: #d40000;
-  --destructive-foreground: #fafafa;
+  /* Feedback */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
 
-  /* Surfaces used by Card, List (card / menu variants) and popovers. */
+  /* Cards and elevated surfaces */
   --card: #ffffff;
-  --card-foreground: #09090b;
+  --card-foreground: #18181b;
 
   --popover: #ffffff;
-  --popover-foreground: #09090b;
+  --popover-foreground: #18181b;
 
-  /* Status palette (Callout, toasts, form states, Avatar presence). */
-  --success: #16a34a;
-  --success-foreground: #fafafa;
+  /* Status colors */
+  --success: #15803d;
+  --success-foreground: #ffffff;
 
-  --warning: #d97706;
-  --warning-foreground: #fafafa;
+  --warning: #b45309;
+  --warning-foreground: #ffffff;
 
   --info: #2563eb;
-  --info-foreground: #fafafa;
+  --info-foreground: #ffffff;
 }
 
 /* =========================
    DARK THEME
 ========================= */
 .dark {
-  --primary: #00c214;
+  --primary: ${primaryColor};
   --primary-foreground: #ffffff;
 
   --background: #09090b;
@@ -194,13 +198,16 @@ ${THEME_MARKER_END}
 }
 `;
 
-export const updateCssFile = async (cssFile, cwd = process.cwd()) => {
+export const updateCssFile = async (cssFile, cwd = process.cwd(), primaryColor = "#00c214") => {
+  if (!/^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(primaryColor)) {
+    throw new Error("Primary color must be a 3- or 6-digit hex color, such as #2563eb.");
+  }
   let updated = false;
 
   const sourcePath = resolveNeuctraSourcePath(cssFile, cwd);
 
   // ALWAYS REBUILD FULL FILE (shadcn style)
-  await fs.writeFile(cssFile, buildCssFileTemplate(sourcePath).trim());
+  await fs.writeFile(cssFile, buildCssFileTemplate(sourcePath, primaryColor).trim());
 
   updated = true;
 

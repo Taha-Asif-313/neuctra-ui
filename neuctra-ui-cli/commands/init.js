@@ -4,12 +4,12 @@ import kleur from "kleur";
 import ora from "ora";
 
 import { findCSS } from "../lib/find-css-file.js";
-import { findSrcPath } from "../lib/find-src-path.js";
 import { installPackage } from "../lib/install-package.js";
 import { ensureReact, ensureTailwind } from "../lib/ensure-deps.js";
-import { generateThemeContextFile } from "../lib/theme-context-generator.js";
 import { updateCssFile } from "../lib/update-css.js";
-import { updateMainEntryFile } from "../lib/update-main.js";
+import { detectFramework } from "../lib/detect-framework.js";
+import { promptSetup } from "../lib/setup-prompts.js";
+import { setupFramework } from "../lib/framework-setup.js";
 
 // =============================
 // LOGGER HELPERS
@@ -32,6 +32,10 @@ export const init = async () => {
   log.title("Neuctra UI Setup");
 
   try {
+    const detectedFramework = await detectFramework(cwd);
+    const { framework, primaryColor } = await promptSetup({ detectedFramework });
+    log.info(`Framework: ${framework} · Primary color: ${primaryColor}`);
+
     // =============================
     // INSTALL PACKAGE (already spinner inside)
     // =============================
@@ -74,7 +78,7 @@ export const init = async () => {
     // =============================
     const updateSpinner = ora("Configuring CSS...").start();
 
-    const { updated } = await updateCssFile(cssFile, cwd);
+    const { updated } = await updateCssFile(cssFile, cwd, primaryColor);
     const relativePath = path.relative(cwd, cssFile);
 
     if (updated) {
@@ -90,8 +94,8 @@ export const init = async () => {
     // =============================
     const themeSpinner = ora("Setting up theme system...").start();
 
-    const srcPath = await findSrcPath(cwd);
-    const themeContext = await generateThemeContextFile(srcPath, cwd);
+    const frameworkSetup = await setupFramework({ cwd, framework });
+    const themeContext = frameworkSetup.context;
 
     if (themeContext.created) {
       const relativePath = path.relative(cwd, themeContext.path);
@@ -105,7 +109,7 @@ export const init = async () => {
     // =============================
     const entrySpinner = ora("Updating entry file...").start();
 
-    const mainUpdate = await updateMainEntryFile(srcPath);
+    const mainUpdate = frameworkSetup.provider;
 
     if (mainUpdate.updated) {
       const relativePath = path.relative(cwd, mainUpdate.filePath);
@@ -116,7 +120,7 @@ export const init = async () => {
       log.info(`Reason: ${mainUpdate.reason}`);
     } else {
       entrySpinner.warn("No entry file found");
-      log.info("Wrap ThemeProvider manually in main.jsx or App.jsx");
+      log.info(`Wrap ThemeProvider manually in the ${framework} application root.`);
     }
 
     // =============================
