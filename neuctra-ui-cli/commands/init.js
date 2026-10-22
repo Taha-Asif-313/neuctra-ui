@@ -8,6 +8,7 @@ import { installPackage } from "../lib/install-package.js";
 import { ensureReact, ensureTailwind } from "../lib/ensure-deps.js";
 import { updateCssFile } from "../lib/update-css.js";
 import { detectFramework } from "../lib/detect-framework.js";
+import { detectLanguage } from "../lib/detect-language.js";
 import { promptSetup } from "../lib/setup-prompts.js";
 import { setupFramework } from "../lib/framework-setup.js";
 
@@ -33,8 +34,9 @@ export const init = async () => {
 
   try {
     const detectedFramework = await detectFramework(cwd);
-    const { framework, primaryColor } = await promptSetup({ detectedFramework });
-    log.info(`Framework: ${framework} · Primary color: ${primaryColor}`);
+    const detectedLanguage = await detectLanguage(cwd);
+    const { framework, language, primaryColor } = await promptSetup({ detectedFramework, detectedLanguage });
+    log.info(`Framework: ${framework} · Language: ${language === "ts" ? "TypeScript" : "JavaScript"} · Primary color: ${primaryColor}`);
 
     // =============================
     // INSTALL PACKAGE (already spinner inside)
@@ -94,7 +96,7 @@ export const init = async () => {
     // =============================
     const themeSpinner = ora("Setting up theme system...").start();
 
-    const frameworkSetup = await setupFramework({ cwd, framework });
+    const frameworkSetup = await setupFramework({ cwd, framework, language });
     const themeContext = frameworkSetup.context;
 
     if (themeContext.created) {

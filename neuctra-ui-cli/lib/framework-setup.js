@@ -25,24 +25,25 @@ const wrapRootFile = async (rootFile, contextImport, wrapper, element) => {
   return { updated: true, filePath: rootFile };
 };
 
-export const setupFramework = async ({ cwd, framework }) => {
+export const setupFramework = async ({ cwd, framework, language = "js" }) => {
   if (framework === "vite") {
     const srcPath = (await existsFirst(cwd, ["src"])) || path.join(cwd, "src");
-    const context = await generateThemeContextFile(srcPath, cwd);
+    const context = await generateThemeContextFile(srcPath, cwd, language);
     return { context, provider: await updateMainEntryFile(srcPath) };
   }
 
   const appDir = await findAppDir(cwd);
-  const context = await generateThemeContextFile(appDir, cwd);
+  const context = await generateThemeContextFile(appDir, cwd, language);
   const contextRel = (fromFile) => `./${path.relative(path.dirname(fromFile), context.path).replace(/\\/g, "/").replace(/\.(tsx|jsx)$/, "")}`;
 
   if (framework === "next") {
     const layout = await existsFirst(cwd, ["src/app/layout.tsx", "src/app/layout.jsx", "src/app/layout.js", "src/app/layout.ts", "app/layout.tsx", "app/layout.jsx", "app/layout.js", "app/layout.ts"]);
     if (!layout) return { context, provider: { updated: false, reason: "Next.js App Router layout not found" } };
-    const ext = path.extname(layout) === ".tsx" || path.extname(layout) === ".ts" ? "tsx" : "jsx";
+    const ext = language === "ts" ? "tsx" : "jsx";
     const providersPath = path.join(appDir, `providers.${ext}`);
     const contextImport = contextRel(providersPath);
-    const providersContent = `"use client";\n\nimport { ThemeProvider } from "${contextImport}";\nimport { ToastProvider } from "@neuctra/ui";\n\nexport function Providers({ children }) {\n  return (\n    <ToastProvider>\n      <ThemeProvider>{children}</ThemeProvider>\n    </ToastProvider>\n  );\n}\n`;
+    const childrenType = language === "ts" ? ": { children: ReactNode }" : "";
+    const providersContent = `"use client";\n\n${language === "ts" ? 'import type { ReactNode } from "react";\n' : ""}import { ThemeProvider } from "${contextImport}";\nimport { ToastProvider } from "@neuctra/ui";\n\nexport function Providers({ children }${childrenType}) {\n  return (\n    <ToastProvider>\n      <ThemeProvider>{children}</ThemeProvider>\n    </ToastProvider>\n  );\n}\n`;
     if (!(await fs.pathExists(providersPath))) await fs.writeFile(providersPath, providersContent);
     const providerImport = `import { Providers } from "./providers";`;
     let content = await fs.readFile(layout, "utf8");

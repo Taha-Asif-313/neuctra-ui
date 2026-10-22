@@ -16,8 +16,8 @@ const detectTypeScript = async (cwd, srcPath) => {
   return false;
 };
 
-export const generateThemeContextFile = async (srcPath, cwd = process.cwd()) => {
-  const isTypeScript = await detectTypeScript(cwd, srcPath);
+export const generateThemeContextFile = async (srcPath, cwd = process.cwd(), language) => {
+  const isTypeScript = language ? language === "ts" : await detectTypeScript(cwd, srcPath);
   const ext = isTypeScript ? "tsx" : "jsx";
   const otherExt = isTypeScript ? "jsx" : "tsx";
 
