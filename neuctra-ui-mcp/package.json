@@ -1,6 +1,6 @@
 {
   "name": "@neuctra/ui-mcp",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "MCP server exposing the @neuctra/ui component registry (props, defaults, examples, theme tokens) so AI coding tools generate accurate Neuctra UI code, plus SEO/AEO/GEO tools (per-page meta, woven JSON-LD, audits).",
   "type": "module",
   "license": "MIT",
@@ -30,8 +30,8 @@
     ".": "./src/server.mjs",
     "./data/components.json": "./data/components.json",
     "./data/theme.json": "./data/theme.json",
-    "./data/aiDesignRules.json": "./data/aiDesignRules.json",
-    "./data/seoGuide.json": "./data/seoGuide.json",
+    "./data/design-rules.json": "./data/design-rules.json",
+    "./data/seo-guide.json": "./data/seo-guide.json",
     "./package.json": "./package.json"
   },
   "files": [

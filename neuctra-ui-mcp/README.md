@@ -103,7 +103,7 @@ Supported page recipes include tool pages, blog pages, dashboards, landing pages
 }
 ```
 
-Use `pageType: "auto"` to infer the layout from the request. The assistant can also choose a specific page type, such as `tool-page`, `blog-page`, or `dashboard`. Use `framework: "auto"` to have the assistant identify the project framework, or provide a framework such as `nextjs-app`, `react-vite`, `react-router`, or `remix`.
+Use `pageType: "auto"` to infer the closest specific layout from the request, or choose any layout ID from the grouped catalog in `data/layouts.json`. The catalog covers marketing, SaaS applications, e-commerce, publishing, support, portfolios, communities, events, forms, and system pages. Use `framework: "auto"` to have the assistant identify the project framework, or provide a framework such as `nextjs-app`, `react-vite`, `react-router`, or `remix`.
 
 ### `get-neuctra-ui-component`
 

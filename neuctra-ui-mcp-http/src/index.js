@@ -3,8 +3,8 @@ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/
 import { createServer } from "@neuctra/ui-mcp";
 import registry from "@neuctra/ui-mcp/data/components.json";
 import theme from "@neuctra/ui-mcp/data/theme.json";
-import aiDesignRules from "@neuctra/ui-mcp/data/aiDesignRules.json";
-import seoGuide from "@neuctra/ui-mcp/data/seoGuide.json";
+import aiDesignRules from "@neuctra/ui-mcp/data/design-rules.json";
+import seoGuide from "@neuctra/ui-mcp/data/seo-guide.json";
 
 const app = new Hono();
 

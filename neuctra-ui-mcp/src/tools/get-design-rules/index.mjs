@@ -1,21 +1,45 @@
 import { z } from "zod";
 
-export function getDesignRulesContext(theme, aiDesignRules, sectionNumbers) {
-  const { rules, antiAiLookRules } = theme;
-  if (!sectionNumbers) {
-    return { stylingRules: rules, antiAiLookRules, productDesignGuide: aiDesignRules };
-  }
+const BLOCK_NAMES = [
+  "core",
+  "layout",
+  "components",
+  "accessibilityInteraction",
+  "modernDesign",
+  "antiAiDesignRules",
+];
 
-  const selected = new Set(sectionNumbers);
+function makeProductDesignRules(aiDesignRules, blockNames, sectionNumbers) {
+  const selected = sectionNumbers ? new Set(sectionNumbers) : null;
+  return Object.fromEntries(
+    blockNames
+      .filter((name) => name !== "antiAiDesignRules")
+      .map((name) => [
+        name,
+        (aiDesignRules.blocks?.[name] ?? []).filter((section) => !selected || selected.has(section.number)),
+      ])
+      .filter(([, sections]) => sections.length),
+  );
+}
+
+export function getDesignRulesContext(theme, aiDesignRules, sectionNumbers, requestedBlocks) {
+  const { rules, antiAiLookRules } = theme;
+  const availableBlocks = aiDesignRules.blocks ?? {};
+  const requested = requestedBlocks?.length
+    ? requestedBlocks
+    : sectionNumbers
+      ? BLOCK_NAMES.filter((name) => name === "antiAiDesignRules" || (availableBlocks[name] ?? []).some((section) => sectionNumbers.includes(section.number)))
+      : ["core", "antiAiDesignRules"];
+  const blockNames = [...new Set(requested)];
+
   return {
     stylingRules: rules,
-    antiAiLookRules,
-    productDesignGuide: {
-      title: aiDesignRules.title,
-      intro: aiDesignRules.intro,
-      sections: aiDesignRules.sections.filter((section) => selected.has(section.number)),
-      goldenRule: aiDesignRules.goldenRule,
+    antiAiDesignRules: {
+      ...(availableBlocks.antiAiDesignRules?.length && { productDesign: availableBlocks.antiAiDesignRules }),
+      theme: antiAiLookRules,
     },
+    productDesignRules: makeProductDesignRules(aiDesignRules, blockNames, sectionNumbers),
+    ...(aiDesignRules.goldenRule && { goldenRule: aiDesignRules.goldenRule }),
   };
 }
 
@@ -25,18 +49,16 @@ export function registerGetDesignRulesTool(server, { theme, aiDesignRules }) {
     {
       title: "Get Neuctra UI design rules",
       description:
-        "Get every design rule generated UI must follow when using @neuctra/ui. Covers two levels: (1) styling rules — token usage, surface/background conventions, component composition requirements like CardBody being compulsory whenever Card has body content, component-specific gotchas like Dropdown's trigger propagation, and the full set of rules for avoiding the visual tells that make UI look AI-generated (gradients, decorative shadows/blurs/glows, emoji-as-icons, etc.); (2) product/UX design rules — a numbered 63-section guide covering design philosophy, visual hierarchy, page/sidebar/navigation structure, per-component usage guidance (when to use Card, Modal vs Drawer, Table vs List, etc.), spacing/color/border/radius/shadow conventions, responsive design, accessibility, interaction design, a final UI quality checklist, the rule against overwriting a component's built-in design, paragraph text color (text-secondary for paragraphs, text-muted-foreground only for metadata/hints), and modern layout guidance: a fixed responsive type scale, readable measure, spacing rhythm, grid and hero patterns, focal point and section variety, a breakpoint checklist, imagery, iconography, motion timing and microcopy. Call this before generating any UI — not just neuctra-ui-theme-setup.",
-      inputSchema: {},
+        "Return structured Neuctra UI design guidance in focused blocks: core, layout, components, accessibilityInteraction, modernDesign, and antiAiDesignRules. By default returns core guidance and anti-AI rules; request additional blocks when needed. The page builder supplies only the sections relevant to its selected layout.",
+      inputSchema: {
+        blocks: z.array(z.enum(BLOCK_NAMES)).optional().describe("Named design rule blocks to return. Defaults to core and antiAiDesignRules."),
+      },
     },
-    async () => {
-      return {
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(getDesignRulesContext(theme, aiDesignRules), null, 2),
-          },
-        ],
-      };
-    },
-  )
+    async ({ blocks }) => ({
+      content: [{
+        type: "text",
+        text: JSON.stringify(getDesignRulesContext(theme, aiDesignRules, undefined, blocks), null, 2),
+      }],
+    }),
+  );
 }

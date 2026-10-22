@@ -4,35 +4,45 @@ import { findNeuctraUiComponents } from "../get-neuctra-ui-component/index.mjs";
 import { getDesignRulesContext } from "../get-design-rules/index.mjs";
 import { buildSeoGuideContext } from "../neuctra-ui-seo-setup/index.mjs";
 
+function getLayouts(layoutData) {
+  const grouped = (layoutData?.layoutGroups ?? []).flatMap((group) =>
+    (group.layouts ?? []).map((layout) => ({ ...layout, category: layout.category ?? group.id, categoryName: group.name })),
+  );
+  const legacy = layoutData?.layouts ?? [];
+  return [...grouped, ...legacy];
+}
+
 function resolveLayout(request, requestedType, layoutData) {
-  const layouts = layoutData?.layouts ?? [];
+  const layouts = getLayouts(layoutData);
   if (requestedType !== "auto") {
     const explicit = layouts.find((layout) => layout.id === requestedType);
     if (explicit) return { layout: explicit, confidence: 1, evidence: [`Explicit page type: ${requestedType}`] };
   }
 
-  const normalized = request.toLowerCase();
+  const normalized = request.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
   const scored = layouts
     .filter((layout) => layout.id !== "custom")
     .map((layout) => {
       let score = 0;
       const evidence = [];
       for (const alias of layout.aliases ?? []) {
-        if (normalized.includes(alias.toLowerCase())) {
-          score += alias.includes(" ") ? 5 : 3;
-          evidence.push(alias);
+        const phrase = alias.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+        if (phrase && (` ${normalized} `).includes(` ${phrase} `)) {
+          const weight = 5 + Math.min(phrase.split(" ").length, 4) * 2;
+          score += weight;
+          evidence.push(`layout phrase: ${alias}`);
         }
       }
       for (const keyword of layout.keywords ?? []) {
-        const pattern = new RegExp(`\\b${keyword}\\b`, "i");
-        if (pattern.test(normalized)) {
-          score += 1;
-          evidence.push(keyword);
+        const term = keyword.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+        if (term && (` ${normalized} `).includes(` ${term} `)) {
+          score += 2;
+          evidence.push(`topic: ${keyword}`);
         }
       }
-      return { layout, score, evidence };
+      return { layout, score, evidence, specificity: Math.max(...(layout.aliases ?? []).map((alias) => alias.split(/\s+/).length), 0) };
     })
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => b.score - a.score || b.specificity - a.specificity);
 
   const best = scored[0];
   const custom = layouts.find((layout) => layout.id === "custom") ?? layouts[0];
@@ -71,7 +81,7 @@ function getComponentGuidance(registry, request, layout) {
 }
 
 export function registerNeuctraUiPageBuilderTool(server, data) {
-  const layouts = data.layouts?.layouts ?? [];
+  const layouts = getLayouts(data.layouts);
   const pageTypeOptions = ["auto", ...layouts.map((layout) => layout.id)];
 
   server.registerTool(
@@ -79,10 +89,10 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
     {
       title: "Analyze and plan a Neuctra UI page",
       description:
-        "Analyze a page request, infer its page type (for example tool, blog, dashboard, form, ecommerce, or docs), select a matching editable recipe from data/layouts.json, then compose matching @neuctra/ui component specs, design rules, and framework-aware SEO rules. Use this as the page-planning entry point. It plans the page; the assistant implements it using the returned layout and exact component APIs. Layout recipes can be added or edited in data/layouts.json.",
+        "Analyze a page request and choose from every layout in the grouped real-world catalog in data/layouts.json, including marketing, SaaS dashboards, commerce, publishing, support, portfolios, communities, events, and system pages. Use pageType=auto to select the closest specific layout from the request, or choose an explicit pageType. Returns the selected recipe, matching @neuctra/ui component specs, relevant design rules, and SEO guidance.",
       inputSchema: {
         request: z.string().min(8).describe("Describe the page to create and the main user task."),
-        pageType: z.enum(pageTypeOptions).default("auto").describe("Page type or auto to infer the closest layout from the request."),
+        pageType: z.enum(pageTypeOptions).default("auto").describe(`Layout ID from the full catalog (${layouts.map((layout) => layout.id).join(", ")}) or auto to infer the best match from the request.`),
         framework: z.enum(["auto", ...FRAMEWORKS, "remix"]).default("auto").describe("Framework and router for framework-specific SEO implementation guidance."),
         preferences: z.object({
           visualDirection: z.string().optional(),
@@ -116,6 +126,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
           request,
           inferredPageType: layout.id,
           layoutName: layout.name,
+          layoutCategory: layout.categoryName ?? layout.category ?? "general",
           confidence,
           evidence,
           detectedTaskSignals: signals,

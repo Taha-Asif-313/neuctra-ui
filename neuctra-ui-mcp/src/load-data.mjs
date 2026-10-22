@@ -13,8 +13,8 @@ export function loadDataFromDisk() {
   return {
     registry: readJson("components.json"),
     theme: readJson("theme.json"),
-    aiDesignRules: readJson("aiDesignRules.json"),
-    seoGuide: readJson("seoGuide.json"),
+    aiDesignRules: readJson("design-rules.json"),
+    seoGuide: readJson("seo-guide.json"),
     layouts: readJson("layouts.json"),
   };
 }
