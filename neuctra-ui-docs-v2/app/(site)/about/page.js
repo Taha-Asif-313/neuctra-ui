@@ -1,206 +1,132 @@
-import {
-  Code,
-  Rocket,
-  Palette,
-  Cpu,
-  Zap,
-  ShieldCheck,
-  ArrowRight,
-  CheckCircle2,
-} from "lucide-react";
 import Link from "next/link";
-import { Button, Container } from "@neuctra/ui";
+import { ArrowRight, Bot, Boxes, Terminal } from "lucide-react";
 
-const features = [
+const toolkit = [
   {
-    icon: <Code className="h-5 w-5 text-primary" />,
-    title: "Developer-first APIs",
+    icon: Boxes,
+    number: "01",
+    title: "A component library",
     description:
-      "Clear component APIs with TypeScript support for fast implementation and safer refactors.",
+      "@neuctra/ui provides reusable React components with a shared semantic theme system. Use the component docs to check each API and example.",
+    href: "/docs",
+    link: "Browse components",
   },
   {
-    icon: <Palette className="h-5 w-5 text-primary" />,
-    title: "Consistent Design Language",
+    icon: Terminal,
+    number: "02",
+    title: "A project setup CLI",
     description:
-      "Reusable primitives and patterns that keep your product visually cohesive across pages.",
+      "The CLI helps configure supported React projects with the library, theme stylesheet, theme context, and provider wiring.",
+    href: "/docs/cli",
+    link: "Explore the CLI",
   },
   {
-    icon: <Cpu className="h-5 w-5 text-primary" />,
-    title: "Performance-minded",
+    icon: Bot,
+    number: "03",
+    title: "AI assistant connections",
     description:
-      "Lightweight, tree-shakeable exports that help teams avoid unnecessary UI overhead.",
-  },
-  {
-    icon: <Zap className="h-5 w-5 text-primary" />,
-    title: "Accessible by Default",
-    description:
-      "Keyboard-friendly and semantic building blocks so your interfaces work for more users.",
-  },
-  {
-    icon: <ShieldCheck className="h-5 w-5 text-primary" />,
-    title: "Reliable Foundation",
-    description:
-      "Production-ready components designed for dashboards, docs, SaaS products, and admin apps.",
-  },
-  {
-    icon: <Rocket className="h-5 w-5 text-primary" />,
-    title: "Ship Faster",
-    description:
-      "Spend less time rebuilding common patterns and more time delivering product features.",
+      "Local and hosted MCP servers give compatible AI coding tools structured component, design, theme, and SEO guidance.",
+    href: "/docs/ai-assistant",
+    link: "Meet the assistant",
   },
 ];
 
-const principles = [
-  "Simple APIs over unnecessary complexity",
-  "Strong defaults with full customization",
-  "Composable components for real product workflows",
-  "Practical documentation with copy-ready examples",
-];
-
-const techStack = [
-  "React",
-  "TypeScript",
-  "Tailwind CSS",
-  "Radix UI",
-  "Framer Motion",
-  "Lucide Icons",
-  "ESBuild",
-  "Jest",
-];
-
-const AboutPage = () => {
+export default function AboutPage() {
   return (
-    <div className="font-primary text-gray-200 min-h-screen pt-14 pb-16">
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0 space-y-16">
-        <section className="relative overflow-hidden rounded-2xl  border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950 p-8 md:p-10">
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(0,194,20,0.14),transparent_45%)]" />
-          <div className="relative space-y-6">
-            <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              About the project
-            </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-              Building modern interfaces with{" "}
-              <span className="text-primary">Neuctra UI</span>
-            </h1>
-            <p className="text-base md:text-lg text-zinc-200 leading-relaxed">
-              Neuctra UI is a modern React component library focused on
-              usability, performance, and consistency. It helps teams build
-              polished product interfaces quickly without sacrificing control.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-1">
-              <Link href="/docs">
-                <Button iconAfter={<ArrowRight size={16} />}>
-                  Explore Docs
-                </Button>
-              </Link>
-              <a
-                href="https://www.neuctra.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="outline">Visit Neuctra</Button>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section className="grid lg:grid-cols-2 gap-8">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 md:p-7">
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Our Mission
-            </h2>
-            <div className="space-y-4 text-zinc-300 leading-relaxed">
-              <p>
-                We created Neuctra UI to solve a common problem: teams need UI
-                components that are fast to use, easy to customize, and
-                cleanly typed.
-              </p>
-              <p>
-                The goal is to provide practical building blocks that work in
-                real products, from startup MVPs to enterprise dashboards.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 md:p-7">
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Core Principles
-            </h2>
-            <ul className="space-y-3">
-              {principles.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-primary mt-0.5" />
-                  <span className="text-zinc-300">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="space-y-6">
-          <h2 className="text-3xl font-semibold text-white">
-            Why teams choose Neuctra UI
-          </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 hover:border-zinc-700 transition-colors"
-              >
-                <div className="flex items-center gap-2.5 mb-3">
-                  {feature.icon}
-                  <h3 className="text-lg font-semibold text-white">
-                    {feature.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-zinc-300 leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="space-y-6">
-          <h2 className="text-3xl font-semibold text-white">Tech Stack</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {techStack.map((tech) => (
-              <div
-                key={tech}
-                className="rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-center"
-              >
-                <span className="font-mono text-sm text-zinc-200">
-                  {tech}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="rounded-2xl border border-primary/30 bg-gradient-to-r from-zinc-900 to-zinc-900/70 p-8 text-center space-y-5">
-          <h2 className="text-2xl font-semibold text-white">
-            Join the Neuctra UI community
-          </h2>
-          <p className="text-zinc-300 max-w-2xl mx-auto">
-            Neuctra UI is open-source and community-driven. Contributions,
-            feedback, and issue reports help shape the next releases.
+    <div className="min-h-screen bg-background pb-20 pt-28 text-foreground">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <header className="max-w-4xl border-b border-border pb-10 sm:pb-14">
+          <p className="mb-4 text-sm font-medium uppercase tracking-wider text-primary">
+            About Neuctra UI
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a
-              href="https://www.neuctra.com"
-              target="_blank"
-              rel="noopener noreferrer"
+          <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+            Practical tools for building and improving product interfaces.
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-secondary sm:text-lg">
+            Neuctra UI brings together a React component library, a project
+            setup CLI, and MCP integrations for AI coding assistants. Each part
+            helps developers move through a different stage of interface work.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/docs"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 py-3 font-medium text-primary-foreground"
             >
-              <Button variant="outline">Visit Neuctra</Button>
-            </a>
-            <Link href="/contact">
-              <Button>Contact the Team</Button>
+              Explore the documentation <ArrowRight size={17} />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-11 items-center justify-center rounded-md border border-border px-5 py-3 font-medium text-foreground hover:bg-accent"
+            >
+              Contact the team
             </Link>
           </div>
+        </header>
+
+        <section className="grid gap-8 border-b border-border py-10 sm:py-14 lg:grid-cols-[minmax(180px,0.7fr)_2fr]">
+          <h2 className="text-xl font-semibold sm:text-2xl">Why we built it</h2>
+          <div className="max-w-3xl space-y-4 text-secondary leading-7">
+            <p>
+              Common interface work often means repeating setup, rebuilding
+              familiar patterns, and checking component details across multiple
+              references. Neuctra UI puts those resources in one ecosystem.
+            </p>
+            <p>
+              Use the React library directly, prepare a supported project with
+              the CLI, or connect an MCP-compatible coding assistant to search
+              the component registry and follow the documented design system.
+            </p>
+          </div>
         </section>
-      </Container>
+
+        <section className="py-10 sm:py-14">
+          <div className="mb-8 grid gap-3 sm:mb-10 sm:grid-cols-[minmax(180px,0.7fr)_2fr] sm:items-end">
+            <h2 className="text-xl font-semibold sm:text-2xl">The toolkit</h2>
+            <p className="max-w-2xl text-secondary leading-7">
+              Choose the part that matches the work in front of you. The tools
+              can be used independently or together.
+            </p>
+          </div>
+          <div className="divide-y divide-border border-y border-border">
+            {toolkit.map(({ icon: Icon, number, title, description, href, link }) => (
+              <article key={title} className="grid gap-4 py-6 sm:grid-cols-[64px_minmax(0,1fr)_auto] sm:items-start sm:gap-6 sm:py-8">
+                <div className="flex items-center gap-3 text-primary sm:flex-col sm:items-start">
+                  <Icon size={20} aria-hidden="true" />
+                  <span className="text-xs font-medium tracking-wider text-muted-foreground">{number}</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground">{title}</h3>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-secondary sm:text-base">{description}</p>
+                </div>
+                <Link href={href} className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary sm:justify-self-end">
+                  {link} <ArrowRight size={15} />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-4 border-t border-border pt-8 sm:grid-cols-2 sm:gap-8">
+          <div>
+            <h2 className="text-lg font-semibold">Open source</h2>
+            <p className="mt-2 max-w-lg text-sm leading-6 text-secondary">
+              The Neuctra UI packages are published for developers to use in
+              their projects. See the repository for source code, issues, and
+              contribution details.
+            </p>
+          </div>
+          <div className="sm:text-right">
+            <a
+              href="https://github.com/Taha-Asif-313/neuctra-ui"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary"
+            >
+              View the GitHub repository <ArrowRight size={15} />
+            </a>
+          </div>
+        </section>
+      </div>
     </div>
   );
-};
-
-export default AboutPage;
+}

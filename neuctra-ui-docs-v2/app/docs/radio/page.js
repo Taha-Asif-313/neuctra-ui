@@ -10,7 +10,7 @@ import { RadioGroup } from "@neuctra/ui";
 import { Check, X, Lightbulb, Settings, Zap } from "lucide-react";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -627,7 +627,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">name</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Form field name for native radio grouping.
                   </td>
@@ -646,14 +646,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">selectedValue</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Currently selected option value.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">onChange</td>
                   <td className="p-3">(value: string) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered when selection changes.</td>
                 </tr>
 
@@ -684,7 +684,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">error</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Error message below component.</td>
                 </tr>
 
@@ -714,56 +714,56 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root container styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Each radio item wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label text styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">descriptionClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Description text styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconWrapperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon container styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">indicatorClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Outer radio circle styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">dotClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inner selected dot styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">errorClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Error message styling.</td>
                 </tr>
 
@@ -771,56 +771,56 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Item inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">descriptionStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Description inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconWrapperStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon wrapper inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">indicatorStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Radio indicator inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">dotStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Dot inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">errorStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Error message inline styles.</td>
                 </tr>
               </tbody>
@@ -912,7 +912,7 @@ function BasicExample() {
               </li>
 
               <li>
-                Use keyboard navigation — it's already built in (Arrow keys,
+                Use keyboard navigation - it's already built in (Arrow keys,
                 Enter, Space).
               </li>
 
@@ -922,7 +922,7 @@ function BasicExample() {
               </li>
 
               <li>
-                Skip disabled options automatically — no extra logic needed.
+                Skip disabled options automatically - no extra logic needed.
               </li>
             </ul>
           </div>

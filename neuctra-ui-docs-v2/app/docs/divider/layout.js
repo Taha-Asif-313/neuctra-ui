@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Divider Component — React Separator | Neuctra UI";
+const TITLE = "Divider Component - React Separator | Neuctra UI";
 const DESCRIPTION =
-  "React divider component for separating content. Horizontal and vertical orientation, optional centered label, dashed style and spacing scales — built with Tailwind CSS.";
+  "React divider component for separating content. Horizontal and vertical orientation, optional centered label, dashed style and spacing scales - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

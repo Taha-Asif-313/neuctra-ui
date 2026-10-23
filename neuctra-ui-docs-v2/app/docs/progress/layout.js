@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Progress Component — React Progress Bar & Ring | Neuctra UI";
+const TITLE = "Progress Component - React Progress Bar & Ring | Neuctra UI";
 const DESCRIPTION =
   "React progress component with linear and circular variants, determinate and indeterminate modes, value labels and full ARIA progressbar semantics.";
 

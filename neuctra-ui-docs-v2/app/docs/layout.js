@@ -1,6 +1,6 @@
 import Sidebar from "@/components/Sidebar";
 
-// Persistent shell for every /docs/* route — mirrors the old DocsLayout.jsx.
+// Persistent shell for every /docs/* route - mirrors the old DocsLayout.jsx.
 // Individual component/guide pages nest their own layout.js (metadata +
 // JsonLd) inside this one.
 export default function DocsLayout({ children }) {

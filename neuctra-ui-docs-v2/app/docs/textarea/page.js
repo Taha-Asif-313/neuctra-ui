@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -259,7 +259,7 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">label</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Optional label displayed above the textarea.
                   </td>
@@ -268,14 +268,14 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">icon</td>
                   <td className="p-3">React.ElementType</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon displayed next to the label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">helperText</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Helper or validation message shown below.
                   </td>
@@ -302,7 +302,7 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">maxLength</td>
                   <td className="p-3">number</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Maximum character limit. Shows counter when used.
                   </td>
@@ -349,7 +349,7 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">onSubmit</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Callback triggered when submitting via Enter.
                   </td>
@@ -359,7 +359,7 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Custom classes for textarea element.
                   </td>
@@ -368,35 +368,35 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">containerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for outer wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom label styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom styling for the label icon.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">helperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom helper text styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">countClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom character counter styling.</td>
                 </tr>
 
@@ -404,35 +404,35 @@ const TextareaDocs = () => {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for textarea.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">containerStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">helperStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for helper text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">countStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Inline styles for character counter.
                   </td>
@@ -444,7 +444,7 @@ const TextareaDocs = () => {
                   <td className="p-3">
                     React.TextareaHTMLAttributes&lt;HTMLTextAreaElement&gt;
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     All native textarea props (value, onChange, placeholder,
                     etc).

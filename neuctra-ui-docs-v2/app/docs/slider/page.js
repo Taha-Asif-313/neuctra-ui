@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -214,7 +214,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (value: number) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired with the numeric value</td>
                 </tr>
 
@@ -249,7 +249,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Label above the track, linked with htmlFor
                   </td>
@@ -275,7 +275,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (v: number) =&gt; ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Format the displayed value</td>
                 </tr>
 
@@ -286,7 +286,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     {"{ value, label? }[]"}
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Tick labels under the track</td>
                 </tr>
 
@@ -323,7 +323,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the outermost wrapper.</td>
                 </tr>
 
@@ -334,7 +334,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the row wrapping the label and the current-value
                     text.
@@ -348,7 +348,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the label text above the track.</td>
                 </tr>
 
@@ -359,7 +359,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the live value text shown when showValue is set.
                   </td>
@@ -372,7 +372,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the wrapper around the tick marks rendered under
                     the track.
@@ -386,7 +386,7 @@ const SliderDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each individual tick mark.</td>
                 </tr>
               </tbody>

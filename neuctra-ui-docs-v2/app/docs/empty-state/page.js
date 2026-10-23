@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -28,7 +28,7 @@ const EmptyStateDocs = () => {
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React empty state component with icon, title, description and
-            call-to-action slot for no-results and empty-list screens — built
+            call-to-action slot for no-results and empty-list screens - built
             with Tailwind CSS.
           </p>
         </header>
@@ -170,7 +170,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Headline (required)</td>
                 </tr>
 
@@ -181,7 +181,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Supporting copy under the title</td>
                 </tr>
 
@@ -205,7 +205,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Call-to-action slot (usually a Button)
                   </td>
@@ -233,7 +233,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the icon wrapper circle.</td>
                 </tr>
 
@@ -244,7 +244,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the title heading.</td>
                 </tr>
 
@@ -255,7 +255,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the description text.</td>
                 </tr>
 
@@ -266,7 +266,7 @@ const EmptyStateDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the wrapper around the action slot.
                   </td>

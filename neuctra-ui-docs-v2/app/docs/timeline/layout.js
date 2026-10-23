@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Timeline Component — React Activity Feed | Neuctra UI";
+const TITLE = "Timeline Component - React Activity Feed | Neuctra UI";
 const DESCRIPTION =
-  "React timeline component for activity feeds, order tracking and changelogs. Done/active/pending statuses, custom icons and timestamps — built with Tailwind CSS.";
+  "React timeline component for activity feeds, order tracking and changelogs. Done/active/pending statuses, custom icons and timestamps - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

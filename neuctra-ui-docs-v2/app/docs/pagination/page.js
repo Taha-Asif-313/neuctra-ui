@@ -10,7 +10,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 import { Accessibility } from "lucide-react";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -42,7 +42,7 @@ const PaginationDocs = () => {
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             Accessible React pagination with smart ellipsis, sibling count
-            control, three sizes and full keyboard support — built with
+            control, three sizes and full keyboard support - built with
             Tailwind CSS.
           </p>
         </header>
@@ -158,17 +158,17 @@ const PaginationDocs = () => {
               </thead>
               <tbody className="divide-y divide-zinc-800 text-gray-300">
                 {[
-                  ["page", "number", "—", "Current page, 1-based (required)"],
-                  ["totalPages", "number", "—", "Total number of pages (required)"],
-                  ["onPageChange", "(page: number) => void", "—", "Fired with the next page"],
+                  ["page", "number", "-", "Current page, 1-based (required)"],
+                  ["totalPages", "number", "-", "Total number of pages (required)"],
+                  ["onPageChange", "(page: number) => void", "-", "Fired with the next page"],
                   ["siblingCount", "number", "1", "Pages shown on each side of the current page"],
                   ["size", '"sm" | "md" | "lg"', '"md"', "Button size scale"],
                   ["disabled", "boolean", "false", "Disable all controls"],
-                  ["prevButtonClassName", "string", "—", "Styles the previous-page button"],
-                  ["nextButtonClassName", "string", "—", "Styles the next-page button"],
-                  ["pageButtonClassName", "string", "—", "Styles every numbered page button, in addition to the active/inactive styling"],
-                  ["activePageButtonClassName", "string", "—", "Styles the currently active page button"],
-                  ["ellipsisClassName", "string", "—", "Styles the ellipsis (…) indicator"],
+                  ["prevButtonClassName", "string", "-", "Styles the previous-page button"],
+                  ["nextButtonClassName", "string", "-", "Styles the next-page button"],
+                  ["pageButtonClassName", "string", "-", "Styles every numbered page button, in addition to the active/inactive styling"],
+                  ["activePageButtonClassName", "string", "-", "Styles the currently active page button"],
+                  ["ellipsisClassName", "string", "-", "Styles the ellipsis (…) indicator"],
                 ].map(([prop, type, def, desc]) => (
                   <tr key={prop}>
                     <td className="p-3 font-medium text-primary whitespace-nowrap">

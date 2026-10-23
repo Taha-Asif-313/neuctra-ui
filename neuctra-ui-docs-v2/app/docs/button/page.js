@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -44,7 +44,7 @@ const ButtonDocs = () => {
             builders, and SaaS dashboard interfaces. Built with Tailwind CSS
             for modern, responsive design. with TypeScript. It supports
             multiple variants, sizes, icon positioning, loading states, and
-            full-width layout control — making it suitable for modern design
+            full-width layout control - making it suitable for modern design
             systems and production apps.
           </p>
 
@@ -129,7 +129,7 @@ function BasicExample(): JSX.Element {
           </h2>
           <p className="text-gray-300 mb-4">
             Nine variants cover brand, neutral, semantic (status), and link-style
-            actions — pick the one that matches the action's intent.
+            actions - pick the one that matches the action's intent.
           </p>
           <CodePreviewBlock
             language="jsx"
@@ -183,21 +183,21 @@ function BasicExample(): JSX.Element {
                 <tr>
                   <td className="p-3">children</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Content inside the button.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconBefore</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon displayed before the text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconAfter</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon displayed after the text.</td>
                 </tr>
 
@@ -255,35 +255,35 @@ function BasicExample(): JSX.Element {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root button classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">contentClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper around content.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Text styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">loaderClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Loader spinner styling.</td>
                 </tr>
 
@@ -291,35 +291,35 @@ function BasicExample(): JSX.Element {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for button.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">contentStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for content wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for icons.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">loaderStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for loader.</td>
                 </tr>
 
@@ -329,7 +329,7 @@ function BasicExample(): JSX.Element {
                   <td className="p-3">
                     React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Native button props like onClick, type, disabled.
                   </td>
@@ -410,7 +410,7 @@ function BasicExample(): JSX.Element {
               </li>
 
               <li>
-                <code>loading</code> automatically disables the button — no
+                <code>loading</code> automatically disables the button - no
                 need to manually manage <code>disabled</code>.
               </li>
 
@@ -430,7 +430,7 @@ function BasicExample(): JSX.Element {
               </li>
 
               <li>
-                Avoid excessive customization props — stick to variants for
+                Avoid excessive customization props - stick to variants for
                 scalability.
               </li>
             </ul>

@@ -20,7 +20,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -66,7 +66,7 @@ const ToggleDocs = () => {
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React toggle button and segmented toggle group with single and
-            multiple selection, icons, sizes and aria-pressed semantics —
+            multiple selection, icons, sizes and aria-pressed semantics -
             built with Tailwind CSS.
           </p>
         </header>
@@ -79,10 +79,10 @@ const ToggleDocs = () => {
           <CodeBlock code={`import { Toggle, ToggleGroup } from "@neuctra/ui";`} />
         </section>
 
-        {/* Example: Toggle — Basic Usage */}
+        {/* Example: Toggle - Basic Usage */}
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-white">
-            Toggle — Basic Usage
+            Toggle - Basic Usage
           </h2>
           <p className="text-sm text-gray-300 mb-4 max-w-3xl">
             A two-state button. Controlled via pressed/onPressedChange or
@@ -109,10 +109,10 @@ const ToggleDocs = () => {
           />
         </section>
 
-        {/* Example: ToggleGroup — Single Selection */}
+        {/* Example: ToggleGroup - Single Selection */}
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-white">
-            ToggleGroup — Single Selection
+            ToggleGroup - Single Selection
           </h2>
           <p className="text-sm text-gray-300 mb-4 max-w-3xl">
             A segmented control: exactly one value at a time (clicking the
@@ -139,10 +139,10 @@ const ToggleDocs = () => {
           />
         </section>
 
-        {/* Example: ToggleGroup — Multiple & Full Width */}
+        {/* Example: ToggleGroup - Multiple & Full Width */}
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-white">
-            ToggleGroup — Multiple & Full Width
+            ToggleGroup - Multiple & Full Width
           </h2>
           <CodePreviewBlock
             language="jsx"
@@ -225,7 +225,7 @@ const ToggleDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (pressed) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired with the next state</td>
                 </tr>
 
@@ -249,7 +249,7 @@ const ToggleDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ToggleGroupOption[]
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     {"{ value, label?, icon?, disabled?, ariaLabel? }"}
                   </td>
@@ -275,7 +275,7 @@ const ToggleDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string | string[]
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Controlled / uncontrolled selection</td>
                 </tr>
 
@@ -286,7 +286,7 @@ const ToggleDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (value) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     String (single) or string[] (multiple)
                   </td>
@@ -325,7 +325,7 @@ const ToggleDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each option button</td>
                 </tr>
 
@@ -336,7 +336,7 @@ const ToggleDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the icon wrapper inside each option
                   </td>

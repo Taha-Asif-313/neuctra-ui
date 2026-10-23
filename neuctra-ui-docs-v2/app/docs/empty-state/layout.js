@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "EmptyState Component — React No-Data Placeholder | Neuctra UI";
+const TITLE = "EmptyState Component - React No-Data Placeholder | Neuctra UI";
 const DESCRIPTION =
-  "React empty state component with icon, title, description and call-to-action slot for no-results and empty-list screens — built with Tailwind CSS.";
+  "React empty state component with icon, title, description and call-to-action slot for no-results and empty-list screens - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

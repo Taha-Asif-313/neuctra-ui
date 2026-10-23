@@ -5,7 +5,7 @@
 // from the real route list.
 const fs = require("node:fs");
 const path = require("node:path");
-const { sidebarSections } = require("../lib/docsNav");
+const { siteRoutes, sidebarSections } = require("../lib/docsNav");
 
 const SITE_URL = "https://ui.neuctra.com";
 const OUT_FILE = path.join(__dirname, "..", "public", "llms.txt");
@@ -16,14 +16,26 @@ function buildLlmsTxt() {
   lines.push("# Neuctra UI");
   lines.push("");
   lines.push(
-    "> Neuctra UI is a React component library for building SaaS dashboards and " +
-      "applications, styled with Tailwind CSS. This file indexes the documentation " +
-      "site for LLMs and AI coding assistants.",
+    "> Neuctra UI is a developer toolkit with a React component library, project setup CLI, and MCP integrations that give compatible AI coding assistants structured UI knowledge. This file indexes the documentation site.",
   );
   lines.push("");
   lines.push(`Docs home: ${SITE_URL}/docs`);
   lines.push(`Full setup guide: ${SITE_URL}/docs/full-setup`);
   lines.push(`MCP server (AI tool integration): ${SITE_URL}/docs/mcp`);
+  lines.push(`AI assistant overview: ${SITE_URL}/docs/ai-assistant`);
+  lines.push(`Remote MCP over HTTP: ${SITE_URL}/docs/mcp-http`);
+  lines.push(`Neuctra UI CLI: ${SITE_URL}/docs/cli`);
+  lines.push(`Blog: ${SITE_URL}/blog`);
+  lines.push(`Disclaimer: ${SITE_URL}/disclaimer`);
+  lines.push("");
+
+  lines.push("## Site Pages");
+  lines.push("");
+  for (const route of siteRoutes) {
+    if (route.path === "/" || route.path === "/blog" || route.path === "/disclaimer") continue;
+    lines.push(`- [${route.label}](${SITE_URL}${route.path})`);
+  }
+  lines.push(`- [Blog](${SITE_URL}/blog)`);
   lines.push("");
 
   for (const section of sidebarSections) {

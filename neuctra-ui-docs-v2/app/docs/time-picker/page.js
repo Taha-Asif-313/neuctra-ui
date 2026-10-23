@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -182,25 +182,25 @@ const TimePickerDocs = () => {
               <tbody className="divide-y divide-zinc-800 text-gray-300">
                 {[
                   ["value / defaultValue", "Date | null", "null", "Controlled / uncontrolled selection"],
-                  ["onChange", "(date: Date | null) => void", "—", "Fired with a Date carrying the picked hour/minute; preserves the rest of an existing value's date"],
+                  ["onChange", "(date: Date | null) => void", "-", "Fired with a Date carrying the picked hour/minute; preserves the rest of an existing value's date"],
                   ["placeholder", "string", '"Pick a time"', "Trigger text while empty"],
                   ["formatTime", "(date: Date) => string", "locale HH:MM", "Display formatting for the trigger and option list"],
                   ["step", "number", "30", "Minutes between each selectable option"],
                   ["minHour / maxHour", "number", "0 / 23", "Restrict the hour range offered in the list"],
                   ["clearable", "boolean", "false", "Inline clear button while a time is set"],
-                  ["label / error / helperText", "string", "—", "Standard field furniture"],
+                  ["label / error / helperText", "string", "-", "Standard field furniture"],
                   ["size", '"sm" | "md" | "lg"', '"md"', "Trigger height"],
                   ["disabled", "boolean", "false", "Disables the field"],
-                  ["id / className / wrapperClassName", "string", "—", "Field id and outer styling hooks"],
-                  ["labelClassName", "string", "—", "Styles the field label"],
-                  ["iconClassName", "string", "—", "Styles the clock icon in the trigger"],
-                  ["textClassName", "string", "—", "Styles the displayed time text"],
-                  ["clearButtonClassName", "string", "—", "Styles the clear button"],
-                  ["clearIconClassName", "string", "—", "Styles the icon inside the clear button"],
-                  ["panelClassName", "string", "—", "Styles the popover panel containing the time list"],
-                  ["optionClassName", "string", "—", "Styles every time option button"],
-                  ["activeOptionClassName", "string", "—", "Styles the currently selected time option, in addition to its active styling"],
-                  ["helperClassName", "string", "—", "Styles the helper/error text below the trigger"],
+                  ["id / className / wrapperClassName", "string", "-", "Field id and outer styling hooks"],
+                  ["labelClassName", "string", "-", "Styles the field label"],
+                  ["iconClassName", "string", "-", "Styles the clock icon in the trigger"],
+                  ["textClassName", "string", "-", "Styles the displayed time text"],
+                  ["clearButtonClassName", "string", "-", "Styles the clear button"],
+                  ["clearIconClassName", "string", "-", "Styles the icon inside the clear button"],
+                  ["panelClassName", "string", "-", "Styles the popover panel containing the time list"],
+                  ["optionClassName", "string", "-", "Styles every time option button"],
+                  ["activeOptionClassName", "string", "-", "Styles the currently selected time option, in addition to its active styling"],
+                  ["helperClassName", "string", "-", "Styles the helper/error text below the trigger"],
                 ].map(([prop, type, def, desc]) => (
                   <tr key={prop}>
                     <td className="p-3 font-medium text-primary whitespace-nowrap">

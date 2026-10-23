@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "Checkbox Component — React Form Controls & Multi-Select UI | Neuctra UI";
+  "Checkbox Component - React Form Controls & Multi-Select UI | Neuctra UI";
 const DESCRIPTION =
   "Build accessible and flexible React checkbox components with Neuctra UI. Supports single and group modes, multi-select, custom rendering, keyboard navigation, and full styling control.";
 

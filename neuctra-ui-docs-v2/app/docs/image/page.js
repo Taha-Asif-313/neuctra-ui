@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -28,7 +28,7 @@ const ImageDocs = () => {
             The <span className="text-primary font-semibold">Image</span>{" "}
             component provides a responsive and stylable wrapper for images.
             Supports aspect ratios, overlays, fallback content, lazy loading,
-            click interactions, shadows, borders, and custom styles — all with
+            click interactions, shadows, borders, and custom styles - all with
             full TypeScript support.
           </p>
         </header>
@@ -205,7 +205,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">src</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Image source URL.</td>
                 </tr>
 
@@ -219,7 +219,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">title</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Tooltip text.</td>
                 </tr>
 
@@ -235,14 +235,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">height</td>
                   <td className="p-3">Responsive&lt;number | string&gt;</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Height of the image.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">aspectRatio</td>
                   <td className="p-3">number</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Maintain a fixed width/height ratio.
                   </td>
@@ -251,21 +251,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">radius</td>
                   <td className="p-3">number | string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Border radius for wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">border</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom border CSS value.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">shadow</td>
                   <td className="p-3">boolean</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Enable shadow around image.</td>
                 </tr>
 
@@ -286,7 +286,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">overlay</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Content displayed on top of the image.
                   </td>
@@ -314,14 +314,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">onClick</td>
                   <td className="p-3">(e: MouseEvent) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Click event handler.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">fallback</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Content shown when no image is available (defaults to "No
                     Image").
@@ -339,14 +339,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper container classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">imageClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Classes for the &lt;img&gt; element.
                   </td>
@@ -355,42 +355,42 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">overlayClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for overlay container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">fallbackClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for fallback container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">imageStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for image element.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">overlayStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for overlay.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">fallbackStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Inline styles for fallback container.
                   </td>
@@ -399,7 +399,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">...rest</td>
                   <td className="p-3">HTMLDivElement attributes</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     All native div props (id, data-*, aria-*, etc).
                   </td>

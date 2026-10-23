@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "RadioGroup Component — Accessible React Selection Controls | Neuctra UI";
+  "RadioGroup Component - Accessible React Selection Controls | Neuctra UI";
 const DESCRIPTION =
   "Build accessible and customizable RadioGroup components in React. Supports keyboard navigation, icons, descriptions, multiple sizes, orientations, validation states, and full Tailwind styling control for SaaS UI.";
 

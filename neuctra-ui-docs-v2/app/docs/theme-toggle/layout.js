@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Theme Toggle — Dark Mode Switch Component | Neuctra UI";
+const TITLE = "Theme Toggle - Dark Mode Switch Component | Neuctra UI";
 const DESCRIPTION =
   "Learn how to use the Theme Toggle component in Neuctra UI. A modern animated dark mode switch with Sun & Moon icons, fully reusable and context-driven.";
 
@@ -20,7 +20,7 @@ const themeToggleFaq = [
   {
     question: "How do I import and use ThemeToggleButton?",
     answer:
-      'Import it with `import { ThemeToggleButton } from "@neuctra/ui";` then pass the theme context from `useTheme()` as the `context` prop — it needs no internal hooks of its own.',
+      'Import it with `import { ThemeToggleButton } from "@neuctra/ui";` then pass the theme context from `useTheme()` as the `context` prop - it needs no internal hooks of its own.',
   },
   {
     question: "Can I style the Sun and Moon icons separately?",
@@ -30,7 +30,7 @@ const themeToggleFaq = [
   {
     question: "Where should ThemeProvider live in my app?",
     answer:
-      "Keep ThemeProvider at the root of your application so every component — including ThemeToggleButton wherever it's placed (navbar, settings panel, etc.) — can access theme state.",
+      "Keep ThemeProvider at the root of your application so every component - including ThemeToggleButton wherever it's placed (navbar, settings panel, etc.) - can access theme state.",
   },
 ];
 

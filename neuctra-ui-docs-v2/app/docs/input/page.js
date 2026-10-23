@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -281,7 +281,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">label</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label text for the input field.</td>
                 </tr>
 
@@ -305,7 +305,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">id</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     HTML id attribute for accessibility.
                   </td>
@@ -314,7 +314,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">description</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Descriptive text shown next to label.
                   </td>
@@ -330,7 +330,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">value</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Controlled input value.</td>
                 </tr>
 
@@ -346,21 +346,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">onChange</td>
                   <td className="p-3">(event) ={`>`} void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered when input value changes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">onFocus</td>
                   <td className="p-3">(event) ={`>`} void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered when input gains focus.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">onBlur</td>
                   <td className="p-3">(event) ={`>`} void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered when input loses focus.</td>
                 </tr>
 
@@ -402,35 +402,35 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">helperText</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Helper text below the input.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">icon</td>
                   <td className="p-3">React.ElementType</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon displayed inside the label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">prefix</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Text shown before input value.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">prefixIcon</td>
                   <td className="p-3">React.ElementType</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon before input content.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">suffixIcon</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Icon after input (ignored for password toggle).
                   </td>
@@ -439,14 +439,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">min / max / step</td>
                   <td className="p-3">number</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Constraints for number input.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">maxLength</td>
                   <td className="p-3">number</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Maximum character length.</td>
                 </tr>
 
@@ -468,77 +468,77 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">wrapperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">inputClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for input.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textareaClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for textarea.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">prefixClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for prefix.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">suffixClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for suffix.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">helperTextClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for helper text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">descriptionClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom classes for the description text next to the label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">wrapperStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">inputStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for input/textarea.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for label.</td>
                 </tr>
               </tbody>

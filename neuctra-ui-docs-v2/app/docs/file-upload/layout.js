@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "FileUpload Component — React Drag & Drop Uploader | Neuctra UI";
+const TITLE = "FileUpload Component - React Drag & Drop Uploader | Neuctra UI";
 const DESCRIPTION =
   "React file upload component with drag-and-drop, click-to-browse, accept filters, size and count limits, per-file errors and a removable file list.";
 

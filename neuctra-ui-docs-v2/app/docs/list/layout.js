@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "List Component — Flexible UI Lists, Navigation & Tree Views | Neuctra UI";
+  "List Component - Flexible UI Lists, Navigation & Tree Views | Neuctra UI";
 const DESCRIPTION =
   "Explore the Neuctra UI List component for building flexible content lists, navigation menus, dropdown menus, icon lists, and nested tree structures. Supports React, TypeScript, and advanced features like collapsible submenus, active states, and custom renderers.";
 

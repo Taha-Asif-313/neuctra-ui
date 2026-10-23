@@ -9,7 +9,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 import { Accessibility } from "lucide-react";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -27,7 +27,7 @@ const TooltipDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             Accessible React tooltip shown on hover and keyboard focus. Four
             positions, show delay, Escape dismissal and WCAG-friendly
-            behavior — built with Tailwind CSS.
+            behavior - built with Tailwind CSS.
           </p>
         </header>
 
@@ -182,7 +182,7 @@ const TooltipDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Tooltip content (required)</td>
                 </tr>
                 <tr>
@@ -192,7 +192,7 @@ const TooltipDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Trigger element (required)</td>
                 </tr>
                 <tr>
@@ -236,7 +236,7 @@ const TooltipDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Extra classes for the trigger wrapper</td>
                 </tr>
                 <tr>
@@ -246,7 +246,7 @@ const TooltipDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Extra classes for the bubble</td>
                 </tr>
                 <tr>
@@ -256,7 +256,7 @@ const TooltipDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Extra classes for the triangular pointer
                   </td>

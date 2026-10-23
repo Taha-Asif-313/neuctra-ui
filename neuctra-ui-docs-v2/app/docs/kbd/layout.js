@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Kbd Component — React Keyboard Shortcut Keys | Neuctra UI";
+const TITLE = "Kbd Component - React Keyboard Shortcut Keys | Neuctra UI";
 const DESCRIPTION =
   "React kbd component for rendering keyboard shortcuts and key combinations with a native <kbd> element, styled with Tailwind CSS.";
 

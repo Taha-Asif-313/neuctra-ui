@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -219,7 +219,7 @@ const TextDocs = () => {
                 <tr>
                   <td className="p-3">children</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Content inside the component.</td>
                 </tr>
 
@@ -228,7 +228,7 @@ const TextDocs = () => {
                   <td className="p-3">
                     "uppercase" | "lowercase" | "capitalize"
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Applies text transformation.</td>
                 </tr>
 
@@ -276,14 +276,14 @@ const TextDocs = () => {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Additional custom classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">...rest</td>
                   <td className="p-3">Native HTML Props</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Additional props passed to the rendered element.
                   </td>

@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -36,7 +36,7 @@ const AvatarGroupDocs = () => {
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React avatar group with overlapping stack, background rings and
-            an automatic +N overflow counter — built with Tailwind CSS.
+            an automatic +N overflow counter - built with Tailwind CSS.
           </p>
         </header>
 
@@ -154,7 +154,7 @@ const AvatarGroupDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Avatar elements (required)</td>
                 </tr>
 
@@ -165,7 +165,7 @@ const AvatarGroupDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Visible limit; the rest becomes “+N”
                   </td>
@@ -206,7 +206,7 @@ const AvatarGroupDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the wrapper span around each visible avatar item.
                   </td>
@@ -219,7 +219,7 @@ const AvatarGroupDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the "+N" overflow counter.
                   </td>

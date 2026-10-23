@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "DatePicker & Calendar — React Date Selection | Neuctra UI";
+const TITLE = "DatePicker & Calendar - React Date Selection | Neuctra UI";
 const DESCRIPTION =
   "Dependency-free React date picker with an inline calendar: min/max ranges, disabled dates, localized month grid, clearable trigger and popover behavior.";
 

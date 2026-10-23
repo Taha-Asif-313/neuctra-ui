@@ -57,7 +57,7 @@ const DemoTabs = ({
 /* ------------------------------------------------------------------ */
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -79,7 +79,7 @@ const TabsDocs = () => {
             The <span className="text-primary font-semibold">Tabs</span>{" "}
             component is a flexible, fully responsive UI primitive built with
             TypeScript. It supports multiple layouts, visual variants,
-            keyboard navigation, and mobile-aware behaviors — making it ideal
+            keyboard navigation, and mobile-aware behaviors - making it ideal
             for dashboards, settings panels, and structured content
             navigation.
           </p>
@@ -167,7 +167,7 @@ function BasicExample() {
           />
         </section>
 
-        {/* Props Table — Tabs */}
+        {/* Props Table - Tabs */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             Tabs Props
@@ -188,7 +188,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">TabList and TabPanels composition</td>
                 </tr>
 
@@ -325,7 +325,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">backgroundColor</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Root container background color (falls back to
                     var(--background))
@@ -336,7 +336,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">onTabChange</td>
                   <td className="p-3"> (index: number) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered when tab changes</td>
                 </tr>
 
@@ -344,14 +344,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root wrapper class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root inline styles</td>
                 </tr>
               </tbody>
@@ -361,7 +361,7 @@ function BasicExample() {
 
         <CodeBlock code={`<TabList gap={8} drawerLabel="Select tab" />`} />
 
-        {/* Props Table — TabList */}
+        {/* Props Table - TabList */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             TabList Props
@@ -398,7 +398,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">drawerIcon</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Accepted for a custom drawer chevron icon, but not yet
                     rendered (the built-in chevron is always used)
@@ -408,21 +408,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper class styling</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for TabList</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">triggerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Styles the drawer trigger button (mobileVariant="drawer" only)
                   </td>
@@ -431,7 +431,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">menuClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Styles the dropdown menu panel (mobileVariant="drawer" only)
                   </td>
@@ -443,7 +443,7 @@ function BasicExample() {
 
         <CodeBlock code={`<Tab icon={<Icon />} disabled={false}>Tab 1</Tab>`} />
 
-        {/* Props Table — Tab */}
+        {/* Props Table - Tab */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             Tab Props
@@ -464,14 +464,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Tab label content</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">icon</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Optional icon</td>
                 </tr>
 
@@ -485,7 +485,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">ariaLabel</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Accessibility label</td>
                 </tr>
 
@@ -499,21 +499,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Tab button styling</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the wrapper around the icon node</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Accepted by the type, but not currently applied by the
                     component
@@ -523,7 +523,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">activeStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Accepted by the type, but not currently applied by the
                     component
@@ -533,7 +533,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">inactiveStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Accepted by the type, but not currently applied by the
                     component
@@ -550,7 +550,7 @@ function BasicExample() {
 </TabPanels>`}
         />
 
-        {/* Props Table — TabPanels */}
+        {/* Props Table - TabPanels */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             TabPanels Props
@@ -571,7 +571,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Wrapper for multiple TabPanel components
                   </td>
@@ -580,14 +580,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom class for panels container</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for panels wrapper</td>
                 </tr>
               </tbody>
@@ -601,7 +601,7 @@ function BasicExample() {
 </TabPanel>`}
         />
 
-        {/* Props Table — TabPanel */}
+        {/* Props Table - TabPanel */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             TabPanel Props
@@ -622,14 +622,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Panel content</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">index</td>
                   <td className="p-3">number</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Tab index it belongs to</td>
                 </tr>
 
@@ -643,14 +643,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Panel wrapper class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles</td>
                 </tr>
               </tbody>
@@ -694,7 +694,7 @@ function BasicExample() {
               <div>
                 <code>{"<Tab index={5} />"}</code>
                 <p className="text-gray-400 text-xs mt-1">
-                  Avoid manually setting index unless necessary — auto
+                  Avoid manually setting index unless necessary - auto
                   indexing is handled internally
                 </p>
               </div>
@@ -787,7 +787,7 @@ function BasicExample() {
               </li>
 
               <li>
-                Keyboard navigation is built-in — ensure focus styles are
+                Keyboard navigation is built-in - ensure focus styles are
                 visible for accessibility.
               </li>
             </ul>

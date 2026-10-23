@@ -26,12 +26,12 @@ const fullSetupFaq = [
   {
     question: "Do I need to manually write a theme context?",
     answer:
-      "No — running `npx @neuctra/ui-cli@latest init` generates the theme context file for you automatically (.tsx if it detects TypeScript, .jsx otherwise) and wraps your app with ThemeProvider. Manual setup is only needed if you want full control over the file.",
+      "No - running `npx @neuctra/ui-cli@latest init` generates the theme context file for you automatically (.tsx if it detects TypeScript, .jsx otherwise) and wraps your app with ThemeProvider. Manual setup is only needed if you want full control over the file.",
   },
   {
     question: "How do I avoid a flash of the wrong theme on page load?",
     answer:
-      "Apply the .dark class before paint rather than in a post-mount effect — the theme context's lazy useState initializer reads localStorage/prefers-color-scheme and sets the class synchronously on first render, so there's no flash.",
+      "Apply the .dark class before paint rather than in a post-mount effect - the theme context's lazy useState initializer reads localStorage/prefers-color-scheme and sets the class synchronously on first render, so there's no flash.",
   },
 ];
 

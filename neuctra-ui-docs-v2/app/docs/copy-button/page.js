@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -28,7 +28,7 @@ const CopyButtonDocs = () => {
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React copy-to-clipboard button with success feedback,
-            secure-context fallback, sizes and label support — built with
+            secure-context fallback, sizes and label support - built with
             Tailwind CSS.
           </p>
         </header>
@@ -132,7 +132,7 @@ const CopyButtonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Text placed on the clipboard (required)
                   </td>
@@ -145,7 +145,7 @@ const CopyButtonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Visible label; becomes "Copied" during feedback
                   </td>
@@ -184,7 +184,7 @@ const CopyButtonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (value: string) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired after a successful copy</td>
                 </tr>
 
@@ -195,7 +195,7 @@ const CopyButtonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the copy/check icon.</td>
                 </tr>
 
@@ -206,7 +206,7 @@ const CopyButtonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the visible label text.</td>
                 </tr>
               </tbody>

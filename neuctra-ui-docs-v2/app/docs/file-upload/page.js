@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -172,7 +172,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (files: File[]) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Fired with the full current list on every change
                   </td>
@@ -185,7 +185,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (message, file) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired for each rejected file</td>
                 </tr>
 
@@ -209,7 +209,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Native accept filter, e.g. "image/*,.pdf"
                   </td>
@@ -222,7 +222,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Per-file size limit</td>
                 </tr>
 
@@ -233,7 +233,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Total file count limit</td>
                 </tr>
 
@@ -298,7 +298,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the drop zone label/container.
                   </td>
@@ -311,7 +311,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the upload icon wrapper.</td>
                 </tr>
 
@@ -322,7 +322,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the headline text inside the drop zone.
                   </td>
@@ -335,7 +335,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the sub-line description text.</td>
                 </tr>
 
@@ -346,7 +346,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the inline rejection message.</td>
                 </tr>
 
@@ -357,7 +357,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the selected-files list container.
                   </td>
@@ -370,7 +370,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each file row in the list.</td>
                 </tr>
 
@@ -381,7 +381,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the file icon in each row.</td>
                 </tr>
 
@@ -392,7 +392,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the file name text.</td>
                 </tr>
 
@@ -403,7 +403,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the file size text.</td>
                 </tr>
 
@@ -414,7 +414,7 @@ const FileUploadDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the per-file remove button.</td>
                 </tr>
               </tbody>
@@ -434,7 +434,7 @@ const FileUploadDocs = () => {
           <ul className="list-disc space-y-1.5 pl-5 text-sm text-gray-300">
             <li>
               The drop zone is a real &lt;label&gt; wrapping a visually
-              hidden file input — clicking and keyboard activation both open
+              hidden file input - clicking and keyboard activation both open
               the browser dialog.
             </li>
             <li>

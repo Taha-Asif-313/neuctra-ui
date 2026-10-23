@@ -10,7 +10,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 import { Accessibility } from "lucide-react";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -78,7 +78,7 @@ const ManyStepsDemo = () => {
             {step + 1}. {current.label}
           </p>
           <p className="mt-1 text-sm text-gray-400">
-            {current.description} — this is where that step's fields would
+            {current.description} - this is where that step's fields would
             render.
           </p>
         </CardBody>
@@ -211,7 +211,7 @@ const StepperDocs = () => {
           </h2>
           <p className="text-sm text-gray-300 mb-4 max-w-3xl">
             A horizontal Stepper with many steps doesn't try to squeeze every
-            item into one row — the strip scrolls horizontally instead (drag
+            item into one row - the strip scrolls horizontally instead (drag
             it, or use onStepClick / arrow keys), and it keeps the active
             step scrolled into view automatically. Descriptions hide below
             the sm breakpoint so items stay compact on mobile. For a real
@@ -291,21 +291,21 @@ const current = STEPS[step];
               </thead>
               <tbody className="divide-y divide-zinc-800 text-gray-300">
                 {[
-                  ["steps", "StepperStep[]", "—", "Step definitions (required)"],
-                  ["steps[].label", "ReactNode", "—", "Step title"],
-                  ["steps[].description", "ReactNode", "—", "Muted line under the title"],
+                  ["steps", "StepperStep[]", "-", "Step definitions (required)"],
+                  ["steps[].label", "ReactNode", "-", "Step title"],
+                  ["steps[].description", "ReactNode", "-", "Muted line under the title"],
                   ["steps[].icon", "ReactNode", "step number", "Custom marker content"],
-                  ["activeStep", "number", "—", "Current step index, 0-based (required)"],
-                  ["onStepClick", "(index: number) => void", "—", "Makes completed steps clickable"],
+                  ["activeStep", "number", "-", "Current step index, 0-based (required)"],
+                  ["onStepClick", "(index: number) => void", "-", "Makes completed steps clickable"],
                   ["orientation", '"horizontal" | "vertical"', '"horizontal"', "Layout direction"],
                   ["size", '"sm" | "md"', '"md"', "Marker and text scale"],
-                  ["itemClassName", "string", "—", "Styles each individual step (indicator + content) wrapper"],
-                  ["dotClassName", "string", "—", "Styles the circular step indicator/dot"],
-                  ["dotButtonClassName", "string", "—", "Styles the button wrapping a clickable (completed) dot"],
-                  ["connectorClassName", "string", "—", "Styles the connector line between steps"],
-                  ["contentClassName", "string", "—", "Styles the wrapper around a step's label and description"],
-                  ["labelClassName", "string", "—", "Styles a step's label text"],
-                  ["descriptionClassName", "string", "—", "Styles a step's description text"],
+                  ["itemClassName", "string", "-", "Styles each individual step (indicator + content) wrapper"],
+                  ["dotClassName", "string", "-", "Styles the circular step indicator/dot"],
+                  ["dotButtonClassName", "string", "-", "Styles the button wrapping a clickable (completed) dot"],
+                  ["connectorClassName", "string", "-", "Styles the connector line between steps"],
+                  ["contentClassName", "string", "-", "Styles the wrapper around a step's label and description"],
+                  ["labelClassName", "string", "-", "Styles a step's label text"],
+                  ["descriptionClassName", "string", "-", "Styles a step's description text"],
                 ].map(([prop, type, def, desc]) => (
                   <tr key={prop}>
                     <td className="p-3 font-medium text-primary whitespace-nowrap">

@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Spinner Component — React Loading Indicator | Neuctra UI";
+const TITLE = "Spinner Component - React Loading Indicator | Neuctra UI";
 const DESCRIPTION =
-  "Accessible React spinner component with five sizes, theme-aware colors and a screen-reader label — built with Tailwind CSS.";
+  "Accessible React spinner component with five sizes, theme-aware colors and a screen-reader label - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "TagInput Component — React Tags Field | Neuctra UI";
+const TITLE = "TagInput Component - React Tags Field | Neuctra UI";
 const DESCRIPTION =
-  "React tag input with Enter/comma commit, Backspace removal, duplicate filtering, max-tag limits, validation hook and error states — built with Tailwind CSS.";
+  "React tag input with Enter/comma commit, Backspace removal, duplicate filtering, max-tag limits, validation hook and error states - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

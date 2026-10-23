@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "CopyButton Component — React Copy to Clipboard | Neuctra UI";
+const TITLE = "CopyButton Component - React Copy to Clipboard | Neuctra UI";
 const DESCRIPTION =
-  "React copy-to-clipboard button with success feedback, secure-context fallback, sizes and label support — built with Tailwind CSS.";
+  "React copy-to-clipboard button with success feedback, secure-context fallback, sizes and label support - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

@@ -19,7 +19,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -336,7 +336,7 @@ const [open, setOpen] = useState(false);
           />
         </section>
 
-        {/* Props Table — Drawer */}
+        {/* Props Table - Drawer */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             Drawer Props
@@ -357,28 +357,28 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">isOpen</td>
                   <td className="p-3">boolean</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Controls drawer visibility</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">onClose</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Called when drawer closes</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Drawer content (static)</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">renderContent</td>
                   <td className="p-3">(close) =&gt; ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Render prop with access to close()</td>
                 </tr>
 
@@ -415,28 +415,28 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">ariaLabel</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Accessible name for the dialog when no DrawerHeader is used</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">overlayClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Overlay styling</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">overlayStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline overlay styles</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">panelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the sliding panel that hosts the drawer content</td>
                 </tr>
               </tbody>
@@ -444,7 +444,7 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* Props Table — DrawerButton */}
+        {/* Props Table - DrawerButton */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             DrawerButton Props
@@ -472,7 +472,7 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">icon</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Optional icon element</td>
                 </tr>
 
@@ -486,35 +486,35 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">onClick</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Click handler</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root button classes</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label styling</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon wrapper styling</td>
                 </tr>
               </tbody>
@@ -522,7 +522,7 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* Props Table — DrawerTriggerButton */}
+        {/* Props Table - DrawerTriggerButton */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             DrawerTriggerButton Props
@@ -547,7 +547,7 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">drawerContent</td>
                   <td className="p-3">(close) =&gt; ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Function to render drawer with access to close()
                   </td>
@@ -556,7 +556,7 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Trigger button content</td>
                 </tr>
 
@@ -565,7 +565,7 @@ const [open, setOpen] = useState(false);
                   <td className="p-3">
                     Omit&lt;DrawerProps, "isOpen" | "onClose" | "children"&gt;
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Forwarded to the underlying Drawer</td>
                 </tr>
               </tbody>
@@ -573,7 +573,7 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* Props Table — DrawerHeader */}
+        {/* Props Table - DrawerHeader */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             DrawerHeader Props
@@ -585,54 +585,54 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">title</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header title</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">icon</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Optional icon</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">onClose</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Shows close button if provided</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header wrapper class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header wrapper styles</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">titleWrapperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the wrapper around the icon and title</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">titleClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the title heading</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">closeButtonClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the close button</td>
                 </tr>
               </tbody>
@@ -640,7 +640,7 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* Props Table — DrawerContent */}
+        {/* Props Table - DrawerContent */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             DrawerContent Props
@@ -664,19 +664,19 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Full drawer layout (header/body/footer)</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper class</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper styles</td>
                 </tr>
               </tbody>
@@ -684,7 +684,7 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* Props Table — DrawerBody */}
+        {/* Props Table - DrawerBody */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             DrawerBody Props
@@ -708,19 +708,19 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Scrollable body content</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Body wrapper class</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Body wrapper styles</td>
                 </tr>
               </tbody>
@@ -728,7 +728,7 @@ const [open, setOpen] = useState(false);
           </div>
         </section>
 
-        {/* Props Table — DrawerFooter */}
+        {/* Props Table - DrawerFooter */}
         <section>
           <h2 className="text-2xl font-semibold text-white mb-4">
             DrawerFooter Props
@@ -752,19 +752,19 @@ const [open, setOpen] = useState(false);
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Footer actions</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Footer wrapper class</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Footer wrapper styles</td>
                 </tr>
               </tbody>
@@ -801,7 +801,7 @@ const [open, setOpen] = useState(false);
               <div>
                 <code className="text-red-500">{`<Drawer isOpen={open} onClose={...} />`}</code>
                 <p className="text-gray-500 text-xs mt-0.5">
-                  Missing position prop — defaults to "right". Be explicit
+                  Missing position prop - defaults to "right". Be explicit
                   when using other positions.
                 </p>
               </div>
@@ -811,7 +811,7 @@ const [open, setOpen] = useState(false);
               <div>
                 <code className="text-green-500">{`<Drawer isOpen={open} onClose={() => setOpen(false)} position="left" />`}</code>
                 <p className="text-gray-500 text-xs mt-0.5">
-                  Correct — state, close handler, and position all explicit.
+                  Correct - state, close handler, and position all explicit.
                 </p>
               </div>
             </div>
@@ -833,7 +833,7 @@ const [open, setOpen] = useState(false);
           <ul className="list-disc list-inside text-gray-200 space-y-1">
             <li>
               Use <code className="text-primary">renderContent</code> for full
-              control — forms, menus, dashboards.
+              control - forms, menus, dashboards.
             </li>
             <li>
               Combine <code className="text-primary">overlayClassName</code>{" "}

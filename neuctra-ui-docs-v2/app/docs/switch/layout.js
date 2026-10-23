@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "Switch Component — React Toggle UI for SaaS Applications | Neuctra UI";
+  "Switch Component - React Toggle UI for SaaS Applications | Neuctra UI";
 const DESCRIPTION =
   "Flexible React Switch component for SaaS dashboards and forms. Supports single toggle and group multi-select modes, with full TypeScript support, keyboard accessibility, validation states, and Tailwind-based styling.";
 

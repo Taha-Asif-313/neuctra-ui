@@ -9,7 +9,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 import { Accessibility, Home } from "lucide-react";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -27,7 +27,7 @@ const BreadcrumbDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             Accessible React breadcrumb navigation with icons, custom
             separators, SPA click handlers and automatic ellipsis collapsing
-            for deep paths — built with Tailwind CSS.
+            for deep paths - built with Tailwind CSS.
           </p>
         </header>
 
@@ -184,22 +184,22 @@ const BreadcrumbDocs = () => {
               </thead>
               <tbody className="divide-y divide-zinc-800 text-gray-300">
                 {[
-                  ["items", "BreadcrumbItem[]", "—", "Trail entries (required); last item is the current page"],
-                  ["items[].label", "ReactNode", "—", "Crumb text"],
-                  ["items[].href", "string", "—", "Renders an <a>; omit for a button"],
-                  ["items[].icon", "ReactNode", "—", "Leading icon"],
-                  ["items[].onClick", "(e) => void", "—", "SPA navigation handler"],
+                  ["items", "BreadcrumbItem[]", "-", "Trail entries (required); last item is the current page"],
+                  ["items[].label", "ReactNode", "-", "Crumb text"],
+                  ["items[].href", "string", "-", "Renders an <a>; omit for a button"],
+                  ["items[].icon", "ReactNode", "-", "Leading icon"],
+                  ["items[].onClick", "(e) => void", "-", "SPA navigation handler"],
                   ["separator", "ReactNode", "chevron", "Custom separator between crumbs"],
-                  ["maxItems", "number", "—", "Collapse the middle into an ellipsis beyond this count"],
+                  ["maxItems", "number", "-", "Collapse the middle into an ellipsis beyond this count"],
                   ["size", '"sm" | "md"', '"md"', "Text and icon scale"],
-                  ["listClassName", "string", "—", "Styles the ordered list (<ol>) wrapping all crumbs"],
-                  ["itemClassName", "string", "—", "Styles each crumb's list item (<li>)"],
-                  ["activeItemClassName", "string", "—", "Styles the current-page crumb (last item)"],
-                  ["triggerClassName", "string", "—", "Styles each clickable crumb's link/button"],
-                  ["iconClassName", "string", "—", "Styles a crumb's leading icon wrapper"],
-                  ["labelClassName", "string", "—", "Styles a crumb's label text"],
-                  ["separatorClassName", "string", "—", "Styles the separator between crumbs"],
-                  ["ellipsisClassName", "string", "—", "Styles the collapsed-middle ellipsis item"],
+                  ["listClassName", "string", "-", "Styles the ordered list (<ol>) wrapping all crumbs"],
+                  ["itemClassName", "string", "-", "Styles each crumb's list item (<li>)"],
+                  ["activeItemClassName", "string", "-", "Styles the current-page crumb (last item)"],
+                  ["triggerClassName", "string", "-", "Styles each clickable crumb's link/button"],
+                  ["iconClassName", "string", "-", "Styles a crumb's leading icon wrapper"],
+                  ["labelClassName", "string", "-", "Styles a crumb's label text"],
+                  ["separatorClassName", "string", "-", "Styles the separator between crumbs"],
+                  ["ellipsisClassName", "string", "-", "Styles the collapsed-middle ellipsis item"],
                 ].map(([prop, type, def, desc]) => (
                   <tr key={prop}>
                     <td className="p-3 font-medium text-primary whitespace-nowrap">

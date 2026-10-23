@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -29,7 +29,7 @@ const CardDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             Composable React card component with header, body and footer
             sections. Supports outline, elevated, ghost and transparent
-            variants, hover states and padding scales — built with Tailwind
+            variants, hover states and padding scales - built with Tailwind
             CSS.
           </p>
         </header>
@@ -248,7 +248,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Header heading content</td>
                 </tr>
 
@@ -259,7 +259,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Muted line under the title</td>
                 </tr>
 
@@ -270,7 +270,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Leading icon slot</td>
                 </tr>
 
@@ -281,7 +281,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Right-aligned action slot (menu, button…)
                   </td>
@@ -294,7 +294,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the leading icon wrapper.</td>
                 </tr>
 
@@ -305,7 +305,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the title heading.</td>
                 </tr>
 
@@ -316,7 +316,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the description text.</td>
                 </tr>
 
@@ -327,7 +327,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the right-aligned action wrapper.
                   </td>
@@ -340,7 +340,7 @@ const CardDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string / CSSProperties
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Available on Card and every section; native div props are
                     forwarded
@@ -362,7 +362,7 @@ const CardDocs = () => {
           </h2>
           <ul className="list-disc space-y-1.5 pl-5 text-sm text-gray-300">
             <li>
-              Card renders a plain region — headings inside CardHeader use a
+              Card renders a plain region - headings inside CardHeader use a
               semantic &lt;h3&gt;.
             </li>
             <li>

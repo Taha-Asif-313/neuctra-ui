@@ -3,15 +3,15 @@ import { buildMetadata } from "@/lib/seo/buildMetadata";
 import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 
-// Nested route group — still resolves to "/docs". Gives the Introduction
+// Nested route group - still resolves to "/docs". Gives the Introduction
 // page its own metadata layout, distinct from app/docs/layout.js (the
 // Sidebar shell shared by every /docs/* route).
 export const metadata = buildMetadata({
-  title: "Introduction — React UI Library for SaaS | Neuctra UI",
+  title: "Neuctra UI - React Components and AI Assistant Toolkit",
   description:
-    "Discover Neuctra UI, a modern React UI library for SaaS applications built with Tailwind CSS. Learn how to build scalable dashboards, authentication systems, and reusable UI components with a fast developer experience.",
+    "Discover the Neuctra UI toolkit: a React component library, setup CLI, and AI assistant integrations through local and hosted MCP servers.",
   keywords:
-    "neuctra ui, react ui library, saas ui components, tailwind react components, dashboard ui react, authentication ui react, reusable ui system, component library react, modern ui framework, react saas boilerplate",
+    "Neuctra UI, React UI library, AI coding assistant, local MCP server, remote MCP, setup CLI, Tailwind React components, component library",
   path: "/docs",
 });
 

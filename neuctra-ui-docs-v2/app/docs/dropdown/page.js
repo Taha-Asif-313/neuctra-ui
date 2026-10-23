@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -383,14 +383,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">trigger</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Element that toggles dropdown.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">items</td>
                   <td className="p-3">DropdownItem[]</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Array of action items or separator entries.
                   </td>
@@ -399,14 +399,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">open</td>
                   <td className="p-3">boolean</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Controlled open state.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">onOpenChange</td>
                   <td className="p-3">(open: boolean) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered when state changes.</td>
                 </tr>
 
@@ -436,7 +436,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Wrapper styling for the trigger container.
                   </td>
@@ -445,63 +445,63 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">menuClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Dropdown container styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Item styling for every menu entry.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">triggerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the wrapper around the trigger node.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">menuListClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the inner role="menu" list container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">separatorClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles each separator row between items.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemIconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles an item's leading icon wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemLabelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles an item's label text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for the wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">menuStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Inline styles for the dropdown menu panel.
                   </td>
@@ -556,7 +556,7 @@ function BasicExample() {
                 <code>{"<button onClick={(e) => e.stopPropagation()}>"}</code>
                 <p className="text-xs mt-1">
                   Never call <code>e.stopPropagation()</code> in the{" "}
-                  <code>trigger</code>'s own onClick — Dropdown already stops
+                  <code>trigger</code>'s own onClick - Dropdown already stops
                   propagation on its wrapper, and doing it again in the
                   trigger prevents that wrapper handler from running, so the
                   menu never opens.

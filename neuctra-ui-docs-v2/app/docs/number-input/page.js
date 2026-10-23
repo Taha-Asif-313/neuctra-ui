@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -45,7 +45,7 @@ const NumberInputDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React number input with increment/decrement steppers, min/max
             clamping, arrow-key support, decimal input and spinbutton
-            semantics — built with Tailwind CSS.
+            semantics - built with Tailwind CSS.
           </p>
         </header>
 
@@ -197,7 +197,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number | null / number
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Controlled / uncontrolled value</td>
                 </tr>
 
@@ -208,7 +208,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (value: number | null) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Parsed number, null when empty</td>
                 </tr>
 
@@ -219,7 +219,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Clamped on blur and by the steppers</td>
                 </tr>
 
@@ -241,7 +241,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Label above the field</td>
                 </tr>
 
@@ -252,7 +252,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Error message; paints the border and announces via
                     role=alert
@@ -266,7 +266,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Muted helper line</td>
                 </tr>
 
@@ -303,7 +303,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the outermost wrapper.</td>
                 </tr>
 
@@ -314,7 +314,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the label above the field.</td>
                 </tr>
 
@@ -325,7 +325,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the bordered control wrapping the decrement
                     button, input, and increment button.
@@ -339,7 +339,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the decrement (minus) button.</td>
                 </tr>
 
@@ -350,7 +350,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the increment (plus) button.</td>
                 </tr>
 
@@ -361,7 +361,7 @@ const NumberInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the helper/error text below the field.
                   </td>

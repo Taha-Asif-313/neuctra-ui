@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "Tabs Component — Flexible Navigation System for React | Neuctra UI";
+  "Tabs Component - Flexible Navigation System for React | Neuctra UI";
 const DESCRIPTION =
   "Explore the Neuctra UI Tabs component for React. A fully accessible, responsive tab system with multiple variants, keyboard navigation, mobile support, and advanced customization for modern UI dashboards and apps.";
 

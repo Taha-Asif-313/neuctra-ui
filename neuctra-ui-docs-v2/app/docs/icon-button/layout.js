@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "Icon Button Component — React UI for SaaS Dashboards | Neuctra UI";
+  "Icon Button Component - React UI for SaaS Dashboards | Neuctra UI";
 const DESCRIPTION =
   "Build accessible, icon-only React buttons for SaaS apps with Neuctra UI. Supports variants, sizes, and full icon customization for toolbars, cards, and dashboards.";
 

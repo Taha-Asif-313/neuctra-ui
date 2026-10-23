@@ -20,17 +20,17 @@ const mcpFaq = [
   {
     question: "How do I connect Neuctra UI MCP to my AI coding assistant?",
     answer:
-      "Add https://mcp.ui.neuctra.com/mcp as a remote MCP server in your AI tool's MCP settings — no package installation is required. Most AI tools with remote MCP or connector support (Claude Code, Cursor, Antigravity) accept this URL directly.",
+      "Add https://mcp.ui.neuctra.com/mcp as a remote MCP server in your AI tool's MCP settings - no package installation is required. Most AI tools with remote MCP or connector support (Claude Code, Cursor, Antigravity) accept this URL directly.",
   },
   {
     question: "What can the AI do once Neuctra UI MCP is connected?",
     answer:
-      "It can call list_components to discover components, get_component to inspect exact props/types/defaults/examples for one component, search_components to find a component by natural-language query, and get_theme to fetch semantic color tokens and styling guidelines — instead of guessing from training data.",
+      "It can call list_components to discover components, get_component to inspect exact props/types/defaults/examples for one component, search_components to find a component by natural-language query, and get_theme to fetch semantic color tokens and styling guidelines - instead of guessing from training data.",
   },
   {
     question: "Do I need to run the MCP server locally?",
     answer:
-      "No — most users should use the hosted remote MCP server. Running it locally (npx -y @neuctra/ui-mcp) is only needed if you're developing or testing the MCP package itself.",
+      "No - most users should use the hosted remote MCP server. Running it locally (npx -y @neuctra/ui-mcp) is only needed if you're developing or testing the MCP package itself.",
   },
 ];
 

@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Text Component — Neuctra UI";
+const TITLE = "Text Component - Neuctra UI";
 const DESCRIPTION =
-  "Learn how to use the Text component in Neuctra UI — a modern polymorphic typography component with semantic rendering, text styling utilities, and Tailwind CSS support.";
+  "Learn how to use the Text component in Neuctra UI - a modern polymorphic typography component with semantic rendering, text styling utilities, and Tailwind CSS support.";
 
 export const metadata = buildMetadata({
   title: TITLE,

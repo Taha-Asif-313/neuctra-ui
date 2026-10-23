@@ -1,10 +1,26 @@
 # Neuctra UI
 
-> Neuctra UI is a React component library for building SaaS dashboards and applications, styled with Tailwind CSS. This file indexes the documentation site for LLMs and AI coding assistants.
+> Neuctra UI is a developer toolkit with a React component library, project setup CLI, and MCP integrations that give compatible AI coding assistants structured UI knowledge. This file indexes the documentation site.
 
 Docs home: https://ui.neuctra.com/docs
 Full setup guide: https://ui.neuctra.com/docs/full-setup
 MCP server (AI tool integration): https://ui.neuctra.com/docs/mcp
+AI assistant overview: https://ui.neuctra.com/docs/ai-assistant
+Remote MCP over HTTP: https://ui.neuctra.com/docs/mcp-http
+Neuctra UI CLI: https://ui.neuctra.com/docs/cli
+Blog: https://ui.neuctra.com/blog
+Disclaimer: https://ui.neuctra.com/disclaimer
+
+## Site Pages
+
+- [About](https://ui.neuctra.com/about)
+- [Contact](https://ui.neuctra.com/contact)
+- [Connect Neuctra UI to your AI coding assistant](https://ui.neuctra.com/blog/connect-neuctra-ui-to-your-ai-assistant)
+- [Start a React project with the Neuctra UI CLI](https://ui.neuctra.com/blog/start-a-react-project-with-the-neuctra-ui-cli)
+- [Get reliable results from component documentation](https://ui.neuctra.com/blog/get-reliable-results-from-component-documentation)
+- [Terms of Service](https://ui.neuctra.com/terms)
+- [Privacy Policy](https://ui.neuctra.com/privacypolicy)
+- [Blog](https://ui.neuctra.com/blog)
 
 ## Getting Started
 
@@ -14,7 +30,10 @@ MCP server (AI tool integration): https://ui.neuctra.com/docs/mcp
 
 ## AI & Integrations
 
+- [AI Assistant Overview](https://ui.neuctra.com/docs/ai-assistant)
 - [Neuctra UI MCP](https://ui.neuctra.com/docs/mcp)
+- [Remote MCP (HTTP)](https://ui.neuctra.com/docs/mcp-http)
+- [Neuctra UI CLI](https://ui.neuctra.com/docs/cli)
 
 ## Layout & Structure
 

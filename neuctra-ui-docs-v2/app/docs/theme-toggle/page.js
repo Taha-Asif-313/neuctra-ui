@@ -6,7 +6,7 @@ const themeToggleFaq = [
   {
     question: "How do I import and use ThemeToggleButton?",
     answer:
-      'Import it with `import { ThemeToggleButton } from "@neuctra/ui";` then pass the theme context from `useTheme()` as the `context` prop — it needs no internal hooks of its own.',
+      'Import it with `import { ThemeToggleButton } from "@neuctra/ui";` then pass the theme context from `useTheme()` as the `context` prop - it needs no internal hooks of its own.',
   },
   {
     question: "Can I style the Sun and Moon icons separately?",
@@ -16,7 +16,7 @@ const themeToggleFaq = [
   {
     question: "Where should ThemeProvider live in my app?",
     answer:
-      "Keep ThemeProvider at the root of your application so every component — including ThemeToggleButton wherever it's placed (navbar, settings panel, etc.) — can access theme state.",
+      "Keep ThemeProvider at the root of your application so every component - including ThemeToggleButton wherever it's placed (navbar, settings panel, etc.) - can access theme state.",
   },
 ];
 
@@ -148,7 +148,7 @@ export default function App(): JSX.Element {
 
           <p className="text-gray-200 text-sm">
             <code>sunClassName</code> and <code>moonClassName</code> style
-            the Sun/Moon icons independently — useful for matching the
+            the Sun/Moon icons independently - useful for matching the
             toggle's colors to your brand instead of the default{" "}
             <code>text-warning</code> / <code>text-info</code> tokens.
           </p>

@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "TimePicker Component — React Time Selection | Neuctra UI";
+const TITLE = "TimePicker Component - React Time Selection | Neuctra UI";
 const DESCRIPTION =
   "Dependency-free React time picker: an Input-style trigger opening a scrollable list of time options, configurable step/hour range, clearable trigger and popover behavior, built the same way as DatePicker.";
 

@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -29,7 +29,7 @@ const SkeletonDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React skeleton loading component with text, circular and
             rectangular variants, multi-line paragraphs and reduced-motion
-            support — built with Tailwind CSS.
+            support - built with Tailwind CSS.
           </p>
         </header>
 
@@ -176,7 +176,7 @@ const SkeletonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number | string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Explicit width (px or any CSS value)
                   </td>
@@ -189,7 +189,7 @@ const SkeletonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number | string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Explicit height</td>
                 </tr>
 
@@ -224,7 +224,7 @@ const SkeletonDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles each individual line when variant="text" and
                     lines &gt; 1.
@@ -246,7 +246,7 @@ const SkeletonDocs = () => {
           </h2>
           <ul className="list-disc space-y-1.5 pl-5 text-sm text-gray-300">
             <li>
-              Skeletons are aria-hidden — announce loading state separately
+              Skeletons are aria-hidden - announce loading state separately
               (e.g. aria-busy on the container).
             </li>
             <li>

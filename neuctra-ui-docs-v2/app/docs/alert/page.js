@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -27,11 +27,11 @@ const AlertDocsContent = () => {
           Import Component From Library
         </h2>
         <p className="text-gray-300 mb-4">
-          <code>toast</code> is a standalone function — import it and call it
+          <code>toast</code> is a standalone function - import it and call it
           from anywhere: event handlers, API clients, utility files. No hook,
           no component wrapper required at the call site (only{" "}
           <code>{"<ToastProvider>"}</code> needs to be mounted once, to
-          render the toasts — see Setup below).
+          render the toasts - see Setup below).
         </p>
         <CodeBlock code={`import { toast, ToastProvider } from "@neuctra/ui";`} />
       </section>
@@ -42,7 +42,7 @@ const AlertDocsContent = () => {
           Basic Usage Code
         </h2>
         <p className="text-gray-300 mb-4">
-          Call <code>toast()</code> directly — this is the whole API for the
+          Call <code>toast()</code> directly - this is the whole API for the
           simple case.
         </p>
         <CodeBlock
@@ -63,7 +63,7 @@ function BasicExample() {
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">Setup</h2>
         <p className="text-gray-200 mb-3">
-          <code>ToastProvider</code> renders the toast viewport — mount it{" "}
+          <code>ToastProvider</code> renders the toast viewport - mount it{" "}
           <strong>once</strong> near your app root, the same way you'd mount
           a single <code>{"<Toaster />"}</code> in react-hot-toast. It
           doesn't wrap your app in a context you need to opt into:{" "}
@@ -90,7 +90,7 @@ export default function App({ Component, pageProps }) {
       <section>
         <h2 className="text-2xl font-semibold mb-4 text-white">How it Works</h2>
         <p className="text-gray-200 mb-3">
-          Toasts live in a small module-level store, not React context —
+          Toasts live in a small module-level store, not React context -
           the same architecture react-hot-toast uses internally. That's
           what makes <code>toast()</code> callable from anywhere:{" "}
           <code>{"<ToastProvider>"}</code> just subscribes to that store and
@@ -119,14 +119,14 @@ export default function App({ Component, pageProps }) {
           </li>
           <li>
             Pass the same <code>id</code> back into a later <code>toast()</code>{" "}
-            call to update a toast in place instead of stacking a new one —
+            call to update a toast in place instead of stacking a new one -
             this is exactly what <code>toast.promise()</code> does under the
             hood.
           </li>
           <li>
             Users can close toasts via the close button; if you also use{" "}
             <code>useToast()</code>, it returns the identical global{" "}
-            <code>toast</code>/<code>dismiss</code> — both APIs stay in sync.
+            <code>toast</code>/<code>dismiss</code> - both APIs stay in sync.
           </li>
         </ul>
       </section>
@@ -223,7 +223,7 @@ export default function App({ Component, pageProps }) {
         <p className="text-gray-200 mb-3">
           The signature react-hot-toast pattern: show a spinner toast for an
           async action, then let it morph into success or error automatically
-          — no manual dismiss-and-replace bookkeeping.
+          - no manual dismiss-and-replace bookkeeping.
         </p>
 
         <CodePreviewBlock
@@ -247,7 +247,7 @@ export default function App({ Component, pageProps }) {
                   {
                     loading: "Saving...",
                     success: "Saved successfully!",
-                    error: "Could not save — try again.",
+                    error: "Could not save - try again.",
                   },
                 )
               }
@@ -349,7 +349,7 @@ toast.loading("Working on it...");`}
           <code>variant</code> controls surface emphasis, independent of{" "}
           <code>type</code> (success/error/warning/info/loading). The
           default, <code>"light"</code>, is a clean neutral card with only
-          the icon carrying color — matching react-hot-toast's look.{" "}
+          the icon carrying color - matching react-hot-toast's look.{" "}
           <code>"soft"</code> and <code>"dark"</code> are opt-in for when the
           whole toast should read as its status at a glance.
         </p>
@@ -420,7 +420,7 @@ toast.success("Dark variant", {
 
         <p className="text-gray-200 mb-3">
           Toasts are fully customizable using className and style overrides,
-          down to individual sections like title, description, and icon —
+          down to individual sections like title, description, and icon -
           and <code>icon</code> lets you swap in any custom node in place of
           the default type icon (pass <code>icon: null</code> to render no
           icon at all).
@@ -472,11 +472,11 @@ toast.success("Dark variant", {
 
         <ul className="list-disc pl-5 space-y-2 text-gray-200">
           <li>
-            <strong>light (default):</strong> Everyday feedback — the clean,
+            <strong>light (default):</strong> Everyday feedback - the clean,
             neutral look that fits most apps out of the box.
           </li>
           <li>
-            <strong>soft:</strong> When the status itself is the point —
+            <strong>soft:</strong> When the status itself is the point -
             subtle tinted feedback, background updates.
           </li>
           <li>
@@ -515,7 +515,7 @@ toast.success("Dark variant", {
         </h2>
         <p className="text-gray-200 mb-3">
           Every <code>toast()</code> call returns the toast's <code>id</code>{" "}
-          — capture it to dismiss that specific toast later, or call{" "}
+          - capture it to dismiss that specific toast later, or call{" "}
           <code>toast.dismiss()</code> with no arguments to clear everything.
         </p>
 
@@ -575,7 +575,7 @@ const AlertDocs = () => {
               The <span className="text-primary font-semibold">Toast</span>{" "}
               component is a lightweight, react-hot-toast-style
               notification system. Call <code>toast()</code> from anywhere
-              — no hook required — to trigger <code>success</code>,{" "}
+              - no hook required - to trigger <code>success</code>,{" "}
               <code>error</code>, <code>warning</code>, <code>info</code>,
               or <code>loading</code> notifications, each with distinct
               styling and icons for clear visual communication.
@@ -586,7 +586,7 @@ const AlertDocs = () => {
               <code>toast()</code> works from event handlers, API clients,
               and utility files alike. Includes auto-dismiss, manual
               dismissal, <code>toast.promise()</code> for async flows, and
-              configurable stack position — making it ideal for async
+              configurable stack position - making it ideal for async
               actions, system alerts, and user feedback flows.
             </p>
           </header>
@@ -602,7 +602,7 @@ const AlertDocs = () => {
                 <Check size={15} className="text-primary" />
                 <div>
                   <strong>Import Anywhere:</strong> <code>toast()</code> is
-                  a standalone function — call it outside components, no
+                  a standalone function - call it outside components, no
                   hook required.
                 </div>
               </div>
@@ -687,7 +687,7 @@ const AlertDocs = () => {
                   <code>{"toast('Hello')"}</code> with no{" "}
                   <code>{"<ToastProvider>"}</code> mounted anywhere
                   <p className="text-gray-200 text-xs mt-1">
-                    This no longer throws — the call succeeds, but nothing
+                    This no longer throws - the call succeeds, but nothing
                     renders. Mount <code>ToastProvider</code> once near
                     your app root so there's somewhere for toasts to show
                     up.
@@ -700,7 +700,7 @@ const AlertDocs = () => {
                 <div>
                   <code>{`<ToastProvider>`}</code> mounted more than once
                   <p className="text-gray-200 text-xs mt-1">
-                    Every provider renders the same global toast list —
+                    Every provider renders the same global toast list -
                     mounting two shows every toast twice, the same caveat
                     react-hot-toast's <code>{"<Toaster />"}</code> has.
                   </p>
@@ -722,7 +722,7 @@ const AlertDocs = () => {
                 <div>
                   <code>{`<ToastProvider><App /></ToastProvider>`}</code>
                   <p className="text-gray-200 text-xs mt-1">
-                    Mounted once, near the root — correct setup.
+                    Mounted once, near the root - correct setup.
                   </p>
                 </div>
               </div>
@@ -740,7 +740,7 @@ const AlertDocs = () => {
                 <li>
                   Reach for <code>toast.promise()</code> for any async
                   action instead of manually pairing a loading toast with
-                  a follow-up dismiss — one call, no id bookkeeping.
+                  a follow-up dismiss - one call, no id bookkeeping.
                 </li>
 
                 <li>
@@ -749,7 +749,7 @@ const AlertDocs = () => {
                 </li>
 
                 <li>
-                  Keep messages short — toasts should be quick and
+                  Keep messages short - toasts should be quick and
                   non-blocking.
                 </li>
 
@@ -764,7 +764,7 @@ const AlertDocs = () => {
                 </li>
 
                 <li>
-                  Avoid overusing toasts — too many can overwhelm users.
+                  Avoid overusing toasts - too many can overwhelm users.
                 </li>
 
                 <li>

@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Table Component — React Data Tables for SaaS Dashboards | Neuctra UI";
+const TITLE = "Table Component - React Data Tables for SaaS Dashboards | Neuctra UI";
 const DESCRIPTION =
   "Highly customizable React Table component for SaaS and admin dashboards. Supports responsive layouts, striped rows, hover states, dense mode, and full control over headers, rows, and cells with Tailwind CSS styling.";
 

@@ -3,9 +3,9 @@ import { buildMetadata } from "@/lib/seo/buildMetadata";
 import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 
 export const metadata = buildMetadata({
-  title: "About — Neuctra UI",
+  title: "About Neuctra UI - Components, CLI, and AI Assistant",
   description:
-    "Learn what Neuctra UI is, the principles behind it, and why teams use it to ship modern interfaces faster.",
+    "Learn about the Neuctra UI toolkit: its React component library, project setup CLI, and local or hosted MCP integrations for AI coding assistants.",
   path: "/about",
 });
 

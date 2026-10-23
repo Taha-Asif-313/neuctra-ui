@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "PinInput Component — React OTP Code Field | Neuctra UI";
+const TITLE = "PinInput Component - React OTP Code Field | Neuctra UI";
 const DESCRIPTION =
   "React PIN / OTP input with auto-advance, smart Backspace, full-code paste, numeric or alphanumeric modes, masking and one-time-code autofill.";
 

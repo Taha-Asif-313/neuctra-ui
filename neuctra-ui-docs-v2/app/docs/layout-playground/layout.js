@@ -1,10 +1,10 @@
 import { buildMetadata } from "@/lib/seo/buildMetadata";
 
 // Orphan route: not linked from the Sidebar or the old sitemap.xml. Ported
-// for functional parity but not worth indexing — noIndex avoids diluting
+// for functional parity but not worth indexing - noIndex avoids diluting
 // crawl budget on a page nobody can discover via navigation.
 export const metadata = buildMetadata({
-  title: "Layout Playground — Interactive Flex & Grid Builder | Neuctra UI",
+  title: "Layout Playground - Interactive Flex & Grid Builder | Neuctra UI",
   description:
     "Experiment with flexbox and grid layouts in real time using the Neuctra UI Layout Playground. Adjust columns, spacing, alignment, and sidebar layouts and generate production-ready React JSX instantly.",
   keywords:

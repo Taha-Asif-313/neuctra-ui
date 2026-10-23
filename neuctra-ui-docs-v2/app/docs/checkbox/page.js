@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -290,20 +290,20 @@ function CheckboxGroupExample() {
               </h3>
               <ul className="list-disc pl-5 space-y-1 text-sm text-accent-foreground">
                 <li>
-                  <code>className / containerClassName</code> — wrapper styles
+                  <code>className / containerClassName</code> - wrapper styles
                 </li>
                 <li>
-                  <code>itemClassName / labelClassName</code> — per-item
+                  <code>itemClassName / labelClassName</code> - per-item
                   wrapper
                 </li>
                 <li>
-                  <code>textClassName</code> — label text styling
+                  <code>textClassName</code> - label text styling
                 </li>
                 <li>
-                  <code>iconClassName / iconSize</code> — checkbox icon
+                  <code>iconClassName / iconSize</code> - checkbox icon
                 </li>
                 <li>
-                  <code>errorClassName</code> — error message styling
+                  <code>errorClassName</code> - error message styling
                 </li>
               </ul>
             </div>
@@ -355,7 +355,7 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">label</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label text in single mode.</td>
                 </tr>
 
@@ -369,7 +369,7 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">onCheckedChange</td>
                   <td className="p-3">(checked: boolean) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Called when toggled in single mode.</td>
                 </tr>
 
@@ -393,7 +393,7 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">onChange</td>
                   <td className="p-3">(values: string[]) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Called when selection changes.</td>
                 </tr>
 
@@ -401,7 +401,7 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">name</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     HTML name attribute for form submission.
                   </td>
@@ -435,7 +435,7 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">error</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Error message displayed below the group.
                   </td>
@@ -445,56 +445,56 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Wrapper container classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">containerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Override wrapper classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for each checkbox item.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for label wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for label text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for checkbox icon/box.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">checkClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the checkmark SVG inside the checkbox.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">errorClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for error message.</td>
                 </tr>
 
@@ -502,49 +502,49 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">containerStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for items.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for labels.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for icon.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">errorStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for error text.</td>
                 </tr>
 
@@ -552,7 +552,7 @@ function CheckboxGroupExample() {
                 <tr>
                   <td className="p-3">customIcon</td>
                   <td className="p-3">(checked, option?) =&gt; ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom checkbox icon renderer.</td>
                 </tr>
 
@@ -568,7 +568,7 @@ function CheckboxGroupExample() {
                   <td className="p-3">
                     ({`{ option, checked, focused, toggle }`}) =&gt; ReactNode
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Fully customize each checkbox item.</td>
                 </tr>
               </tbody>
@@ -642,7 +642,7 @@ function CheckboxGroupExample() {
 
               <li>
                 Prefer <code>selectedValues</code> as the single source of
-                truth — avoid mixing internal and external state.
+                truth - avoid mixing internal and external state.
               </li>
 
               <li>
@@ -667,12 +667,12 @@ function CheckboxGroupExample() {
               </li>
 
               <li>
-                Avoid managing checked state manually inside each item —
+                Avoid managing checked state manually inside each item -
                 always lift state up to the parent via <code>onChange</code>.
               </li>
 
               <li>
-                Each checkbox is independently focusable — use Tab to move
+                Each checkbox is independently focusable - use Tab to move
                 between options and Space to toggle. Unlike RadioGroup,
                 Checkbox groups are not arrow-key navigable.
               </li>

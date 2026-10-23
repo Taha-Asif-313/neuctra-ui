@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -166,14 +166,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">text</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">Text displayed inside the badge</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-medium">icon</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Optional icon displayed alongside the text
                   </td>
@@ -233,9 +233,9 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">dotColor</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
-                    Present in the prop types but not currently wired up — the
+                    Present in the prop types but not currently wired up - the
                     dot always renders in the destructive color. Use{" "}
                     <code>dotStyle</code> or <code>dotClassName</code> to
                     change it.
@@ -245,7 +245,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">count</td>
                   <td className="p-3">number | string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Displays a numeric or custom count badge (e.g., unread
                     messages)
@@ -264,7 +264,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">onClick</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Click handler. Makes the badge interactive with hover
                     effect
@@ -274,7 +274,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Additional CSS classes for the badge container
                   </td>
@@ -283,7 +283,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Inline styles for the badge container
                   </td>
@@ -292,7 +292,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">dotClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Additional classes for the notification dot
                   </td>
@@ -301,7 +301,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">dotStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Inline styles for the notification dot
                   </td>
@@ -310,7 +310,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">countClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Additional classes for the count badge
                   </td>
@@ -319,14 +319,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">countStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">Inline styles for the count badge</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-medium">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Additional classes for the icon wrapper
                   </td>
@@ -335,14 +335,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">iconStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">Inline styles for the icon wrapper</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-medium">textClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Additional classes for the text label
                   </td>
@@ -351,7 +351,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">textStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">Inline styles for the text label</td>
                 </tr>
               </tbody>
@@ -441,7 +441,7 @@ function BasicExample() {
               Choose <code>rounded={false}</code> when you need a more
               rectangular badge shape.
             </li>
-            <li>Keep text short — badges are meant to be compact.</li>
+            <li>Keep text short - badges are meant to be compact.</li>
             <li>
               For clickable badges, ensure sufficient contrast and clear
               labeling for accessibility.

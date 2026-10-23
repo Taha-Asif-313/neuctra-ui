@@ -19,7 +19,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -88,7 +88,7 @@ const ModalDocs = () => {
             dialogs, confirmations, and complex UI interactions. It includes
             structured subcomponents like <code>ModalContent</code>,{" "}
             <code>ModalHeader</code>, <code>ModalBody</code>, and{" "}
-            <code>ModalFooter</code> — making it easy to build consistent,
+            <code>ModalFooter</code> - making it easy to build consistent,
             accessible layouts.
           </p>
 
@@ -251,7 +251,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">onClose</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Triggered on ESC or overlay click</td>
                 </tr>
                 <tr>
@@ -269,31 +269,31 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">ariaLabel</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Accessible name for the dialog when no ModalHeader is used</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Overlay wrapper styles</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">overlayClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Overlay background class</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">overlayStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Overlay inline styles</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-mono">dialogClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the role="dialog" wrapper around children</td>
                 </tr>
               </tbody>
@@ -322,14 +322,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">onClick</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Runs before action</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">action</td>
                   <td className="p-3">() =&gt; void | Promise</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Async action before close</td>
                 </tr>
 
@@ -343,14 +343,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">onClose</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Called after action completes</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">loading</td>
                   <td className="p-3">boolean</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Shows loading state</td>
                 </tr>
               </tbody>
@@ -379,21 +379,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Modal content</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Container class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Container styles</td>
                 </tr>
 
@@ -407,7 +407,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">onClose</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Closes modal</td>
                 </tr>
 
@@ -421,14 +421,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">closeButtonClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Close button class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">closeButtonStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Close button styles</td>
                 </tr>
               </tbody>
@@ -457,63 +457,63 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">title</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Modal title</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">icon</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Optional icon</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">onClose</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Close function</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header wrapper class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header wrapper styles</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">titleWrapperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the wrapper around icon + title</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the icon</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">titleClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the title heading</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">closeButtonClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Styles the close button</td>
                 </tr>
               </tbody>
@@ -542,21 +542,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Modal body content</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Body wrapper class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Body wrapper styles</td>
                 </tr>
               </tbody>
@@ -585,21 +585,21 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Footer actions</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Footer wrapper class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Footer wrapper styles</td>
                 </tr>
               </tbody>
@@ -628,14 +628,14 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-mono">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Trigger button label</td>
                 </tr>
 
                 <tr>
                   <td className="p-3 font-mono">modalContent</td>
                   <td className="p-3">(close) =&gt; ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Render function for modal content</td>
                 </tr>
 
@@ -644,7 +644,7 @@ function BasicExample() {
                   <td className="p-3">
                     Omit&lt;ModalProps, "isOpen" | "onClose" | "children"&gt;
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Forwarded to the underlying Modal</td>
                 </tr>
               </tbody>

@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Stepper Component — React Multi-Step Progress | Neuctra UI";
+const TITLE = "Stepper Component - React Multi-Step Progress | Neuctra UI";
 const DESCRIPTION =
   "React stepper component for wizards and checkouts. Horizontal and vertical orientation, clickable completed steps and done/active/pending states.";
 

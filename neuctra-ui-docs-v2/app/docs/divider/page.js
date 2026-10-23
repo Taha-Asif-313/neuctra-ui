@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -27,7 +27,7 @@ const DividerDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React divider component for separating content. Horizontal and
             vertical orientation, optional centered label, dashed style and
-            spacing scales — built with Tailwind CSS.
+            spacing scales - built with Tailwind CSS.
           </p>
         </header>
 
@@ -76,7 +76,7 @@ const DividerDocs = () => {
             With Label
           </h2>
           <p className="text-sm text-gray-300 mb-4 max-w-3xl">
-            A centered label between two hairlines — great for auth forms.
+            A centered label between two hairlines - great for auth forms.
           </p>
           <CodePreviewBlock
             language="jsx"
@@ -174,7 +174,7 @@ const DividerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Centered label (horizontal only)</td>
                 </tr>
 
@@ -211,7 +211,7 @@ const DividerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the hairline segments (labeled horizontal variant
                     only).
@@ -225,7 +225,7 @@ const DividerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the centered label (labeled horizontal variant
                     only).

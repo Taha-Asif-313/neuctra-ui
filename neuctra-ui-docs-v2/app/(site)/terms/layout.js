@@ -3,9 +3,9 @@ import { buildMetadata } from "@/lib/seo/buildMetadata";
 import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 
 export const metadata = buildMetadata({
-  title: "Terms of Service — Neuctra UI",
+  title: "Terms of Service - Neuctra UI",
   description:
-    "Terms of Service for Neuctra UI. Read the legal terms, license, and usage guidelines for using the Neuctra UI library.",
+    "Review the Neuctra UI Terms of Service, including the published license and usage guidelines for the software.",
   path: "/terms",
 });
 

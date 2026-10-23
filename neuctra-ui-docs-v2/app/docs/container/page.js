@@ -21,7 +21,7 @@ import {
 import Link from "next/link";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -516,7 +516,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">children</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Content inside the container</td>
                 </tr>
 
@@ -524,7 +524,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Custom Tailwind or CSS classes for layout (flex, grid,
                     etc.)
@@ -534,7 +534,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Inline styles (works without Tailwind)
                   </td>
@@ -544,7 +544,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">...rest</td>
                   <td className="p-3">HTMLAttributes&lt;div&gt;</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     All native div props (onClick, id, aria-*, data-*, etc.)
                   </td>
@@ -650,7 +650,7 @@ function BasicExample() {
                   banners)
                 </li>
                 <li>
-                  Avoid putting layout logic inside Container — keep it
+                  Avoid putting layout logic inside Container - keep it
                   reusable
                 </li>
                 <li>

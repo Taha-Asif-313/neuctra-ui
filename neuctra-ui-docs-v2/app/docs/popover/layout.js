@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Popover Component — React Click-Triggered Panel | Neuctra UI";
+const TITLE = "Popover Component - React Click-Triggered Panel | Neuctra UI";
 const DESCRIPTION =
   "React popover component with rich content, twelve placement combinations, outside-click and Escape dismissal, controlled and uncontrolled modes.";
 

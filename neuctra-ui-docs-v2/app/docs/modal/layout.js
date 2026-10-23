@@ -5,7 +5,7 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 const TITLE =
-  "Modal Component — React Dialogs, Overlays & SaaS UI Patterns | Neuctra UI";
+  "Modal Component - React Dialogs, Overlays & SaaS UI Patterns | Neuctra UI";
 const DESCRIPTION =
   "Build accessible modal dialogs with the Neuctra UI Modal component. Supports structured layouts, overlays, animations, async actions, and composable sections for SaaS dashboards, confirmations, and forms in React.";
 

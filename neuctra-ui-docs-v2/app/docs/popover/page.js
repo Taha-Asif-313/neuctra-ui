@@ -9,7 +9,7 @@ import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 import { Accessibility } from "lucide-react";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -213,7 +213,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Element that toggles the popover (required)
                   </td>
@@ -225,7 +225,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Panel content (required)</td>
                 </tr>
                 <tr>
@@ -259,7 +259,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     boolean
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Controlled / uncontrolled open state
                   </td>
@@ -271,7 +271,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (open: boolean) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired on every open/close</td>
                 </tr>
                 <tr>
@@ -317,7 +317,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the root wrapper around trigger + panel.
                   </td>
@@ -329,7 +329,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the wrapper around the trigger element.
                   </td>
@@ -341,7 +341,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the floating panel.</td>
                 </tr>
                 <tr>
@@ -351,7 +351,7 @@ const PopoverDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     CSSProperties
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Inline styles for the floating panel.
                   </td>

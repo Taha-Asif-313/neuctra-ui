@@ -13,12 +13,12 @@ const fullSetupFaq = [
   {
     question: "Do I need to manually write a theme context?",
     answer:
-      "No — running `npx @neuctra/ui-cli@latest init` generates the theme context file for you automatically (.tsx if it detects TypeScript, .jsx otherwise) and wraps your app with ThemeProvider. Manual setup is only needed if you want full control over the file.",
+      "No - running `npx @neuctra/ui-cli@latest init` generates the theme context file for you automatically (.tsx if it detects TypeScript, .jsx otherwise) and wraps your app with ThemeProvider. Manual setup is only needed if you want full control over the file.",
   },
   {
     question: "How do I avoid a flash of the wrong theme on page load?",
     answer:
-      "Apply the .dark class before paint rather than in a post-mount effect — the theme context's lazy useState initializer reads localStorage/prefers-color-scheme and sets the class synchronously on first render, so there's no flash.",
+      "Apply the .dark class before paint rather than in a post-mount effect - the theme context's lazy useState initializer reads localStorage/prefers-color-scheme and sets the class synchronously on first render, so there's no flash.",
   },
 ];
 
@@ -41,7 +41,7 @@ const FullSetupDocPage = () => {
         {/* STEP 0 */}
         <Step
           icon={Settings}
-          title="Step 0 — Create React Project"
+          title="Step 0 - Create React Project"
           description="Start with a fresh React project using Vite, Next.js, or Remix."
         >
           <FrameworkTitle>Vite React</FrameworkTitle>
@@ -99,7 +99,7 @@ npm install`}
         {/* STEP 1 */}
         <Step
           icon={Settings}
-          title="Step 1 — Install Dependencies"
+          title="Step 1 - Install Dependencies"
           description="Install Neuctra UI and Tailwind CSS v4 with required packages."
         >
           <CodeBlock language="bash" code={`npm install @neuctra/ui`} />
@@ -130,7 +130,7 @@ npm install`}
         {/* STEP 2 */}
         <Step
           icon={Code2}
-          title="Step 2 — Configure Tailwind v4"
+          title="Step 2 - Configure Tailwind v4"
           description="Set up Tailwind CSS v4 for your React framework."
         >
           <FrameworkTitle>Vite</FrameworkTitle>
@@ -196,7 +196,7 @@ export default defineConfig({
         {/* STEP 3 */}
         <Step
           icon={Code2}
-          title="Step 3 — Import Global CSS"
+          title="Step 3 - Import Global CSS"
           description="Load Tailwind CSS and Neuctra UI sources in the main stylesheet for your React framework."
         >
           <FrameworkTitle>Vite</FrameworkTitle>
@@ -228,7 +228,7 @@ export default defineConfig({
         {/* STEP 4 */}
         <Step
           icon={Paintbrush}
-          title="Step 4 — Add Theme System (Tailwind v4)"
+          title="Step 4 - Add Theme System (Tailwind v4)"
           description="Define CSS variables and theme tokens using Tailwind v4's @theme syntax."
         >
           <CodeBlock
@@ -389,7 +389,7 @@ button {
         {/* STEP 5 */}
         <Step
           icon={Moon}
-          title="Step 5 — Create Theme Context"
+          title="Step 5 - Create Theme Context"
           description="Create a global theme context to manage light and dark mode across your entire application."
         >
           <CodeBlock
@@ -551,8 +551,8 @@ export const useTheme = (): ThemeContextValue => {
             Create <code>src/contexts/ThemeContext.jsx</code> (or{" "}
             <code>.tsx</code> for TypeScript projects) and add this code. It reads
             the saved preference (or system preference) and applies the{" "}
-            <code>dark</code> class <em>before paint</em> — via the lazy{" "}
-            <code>useState</code> initializer, not a post-mount effect — so there's
+            <code>dark</code> class <em>before paint</em> - via the lazy{" "}
+            <code>useState</code> initializer, not a post-mount effect - so there's
             no flash of the wrong theme on load, and it stays in sync with OS theme
             changes via a <code>matchMedia</code> listener as long as you haven't
             made an explicit choice.
@@ -560,7 +560,7 @@ export const useTheme = (): ThemeContextValue => {
 
           <p className="text-zinc-200 text-sm">
             Running <code>npx @neuctra/ui-cli@latest init</code> generates this
-            exact file for you automatically — <code>.tsx</code> if it detects a{" "}
+            exact file for you automatically - <code>.tsx</code> if it detects a{" "}
             <code>tsconfig.json</code> or a TypeScript entry file, <code>.jsx</code>{" "}
             otherwise.
           </p>
@@ -569,7 +569,7 @@ export const useTheme = (): ThemeContextValue => {
         {/* STEP 6 */}
         <Step
           icon={Settings}
-          title="Step 6 — Wrap Your Application"
+          title="Step 6 - Wrap Your Application"
           description="Wrap your application with ThemeProvider so theme state can be accessed anywhere."
         >
           <p className="text-zinc-200 text-sm">
@@ -684,7 +684,7 @@ export default function App() {
         {/* STEP 7 */}
         <Step
           icon={Sun}
-          title="Step 7 — Add Theme Toggle"
+          title="Step 7 - Add Theme Toggle"
           description="Use the built-in Neuctra UI ThemeToggle component to switch between light and dark modes."
         >
           <CodeBlock
@@ -713,7 +713,7 @@ export default function App() {
         {/* STEP 8 */}
         <Step
           icon={Code2}
-          title="Step 8 — Verify Theme Setup"
+          title="Step 8 - Verify Theme Setup"
           description="Test that your theme system and Neuctra UI components are working correctly."
         >
           <CodeBlock
@@ -867,7 +867,7 @@ export default defineConfig({
               />
             </div>
 
-            {/* 5 — IMPORTANT NOTE */}
+            {/* 5 - IMPORTANT NOTE */}
             <div className="pt-4 border-t border-border">
               <Text as="h3" size="lg" weight={600} className="mb-2">
                 UI not styled / Tailwind not installed

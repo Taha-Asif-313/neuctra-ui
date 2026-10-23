@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -109,7 +109,7 @@ const SwitchDocs = () => {
 
           <p className="text-sm text-gray-400 mt-3 leading-relaxed">
             The Switch component supports both single and group modes. No
-            extra setup is required — just import and start using it.
+            extra setup is required - just import and start using it.
           </p>
         </section>
 
@@ -406,7 +406,7 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">label</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label for single switch mode.</td>
                 </tr>
 
@@ -420,7 +420,7 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">onCheckedChange</td>
                   <td className="p-3">(checked: boolean) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Triggered when single switch toggles.
                   </td>
@@ -430,7 +430,7 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">options</td>
                   <td className="p-3">{`{ label: string; value: string }[]`}</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">List of switches in group mode.</td>
                 </tr>
 
@@ -446,7 +446,7 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">onChange</td>
                   <td className="p-3">(values: string[]) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Triggered when group selection changes.
                   </td>
@@ -479,7 +479,7 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">error</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Error message displayed below switches.
                   </td>
@@ -500,7 +500,7 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">name</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Form field name attribute.</td>
                 </tr>
 
@@ -508,49 +508,49 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root wrapper styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Each switch row container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label wrapper styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label text styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">switchClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Switch track styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">thumbClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Thumb styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">errorClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Error text styling.</td>
                 </tr>
 
@@ -558,49 +558,49 @@ function SwitchGroupExample() {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Row inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label container styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">textStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label text styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">switchStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Track inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">thumbStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Thumb inline styles.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">errorStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Error message styles.</td>
                 </tr>
               </tbody>

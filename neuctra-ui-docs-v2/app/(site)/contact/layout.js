@@ -3,9 +3,9 @@ import { buildMetadata } from "@/lib/seo/buildMetadata";
 import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 
 export const metadata = buildMetadata({
-  title: "Contact — Neuctra UI",
+  title: "Contact - Neuctra UI",
   description:
-    "Get in touch with the Neuctra UI team for support, feedback, contributions, and collaboration.",
+    "Find contact routes for Neuctra UI product questions, bug reports, feature requests, and open-source contributions.",
   path: "/contact",
 });
 

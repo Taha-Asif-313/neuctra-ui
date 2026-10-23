@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "AvatarGroup Component — React Stacked Avatars | Neuctra UI";
+const TITLE = "AvatarGroup Component - React Stacked Avatars | Neuctra UI";
 const DESCRIPTION =
-  "React avatar group with overlapping stack, background rings and an automatic +N overflow counter — built with Tailwind CSS.";
+  "React avatar group with overlapping stack, background rings and an automatic +N overflow counter - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Tooltip Component — React Hover Hints | Neuctra UI";
+const TITLE = "Tooltip Component - React Hover Hints | Neuctra UI";
 const DESCRIPTION =
-  "Accessible React tooltip shown on hover and keyboard focus. Four positions, show delay, Escape dismissal and WCAG-friendly behavior — built with Tailwind CSS.";
+  "Accessible React tooltip shown on hover and keyboard focus. Four positions, show delay, Escape dismissal and WCAG-friendly behavior - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

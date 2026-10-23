@@ -22,7 +22,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -290,9 +290,9 @@ const styleRows = [
   ["trailingClassName", "trailingStyle", "Trailing item content."],
   ["subListClassName", "subListStyle", "Nested ul element."],
   ["separatorClassName", "separatorStyle", "Separator row."],
-  ["chevronClassName", "—", "Expand/collapse chevron icon."],
-  ["externalIconClassName", "—", "External-link icon on href items."],
-  ["emptyStateClassName", "—", "Empty state message container."],
+  ["chevronClassName", "-", "Expand/collapse chevron icon."],
+  ["externalIconClassName", "-", "External-link icon on href items."],
+  ["emptyStateClassName", "-", "Empty state message container."],
 ];
 
 const PropTable = ({

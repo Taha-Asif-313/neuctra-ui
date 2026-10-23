@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Slider Component — React Range Input | Neuctra UI";
+const TITLE = "Slider Component - React Range Input | Neuctra UI";
 const DESCRIPTION =
   "React slider component built on the native range input: labels, live value, custom formatting, tick marks and three sizes with full keyboard support.";
 

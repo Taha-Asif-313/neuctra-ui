@@ -46,7 +46,7 @@ const IconButtonDocs = () => {
 
           <p className="text-sm text-gray-300 mt-3 leading-relaxed">
             Always pass an <code>aria-label</code> since there is no
-            visible text — it's the only way assistive tech can describe
+            visible text - it's the only way assistive tech can describe
             the action. Use <code>size</code> to scale the button and icon
             together, and <code>variant</code> to match the surrounding UI.
           </p>
@@ -132,7 +132,7 @@ function BasicExample(): JSX.Element {
           </h2>
           <p className="text-gray-300 mb-4">
             Ten variants cover brand, neutral, and semantic (status)
-            actions — the same set used by <code>Button</code>.
+            actions - the same set used by <code>Button</code>.
           </p>
           <CodePreviewBlock
             language="jsx"
@@ -208,7 +208,7 @@ function BasicExample(): JSX.Element {
           <h2 className="text-2xl font-semibold mb-4 text-white">Sizes</h2>
           <p className="text-gray-300 mb-4">
             Five sizes scale both the button footprint and the icon
-            together — no need to size the icon separately.
+            together - no need to size the icon separately.
           </p>
           <CodePreviewBlock
             language="jsx"
@@ -272,7 +272,7 @@ function BasicExample(): JSX.Element {
                 <tr>
                   <td className="p-3">icon</td>
                   <td className="p-3">React.ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     The icon displayed inside the button. Required.
                   </td>
@@ -303,7 +303,7 @@ function BasicExample(): JSX.Element {
                 <tr>
                   <td className="p-3">aria-label</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Accessible label describing the action. Required since
                     the button has no visible text.
@@ -320,21 +320,21 @@ function BasicExample(): JSX.Element {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root button classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for the icon wrapper.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">iconStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for the icon wrapper.</td>
                 </tr>
 
@@ -343,7 +343,7 @@ function BasicExample(): JSX.Element {
                   <td className="p-3">
                     React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Native button props like onClick, type, disabled.
                   </td>
@@ -365,7 +365,7 @@ function BasicExample(): JSX.Element {
               <div>
                 <code>{'<IconButton icon={<Heart />} />'}</code>
                 <p className="text-gray-400 text-xs mt-1">
-                  Missing aria-label — screen readers can't describe an
+                  Missing aria-label - screen readers can't describe an
                   icon-only button without it.
                 </p>
               </div>
@@ -376,7 +376,7 @@ function BasicExample(): JSX.Element {
               <div>
                 <code>{'<IconButton icon={<Heart />}>Like</IconButton>'}</code>
                 <p className="text-gray-400 text-xs mt-1">
-                  IconButton doesn't render children — use aria-label for
+                  IconButton doesn't render children - use aria-label for
                   the accessible name, and Button if you need visible text.
                 </p>
               </div>
@@ -413,7 +413,7 @@ function BasicExample(): JSX.Element {
           <div className="text-gray-300 space-y-3">
             <ul className="list-disc list-inside space-y-2">
               <li>
-                Always set <code>aria-label</code> — it's the only
+                Always set <code>aria-label</code> - it's the only
                 accessible name an icon-only button has.
               </li>
 
@@ -435,7 +435,7 @@ function BasicExample(): JSX.Element {
 
               <li>
                 Use <code>iconClassName</code> / <code>iconStyle</code> only
-                for fine-tuning icon rendering — prefer{" "}
+                for fine-tuning icon rendering - prefer{" "}
                 <code>className</code> for layout and spacing.
               </li>
             </ul>

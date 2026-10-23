@@ -8,7 +8,7 @@ export default function SiteShell({ children }) {
   return (
     <div className="min-h-screen flex flex-col bg-black text-white font-primary">
       <Navbar />
-      <main className="flex-grow pt-10">{children}</main>
+      <main className="flex-grow">{children}</main>
       <Footer />
     </div>
   );

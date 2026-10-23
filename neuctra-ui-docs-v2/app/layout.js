@@ -33,7 +33,7 @@ export const metadata = {
   // Neuctra UI"). `default` is only a fallback for a route that somehow
   // exports no title of its own.
   title:
-    "Neuctra UI - React UI Library for SaaS | Tailwind React Components for SaaS Apps",
+    "Neuctra UI - React Components and AI Assistant Toolkit",
   description: DEFAULT_DESCRIPTION,
   keywords:
     "react ui library, saas ui components, tailwind react components, react component library, saas dashboard ui",

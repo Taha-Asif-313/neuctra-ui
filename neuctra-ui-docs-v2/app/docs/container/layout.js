@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Container Component — Responsive Layout Wrapper | Neuctra UI";
+const TITLE = "Container Component - Responsive Layout Wrapper | Neuctra UI";
 const DESCRIPTION =
   "Build consistent layouts with the Container component in Neuctra UI. Control max-width, padding, and alignment for responsive React applications and design systems.";
 

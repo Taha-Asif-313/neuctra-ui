@@ -1,5 +1,5 @@
 import CodeBlock from "@/components/CodeBlock";
-import { Rocket, Palette, Component, Terminal, ArrowRight, Lightbulb } from "lucide-react";
+import { Rocket, Palette, Component, Terminal, ArrowRight, Lightbulb, Bot, Globe } from "lucide-react";
 import Link from "next/link";
 
 const IntroductionDocPage = () => {
@@ -14,11 +14,10 @@ const IntroductionDocPage = () => {
           </h1>
 
           <p className="mt-4 text-zinc-200 max-w-2xl leading-relaxed">
-            Neuctra UI is a modern React UI library for SaaS applications,
-            powered by Tailwind CSS. It helps developers build clean, scalable
-            SaaS dashboard UI, authentication forms, and customizable
-            interfaces without wasting time on repetitive UI work. Perfect for
-            startups looking for reusable SaaS components React.
+            Neuctra UI is a developer toolkit built around a React component
+            library, setup CLI, and AI assistant integrations. Use its
+            components in React apps, and connect compatible coding assistants
+            to structured UI knowledge through local or hosted MCP servers.
           </p>
         </section>
 
@@ -32,16 +31,23 @@ const IntroductionDocPage = () => {
           </div>
 
           <p className="text-zinc-200 text-sm">
-            The fastest way to start is using the official CLI. It
-            automatically: installs <code>@neuctra/ui</code>, checks React
-            (upgrading to ≥18 if needed) and Tailwind CSS (upgrading to v4 if
-            needed), configures your global CSS with theme tokens, generates a
-            theme context (as <code>.tsx</code> in TypeScript projects,{" "}
-            <code>.jsx</code> otherwise), and wraps your app with{" "}
-            <code>ThemeProvider</code>.
+            The CLI installs the UI library, checks React and Tailwind
+            dependencies, configures the global theme stylesheet, creates a
+            theme context, and connects providers when it recognizes your app
+            structure.
           </p>
 
           <CodeBlock language="bash" code={`npx @neuctra/ui-cli@latest init`} />
+        </section>
+
+        <section className="space-y-4 rounded-2xl border border-primary/20 bg-primary/[0.04] p-6">
+          <div className="flex items-center gap-2"><Bot className="text-primary" size={19}/><h2 className="text-2xl font-semibold text-white">Meet the Neuctra UI Assistant</h2></div>
+          <p className="text-zinc-300 leading-7">Give your AI coding tool access to component discovery, verified props and examples, theme tokens, design rules, page planning, and SEO guidance. Choose a local stdio server or a hosted HTTP connection to fit your MCP client.</p>
+          <CodeBlock language="json" code={`{\n  "mcpServers": {\n    "neuctra-ui": {\n      "command": "npx",\n      "args": ["-y", "@neuctra/ui-mcp"]\n    }\n  }`} />
+          <div className="flex flex-wrap gap-4 text-sm">
+            <Link href="/docs/ai-assistant" className="inline-flex items-center gap-2 text-primary">AI assistant overview <ArrowRight size={15}/></Link>
+            <Link href="/docs/mcp-http" className="inline-flex items-center gap-2 text-primary"><Globe size={15}/>Remote MCP guide</Link>
+          </div>
         </section>
 
         {/* ================= FEATURES ================= */}
@@ -76,14 +82,14 @@ const IntroductionDocPage = () => {
           </h2>
 
           <p className="text-zinc-200 leading-relaxed">
-            Neuctra UI is not just a component library — it's a complete UI
+            Neuctra UI is not just a component library - it&apos;s a complete UI
             system. It combines design tokens, accessibility, and developer
             experience into a single cohesive ecosystem.
           </p>
 
           <p className="text-zinc-200 leading-relaxed">
             Every component is built with performance, customization, and
-            consistency in mind — making it suitable for both small projects
+            consistency in mind - making it suitable for both small projects
             and enterprise apps.
           </p>
         </section>
@@ -134,7 +140,7 @@ export default function App(): JSX.Element {
         <section className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl space-y-3">
           <div className="flex items-center gap-2">
             <Lightbulb className="text-primary" size={18} />
-            <h3 className="text-lg font-semibold text-white">What's Next?</h3>
+            <h3 className="text-lg font-semibold text-white">What&apos;s Next?</h3>
           </div>
 
           <p className="text-zinc-200 text-sm">

@@ -3,9 +3,9 @@ import { buildMetadata } from "@/lib/seo/buildMetadata";
 import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 
 export const metadata = buildMetadata({
-  title: "Privacy Policy — Neuctra UI",
+  title: "Privacy Policy - Neuctra UI",
   description:
-    "Neuctra UI Privacy Policy: how we collect and use data, security practices, and user rights.",
+    "Read the Neuctra UI Privacy Policy for information about data collection, use, security practices, and policy updates.",
   path: "/privacypolicy",
 });
 

@@ -101,7 +101,7 @@ const CircuitLine = ({
 const DataStream = ({ delay = 0, left = 0, duration = 4 }) => {
   return (
     <Motion.div
-      className="absolute w-px bg-gradient-to-b from-transparent via-primary to-transparent"
+      className="absolute hidden w-px bg-gradient-to-b from-transparent via-primary to-transparent sm:block"
       style={{ height: "100vh", left: `${left}%` }}
       initial={{ top: "-100vh" }}
       animate={{ top: "100vh" }}
@@ -131,7 +131,7 @@ const FloatingParticle = ({ delay = 0, x = 0, duration = 7 }) => {
 
   return (
     <Motion.div
-      className="absolute w-1 h-1 bg-primary rounded-full"
+      className="absolute hidden h-1 w-1 rounded-full bg-primary sm:block"
       style={{ left: `${x}%`, bottom: 0 }}
       initial={{ y: 0, opacity: 0 }}
       animate={{
@@ -183,7 +183,7 @@ const FeatureCard = ({ icon, title, description, delay }) => {
       transition={{ duration: 0.8, delay }}
       className="relative group"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent rounded-lg blur-xl group-hover:blur-2xl transition-all duration-300" />
+      <div className="absolute inset-0 hidden rounded-lg bg-gradient-to-br from-primary/20 to-transparent blur-xl transition-all duration-300 group-hover:blur-2xl md:block" />
 
       <div className="relative h-full bg-zinc-950/80 backdrop-blur-sm border border-primary/30 rounded-lg p-6 hover:border-primary/60 transition-all duration-300">
         <div className="text-primary mb-4">{icon}</div>
@@ -350,40 +350,27 @@ const LandingPage = () => {
           />
         ))}
 
-      <CircuitLine top="5%" left="5%" delay={0.2} width={150} height={150} />
-
-      <CircuitLine top="5%" left="85%" delay={0.4} width={150} height={150} />
-
-      <CircuitLine top="85%" left="5%" delay={0.8} width={150} height={150} />
-
-      <CircuitLine
-        top="85%"
-        left="85%"
-        delay={1.2}
-        width={150}
-        height={150}
-      />
-
-      <CircuitLine top="45%" left="0%" delay={1.5} width={200} height={100} />
-
-      <CircuitLine
-        top="45%"
-        left="92%"
-        delay={2.0}
-        width={200}
-        height={100}
-      />
+      {!shouldReduceMotion && (
+        <div className="pointer-events-none absolute inset-0 hidden overflow-hidden sm:block" aria-hidden="true">
+          <CircuitLine top="5%" left="5%" delay={0.2} width={150} height={150} />
+          <CircuitLine top="5%" left="85%" delay={0.4} width={150} height={150} />
+          <CircuitLine top="85%" left="5%" delay={0.8} width={150} height={150} />
+          <CircuitLine top="85%" left="85%" delay={1.2} width={150} height={150} />
+          <CircuitLine top="45%" left="0%" delay={1.5} width={200} height={100} />
+          <CircuitLine top="45%" left="92%" delay={2.0} width={200} height={100} />
+        </div>
+      )}
 
       {/* ------------------------------------------------------------------ */}
       {/* HERO                                                               */}
       {/* ------------------------------------------------------------------ */}
 
-      <div className="relative z-10 min-h-screen px-4 py-10 flex flex-col items-center justify-center">
+      <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-start px-4 py-12 sm:py-16 lg:justify-center lg:py-10">
         <div className="max-w-6xl mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-2 items-center">
             {/* Left Content */}
 
-            <div>
+            <div className="py-20" >
               <Motion.div
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -398,7 +385,7 @@ const LandingPage = () => {
 
                   <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-zinc-950 border border-zinc-800 rounded-full text-zinc-300 text-xs font-semibold">
                     <Bot className="h-3.5 w-3.5 text-primary" />
-                    MCP Ready
+                    AI Assistant Ready
                   </span>
                 </div>
               </Motion.div>
@@ -407,10 +394,10 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.1 }}
-                className="text-5xl md:text-6xl font-bold tracking-tight mb-4 leading-none"
+                className="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl sm:leading-none md:text-6xl"
               >
-                Build better
-                <span className="text-primary"> React interfaces.</span>
+                Build with a UI assistant that
+                <span className="text-primary"> knows your tools.</span>
               </Motion.h1>
 
               <Motion.p
@@ -419,9 +406,10 @@ const LandingPage = () => {
                 transition={{ duration: 1, delay: 0.2 }}
                 className="text-gray-300 mb-5 text-sm md:text-base max-w-xl"
               >
-                Neuctra UI is a reusable React component library for
-                dashboards, SaaS products, admin panels, forms, authentication
-                flows, and modern web interfaces.
+                Neuctra UI brings together a React component system, a setup
+                CLI, and local or hosted MCP servers. Your AI coding assistant
+                can use accurate component knowledge while you build, wherever
+                your project lives.
               </Motion.p>
 
               {/* MCP Hero Callout */}
@@ -457,7 +445,7 @@ const LandingPage = () => {
                       files for you.
                     </p>
 
-                    <div className="flex items-center gap-2 rounded-lg bg-black border border-zinc-800 px-3 py-2.5">
+                    <div className="flex min-w-0 items-center gap-2 rounded-lg border border-zinc-800 bg-black px-2.5 py-2.5 sm:px-3">
                       <Terminal className="h-4 w-4 text-primary shrink-0" />
 
                       <code className="text-xs md:text-sm text-zinc-200 overflow-x-auto whitespace-nowrap flex-1">
@@ -485,11 +473,11 @@ const LandingPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
-                className="flex flex-wrap gap-3 text-sm"
+                className="flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap"
               >
                 <Link
                   href="/docs"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-all duration-200 font-medium"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-medium text-white transition-all duration-200 hover:bg-primary/90 sm:w-auto"
                 >
                   Get Started
                   <ArrowRight className="h-5 w-5" />
@@ -497,7 +485,7 @@ const LandingPage = () => {
 
                 <Link
                   href="/docs/mcp"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-950 px-5 py-2.5 font-medium text-zinc-300 transition-all duration-200 hover:bg-zinc-800 hover:text-white sm:w-auto"
                 >
                   <Bot className="h-5 w-5 text-primary" />
                   Explore MCP
@@ -507,7 +495,7 @@ const LandingPage = () => {
                   href="https://www.neuctra.com/space?tag=neuctra%20space"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-900 bg-zinc-950 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-900 bg-zinc-950 px-5 py-2.5 font-medium text-zinc-300 transition-all duration-200 hover:bg-zinc-800 hover:text-white sm:w-auto"
                 >
                   <RocketIcon className="h-5 w-5" />
                   Neuctra Space
@@ -518,7 +506,7 @@ const LandingPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6 }}
-                className="flex flex-wrap gap-8 mt-6"
+                className="mt-6 flex flex-wrap gap-x-8 gap-y-4"
               >
                 <div>
                   <div className="text-3xl font-bold text-primary">20+</div>
@@ -625,23 +613,23 @@ const LandingPage = () => {
       {/* FEATURES                                                           */}
       {/* ------------------------------------------------------------------ */}
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-20">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-14 sm:py-20">
         <Motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold text-center mb-5"
+          className="mb-5 text-center text-3xl font-bold sm:text-4xl md:text-5xl"
         >
           Everything you need to build
           <span className="text-primary"> product UI.</span>
         </Motion.h2>
 
-        <p className="text-zinc-400 text-center max-w-2xl mx-auto mb-16">
+        <p className="mx-auto mb-10 max-w-2xl text-center text-sm leading-7 text-zinc-400 sm:mb-16 sm:text-base">
           Neuctra UI gives you the reusable pieces needed to move from an
           empty React project to a consistent product interface.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 sm:gap-6 lg:gap-8">
           <FeatureCard
             icon={<Zap className="w-8 h-8" />}
             title="Build Faster"
@@ -679,8 +667,8 @@ const LandingPage = () => {
 
           <FeatureCard
             icon={<Bot className="w-8 h-8" />}
-            title="AI-Aware Workflow"
-            description="Connect the Neuctra UI MCP server so compatible AI coding tools can work with your UI library context."
+            title="Your AI UI Assistant"
+            description="Give compatible AI assistants a direct connection to component specs, design rules, theme tokens, and SEO guidance through local or hosted MCP."
             delay={1.2}
           />
         </div>
@@ -690,13 +678,13 @@ const LandingPage = () => {
       {/* COMPONENT OVERVIEW                                                 */}
       {/* ------------------------------------------------------------------ */}
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 pb-24 space-y-24">
+      <div className="relative z-10 mx-auto max-w-6xl space-y-14 px-4 pb-16 sm:space-y-20 sm:pb-20 lg:space-y-24 lg:pb-24">
         <section className="space-y-6">
           <Motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold text-center"
+            className="text-center text-2xl font-bold sm:text-3xl md:text-4xl"
           >
             A component library that grows with your product
           </Motion.h2>
@@ -744,35 +732,34 @@ const LandingPage = () => {
         {/* MCP SECTION                                                      */}
         {/* ---------------------------------------------------------------- */}
 
-        <section className="relative overflow-hidden rounded-[2.5rem] border border-primary/20 bg-primary/[0.04] px-6 py-8 md:px-10 md:py-12">
+        <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-primary/[0.04] px-4 py-6 sm:rounded-[2.5rem] sm:px-6 sm:py-8 md:px-10 md:py-12">
           <div className="absolute -top-20 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 
           <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[1fr_1fr] items-center">
+          <div className="relative z-10 grid min-w-0 items-center gap-7 sm:gap-10 lg:grid-cols-2">
             <div>
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-primary">
                 <Bot className="h-4 w-4" />
                 Model Context Protocol
               </div>
 
-              <h2 className="text-3xl md:text-5xl font-bold leading-tight">
-                Your AI coding tool can
-                <span className="text-primary"> understand Neuctra UI.</span>
+              <h2 className="text-2xl font-bold leading-tight sm:text-3xl md:text-5xl">
+                Put a UI assistant beside your project.
               </h2>
 
               <p className="mt-5 text-zinc-400 text-sm md:text-base leading-7 max-w-xl">
-                The Neuctra UI MCP server brings your UI library context into
-                compatible AI development workflows. Instead of repeatedly
-                explaining component names, patterns, and usage, connect the
-                MCP server and let your coding assistant work with that
-                context directly.
+                Neuctra UI Assistant works through MCP with compatible coding
+                tools. Run the server locally over stdio or connect to the
+                hosted HTTP endpoint. It can help with component discovery,
+                design guidance, theme setup, and public page SEO across your
+                project workflow.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
                   href="/docs/mcp"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-all duration-200 font-medium"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-white transition-all duration-200 hover:bg-primary/90 sm:w-auto"
                 >
                   MCP Documentation
                   <ArrowRight className="h-4 w-4" />
@@ -780,9 +767,12 @@ const LandingPage = () => {
 
                 <Link
                   href="/docs"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+                  className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-800 bg-zinc-950 px-5 py-2.5 font-medium text-zinc-300 transition-all duration-200 hover:bg-zinc-800 hover:text-white sm:w-auto"
                 >
                   View Components
+                </Link>
+                <Link href="/docs/ai-assistant" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium">
+                  AI assistant guide <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -815,7 +805,7 @@ const LandingPage = () => {
                   </button>
                 </div>
 
-                <div className="p-5">
+                <div className="min-w-0 p-4 sm:p-5">
                   <div className="overflow-x-auto">
                     <code className="text-sm text-zinc-200 whitespace-nowrap">
                       <span className="text-primary">$</span> {MCP_COMMAND}
@@ -833,11 +823,31 @@ const LandingPage = () => {
                   </span>
                 </div>
 
-                <pre className="overflow-x-auto text-xs leading-6 text-zinc-400">
+                <pre className="max-w-full overflow-x-auto text-xs leading-6 text-zinc-400">
                   <code>{MCPConfig}</code>
                 </pre>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="space-y-6">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="mb-3 text-2xl font-bold sm:text-3xl md:text-4xl">One toolkit, three ways to work</h2>
+            <p className="text-sm leading-7 text-zinc-400 sm:text-base">Use the React library in your app, let the CLI prepare the project, and connect your AI coding assistant locally or over HTTP.</p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+            {[
+              { title: "Neuctra UI CLI", text: "Initialize supported React projects with theme styles and provider wiring.", href: "/docs/cli", action: "CLI guide" },
+              { title: "Local AI assistant", text: "Run the MCP server on your machine and connect it to a compatible coding tool.", href: "/docs/mcp", action: "Local MCP guide" },
+              { title: "Remote MCP over HTTP", text: "Use the hosted endpoint, or deploy your own stateless MCP Worker.", href: "/docs/mcp-http", action: "HTTP MCP guide" },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 transition-colors hover:border-primary/50 sm:p-6">
+                <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-400">{item.text}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm text-primary">{item.action}<ArrowRight className="h-4 w-4" /></span>
+              </Link>
+            ))}
           </div>
         </section>
 
@@ -846,8 +856,8 @@ const LandingPage = () => {
         {/* ---------------------------------------------------------------- */}
 
         <section className="space-y-6">
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-3 text-2xl font-bold sm:text-3xl md:text-4xl">
               Built for the interfaces you actually ship
             </h2>
 
@@ -858,7 +868,7 @@ const LandingPage = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-5">
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
             {seoUseCases.map((item, index) => (
               <Motion.article
                 key={item.title}
@@ -887,7 +897,7 @@ const LandingPage = () => {
         {/* ---------------------------------------------------------------- */}
 
         <section className="relative z-10 grid lg:grid-cols-1 gap-8 xl:gap-10 items-start">
-          <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8">
+          <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-4 sm:p-6 md:p-8">
             <div className="relative">
               <div className="mb-8 flex items-center justify-between">
                 <div>
@@ -895,7 +905,7 @@ const LandingPage = () => {
                     Development Flow
                   </span>
 
-                  <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                  <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
                     From idea to interface
                   </h2>
                 </div>
@@ -909,7 +919,7 @@ const LandingPage = () => {
                 {buildFlow.map((step, index) => (
                   <div
                     key={step.title}
-                    className="group/item relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 p-5 transition-all duration-300 hover:border-primary/30 hover:bg-zinc-900"
+                    className="group/item relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 p-4 transition-all duration-300 hover:border-primary/30 hover:bg-zinc-900 sm:p-5"
                   >
                     <div className="flex gap-4">
                       <div className="relative flex-shrink-0">
@@ -936,7 +946,7 @@ const LandingPage = () => {
 
           {/* Quality */}
 
-          <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 md:p-8">
+          <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-4 sm:p-6 md:p-8">
             <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-primary/10 blur-3xl opacity-70" />
 
             <div className="relative">
@@ -984,7 +994,7 @@ const LandingPage = () => {
               <div className="mt-8 rounded-2xl border border-primary/10 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-4">
                 <p className="text-sm leading-7 text-zinc-300">
                   Use Neuctra UI where it makes sense, customize what you
-                  need, and keep ownership of your product's visual identity.
+                  need, and keep ownership of your product&apos;s visual identity.
                 </p>
               </div>
             </div>
@@ -995,19 +1005,19 @@ const LandingPage = () => {
         {/* PRODUCT SECTION                                                   */}
         {/* ---------------------------------------------------------------- */}
 
-        <section className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#09090B] px-6 py-8 md:px-10 md:py-12">
+        <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#09090B] px-4 py-6 sm:rounded-[2.5rem] sm:px-6 sm:py-8 md:px-10 md:py-12">
           <div className="absolute -top-20 right-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
 
           <div className="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-          <div className="relative z-10 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] items-center">
+          <div className="relative z-10 grid min-w-0 items-center gap-7 sm:gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-xs font-medium capitalize tracking-[0.18em] text-primary">
                 <Layers3 className="h-4 w-4" />
                 Product-Focused UI System
               </div>
 
-              <h2 className="max-w-2xl text-4xl md:text-5xl font-bold leading-tight text-white">
+              <h2 className="max-w-2xl text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
                 Your product should own the design.
               </h2>
 
@@ -1018,7 +1028,7 @@ const LandingPage = () => {
                 components working together as the product grows.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-6 flex flex-wrap gap-2.5 sm:mt-8 sm:gap-4">
                 {["React + Tailwind", "Reusable Components", "MCP Ready"].map(
                   (item) => (
                     <div
@@ -1035,7 +1045,7 @@ const LandingPage = () => {
             </div>
 
             <div className="relative">
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-xl">
+              <div className="relative min-w-0 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-4 sm:p-5">
                 <div className="relative mb-5 flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium capitalize tracking-[0.18em] text-primary">
@@ -1087,8 +1097,8 @@ const LandingPage = () => {
         {/* FINAL CTA                                                        */}
         {/* ---------------------------------------------------------------- */}
 
-        <section className="text-center rounded-2xl border border-primary/30 bg-primary/5 p-8 md:p-10 space-y-5">
-          <h2 className="text-3xl md:text-4xl font-bold">
+        <section className="space-y-5 rounded-2xl border border-primary/30 bg-primary/5 p-4 text-center sm:p-6 md:p-10">
+          <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
             Build your next interface with Neuctra UI.
           </h2>
 
@@ -1098,10 +1108,10 @@ const LandingPage = () => {
             workflow.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="/docs"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary text-white hover:bg-primary/90 transition-all duration-200 font-medium"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-2.5 font-medium text-white transition-all duration-200 hover:bg-primary/90 sm:w-auto"
             >
               <BookOpenText className="h-5 w-5" />
               Read Documentation
@@ -1109,7 +1119,7 @@ const LandingPage = () => {
 
             <Link
               href="/docs/mcp"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-700 px-6 py-2.5 font-medium text-zinc-300 transition-all duration-200 hover:bg-zinc-800 hover:text-white sm:w-auto"
             >
               <Bot className="h-5 w-5 text-primary" />
               Setup MCP
@@ -1117,7 +1127,7 @@ const LandingPage = () => {
 
             <Link
               href="/docs/layout-playground"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white transition-all duration-200 font-medium"
+              className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-700 px-6 py-2.5 font-medium text-zinc-300 transition-all duration-200 hover:bg-zinc-800 hover:text-white sm:w-auto"
             >
               <Rocket className="h-5 w-5" />
               Open Playground

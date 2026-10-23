@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Stat Component — React KPI & Metric Cards | Neuctra UI";
+const TITLE = "Stat Component - React KPI & Metric Cards | Neuctra UI";
 const DESCRIPTION =
-  "React stat component for dashboards: KPI value, label, icon, trend indicator with up/down arrows and helper text — built with Tailwind CSS.";
+  "React stat component for dashboards: KPI value, label, icon, trend indicator with up/down arrows and helper text - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

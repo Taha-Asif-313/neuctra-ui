@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "NumberInput Component — React Numeric Stepper | Neuctra UI";
+const TITLE = "NumberInput Component - React Numeric Stepper | Neuctra UI";
 const DESCRIPTION =
-  "React number input with increment/decrement steppers, min/max clamping, arrow-key support, decimal input and spinbutton semantics — built with Tailwind CSS.";
+  "React number input with increment/decrement steppers, min/max clamping, arrow-key support, decimal input and spinbutton semantics - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

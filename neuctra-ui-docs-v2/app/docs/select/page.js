@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -568,28 +568,28 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">label</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Label displayed above the select.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">name</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Name used for form handling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">value</td>
                   <td className="p-3">string | string[]</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Controlled value of the select.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">defaultValue</td>
                   <td className="p-3">string | string[]</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Initial value for uncontrolled mode.
                   </td>
@@ -598,7 +598,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">onValueChange</td>
                   <td className="p-3">(value, name?) =&gt; void</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Callback when selection changes.</td>
                 </tr>
 
@@ -653,7 +653,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">error</td>
                   <td className="p-3">string | boolean</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Error state or message.</td>
                 </tr>
 
@@ -667,7 +667,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">helperText</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Helper or validation message.</td>
                 </tr>
 
@@ -682,14 +682,14 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">labelIcon</td>
                   <td className="p-3">React.ElementType</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon shown with label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">prefixIcon</td>
                   <td className="p-3">React.ElementType</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon inside trigger (left side).</td>
                 </tr>
 
@@ -718,14 +718,14 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">searchClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for the search input.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">searchWrapperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Classes for the wrapper around the search input, when
                     searchable is set.
@@ -735,7 +735,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">searchStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for the search input.</td>
                 </tr>
 
@@ -761,14 +761,14 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root container classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">containerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Additional classes for the root container.
                   </td>
@@ -777,49 +777,49 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">labelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for the label element.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">labelIconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for the label icon rendered before the label.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">triggerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Trigger button classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">dropdownClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Dropdown container classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Option item classes.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemLabelClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for an option's label text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemDescriptionClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Classes for an option's description text, when
                     showDescription is set.
@@ -829,7 +829,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">emptyClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Classes for the "No options available" empty state.
                   </td>
@@ -838,7 +838,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Classes for prefix and dropdown icons.
                   </td>
@@ -847,35 +847,35 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">helperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for helper or error text.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">valueClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Selected value text styling.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemIconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Classes for option icons.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemIconStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for option icons.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">checkIconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Classes for the selected check icon.
                   </td>
@@ -884,7 +884,7 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">checkIconStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Inline styles for the selected check icon.
                   </td>
@@ -893,28 +893,28 @@ function SizeExample() {
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for container.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">triggerStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for trigger.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">dropdownStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for dropdown.</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemStyle</td>
                   <td className="p-3">React.CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Inline styles for items.</td>
                 </tr>
               </tbody>
@@ -935,7 +935,7 @@ function SizeExample() {
               <div>
                 <code>{"<Select value={123} />"}</code>
                 <p className="text-gray-400 text-xs mt-1">
-                  Value must be string or string[] — never number or object.
+                  Value must be string or string[] - never number or object.
                 </p>
               </div>
             </div>

@@ -22,17 +22,17 @@ const mcpFaq = [
   {
     question: "How do I connect Neuctra UI MCP to my AI coding assistant?",
     answer:
-      "Add https://mcp.ui.neuctra.com/mcp as a remote MCP server in your AI tool's MCP settings — no package installation is required. Most AI tools with remote MCP or connector support (Claude Code, Cursor, Antigravity) accept this URL directly.",
+      "Add https://mcp.ui.neuctra.com/mcp as a remote MCP server in your AI tool's MCP settings - no package installation is required. Most AI tools with remote MCP or connector support (Claude Code, Cursor, Antigravity) accept this URL directly.",
   },
   {
     question: "What can the AI do once Neuctra UI MCP is connected?",
     answer:
-      "It can call list_components to discover components, get_component to inspect exact props/types/defaults/examples for one component, search_components to find a component by natural-language query, and get_theme to fetch semantic color tokens and styling guidelines — instead of guessing from training data.",
+      "It can call list_components to discover components, get_component to inspect exact props/types/defaults/examples for one component, search_components to find a component by natural-language query, and get_theme to fetch semantic color tokens and styling guidelines - instead of guessing from training data.",
   },
   {
     question: "Do I need to run the MCP server locally?",
     answer:
-      "No — most users should use the hosted remote MCP server. Running it locally (npx -y @neuctra/ui-mcp) is only needed if you're developing or testing the MCP package itself.",
+      "No. Choose the hosted server for a quick connection, or run @neuctra/ui-mcp locally when your coding tool supports local stdio servers or you prefer a local process. The assistant still needs to be an MCP-compatible coding tool.",
   },
 ];
 
@@ -84,7 +84,7 @@ const McpDocPage = () => {
                 />
 
                 <h3 className="text-base font-semibold text-white">
-                  Remote MCP — Recommended
+                  Remote MCP - Recommended
                 </h3>
               </div>
 
@@ -263,13 +263,37 @@ AI generates Neuctra UI code`}
                 Prefer local MCP?
               </span>{" "}
               You can also run the Neuctra UI MCP package locally. See{" "}
-              <span className="text-primary">
-                Local MCP
-              </span>{" "}
-              below.
+              <a className="text-primary underline" href="#local-mcp">Local MCP</a> below.
             </p>
           </div>
         </DocSection>
+
+        <div id="local-mcp" className="scroll-mt-24">
+        <DocSection
+          icon={Terminal}
+          title="Run a Local AI Assistant Connection"
+          description="The local package starts an MCP server on your machine using stdio. Add it to an MCP-compatible coding assistant to make Neuctra UI knowledge available while it works in your project."
+        >
+          <p className="text-zinc-200 text-sm leading-6">
+            From your assistant&apos;s MCP settings, add a local server entry. The assistant launches the process with Node and communicates over standard input and output.
+          </p>
+          <CodeBlock language="json" code={`{
+  "mcpServers": {
+    "neuctra-ui": {
+      "command": "npx",
+      "args": ["-y", "@neuctra/ui-mcp"]
+    }
+  }
+}`} />
+          <p className="text-zinc-300 text-sm leading-6">
+            This runs the Neuctra MCP server locally. The AI assistant itself may run locally or as a hosted product depending on the client you choose; MCP does not require Neuctra UI components to be installed in the assistant.
+          </p>
+          <CodeBlock language="bash" code={`npx -y @neuctra/ui-mcp`} />
+          <p className="text-zinc-300 text-sm leading-6">
+            Local stdio setup is useful for clients that launch MCP processes on your computer. For a server connection without a local process, use <a className="text-primary underline" href="/docs/mcp-http">Remote MCP over HTTP</a>.
+          </p>
+        </DocSection>
+        </div>
 
         {/* =====================================================
             CURSOR

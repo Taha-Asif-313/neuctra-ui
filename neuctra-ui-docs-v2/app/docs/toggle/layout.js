@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Toggle & ToggleGroup — React Segmented Controls | Neuctra UI";
+const TITLE = "Toggle & ToggleGroup - React Segmented Controls | Neuctra UI";
 const DESCRIPTION =
-  "React toggle button and segmented toggle group with single and multiple selection, icons, sizes and aria-pressed semantics — built with Tailwind CSS.";
+  "React toggle button and segmented toggle group with single and multiple selection, icons, sizes and aria-pressed semantics - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

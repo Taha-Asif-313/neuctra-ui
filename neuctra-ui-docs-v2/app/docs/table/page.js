@@ -8,7 +8,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -311,7 +311,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">className</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom wrapper container classes.
                       </td>
@@ -319,13 +319,13 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">style</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Custom wrapper inline styles.</td>
                     </tr>
                     <tr>
                       <td className="p-3">tableClassName</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom class for the inner <code>table</code> element.
                       </td>
@@ -333,7 +333,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">tableStyle</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom inline styles for the inner <code>table</code>{" "}
                         element.
@@ -360,13 +360,13 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">children</td>
                       <td className="p-3">ReactNode</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Header rows and cells.</td>
                     </tr>
                     <tr>
                       <td className="p-3">className</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom class names for the header section.
                       </td>
@@ -374,7 +374,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">style</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom inline styles for the header section.
                       </td>
@@ -382,7 +382,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">bordered</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Pass border state into header rows.
                       </td>
@@ -408,13 +408,13 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">children</td>
                       <td className="p-3">ReactNode</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Body rows and cells.</td>
                     </tr>
                     <tr>
                       <td className="p-3">className</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom class names for the body section.
                       </td>
@@ -422,7 +422,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">style</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom inline styles for the body section.
                       </td>
@@ -430,7 +430,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">striped</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Forward striped state to child rows.
                       </td>
@@ -438,7 +438,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">hoverable</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Forward hoverable state to child rows.
                       </td>
@@ -446,7 +446,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">bordered</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Forward bordered state to child rows.
                       </td>
@@ -472,19 +472,19 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">children</td>
                       <td className="p-3">ReactNode</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Row cells and nested content.</td>
                     </tr>
                     <tr>
                       <td className="p-3">className</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Custom class names for the row.</td>
                     </tr>
                     <tr>
                       <td className="p-3">style</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom inline styles for the row.
                       </td>
@@ -492,19 +492,19 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">onClick</td>
                       <td className="p-3">() =&gt; void</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Add a click handler to the row.</td>
                     </tr>
                     <tr>
                       <td className="p-3">striped</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Set striped state on this row.</td>
                     </tr>
                     <tr>
                       <td className="p-3">hoverable</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Enable hover styling for this row.
                       </td>
@@ -512,7 +512,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">bordered</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Show the row border in the row.</td>
                     </tr>
                     <tr>
@@ -544,13 +544,13 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">children</td>
                       <td className="p-3">ReactNode</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Header cell content.</td>
                     </tr>
                     <tr>
                       <td className="p-3">className</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom classes for the header cell.
                       </td>
@@ -558,7 +558,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">style</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom inline styles for the header cell.
                       </td>
@@ -566,7 +566,7 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">bordered</td>
                       <td className="p-3">boolean</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Apply bottom border to the header cell.
                       </td>
@@ -600,19 +600,19 @@ function BasicExample() {
                     <tr>
                       <td className="p-3">children</td>
                       <td className="p-3">ReactNode</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Cell content.</td>
                     </tr>
                     <tr>
                       <td className="p-3">className</td>
                       <td className="p-3">string</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">Custom classes for the cell.</td>
                     </tr>
                     <tr>
                       <td className="p-3">style</td>
                       <td className="p-3">CSSProperties</td>
-                      <td className="p-3">—</td>
+                      <td className="p-3">-</td>
                       <td className="p-3">
                         Custom inline styles for the cell.
                       </td>

@@ -8,8 +8,13 @@ const siteRoutes = [
   { path: "/", label: "Home" },
   { path: "/about", label: "About" },
   { path: "/contact", label: "Contact" },
+  { path: "/blog", label: "Blog" },
+  { path: "/blog/connect-neuctra-ui-to-your-ai-assistant", label: "Connect Neuctra UI to your AI coding assistant" },
+  { path: "/blog/start-a-react-project-with-the-neuctra-ui-cli", label: "Start a React project with the Neuctra UI CLI" },
+  { path: "/blog/get-reliable-results-from-component-documentation", label: "Get reliable results from component documentation" },
   { path: "/terms", label: "Terms of Service" },
   { path: "/privacypolicy", label: "Privacy Policy" },
+  { path: "/disclaimer", label: "Disclaimer" },
 ];
 
 // Mirrors the original Sidebar.jsx `navSections` array exactly (including
@@ -25,7 +30,12 @@ const sidebarSections = [
   },
   {
     title: "AI & Integrations",
-    links: [{ label: "Neuctra UI MCP", href: "/docs/mcp" }],
+    links: [
+      { label: "AI Assistant Overview", href: "/docs/ai-assistant" },
+      { label: "Neuctra UI MCP", href: "/docs/mcp" },
+      { label: "Remote MCP (HTTP)", href: "/docs/mcp-http" },
+      { label: "Neuctra UI CLI", href: "/docs/cli" },
+    ],
   },
   {
     title: "Layout & Structure",

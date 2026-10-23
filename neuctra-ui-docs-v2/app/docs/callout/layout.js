@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Callout Component — React Inline Alert Banner | Neuctra UI";
+const TITLE = "Callout Component - React Inline Alert Banner | Neuctra UI";
 const DESCRIPTION =
   "Static React alert banner for inline messages: info, success, warning, error and neutral types, soft and outline variants, dismissible with custom icons. Unlike toasts, callouts live in the page flow.";
 

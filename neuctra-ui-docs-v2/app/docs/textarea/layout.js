@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Textarea Component — Neuctra UI";
+const TITLE = "Textarea Component - Neuctra UI";
 const DESCRIPTION =
   "Modern auto-resizing textarea component with chat-style behavior, keyboard interactions, and full customization.";
 

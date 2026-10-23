@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -163,7 +163,7 @@ const CarouselDocs = () => {
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">children</td>
                   <td className="p-3 font-mono text-xs text-gray-300">ReactNode</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Slides (required)</td>
                 </tr>
                 <tr>
@@ -175,7 +175,7 @@ const CarouselDocs = () => {
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">onIndexChange</td>
                   <td className="p-3 font-mono text-xs text-gray-300">(index: number) =&gt; void</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired on every slide change</td>
                 </tr>
                 <tr>
@@ -211,55 +211,55 @@ const CarouselDocs = () => {
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">trackClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the overflow-hidden track wrapper.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">slidesClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the sliding flex container that holds all slides.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">slideClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each individual slide wrapper.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">arrowClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles both the previous and next arrow buttons.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">prevArrowClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the previous arrow button.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">nextArrowClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the next arrow button.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">arrowIconClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the chevron icons inside the arrow buttons.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">dotsClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the dots container.</td>
                 </tr>
                 <tr>
                   <td className="p-3 font-medium text-primary whitespace-nowrap">dotClassName</td>
                   <td className="p-3 font-mono text-xs text-gray-300">string</td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each individual dot button.</td>
                 </tr>
               </tbody>

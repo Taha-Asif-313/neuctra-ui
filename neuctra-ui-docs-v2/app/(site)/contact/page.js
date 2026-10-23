@@ -1,148 +1,101 @@
-"use client";
-
-import { Mail, Github, Twitter, Linkedin, Send, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Button, Container, Input, Textarea } from "@neuctra/ui";
+import { ArrowRight, Bug, Mail, MessageSquareText } from "lucide-react";
+import ContactForm from "@/components/ContactForm";
 
-const channels = [
+const contactOptions = [
   {
-    title: "Email",
-    value: "contact@neuctraui.com",
-    href: "mailto:contact@neuctraui.com",
-    icon: <Mail className="h-5 w-5 text-primary" />,
-    helper: "For support, partnerships, and product feedback.",
+    icon: Mail,
+    title: "Product and general questions",
+    description: "Ask about Neuctra UI, the CLI, or the MCP integrations.",
+    href: "mailto:contact@neuctraui.com?subject=Neuctra%20UI%20question",
+    action: "Email Neuctra UI",
   },
   {
-    title: "GitHub",
-    value: "github.com/Taha-Asif-313/neuctra",
-    href: "https://github.com/Taha-Asif-313/neuctra",
-    icon: <Github className="h-5 w-5 text-primary" />,
-    helper: "Issues, discussions, and open-source contributions.",
+    icon: Bug,
+    title: "Report a bug or request a feature",
+    description: "Share a reproducible issue or suggest an improvement in GitHub.",
+    href: "https://github.com/Taha-Asif-313/neuctra-ui/issues",
+    action: "Open GitHub issues",
   },
   {
-    title: "Twitter / X",
-    value: "@neuctraui",
-    href: "https://twitter.com/neuctraui",
-    icon: <Twitter className="h-5 w-5 text-primary" />,
-    helper: "Release updates, design tips, and announcements.",
-  },
-  {
-    title: "LinkedIn",
-    value: "Neuctra UI",
-    href: "https://www.linkedin.com",
-    icon: <Linkedin className="h-5 w-5 text-primary" />,
-    helper: "Professional updates and collaborations.",
+    icon: MessageSquareText,
+    title: "Contribute to the project",
+    description: "Review the source and open a discussion or pull request.",
+    href: "https://github.com/Taha-Asif-313/neuctra-ui",
+    action: "Visit the repository",
   },
 ];
 
 export default function ContactPage() {
   return (
-    <div className="text-gray-100 min-h-screen pt-14 pb-16">
-      <Container className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0 space-y-10">
-        <section className="relative overflow-hidden rounded-2xl border-zinc-800 bg-gradient-to-b from-zinc-900 to-zinc-950 p-8 md:p-10">
-          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_top_right,rgba(0,194,20,0.14),transparent_45%)]" />
-          <div className="relative space-y-4">
-            <span className="inline-flex items-center rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-              Contact
-            </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white">
-              Let&apos;s build something great together
-            </h1>
-            <p className="text-zinc-300 text-base md:text-lg max-w-3xl leading-relaxed">
-              Reach out for component support, product feedback, bug reports,
-              or collaboration opportunities. We usually respond within 1-2
-              business days.
+    <div className="min-h-screen bg-background pb-20 pt-28 text-foreground">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <header className="max-w-4xl border-b border-border pb-10 sm:pb-14">
+          <p className="mb-4 text-sm font-medium uppercase tracking-wider text-primary">
+            Contact
+          </p>
+          <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+            How can we help?
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-secondary sm:text-lg">
+            Choose the right route for product questions, bug reports, feature
+            requests, or contributions. Support requests can include the
+            package and version, framework, and steps needed to reproduce the
+            issue.
+          </p>
+        </header>
+
+        <section className="grid gap-8 border-b border-border py-10 sm:py-14 lg:grid-cols-[minmax(180px,0.7fr)_2fr] lg:gap-10">
+          <div>
+            <h2 className="text-xl font-semibold sm:text-2xl">Send a message</h2>
+            <p className="mt-3 max-w-xs text-sm leading-6 text-secondary">
+              Share your question or feedback. Your email app will open so you can review and send the message.
             </p>
-            <Link href="/docs">
-              <Button variant="outline" iconAfter={<ArrowRight size={16} />}>
-                Explore Documentation
-              </Button>
-            </Link>
+          </div>
+          <div className="max-w-3xl">
+            <ContactForm />
           </div>
         </section>
 
-        <section className="grid lg:grid-cols-2 gap-8">
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6 md:p-7">
-            <h2 className="text-2xl font-semibold text-white mb-5">
-              Contact Channels
-            </h2>
-            <div className="space-y-3">
-              {channels.map((channel) => (
+        <section className="grid gap-10 py-10 sm:py-14 lg:grid-cols-[minmax(180px,0.7fr)_2fr]">
+          <div>
+            <h2 className="text-xl font-semibold sm:text-2xl">Get in touch</h2>
+            <p className="mt-3 max-w-xs text-sm leading-6 text-secondary">
+              Pick the channel that best matches what you need.
+            </p>
+          </div>
+
+          <div className="divide-y divide-border border-y border-border">
+            {contactOptions.map(({ icon: Icon, title, description, href, action }) => (
+              <article key={title} className="grid gap-3 py-6 sm:grid-cols-[40px_minmax(0,1fr)_auto] sm:items-start sm:gap-5 sm:py-7">
+                <Icon className="mt-1 text-primary" size={20} aria-hidden="true" />
+                <div>
+                  <h3 className="font-semibold text-foreground">{title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-secondary">{description}</p>
+                </div>
                 <a
-                  key={channel.title}
-                  href={channel.href}
-                  target={
-                    channel.href.startsWith("http") ? "_blank" : undefined
-                  }
-                  rel={
-                    channel.href.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="block rounded-xl border border-zinc-800 bg-zinc-900/70 p-4 hover:border-zinc-700 hover:bg-zinc-900 transition-colors"
+                  href={href}
+                  target={href.startsWith("https://") ? "_blank" : undefined}
+                  rel={href.startsWith("https://") ? "noopener noreferrer" : undefined}
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary sm:justify-self-end"
                 >
-                  <div className="flex items-start gap-3">
-                    <div className="rounded-lg bg-primary/10 p-2.5">
-                      {channel.icon}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white">
-                        {channel.title}
-                      </h3>
-                      <p className="text-sm text-zinc-300 mt-0.5">
-                        {channel.value}
-                      </p>
-                      <p className="text-xs text-zinc-400 mt-1">
-                        {channel.helper}
-                      </p>
-                    </div>
-                  </div>
+                  {action} <ArrowRight size={15} />
                 </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6 md:p-7">
-            <h2 className="text-2xl font-semibold text-white mb-5">
-              Send a Message
-            </h2>
-
-            <form
-              className="space-y-4"
-              onSubmit={(event) => {
-                event.preventDefault();
-              }}
-            >
-              <Input
-                label="Name"
-                name="name"
-                placeholder="Your full name"
-                required
-              />
-
-              <Input
-                label="Email"
-                name="email"
-                type="email"
-                placeholder="you@company.com"
-                required
-              />
-
-              <Textarea
-                label="Message"
-                name="message"
-                rows={6}
-                placeholder="Tell us what you are building and how we can help."
-                required
-              />
-
-              <Button type="submit" iconBefore={<Send className="h-4 w-4" />}>
-                Send Message
-              </Button>
-            </form>
+              </article>
+            ))}
           </div>
         </section>
-      </Container>
+
+        <section className="flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-xl text-sm leading-6 text-secondary">
+            Looking for setup instructions or component examples? The docs may
+            have the answer already.
+          </p>
+          <Link href="/docs" className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary">
+            Browse documentation <ArrowRight size={15} />
+          </Link>
+        </section>
+      </div>
     </div>
   );
 }

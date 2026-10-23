@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -28,7 +28,7 @@ const CalloutDocs = () => {
             Callout Component
           </h1>
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
-            A static inline alert that lives in the page flow — use it for
+            A static inline alert that lives in the page flow - use it for
             persistent messages, while the toast system (ToastProvider)
             handles transient notifications.
           </p>
@@ -176,7 +176,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Bold headline</td>
                 </tr>
                 <tr>
@@ -186,7 +186,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     ReactNode
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Body content</td>
                 </tr>
                 <tr>
@@ -222,7 +222,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     {"() => void"}
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired when dismissed</td>
                 </tr>
                 <tr>
@@ -232,7 +232,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the leading icon wrapper.</td>
                 </tr>
                 <tr>
@@ -242,7 +242,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the wrapper around the title and body content.
                   </td>
@@ -254,7 +254,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the title text.</td>
                 </tr>
                 <tr>
@@ -264,7 +264,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the body content wrapper.
                   </td>
@@ -276,7 +276,7 @@ const CalloutDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the dismiss/close button.</td>
                 </tr>
               </tbody>

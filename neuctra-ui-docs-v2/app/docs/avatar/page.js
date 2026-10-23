@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -153,7 +153,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">src</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">Image source URL for the avatar</td>
                 </tr>
 
@@ -210,7 +210,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">fallback</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Custom fallback text (initials) when image fails to load
                     or no src is provided
@@ -220,7 +220,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">onClick</td>
                   <td className="p-3">() =&gt; void</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Click handler. Makes the avatar focusable and keyboard
                     accessible
@@ -257,7 +257,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Custom inline styles for the avatar container
                   </td>
@@ -266,7 +266,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">statusStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Custom inline styles for the status dot
                   </td>
@@ -275,7 +275,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">imageClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Styles the rendered avatar image element.
                   </td>
@@ -284,7 +284,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">fallbackClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Styles the fallback wrapper shown when there is no image.
                   </td>
@@ -293,7 +293,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3 font-medium">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3 text-gray-400">—</td>
+                  <td className="p-3 text-gray-400">-</td>
                   <td className="p-3">
                     Styles the default user icon shown when there is no
                     image or initials.
@@ -379,7 +379,7 @@ function BasicExample() {
               chat/messaging UIs.
             </li>
             <li>
-              Make avatars clickable by passing <code>onClick</code> — the
+              Make avatars clickable by passing <code>onClick</code> - the
               component automatically handles keyboard accessibility.
             </li>
             <li>
@@ -389,7 +389,7 @@ function BasicExample() {
             </li>
             <li>
               <code>size="responsive"</code> currently falls back to the same
-              fixed dimensions as <code>"md"</code> internally — for
+              fixed dimensions as <code>"md"</code> internally - for
               breakpoint-based sizing, override the width/height with your own
               responsive Tailwind classes via <code>className</code>.
             </li>

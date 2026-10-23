@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Avatar Component — React User Profile UI | Neuctra UI";
+const TITLE = "Avatar Component - React User Profile UI | Neuctra UI";
 const DESCRIPTION =
   "Build flexible and accessible avatar components with Neuctra UI. Supports images, initials fallback, online/offline status, sizes, shapes, rings, and click interactions.";
 

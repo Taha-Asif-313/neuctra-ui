@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -58,10 +58,10 @@ const DatePickerDocs = () => {
           <CodeBlock code={`import { DatePicker, Calendar } from "@neuctra/ui";`} />
         </section>
 
-        {/* Example: DatePicker — Basic Usage */}
+        {/* Example: DatePicker - Basic Usage */}
         <section>
           <h2 className="text-xl sm:text-2xl font-semibold mb-2 text-white">
-            DatePicker — Basic Usage
+            DatePicker - Basic Usage
           </h2>
           <CodePreviewBlock
             language="jsx"
@@ -194,7 +194,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (date) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     DatePicker: Date | null · Calendar: Date
                   </td>
@@ -261,7 +261,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     Omit&lt;CalendarProps, "value" | "defaultValue" | "onChange" | "className"&gt;
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     minDate, maxDate, isDateDisabled, weekStartsOn, locale…
                   </td>
@@ -274,7 +274,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Standard field furniture</td>
                 </tr>
 
@@ -322,7 +322,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the outermost wrapper.</td>
                 </tr>
 
@@ -333,7 +333,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the field label.</td>
                 </tr>
 
@@ -344,7 +344,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the calendar icon in the trigger.
                   </td>
@@ -357,7 +357,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the displayed date text.</td>
                 </tr>
 
@@ -368,7 +368,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the clear button.</td>
                 </tr>
 
@@ -379,7 +379,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the icon inside the clear button.
                   </td>
@@ -392,7 +392,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the popover panel containing the calendar.
                   </td>
@@ -405,7 +405,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the helper/error text below the trigger.
                   </td>
@@ -418,7 +418,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the month header row (prev/next buttons and
                     label).
@@ -432,7 +432,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the previous/next month buttons.
                   </td>
@@ -445,7 +445,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the current month/year label.
                   </td>
@@ -458,7 +458,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the weekday header row.</td>
                 </tr>
 
@@ -469,7 +469,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each weekday header cell.</td>
                 </tr>
 
@@ -480,7 +480,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the day grid container.</td>
                 </tr>
 
@@ -491,7 +491,7 @@ const DatePickerDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each individual day cell.</td>
                 </tr>
               </tbody>

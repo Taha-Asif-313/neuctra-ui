@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -23,7 +23,7 @@ const propsTable = [
   {
     prop: "label",
     type: "ReactNode",
-    default: "—",
+    default: "-",
     description: "Chip content (required)",
   },
   {
@@ -47,13 +47,13 @@ const propsTable = [
   {
     prop: "icon",
     type: "ReactNode",
-    default: "—",
+    default: "-",
     description: "Leading icon, auto-sized to the chip size",
   },
   {
     prop: "onRemove",
     type: "() => void",
-    default: "—",
+    default: "-",
     description: "Renders a remove button and fires on click",
   },
   {
@@ -65,25 +65,25 @@ const propsTable = [
   {
     prop: "iconClassName",
     type: "string",
-    default: "—",
+    default: "-",
     description: "Styles the leading icon wrapper.",
   },
   {
     prop: "labelClassName",
     type: "string",
-    default: "—",
+    default: "-",
     description: "Styles the label text.",
   },
   {
     prop: "removeButtonClassName",
     type: "string",
-    default: "—",
+    default: "-",
     description: "Styles the remove/dismiss button.",
   },
   {
     prop: "removeIconClassName",
     type: "string",
-    default: "—",
+    default: "-",
     description: "Styles the icon inside the remove button.",
   },
 ];
@@ -128,7 +128,7 @@ const ChipDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React chip component for tags and filters. Solid, soft and
             outline variants, four colors, three sizes, icons and removable
-            state — built with Tailwind CSS.
+            state - built with Tailwind CSS.
           </p>
         </header>
 
@@ -265,7 +265,7 @@ const ChipDocs = () => {
                       {row.type}
                     </td>
                     <td className="p-3 text-gray-400 whitespace-nowrap">
-                      {row.default ?? "—"}
+                      {row.default ?? "-"}
                     </td>
                     <td className="p-3">{row.description}</td>
                   </tr>

@@ -2,14 +2,14 @@ import JsonLd from "@/components/JsonLd";
 import { buildMetadata } from "@/lib/seo/buildMetadata";
 import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 
-// Nested route group — still resolves to "/". Exists solely so the home
+// Nested route group - still resolves to "/". Exists solely so the home
 // page can have its own metadata-holding layout.js distinct from
 // app/(site)/layout.js (which only provides the shared Navbar/Footer shell
 // for every site page) and from the client-interactive page.js below.
 export const metadata = buildMetadata({
-  title: "Neuctra UI — React UI Library & MCP for Modern Products",
+  title: "Neuctra UI - React Components and AI Assistant Toolkit",
   description:
-    "Neuctra UI is a React UI library for building SaaS products, dashboards, admin panels, forms, authentication flows, and responsive interfaces with reusable components. Connect Neuctra UI MCP to give AI coding tools context about your UI system.",
+    "Explore Neuctra UI's React component library, project setup CLI, and local or hosted MCP connections for AI coding assistants.",
   keywords: [
     "Neuctra UI",
     "React UI library",
@@ -28,6 +28,8 @@ export const metadata = buildMetadata({
     "MCP UI library",
     "Neuctra UI MCP",
     "Model Context Protocol UI",
+    "Neuctra UI AI Assistant",
+    "Neuctra UI CLI",
   ].join(", "),
   path: "/",
 });

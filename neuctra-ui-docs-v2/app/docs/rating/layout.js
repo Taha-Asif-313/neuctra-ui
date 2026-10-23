@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Rating Component — React Star Rating | Neuctra UI";
+const TITLE = "Rating Component - React Star Rating | Neuctra UI";
 const DESCRIPTION =
   "React star rating component with keyboard-accessible radio semantics, hover preview, clearable selection and fractional read-only display (e.g. 4.3).";
 

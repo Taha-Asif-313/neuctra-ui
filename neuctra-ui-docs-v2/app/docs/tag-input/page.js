@@ -10,7 +10,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -45,7 +45,7 @@ const TagInputDocs = () => {
           <p className="text-sm text-gray-200 leading-relaxed max-w-3xl">
             React tag input with Enter/comma commit, Backspace removal,
             duplicate filtering, max-tag limits, validation hook and error
-            states — built with Tailwind CSS.
+            states - built with Tailwind CSS.
           </p>
         </header>
 
@@ -202,7 +202,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (tags: string[]) =&gt; void
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Fired with the full next list</td>
                 </tr>
 
@@ -213,7 +213,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Label above the field</td>
                 </tr>
 
@@ -237,7 +237,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     number
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Hard limit; shows a live counter</td>
                 </tr>
 
@@ -248,7 +248,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     (tag: string) =&gt; boolean
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Return false to reject a tag</td>
                 </tr>
 
@@ -272,7 +272,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Feedback line under the field</td>
                 </tr>
 
@@ -309,7 +309,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the outermost wrapper.</td>
                 </tr>
 
@@ -320,7 +320,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the field label.</td>
                 </tr>
 
@@ -331,7 +331,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles each tag chip wrapper.</td>
                 </tr>
 
@@ -342,7 +342,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the remove ("x") button inside a chip.
                   </td>
@@ -355,7 +355,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">Styles the inline text input.</td>
                 </tr>
 
@@ -366,7 +366,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the helper text / error message.
                   </td>
@@ -379,7 +379,7 @@ const TagInputDocs = () => {
                   <td className="p-3 font-mono text-xs text-gray-300">
                     string
                   </td>
-                  <td className="p-3 text-gray-400 whitespace-nowrap">—</td>
+                  <td className="p-3 text-gray-400 whitespace-nowrap">-</td>
                   <td className="p-3">
                     Styles the tag count indicator (e.g. "2/5").
                   </td>

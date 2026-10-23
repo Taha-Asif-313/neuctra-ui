@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Button Component — React UI for SaaS Dashboards | Neuctra UI";
+const TITLE = "Button Component - React UI for SaaS Dashboards | Neuctra UI";
 const DESCRIPTION =
   "Build modern, accessible React button components for SaaS apps with Neuctra UI. Supports variants, sizes, loading states, icons, and full-width layouts for dashboards and forms.";
 

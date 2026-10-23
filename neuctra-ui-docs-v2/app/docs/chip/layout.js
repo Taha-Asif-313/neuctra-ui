@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Chip Component — React Removable Tags | Neuctra UI";
+const TITLE = "Chip Component - React Removable Tags | Neuctra UI";
 const DESCRIPTION =
-  "React chip component for tags and filters. Solid, soft and outline variants, four colors, three sizes, icons and removable state — built with Tailwind CSS.";
+  "React chip component for tags and filters. Solid, soft and outline variants, four colors, three sizes, icons and removable state - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

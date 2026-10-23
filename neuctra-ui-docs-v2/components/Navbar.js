@@ -13,6 +13,11 @@ const Navbar = () => {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Docs", href: "/docs" },
+    { label: "AI Assistant", href: "/docs/ai-assistant" },
+    { label: "Local MCP", href: "/docs/mcp" },
+    { label: "Remote MCP", href: "/docs/mcp-http" },
+    { label: "CLI", href: "/docs/cli" },
+    { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
   ];
 
@@ -42,12 +47,12 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden xl:flex items-center gap-4">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className="hover:text-primary text-sm transition"
+              className="hover:text-primary text-xs 2xl:text-sm transition whitespace-nowrap"
             >
               {label}
             </Link>
@@ -64,8 +69,10 @@ const Navbar = () => {
         {/* Mobile Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-2xl focus:outline-none"
+          className="xl:hidden text-2xl focus:outline-none"
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
+          aria-controls="mobile-navigation"
         >
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
@@ -73,17 +80,20 @@ const Navbar = () => {
 
       {/* Mobile Drawer Nav */}
       <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-[500px] pb-4" : "max-h-0"
+        id="mobile-navigation"
+        aria-hidden={!isOpen}
+        inert={!isOpen}
+        className={`xl:hidden overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-[560px] pb-4" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col items-center gap-4 px-6">
+        <div className="mx-auto grid max-w-2xl grid-cols-2 gap-2 px-4 sm:px-6">
           {navLinks.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
               onClick={() => setIsOpen(false)}
-              className="hover:text-primary text-sm transition"
+              className="rounded-lg border border-zinc-800 px-3 py-3 text-center text-sm transition hover:border-primary/40 hover:text-primary"
             >
               {label}
             </Link>
@@ -93,7 +103,7 @@ const Navbar = () => {
               setIsOpen(false);
               router.push("/docs");
             }}
-            className="flex w-full justify-center items-center gap-2 border border-white px-4 py-2 rounded text-sm hover:bg-white hover:text-black transition"
+            className="col-span-2 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition hover:bg-primary/80"
           >
             Get started <ExternalLink size={14} />
           </button>

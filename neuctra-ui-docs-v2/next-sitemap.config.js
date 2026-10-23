@@ -28,10 +28,13 @@ module.exports = {
     } else if (docsRoutes.includes(path)) {
       priority = 0.8;
       changefreq = "daily";
+    } else if (path === "/blog" || path.startsWith("/blog/")) {
+      priority = path === "/blog" ? 0.8 : 0.7;
+      changefreq = "weekly";
     } else if (["/about", "/contact"].includes(path)) {
       priority = 0.6;
       changefreq = "monthly";
-    } else if (["/terms", "/privacypolicy"].includes(path)) {
+    } else if (["/terms", "/privacypolicy", "/disclaimer"].includes(path)) {
       priority = 0.3;
       changefreq = "yearly";
     }

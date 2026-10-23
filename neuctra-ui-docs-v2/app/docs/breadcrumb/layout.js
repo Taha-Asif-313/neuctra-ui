@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Breadcrumb Component — React Navigation Trail | Neuctra UI";
+const TITLE = "Breadcrumb Component - React Navigation Trail | Neuctra UI";
 const DESCRIPTION =
-  "Accessible React breadcrumb navigation with icons, custom separators, SPA click handlers and automatic ellipsis collapsing for deep paths — built with Tailwind CSS.";
+  "Accessible React breadcrumb navigation with icons, custom separators, SPA click handlers and automatic ellipsis collapsing for deep paths - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

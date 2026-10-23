@@ -4,9 +4,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Skeleton Component — React Loading Placeholders | Neuctra UI";
+const TITLE = "Skeleton Component - React Loading Placeholders | Neuctra UI";
 const DESCRIPTION =
-  "React skeleton loading component with text, circular and rectangular variants, multi-line paragraphs and reduced-motion support — built with Tailwind CSS.";
+  "React skeleton loading component with text, circular and rectangular variants, multi-line paragraphs and reduced-motion support - built with Tailwind CSS.";
 
 export const metadata = buildMetadata({
   title: TITLE,

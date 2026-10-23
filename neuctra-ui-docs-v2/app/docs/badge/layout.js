@@ -4,7 +4,7 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 import { faqSchema, buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
-const TITLE = "Badge Component — React Notification & Label UI | Neuctra UI";
+const TITLE = "Badge Component - React Notification & Label UI | Neuctra UI";
 const DESCRIPTION =
   "Build flexible badge components with Neuctra UI. Supports notification dots, counts, icons, variants, sizes, and interactive states for modern UI indicators.";
 

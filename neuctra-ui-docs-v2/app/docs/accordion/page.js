@@ -9,7 +9,7 @@ import ComponentFaq from "@/components/ComponentFaq";
 import { buildComponentFaq } from "@/lib/seo/schemas/faqSchema";
 
 // Recomputed locally rather than imported from ./layout.js: layout.js is a
-// Server Component module and this page.js is a Client Component — pulling
+// Server Component module and this page.js is a Client Component - pulling
 // a value across that boundary via import would drag the whole server
 // module (including its default export) into the client bundle. Both files
 // call the same pure function with the same args, so they stay in sync.
@@ -192,14 +192,14 @@ function BasicExample() {
                   <td className="p-3">
                     {"{ title: string | ReactNode; content: ReactNode }"}
                   </td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Shape used by each item in items</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">items</td>
                   <td className="p-3">AccordionItem[]</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">List of accordion items</td>
                 </tr>
                 <tr>
@@ -218,94 +218,94 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">className</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root class</td>
                 </tr>
                 <tr>
                   <td className="p-3">style</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Root inline styles</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">itemClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Item wrapper class</td>
                 </tr>
                 <tr>
                   <td className="p-3">itemStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Item wrapper inline styles</td>
                 </tr>
                 <tr>
                   <td className="p-3">headerClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header class</td>
                 </tr>
                 <tr>
                   <td className="p-3">contentClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Content class</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">headerStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Header inline styles</td>
                 </tr>
                 <tr>
                   <td className="p-3">titleClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Title span class</td>
                 </tr>
                 <tr>
                   <td className="p-3">titleStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Title span inline styles</td>
                 </tr>
                 <tr>
                   <td className="p-3">iconClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon wrapper class</td>
                 </tr>
                 <tr>
                   <td className="p-3">iconStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Icon wrapper inline styles</td>
                 </tr>
                 <tr>
                   <td className="p-3">contentWrapperClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Collapsible wrapper class</td>
                 </tr>
                 <tr>
                   <td className="p-3">contentWrapperStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Collapsible wrapper inline styles</td>
                 </tr>
                 <tr>
                   <td className="p-3">contentStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Content inline styles</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">hoverClassName</td>
                   <td className="p-3">string</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">
                     Additional classes applied to header
                   </td>
@@ -313,7 +313,7 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">hoverStyle</td>
                   <td className="p-3">CSSProperties</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Additional inline styles on header</td>
                 </tr>
 
@@ -351,20 +351,20 @@ function BasicExample() {
                 <tr>
                   <td className="p-3">iconOpen</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom open icon</td>
                 </tr>
                 <tr>
                   <td className="p-3">iconClose</td>
                   <td className="p-3">ReactNode</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Custom close icon</td>
                 </tr>
 
                 <tr>
                   <td className="p-3">renderItem</td>
                   <td className="p-3">function</td>
-                  <td className="p-3">—</td>
+                  <td className="p-3">-</td>
                   <td className="p-3">Fully custom render logic</td>
                 </tr>
               </tbody>
