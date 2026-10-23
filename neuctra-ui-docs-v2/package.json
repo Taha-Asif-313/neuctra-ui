@@ -6,7 +6,7 @@
     "dev": "next dev",
     "prebuild": "node scripts/generate-llms-txt.js",
     "build": "next build",
-    "postbuild": "next-sitemap && node scripts/copy-seo-files-to-out.js",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "eslint"
   },
