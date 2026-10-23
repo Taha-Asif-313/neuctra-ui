@@ -3,7 +3,6 @@ const SITE_URL = "https://ui.neuctra.com";
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: SITE_URL,
-  output: "export",
   generateRobotsTxt: true,
   transform: async (config, path) => {
     let priority = 0.7;
