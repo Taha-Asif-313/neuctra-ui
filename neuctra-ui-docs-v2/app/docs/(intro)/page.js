@@ -9,8 +9,7 @@ const IntroductionDocPage = () => {
         {/* ================= HERO ================= */}
         <section>
           <h1 className="text-4xl font-extrabold text-white leading-tight">
-            Build modern UIs with{" "}
-            <code className="text-primary">@neuctra/ui</code>
+            Use Neuctra UI in your React project
           </h1>
 
           <p className="mt-4 text-zinc-200 max-w-2xl leading-relaxed">

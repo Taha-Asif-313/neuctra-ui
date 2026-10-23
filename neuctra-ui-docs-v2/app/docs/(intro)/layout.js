@@ -7,11 +7,11 @@ import { techArticleSchema } from "@/lib/seo/schemas/techArticleSchema";
 // page its own metadata layout, distinct from app/docs/layout.js (the
 // Sidebar shell shared by every /docs/* route).
 export const metadata = buildMetadata({
-  title: "Neuctra UI - React Components and AI Assistant Toolkit",
+  title: "Neuctra UI Documentation | React Components, Setup & Theming",
   description:
-    "Discover the Neuctra UI toolkit: a React component library, setup CLI, and AI assistant integrations through local and hosted MCP servers.",
+    "Install and use Neuctra UI in React projects. Browse component APIs, Tailwind CSS theme setup, the project setup CLI, and AI assistant integrations.",
   keywords:
-    "Neuctra UI, React UI library, AI coding assistant, local MCP server, remote MCP, setup CLI, Tailwind React components, component library",
+    "Neuctra UI documentation, React UI components, React component library setup, Tailwind CSS theming, React UI CLI, Neuctra UI MCP",
   path: "/docs",
 });
 

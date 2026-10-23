@@ -19,9 +19,9 @@ export async function generateMetadata({ params }) {
   const post = blogPosts.find((item) => item.slug === slug);
   if (!post) return {};
   return buildMetadata({
-    title: `${post.title} | Neuctra UI Blog`,
+    title: post.seoTitle || `${post.title} | Neuctra UI Blog`,
     description: post.summary,
-    keywords: `${post.category}, Neuctra UI, React UI, AI coding assistant`,
+    keywords: post.keywords || `${post.category}, Neuctra UI, React UI`,
     path: `/blog/${post.slug}`,
   });
 }
@@ -94,6 +94,23 @@ export default async function BlogArticlePage({ params }) {
             ))}
           </div>
         </div>
+
+        {content.faqs?.length > 0 && (
+          <section className="mx-auto max-w-3xl border-t border-border py-8 sm:py-10" aria-labelledby="article-faq-heading">
+            <h2 id="article-faq-heading" className="mb-5 text-2xl font-semibold">Frequently asked questions</h2>
+            <div className="divide-y divide-border border-y border-border">
+              {content.faqs.map((faq) => (
+                <details key={faq.question} className="group py-4">
+                  <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-base font-medium marker:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    {faq.question}
+                    <span aria-hidden="true" className="shrink-0 text-xl font-normal text-primary transition-transform group-open:rotate-45">+</span>
+                  </summary>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-secondary sm:text-base">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section className="grid gap-4 border-t border-border pt-7 sm:grid-cols-[200px_minmax(0,1fr)] sm:gap-16">
           <h2 className="text-lg font-semibold">Continue reading</h2>

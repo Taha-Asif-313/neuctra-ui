@@ -7,9 +7,9 @@ import { breadcrumbSchema } from "@/lib/seo/schemas/breadcrumbSchema";
 // app/(site)/layout.js (which only provides the shared Navbar/Footer shell
 // for every site page) and from the client-interactive page.js below.
 export const metadata = buildMetadata({
-  title: "Neuctra UI - React Components and AI Assistant Toolkit",
+  title: "React UI Component Library for SaaS | Neuctra UI",
   description:
-    "Explore Neuctra UI's React component library, project setup CLI, and local or hosted MCP connections for AI coding assistants.",
+    "Build SaaS dashboards and product interfaces with Neuctra UI, a customizable React component library using Tailwind CSS, with CLI setup and AI assistant support.",
   keywords: [
     "Neuctra UI",
     "React UI library",

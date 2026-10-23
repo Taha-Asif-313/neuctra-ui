@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowRight,
   Zap,
@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { motion as Motion, useReducedMotion } from "framer-motion";
+import { blogPosts } from "@/lib/blogPosts";
 
 /* -------------------------------------------------------------------------- */
 /* Circuit Line                                                               */
@@ -121,21 +122,13 @@ const DataStream = ({ delay = 0, left = 0, duration = 4 }) => {
 /* -------------------------------------------------------------------------- */
 
 const FloatingParticle = ({ delay = 0, x = 0, duration = 7 }) => {
-  const [windowHeight, setWindowHeight] = useState(1000);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setWindowHeight(window.innerHeight);
-    }
-  }, []);
-
   return (
     <Motion.div
       className="absolute hidden h-1 w-1 rounded-full bg-primary sm:block"
       style={{ left: `${x}%`, bottom: 0 }}
       initial={{ y: 0, opacity: 0 }}
       animate={{
-        y: -windowHeight,
+        y: "-100vh",
         opacity: [0, 1, 1, 0],
       }}
       transition={{
@@ -281,6 +274,59 @@ const seoUseCases = [
   },
 ];
 
+const dashboardRecipes = [
+  {
+    title: "Dashboard overview",
+    description: "Bring key metrics and recent activity together with Stat, Card, Table, and List components.",
+    links: [
+      { label: "Stat", href: "/docs/stat" },
+      { label: "Table", href: "/docs/table" },
+      { label: "Card", href: "/docs/card" },
+    ],
+  },
+  {
+    title: "Signup and account forms",
+    description: "Compose account, settings, and verification forms from inputs, selects, checkboxes, and PIN fields.",
+    links: [
+      { label: "Input", href: "/docs/input" },
+      { label: "Select", href: "/docs/select" },
+      { label: "PIN Input", href: "/docs/pin-input" },
+    ],
+  },
+  {
+    title: "Actions and feedback",
+    description: "Give users clear ways to confirm actions, navigate overlays, and understand loading or empty states.",
+    links: [
+      { label: "Button", href: "/docs/button" },
+      { label: "Modal", href: "/docs/modal" },
+      { label: "Empty State", href: "/docs/empty-state" },
+    ],
+  },
+];
+
+const landingFaqs = [
+  {
+    question: "What is Neuctra UI?",
+    answer: "Neuctra UI is a React component library and design system with reusable UI components, semantic theme tokens, setup guidance, and AI-assisted development tools.",
+  },
+  {
+    question: "Does Neuctra UI include complete dashboard or authentication templates?",
+    answer: "Neuctra UI provides components you can compose into dashboards and authentication screens. Your app supplies the page structure, data, validation, authentication, and business logic.",
+  },
+  {
+    question: "Which React frameworks can the Neuctra UI CLI set up?",
+    answer: "The CLI supports Vite React, Next.js App Router, Remix, and React Router, with JavaScript and TypeScript setup options.",
+  },
+  {
+    question: "How does Tailwind CSS find Neuctra UI component styles?",
+    answer: "Tailwind must scan the installed component package. Tailwind v4 uses an @source directive in the global stylesheet; Tailwind v3 uses the content configuration. The path depends on your stylesheet location.",
+  },
+  {
+    question: "Can the Neuctra UI assistant help with a project using another UI library?",
+    answer: "Yes. Its general UI engineering, design-system, accessibility, responsive design, and SEO guidance can be applied across projects. Neuctra-specific component APIs and tokens apply when a project uses @neuctra/ui.",
+  },
+];
+
 const streamPositions = [8, 18, 31, 44, 57, 70, 83, 94];
 
 const particlePositions = [
@@ -396,8 +442,8 @@ const LandingPage = () => {
                 transition={{ duration: 1, delay: 0.1 }}
                 className="mb-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl sm:leading-none md:text-6xl"
               >
-                Build with a UI assistant that
-                <span className="text-primary"> knows your tools.</span>
+                Build SaaS products with a
+                <span className="text-primary"> React UI component library.</span>
               </Motion.h1>
 
               <Motion.p
@@ -406,10 +452,12 @@ const LandingPage = () => {
                 transition={{ duration: 1, delay: 0.2 }}
                 className="text-gray-300 mb-5 text-sm md:text-base max-w-xl"
               >
-                Neuctra UI brings together a React component system, a setup
-                CLI, and local or hosted MCP servers. Your AI coding assistant
-                can use accurate component knowledge while you build, wherever
-                your project lives.
+                Build dashboards, forms, and product interfaces with
+                customizable React components and Tailwind CSS theme tokens.
+                Use the CLI to set up supported projects, then connect the MCP
+                assistant for verified Neuctra APIs or general UI,
+                accessibility, responsive design, and SEO guidance across
+                other stacks.
               </Motion.p>
 
               {/* MCP Hero Callout */}
@@ -750,10 +798,11 @@ const LandingPage = () => {
 
               <p className="mt-5 text-zinc-400 text-sm md:text-base leading-7 max-w-xl">
                 Neuctra UI Assistant works through MCP with compatible coding
-                tools. Run the server locally over stdio or connect to the
-                hosted HTTP endpoint. It can help with component discovery,
-                design guidance, theme setup, and public page SEO across your
-                project workflow.
+                tools. It can help with UI engineering, design systems,
+                accessibility, responsive behavior, and SEO across projects.
+                When you use Neuctra UI, it can also provide verified component
+                APIs, examples, and theme guidance. Run it locally or connect
+                to the hosted HTTP endpoint.
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -831,6 +880,66 @@ const LandingPage = () => {
           </div>
         </section>
 
+        {/* ---------------------------------------------------------------- */}
+        {/* COMPONENT WORKFLOWS                                              */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section className="space-y-6" aria-labelledby="dashboard-components-heading">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 id="dashboard-components-heading" className="mb-3 text-2xl font-bold sm:text-3xl md:text-4xl">
+              React UI components for SaaS workflows
+            </h2>
+            <p className="leading-7 text-zinc-400">
+              Start with the task your interface needs to support, then combine React components for dashboards, forms, and product actions.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {dashboardRecipes.map((recipe) => (
+              <article key={recipe.title} className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5 sm:p-6">
+                <h3 className="text-lg font-semibold text-white">{recipe.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-400">{recipe.description}</p>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {recipe.links.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} className="inline-flex min-h-9 items-center rounded-full border border-zinc-700 px-3 text-sm text-zinc-200 hover:border-primary/60 hover:text-primary">
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <p className="text-center text-sm text-zinc-400">
+            Explore the <Link href="/docs" className="text-primary underline-offset-4 hover:underline">React component catalog</Link> for documented props and examples.
+          </p>
+        </section>
+
+        {/* ---------------------------------------------------------------- */}
+        {/* THEMING AND FRAMEWORK SETUP                                       */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section className="grid gap-6 rounded-3xl border border-primary/20 bg-primary/[0.04] p-5 sm:p-7 lg:grid-cols-[1.2fr_0.8fr] lg:items-center md:p-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">React + Tailwind CSS</p>
+            <h2 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">
+              One semantic theme for light and dark mode
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">
+              Set colors through semantic tokens, configure Tailwind to scan the installed library, and let your theme provider control the active mode. Neuctra UI works with Vite React, Next.js, Remix, and React Router projects.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:justify-end">
+            <Link href="/docs/full-setup" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-white hover:bg-primary/90">
+              React setup and theming guide <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/docs/cli" className="inline-flex min-h-11 items-center justify-center rounded-lg border border-zinc-700 px-5 py-2.5 font-medium text-zinc-200 hover:border-primary/60 hover:text-primary">
+              Set up with the CLI
+            </Link>
+          </div>
+        </section>
+
         <section className="space-y-6">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="mb-3 text-2xl font-bold sm:text-3xl md:text-4xl">One toolkit, three ways to work</h2>
@@ -847,6 +956,54 @@ const LandingPage = () => {
                 <p className="mt-2 text-sm leading-6 text-zinc-400">{item.text}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm text-primary">{item.action}<ArrowRight className="h-4 w-4" /></span>
               </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------- */}
+        {/* READER QUESTIONS                                                 */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section className="mx-auto w-full max-w-4xl space-y-6" aria-labelledby="neuctra-faq-heading">
+          <div className="text-center">
+            <h2 id="neuctra-faq-heading" className="text-2xl font-bold sm:text-3xl md:text-4xl">Neuctra UI questions</h2>
+            <p className="mt-3 text-sm leading-7 text-zinc-400 sm:text-base">Quick answers about the React library, setup, themes, and AI assistant.</p>
+          </div>
+          <div className="divide-y divide-zinc-800 border-y border-zinc-800">
+            {landingFaqs.map((faq) => (
+              <details key={faq.question} className="group py-5">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                  {faq.question}
+                  <span aria-hidden="true" className="text-xl font-normal text-primary">+</span>
+                </summary>
+                <p className="max-w-3xl pb-2 pr-8 text-sm leading-7 text-zinc-300 sm:text-base">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        {/* ---------------------------------------------------------------- */}
+        {/* BLOG GUIDES                                                      */}
+        {/* ---------------------------------------------------------------- */}
+
+        <section className="space-y-6" aria-labelledby="react-ui-guides-heading">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Practical developer guides</p>
+              <h2 id="react-ui-guides-heading" className="mt-2 text-2xl font-bold sm:text-3xl">React UI and Tailwind CSS articles</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-400">Guides for component composition, theming, project setup, and AI-assisted UI work.</p>
+            </div>
+            <Link href="/blog" className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-primary">All articles <ArrowRight className="h-4 w-4" /></Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {blogPosts.slice(0, 3).map((post) => (
+              <article key={post.slug} className="rounded-2xl border border-zinc-800 bg-zinc-950 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">{post.category}</p>
+                <h3 className="mt-3 text-lg font-semibold leading-snug text-white">
+                  <Link href={`/blog/${post.slug}`} className="hover:text-primary">{post.title}</Link>
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-zinc-400">{post.summary}</p>
+              </article>
             ))}
           </div>
         </section>
