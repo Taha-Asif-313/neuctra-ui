@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.14",
-  "generatedAt": "2026-10-07T06:01:15.313Z",
+  "version": "1.0.15",
+  "generatedAt": "2026-10-25T16:43:03.355Z",
   "componentCount": 79,
   "components": [
     {
@@ -336,7 +336,7 @@
       "module": "AvatarGroup",
       "category": "data-display",
       "propsInterface": "AvatarGroupProps",
-      "description": "React avatar group with overlapping stack, background rings and an automatic +N overflow counter — built with Tailwind CSS.",
+      "description": "React avatar group with overlapping stack, background rings and an automatic +N overflow counter - built with Tailwind CSS.",
       "props": [
         {
           "name": "children",
@@ -551,7 +551,7 @@
       "module": "Breadcrumb",
       "category": "navigation",
       "propsInterface": "BreadcrumbProps",
-      "description": "Accessible React breadcrumb navigation with icons, custom separators, SPA click handlers and automatic ellipsis collapsing for deep paths — built with Tailwind CSS.",
+      "description": "Accessible React breadcrumb navigation with icons, custom separators, SPA click handlers and automatic ellipsis collapsing for deep paths - built with Tailwind CSS.",
       "props": [
         {
           "name": "items",
@@ -649,7 +649,7 @@
       "module": "Button",
       "category": "actions",
       "propsInterface": "ButtonProps",
-      "description": "The Button component is a flexible, highly customizable UI primitive built for SaaS applications. Perfect for React authentication UI, form builders, and SaaS dashboard interfaces. Built with Tailwind CSS for modern, responsive design. with TypeScript. It supports multiple variants, sizes, icon positioning, loading states, and full-width layout control — making it suitable for modern design systems and production apps.",
+      "description": "The Button component is a flexible, highly customizable UI primitive built for SaaS applications. Perfect for React authentication UI, form builders, and SaaS dashboard interfaces. Built with Tailwind CSS for modern, responsive design. with TypeScript. It supports multiple variants, sizes, icon positioning, loading states, and full-width layout control - making it suitable for modern design systems and production apps.",
       "props": [
         {
           "name": "children",
@@ -901,7 +901,7 @@
       "module": "Callout",
       "category": "feedback",
       "propsInterface": "CalloutProps",
-      "description": "A static inline alert that lives in the page flow — use it for persistent messages, while the toast system (ToastProvider) handles transient notifications.",
+      "description": "A static inline alert that lives in the page flow - use it for persistent messages, while the toast system (ToastProvider) handles transient notifications.",
       "props": [
         {
           "name": "type",
@@ -999,7 +999,7 @@
       "module": "Card",
       "category": "layout",
       "propsInterface": "CardProps",
-      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales — built with Tailwind CSS.",
+      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales - built with Tailwind CSS.",
       "props": [
         {
           "name": "variant",
@@ -1034,7 +1034,7 @@
       "module": "Card",
       "category": "layout",
       "propsInterface": "CardSectionProps",
-      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales — built with Tailwind CSS.",
+      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales - built with Tailwind CSS.",
       "props": [
         {
           "name": "children",
@@ -1055,7 +1055,7 @@
       "module": "Card",
       "category": "layout",
       "propsInterface": "CardSectionProps",
-      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales — built with Tailwind CSS.",
+      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales - built with Tailwind CSS.",
       "props": [
         {
           "name": "children",
@@ -1076,7 +1076,7 @@
       "module": "Card",
       "category": "layout",
       "propsInterface": "CardHeaderProps",
-      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales — built with Tailwind CSS.",
+      "description": "Composable React card component with header, body and footer sections. Supports outline, elevated, ghost and transparent variants, hover states and padding scales - built with Tailwind CSS.",
       "props": [
         {
           "name": "title",
@@ -1501,7 +1501,7 @@
       "module": "Chip",
       "category": "data-display",
       "propsInterface": "ChipProps",
-      "description": "React chip component for tags and filters. Solid, soft and outline variants, four colors, three sizes, icons and removable state — built with Tailwind CSS.",
+      "description": "React chip component for tags and filters. Solid, soft and outline variants, four colors, three sizes, icons and removable state - built with Tailwind CSS.",
       "props": [
         {
           "name": "label",
@@ -1648,7 +1648,7 @@
       "module": "CopyButton",
       "category": "actions",
       "propsInterface": "CopyButtonProps",
-      "description": "React copy-to-clipboard button with success feedback, secure-context fallback, sizes and label support — built with Tailwind CSS.",
+      "description": "React copy-to-clipboard button with success feedback, secure-context fallback, sizes and label support - built with Tailwind CSS.",
       "props": [
         {
           "name": "value",
@@ -1877,7 +1877,7 @@
       "module": "Divider",
       "category": "layout",
       "propsInterface": "DividerProps",
-      "description": "React divider component for separating content. Horizontal and vertical orientation, optional centered label, dashed style and spacing scales — built with Tailwind CSS.",
+      "description": "React divider component for separating content. Horizontal and vertical orientation, optional centered label, dashed style and spacing scales - built with Tailwind CSS.",
       "props": [
         {
           "name": "orientation",
@@ -2430,7 +2430,7 @@
       "module": "EmptyState",
       "category": "feedback",
       "propsInterface": "EmptyStateProps",
-      "description": "React empty state component with icon, title, description and call-to-action slot for no-results and empty-list screens — built with Tailwind CSS.",
+      "description": "React empty state component with icon, title, description and call-to-action slot for no-results and empty-list screens - built with Tailwind CSS.",
       "props": [
         {
           "name": "icon",
@@ -2736,7 +2736,7 @@
       "module": "Image",
       "category": "data-display",
       "propsInterface": "ImageProps",
-      "description": "The Image component provides a responsive and stylable wrapper for images. Supports aspect ratios, overlays, fallback content, lazy loading, click interactions, shadows, borders, and custom styles — all with full TypeScript support.",
+      "description": "The Image component provides a responsive and stylable wrapper for images. Supports aspect ratios, overlays, fallback content, lazy loading, click interactions, shadows, borders, and custom styles - all with full TypeScript support.",
       "props": [
         {
           "name": "src",
@@ -3976,7 +3976,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "isOpen",
@@ -4058,7 +4058,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalBodyProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "children",
@@ -4091,7 +4091,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalButtonProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "onClose",
@@ -4126,7 +4126,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalContentProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "children",
@@ -4194,7 +4194,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalFooterProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "children",
@@ -4227,7 +4227,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalHeaderProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "title",
@@ -4302,7 +4302,7 @@
       "module": "Modal",
       "category": "overlay",
       "propsInterface": "ModalTriggerButtonProps",
-      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter — making it easy to build consistent, accessible layouts.",
+      "description": "The Modal component is a flexible and composable overlay system designed for dialogs, confirmations, and complex UI interactions. It includes structured subcomponents like ModalContent, ModalHeader, ModalBody, and ModalFooter - making it easy to build consistent, accessible layouts.",
       "props": [
         {
           "name": "children",
@@ -4337,7 +4337,7 @@
       "module": "NumberInput",
       "category": "form",
       "propsInterface": "NumberInputProps",
-      "description": "React number input with increment/decrement steppers, min/max clamping, arrow-key support, decimal input and spinbutton semantics — built with Tailwind CSS.",
+      "description": "React number input with increment/decrement steppers, min/max clamping, arrow-key support, decimal input and spinbutton semantics - built with Tailwind CSS.",
       "props": [
         {
           "name": "value",
@@ -4463,7 +4463,7 @@
       "module": "Pagination",
       "category": "navigation",
       "propsInterface": "PaginationProps",
-      "description": "Accessible React pagination with smart ellipsis, sibling count control, three sizes and full keyboard support — built with Tailwind CSS.",
+      "description": "Accessible React pagination with smart ellipsis, sibling count control, three sizes and full keyboard support - built with Tailwind CSS.",
       "props": [
         {
           "name": "page",
@@ -5519,7 +5519,7 @@
       "module": "Skeleton",
       "category": "feedback",
       "propsInterface": "SkeletonProps",
-      "description": "React skeleton loading component with text, circular and rectangular variants, multi-line paragraphs and reduced-motion support — built with Tailwind CSS.",
+      "description": "React skeleton loading component with text, circular and rectangular variants, multi-line paragraphs and reduced-motion support - built with Tailwind CSS.",
       "props": [
         {
           "name": "variant",
@@ -5708,7 +5708,7 @@
       "module": "Spinner",
       "category": "feedback",
       "propsInterface": "SpinnerProps",
-      "description": "Accessible React spinner component with five sizes, theme-aware colors and a screen-reader label — built with Tailwind CSS.",
+      "description": "Accessible React spinner component with five sizes, theme-aware colors and a screen-reader label - built with Tailwind CSS.",
       "props": [
         {
           "name": "size",
@@ -5750,7 +5750,7 @@
       "module": "Stat",
       "category": "data-display",
       "propsInterface": "StatProps",
-      "description": "React stat component for dashboards: KPI value, label, icon, trend indicator with up/down arrows and helper text — built with Tailwind CSS.",
+      "description": "React stat component for dashboards: KPI value, label, icon, trend indicator with up/down arrows and helper text - built with Tailwind CSS.",
       "props": [
         {
           "name": "label",
@@ -6168,7 +6168,7 @@
       "module": "Tabs",
       "category": "navigation",
       "propsInterface": "TabProps",
-      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors - making it ideal for dashboards, settings panels, and structured content navigation.",
       "props": [
         {
           "name": "children",
@@ -6332,7 +6332,7 @@
       "module": "Tabs",
       "category": "navigation",
       "propsInterface": "TabListProps",
-      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors - making it ideal for dashboards, settings panels, and structured content navigation.",
       "props": [
         {
           "name": "children",
@@ -6400,7 +6400,7 @@
       "module": "Tabs",
       "category": "navigation",
       "propsInterface": "TabPanelProps",
-      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors - making it ideal for dashboards, settings panels, and structured content navigation.",
       "props": [
         {
           "name": "children",
@@ -6447,7 +6447,7 @@
       "module": "Tabs",
       "category": "navigation",
       "propsInterface": "TabPanelsProps",
-      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors - making it ideal for dashboards, settings panels, and structured content navigation.",
       "props": [
         {
           "name": "children",
@@ -6480,7 +6480,7 @@
       "module": "Tabs",
       "category": "navigation",
       "propsInterface": "TabsProps",
-      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors — making it ideal for dashboards, settings panels, and structured content navigation.",
+      "description": "The Tabs component is a flexible, fully responsive UI primitive built with TypeScript. It supports multiple layouts, visual variants, keyboard navigation, and mobile-aware behaviors - making it ideal for dashboards, settings panels, and structured content navigation.",
       "props": [
         {
           "name": "children",
@@ -6639,7 +6639,7 @@
       "module": "TagInput",
       "category": "form",
       "propsInterface": "TagInputProps",
-      "description": "React tag input with Enter/comma commit, Backspace removal, duplicate filtering, max-tag limits, validation hook and error states — built with Tailwind CSS.",
+      "description": "React tag input with Enter/comma commit, Backspace removal, duplicate filtering, max-tag limits, validation hook and error states - built with Tailwind CSS.",
       "props": [
         {
           "name": "value",
@@ -7299,7 +7299,7 @@
       "module": "Timeline",
       "category": "data-display",
       "propsInterface": "TimelineProps",
-      "description": "React timeline component for activity feeds, order tracking and changelogs. Done/active/pending statuses, custom icons and timestamps — built with Tailwind CSS.",
+      "description": "React timeline component for activity feeds, order tracking and changelogs. Done/active/pending statuses, custom icons and timestamps - built with Tailwind CSS.",
       "props": [
         {
           "name": "items",
@@ -7570,7 +7570,7 @@
       "module": "Alert",
       "category": "feedback",
       "propsInterface": null,
-      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere — no hook required — to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
+      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere - no hook required - to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
       "props": [],
       "extends": [],
       "example": ""
@@ -7581,7 +7581,7 @@
       "module": "Alert",
       "category": "feedback",
       "propsInterface": "ToastProviderProps",
-      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere — no hook required — to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
+      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere - no hook required - to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
       "props": [
         {
           "name": "children",
@@ -7621,7 +7621,7 @@
       "module": "Toggle",
       "category": "form",
       "propsInterface": "ToggleProps",
-      "description": "React toggle button and segmented toggle group with single and multiple selection, icons, sizes and aria-pressed semantics — built with Tailwind CSS.",
+      "description": "React toggle button and segmented toggle group with single and multiple selection, icons, sizes and aria-pressed semantics - built with Tailwind CSS.",
       "props": [
         {
           "name": "pressed",
@@ -7670,7 +7670,7 @@
       "module": "ToggleGroup",
       "category": "form",
       "propsInterface": "ToggleGroupProps",
-      "description": "React toggle button and segmented toggle group with single and multiple selection, icons, sizes and aria-pressed semantics — built with Tailwind CSS.",
+      "description": "React toggle button and segmented toggle group with single and multiple selection, icons, sizes and aria-pressed semantics - built with Tailwind CSS.",
       "props": [
         {
           "name": "options",
@@ -7754,7 +7754,7 @@
       "module": "Tooltip",
       "category": "overlay",
       "propsInterface": "TooltipProps",
-      "description": "Accessible React tooltip shown on hover and keyboard focus. Four positions, show delay, Escape dismissal and WCAG-friendly behavior — built with Tailwind CSS.",
+      "description": "Accessible React tooltip shown on hover and keyboard focus. Four positions, show delay, Escape dismissal and WCAG-friendly behavior - built with Tailwind CSS.",
       "props": [
         {
           "name": "content",
@@ -7850,7 +7850,7 @@
       "module": "Alert",
       "category": "feedback",
       "propsInterface": null,
-      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere — no hook required — to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
+      "description": "The Toast component is a lightweight, react-hot-toast-style notification system. Call toast() from anywhere - no hook required - to trigger success, error, warning, info, or loading notifications, each with distinct styling and icons for clear visual communication.",
       "props": [],
       "extends": [],
       "example": ""

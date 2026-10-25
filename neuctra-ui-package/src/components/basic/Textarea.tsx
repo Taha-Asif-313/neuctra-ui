@@ -134,7 +134,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     useEffect(() => {
       resizeTextarea();
-    }, [value]);
+    }, [value, autoResize, minRows, maxRows]);
 
     /** ⌨️ ChatGPT-like enter behavior */
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -168,7 +168,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           </label>
         )}
 
-        <div className="relative group">
+        <div className="relative group flex-1 min-h-0 min-w-0">
           <textarea
             ref={setRefs}
             id={name}
@@ -186,6 +186,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
             rows={minRows}
             className={cn(
               "w-full px-4 py-3 text-sm rounded-lg",
+              !autoResize && "h-full min-h-0 overflow-y-auto",
               // Reserve room for the character counter so typed text never
               // runs underneath it.
               showCount && "pb-8",
@@ -199,8 +200,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               "focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:border-ring",
               "hover:border-muted-foreground/40",
               "disabled:opacity-50 disabled:cursor-not-allowed",
-              error &&
-                "border-destructive focus-visible:ring-destructive/50",
+              error && "border-destructive focus-visible:ring-destructive/50",
               success && "border-success",
               className,
             )}
