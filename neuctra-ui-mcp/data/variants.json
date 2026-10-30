@@ -1,0 +1,1113 @@
+{
+  "version": 1,
+  "description": "Context-driven design variants for application UI. The page builder scores every variant against the request (domain words, layout, density, platform) and recommends one per group plus alternatives, so dashboards stop repeating the same sidebar, stat cards and grid.",
+  "principles": [
+    "Derive a short design brief from the request before choosing anything: domain (finance, health, devops, commerce, education...), primary user (operator, executive, end customer, developer), data density, how often the page is used, and the one decision the page should support.",
+    "Pick one variant per group deliberately from that brief. The recommended variant is a starting point, not a mandate: if an alternative fits the brief better, use it and say why in one sentence.",
+    "Inside one existing app, consistency wins: if the project already has an app shell, sidebar or stat card style, reuse it for new pages instead of introducing a new variant. Variety applies across different products and contexts, not between pages of the same product.",
+    "Content must come from the domain. A clinic dashboard shows appointments, no-shows and wait time; a SaaS dashboard shows MRR, churn and activation. Never ship generic 'Total Users / Revenue / Orders / Growth' placeholders unless the request is literally about those.",
+    "Do not combine more than two stat card variants on one page, and keep a single variant within one row.",
+    "Vary the active-state treatment, header style and grid to fit the variant. Do not fall back to the same left-border active item, four equal stat cards and chart-plus-table grid every time."
+  ],
+  "groups": {
+    "navigationShell": {
+      "title": "Navigation shell",
+      "appliesTo": [
+        "dashboard",
+        "analytics-dashboard",
+        "crm-pipeline",
+        "data-table",
+        "inbox",
+        "kanban-board",
+        "project-workspace",
+        "report-builder",
+        "settings",
+        "team-management"
+      ],
+      "variants": [
+        {
+          "id": "grouped-sidebar",
+          "name": "Grouped full sidebar",
+          "bestFor": "Admin panels and back offices with many destinations (8+) that fall into clear groups.",
+          "signals": [
+            "admin",
+            "back office",
+            "erp",
+            "management",
+            "hr",
+            "school",
+            "hospital",
+            "clinic",
+            "inventory",
+            "settings",
+            "control panel"
+          ],
+          "layouts": [
+            "settings",
+            "data-table"
+          ],
+          "density": [
+            "balanced",
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "aside w-64 (logo, grouped nav with small muted section labels, user menu pinned at bottom) | main",
+          "implementation": [
+            "Section labels: text-xs uppercase tracking-wide text-muted-foreground, 2-5 items per group.",
+            "Active item: bg-primary/10 text-primary rounded-md with the icon also tinted.",
+            "On mobile the sidebar becomes a Drawer opened from a menu Icon Button in a slim top bar."
+          ],
+          "avoid": [
+            "More than 5 groups",
+            "Descriptions under nav items"
+          ]
+        },
+        {
+          "id": "icon-rail",
+          "name": "Icon rail",
+          "bestFor": "Focused tools with few top-level areas (6 or fewer) where the canvas or data needs maximum width.",
+          "signals": [
+            "editor",
+            "builder",
+            "canvas",
+            "design tool",
+            "trading",
+            "terminal",
+            "monitoring",
+            "map",
+            "devops",
+            "observability",
+            "studio"
+          ],
+          "layouts": [
+            "report-builder"
+          ],
+          "density": [
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "aside w-16 (logo mark, icon-only Icon Buttons with Tooltips, settings + avatar at bottom) | main full width",
+          "implementation": [
+            "Every icon has a Tooltip with its label and an aria-label.",
+            "Active item: filled bg-primary text-primary-foreground square with rounded-lg, no text.",
+            "On mobile switch to a bottom tab bar with the same 4-5 destinations."
+          ],
+          "avoid": [
+            "More than 7 icons",
+            "Icons without tooltips"
+          ]
+        },
+        {
+          "id": "rail-plus-panel",
+          "name": "Rail plus contextual panel",
+          "bestFor": "Multi-module products where each module has its own list: mail, chat, projects with sub-lists, file managers.",
+          "signals": [
+            "inbox",
+            "email",
+            "mail",
+            "chat",
+            "messages",
+            "messaging",
+            "support desk",
+            "helpdesk",
+            "files",
+            "drive",
+            "notes",
+            "projects",
+            "channels"
+          ],
+          "layouts": [
+            "inbox",
+            "project-workspace"
+          ],
+          "density": [
+            "balanced",
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "icon rail w-16 (modules) | panel w-64 (module-specific list, search, filters) | main",
+          "implementation": [
+            "The rail switches modules; the panel shows the selected module's folders, channels or projects with counts as Badge.",
+            "Panel uses bg-card with border-r border-border; rail uses bg-background.",
+            "On tablet hide the panel behind a toggle; on mobile collapse both into a Drawer."
+          ],
+          "avoid": [
+            "Duplicating the same links in rail and panel"
+          ]
+        },
+        {
+          "id": "collapsible-sidebar",
+          "name": "Collapsible sidebar",
+          "bestFor": "General SaaS products with a medium nav (5-10 items) where users sometimes want more room.",
+          "signals": [
+            "saas",
+            "crm",
+            "platform",
+            "portal",
+            "app",
+            "subscription",
+            "billing",
+            "customers",
+            "sales"
+          ],
+          "layouts": [
+            "dashboard",
+            "crm-pipeline"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "aside w-64 that collapses to w-16 via a toggle Icon Button in its header | main",
+          "implementation": [
+            "Collapsed state keeps icons with Tooltips; transition width with duration-200.",
+            "Active item: subtle bg-accent with a small primary dot or bar before the label.",
+            "Persist the collapsed state (localStorage) so it does not reset on navigation."
+          ],
+          "avoid": [
+            "Animating anything except width"
+          ]
+        },
+        {
+          "id": "top-navbar",
+          "name": "Top navigation bar",
+          "bestFor": "Products with 6 or fewer sections and wide content: analytics, reports, personal finance, store owners, consumer dashboards.",
+          "signals": [
+            "analytics",
+            "report",
+            "reports",
+            "personal",
+            "finance",
+            "banking",
+            "budget",
+            "wallet",
+            "store",
+            "shop owner",
+            "creator",
+            "portfolio",
+            "simple",
+            "marketing"
+          ],
+          "layouts": [
+            "analytics-dashboard"
+          ],
+          "density": [
+            "spacious",
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "header h-14 (logo, horizontal nav links, search, notifications, avatar) | main centered max-w-7xl",
+          "implementation": [
+            "Active link: text-foreground with a 2px primary underline; inactive links text-muted-foreground.",
+            "Optional second row of Tabs for sub-views of the current section.",
+            "On mobile collapse links into a Drawer or Dropdown menu."
+          ],
+          "avoid": [
+            "More than 6 top-level links"
+          ]
+        },
+        {
+          "id": "inset-sidebar",
+          "name": "Inset sidebar",
+          "bestFor": "Modern, premium or AI products where the main area should feel like a raised workspace.",
+          "signals": [
+            "ai",
+            "assistant",
+            "copilot",
+            "modern",
+            "premium",
+            "minimal",
+            "startup",
+            "agent",
+            "workspace",
+            "productivity"
+          ],
+          "layouts": [
+            "project-workspace",
+            "dashboard"
+          ],
+          "density": [
+            "balanced",
+            "spacious"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "page bg-background > aside w-60 without border | main as an inset panel: m-2 rounded-xl border border-border bg-card",
+          "implementation": [
+            "The sidebar has no border or background of its own; separation comes from the inset main panel.",
+            "Active item: bg-card text-foreground rounded-md (it looks lifted into the same surface as main).",
+            "On mobile drop the inset margin and use a Drawer for navigation."
+          ],
+          "avoid": [
+            "Shadows or gradients on the inset panel"
+          ]
+        },
+        {
+          "id": "workspace-sidebar",
+          "name": "Workspace switcher sidebar",
+          "bestFor": "Multi-tenant products: teams, organizations, agencies managing clients.",
+          "signals": [
+            "team",
+            "teams",
+            "organization",
+            "organisation",
+            "workspace",
+            "tenant",
+            "agency",
+            "clients",
+            "multi tenant",
+            "members"
+          ],
+          "layouts": [
+            "team-management",
+            "project-workspace"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "aside w-64 (workspace switcher Dropdown at top, nav, pinned favorites or projects list, plan/usage Progress and user menu at bottom) | main",
+          "implementation": [
+            "Workspace switcher shows Avatar + name + chevron and opens a Dropdown listing workspaces.",
+            "Pinned items list uses small colored Avatar initials, not icons, to distinguish projects.",
+            "Usage meter at the bottom uses Progress with a short label."
+          ],
+          "avoid": [
+            "Showing the switcher when there is only one workspace"
+          ]
+        },
+        {
+          "id": "bottom-tab-bar",
+          "name": "Bottom tab bar",
+          "bestFor": "Mobile-first apps and consumer products used mainly on phones.",
+          "signals": [
+            "mobile",
+            "phone",
+            "fitness",
+            "health",
+            "delivery",
+            "rider",
+            "driver",
+            "habit",
+            "tracker",
+            "pwa"
+          ],
+          "layouts": [],
+          "density": [
+            "spacious",
+            "balanced"
+          ],
+          "platforms": [
+            "mobile"
+          ],
+          "structure": "slim top bar (title, one action) | main | fixed bottom nav with 4-5 icon+label tabs (sm and up: switch to icon rail)",
+          "implementation": [
+            "Tabs: icon above text-xs label, active tab text-primary, add pb-[env(safe-area-inset-bottom)].",
+            "Primary create action can sit in the center tab as a filled bg-primary circle.",
+            "Content gets bottom padding so the bar never covers it."
+          ],
+          "avoid": [
+            "More than 5 tabs",
+            "Hiding labels"
+          ]
+        }
+      ]
+    },
+    "pageHeader": {
+      "title": "Page header",
+      "appliesTo": [
+        "dashboard",
+        "analytics-dashboard",
+        "crm-pipeline",
+        "data-table",
+        "kanban-board",
+        "project-workspace",
+        "report-builder",
+        "settings",
+        "team-management",
+        "status-page"
+      ],
+      "variants": [
+        {
+          "id": "title-actions",
+          "name": "Title with actions",
+          "bestFor": "Pages with one clear primary action.",
+          "signals": [
+            "create",
+            "add",
+            "new",
+            "manage",
+            "admin"
+          ],
+          "layouts": [
+            "data-table",
+            "team-management"
+          ],
+          "density": [
+            "balanced",
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "flex justify-between: (h1 + one-line description) | (secondary Button + primary Button)",
+          "implementation": [
+            "Stack vertically below sm, actions full width."
+          ],
+          "avoid": [
+            "More than two buttons"
+          ]
+        },
+        {
+          "id": "greeting",
+          "name": "Personal greeting",
+          "bestFor": "Home dashboards for individual users who return daily.",
+          "signals": [
+            "home",
+            "welcome",
+            "personal",
+            "my",
+            "overview",
+            "student",
+            "patient",
+            "member",
+            "fitness",
+            "habit"
+          ],
+          "layouts": [],
+          "density": [
+            "spacious",
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "\"Good morning, {name}\" (h1) + today's date and one summary sentence (\"3 tasks due today\") | quick action Chips",
+          "implementation": [
+            "Summary sentence is computed from real data, not generic copy."
+          ],
+          "avoid": [
+            "Using it for admin or multi-user operational screens"
+          ]
+        },
+        {
+          "id": "title-toolbar",
+          "name": "Title with filter toolbar",
+          "bestFor": "Analytics and reporting views driven by a date range and filters.",
+          "signals": [
+            "analytics",
+            "report",
+            "reports",
+            "metrics",
+            "kpi",
+            "performance",
+            "insights",
+            "revenue",
+            "traffic"
+          ],
+          "layouts": [
+            "analytics-dashboard",
+            "report-builder"
+          ],
+          "density": [
+            "balanced",
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "row 1: h1 + last-updated meta | row 2: date range Select, segment filters, Export Button",
+          "implementation": [
+            "Show active filters as removable Chips under the toolbar."
+          ],
+          "avoid": [
+            "Hiding the date range inside a menu"
+          ]
+        },
+        {
+          "id": "title-tabs",
+          "name": "Title with view tabs",
+          "bestFor": "One entity viewed several ways (overview, activity, settings).",
+          "signals": [
+            "project",
+            "account",
+            "profile",
+            "settings",
+            "workspace",
+            "customer",
+            "detail"
+          ],
+          "layouts": [
+            "project-workspace",
+            "settings",
+            "crm-pipeline"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "Breadcrumb (optional) + h1 + status Badge | Tabs row flush with the content border",
+          "implementation": [
+            "Tabs scroll horizontally on mobile instead of wrapping."
+          ],
+          "avoid": [
+            "Tabs with a single item"
+          ]
+        },
+        {
+          "id": "status-banner",
+          "name": "Status banner header",
+          "bestFor": "Operational and monitoring screens where overall health is the first thing to know.",
+          "signals": [
+            "status",
+            "uptime",
+            "monitoring",
+            "incident",
+            "health",
+            "infra",
+            "server",
+            "devops",
+            "system"
+          ],
+          "layouts": [
+            "status-page"
+          ],
+          "density": [
+            "compact",
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "full-width band: status icon + \"All systems operational\" (or the current issue) + last checked time | refresh Icon Button",
+          "implementation": [
+            "Band color follows status tokens: success, warning or destructive with matching -foreground."
+          ],
+          "avoid": [
+            "Showing green when data is stale"
+          ]
+        }
+      ]
+    },
+    "statCard": {
+      "title": "Stat card",
+      "appliesTo": [
+        "dashboard",
+        "analytics-dashboard",
+        "crm-pipeline",
+        "report-builder",
+        "status-page",
+        "team-management",
+        "project-workspace",
+        "data-table"
+      ],
+      "variants": [
+        {
+          "id": "number-delta",
+          "name": "Number with delta",
+          "bestFor": "Headline KPIs compared with the previous period.",
+          "signals": [
+            "sales",
+            "orders",
+            "conversion",
+            "signups",
+            "kpi",
+            "growth",
+            "weekly",
+            "monthly"
+          ],
+          "layouts": [],
+          "density": [
+            "balanced",
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "label (text-sm text-muted-foreground) | value (text-3xl font-semibold tabular-nums) | delta Badge (success/destructive) + \"vs last month\"",
+          "implementation": [
+            "Delta direction uses an arrow icon plus color, never color alone."
+          ],
+          "avoid": [
+            "Deltas without a comparison period"
+          ]
+        },
+        {
+          "id": "sparkline",
+          "name": "Number with sparkline",
+          "bestFor": "Metrics where the recent trend matters as much as the current value.",
+          "signals": [
+            "traffic",
+            "visits",
+            "visitors",
+            "revenue",
+            "mrr",
+            "users",
+            "active users",
+            "trend",
+            "analytics",
+            "requests"
+          ],
+          "layouts": [
+            "analytics-dashboard"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "label + value + delta on the left | ApexCharts sparkline (area, height 48-64) on the right or full width at the bottom",
+          "implementation": [
+            "Sparkline: chart.sparkline.enabled = true, stroke width 2, color from --primary or the status token matching the trend."
+          ],
+          "avoid": [
+            "Axes or tooltips cluttering the sparkline"
+          ]
+        },
+        {
+          "id": "progress-goal",
+          "name": "Progress toward goal",
+          "bestFor": "Values with a target or limit: quotas, budgets, storage, course completion.",
+          "signals": [
+            "goal",
+            "target",
+            "quota",
+            "budget",
+            "limit",
+            "storage",
+            "usage",
+            "plan",
+            "course",
+            "progress",
+            "savings",
+            "fundraising",
+            "fitness",
+            "steps",
+            "workout",
+            "calories",
+            "habit"
+          ],
+          "layouts": [],
+          "density": [
+            "balanced",
+            "spacious"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "label | \"value / target\" | Progress bar | remaining or percent text",
+          "implementation": [
+            "Switch Progress to warning above 80% and destructive above 100% when the value is a limit."
+          ],
+          "avoid": [
+            "Using it for values without a real target"
+          ]
+        },
+        {
+          "id": "icon-tile",
+          "name": "Icon tile",
+          "bestFor": "Operational counts that users scan and click through: open tickets, pending orders, low stock.",
+          "signals": [
+            "tickets",
+            "orders",
+            "tasks",
+            "inventory",
+            "stock",
+            "appointments",
+            "patients",
+            "students",
+            "pending",
+            "operations",
+            "admin"
+          ],
+          "layouts": [
+            "data-table",
+            "team-management"
+          ],
+          "density": [
+            "compact",
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "rounded-lg icon square (bg-primary/10 text-primary, or a status token) | label + value stacked | optional chevron, whole card is a link",
+          "implementation": [
+            "Pick icon tint by meaning (warning for pending, destructive for overdue), not for decoration."
+          ],
+          "avoid": [
+            "Four different icon colors in one row for no reason"
+          ]
+        },
+        {
+          "id": "hero-metric",
+          "name": "Hero metric",
+          "bestFor": "Dashboards with one north-star number (revenue, balance, portfolio value) and a few supporting stats.",
+          "signals": [
+            "revenue",
+            "mrr",
+            "arr",
+            "balance",
+            "portfolio",
+            "net worth",
+            "sales",
+            "earnings",
+            "payout",
+            "finance",
+            "executive"
+          ],
+          "layouts": [
+            "analytics-dashboard",
+            "dashboard"
+          ],
+          "density": [
+            "spacious",
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "lg:col-span-2 Card: large value (text-4xl/5xl tabular-nums) + delta + ApexCharts area chart | 2-3 compact secondary stats beside it",
+          "implementation": [
+            "Only one hero per page. Secondary stats use number-delta or compact-strip."
+          ],
+          "avoid": [
+            "Making every stat a hero"
+          ]
+        },
+        {
+          "id": "compact-strip",
+          "name": "Compact stat strip",
+          "bestFor": "Dense operational screens: one Card split into columns by dividers instead of separate cards.",
+          "signals": [
+            "monitoring",
+            "uptime",
+            "latency",
+            "infra",
+            "server",
+            "devops",
+            "logs",
+            "queue",
+            "realtime",
+            "system",
+            "status",
+            "dense"
+          ],
+          "layouts": [
+            "status-page",
+            "data-table"
+          ],
+          "density": [
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "single Card > CardBody > grid grid-cols-2 lg:grid-cols-4 divide-x divide-border, each cell label + value + tiny delta",
+          "implementation": [
+            "Use divide-y on the mobile 1-2 column layout so cells stay separated."
+          ],
+          "avoid": [
+            "Large numbers; this variant is about density"
+          ]
+        },
+        {
+          "id": "breakdown",
+          "name": "Value with breakdown",
+          "bestFor": "Totals that are meaningful only with their composition: pipeline by stage, tickets by status, traffic by source.",
+          "signals": [
+            "pipeline",
+            "deals",
+            "stage",
+            "status",
+            "distribution",
+            "breakdown",
+            "segments",
+            "sources",
+            "channels",
+            "categories"
+          ],
+          "layouts": [
+            "crm-pipeline",
+            "report-builder"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "label + total value | segmented bar (flex row of bg-primary / bg-info / bg-warning segments with widths by share) | legend with counts",
+          "implementation": [
+            "Max 4 segments; group the rest as \"Other\"."
+          ],
+          "avoid": [
+            "Pie charts inside small cards"
+          ]
+        },
+        {
+          "id": "radial-score",
+          "name": "Radial score",
+          "bestFor": "Single percentage scores: health, satisfaction, completion, performance.",
+          "signals": [
+            "score",
+            "health",
+            "nps",
+            "satisfaction",
+            "csat",
+            "performance",
+            "completion",
+            "cpu",
+            "memory",
+            "rating",
+            "attendance"
+          ],
+          "layouts": [],
+          "density": [
+            "balanced",
+            "spacious"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "ApexCharts radialBar (height 140-180) with the percent centered | label and one-line interpretation below",
+          "implementation": [
+            "Track color from --border, value color from the status token that matches the score band."
+          ],
+          "avoid": [
+            "More than three radial cards on a page"
+          ]
+        }
+      ]
+    },
+    "dashboardBody": {
+      "title": "Dashboard body layout",
+      "appliesTo": [
+        "dashboard",
+        "analytics-dashboard",
+        "crm-pipeline",
+        "report-builder",
+        "status-page",
+        "team-management",
+        "project-workspace"
+      ],
+      "variants": [
+        {
+          "id": "kpi-chart-table",
+          "name": "KPI row, chart, table",
+          "bestFor": "General overview dashboards where users check numbers, then drill into records.",
+          "signals": [
+            "overview",
+            "admin",
+            "summary"
+          ],
+          "layouts": [],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "stat row | lg:grid-cols-[2fr_1fr]: main chart + secondary chart or list | recent records Table",
+          "implementation": [
+            "Use this only when nothing more specific fits; it is the most overused pattern."
+          ],
+          "avoid": [
+            "Four identical stat cards followed by two identical charts"
+          ]
+        },
+        {
+          "id": "bento",
+          "name": "Bento grid",
+          "bestFor": "Executive or product overviews mixing one hero metric with varied tiles.",
+          "signals": [
+            "executive",
+            "overview",
+            "startup",
+            "modern",
+            "investor",
+            "founder",
+            "summary",
+            "home"
+          ],
+          "layouts": [
+            "analytics-dashboard",
+            "dashboard"
+          ],
+          "density": [
+            "balanced",
+            "spacious"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "grid lg:grid-cols-4 auto-rows-[minmax(140px,auto)]: hero tile col-span-2 row-span-2, mixed 1x1 and 2x1 tiles (chart, list, progress, radial)",
+          "implementation": [
+            "Every tile type differs from its neighbors; collapse to 1-2 columns on mobile in priority order."
+          ],
+          "avoid": [
+            "Filling tiles with decorative content"
+          ]
+        },
+        {
+          "id": "main-side-rail",
+          "name": "Main column with side rail",
+          "bestFor": "Work dashboards where people act on items: tasks, approvals, upcoming events, activity.",
+          "signals": [
+            "tasks",
+            "activity",
+            "crm",
+            "projects",
+            "team",
+            "schedule",
+            "calendar",
+            "appointments",
+            "approvals",
+            "upcoming",
+            "student",
+            "teacher"
+          ],
+          "layouts": [
+            "crm-pipeline",
+            "project-workspace",
+            "team-management"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "lg:grid-cols-[1fr_320px]: main (stats + chart + table) | side rail (upcoming List, activity feed, quick actions)",
+          "implementation": [
+            "Side rail moves below main on mobile, but its most urgent item can be pinned above."
+          ],
+          "avoid": [
+            "Putting the primary data in the side rail"
+          ]
+        },
+        {
+          "id": "table-first",
+          "name": "Table first",
+          "bestFor": "Operational screens where the job is working through records: orders, users, inventory, tickets.",
+          "signals": [
+            "orders",
+            "inventory",
+            "users",
+            "records",
+            "tickets",
+            "customers",
+            "products",
+            "manage",
+            "list",
+            "admin",
+            "logs"
+          ],
+          "layouts": [
+            "data-table"
+          ],
+          "density": [
+            "compact",
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "compact stat strip | filter bar (search Input, status Select, Chips) | full-width Table with bulk actions and Pagination",
+          "implementation": [
+            "Stats double as filters: clicking \"Pending 12\" filters the table."
+          ],
+          "avoid": [
+            "Big charts pushing the table below the fold"
+          ]
+        },
+        {
+          "id": "single-focus",
+          "name": "Single metric focus",
+          "bestFor": "Personal or monitoring dashboards built around one number over time.",
+          "signals": [
+            "personal",
+            "finance",
+            "savings",
+            "fitness",
+            "weight",
+            "health",
+            "energy",
+            "portfolio",
+            "balance",
+            "uptime",
+            "monitoring"
+          ],
+          "layouts": [
+            "status-page"
+          ],
+          "density": [
+            "spacious"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "hero number + range Tabs (1D/1W/1M/1Y) | full-width ApexCharts area chart | breakdown List or small stat row",
+          "implementation": [
+            "The chart is the page; keep everything else visually secondary."
+          ],
+          "avoid": [
+            "Adding unrelated KPI cards above the hero"
+          ]
+        },
+        {
+          "id": "pipeline-board",
+          "name": "Pipeline overview",
+          "bestFor": "Stage-based work: sales deals, hiring, support queues, order fulfilment.",
+          "signals": [
+            "pipeline",
+            "deals",
+            "stages",
+            "hiring",
+            "recruiting",
+            "candidates",
+            "kanban",
+            "fulfilment",
+            "fulfillment",
+            "queue",
+            "leads"
+          ],
+          "layouts": [
+            "crm-pipeline",
+            "kanban-board"
+          ],
+          "density": [
+            "balanced",
+            "compact"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "breakdown stat (value by stage) | horizontally scrollable stage columns with compact item Cards and per-stage totals | conversion chart below",
+          "implementation": [
+            "Columns scroll horizontally with snap on mobile."
+          ],
+          "avoid": [
+            "Duplicating stage counts in separate stat cards"
+          ]
+        },
+        {
+          "id": "tabbed-sections",
+          "name": "Tabbed sections",
+          "bestFor": "Analytics with several distinct areas (acquisition, engagement, revenue) that would make one page too long.",
+          "signals": [
+            "analytics",
+            "reports",
+            "insights",
+            "acquisition",
+            "engagement",
+            "retention",
+            "funnel",
+            "cohort",
+            "marketing"
+          ],
+          "layouts": [
+            "analytics-dashboard",
+            "report-builder"
+          ],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive"
+          ],
+          "structure": "header toolbar | Tabs | each tab: its own stat row variant + one primary chart + one breakdown",
+          "implementation": [
+            "Keep the date range outside the Tabs so it applies to all tabs."
+          ],
+          "avoid": [
+            "Every tab having the identical layout"
+          ]
+        },
+        {
+          "id": "feed-center",
+          "name": "Activity feed center",
+          "bestFor": "Community, social, audit and notification-heavy products where events are the content.",
+          "signals": [
+            "feed",
+            "community",
+            "social",
+            "notifications",
+            "audit",
+            "events",
+            "timeline",
+            "logs",
+            "changelog",
+            "messages"
+          ],
+          "layouts": [],
+          "density": [
+            "balanced"
+          ],
+          "platforms": [
+            "desktop",
+            "responsive",
+            "mobile"
+          ],
+          "structure": "lg:grid-cols-[1fr_2fr_1fr] or [2fr_1fr]: filters | timeline List grouped by day | summary stats",
+          "implementation": [
+            "Group events under sticky day headings; use Avatar + verb + object + relative time."
+          ],
+          "avoid": [
+            "Infinite feed without grouping"
+          ]
+        }
+      ]
+    }
+  }
+}

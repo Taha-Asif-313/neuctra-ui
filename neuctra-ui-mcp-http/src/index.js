@@ -5,6 +5,8 @@ import registry from "@neuctra/ui-mcp/data/components.json";
 import theme from "@neuctra/ui-mcp/data/theme.json";
 import aiDesignRules from "@neuctra/ui-mcp/data/design-rules.json";
 import seoGuide from "@neuctra/ui-mcp/data/seo-guide.json";
+import layouts from "@neuctra/ui-mcp/data/layouts.json";
+import variants from "@neuctra/ui-mcp/data/variants.json";
 
 const app = new Hono();
 
@@ -18,7 +20,7 @@ app.get("/", (c) =>
 // the transport itself enforces this — a stateless transport throws if
 // reused across more than one request, by design of the Streamable HTTP spec.
 app.all("/mcp", async (c) => {
-  const server = createServer({ registry, theme, aiDesignRules, seoGuide });
+  const server = createServer({ registry, theme, aiDesignRules, seoGuide, layouts, variants });
   const transport = new WebStandardStreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
   });

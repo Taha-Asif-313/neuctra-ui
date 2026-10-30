@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 // Disk loading is for Node, Bun, and Deno. Edge callers should pass imported
-// data to createServer({ registry, theme, aiDesignRules, seoGuide, layouts }).
+// data to createServer({ registry, theme, aiDesignRules, seoGuide, layouts, variants }).
 export function loadDataFromDisk() {
   const directory = path.dirname(fileURLToPath(import.meta.url));
   const dataDirectory = path.resolve(directory, "..", "data");
@@ -16,5 +16,6 @@ export function loadDataFromDisk() {
     aiDesignRules: readJson("design-rules.json"),
     seoGuide: readJson("seo-guide.json"),
     layouts: readJson("layouts.json"),
+    variants: readJson("variants.json"),
   };
 }

@@ -3,6 +3,7 @@ import { FRAMEWORKS } from "../../seo.mjs";
 import { findNeuctraUiComponents } from "../get-neuctra-ui-component/index.mjs";
 import { getDesignRulesContext } from "../get-design-rules/index.mjs";
 import { buildSeoGuideContext } from "../neuctra-ui-seo-setup/index.mjs";
+import { selectDesignVariants } from "./variants.mjs";
 
 function getLayouts(layoutData) {
   const grouped = (layoutData?.layoutGroups ?? []).flatMap((group) =>
@@ -89,7 +90,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
     {
       title: "Analyze and plan a Neuctra UI page",
       description:
-        "Analyze a page request and choose from every layout in the grouped real-world catalog in data/layouts.json, including marketing, SaaS dashboards, commerce, publishing, support, portfolios, communities, events, and system pages. Use pageType=auto to select the closest specific layout from the request, or choose an explicit pageType. Returns the selected recipe, matching @neuctra/ui component specs, relevant design rules, and SEO guidance.",
+        "Analyze a page request and choose from every layout in the grouped real-world catalog in data/layouts.json, including marketing, SaaS dashboards, commerce, publishing, support, portfolios, communities, events, and system pages. Use pageType=auto to select the closest specific layout from the request, or choose an explicit pageType. Returns the selected recipe, context-matched design variants (navigation shell, page header, stat cards, dashboard grid), matching @neuctra/ui component specs, relevant design rules, and SEO guidance.",
       inputSchema: {
         request: z.string().min(8).describe("Describe the page to create and the main user task."),
         pageType: z.enum(pageTypeOptions).default("auto").describe(`Layout ID from the full catalog (${layouts.map((layout) => layout.id).join(", ")}) or auto to infer the best match from the request.`),
@@ -100,6 +101,12 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
           primaryAction: z.string().optional(),
           platform: z.enum(["desktop", "mobile", "responsive"]).default("responsive"),
           audience: z.string().optional(),
+          variants: z.object({
+            navigationShell: z.string(),
+            pageHeader: z.string(),
+            statCard: z.string(),
+            dashboardBody: z.string(),
+          }).partial().optional().describe("Force a specific variant id per group (see designVariants in the response for ids). Use this to keep an existing app's shell consistent."),
         }).default({}).describe("Optional design and audience preferences."),
       },
     },
@@ -116,6 +123,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
         ruleIds: layout.seoRuleIds,
       });
       const signals = detectTaskSignals(request);
+      const designVariants = selectDesignVariants(data.variants, { request, layoutId: layout.id, preferences });
       const preferencesToClarify = [];
       if (!preferences.visualDirection) preferencesToClarify.push("visual direction");
       if (!preferences.density) preferencesToClarify.push("content density");
@@ -146,6 +154,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
           matches: components,
           instruction: "Use these exact exports and documented props. If a required component is absent from the matches, call get-neuctra-ui-component for that need before inventing a pattern.",
         },
+        ...(designVariants && { designVariants }),
         designRules: design,
         seoGuidance: seo ? {
           framework: seo.framework,
@@ -156,6 +165,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
         implementationInstructions: [
           "Use the selected layout as a starting structure and adapt its sections to the exact request.",
           "Keep the primary task visually clear; do not add sections that do not serve the request.",
+          ...(designVariants ? ["Build the navigation shell, page header, stat cards and dashboard grid from designVariants.selections. Use the recommended variant unless an alternative clearly fits the brief better; if the project already has an app shell, keep that instead."] : []),
           "Use Neuctra UI components with the exact props and semantic theme tokens from the supplied context.",
           "Apply the SEO steps only when the page is public and indexable; protect private application pages.",
           "When framework is auto, inspect the project files and choose metadata and rendering APIs for the installed framework and router.",
