@@ -58,6 +58,16 @@ function resolveLayout(request, requestedType, layoutData) {
   };
 }
 
+const APP_MOTION_CATEGORIES = new Set(["saas-app", "forms", "tools"]);
+const APP_MOTION_LAYOUTS = new Set(["checkout", "shopping-cart", "order-confirmation", "documentation"]);
+
+function getMotionGuidance(motion, layout) {
+  if (!motion) return null;
+  const { byPageKind, ...guide } = motion;
+  const pageKind = APP_MOTION_CATEGORIES.has(layout.category) || APP_MOTION_LAYOUTS.has(layout.id) ? "app" : "marketing";
+  return { ...guide, pageKind, forThisPage: byPageKind?.[pageKind] };
+}
+
 function detectTaskSignals(request) {
   return [
     ["create", /\b(create|build|make|new|design)\b/i],
@@ -90,7 +100,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
     {
       title: "Analyze and plan a Neuctra UI page",
       description:
-        "Analyze a page request and choose from every layout in the grouped real-world catalog in data/layouts.json, including marketing, SaaS dashboards, commerce, publishing, support, portfolios, communities, events, and system pages. Use pageType=auto to select the closest specific layout from the request, or choose an explicit pageType. Returns the selected recipe, context-matched design variants (navigation shell, page header, stat cards, dashboard grid), matching @neuctra/ui component specs, relevant design rules, and SEO guidance.",
+        "Analyze a page request and choose from every layout in the grouped real-world catalog in data/layouts.json, including marketing, SaaS dashboards, commerce, publishing, support, portfolios, communities, events, and system pages. Use pageType=auto to select the closest specific layout from the request, or choose an explicit pageType. Returns the selected recipe, context-matched design variants (navigation shell, page header, stat cards, dashboard grid), matching @neuctra/ui component specs, relevant design rules, Framer Motion animation presets, and SEO guidance.",
       inputSchema: {
         request: z.string().min(8).describe("Describe the page to create and the main user task."),
         pageType: z.enum(pageTypeOptions).default("auto").describe(`Layout ID from the full catalog (${layouts.map((layout) => layout.id).join(", ")}) or auto to infer the best match from the request.`),
@@ -117,7 +127,9 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
       }
 
       const components = getComponentGuidance(data.registry, request, layout);
-      const design = getDesignRulesContext(data.theme, data.aiDesignRules, layout.designRuleNumbers);
+      const designRuleNumbers = layout.designRuleNumbers ? [...new Set([...layout.designRuleNumbers, 57, 62])] : undefined;
+      const design = getDesignRulesContext(data.theme, data.aiDesignRules, designRuleNumbers);
+      const motion = getMotionGuidance(data.aiDesignRules.motion, layout);
       const seo = buildSeoGuideContext(data.seoGuide, {
         framework,
         ruleIds: layout.seoRuleIds,
@@ -156,6 +168,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
         },
         ...(designVariants && { designVariants }),
         designRules: design,
+        ...(motion && { motion }),
         seoGuidance: seo ? {
           framework: seo.framework,
           relevantRules: seo.seoRules,
@@ -167,6 +180,7 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
           "Keep the primary task visually clear; do not add sections that do not serve the request.",
           ...(designVariants ? ["Build the navigation shell, page header, stat cards and dashboard grid from designVariants.selections. Use the recommended variant unless an alternative clearly fits the brief better; if the project already has an app shell, keep that instead."] : []),
           "Use Neuctra UI components with the exact props and semantic theme tokens from the supplied context.",
+          ...(motion ? [`Add medium-level motion with Framer Motion using the motion presets: ${motion.forThisPage} Respect reduced motion and keep brand effects (gradients, glows, blur, animated backgrounds) to theme tokens only.`] : []),
           "Apply the SEO steps only when the page is public and indexable; protect private application pages.",
           "When framework is auto, inspect the project files and choose metadata and rendering APIs for the installed framework and router.",
         ],

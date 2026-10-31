@@ -123,7 +123,7 @@
       {
         "number": 57,
         "title": "Focal Point & Visual Interest",
-        "content": "Eye-catching does not mean effects. Gradients, shadows and blur stay banned.\n\nVisual interest comes from:\n\n* **Scale contrast:** a very large headline next to small, quiet metadata.\n* **One bold element per viewport:** a single `bg-primary` block, button or highlight that the eye lands on first.\n* **Surface layering:** alternate sections between `bg-background`, `bg-card` and `bg-accent` bands to create depth without shadows.\n* **Big numbers:** metrics in large type with `tabular-nums`.\n* **Real imagery:** product screenshots and photos, not decorative filler.\n* **Whitespace:** give the most important element more space than anything around it.\n\nColor ratio: roughly 60% neutral surfaces, 30% text and borders, 10% primary."
+        "content": "Eye-catching does not mean piling on effects. Shadows on content surfaces stay banned. Gradients, glows and blur are allowed only as brand effects: theme tokens only, one effect per element.\n\nVisual interest comes from:\n\n* **Scale contrast:** a very large headline next to small, quiet metadata.\n* **One bold element per viewport:** a single `bg-primary` block, button or highlight that the eye lands on first.\n* **Surface layering:** alternate sections between `bg-background`, `bg-card` and `bg-accent` bands to create depth without shadows.\n* **Big numbers:** metrics in large type with `tabular-nums`.\n* **Real imagery:** product screenshots and photos, not decorative filler.\n* **One brand accent:** gradient headline words, a soft primary glow or a theme-colored animated background, never all of them on one screen.\n* **Whitespace:** give the most important element more space than anything around it.\n\nColor ratio: roughly 60% neutral surfaces, 30% text and borders, 10% primary."
       },
       {
         "number": 58,
@@ -328,8 +328,8 @@
       },
       {
         "number": 62,
-        "title": "Motion Timing",
-        "content": "Motion explains a change. It is never decoration.\n\n```text\nHover / press     transition-colors duration-150\nOpen / close      200 to 300ms, ease-out\nPage load         no entrance animations\n```\n\n* Respect reduced motion with `motion-reduce:` variants.\n* Animate color and opacity. Do not animate layout or add hover-scale."
+        "title": "Motion (Framer Motion)",
+        "content": "Motion explains a change and adds a light brand feel. Aim for a medium level: noticeable, never busy.\n\nUse Framer Motion for page and section motion. It already ships as a dependency of `@neuctra/ui`:\n\n```tsx\nimport { motion, MotionConfig } from \"framer-motion\";\n```\n\n```text\nHover / press       transition-colors duration-150, lift y -2 to -4px, press scale 0.97\nOpen / close        200 to 300ms, ease-out\nSection reveal      opacity 0 to 1, y 16 to 0, 0.4 to 0.6s, ease-out, once\nGrid / list stagger 0.06 to 0.1s between items, at most about 6 items\nHero on load        one short reveal (under 0.6s), nothing else animates on load\nBackground loops    slow (8s or more), low opacity, one per viewport\n```\n\n* Wrap the page in `<MotionConfig reducedMotion=\"user\">`.\n* Reveal with `whileInView` and `viewport={{ once: true, amount: 0.2 }}`. Never re-animate on every scroll.\n* Animate only opacity and transform (x, y, scale). Never animate width, height, top, left or the layout of text being read.\n* Use `ease-out` tweens or soft springs (`stiffness` about 200 to 300, `damping` 25 or more). No bounce, wobble, scale-105 zooms, parallax on text, or infinite loops on content.\n* Animate sections and grid items, not every element. Wrap `@neuctra/ui` components in a `motion.div`; do not restyle their internal animation.\n* Marketing and public pages: section reveals, stagger and an optional animated background. App and dashboard pages: hover/press, open/close and list item enter/exit only."
       },
       {
         "number": 63,
@@ -341,12 +341,29 @@
       {
         "number": 43,
         "title": "Avoid AI-Generated UI Patterns",
-        "content": "Never automatically generate:\n\n* Hero section + three cards + gradient\n* Excessive rounded containers\n* Random decorative icons\n* Unnecessary badges\n* Excessive centered text\n* Every section inside a Card\n* Multiple primary buttons\n* Huge empty spaces\n* Excessive shadows\n* Random gradients\n* Generic dashboard cards\n* Repeated identical layouts\n* Decorative statistics without meaning\n\nAvoid the recognizable \"AI-generated SaaS template\" appearance."
+        "content": "Never generate:\n\n* Multicolor or rainbow gradients, or any color outside the theme\n* Shadows on buttons or cards, or large stacked shadows (shadow-xl, shadow-2xl)\n* A gradient on every heading, or gradient buttons\n* More than one animated background per viewport\n* Glow on buttons or text\n* Excessive rounded containers, every section inside a Card\n* Random decorative icons, unnecessary badges, emoji as icons\n* Multiple primary buttons, huge empty spaces, decorative statistics without meaning\n* Repeated identical layouts\n\nAllowed when on brand: theme-colored gradient headline words, soft primary glows, frosted sticky bars, and a theme-colored animated background that respects reduced motion."
       }
     ]
   },
   "goldenRule": {
     "title": "Golden Rule",
     "content": "Do not ask:\n\n> \"Which components can I put on this page?\"\n\nAsk:\n\n> \"What does the user need to understand and do, and which Neuctra UI component communicates that most naturally?\"\n\nThe best Neuctra UI interface is not the one that uses the most components.\n\nIt is the one where **every component has a purpose.**"
+  },
+  "motion": {
+    "library": "framer-motion",
+    "import": "import { motion, MotionConfig } from \"framer-motion\";",
+    "install": "framer-motion ships as a dependency of @neuctra/ui. If the project does not resolve it, run: npm install framer-motion",
+    "level": "medium: visible section reveals and small interaction feedback, never busy",
+    "presets": {
+      "pageWrapper": "<MotionConfig reducedMotion=\"user\">{children}</MotionConfig>",
+      "sectionReveal": "<motion.section initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, ease: \"easeOut\" }}>",
+      "staggerContainer": "const container = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };\nconst item = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: \"easeOut\" } } };\n<motion.ul variants={container} initial=\"hidden\" whileInView=\"show\" viewport={{ once: true, amount: 0.2 }}>{items.map((i) => <motion.li key={i.id} variants={item}>...</motion.li>)}</motion.ul>",
+      "hoverLift": "<motion.div whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }} transition={{ type: \"spring\", stiffness: 260, damping: 26 }}>",
+      "animatedBackground": "<motion.div aria-hidden className=\"pointer-events-none absolute -z-10 left-1/2 top-0 size-96 -translate-x-1/2 rounded-full bg-primary/20 blur-[120px]\" animate={{ opacity: [0.5, 0.8, 0.5], scale: [1, 1.1, 1] }} transition={{ duration: 10, repeat: Infinity, ease: \"easeInOut\" }} />"
+    },
+    "byPageKind": {
+      "marketing": "Hero reveal on load, section reveals on scroll, staggered feature and pricing grids, at most one animated background per viewport.",
+      "app": "Hover/press feedback, open/close and list item enter/exit (AnimatePresence) only. No scroll reveals or animated backgrounds on dashboards, settings or data pages."
+    }
   }
 }
