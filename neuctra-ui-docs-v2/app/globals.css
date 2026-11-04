@@ -133,3 +133,88 @@ button {
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
 }
+
+/* =============================
+   LANDING PAGE
+============================= */
+
+/* `clip` rather than `hidden`, which would break position: sticky. */
+body {
+  overflow-x: clip;
+}
+
+/* ── Landing page motion ──────────────────────────────────────────────
+   Every loop is CSS so it costs no React renders and pauses from one
+   attribute. Base styles are the finished state, which is what visitors
+   see when reduced motion removes the animation. */
+
+html[data-motion="paused"] *,
+html[data-motion="paused"] *::before,
+html[data-motion="paused"] *::after {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="nx-"],
+  [class*="nx-"]::before {
+    animation: none !important;
+  }
+}
+
+/* Comet travelling along an SVG path that has pathLength="1". */
+.nx-comet {
+  stroke-dasharray: 0.1 1;
+  animation: nx-comet 2.6s linear infinite;
+}
+
+@keyframes nx-comet {
+  from {
+    stroke-dashoffset: 1.1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.nx-pulse {
+  animation: nx-pulse 2.4s ease-out infinite;
+}
+
+@keyframes nx-pulse {
+  from {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Data moving along a dashed wire. */
+.nx-flow {
+  stroke-dasharray: 6 8;
+  animation: nx-flow 1.6s linear infinite;
+}
+
+@keyframes nx-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* One pulse along a wire, restarted by remounting the path. */
+.nx-wire-pulse {
+  stroke-dasharray: 0.16 1;
+  stroke-dashoffset: -1.2;
+  animation: nx-wire-pulse 0.8s ease-out 1 both;
+}
+
+@keyframes nx-wire-pulse {
+  from {
+    stroke-dashoffset: 0.16;
+  }
+  to {
+    stroke-dashoffset: -1.2;
+  }
+}
