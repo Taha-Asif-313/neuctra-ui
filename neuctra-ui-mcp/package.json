@@ -34,6 +34,8 @@
     "./data/seo-guide.json": "./data/seo-guide.json",
     "./data/layouts.json": "./data/layouts.json",
     "./data/variants.json": "./data/variants.json",
+    "./data/landing-design.json": "./data/landing-design.json",
+    "./data/landing-patterns.json": "./data/landing-patterns.json",
     "./package.json": "./package.json"
   },
   "files": [
@@ -43,8 +45,9 @@
   ],
   "scripts": {
     "sync-registry": "node scripts/sync-registry.mjs",
+    "sync-landing-patterns": "node scripts/sync-landing-patterns.mjs",
     "start": "node bin/cli.mjs",
-    "prepublishOnly": "npm run sync-registry"
+    "prepublishOnly": "npm run sync-registry && npm run sync-landing-patterns"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",

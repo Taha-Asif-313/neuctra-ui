@@ -480,6 +480,15 @@ AI generates Neuctra UI code`}
           />
 
           <ToolCard
+            name="neuctra-ui-landing-design"
+            description="Plan a landing page around your product, with rules for avoiding a generic AI look, plus working code for animated diagrams and scroll-driven workflows."
+            input={`{
+  "request": "An open-source API testing tool for backend developers."
+}`}
+            useCase="Use this for landing and marketing pages. Call it again with signature ids to get their source code."
+          />
+
+          <ToolCard
             name="get_seo_guide"
             description="Get the SEO, AEO and GEO playbook, or one topic of it."
             input={`{

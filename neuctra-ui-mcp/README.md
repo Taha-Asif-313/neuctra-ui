@@ -9,6 +9,7 @@ Give your AI coding assistant accurate, ready-to-use knowledge of [`@neuctra/ui`
 - Find the right prebuilt component from a natural-language description and get its exact import, props, and example.
 - Retrieve Neuctra UI theme tokens and design rules.
 - Get SEO, AEO, and GEO rules with implementation guidance for your framework.
+- Design landing pages that feel authored rather than AI-generated, with animated diagrams, scroll-driven workflows, and working source code.
 
 ## Install and connect
 
@@ -154,6 +155,28 @@ Returns the complete SEO, AEO, and GEO rules and ordered implementation steps. F
 ```
 
 The guidance covers titles and descriptions, keyword and search intent, heading structure, canonical URLs, robots directives, sitemaps, structured data (JSON-LD), visible FAQs, performance, trust signals, and framework-specific implementation. It is a reference for the assistant; it does not generate a one-off metadata snippet or audit a page.
+
+### `neuctra-ui-landing-design`
+
+Design a landing or marketing page that does not look AI-generated. Use it in two steps.
+
+First, describe the product. The tool returns the design rules, common signs of generic AI design, known motion pitfalls, and a page plan chosen for that product, so different products do not end up with the same page.
+
+```json
+{
+  "request": "An open-source API testing tool for backend developers."
+}
+```
+
+Then request the signatures you want. The tool returns their recipes and source code from a real landing page, plus the shared motion code and CSS. Set `includeFoundation` to `false` if the project already has them.
+
+```json
+{
+  "signatures": ["sideways-pipeline", "untangle"]
+}
+```
+
+The code is a reference, not a template. Replace the copy, sample data, and shapes so that the page follows your product's own story. For application screens, use `neuctra-ui-page-builder`.
 
 ## Tips for better results
 

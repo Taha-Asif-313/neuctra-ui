@@ -6,6 +6,7 @@ import { registerNeuctraUiPageBuilderTool } from "./tools/neuctra-ui-page-builde
 import { registerNeuctraUiThemeSetupTool } from "./tools/neuctra-ui-theme-setup/index.mjs";
 import { registerGetDesignRulesTool } from "./tools/get-design-rules/index.mjs";
 import { registerNeuctraUiSeoSetupTool } from "./tools/neuctra-ui-seo-setup/index.mjs";
+import { registerNeuctraUiLandingDesignTool } from "./tools/neuctra-ui-landing-design/index.mjs";
 
 export function createServer(data = loadDataFromDisk()) {
   const server = new McpServer({ name: "neuctra-ui", version: "0.5.0" });
@@ -19,6 +20,15 @@ export function createServer(data = loadDataFromDisk()) {
     aiDesignRules: data.aiDesignRules,
   });
   registerNeuctraUiSeoSetupTool(server, { seoGuide: data.seoGuide });
+
+  // Callers that pass imported data, such as the hosted Worker, may not supply
+  // these two files yet. Skip the tool rather than failing every request.
+  if (data.landingDesign && data.landingPatterns) {
+    registerNeuctraUiLandingDesignTool(server, {
+      landingDesign: data.landingDesign,
+      landingPatterns: data.landingPatterns,
+    });
+  }
 
   return server;
 }

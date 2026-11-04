@@ -1,0 +1,188 @@
+{
+  "title": "Neuctra UI Landing Design System",
+  "purpose": "Design landing pages and marketing sites that feel authored, memorable, and modern rather than generated. A page earns that by showing the product working through one original idea, not by adding effects.",
+  "workflow": [
+    "Write the product's story in one sentence, then split it into 3 to 5 named stages, such as set up, describe, compose, theme, ship.",
+    "Find the product's real raw material: what it does, who it helps, real numbers, real limits. Read the project's docs and README before writing copy.",
+    "Decide what appears on screen at each stage. If a visitor could watch it happen, plan a visual instead of a paragraph.",
+    "Choose one big idea for the hero, taken from the product itself. Ask what metaphor only this product could use.",
+    "Pick signatures from the catalog and adapt them to the story. Change their structure, copy, and shapes so the page does not look like a template.",
+    "Build the hero first, because it sets the standard for everything else.",
+    "Run the page in a real browser at desktop, laptop, and 390px widths. Check the scroll states with your eyes, because a passing build proves nothing about motion."
+  ],
+  "coreRules": [
+    { "rule": "Show the product working", "detail": "If a visitor can watch it happen, cut the paragraph." },
+    { "rule": "Have one big surprise", "detail": "Put it in the hero. Everything else supports it." },
+    { "rule": "Motion must explain something", "detail": "Every animation shows a process, a connection, or a result. If it is only decoration, remove it." },
+    { "rule": "Change the rhythm", "detail": "Alternate big pinned moments with calm sections. If everything moves, nothing stands out." },
+    { "rule": "Build from one story", "detail": "Pick one flow and repeat its stage names across the hero, process, and close." },
+    { "rule": "Use one accent color", "detail": "Keep the page neutral so the accent marks what is active, finished, or live." },
+    { "rule": "Never fake proof", "detail": "Label demo data as a sample. Do not invent stats, logos, customers, or testimonials." },
+    { "rule": "The page must work without animation", "detail": "Text is in the HTML, and the finished state looks complete." }
+  ],
+  "antiGenericRules": [
+    { "tell": "Centered headline, two buttons, then three feature cards with icons", "instead": "Lead with a working visual. Replace feature cards with a diagram that shows how the parts connect." },
+    { "tell": "Purple gradients, glassmorphism, and glowing blobs used as decoration", "instead": "Use a neutral page and one accent that carries meaning. A glow is allowed only behind the thing being demonstrated." },
+    { "tell": "Vague headlines such as 'Build the future' or 'Supercharge your workflow'", "instead": "Say something only this product can say. Build the headline from its real metaphor or result." },
+    { "tell": "Particles, floating orbs, and spinning rings", "instead": "Delete them. Use that motion budget to show the product doing something." },
+    { "tell": "Every section fades up the same way", "instead": "Give each section one distinct behavior: assemble, untangle, travel, branch, or converge." },
+    { "tell": "Sections of equal height and equal weight", "instead": "Vary scale and pacing. One huge moment, then something quiet." },
+    { "tell": "Invented numbers such as '10k+ users' or '99.9% uptime'", "instead": "Count what is true from the project, or show no number at all." },
+    { "tell": "Fake testimonials and logo walls", "instead": "Leave them out. Honest limits build more trust than borrowed praise." },
+    { "tell": "Copying the structure of a previous page", "instead": "Keep the principles and change the structure. Two products must not share a page shape." },
+    { "tell": "Screenshots and mock boxes that imitate a product", "instead": "Render real components with sample data, and say that they are real." },
+    { "tell": "Every benefit reads as a generic three-word phrase", "instead": "Pair each real problem with its specific answer." },
+    { "tell": "Hiding what the product does not do", "instead": "State the limits plainly. Saying who it is not for reads as human and confident." }
+  ],
+  "rhythm": {
+    "guidance": "Use at most two pinned sections, never next to each other, with calm sections between them.",
+    "examples": [
+      "Pinned hero, scrubbed diagram, pinned process, calm demo, calm audience, close",
+      "Looping hero, pinned statement, calm overview, calm demo, pinned process, close"
+    ]
+  },
+  "motionValues": {
+    "hover": "0.2 to 0.3s",
+    "contentEntering": "0.4 to 0.6s",
+    "elementsDroppingIn": "Spring with stiffness about 200 and damping about 20",
+    "listStagger": "0.08 to 0.12s between items",
+    "entryDistance": "16 to 28px",
+    "animate": "Only transform and opacity, plus SVG dash offset or pathLength for moving light. Move things in from one direction per section."
+  },
+  "technicalRules": [
+    "Use CSS for loops and React only for story state. CSS loops cost no re-renders and the pause button stops them from one attribute.",
+    "Style the finished state first. Reduced motion removes the animation and leaves that state.",
+    "Stop timers when a section is off screen, and check useMotionStill() before starting any new loop.",
+    "Reserve space for changing text with a hidden copy of the longest phrase.",
+    "Keep the H1 and key text server-rendered. Never load the hero with ssr: false.",
+    "Use color tokens only, so themes work automatically.",
+    "Avoid overflow: hidden on any parent of a pinned section. Use overflow-x: clip, including on sections that rotate in 3D, or they widen the mobile viewport and shift the navbar.",
+    "Pinned sections assume a fixed navbar 4rem tall. If yours differs, change top-16 and h-[calc(100vh-4rem)].",
+    "Below the lg breakpoint, stack pinned sections normally, because pinning fights touch scrolling.",
+    "For a comet on an SVG path, set pathLength={1} and use the nx-comet class. Do not combine it with vectorEffect=\"non-scaling-stroke\", which breaks the dash."
+  ],
+  "knownPitfalls": [
+    { "problem": "framer-motion 13 crashes the whole page with 'Offsets must be null or in the range [0,1]'", "fix": "Keep every useTransform input range between 0 and 1. Clamp computed ranges with Math.min(1, value)." },
+    { "problem": "Scroll-driven fades stay visible or run out of step, while transforms look correct", "fix": "Framer can hand opacity to a native scroll timeline that ignores offset. Pass scroll progress through useTransform(progress, (value) => value) first. The useScrub hook in the foundation already does this." },
+    { "problem": "Overriding --primary on one element changes nothing", "fix": "Tailwind resolves --color-primary once at :root, so set both --primary and --color-primary. The themeScope helper does this." },
+    { "problem": "A scrubbed line never fills on a short element", "fix": "With offset ['start 85%', 'end 95%'], a short element reaches the end point before the start point. Use offsets that run forward, such as ['start 100%', 'end 88%']." },
+    { "problem": "Content is invisible with JavaScript off", "fix": "Framer renders initial: { opacity: 0 } into the static HTML. Mark those elements data-reveal and SVG paths data-draw, and add the foundation's noscript style." },
+    { "problem": "The page jumps down on load", "fix": "Look for components that call scrollIntoView on mount. In @neuctra/ui, Stepper does this, so avoid it in landing page demos." },
+    { "problem": "Demo components inside a decorative scene can take keyboard focus", "fix": "Add aria-hidden and inert to the scene wrapper." },
+    { "problem": "A wire diagram does not line up with the rows beside it", "fix": "An SVG stretches to its viewBox ratio. Give it the same fixed height as the rows and add self-start." },
+    { "problem": "Form boxes are invisible on a card", "fix": "Check whether --input matches --card in the project's theme. If so, override the border with a border-border class." }
+  ],
+  "accessibilityRules": [
+    "Respect prefers-reduced-motion, and show the finished state rather than an empty one.",
+    "Provide a pause button for anything that loops. MotionPreferenceProvider adds one.",
+    "Mark decorative scenes aria-hidden, and give meaningful diagrams role=\"img\" with an aria-label.",
+    "Make every interactive part a real button or link, with a 44px target."
+  ],
+  "launchChecklist": [
+    "It makes sense with no scrolling in the first 5 seconds.",
+    "The headline and call to action are visible, with part of the main visual above the fold.",
+    "Every supported theme and 390px mobile are checked.",
+    "There is no sideways scroll and there are no console errors.",
+    "Reduced motion shows a complete page.",
+    "JavaScript off still shows the main text.",
+    "Tested in Safari and Firefox, not only Chrome.",
+    "Sample data is labeled and every number is true.",
+    "No sentence could appear unchanged on a competitor's site."
+  ],
+  "catalog": [
+    {
+      "id": "assembly-hero", "slot": "hero", "name": "Exploded assembly hero", "pinned": true, "hasCode": true,
+      "job": "Surprise visitors with a metaphor of parts becoming a whole.",
+      "description": "Layers of a real screen float apart in 3D, each labeled, then collapse into one finished screen as the visitor scrolls.",
+      "bestFor": ["component", "library", "toolkit", "platform", "modular", "building blocks", "design system", "sdk", "framework", "layers"],
+      "adapt": "Name the layers after the product's real parts. Three layers is the sweet spot."
+    },
+    {
+      "id": "self-building-hero", "slot": "hero", "name": "Self-building product panel", "pinned": false, "hasCode": false,
+      "job": "Show the whole product flow without any scrolling.",
+      "description": "A panel loops through 3 to 5 clickable stages, about 3.4 seconds each, with a longer hold on the last. One stage number drives the headline phrase, step list, preview, and activity feed.",
+      "bestFor": ["saas", "app", "dashboard", "automation", "workflow", "ai", "agent", "crm", "pipeline", "product"],
+      "adapt": "Drive everything from useLoopingStages. Tilt the panel about 18 degrees at scale 0.95, then flatten it over the first 40% of the hero's scroll. Add a few degrees of mouse tilt on desktop only. Use reducedStage to open on the finished result."
+    },
+    {
+      "id": "untangle", "slot": "explain", "name": "Tangle into clean lines", "pinned": false, "hasCode": true,
+      "job": "Make the problem and the solution feel physical.",
+      "description": "Each problem enters as a tangled wire, passes through the product, and leaves as a straight line to its specific answer, drawn by scroll.",
+      "bestFor": ["problem", "messy", "chaos", "integrate", "unify", "consolidate", "simplify", "replace", "scattered", "spreadsheets"],
+      "adapt": "Use 4 or 5 honest problem and answer pairs. Keep them one line each."
+    },
+    {
+      "id": "scroll-statement", "slot": "explain", "name": "Scroll-lit statement", "pinned": true, "hasCode": true,
+      "job": "Slow visitors down for one idea.",
+      "description": "A pinned sentence of 15 to 25 words lights up word by word as the visitor scrolls.",
+      "bestFor": ["mission", "brand", "agency", "studio", "story", "belief", "manifesto"],
+      "adapt": "highlight matches whole words including attached punctuation, so a word followed by a comma must be written with it."
+    },
+    {
+      "id": "hub-diagram", "slot": "overview", "name": "Interactive hub", "pinned": false, "hasCode": true,
+      "job": "Show how several parts fit around one center.",
+      "description": "Nodes orbit a hub with comets running along each spoke, beside an expanding list. It cycles until the visitor picks one.",
+      "bestFor": ["ecosystem", "suite", "services", "products", "agency", "company", "platform"],
+      "adapt": "Use 3 to 6 items. Do not use it for steps, because it implies no order."
+    },
+    {
+      "id": "audience-map", "slot": "overview", "name": "Audience map", "pinned": false, "hasCode": true,
+      "job": "Help visitors find themselves.",
+      "description": "People on one side connect by wires to outcomes on the other. Selecting a person lights their paths and shows one specific benefit.",
+      "bestFor": ["audience", "teams", "who", "use case", "personas", "industries", "roles", "marketplace"],
+      "adapt": "Only connect people to outcomes the product truly supports, and say who it is not for."
+    },
+    {
+      "id": "sideways-pipeline", "slot": "process", "name": "Sideways pipeline", "pinned": true, "hasCode": true,
+      "job": "Turn the process into a journey.",
+      "description": "The page pins and travels horizontally along one line, stopping at a different small diagram for each stage. It includes sequence, tree, and converging diagrams. Below lg it stacks.",
+      "bestFor": ["process", "pipeline", "steps", "workflow", "developer", "api", "integration", "onboarding", "cli", "journey"],
+      "adapt": "Use a different diagram type at each stop, and do not make every stop look alike."
+    },
+    {
+      "id": "pinned-steps", "slot": "process", "name": "Pinned steps", "pinned": true, "hasCode": true,
+      "job": "Reduce doubt about how it works.",
+      "description": "A step list stays pinned while the visual beside it swaps with scroll. Pins from lg and stacks below.",
+      "bestFor": ["steps", "how it works", "service", "agency", "booking", "course", "simple"],
+      "adapt": "Use 3 or 4 steps and keep the heading short so it fits a laptop screen. Visual is a component, not an element."
+    },
+    {
+      "id": "token-tree", "slot": "showcase", "name": "Live token tree", "pinned": false, "hasCode": true,
+      "job": "Prove it is real by letting visitors touch it.",
+      "description": "One control sends a pulse down wires into real, working components that restyle at once.",
+      "bestFor": ["theme", "customize", "components", "design", "brand", "ui", "interactive", "playground", "demo"],
+      "adapt": "Everything shown must be the real thing, working. Replace the control with whatever the product's key setting is."
+    },
+    {
+      "id": "live-mini-demos", "slot": "showcase", "name": "Cards with live mini demos", "pinned": false, "hasCode": false,
+      "job": "Prove several products or features are real.",
+      "description": "Each card holds one small looping scene of 4 to 7 seconds, in CSS only, instead of an icon.",
+      "bestFor": ["products", "features", "suite", "saas", "tools"],
+      "adapt": "Each loop shows that one feature's result. Use the nx- CSS approach so the pause button stops it."
+    },
+    {
+      "id": "count-up-proof", "slot": "proof", "name": "Count-up facts and scrolling strip", "pinned": false, "hasCode": true,
+      "job": "Build trust with facts.",
+      "description": "True numbers count up once when seen, above a slow strip of real names.",
+      "bestFor": ["stats", "numbers", "metrics", "downloads", "customers", "open source"],
+      "adapt": "Only use numbers you can verify from the project. The component renders the real value first, so the static HTML is correct."
+    },
+    {
+      "id": "finish-line-close", "slot": "close", "name": "Finish line close", "pinned": false, "hasCode": true,
+      "job": "Convert by ending the story.",
+      "description": "A split close with one main action, a short list of next steps, and the page's stage line filling in to end on the visitor's turn.",
+      "bestFor": ["product", "developer", "saas", "tool", "library", "app"],
+      "adapt": "Use the same stage names as the hero. Avoid a boxed card with a row of equal buttons."
+    }
+  ],
+  "planSlots": ["hero", "explain", "process", "showcase", "overview", "proof", "close"],
+  "evidenceSlots": ["proof"],
+  "adaptationNotes": [
+    "This code is a reference from a real page, not a template. Replace all copy, sample data, stage names, and shapes.",
+    "Foundation files belong in one folder. Fix the import paths to match the project, for example @/components/patterns/MotionPreference.",
+    "Install framer-motion and lucide-react if the project does not resolve them.",
+    "These examples use @neuctra/ui. In a project using another UI library, keep the idea and use that library's components.",
+    "Wrap the page in MotionPreferenceProvider, add the foundation CSS to the global stylesheet, and add the noscript style.",
+    "Color tokens are Tailwind colors: primary, primary-foreground, background, foreground, secondary, muted, muted-foreground, card, and border."
+  ]
+}
