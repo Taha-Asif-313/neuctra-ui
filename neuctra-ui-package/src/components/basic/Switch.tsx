@@ -219,7 +219,7 @@ export const Switch: React.FC<SwitchGroupProps> = ({
       {mode === "single" ? (
         <label
           className={clsx(
-            "flex items-center justify-between cursor-pointer transition-colors",
+            "relative flex items-center justify-between cursor-pointer transition-colors",
             "text-foreground",
             disabled && "opacity-50 cursor-not-allowed",
             itemClassName,
@@ -246,7 +246,7 @@ export const Switch: React.FC<SwitchGroupProps> = ({
               key={option.value}
               onFocus={() => setFocusedIndex(index)}
               className={clsx(
-                "flex items-center justify-between cursor-pointer transition-colors",
+                "relative flex items-center justify-between cursor-pointer transition-colors",
                 "text-foreground",
                 disabled && "opacity-50 cursor-not-allowed",
                 itemClassName,

@@ -232,7 +232,7 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
       <div className={className} style={style}>
         <label
           className={cn(
-            "flex items-center justify-between",
+            "relative flex items-center justify-between",
             disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
             itemClassName,
             labelClassName,
@@ -316,7 +316,7 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
             key={option.value}
             onFocus={() => setFocusedIndex(index)}
             className={cn(
-              "flex items-center justify-between",
+              "relative flex items-center justify-between",
               itemDisabled
                 ? "opacity-50 cursor-not-allowed"
                 : "cursor-pointer",

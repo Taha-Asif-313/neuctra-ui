@@ -148,7 +148,7 @@ export const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>(
             addFiles(e.dataTransfer.files);
           }}
           className={cn(
-            "flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors",
+            "relative flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-10 text-center transition-colors",
             dragging
               ? "border-primary bg-primary/5"
               : "border-border bg-transparent hover:border-muted-foreground/50 hover:bg-accent/30",

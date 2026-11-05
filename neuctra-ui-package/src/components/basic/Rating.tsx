@@ -138,7 +138,7 @@ export const Rating = forwardRef<HTMLDivElement, RatingProps>(function Rating(
             <label
               key={starValue}
               onMouseEnter={() => !disabled && setHovered(starValue)}
-              className={cn(!disabled && "cursor-pointer", starWrapperClassName)}
+              className={cn("relative", !disabled && "cursor-pointer", starWrapperClassName)}
             >
               <input
                 type="radio"
