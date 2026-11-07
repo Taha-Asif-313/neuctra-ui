@@ -162,8 +162,15 @@ export function ModalContent({
       exit={{ y: 20, scale: 0.96 }}
       transition={{ duration: 0.2 }}
       onClick={(e) => e.stopPropagation()}
-      className={clsx(
-        "relative w-full rounded-2xl border border-border bg-background shadow-2xl overflow-hidden",
+      // Capped at the viewport and laid out as a column, so a tall modal keeps
+      // ModalHeader/ModalFooter in view and only ModalBody scrolls. Without the
+      // cap, overflow-hidden clipped tall content and the scroll-locked,
+      // centered overlay left the header and footer unreachable.
+      // A <form> wrapping header/body/footer would otherwise be the column's
+      // only item and swallow that layout, so it inherits the same column.
+      className={cn(
+        "relative flex w-full max-h-[calc(100dvh-2rem)] flex-col rounded-2xl border border-border bg-background shadow-2xl overflow-hidden",
+        "[&>form]:flex [&>form]:min-h-0 [&>form]:flex-1 [&>form]:flex-col",
         maxWidth,
         className,
       )}
@@ -229,9 +236,9 @@ export function ModalHeader({
 }: ModalHeaderProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
+        "shrink-0 flex items-center justify-between px-6 py-4 border-b border-border",
         className,
-        "flex items-center justify-between px-6 py-4 border-b border-border",
       )}
       style={style}
     >
@@ -278,7 +285,15 @@ export interface ModalBodyProps {
 
 export function ModalBody({ children, className, style }: ModalBodyProps) {
   return (
-    <div className={clsx(className, "p-6 text-foreground space-y-4")} style={style}>
+    <div
+      className={cn(
+        // min-h-0 lets the body shrink below its content inside the capped
+        // ModalContent column; overflow-y-auto then makes it the one scroller.
+        "min-h-0 flex-1 overflow-y-auto overscroll-contain p-6 text-foreground space-y-4",
+        className,
+      )}
+      style={style}
+    >
       {children}
     </div>
   );
@@ -299,8 +314,8 @@ export interface ModalFooterProps {
 export function ModalFooter({ children, className, style }: ModalFooterProps) {
   return (
     <div
-      className={clsx(
-        "flex justify-end gap-3 px-6 py-3 border-t border-border bg-accent/60",
+      className={cn(
+        "shrink-0 flex justify-end gap-3 px-6 py-3 border-t border-border bg-accent/60",
         className,
       )}
       style={style}
