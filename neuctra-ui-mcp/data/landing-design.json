@@ -1,44 +1,124 @@
 {
   "title": "Neuctra UI Landing Design System",
-  "purpose": "Design landing pages and marketing sites that feel authored, memorable, and modern rather than generated. A page earns that by showing the product working through one original idea, not by adding effects.",
+  "purpose": "Design landing pages and marketing sites that feel authored, memorable, and modern rather than generated. A page earns that by showing the product working through one original idea, not by adding effects. Every product gets its own page shape: a different story archetype, a different visual direction, and signatures remixed until they no longer look like the reference.",
   "workflow": [
     "Write the product's story in one sentence, then split it into 3 to 5 named stages, such as set up, describe, compose, theme, ship.",
     "Find the product's real raw material: what it does, who it helps, real numbers, real limits. Read the project's docs and README before writing copy.",
+    "Read the recommended brief: its archetype sets the order of the story, and its direction sets composition, type, motion personality, and surfaces. If another archetype tells this product's story better, switch and say why.",
     "Decide what appears on screen at each stage. If a visitor could watch it happen, plan a visual instead of a paragraph.",
     "Choose one big idea for the hero, taken from the product itself. Ask what metaphor only this product could use.",
-    "Pick signatures from the catalog and adapt them to the story. Change their structure, copy, and shapes so the page does not look like a template.",
+    "Pick signatures for each slot, then fetch their code or recipes plus the techniques they list. Treat code as a reference: apply every item in its remix list, so the structure, shapes, and copy are new.",
     "Build the hero first, because it sets the standard for everything else.",
-    "Run the page in a real browser at desktop, laptop, and 390px widths. Check the scroll states with your eyes, because a passing build proves nothing about motion."
+    "Run the page in a real browser at desktop, laptop, and 390px widths. Check the scroll states with your eyes, because a passing build proves nothing about motion.",
+    "Record the brief's usedIds. When designing another page, pass them as avoid so the next page takes a different shape."
   ],
   "coreRules": [
-    { "rule": "Show the product working", "detail": "If a visitor can watch it happen, cut the paragraph." },
-    { "rule": "Have one big surprise", "detail": "Put it in the hero. Everything else supports it." },
-    { "rule": "Motion must explain something", "detail": "Every animation shows a process, a connection, or a result. If it is only decoration, remove it." },
-    { "rule": "Change the rhythm", "detail": "Alternate big pinned moments with calm sections. If everything moves, nothing stands out." },
-    { "rule": "Build from one story", "detail": "Pick one flow and repeat its stage names across the hero, process, and close." },
-    { "rule": "Use one accent color", "detail": "Keep the page neutral so the accent marks what is active, finished, or live." },
-    { "rule": "Never fake proof", "detail": "Label demo data as a sample. Do not invent stats, logos, customers, or testimonials." },
-    { "rule": "The page must work without animation", "detail": "Text is in the HTML, and the finished state looks complete." }
+    {
+      "rule": "Show the product working",
+      "detail": "If a visitor can watch it happen, cut the paragraph."
+    },
+    {
+      "rule": "Have one big surprise",
+      "detail": "Put it in the hero. Everything else supports it."
+    },
+    {
+      "rule": "Motion must explain something",
+      "detail": "Every animation shows a process, a connection, or a result. If it is only decoration, remove it."
+    },
+    {
+      "rule": "Change the rhythm",
+      "detail": "Alternate big pinned moments with calm sections. If everything moves, nothing stands out."
+    },
+    {
+      "rule": "Build from one story",
+      "detail": "Pick one flow and repeat its stage names across the hero, process, and close."
+    },
+    {
+      "rule": "Every page gets its own shape",
+      "detail": "Two products never share an archetype, hero signature, and direction together. Vary the order of the story, not only the colors."
+    },
+    {
+      "rule": "Use one accent color",
+      "detail": "Keep the page neutral so the accent marks what is active, finished, or live."
+    },
+    {
+      "rule": "Never fake proof",
+      "detail": "Label demo data as a sample. Do not invent stats, logos, customers, or testimonials."
+    },
+    {
+      "rule": "The page must work without animation",
+      "detail": "Text is in the HTML, and the finished state looks complete."
+    }
   ],
   "antiGenericRules": [
-    { "tell": "Centered headline, two buttons, then three feature cards with icons", "instead": "Lead with a working visual. Replace feature cards with a diagram that shows how the parts connect." },
-    { "tell": "Purple gradients, glassmorphism, and glowing blobs used as decoration", "instead": "Use a neutral page and one accent that carries meaning. A glow is allowed only behind the thing being demonstrated." },
-    { "tell": "Vague headlines such as 'Build the future' or 'Supercharge your workflow'", "instead": "Say something only this product can say. Build the headline from its real metaphor or result." },
-    { "tell": "Particles, floating orbs, and spinning rings", "instead": "Delete them. Use that motion budget to show the product doing something." },
-    { "tell": "Every section fades up the same way", "instead": "Give each section one distinct behavior: assemble, untangle, travel, branch, or converge." },
-    { "tell": "Sections of equal height and equal weight", "instead": "Vary scale and pacing. One huge moment, then something quiet." },
-    { "tell": "Invented numbers such as '10k+ users' or '99.9% uptime'", "instead": "Count what is true from the project, or show no number at all." },
-    { "tell": "Fake testimonials and logo walls", "instead": "Leave them out. Honest limits build more trust than borrowed praise." },
-    { "tell": "Copying the structure of a previous page", "instead": "Keep the principles and change the structure. Two products must not share a page shape." },
-    { "tell": "Screenshots and mock boxes that imitate a product", "instead": "Render real components with sample data, and say that they are real." },
-    { "tell": "Every benefit reads as a generic three-word phrase", "instead": "Pair each real problem with its specific answer." },
-    { "tell": "Hiding what the product does not do", "instead": "State the limits plainly. Saying who it is not for reads as human and confident." }
+    {
+      "tell": "Centered headline, two buttons, then three feature cards with icons",
+      "instead": "Lead with a working visual. Replace feature cards with a diagram that shows how the parts connect."
+    },
+    {
+      "tell": "Purple gradients, glassmorphism, and glowing blobs used as decoration",
+      "instead": "Use a neutral page and one accent that carries meaning. A glow is allowed only behind the thing being demonstrated."
+    },
+    {
+      "tell": "Vague headlines such as 'Build the future' or 'Supercharge your workflow'",
+      "instead": "Say something only this product can say. Build the headline from its real metaphor or result."
+    },
+    {
+      "tell": "Particles, floating orbs, and spinning rings",
+      "instead": "Delete them. Use that motion budget to show the product doing something."
+    },
+    {
+      "tell": "Every section fades up the same way",
+      "instead": "Give each section one distinct behavior: assemble, untangle, travel, branch, or converge."
+    },
+    {
+      "tell": "Sections of equal height and equal weight",
+      "instead": "Vary scale and pacing. One huge moment, then something quiet."
+    },
+    {
+      "tell": "Invented numbers such as '10k+ users' or '99.9% uptime'",
+      "instead": "Count what is true from the project, or show no number at all."
+    },
+    {
+      "tell": "Fake testimonials and logo walls",
+      "instead": "Leave them out. Honest limits build more trust than borrowed praise."
+    },
+    {
+      "tell": "Copying the structure of a previous page",
+      "instead": "Keep the principles and change the structure. Two products must not share a page shape."
+    },
+    {
+      "tell": "Screenshots and mock boxes that imitate a product",
+      "instead": "Render real components with sample data, and say that they are real."
+    },
+    {
+      "tell": "Every benefit reads as a generic three-word phrase",
+      "instead": "Pair each real problem with its specific answer."
+    },
+    {
+      "tell": "Hiding what the product does not do",
+      "instead": "State the limits plainly. Saying who it is not for reads as human and confident."
+    },
+    {
+      "tell": "Every landing page opens with the same hero signature",
+      "instead": "Rotate heroes between projects. Pass previously used ids as avoid, or ask for another variation."
+    },
+    {
+      "tell": "Pasting a signature's reference code and only changing the words",
+      "instead": "Apply every remix item: change the diagram shapes, the number of items, the layout split, and the motion direction."
+    },
+    {
+      "tell": "Every section is pinned or scroll-scrubbed",
+      "instead": "Pinned and scrubbed sections are the loud moments. Give at least half the page calm sections that simply read well."
+    }
   ],
   "rhythm": {
     "guidance": "Use at most two pinned sections, never next to each other, with calm sections between them.",
     "examples": [
       "Pinned hero, scrubbed diagram, pinned process, calm demo, calm audience, close",
-      "Looping hero, pinned statement, calm overview, calm demo, pinned process, close"
+      "Looping hero, pinned statement, calm overview, calm demo, pinned process, close",
+      "Kinetic hero, calm before-and-after, drawn workflow, morphing tabs, honest compare, close",
+      "Zoom-through hero, calm bento, stacking deck, calm FAQ, close"
     ]
   },
   "motionValues": {
@@ -62,15 +142,42 @@
     "For a comet on an SVG path, set pathLength={1} and use the nx-comet class. Do not combine it with vectorEffect=\"non-scaling-stroke\", which breaks the dash."
   ],
   "knownPitfalls": [
-    { "problem": "framer-motion 13 crashes the whole page with 'Offsets must be null or in the range [0,1]'", "fix": "Keep every useTransform input range between 0 and 1. Clamp computed ranges with Math.min(1, value)." },
-    { "problem": "Scroll-driven fades stay visible or run out of step, while transforms look correct", "fix": "Framer can hand opacity to a native scroll timeline that ignores offset. Pass scroll progress through useTransform(progress, (value) => value) first. The useScrub hook in the foundation already does this." },
-    { "problem": "Overriding --primary on one element changes nothing", "fix": "Tailwind resolves --color-primary once at :root, so set both --primary and --color-primary. The themeScope helper does this." },
-    { "problem": "A scrubbed line never fills on a short element", "fix": "With offset ['start 85%', 'end 95%'], a short element reaches the end point before the start point. Use offsets that run forward, such as ['start 100%', 'end 88%']." },
-    { "problem": "Content is invisible with JavaScript off", "fix": "Framer renders initial: { opacity: 0 } into the static HTML. Mark those elements data-reveal and SVG paths data-draw, and add the foundation's noscript style." },
-    { "problem": "The page jumps down on load", "fix": "Look for components that call scrollIntoView on mount. In @neuctra/ui, Stepper does this, so avoid it in landing page demos." },
-    { "problem": "Demo components inside a decorative scene can take keyboard focus", "fix": "Add aria-hidden and inert to the scene wrapper." },
-    { "problem": "A wire diagram does not line up with the rows beside it", "fix": "An SVG stretches to its viewBox ratio. Give it the same fixed height as the rows and add self-start." },
-    { "problem": "Form boxes are invisible on a card", "fix": "Check whether --input matches --card in the project's theme. If so, override the border with a border-border class." }
+    {
+      "problem": "framer-motion 13 crashes the whole page with 'Offsets must be null or in the range [0,1]'",
+      "fix": "Keep every useTransform input range between 0 and 1. Clamp computed ranges with Math.min(1, value)."
+    },
+    {
+      "problem": "Scroll-driven fades stay visible or run out of step, while transforms look correct",
+      "fix": "Framer can hand opacity to a native scroll timeline that ignores offset. Pass scroll progress through useTransform(progress, (value) => value) first. The useScrub hook in the foundation already does this."
+    },
+    {
+      "problem": "Overriding --primary on one element changes nothing",
+      "fix": "Tailwind resolves --color-primary once at :root, so set both --primary and --color-primary. The themeScope helper does this."
+    },
+    {
+      "problem": "A scrubbed line never fills on a short element",
+      "fix": "With offset ['start 85%', 'end 95%'], a short element reaches the end point before the start point. Use offsets that run forward, such as ['start 100%', 'end 88%']."
+    },
+    {
+      "problem": "Content is invisible with JavaScript off",
+      "fix": "Framer renders initial: { opacity: 0 } into the static HTML. Mark those elements data-reveal and SVG paths data-draw, and add the foundation's noscript style."
+    },
+    {
+      "problem": "The page jumps down on load",
+      "fix": "Look for components that call scrollIntoView on mount. In @neuctra/ui, Stepper does this, so avoid it in landing page demos."
+    },
+    {
+      "problem": "Demo components inside a decorative scene can take keyboard focus",
+      "fix": "Add aria-hidden and inert to the scene wrapper."
+    },
+    {
+      "problem": "A wire diagram does not line up with the rows beside it",
+      "fix": "An SVG stretches to its viewBox ratio. Give it the same fixed height as the rows and add self-start."
+    },
+    {
+      "problem": "Form boxes are invisible on a card",
+      "fix": "Check whether --input matches --card in the project's theme. If so, override the border with a border-border class."
+    }
   ],
   "accessibilityRules": [
     "Respect prefers-reduced-motion, and show the finished state rather than an empty one.",
@@ -89,100 +196,1498 @@
     "Sample data is labeled and every number is true.",
     "No sentence could appear unchanged on a competitor's site."
   ],
-  "catalog": [
+  "archetypes": [
     {
-      "id": "assembly-hero", "slot": "hero", "name": "Exploded assembly hero", "pinned": true, "hasCode": true,
-      "job": "Surprise visitors with a metaphor of parts becoming a whole.",
-      "description": "Layers of a real screen float apart in 3D, each labeled, then collapse into one finished screen as the visitor scrolls.",
-      "bestFor": ["component", "library", "toolkit", "platform", "modular", "building blocks", "design system", "sdk", "framework", "layers"],
-      "adapt": "Name the layers after the product's real parts. Three layers is the sweet spot."
+      "id": "demo-first",
+      "name": "Let them use it",
+      "story": "The product is easiest to believe by touching it, so the page hands it over almost immediately.",
+      "sequence": [
+        "hero",
+        "showcase",
+        "process",
+        "overview",
+        "close"
+      ],
+      "prefer": [
+        "zoom-through-hero",
+        "token-tree",
+        "morphing-tabs",
+        "spotlight-demo"
+      ],
+      "bestFor": [
+        "ui",
+        "design",
+        "editor",
+        "builder",
+        "playground",
+        "interactive",
+        "components",
+        "visual",
+        "no code",
+        "theme"
+      ]
     },
     {
-      "id": "self-building-hero", "slot": "hero", "name": "Self-building product panel", "pinned": false, "hasCode": false,
-      "job": "Show the whole product flow without any scrolling.",
-      "description": "A panel loops through 3 to 5 clickable stages, about 3.4 seconds each, with a longer hold on the last. One stage number drives the headline phrase, step list, preview, and activity feed.",
-      "bestFor": ["saas", "app", "dashboard", "automation", "workflow", "ai", "agent", "crm", "pipeline", "product"],
-      "adapt": "Drive everything from useLoopingStages. Tilt the panel about 18 degrees at scale 0.95, then flatten it over the first 40% of the hero's scroll. Add a few degrees of mouse tilt on desktop only. Use reducedStage to open on the finished result."
+      "id": "problem-to-fix",
+      "name": "From mess to fixed",
+      "story": "Start where the visitor is stuck, show the same work after the product, then explain how it gets there.",
+      "sequence": [
+        "hero",
+        "explain",
+        "process",
+        "proof",
+        "faq",
+        "close"
+      ],
+      "prefer": [
+        "before-after-wipe",
+        "untangle",
+        "scroll-flowchart"
+      ],
+      "bestFor": [
+        "problem",
+        "messy",
+        "manual",
+        "spreadsheets",
+        "replace",
+        "simplify",
+        "automate",
+        "chaos",
+        "scattered",
+        "slow"
+      ]
     },
     {
-      "id": "untangle", "slot": "explain", "name": "Tangle into clean lines", "pinned": false, "hasCode": true,
-      "job": "Make the problem and the solution feel physical.",
-      "description": "Each problem enters as a tangled wire, passes through the product, and leaves as a straight line to its specific answer, drawn by scroll.",
-      "bestFor": ["problem", "messy", "chaos", "integrate", "unify", "consolidate", "simplify", "replace", "scattered", "spreadsheets"],
-      "adapt": "Use 4 or 5 honest problem and answer pairs. Keep them one line each."
+      "id": "workflow-journey",
+      "name": "Follow the work",
+      "story": "The page is one trip through the workflow, from trigger to result, with the product doing each step on screen.",
+      "sequence": [
+        "hero",
+        "process",
+        "showcase",
+        "compare",
+        "close"
+      ],
+      "prefer": [
+        "scroll-flowchart",
+        "sideways-pipeline",
+        "kinetic-headline",
+        "self-building-hero"
+      ],
+      "bestFor": [
+        "workflow",
+        "automation",
+        "pipeline",
+        "agent",
+        "ai",
+        "integration",
+        "process",
+        "orchestration",
+        "data",
+        "etl"
+      ]
     },
     {
-      "id": "scroll-statement", "slot": "explain", "name": "Scroll-lit statement", "pinned": true, "hasCode": true,
-      "job": "Slow visitors down for one idea.",
-      "description": "A pinned sentence of 15 to 25 words lights up word by word as the visitor scrolls.",
-      "bestFor": ["mission", "brand", "agency", "studio", "story", "belief", "manifesto"],
-      "adapt": "highlight matches whole words including attached punctuation, so a word followed by a comma must be written with it."
+      "id": "manifesto",
+      "name": "Belief, then proof",
+      "story": "Lead with a point of view the brand truly holds, then show the work that backs it up.",
+      "sequence": [
+        "hero",
+        "explain",
+        "overview",
+        "showcase",
+        "close"
+      ],
+      "prefer": [
+        "kinetic-headline",
+        "scroll-statement",
+        "chapter-snap",
+        "split-parallax"
+      ],
+      "bestFor": [
+        "agency",
+        "studio",
+        "brand",
+        "mission",
+        "nonprofit",
+        "community",
+        "portfolio",
+        "story",
+        "creative"
+      ]
     },
     {
-      "id": "hub-diagram", "slot": "overview", "name": "Interactive hub", "pinned": false, "hasCode": true,
-      "job": "Show how several parts fit around one center.",
-      "description": "Nodes orbit a hub with comets running along each spoke, beside an expanding list. It cycles until the visitor picks one.",
-      "bestFor": ["ecosystem", "suite", "services", "products", "agency", "company", "platform"],
-      "adapt": "Use 3 to 6 items. Do not use it for steps, because it implies no order."
+      "id": "developer-first",
+      "name": "Show the terminal",
+      "story": "Developers trust what they can run. Lead with the real command, then show what it builds and how it fits.",
+      "sequence": [
+        "hero",
+        "process",
+        "showcase",
+        "faq",
+        "close"
+      ],
+      "prefer": [
+        "terminal-hero",
+        "scroll-flowchart",
+        "sideways-pipeline",
+        "command-close"
+      ],
+      "bestFor": [
+        "developer",
+        "cli",
+        "api",
+        "sdk",
+        "library",
+        "open source",
+        "npm",
+        "framework",
+        "devtools",
+        "infrastructure"
+      ]
     },
     {
-      "id": "audience-map", "slot": "overview", "name": "Audience map", "pinned": false, "hasCode": true,
-      "job": "Help visitors find themselves.",
-      "description": "People on one side connect by wires to outcomes on the other. Selecting a person lights their paths and shows one specific benefit.",
-      "bestFor": ["audience", "teams", "who", "use case", "personas", "industries", "roles", "marketplace"],
-      "adapt": "Only connect people to outcomes the product truly supports, and say who it is not for."
+      "id": "showroom",
+      "name": "Walk the floor",
+      "story": "Several products or features each get a small live scene, arranged so the visitor browses rather than reads.",
+      "sequence": [
+        "hero",
+        "showcase",
+        "overview",
+        "proof",
+        "pricing",
+        "close"
+      ],
+      "prefer": [
+        "bento-grid",
+        "hub-diagram",
+        "stacking-cards",
+        "live-mini-demos"
+      ],
+      "bestFor": [
+        "suite",
+        "products",
+        "features",
+        "platform",
+        "ecosystem",
+        "store",
+        "marketplace",
+        "tools",
+        "apps"
+      ]
     },
     {
-      "id": "sideways-pipeline", "slot": "process", "name": "Sideways pipeline", "pinned": true, "hasCode": true,
-      "job": "Turn the process into a journey.",
-      "description": "The page pins and travels horizontally along one line, stopping at a different small diagram for each stage. It includes sequence, tree, and converging diagrams. Below lg it stacks.",
-      "bestFor": ["process", "pipeline", "steps", "workflow", "developer", "api", "integration", "onboarding", "cli", "journey"],
-      "adapt": "Use a different diagram type at each stop, and do not make every stop look alike."
-    },
-    {
-      "id": "pinned-steps", "slot": "process", "name": "Pinned steps", "pinned": true, "hasCode": true,
-      "job": "Reduce doubt about how it works.",
-      "description": "A step list stays pinned while the visual beside it swaps with scroll. Pins from lg and stacks below.",
-      "bestFor": ["steps", "how it works", "service", "agency", "booking", "course", "simple"],
-      "adapt": "Use 3 or 4 steps and keep the heading short so it fits a laptop screen. Visual is a component, not an element."
-    },
-    {
-      "id": "token-tree", "slot": "showcase", "name": "Live token tree", "pinned": false, "hasCode": true,
-      "job": "Prove it is real by letting visitors touch it.",
-      "description": "One control sends a pulse down wires into real, working components that restyle at once.",
-      "bestFor": ["theme", "customize", "components", "design", "brand", "ui", "interactive", "playground", "demo"],
-      "adapt": "Everything shown must be the real thing, working. Replace the control with whatever the product's key setting is."
-    },
-    {
-      "id": "live-mini-demos", "slot": "showcase", "name": "Cards with live mini demos", "pinned": false, "hasCode": false,
-      "job": "Prove several products or features are real.",
-      "description": "Each card holds one small looping scene of 4 to 7 seconds, in CSS only, instead of an icon.",
-      "bestFor": ["products", "features", "suite", "saas", "tools"],
-      "adapt": "Each loop shows that one feature's result. Use the nx- CSS approach so the pause button stops it."
-    },
-    {
-      "id": "count-up-proof", "slot": "proof", "name": "Count-up facts and scrolling strip", "pinned": false, "hasCode": true,
-      "job": "Build trust with facts.",
-      "description": "True numbers count up once when seen, above a slow strip of real names.",
-      "bestFor": ["stats", "numbers", "metrics", "downloads", "customers", "open source"],
-      "adapt": "Only use numbers you can verify from the project. The component renders the real value first, so the static HTML is correct."
-    },
-    {
-      "id": "finish-line-close", "slot": "close", "name": "Finish line close", "pinned": false, "hasCode": true,
-      "job": "Convert by ending the story.",
-      "description": "A split close with one main action, a short list of next steps, and the page's stage line filling in to end on the visitor's turn.",
-      "bestFor": ["product", "developer", "saas", "tool", "library", "app"],
-      "adapt": "Use the same stage names as the hero. Avoid a boxed card with a row of equal buttons."
+      "id": "decision-helper",
+      "name": "Help them decide",
+      "story": "The visitor is comparing options. Answer the comparison honestly first, then explain and price.",
+      "sequence": [
+        "hero",
+        "compare",
+        "explain",
+        "pricing",
+        "faq",
+        "close"
+      ],
+      "prefer": [
+        "honest-compare",
+        "pricing-morph",
+        "faq-split",
+        "before-after-wipe"
+      ],
+      "bestFor": [
+        "alternative",
+        "compare",
+        "vs",
+        "pricing",
+        "switch",
+        "migrate",
+        "plans",
+        "cost",
+        "budget"
+      ]
     }
   ],
-  "planSlots": ["hero", "explain", "process", "showcase", "overview", "proof", "close"],
-  "evidenceSlots": ["proof"],
+  "directions": {
+    "guidance": "Pick one option per axis and hold it for the whole page. The direction changes how the same signatures look, so two pages with similar sections still look unrelated.",
+    "axes": {
+      "composition": [
+        {
+          "id": "editorial-asymmetric",
+          "name": "Editorial, off-centre",
+          "do": "Text sits in a narrow column on one side; visuals break the grid and run to the edge. Headings align left. Use 12-column offsets such as col-start-2.",
+          "bestFor": [
+            "agency",
+            "brand",
+            "studio",
+            "portfolio",
+            "creative",
+            "content"
+          ]
+        },
+        {
+          "id": "centered-narrative",
+          "name": "Centred story",
+          "do": "One central column around 46rem wide for copy, with full-width visual moments between. Headings centred, body left-aligned.",
+          "bestFor": [
+            "mission",
+            "nonprofit",
+            "consumer",
+            "story",
+            "simple",
+            "app"
+          ]
+        },
+        {
+          "id": "split-screen",
+          "name": "Split screen",
+          "do": "Most sections are two halves: copy and a working visual. Swap sides at least once so it does not zig-zag predictably.",
+          "bestFor": [
+            "saas",
+            "product",
+            "dashboard",
+            "workflow",
+            "b2b",
+            "tool"
+          ]
+        },
+        {
+          "id": "full-bleed-chapters",
+          "name": "Full-bleed chapters",
+          "do": "Each section fills the viewport height and has one idea. Big type, generous space, scroll moves between chapters.",
+          "bestFor": [
+            "launch",
+            "hardware",
+            "brand",
+            "event",
+            "premium",
+            "manifesto"
+          ]
+        },
+        {
+          "id": "dense-grid",
+          "name": "Dense information grid",
+          "do": "Tighter spacing, more on screen, strong column rules and thin dividers. Feels like a well-made tool.",
+          "bestFor": [
+            "developer",
+            "api",
+            "data",
+            "analytics",
+            "infrastructure",
+            "finance",
+            "devtools"
+          ]
+        }
+      ],
+      "type": [
+        {
+          "id": "oversized-display",
+          "name": "Oversized display",
+          "do": "Hero headline at text-6xl to text-8xl with tight leading (1.0) and tracking-tight; section headings large too. Few words per line.",
+          "bestFor": [
+            "brand",
+            "launch",
+            "consumer",
+            "agency",
+            "manifesto"
+          ]
+        },
+        {
+          "id": "technical-mono",
+          "name": "Technical with mono accents",
+          "do": "Sans-serif headings at a moderate size; labels, numbers, and stage tags in font-mono uppercase with wide tracking.",
+          "bestFor": [
+            "developer",
+            "api",
+            "cli",
+            "data",
+            "infrastructure",
+            "ai"
+          ]
+        },
+        {
+          "id": "editorial-contrast",
+          "name": "Editorial contrast",
+          "do": "A serif display face for headings against a clean sans body. Pair one heavy and one light weight. Load the serif through the framework's font loader.",
+          "bestFor": [
+            "content",
+            "publishing",
+            "agency",
+            "health",
+            "education",
+            "luxury"
+          ]
+        },
+        {
+          "id": "compact-product",
+          "name": "Compact product",
+          "do": "Medium headings (text-3xl to text-5xl), strong hierarchy through weight and color rather than size. Lets the product visuals lead.",
+          "bestFor": [
+            "saas",
+            "dashboard",
+            "tool",
+            "app",
+            "b2b",
+            "workflow"
+          ]
+        }
+      ],
+      "motion": [
+        {
+          "id": "precise",
+          "name": "Precise",
+          "do": "Short, linear or ease-out timing (0.2 to 0.35s), no overshoot, lines that draw at a constant speed. Movement feels engineered.",
+          "values": {
+            "transition": "{ duration: 0.3, ease: [0.2, 0, 0, 1] }",
+            "stagger": "0.06s"
+          },
+          "bestFor": [
+            "developer",
+            "api",
+            "infrastructure",
+            "data",
+            "finance",
+            "security"
+          ]
+        },
+        {
+          "id": "springy",
+          "name": "Springy",
+          "do": "Springs with a little give (stiffness 300 to 420, damping 24 to 32) for things that drop in, swap, or get picked.",
+          "values": {
+            "transition": "{ type: 'spring', stiffness: 380, damping: 28 }",
+            "stagger": "0.08s"
+          },
+          "bestFor": [
+            "consumer",
+            "app",
+            "social",
+            "education",
+            "ui",
+            "design"
+          ]
+        },
+        {
+          "id": "cinematic",
+          "name": "Cinematic",
+          "do": "Long scroll scrubs, slow eases (0.8 to 1.2s), large scale and depth changes. Fewer moments, each one bigger.",
+          "values": {
+            "transition": "{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }",
+            "stagger": "0.12s"
+          },
+          "bestFor": [
+            "brand",
+            "launch",
+            "hardware",
+            "premium",
+            "agency",
+            "event"
+          ]
+        },
+        {
+          "id": "calm",
+          "name": "Calm",
+          "do": "Mostly still. Soft fades (0.5s), one scrubbed moment on the page, nothing loops in the corner of the eye.",
+          "values": {
+            "transition": "{ duration: 0.5, ease: 'easeOut' }",
+            "stagger": "0.1s"
+          },
+          "bestFor": [
+            "health",
+            "finance",
+            "legal",
+            "insurance",
+            "wellness",
+            "government",
+            "nonprofit"
+          ]
+        }
+      ],
+      "surface": [
+        {
+          "id": "bordered-panels",
+          "name": "Bordered panels",
+          "do": "Content sits in rounded panels with border-border on bg-card. Sections separated by space.",
+          "bestFor": [
+            "saas",
+            "ui",
+            "components",
+            "dashboard",
+            "tool"
+          ]
+        },
+        {
+          "id": "flat-dividers",
+          "name": "Flat with rules",
+          "do": "Almost no boxes. Content sits on the page background, separated by full-width 1px rules and strong alignment.",
+          "bestFor": [
+            "developer",
+            "editorial",
+            "content",
+            "agency",
+            "minimal"
+          ]
+        },
+        {
+          "id": "tinted-bands",
+          "name": "Tinted bands",
+          "do": "Alternate full-width bands of bg-background and bg-muted, or a color-mix of the primary at 4 to 8%, so the scroll has a pulse.",
+          "bestFor": [
+            "consumer",
+            "education",
+            "health",
+            "community",
+            "nonprofit"
+          ]
+        },
+        {
+          "id": "inverted-moment",
+          "name": "One inverted moment",
+          "do": "Keep the page in its theme, but render one key section in the opposite theme with the themeScope helper. Use it for the hero or the main demo only.",
+          "bestFor": [
+            "launch",
+            "brand",
+            "premium",
+            "ai",
+            "security",
+            "devtools"
+          ]
+        }
+      ]
+    }
+  },
+  "techniques": [
+    {
+      "id": "scroll-draw",
+      "name": "Draw a path with scroll",
+      "use": "Workflows, connections, and timelines that appear as the visitor reads.",
+      "apis": [
+        "useScroll",
+        "useTransform",
+        "motion.path pathLength"
+      ],
+      "snippet": "const { progress } = useScrub(ref, ['start 80%', 'end 50%']);\n<motion.path d={d} pathLength={1} style={{ pathLength: progress }} data-draw className=\"stroke-primary\" fill=\"none\" />",
+      "watch": "Do not combine with vectorEffect=\"non-scaling-stroke\". Mark the path data-draw so the noscript style shows it."
+    },
+    {
+      "id": "sticky-scrub-state",
+      "name": "Pinned stage driven by scroll",
+      "use": "Step-by-step stories where the visual swaps while the visitor scrolls.",
+      "apis": [
+        "useScroll",
+        "useMotionValueEvent",
+        "AnimatePresence"
+      ],
+      "snippet": "const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });\nuseMotionValueEvent(scrollYProgress, 'change', (v) => setStep(Math.min(count - 1, Math.floor(v * count))));\n// outer: style={{ height: `${count * 90}vh` }}  inner: className=\"sticky top-16 h-[calc(100vh-4rem)]\"",
+      "watch": "Desktop only. Below lg render a stacked list. No overflow: hidden on any parent."
+    },
+    {
+      "id": "horizontal-track",
+      "name": "Sideways travel",
+      "use": "A journey or pipeline that moves left to right while the page scrolls down.",
+      "apis": [
+        "useScroll",
+        "useTransform"
+      ],
+      "snippet": "const x = useTransform(progress, [0, 1], ['0%', `-${(stops - 1) * 100}%`]);\n<div className=\"sticky top-16 overflow-hidden\"><motion.div style={{ x }} className=\"flex\">{stops.map(...)}</motion.div></div>",
+      "watch": "The track stage's own overflow can be hidden; its ancestors must use overflow-x: clip."
+    },
+    {
+      "id": "sticky-stack",
+      "name": "Stacking deck",
+      "use": "Features or chapters that pile on top of each other.",
+      "apis": [
+        "position: sticky",
+        "useTransform"
+      ],
+      "snippet": "// Cards are siblings in one container, so each stays stuck until it ends.\n<motion.article className=\"lg:sticky mb-[35vh]\" style={{ top: `calc(5.5rem + ${i * 1.25}rem)`, scale }} />",
+      "watch": "Sticky only works inside its own parent. Put every card directly in the same container."
+    },
+    {
+      "id": "zoom-through",
+      "name": "Fly into the product",
+      "use": "A hero that starts small and ends with the product filling the view.",
+      "apis": [
+        "useTransform scale, y, borderRadius",
+        "originY: 0"
+      ],
+      "snippet": "const scale = useTransform(progress, [0, 0.65], [0.62, 1]);\nconst y = useTransform(progress, [0, 0.65], ['54%', '0%']);\n<motion.div style={{ scale, y, originY: 0 }} />",
+      "watch": "Render a plain stacked hero on the server and on phones, then switch to the pinned version on desktop after mount."
+    },
+    {
+      "id": "clip-wipe",
+      "name": "Wipe between two states",
+      "use": "Before and after, old and new, light and dark.",
+      "apis": [
+        "useMotionValue",
+        "useTransform to a clip-path string"
+      ],
+      "snippet": "const clipPath = useTransform(position, (v) => `inset(0 0 0 ${v}%)`);\n<motion.div style={{ clipPath }} className=\"absolute inset-0\">{after}</motion.div>",
+      "watch": "Put a real range input over it so keyboard and touch users can move the divider."
+    },
+    {
+      "id": "mask-reveal",
+      "name": "Reveal through a moving mask",
+      "use": "Large statements or images that appear as a soft edge travels across them.",
+      "apis": [
+        "useTransform to a mask-image string"
+      ],
+      "snippet": "const mask = useTransform(progress, (v) => `linear-gradient(90deg, #000 ${v * 120 - 20}%, transparent ${v * 120}%)`);\n<motion.p style={{ maskImage: mask, WebkitMaskImage: mask }} />",
+      "watch": "Under reduced motion useScrub returns 1, so the text is fully shown."
+    },
+    {
+      "id": "layout-morph",
+      "name": "Shared element morph",
+      "use": "Tab markers, selected pills, and cards that expand into detail.",
+      "apis": [
+        "layoutId",
+        "LayoutGroup"
+      ],
+      "snippet": "{isActive && <motion.span layoutId={markerId} transition={{ type: 'spring', stiffness: 380, damping: 32 }} className=\"absolute inset-0 rounded-xl bg-background\" />}",
+      "watch": "Use useId() for the layoutId so two instances on a page do not fight."
+    },
+    {
+      "id": "presence-swap",
+      "name": "Directional swap",
+      "use": "Content that replaces other content, entering from the side the visitor moved towards.",
+      "apis": [
+        "AnimatePresence mode='wait'",
+        "custom",
+        "variants"
+      ],
+      "snippet": "<AnimatePresence mode=\"wait\" initial={false} custom={dir}>\n  <motion.div key={id} custom={dir} variants={{ enter: (d) => ({ opacity: 0, x: d * 40 }), center: { opacity: 1, x: 0 }, exit: (d) => ({ opacity: 0, x: d * -40 }) }} initial=\"enter\" animate=\"center\" exit=\"exit\" />\n</AnimatePresence>",
+      "watch": "initial={false} keeps the first item visible in the static HTML."
+    },
+    {
+      "id": "orchestrated-stagger",
+      "name": "Orchestrated entrance",
+      "use": "A group that assembles in a meaningful order: container first, then its parts.",
+      "apis": [
+        "variants",
+        "staggerChildren",
+        "delayChildren",
+        "when: 'beforeChildren'"
+      ],
+      "snippet": "const list = { shown: { transition: { when: 'beforeChildren', staggerChildren: 0.08, delayChildren: 0.1 } } };\nconst item = { hidden: { opacity: 0, x: -16 }, shown: { opacity: 1, x: 0 } };",
+      "watch": "Add data-reveal to anything that starts at opacity 0."
+    },
+    {
+      "id": "letter-roll",
+      "name": "Letters rolling in",
+      "use": "One changing word in a headline.",
+      "apis": [
+        "AnimatePresence",
+        "variants",
+        "staggerChildren"
+      ],
+      "snippet": "<span className=\"inline-grid overflow-hidden\"><span className=\"invisible col-start-1 row-start-1\">{longest}</span>...letters animate y: '100%' -> '0%' -> '-100%'</span>",
+      "watch": "Reserve width with the longest word, and give screen readers one stable sentence."
+    },
+    {
+      "id": "motion-along-path",
+      "name": "Travel along a path",
+      "use": "A packet, cursor, or token moving through a diagram.",
+      "apis": [
+        "CSS offset-path",
+        "useTransform to offsetDistance"
+      ],
+      "snippet": "const distance = useTransform(progress, (v) => `${v * 100}%`);\n<motion.span style={{ offsetPath: `path('${d}')`, offsetDistance: distance }} className=\"absolute left-0 top-0 h-2.5 w-2.5 rounded-full bg-primary\" />",
+      "watch": "offset-path uses CSS pixels of the parent, so the diagram must not scale with a viewBox. Use a fixed-size container."
+    },
+    {
+      "id": "scroll-velocity",
+      "name": "React to scroll speed",
+      "use": "A strip of real use cases that leans and speeds up with fast scrolling.",
+      "apis": [
+        "useVelocity",
+        "useSpring",
+        "useTransform"
+      ],
+      "snippet": "const velocity = useVelocity(scrollY);\nconst smooth = useSpring(velocity, { damping: 50, stiffness: 400 });\nconst skewX = useTransform(smooth, [-2000, 2000], [-6, 6], { clamp: true });",
+      "watch": "Keep the effect small, and never use it for fake logo walls."
+    },
+    {
+      "id": "pointer-spring",
+      "name": "Follow the pointer",
+      "use": "A spotlight that reveals a live demo layer, or a few degrees of tilt on a product panel.",
+      "apis": [
+        "useMotionValue",
+        "useSpring",
+        "useMotionTemplate"
+      ],
+      "snippet": "const x = useSpring(useMotionValue(0), { stiffness: 200, damping: 30 });\nconst mask = useMotionTemplate`radial-gradient(14rem at ${x}px ${y}px, #000, transparent)`;",
+      "watch": "Desktop and fine pointers only: check (pointer: fine). Show the full layer on touch."
+    },
+    {
+      "id": "inview-count",
+      "name": "Count up once",
+      "use": "True numbers from the project.",
+      "apis": [
+        "useInView",
+        "requestAnimationFrame"
+      ],
+      "snippet": "Render the real value first, then count from 0 when seen. See the count-up-proof signature.",
+      "watch": "Never invent a number to have something to count."
+    },
+    {
+      "id": "parallax-depth",
+      "name": "Measured depth",
+      "use": "Two or three layers of a product scene moving at slightly different speeds.",
+      "apis": [
+        "useTransform y"
+      ],
+      "snippet": "const back = useTransform(progress, [0, 1], [40, -40]);\nconst front = useTransform(progress, [0, 1], [90, -90]);",
+      "watch": "At most three layers and under 120px of travel. Larger values feel seasick."
+    },
+    {
+      "id": "theme-shift",
+      "name": "Tone shift between chapters",
+      "use": "The page background warms or cools as the story moves to a new chapter.",
+      "apis": [
+        "useTransform to a color-mix string"
+      ],
+      "snippet": "const background = useTransform(progress, (v) => `color-mix(in oklab, var(--primary) ${Math.round(v * 8)}%, var(--background))`);",
+      "watch": "Only mix theme tokens, so switching themes still works. Stay under 10%."
+    },
+    {
+      "id": "css-loop",
+      "name": "Cheap loops in CSS",
+      "use": "Anything that repeats forever: comets on wires, pulses, flowing dashes.",
+      "apis": [
+        "nx- classes from the foundation CSS"
+      ],
+      "snippet": "<path pathLength={1} className=\"nx-comet stroke-primary\" d={d} />",
+      "watch": "CSS loops cost no React renders and stop with the pause button."
+    }
+  ],
+  "remixRules": [
+    "Rename every label, stage, and item from the product's own story.",
+    "Change the number of items from the reference.",
+    "Change at least one structural choice: column split, side the visual sits on, or diagram shape.",
+    "Apply the brief's direction: its composition, type scale, motion values, and surface style."
+  ],
+  "catalog": [
+    {
+      "id": "assembly-hero",
+      "name": "Exploded assembly hero",
+      "pinned": true,
+      "hasCode": true,
+      "job": "Surprise visitors with a metaphor of parts becoming a whole.",
+      "description": "Layers of a real screen float apart in 3D, each labeled, then collapse into one finished screen as the visitor scrolls.",
+      "bestFor": [
+        "component",
+        "library",
+        "toolkit",
+        "modular",
+        "building blocks",
+        "design system",
+        "sdk",
+        "layers"
+      ],
+      "adapt": "Name the layers after the product's real parts. Three layers is the sweet spot.",
+      "slots": [
+        "hero"
+      ],
+      "techniques": [
+        "parallax-depth",
+        "orchestrated-stagger"
+      ]
+    },
+    {
+      "id": "self-building-hero",
+      "name": "Self-building product panel",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Show the whole product flow without any scrolling.",
+      "description": "A panel loops through 3 to 5 clickable stages, about 3.4 seconds each, with a longer hold on the last. One stage number drives the headline phrase, step list, preview, and activity feed.",
+      "bestFor": [
+        "automation",
+        "workflow",
+        "crm",
+        "pipeline",
+        "agent",
+        "dashboard",
+        "operations"
+      ],
+      "adapt": "Drive everything from useLoopingStages. Tilt the panel about 18 degrees at scale 0.95, then flatten it over the first 40% of the hero's scroll. Add a few degrees of mouse tilt on desktop only. Use reducedStage to open on the finished result.",
+      "slots": [
+        "hero"
+      ],
+      "techniques": [
+        "presence-swap",
+        "letter-roll",
+        "pointer-spring"
+      ]
+    },
+    {
+      "id": "untangle",
+      "name": "Tangle into clean lines",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Make the problem and the solution feel physical.",
+      "description": "Each problem enters as a tangled wire, passes through the product, and leaves as a straight line to its specific answer, drawn by scroll.",
+      "bestFor": [
+        "problem",
+        "messy",
+        "chaos",
+        "integrate",
+        "unify",
+        "consolidate",
+        "simplify",
+        "replace",
+        "scattered",
+        "spreadsheets"
+      ],
+      "adapt": "Use 4 or 5 honest problem and answer pairs. Keep them one line each.",
+      "slots": [
+        "explain"
+      ],
+      "techniques": [
+        "scroll-draw",
+        "css-loop"
+      ]
+    },
+    {
+      "id": "scroll-statement",
+      "name": "Scroll-lit statement",
+      "pinned": true,
+      "hasCode": true,
+      "job": "Slow visitors down for one idea.",
+      "description": "A pinned sentence of 15 to 25 words lights up word by word as the visitor scrolls.",
+      "bestFor": [
+        "mission",
+        "brand",
+        "agency",
+        "studio",
+        "story",
+        "belief",
+        "manifesto"
+      ],
+      "adapt": "highlight matches whole words including attached punctuation, so a word followed by a comma must be written with it.",
+      "slots": [
+        "explain"
+      ],
+      "techniques": [
+        "sticky-scrub-state",
+        "mask-reveal"
+      ]
+    },
+    {
+      "id": "hub-diagram",
+      "name": "Interactive hub",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Show how several parts fit around one center.",
+      "description": "Nodes orbit a hub with comets running along each spoke, beside an expanding list. It cycles until the visitor picks one.",
+      "bestFor": [
+        "ecosystem",
+        "suite",
+        "services",
+        "products",
+        "agency",
+        "company",
+        "platform"
+      ],
+      "adapt": "Use 3 to 6 items. Do not use it for steps, because it implies no order.",
+      "slots": [
+        "overview"
+      ],
+      "techniques": [
+        "css-loop",
+        "layout-morph"
+      ]
+    },
+    {
+      "id": "audience-map",
+      "name": "Audience map",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Help visitors find themselves.",
+      "description": "People on one side connect by wires to outcomes on the other. Selecting a person lights their paths and shows one specific benefit.",
+      "bestFor": [
+        "audience",
+        "teams",
+        "who",
+        "use case",
+        "personas",
+        "industries",
+        "roles",
+        "marketplace"
+      ],
+      "adapt": "Only connect people to outcomes the product truly supports, and say who it is not for.",
+      "slots": [
+        "overview"
+      ],
+      "techniques": [
+        "scroll-draw",
+        "css-loop"
+      ]
+    },
+    {
+      "id": "sideways-pipeline",
+      "name": "Sideways pipeline",
+      "pinned": true,
+      "hasCode": true,
+      "job": "Turn the process into a journey.",
+      "description": "The page pins and travels horizontally along one line, stopping at a different small diagram for each stage. It includes sequence, tree, and converging diagrams. Below lg it stacks.",
+      "bestFor": [
+        "process",
+        "pipeline",
+        "steps",
+        "workflow",
+        "developer",
+        "api",
+        "integration",
+        "onboarding",
+        "cli",
+        "journey"
+      ],
+      "adapt": "Use a different diagram type at each stop, and do not make every stop look alike.",
+      "slots": [
+        "process"
+      ],
+      "techniques": [
+        "horizontal-track",
+        "scroll-draw"
+      ]
+    },
+    {
+      "id": "pinned-steps",
+      "name": "Pinned steps",
+      "pinned": true,
+      "hasCode": true,
+      "job": "Reduce doubt about how it works.",
+      "description": "A step list stays pinned while the visual beside it swaps with scroll. Pins from lg and stacks below.",
+      "bestFor": [
+        "steps",
+        "how it works",
+        "service",
+        "agency",
+        "booking",
+        "course",
+        "simple"
+      ],
+      "adapt": "Use 3 or 4 steps and keep the heading short so it fits a laptop screen. Visual is a component, not an element.",
+      "slots": [
+        "process",
+        "explain"
+      ],
+      "techniques": [
+        "sticky-scrub-state",
+        "presence-swap"
+      ]
+    },
+    {
+      "id": "token-tree",
+      "name": "Live token tree",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Prove it is real by letting visitors touch it.",
+      "description": "One control sends a pulse down wires into real, working components that restyle at once.",
+      "bestFor": [
+        "theme",
+        "customize",
+        "components",
+        "design",
+        "brand",
+        "ui",
+        "interactive",
+        "playground",
+        "demo"
+      ],
+      "adapt": "Everything shown must be the real thing, working. Replace the control with whatever the product's key setting is.",
+      "slots": [
+        "showcase"
+      ],
+      "techniques": [
+        "css-loop",
+        "layout-morph"
+      ]
+    },
+    {
+      "id": "live-mini-demos",
+      "name": "Cards with live mini demos",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Prove several products or features are real.",
+      "description": "Each card holds one small looping scene of 4 to 7 seconds, in CSS only, instead of an icon.",
+      "bestFor": [
+        "products",
+        "features",
+        "suite",
+        "saas",
+        "tools"
+      ],
+      "adapt": "Each loop shows that one feature's result. Use the nx- CSS approach so the pause button stops it.",
+      "slots": [
+        "showcase",
+        "overview"
+      ],
+      "techniques": [
+        "css-loop",
+        "orchestrated-stagger"
+      ]
+    },
+    {
+      "id": "count-up-proof",
+      "name": "Count-up facts and scrolling strip",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Build trust with facts.",
+      "description": "True numbers count up once when seen, above a slow strip of real names.",
+      "bestFor": [
+        "stats",
+        "numbers",
+        "metrics",
+        "downloads",
+        "customers",
+        "open source"
+      ],
+      "adapt": "Only use numbers you can verify from the project. The component renders the real value first, so the static HTML is correct.",
+      "slots": [
+        "proof"
+      ],
+      "techniques": [
+        "inview-count",
+        "scroll-velocity"
+      ]
+    },
+    {
+      "id": "finish-line-close",
+      "name": "Finish line close",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Convert by ending the story.",
+      "description": "A split close with one main action, a short list of next steps, and the page's stage line filling in to end on the visitor's turn.",
+      "bestFor": [
+        "product",
+        "developer",
+        "saas",
+        "tool",
+        "library",
+        "app",
+        "platform",
+        "agency",
+        "course",
+        "booking",
+        "families"
+      ],
+      "adapt": "Use the same stage names as the hero. Avoid a boxed card with a row of equal buttons.",
+      "slots": [
+        "close"
+      ],
+      "techniques": [
+        "scroll-draw"
+      ]
+    },
+    {
+      "id": "zoom-through-hero",
+      "slots": [
+        "hero"
+      ],
+      "name": "Fly-in product hero",
+      "pinned": true,
+      "hasCode": true,
+      "job": "Hand the product to the visitor in one continuous move.",
+      "description": "The headline sits above a small product screen. On scroll the headline lifts away and the screen grows until it fills the view, ready to use. Phones get a normal stacked hero.",
+      "bestFor": [
+        "app",
+        "dashboard",
+        "editor",
+        "tool",
+        "saas",
+        "product",
+        "interface",
+        "ui",
+        "builder",
+        "platform",
+        "booking",
+        "finance",
+        "budget",
+        "learning",
+        "course"
+      ],
+      "adapt": "The screen must be built from real components with labelled sample data. Raise the starting y if the headline wraps to three lines.",
+      "techniques": [
+        "zoom-through",
+        "orchestrated-stagger"
+      ]
+    },
+    {
+      "id": "kinetic-headline",
+      "slots": [
+        "hero"
+      ],
+      "name": "Kinetic headline with synced visual",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Say several true outcomes without a carousel.",
+      "description": "One word in the headline rolls letter by letter through 3 to 5 phrases, and the product visual beside it shows that same stage. Dots let visitors pick a stage.",
+      "bestFor": [
+        "ai",
+        "agent",
+        "automation",
+        "assistant",
+        "writing",
+        "content",
+        "convert",
+        "turn",
+        "generate",
+        "consumer",
+        "agency",
+        "studio",
+        "brand",
+        "families",
+        "students",
+        "health"
+      ],
+      "adapt": "Each phrase must be something the product really does. The visual changes with the word, so build renderVisual(stage) from one real screen in different states.",
+      "techniques": [
+        "letter-roll",
+        "presence-swap"
+      ]
+    },
+    {
+      "id": "terminal-hero",
+      "slots": [
+        "hero",
+        "close"
+      ],
+      "name": "Terminal replay hero",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Prove it is real with the actual command and output.",
+      "description": "A split hero with a terminal that types the real install or run command, prints the real output, holds, and replays. The full transcript is in the static HTML.",
+      "bestFor": [
+        "cli",
+        "developer",
+        "api",
+        "sdk",
+        "npm",
+        "install",
+        "command",
+        "devtools",
+        "library",
+        "open source"
+      ],
+      "adapt": "Use the product's real commands and real output, shortened but not invented. Put the copyable command beside it.",
+      "techniques": [
+        "css-loop",
+        "orchestrated-stagger"
+      ],
+      "requiresMatch": true
+    },
+    {
+      "id": "before-after-wipe",
+      "slots": [
+        "explain",
+        "showcase"
+      ],
+      "name": "Before and after wipe",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Let the visitor see the difference with their own hand.",
+      "description": "The same content before and after the product, split by a divider that sweeps across with scroll and can be dragged or moved with the arrow keys.",
+      "bestFor": [
+        "before",
+        "after",
+        "clean",
+        "messy",
+        "manual",
+        "convert",
+        "redesign",
+        "optimize",
+        "replace",
+        "spreadsheets"
+      ],
+      "adapt": "Both sides show the same content, so only the product's effect differs. Keep the before side honest, not exaggerated.",
+      "techniques": [
+        "clip-wipe"
+      ]
+    },
+    {
+      "id": "scroll-flowchart",
+      "slots": [
+        "process"
+      ],
+      "name": "Drawn workflow",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Show an animated workflow, including steps that run in parallel.",
+      "description": "A line runs down the page and lights each stage as a packet travels along it. A stage can split into parallel branches that light up one by one. Not pinned, so it works on phones.",
+      "bestFor": [
+        "workflow",
+        "automation",
+        "pipeline",
+        "process",
+        "agent",
+        "integration",
+        "trigger",
+        "orchestration",
+        "approval",
+        "steps"
+      ],
+      "adapt": "Use the product's real stage names. Add branches only where work really runs in parallel. Use 4 to 6 stages.",
+      "techniques": [
+        "scroll-draw",
+        "motion-along-path"
+      ]
+    },
+    {
+      "id": "stacking-cards",
+      "slots": [
+        "showcase",
+        "process"
+      ],
+      "name": "Stacking deck",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Give each major feature a full moment without a long list.",
+      "description": "Large cards stick near the top and pile up as the visitor scrolls; earlier cards shrink and dim beneath the new one. Each card holds a working visual.",
+      "bestFor": [
+        "features",
+        "modules",
+        "chapters",
+        "capabilities",
+        "platform",
+        "suite",
+        "services"
+      ],
+      "adapt": "Use 3 to 5 cards. Alternate the side of the visual or change its shape per card.",
+      "techniques": [
+        "sticky-stack"
+      ]
+    },
+    {
+      "id": "morphing-tabs",
+      "slots": [
+        "showcase"
+      ],
+      "name": "Self-running feature tabs",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Show several features in one place without a wall of cards.",
+      "description": "Tabs advance on their own with a time bar; the active marker slides between them and the demo enters from the side the visitor moved toward. Stops looping once a tab is picked.",
+      "bestFor": [
+        "features",
+        "saas",
+        "app",
+        "tool",
+        "modes",
+        "views",
+        "integrations",
+        "product"
+      ],
+      "adapt": "Each tab's demo must show that feature's result, not a screenshot. Use 3 to 5 tabs with labels of one or two words.",
+      "techniques": [
+        "layout-morph",
+        "presence-swap"
+      ]
+    },
+    {
+      "id": "bento-grid",
+      "slots": [
+        "showcase",
+        "overview"
+      ],
+      "name": "Live bento grid",
+      "pinned": false,
+      "hasCode": true,
+      "job": "Let visitors browse many features at a glance.",
+      "description": "An uneven grid of tiles, each with a small live scene. Tiles enter from the side they sit on, so the grid assembles inward.",
+      "bestFor": [
+        "features",
+        "suite",
+        "products",
+        "platform",
+        "tools",
+        "capabilities",
+        "all in one"
+      ],
+      "adapt": "Mix tile sizes, with one clear hero tile. Each scene loops a single result in CSS for 7 seconds or less.",
+      "techniques": [
+        "orchestrated-stagger",
+        "css-loop",
+        "pointer-spring"
+      ]
+    },
+    {
+      "id": "split-parallax",
+      "slots": [
+        "showcase",
+        "overview"
+      ],
+      "name": "Opposing columns",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Show breadth, such as many templates or use cases, with movement that is not a carousel.",
+      "description": "Two or three columns of real examples move at opposite speeds as the visitor scrolls, framed by a still headline.",
+      "bestFor": [
+        "templates",
+        "examples",
+        "gallery",
+        "portfolio",
+        "use cases",
+        "showcase",
+        "work"
+      ],
+      "adapt": "Columns move between 80 and 120px in opposite directions. On phones, show one still column.",
+      "build": [
+        "Wrap the section in a ref and get progress with useScrub(ref, ['start end', 'end start']).",
+        "Give each column a y from useTransform with opposite signs.",
+        "Fill the columns with real examples rendered as components, not screenshots of fake products."
+      ],
+      "techniques": [
+        "parallax-depth"
+      ]
+    },
+    {
+      "id": "chapter-snap",
+      "slots": [
+        "explain",
+        "overview"
+      ],
+      "name": "Chapters with a tone shift",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Tell a three-part story with weight, as a brand or launch page would.",
+      "description": "Three full-height chapters with oversized numerals. The page background shifts in tone between chapters, and each headline is revealed through a moving mask.",
+      "bestFor": [
+        "story",
+        "brand",
+        "launch",
+        "mission",
+        "agency",
+        "manifesto",
+        "history"
+      ],
+      "adapt": "Exactly three chapters. One sentence each, plus one supporting visual. The tone shift stays under 10%.",
+      "build": [
+        "Each chapter is min-h-[calc(100vh-4rem)] with its content centred.",
+        "A wrapper's background uses the theme-shift technique driven by the whole section's progress.",
+        "Each headline uses mask-reveal driven by its own chapter."
+      ],
+      "techniques": [
+        "theme-shift",
+        "mask-reveal"
+      ]
+    },
+    {
+      "id": "spotlight-demo",
+      "slots": [
+        "showcase"
+      ],
+      "name": "Spotlight reveal",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Let the visitor discover what the product adds on top of their work.",
+      "description": "A plain version of the visitor's work sits on the page. A soft spotlight follows the pointer and reveals the product's layer: annotations, fixes, or insights.",
+      "bestFor": [
+        "insights",
+        "analytics",
+        "review",
+        "audit",
+        "ai",
+        "annotations",
+        "detect",
+        "security",
+        "monitoring"
+      ],
+      "adapt": "On touch screens, show the full layer with a label instead. The revealed layer must be real output, labelled as sample data.",
+      "build": [
+        "Stack the plain layer and the product layer in the same box.",
+        "Mask the product layer with a radial gradient positioned by a spring that follows the pointer.",
+        "Check matchMedia('(pointer: fine)') before enabling it."
+      ],
+      "techniques": [
+        "pointer-spring"
+      ]
+    },
+    {
+      "id": "zoom-out-context",
+      "slots": [
+        "overview",
+        "explain"
+      ],
+      "name": "Zoom out to the system",
+      "pinned": true,
+      "hasCode": false,
+      "job": "Show how one small detail fits inside the bigger system.",
+      "description": "The section opens on a single detail, such as one row or one node, at large scale. Scrolling zooms out to reveal the whole system around it, with labels appearing as each part comes into view.",
+      "bestFor": [
+        "system",
+        "architecture",
+        "infrastructure",
+        "network",
+        "ecosystem",
+        "platform",
+        "observability"
+      ],
+      "adapt": "This is the reverse of zoom-through; do not use both on one page. Desktop only, with a static full view on phones.",
+      "build": [
+        "Pin a stage for 220vh.",
+        "Scale a fixed-size diagram from about 3 to 1 with the transform origin on the detail.",
+        "Fade labels in with ranges that start once each part is on screen."
+      ],
+      "techniques": [
+        "zoom-through",
+        "sticky-scrub-state"
+      ]
+    },
+    {
+      "id": "honest-compare",
+      "slots": [
+        "compare"
+      ],
+      "name": "Honest comparison",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Answer \"why this and not the alternative?\" without spin.",
+      "description": "A comparison against the real alternative, such as doing it by hand or a category of tool, with a sticky header. Rows reveal in order, and rows where the product is weaker are shown too.",
+      "bestFor": [
+        "alternative",
+        "compare",
+        "vs",
+        "switch",
+        "migrate",
+        "instead",
+        "replace"
+      ],
+      "adapt": "Compare against approaches, not named competitors, unless the claims are checked. Include at least one row where the alternative wins.",
+      "build": [
+        "Use the @neuctra/ui Table with a sticky THead.",
+        "Reveal rows with an orchestrated stagger on view.",
+        "Mark the product column with a thin primary rule rather than a filled background."
+      ],
+      "techniques": [
+        "orchestrated-stagger"
+      ],
+      "requiresMatch": true
+    },
+    {
+      "id": "pricing-morph",
+      "slots": [
+        "pricing"
+      ],
+      "name": "Pricing with a morphing toggle",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Make the price easy to read and the plan switch feel solid.",
+      "description": "A monthly or yearly toggle with a sliding marker. Prices roll digit by digit when switched, and the recommended plan is marked by its border rather than a badge pile.",
+      "bestFor": [
+        "pricing",
+        "plans",
+        "subscription",
+        "tiers",
+        "billing",
+        "cost"
+      ],
+      "adapt": "Only real prices. If the product is free, replace this slot with what free includes and what it does not.",
+      "build": [
+        "Toggle uses layout-morph for the marker.",
+        "Each digit uses presence-swap moving vertically.",
+        "Plans are a calm grid; no animation on the feature lists."
+      ],
+      "techniques": [
+        "layout-morph",
+        "presence-swap"
+      ],
+      "requiresMatch": true
+    },
+    {
+      "id": "faq-split",
+      "slots": [
+        "faq"
+      ],
+      "name": "Split FAQ",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Clear up the last doubts calmly before the close.",
+      "description": "A short sticky intro on one side and an Accordion of real questions on the other. Calm: no motion beyond the accordion itself.",
+      "bestFor": [
+        "faq",
+        "questions",
+        "support",
+        "trust",
+        "security",
+        "pricing",
+        "legal"
+      ],
+      "adapt": "Use questions that people really ask, including the awkward ones about limits. This is a calm section by design.",
+      "build": [
+        "Two columns from lg: intro with lg:sticky lg:top-24, Accordion from @neuctra/ui.",
+        "Add FAQPage JSON-LD through the SEO tool."
+      ],
+      "techniques": []
+    },
+    {
+      "id": "changelog-proof",
+      "slots": [
+        "proof"
+      ],
+      "name": "Release timeline",
+      "pinned": false,
+      "hasCode": false,
+      "job": "Prove the product is alive with its real history.",
+      "description": "Real releases from git tags, npm, or the changelog run down a line that draws with scroll. Each release shows its date and one real change.",
+      "bestFor": [
+        "changelog",
+        "releases",
+        "versions",
+        "open source",
+        "updates",
+        "roadmap",
+        "maintained"
+      ],
+      "adapt": "Pull dates and versions from the project. Never invent a release or a date.",
+      "build": [
+        "List 4 to 6 recent releases.",
+        "Draw the line with scroll-draw, and light each release as the line reaches it."
+      ],
+      "techniques": [
+        "scroll-draw"
+      ]
+    },
+    {
+      "id": "command-close",
+      "slots": [
+        "close"
+      ],
+      "name": "Command close",
+      "pinned": false,
+      "hasCode": false,
+      "job": "End developer pages on the exact first step.",
+      "description": "A close that shows the real install command with a copy button, and a short terminal replay of what happens next.",
+      "bestFor": [
+        "developer",
+        "cli",
+        "npm",
+        "sdk",
+        "api",
+        "install",
+        "open source"
+      ],
+      "adapt": "Use the terminal-hero code for the replay only if the hero did not use it. Otherwise show a still transcript.",
+      "build": [
+        "Use CopyButton from @neuctra/ui beside the command.",
+        "Repeat the hero's stage names in a one-line recap."
+      ],
+      "techniques": [
+        "css-loop"
+      ],
+      "requiresMatch": true
+    }
+  ],
+  "evidenceSlots": [
+    "proof"
+  ],
   "adaptationNotes": [
     "This code is a reference from a real page, not a template. Replace all copy, sample data, stage names, and shapes.",
     "Foundation files belong in one folder. Fix the import paths to match the project, for example @/components/patterns/MotionPreference.",
     "Install framer-motion and lucide-react if the project does not resolve them.",
     "These examples use @neuctra/ui. In a project using another UI library, keep the idea and use that library's components.",
     "Wrap the page in MotionPreferenceProvider, add the foundation CSS to the global stylesheet, and add the noscript style.",
-    "Color tokens are Tailwind colors: primary, primary-foreground, background, foreground, secondary, muted, muted-foreground, card, and border."
+    "Color tokens are Tailwind colors: primary, primary-foreground, background, foreground, secondary, muted, muted-foreground, card, and border.",
+    "Signatures without code come with build steps and techniques. Fetch the techniques by id and compose the section yourself.",
+    "Pattern files import foundation files with ./ paths, such as ./useScrub and ./MotionPreference. Keep them in one folder or fix the paths."
   ]
 }

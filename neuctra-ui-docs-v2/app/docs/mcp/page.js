@@ -481,11 +481,13 @@ AI generates Neuctra UI code`}
 
           <ToolCard
             name="neuctra-ui-landing-design"
-            description="Plan a landing page around your product, with rules for avoiding a generic AI look, plus working code for animated diagrams and scroll-driven workflows."
+            description="Plan a landing page around your product: a story archetype, a visual direction and a section plan, with rules against a generic AI look. Returns working Framer Motion code and techniques for drawn workflows, stacking and pinned sections, fly-in heroes and before-and-after wipes."
             input={`{
-  "request": "An open-source API testing tool for backend developers."
+  "request": "An open-source API testing tool for backend developers.",
+  "avoid": ["developer-first", "terminal-hero"],
+  "variation": 1
 }`}
-            useCase="Use this for landing and marketing pages. Call it again with signature ids to get their source code."
+            useCase="Use this for landing and marketing pages. Pass the usedIds of earlier pages as avoid so each page takes a different shape, then call again with signature ids to get their code or build steps."
           />
 
           <ToolCard

@@ -158,9 +158,14 @@ The guidance covers titles and descriptions, keyword and search intent, heading 
 
 ### `neuctra-ui-landing-design`
 
-Design a landing or marketing page that does not look AI-generated. Use it in two steps.
+Design landing and marketing pages that do not look AI-generated, and that do not look like each other. Use it in two steps.
 
-First, describe the product. The tool returns the design rules, common signs of generic AI design, known motion pitfalls, and a page plan chosen for that product, so different products do not end up with the same page.
+First, describe the product. The tool returns the design rules, common signs of generic AI design, known motion pitfalls, and a **brief** for that product:
+
+- **Archetype:** the order of the story, such as *From mess to fixed*, *Follow the work*, *Show the terminal*, or *Help them decide*. There are seven.
+- **Direction:** one choice on each of four axes: composition, type, motion personality, and surface.
+- **Plan:** a section for each slot in the archetype, with two alternatives each.
+- **usedIds:** every id the brief used.
 
 ```json
 {
@@ -168,15 +173,28 @@ First, describe the product. The tool returns the design rules, common signs of 
 }
 ```
 
-Then request the signatures you want. The tool returns their recipes and source code from a real landing page, plus the shared motion code and CSS. Set `includeFoundation` to `false` if the project already has them.
+To get a different page shape, pass the `usedIds` from earlier pages as `avoid`, or raise `variation`:
 
 ```json
 {
-  "signatures": ["sideways-pipeline", "untangle"]
+  "request": "An open-source API testing tool for backend developers.",
+  "avoid": ["developer-first", "terminal-hero", "sideways-pipeline"],
+  "variation": 1
 }
 ```
 
-The code is a reference, not a template. Replace the copy, sample data, and shapes so that the page follows your product's own story. For application screens, use `neuctra-ui-page-builder`.
+Then request the signatures you want. Coded signatures return their source; recipe signatures return build steps. Both come with the Framer Motion techniques they use, as snippets with caveats, plus the shared motion code and CSS. Set `includeFoundation` to `false` if the project already has the shared code. Use `techniques` on its own to get any technique by id.
+
+```json
+{
+  "signatures": ["scroll-flowchart", "before-after-wipe"],
+  "techniques": ["motion-along-path"]
+}
+```
+
+The catalog has 29 signatures, 18 with code. They include a drawn workflow with parallel branches, a stacking deck, a fly-in product hero, a before-and-after wipe, self-running feature tabs, a kinetic headline, a live bento grid, and a terminal replay. The technique library has 18 entries, such as scroll-drawn paths, sticky stacks, horizontal tracks, clip-path wipes, layout morphs, travel along a path, and scroll-velocity effects.
+
+The code is a reference, not a template. Follow the `remixRules` so that the page follows your product's own story. For application screens, use `neuctra-ui-page-builder`.
 
 ## Tips for better results
 

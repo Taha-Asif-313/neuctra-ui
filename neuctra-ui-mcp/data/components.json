@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
-  "version": "1.0.15",
-  "generatedAt": "2026-10-25T16:43:03.355Z",
+  "version": "1.0.16",
+  "generatedAt": "2026-11-05T18:51:00.462Z",
   "componentCount": 79,
   "components": [
     {

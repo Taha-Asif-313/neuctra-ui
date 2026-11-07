@@ -31,6 +31,14 @@ const SIGNATURES = {
   "hub-diagram": fromPatterns("HubDiagram.jsx"),
   "pinned-steps": fromPatterns("PinnedSteps.jsx"),
   "count-up-proof": fromPatterns("CountUp.jsx"),
+  "zoom-through-hero": fromPatterns("ZoomThroughHero.jsx"),
+  "kinetic-headline": fromPatterns("KineticHeadline.jsx"),
+  "terminal-hero": fromPatterns("TerminalReplay.jsx"),
+  "before-after-wipe": fromPatterns("BeforeAfterWipe.jsx"),
+  "scroll-flowchart": fromPatterns("ScrollFlowchart.jsx"),
+  "stacking-cards": fromPatterns("StackingCards.jsx"),
+  "morphing-tabs": fromPatterns("MorphingTabs.jsx"),
+  "bento-grid": fromPatterns("BentoGrid.jsx"),
 };
 
 const read = (file) => {
