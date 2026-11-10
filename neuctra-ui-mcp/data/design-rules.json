@@ -343,6 +343,58 @@
         "title": "Avoid AI-Generated UI Patterns",
         "content": "Never generate:\n\n* Multicolor or rainbow gradients, or any color outside the theme\n* Shadows on buttons or cards, or large stacked shadows (shadow-xl, shadow-2xl)\n* A gradient on every heading, or gradient buttons\n* More than one animated background per viewport\n* Glow on buttons or text\n* Excessive rounded containers, every section inside a Card\n* Random decorative icons, unnecessary badges, emoji as icons\n* Multiple primary buttons, huge empty spaces, decorative statistics without meaning\n* Repeated identical layouts\n\nAllowed when on brand: theme-colored gradient headline words, soft primary glows, frosted sticky bars, and a theme-colored animated background that respects reduced motion."
       }
+    ],
+    "uxLaws": [
+      {
+        "number": 67,
+        "title": "Choice Load (Hick's, Miller's, Cognitive Load)",
+        "content": "Fewer, grouped choices are decided faster.\n\n* One primary action per section or view. Secondary actions use quieter variants.\n* Top-level navigation: 7 items or fewer. Group the rest under a menu, tabs or a sidebar group.\n* Split long lists, forms and settings into labelled groups of about 5 to 9 items.\n* Hide advanced options behind progressive disclosure (Accordion, \"Advanced\" section, Drawer). Show the common path first.\n* Prefer defaults and sensible presets over empty decisions. Do not add a control the user's task does not need.\n* Pricing and plan pages: 3 to 4 options, one marked as recommended."
+      },
+      {
+        "number": 68,
+        "title": "Targets & Placement (Fitts's Law)",
+        "content": "Important actions must be easy to hit.\n\n* Interactive targets are at least 40px (`min-h-10`) on desktop and 44px (`min-h-11`) on touch. Icon buttons need padding, not just a small icon.\n* The primary action is the largest control in its group and sits where the eye already is: end of a form, bottom of a card, right of a header.\n* Keep related actions close together and separate destructive actions from safe ones with space.\n* On mobile, put frequent actions within thumb reach (bottom bar, sticky CTA) and keep at least 8px between adjacent targets.\n* The whole card or row can be the click target when it has one main action."
+      },
+      {
+        "number": 69,
+        "title": "Familiar Patterns (Jakob's Law, Mental Models, Consistency)",
+        "content": "Use patterns users already know. Do not invent new ones for common tasks.\n\n* Logo links home. Cart, profile and search sit top right. Primary navigation is top or left. Footer holds legal and secondary links.\n* Forms: labels above inputs, required marks, submit at the bottom, inline errors under the field.\n* Use standard icons for standard meanings (search, close, menu, trash, settings). Pair uncommon icons with a label.\n* Use the same component for the same job across pages: same button variant for the same kind of action, same spacing and radius scale.\n* Use user language in labels (\"Sign in\", \"Save changes\"), not internal terms.\n* Be original in visual style, not in interaction patterns."
+      },
+      {
+        "number": 70,
+        "title": "Grouping & Visual Structure (Proximity, Similarity, Common Region, Continuity)",
+        "content": "Layout should show relationships without explaining them.\n\n* Related items sit closer to each other than to unrelated items. Spacing between groups is clearly larger than spacing inside groups.\n* Items with the same role look the same (same variant, size, color). Different roles look different.\n* Use a Card, border or background tint to group related content. Do not box everything.\n* Align content to a shared left edge or grid so the eye can follow it. Avoid arbitrary offsets.\n* Use repeated structure for repeated content (feature grids, list rows, table columns).\n* Cut decoration that does not group, separate or direct attention."
+      },
+      {
+        "number": 71,
+        "title": "Emphasis & Memory (Von Restorff, Serial Position, Peak-End)",
+        "content": "Decide what should be remembered and make only that stand out.\n\n* One element per view is visually distinct: usually the primary CTA, the recommended plan or the key metric. If everything is emphasized, nothing is.\n* Put the most important items first and last in navigation, lists, step sequences and feature rows. Put the weakest in the middle.\n* Peak moment: give the main success point real care, such as a clear result, a confirmation with the next step, or one tasteful motion.\n* End moment: finish flows well. Checkout, signup, form submit and onboarding end with a clear success state, a summary of what happened and one next action.\n* Errors and empty states are part of the experience. Write them to help, not to blame."
+      },
+      {
+        "number": 72,
+        "title": "Responsiveness & Status (Doherty Threshold, Feedback, Visibility of System Status)",
+        "content": "Every action gets an immediate, visible response.\n\n* Respond to input within about 400ms. If work takes longer, show progress.\n* Under about 1s: disable or show a spinner on the triggering control. Longer: Skeleton in the final layout's shape. Known long tasks: Progress with a label.\n* Use optimistic updates for safe, reversible actions (toggle, like, reorder) and roll back with an error toast on failure.\n* After every action show the result: toast, inline success, changed state, or navigation. Never leave the user guessing whether it worked.\n* Show where the user is (active nav item, Breadcrumb, Stepper \"Step 2 of 4\") and what is happening (Saving..., Saved, Offline).\n* Do not block the whole page for a local operation."
+      },
+      {
+        "number": 73,
+        "title": "Safety & Control (Error Prevention, User Control and Freedom)",
+        "content": "Prevent mistakes first, make recovery easy second.\n\n* Confirm destructive or irreversible actions in a Modal that names the thing being affected and uses a specific verb (\"Delete project\"), not \"OK\".\n* Prefer undo (toast with Undo) over confirmation for frequent, reversible actions.\n* Validate inline as the user goes, explain how to fix the problem, and keep the user's input after an error.\n* Use constraints that make wrong input hard: date pickers, selects, input masks, disabled invalid options with a reason.\n* Every modal, drawer, flow and multi-step form has a visible way out: close button, Cancel, Back. Esc closes overlays.\n* Autosave or warn before losing unsaved changes."
+      },
+      {
+        "number": 74,
+        "title": "Findability (Recognition over Recall, Flexibility and Efficiency)",
+        "content": "Show options. Do not make users remember them. Serve experts without hiding things from beginners.\n\n* Show available choices (Select, Tabs, Chips, suggestions, recent items) instead of asking users to type exact values.\n* Keep labels visible. Placeholders are hints, not labels.\n* Keep context visible: selected filters as removable Chips, current sort, current page.\n* Data-heavy and app pages offer accelerators: search, filters, bulk actions, keyboard shortcuts, a command palette. Show shortcut hints in tooltips and menus.\n* Accelerators are optional. The default path must work for a first-time user."
+      },
+      {
+        "number": 75,
+        "title": "Affordance & Signifiers",
+        "content": "Interactive things must look interactive. Static things must not.\n\n* Buttons look like buttons, links look like links (color plus underline or clear hover), inputs look like inputs. Do not make plain text clickable without a signifier.\n* Every interactive element has visible hover, focus-visible, active, disabled and loading states.\n* Use icons that signal behavior (chevron for expand or navigate, arrow for forward, external-link icon for new tab).\n* Do not style non-interactive elements (badges, static cards) like buttons.\n* Disabled controls look disabled and, where possible, explain why (Tooltip or helper text).\n* Text, icons and borders meet WCAG contrast. State is never shown by color alone."
+      },
+      {
+        "number": 76,
+        "title": "Applying UX Laws (priority and conflicts)",
+        "content": "These laws are a checklist for judgment, not a template.\n\n* Apply them to the user's task. Do not add elements only to tick a law.\n* Marketing and landing pages lean on choice load, targets, emphasis and end moment. App and dashboard pages lean on status, safety, findability and consistency. Forms and checkout lean on choice load, safety and the end moment.\n* When laws conflict, such as fewer choices versus power-user efficiency, resolve it with progressive disclosure: simple by default, depth on demand.\n* Accessibility is a floor, not a trade-off. Never give up contrast, keyboard access or focus visibility for visual or emphasis goals.\n* The Gestalt laws of Closure, Common Fate and Prägnanz are already served by rules 2, 57 and 62: keep structures simple, and move related elements together."
+      }
     ]
   },
   "goldenRule": {

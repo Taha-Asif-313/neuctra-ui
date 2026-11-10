@@ -68,6 +68,20 @@ function getMotionGuidance(motion, layout) {
   return { ...guide, pageKind, forThisPage: byPageKind?.[pageKind] };
 }
 
+// UX law sections (block "uxLaws"). Universal laws apply everywhere; the rest follow the page kind.
+const UX_LAWS_UNIVERSAL = [67, 68, 69, 70, 72, 75, 76];
+const UX_LAWS_MARKETING = [71];
+const UX_LAWS_APP = [73, 74];
+
+function getUxLawNumbers(layout, pageKind) {
+  const commerceOrForm = layout.category === "commerce" || layout.category === "forms";
+  return [
+    ...UX_LAWS_UNIVERSAL,
+    ...(pageKind === "marketing" || commerceOrForm ? UX_LAWS_MARKETING : []),
+    ...(pageKind === "app" || commerceOrForm ? UX_LAWS_APP : []),
+  ];
+}
+
 function detectTaskSignals(request) {
   return [
     ["create", /\b(create|build|make|new|design)\b/i],
@@ -127,7 +141,10 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
       }
 
       const components = getComponentGuidance(data.registry, request, layout);
-      const designRuleNumbers = layout.designRuleNumbers ? [...new Set([...layout.designRuleNumbers, 57, 62])] : undefined;
+      const pageKind = APP_MOTION_CATEGORIES.has(layout.category) || APP_MOTION_LAYOUTS.has(layout.id) ? "app" : "marketing";
+      const designRuleNumbers = layout.designRuleNumbers
+        ? [...new Set([...layout.designRuleNumbers, 57, 62, ...getUxLawNumbers(layout, pageKind)])]
+        : undefined;
       const design = getDesignRulesContext(data.theme, data.aiDesignRules, designRuleNumbers);
       const motion = getMotionGuidance(data.aiDesignRules.motion, layout);
       const seo = buildSeoGuideContext(data.seoGuide, {
