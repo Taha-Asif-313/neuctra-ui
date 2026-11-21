@@ -51,13 +51,14 @@ Restart or reload your AI client after changing its MCP settings. On first launc
 
 ## Recommended workflow
 
-1. Ask your assistant to analyze the current project with `neuctra-ui-setup`.
-2. Use `neuctra-ui-page-builder` to plan a page from its goal and user needs.
-3. Use the returned component specs and examples to implement the page. For additional component discovery, call `get-neuctra-ui-component`.
-4. Use `neuctra-ui-theme-setup` and `get_design_rules` for theme tokens, composition guidance, accessibility, and visual rules.
-5. For public pages, use `neuctra-ui-seo-setup` with the project’s framework so the assistant can apply the right SEO steps.
+1. Ask your assistant to analyze the current project with `neuctra-ui-setup`. Analyze now reports the detected framework, whether Neuctra UI is installed, its declared version, and likely theme files.
+2. Use `neuctra-ui-design-from-prompt`. It resolves UX rules first, then selects the layout and real components. The default `sourcePolicy: "neuctra-first"` keeps Neuctra UI as the default source while allowing narrowly scoped fallbacks for returned gaps.
+3. Use `output: "code"` when you want a starting JSX skeleton with verified imports, followed by `validate-ui-code` on the generated code. Fix reported errors before presenting the result.
+4. If you only need the page recipe, use `neuctra-ui-page-builder`. If you only need component discovery, use `get-neuctra-ui-component`.
+5. Use `neuctra-ui-theme-setup` and `get_design_rules` for theme tokens and broader design topics. Component-level composition and usage rules already come with every component search result.
+6. For public pages, use `neuctra-ui-seo-setup` with the project’s framework so the assistant can apply the right SEO steps.
 
-The assistant writes the application code. The page builder supplies a layout plan and verified component guidance; it does not generate an entire page file by itself.
+The assistant writes the final application code. `output: "code"` supplies a scaffold, not a production-complete page; the design brief, contract, and validator are guardrails for accuracy and consistency.
 
 ## Available tools
 
@@ -65,7 +66,7 @@ The assistant writes the application code. The page builder supplies a layout pl
 
 Analyze a project and guide or run Neuctra UI setup.
 
-- First call with `action: "analyze"` to detect the existing framework and project state.
+- First call with `action: "analyze"` to detect the existing framework, project state, `hasNeuctraUi`, `neuctraUiVersion`, and likely `themeFiles`.
 - Then call with `action: "setup"` and choose `setupMode: "cli"` or `"manual"`.
 - Supported setup frameworks: `nextjs`, `vite`, `remix`, and `react-router`.
 - If no framework is specified, Next.js App Router with JavaScript, Tailwind, and static export is the recommended default.
@@ -89,6 +90,85 @@ Example setup request after selecting Next.js and CLI setup:
   "setupMode": "cli"
 }
 ```
+
+### `neuctra-ui-design-from-prompt`
+
+One-call orchestration for turning a prompt into an implementable UI plan. It runs strictly in this order:
+
+1. resolves the UX/design rules relevant to the prompt
+2. uses those rules plus the prompt to select the best real-world page layout
+3. retrieves the real `@neuctra/ui` components and their usage guidance
+4. returns the page-builder design brief with variants, motion, and SEO context
+5. attaches an `implementationContract`, explicit `neuctraGaps`, and an optional code skeleton
+
+```json
+{
+  "request": "Build a responsive dashboard with a confirmation modal for deleting records",
+  "framework": "auto",
+  "detail": "full",
+  "limit": 24,
+  "guidance": "lean",
+  "sourcePolicy": "neuctra-first",
+  "output": "code",
+  "projectContext": {
+    "framework": "nextjs",
+    "neuctraUiVersion": "1.0.17"
+  }
+}
+```
+
+The response is ordered as `uxRules` → `layout` → `components` → `designUi`, followed by `implementationContract`, `neuctraGaps`, and optional `codeSkeleton`.
+
+`sourcePolicy` controls how strict the Neuctra priority is:
+
+- `neuctra-first` (default): use Neuctra for everything it covers; fill only explicit gaps with scoped fallbacks.
+- `neuctra-only`: forbid other UI libraries and raw control replacements; unsupported needs remain reported gaps.
+- `universal`: allow any UI source, but still prefer Neuctra when it has an equivalent component.
+
+`output` controls response size:
+
+- `brief` (default): full design brief and contract.
+- `code`: adds a starting JSX skeleton using the returned verified imports.
+- `minimal`: compact routing view with rule numbers, layout ID, component names, variants, and contract.
+
+Leave `pageType: "auto"` unless you need to force a specific layout. Use `detail: "full"` when you need every prop and example; the default summaries are cheaper.
+
+### `validate-ui-code`
+
+Check generated code against the Neuctra-first contract. The tool is universal: the same checks are errors in `neuctra-only`, warnings in `neuctra-first`, and informational in `universal`.
+
+```json
+{
+  "code": "import { Button } from '@neuctra/ui/button';\nexport default function Page() { return <Button>Go</Button> }",
+  "sourcePolicy": "neuctra-first",
+  "fileName": "app/page.tsx"
+}
+```
+
+It reports:
+
+- foreign UI library imports
+- raw `button`, `input`, `select`, `textarea`, `table`, and `dialog` usage
+- unknown Neuctra props
+- Neuctra components used without a matching import
+- composition problems such as `Modal` without `ModalBody`
+- hardcoded hex or Tailwind palette colors
+- missing loading/empty/error state markers
+- a 0–100 score, `passed`, and `nextAction`
+
+Always fix errors and rerun validation before presenting generated UI.
+
+### `check-neuctra-ui-registry`
+
+Read-only registry freshness report. It never syncs, writes files, or bumps versions.
+
+```json
+{
+  "upstreamVersion": "1.0.18"
+}
+```
+
+Returns the local version, component count, search version, rule counts, a short fingerprint, and whether the supplied upstream version is `current`, `needs-review`, or `unknown`. Use it before deciding manually to run `sync-registry`.
 
 ### `neuctra-ui-page-builder`
 
@@ -118,6 +198,52 @@ Find components by describing what the interface needs. Results include the comp
 ```
 
 You can also provide an exact `componentName` such as `Container`, `Input`, `Carousel`, `Card`, `Modal`, or `Drawer`. Use `category` to browse a component group (`layout`, `typography`, `form`, `actions`, `data-display`, `feedback`, `overlay`, or `navigation`).
+
+#### Deep search by layout or family
+
+For "give me every component for X" questions, use `layout` or `family` instead of a free-text `request`. These return the whole component set for an intent, not just a few ranked matches, and include the matched intent, compact summaries, family groupings, and related families.
+
+```json
+{ "layout": "forms" }
+```
+
+```json
+{ "family": "drawer", "detail": "summary" }
+```
+
+Available layout IDs: `forms`, `display`, `dialogs`, `data-tables`, `navigation`, `feedback`, `layout`, `actions`, `typography`, `dashboards`, `authentication`, `settings`. For example, `layout: "forms"` returns all form controls plus the card/toast shell and validation feedback; `layout: "dialogs"` returns modals, drawers, dropdowns, popovers, and tooltips; `layout: "display"` returns tables, lists, cards, stats, timelines, and other data views.
+
+Use `family` for a single related group, for example `family: "table"` (Table, TBody, TD, TH, THead, TRow) or `family: "toast"`. Omit both `request` and `layout`/`family` to list every available layout, category, and family.
+
+Set `detail: "full"` to get the raw specs with props and examples instead of summaries; raise `limit` (up to 80) when a layout has many members. The same search is available programmatically as `deepSearchComponents(registry, query, options)` from `@neuctra/ui-mcp/utils/component-search`.
+
+#### Usage guidance comes with the components
+
+Every component result includes a `guidance` object: `useFor` (where and why to use it), `avoid` (common mistakes), `requirements` (compulsory rules such as `CardBody`, Modal scrolling, or form placeholders), and an optional `composition` tree.
+
+The default `guidance: "lean"` mode is token-optimized and still self-contained:
+
+- per-component `rules` are `{ number, title }`
+- the full `{ number, title, content }` prose appears **once** in the top-level `designRules` array
+- `guidanceBaseline` also uses titles only because those rules are already in `designRules`
+- internal `search` metadata and raw `ruleIds` are never exposed
+
+```json
+{ "componentName": "Modal" }
+```
+
+So one call tells the assistant how to use the component correctly — no `get_design_rules` follow-up is needed.
+
+| Mode | Per-component rules | Top-level `designRules` | Use when |
+|---|---|---|---|
+| `lean` (default) | `{ number, title }` | full prose once | normal code generation; lowest cost for one-call guidance |
+| `full` | `{ number, title, content }` | full prose too | legacy clients that expect duplicated prose |
+| `compact` | `{ number, title }` | omitted | you only need selection/API plus short notes |
+| `none` | omitted | omitted | pure discovery / minimum context |
+
+Use `get_design_rules` only for broader topics such as UX laws, anti-AI patterns, or landing-page rules.
+
+In the registry, these live in `components[].search.guidance`, `search.layouts[].guidance`, `search.families[].guidance`, `search.guidanceBaseline`, `search.componentRules`, and `search.designRules`. The component-rule prose is generated from `data/component-rules.json`; `data/design-rules.json` no longer needs a `components` block. The server injects `search.componentRules` back into `aiDesignRules.blocks.components` so `get_design_rules` and the page builder still work.
 
 Example component usage:
 

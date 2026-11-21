@@ -5,7 +5,7 @@ import { getDesignRulesContext } from "../get-design-rules/index.mjs";
 import { buildSeoGuideContext } from "../neuctra-ui-seo-setup/index.mjs";
 import { selectDesignVariants } from "./variants.mjs";
 
-function getLayouts(layoutData) {
+export function getLayouts(layoutData) {
   const grouped = (layoutData?.layoutGroups ?? []).flatMap((group) =>
     (group.layouts ?? []).map((layout) => ({ ...layout, category: layout.category ?? group.id, categoryName: group.name })),
   );
@@ -13,7 +13,7 @@ function getLayouts(layoutData) {
   return [...grouped, ...legacy];
 }
 
-function resolveLayout(request, requestedType, layoutData) {
+export function resolveLayout(request, requestedType, layoutData) {
   const layouts = getLayouts(layoutData);
   if (requestedType !== "auto") {
     const explicit = layouts.find((layout) => layout.id === requestedType);
@@ -61,7 +61,7 @@ function resolveLayout(request, requestedType, layoutData) {
 const APP_MOTION_CATEGORIES = new Set(["saas-app", "forms", "tools"]);
 const APP_MOTION_LAYOUTS = new Set(["checkout", "shopping-cart", "order-confirmation", "documentation"]);
 
-function getMotionGuidance(motion, layout) {
+export function getMotionGuidance(motion, layout) {
   if (!motion) return null;
   const { byPageKind, ...guide } = motion;
   const pageKind = APP_MOTION_CATEGORIES.has(layout.category) || APP_MOTION_LAYOUTS.has(layout.id) ? "app" : "marketing";
@@ -73,7 +73,7 @@ const UX_LAWS_UNIVERSAL = [67, 68, 69, 70, 72, 75, 76];
 const UX_LAWS_MARKETING = [71];
 const UX_LAWS_APP = [73, 74];
 
-function getUxLawNumbers(layout, pageKind) {
+export function getUxLawNumbers(layout, pageKind) {
   const commerceOrForm = layout.category === "commerce" || layout.category === "forms";
   return [
     ...UX_LAWS_UNIVERSAL,
@@ -82,7 +82,7 @@ function getUxLawNumbers(layout, pageKind) {
   ];
 }
 
-function detectTaskSignals(request) {
+export function detectTaskSignals(request) {
   return [
     ["create", /\b(create|build|make|new|design)\b/i],
     ["review", /\b(review|view|inspect|monitor|track|activity|analytics)\b/i],
@@ -93,7 +93,7 @@ function detectTaskSignals(request) {
   ].filter(([, pattern]) => pattern.test(request)).map(([signal]) => signal);
 }
 
-function getComponentGuidance(registry, request, layout) {
+export function getComponentGuidance(registry, request, layout) {
   const candidates = new Map();
   const queries = [request, ...(layout.componentQueries ?? [])];
   for (const query of queries) {
@@ -103,6 +103,77 @@ function getComponentGuidance(registry, request, layout) {
     }
   }
   return [...candidates.values()];
+}
+
+export function buildPageBrief(data, { request, pageType = "auto", framework = "auto", preferences = {} } = {}) {
+  const { layout, confidence, evidence } = resolveLayout(request, pageType, data.layouts);
+  if (!layout) {
+    return { error: "No layouts are configured. Add layout recipes to data/layouts.json." };
+  }
+
+  const components = getComponentGuidance(data.registry, request, layout);
+  const pageKind = APP_MOTION_CATEGORIES.has(layout.category) || APP_MOTION_LAYOUTS.has(layout.id) ? "app" : "marketing";
+  const designRuleNumbers = layout.designRuleNumbers
+    ? [...new Set([...layout.designRuleNumbers, 57, 62, ...getUxLawNumbers(layout, pageKind)])]
+    : undefined;
+  const design = getDesignRulesContext(data.theme, data.aiDesignRules, designRuleNumbers);
+  const motion = getMotionGuidance(data.aiDesignRules.motion, layout);
+  const seo = buildSeoGuideContext(data.seoGuide, {
+    framework,
+    ruleIds: layout.seoRuleIds,
+  });
+  const signals = detectTaskSignals(request);
+  const designVariants = selectDesignVariants(data.variants, { request, layoutId: layout.id, preferences });
+  const preferencesToClarify = [];
+  if (!preferences.visualDirection) preferencesToClarify.push("visual direction");
+  if (!preferences.density) preferencesToClarify.push("content density");
+  if (!preferences.primaryAction && layout.id !== "blog-page" && layout.id !== "documentation") preferencesToClarify.push("primary action");
+
+  return {
+    pageAnalysis: {
+      request,
+      inferredPageType: layout.id,
+      layoutName: layout.name,
+      layoutCategory: layout.categoryName ?? layout.category ?? "general",
+      confidence,
+      evidence,
+      detectedTaskSignals: signals,
+      userGoal: signals.length
+        ? `Support the requested ${signals.join(", ")} task with a clear primary path.`
+        : "Use the requested page outcome to define the primary path without adding unrelated features.",
+    },
+    layout: {
+      id: layout.id,
+      purpose: layout.purpose,
+      outline: layout.outline,
+      responsiveNotes: layout.responsiveNotes,
+      userPreferences: preferences,
+      preferencesToClarify,
+    },
+    components: {
+      source: "@neuctra/ui component registry",
+      matches: components,
+      instruction: "Use these exact exports and documented props. If a required component is absent from the matches, call get-neuctra-ui-component for that need before inventing a pattern.",
+    },
+    ...(designVariants && { designVariants }),
+    designRules: design,
+    ...(motion && { motion }),
+    seoGuidance: seo ? {
+      framework: seo.framework,
+      relevantRules: seo.seoRules,
+      implementationSteps: seo.implementationSteps,
+      layoutSpecificNotes: layout.seoNotes,
+    } : null,
+    implementationInstructions: [
+      "Use the selected layout as a starting structure and adapt its sections to the exact request.",
+      "Keep the primary task visually clear; do not add sections that do not serve the request.",
+      ...(designVariants ? ["Build the navigation shell, page header, stat cards and dashboard grid from designVariants.selections. Use the recommended variant unless an alternative clearly fits the brief better; if the project already has an app shell, keep that instead."] : []),
+      "Use Neuctra UI components with the exact props and semantic theme tokens from the supplied context.",
+      ...(motion ? [`Add medium-level motion with Framer Motion using the motion presets: ${motion.forThisPage} Respect reduced motion and keep brand effects (gradients, glows, blur, animated backgrounds) to theme tokens only.`] : []),
+      "Apply the SEO steps only when the page is public and indexable; protect private application pages.",
+      "When framework is auto, inspect the project files and choose metadata and rendering APIs for the installed framework and router.",
+    ],
+  };
 }
 
 export function registerNeuctraUiPageBuilderTool(server, data) {
@@ -135,74 +206,10 @@ export function registerNeuctraUiPageBuilderTool(server, data) {
       },
     },
     async ({ request, pageType, framework, preferences }) => {
-      const { layout, confidence, evidence } = resolveLayout(request, pageType, data.layouts);
-      if (!layout) {
-        return { isError: true, content: [{ type: "text", text: "No layouts are configured. Add layout recipes to data/layouts.json." }] };
+      const brief = buildPageBrief(data, { request, pageType, framework, preferences });
+      if (brief.error) {
+        return { isError: true, content: [{ type: "text", text: brief.error }] };
       }
-
-      const components = getComponentGuidance(data.registry, request, layout);
-      const pageKind = APP_MOTION_CATEGORIES.has(layout.category) || APP_MOTION_LAYOUTS.has(layout.id) ? "app" : "marketing";
-      const designRuleNumbers = layout.designRuleNumbers
-        ? [...new Set([...layout.designRuleNumbers, 57, 62, ...getUxLawNumbers(layout, pageKind)])]
-        : undefined;
-      const design = getDesignRulesContext(data.theme, data.aiDesignRules, designRuleNumbers);
-      const motion = getMotionGuidance(data.aiDesignRules.motion, layout);
-      const seo = buildSeoGuideContext(data.seoGuide, {
-        framework,
-        ruleIds: layout.seoRuleIds,
-      });
-      const signals = detectTaskSignals(request);
-      const designVariants = selectDesignVariants(data.variants, { request, layoutId: layout.id, preferences });
-      const preferencesToClarify = [];
-      if (!preferences.visualDirection) preferencesToClarify.push("visual direction");
-      if (!preferences.density) preferencesToClarify.push("content density");
-      if (!preferences.primaryAction && layout.id !== "blog-page" && layout.id !== "documentation") preferencesToClarify.push("primary action");
-
-      const brief = {
-        pageAnalysis: {
-          request,
-          inferredPageType: layout.id,
-          layoutName: layout.name,
-          layoutCategory: layout.categoryName ?? layout.category ?? "general",
-          confidence,
-          evidence,
-          detectedTaskSignals: signals,
-          userGoal: signals.length
-            ? `Support the requested ${signals.join(", ")} task with a clear primary path.`
-            : "Use the requested page outcome to define the primary path without adding unrelated features.",
-        },
-        layout: {
-          purpose: layout.purpose,
-          outline: layout.outline,
-          responsiveNotes: layout.responsiveNotes,
-          userPreferences: preferences,
-          preferencesToClarify,
-        },
-        components: {
-          source: "@neuctra/ui component registry",
-          matches: components,
-          instruction: "Use these exact exports and documented props. If a required component is absent from the matches, call get-neuctra-ui-component for that need before inventing a pattern.",
-        },
-        ...(designVariants && { designVariants }),
-        designRules: design,
-        ...(motion && { motion }),
-        seoGuidance: seo ? {
-          framework: seo.framework,
-          relevantRules: seo.seoRules,
-          implementationSteps: seo.implementationSteps,
-          layoutSpecificNotes: layout.seoNotes,
-        } : null,
-        implementationInstructions: [
-          "Use the selected layout as a starting structure and adapt its sections to the exact request.",
-          "Keep the primary task visually clear; do not add sections that do not serve the request.",
-          ...(designVariants ? ["Build the navigation shell, page header, stat cards and dashboard grid from designVariants.selections. Use the recommended variant unless an alternative clearly fits the brief better; if the project already has an app shell, keep that instead."] : []),
-          "Use Neuctra UI components with the exact props and semantic theme tokens from the supplied context.",
-          ...(motion ? [`Add medium-level motion with Framer Motion using the motion presets: ${motion.forThisPage} Respect reduced motion and keep brand effects (gradients, glows, blur, animated backgrounds) to theme tokens only.`] : []),
-          "Apply the SEO steps only when the page is public and indexable; protect private application pages.",
-          "When framework is auto, inspect the project files and choose metadata and rendering APIs for the installed framework and router.",
-        ],
-      };
-
       return { content: [{ type: "text", text: JSON.stringify(brief, null, 2) }] };
     },
   );

@@ -25,6 +25,11 @@ async function analyze(projectPath) {
   try { pkg = JSON.parse(await fs.readFile(path.join(projectPath, "package.json"), "utf8")); } catch {}
   const deps = { ...pkg.dependencies, ...pkg.devDependencies };
   const scripts = Object.values(pkg.scripts ?? {}).join(" ");
+  const neuctraDep = deps["@neuctra/ui"] ?? deps["@neuctra/ui-mcp"] ?? null;
+  const neuctraUiVersion = typeof neuctraDep === "string" ? neuctraDep.replace(/^[\^~]/, "") : null;
+  const themeFiles = files
+    .filter((file) => /(^|\/)(globals\.css|theme\.css|tokens\.css|app\.css|tailwind\.config\.[cm]?[jt]s)/i.test(file))
+    .slice(0, 12);
   let framework = null;
   if (deps.next || files.some((f) => /(^|\/)next\.config\./.test(f))) framework = "nextjs";
   else if (deps["@remix-run/react"] || deps["@remix-run/dev"]) framework = "remix";
@@ -35,6 +40,9 @@ async function analyze(projectPath) {
     projectPath,
     framework,
     packageName: pkg.name ?? null,
+    hasNeuctraUi: Boolean(neuctraUiVersion),
+    neuctraUiVersion,
+    themeFiles,
     hasPackageJson: Boolean(pkg.name || Object.keys(pkg).length),
     filesFound: files.length,
     rootItems: rootItems.filter((name) => name !== "node_modules" && name !== ".git").slice(0, 40),

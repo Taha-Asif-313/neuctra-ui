@@ -50,7 +50,7 @@ export function registerGetDesignRulesTool(server, { theme, aiDesignRules }) {
     {
       title: "Get Neuctra UI design rules",
       description:
-        "Return structured Neuctra UI design guidance in focused blocks: core, layout, components, accessibilityInteraction, modernDesign, uxLaws (applied UX laws such as Hick, Fitts, Jakob, Doherty, Peak-End), and antiAiDesignRules. By default returns core guidance and anti-AI rules; request additional blocks when needed. The page builder supplies only the sections relevant to its selected layout.",
+        "Return structured Neuctra UI design guidance in focused blocks: core, layout, components, accessibilityInteraction, modernDesign, uxLaws (applied UX laws such as Hick, Fitts, Jakob, Doherty, Peak-End), and antiAiDesignRules. By default returns core guidance and anti-AI rules; request additional blocks when needed. The page builder supplies only the sections relevant to its selected layout. Component usage and composition rules are already returned by get-neuctra-ui-component, so use this tool for broader design topics rather than to learn how to use a specific component.",
       inputSchema: {
         blocks: z.array(z.enum(BLOCK_NAMES)).optional().describe("Named design rule blocks to return. Defaults to core and antiAiDesignRules."),
       },
