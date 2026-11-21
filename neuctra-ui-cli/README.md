@@ -2,168 +2,143 @@
 
 [![npm version](https://img.shields.io/npm/v/@neuctra/ui-cli.svg?style=flat-square)](https://www.npmjs.com/package/@neuctra/ui-cli)
 [![npm downloads](https://img.shields.io/npm/dm/@neuctra/ui-cli.svg?style=flat-square)](https://www.npmjs.com/package/@neuctra/ui-cli)
-[![License](https://img.shields.io/github/license/neuctra/ui.svg?style=flat-square)](https://github.com/neuctra/ui/blob/main/LICENSE)
 
-The Neuctra UI CLI prepares a React project to use [Neuctra UI](https://neuctra.dev). It installs the component library, adds the theme styles and context, and connects the theme providers to your app.
+Set up [Neuctra UI](https://ui.neuctra.com) in an existing React project with one command. The CLI installs the library, configures Tailwind CSS v4 for your bundler, merges the theme tokens into your global stylesheet without removing your own CSS, and wraps your app in `ThemeProvider` and `ToastProvider` with no theme flash on load.
+
+```bash
+npx @neuctra/ui-cli@latest init
+```
 
 ## Requirements
 
-- An existing React project with a `package.json`.
-- Node.js and npm installed.
-- A global CSS file for Tailwind styles. The CLI looks for common files such as `src/index.css`, `src/app.css`, `src/app/globals.css`, and `app/globals.css`.
+- Node.js 18.18 or newer.
+- An existing React project with a `package.json`. Supported: **Next.js App Router**, **Vite + React**, **React Router** (framework mode) and **Remix**.
+- npm, pnpm, yarn or bun. The CLI detects the package manager from your lockfile.
 
-The CLI supports Vite React, Next.js App Router, Remix, and React Router projects. It can generate JavaScript or TypeScript setup files.
-
-## Set up Neuctra UI
-
-Run the CLI from your project directory:
+No project yet? Create one first:
 
 ```bash
-npx @neuctra/ui-cli init
+npx create-next-app@latest my-app        # Next.js
+npm create vite@latest my-app -- --template react-ts   # Vite
 ```
 
-The setup prompts let you choose:
+## What `init` does
 
-1. **Framework:** Vite React, Next.js App Router, Remix, or React Router. The CLI detects a likely framework and selects it as the default.
-2. **Language:** JavaScript or TypeScript. The CLI detects TypeScript from project files and uses it as the default when found.
-3. **Primary color:** Choose Neuctra Green, Blue, Violet, Rose, Amber, Teal, or Custom. The custom option accepts a 3- or 6-digit hex color, such as `#2563eb`.
+1. **Detects** your framework, language (TypeScript or JavaScript) and package manager, then asks for the framework, language and a primary brand color (or uses the defaults with `--yes`).
+2. **Installs** `@neuctra/ui` and `lucide-react`, and makes sure React is 18 or newer.
+3. **Sets up Tailwind CSS v4** for your bundler:
+   - Vite, React Router and Remix: adds the `@tailwindcss/vite` plugin to `vite.config`.
+   - Next.js: keeps the `@tailwindcss/turbopack` rule of Next.js 16 templates, or writes a v4 `postcss.config.mjs` (the old file is backed up).
+   - Warns when a Tailwind v3 `tailwind.config.*` file is still present.
+4. **Finds your global stylesheet**: the CSS file your app root already imports, or a conventional file. If there is none, it creates one and imports it.
+5. **Merges the theme** into that stylesheet. Your own rules stay where they are:
+   - `@import "tailwindcss";` and an `@source` line pointing at `node_modules/@neuctra/ui`, so Tailwind generates the library's classes;
+   - `@custom-variant dark (&:where(.dark, .dark *));` so dark mode follows the `.dark` class;
+   - a managed block between `/* NEUCTRA_THEME_START */` and `/* NEUCTRA_THEME_END */` with light and dark tokens, the `@theme` mapping (`bg-primary`, `text-foreground`, ...) and base body colors.
 
-Use the up and down arrow keys to move through each selector, then press Enter to choose an option.
+   Tailwind v3 `@tailwind` directives are replaced. The original file is saved once as `<file>.neuctra-backup`.
+6. **Wraps your app** in `ThemeProvider` and `ToastProvider` from `@neuctra/ui`:
 
-After you choose the options, the CLI installs `@neuctra/ui`, checks the React and Tailwind dependencies, writes the theme styles to the CSS file it found, creates the theme context, and connects the providers to the framework root where it can identify the expected file structure.
+   | Framework | Where |
+   |---|---|
+   | Next.js App Router | creates `app/providers.tsx` and wraps `{children}` in `app/layout.tsx` |
+   | Vite | wraps `<App />` in `src/main.tsx` (inside `StrictMode`) |
+   | React Router / Remix | wraps `<Outlet />` in `app/root.tsx` |
 
-> **CSS file changes:** Setup replaces the selected CSS file with Neuctra UI's Tailwind v4 theme stylesheet. Save a copy of any existing custom CSS before running the command; you can add your styles back afterward.
+7. **Prevents a theme flash**: adds a tiny inline script to `<head>` (the same as `getThemeScript()` from `@neuctra/ui`) that applies the saved or system theme before the first paint, and adds `suppressHydrationWarning` to `<html>`.
 
-## What setup creates
+At the end it prints every file it changed and anything it could not do automatically.
 
-The generated context and provider files use `.jsx`/`.tsx` based on your language choice. The context is placed in the app source directory:
+### Re-running
 
-| Framework | Theme context location | Provider integration |
-| --- | --- | --- |
-| Vite React | `src/contexts/ThemeContext` | Wraps the detected `main` or `index` entry |
-| Next.js App Router | `app/contexts/ThemeContext` or `src/app/contexts/ThemeContext` | Creates a client `Providers` component and connects it to the root layout |
-| Remix | `app/contexts/ThemeContext` | Wraps the root route outlet with the providers |
-| React Router | `app/contexts/ThemeContext` or `src/app/contexts/ThemeContext` | Wraps the root route outlet with the providers |
+Running `init` again is safe. It only replaces the managed theme block (for example to change the primary color), never duplicates imports or providers, and keeps the first backup.
 
-The CLI may not automatically connect providers if your project uses a custom root structure. In that case, it reports the file it could not update. You can connect the providers manually as shown below.
+### Projects set up with an older CLI
 
-## Noninteractive setup
+Older versions generated `contexts/ThemeContext.(jsx|tsx)`. If that file is unchanged, `init` turns it into a small wrapper around the library's `ThemeProvider` (keeping the saved theme), so existing imports such as `import { useTheme } from "./contexts/ThemeContext"` keep working. Customised context files are left alone and reported.
 
-Pass options to skip the interactive selectors. This is useful in scripts and CI environments:
+## Options
 
 ```bash
-npx @neuctra/ui-cli init --framework=next --language=ts --primary-color=#2563eb --yes
+npx @neuctra/ui-cli@latest init [options]
 ```
 
-Available values:
+| Option | Description |
+|---|---|
+| `-y`, `--yes` | Use the detected values and defaults; no prompts (also used automatically in CI or without a TTY) |
+| `--framework <id>` | `next`, `vite`, `react-router` or `remix` |
+| `--language <id>` | `ts` or `js` |
+| `--primary-color <hex>` | Brand color, e.g. `#2563eb` (default `#00c214`). The text color on top of it is chosen automatically for contrast |
+| `--css <path>` | Use this stylesheet instead of auto-detecting one |
+| `--skip-install` | Do not install packages; print what to install instead |
 
-- `--framework=vite`, `--framework=next`, `--framework=remix`, or `--framework=react-router`
-- `--language=js` or `--language=ts`
-- `--primary-color=#RRGGBB` or a 3-digit hex value such as `#abc`
-- `--yes` to skip prompts and use detected defaults for any omitted options
+Example for scripts and AI agents:
 
-If no framework is detected and `--framework` is omitted, noninteractive setup defaults to Next.js App Router. The default language is JavaScript unless TypeScript files are detected. The default primary color is Neuctra Green (`#00c214`).
+```bash
+npx @neuctra/ui-cli@latest init --yes --framework next --language ts --primary-color=#0f766e
+```
 
-## Use Neuctra UI components
+Set `NEUCTRA_CLI_VERBOSE=1` to see the package manager's output.
 
-Import components from `@neuctra/ui` and use them in your React components:
+## After setup
 
-```jsx
-import { Button, Container, Input } from "@neuctra/ui";
+```tsx
+import { Button, Card, CardBody, ThemeToggleButton } from "@neuctra/ui";
 
-export function Example() {
+export default function Page() {
   return (
-    <Container size="md" className="space-y-4 p-6">
-      <Input placeholder="Your email" />
-      <Button>Continue</Button>
-    </Container>
+    <main className="mx-auto max-w-xl space-y-6 p-8">
+      <ThemeToggleButton />
+      <Card variant="outline">
+        <CardBody>
+          <Button>Get started</Button>
+        </CardBody>
+      </Card>
+    </main>
   );
 }
 ```
 
-Use the component documentation for available components, properties, and examples: [Neuctra UI documentation](https://neuctra.dev).
+`<ThemeToggleButton />` reads the `ThemeProvider` directly, so it needs no props. To read or change the theme yourself:
 
-## Use the theme context
+```tsx
+import { useTheme } from "@neuctra/ui";
 
-The generated `useTheme` hook provides `isDark`, `toggleTheme`, and `setTheme`. Import it from the generated context file. The path depends on the framework; for example, in a Vite project:
-
-```jsx
-import { useTheme } from "./contexts/ThemeContext";
-
-export function ThemeControl() {
-  const { isDark, toggleTheme, setTheme } = useTheme();
-
-  return (
-    <div>
-      <p>Current theme: {isDark ? "Dark" : "Light"}</p>
-      <button onClick={toggleTheme}>Toggle theme</button>
-      <button onClick={() => setTheme("light")}>Use light theme</button>
-    </div>
-  );
+function ThemeMenu() {
+  const { mode, resolvedMode, setMode, isDark, toggleTheme } = useTheme();
+  // mode: "light" | "dark" | "system"; resolvedMode: "light" | "dark"
+  return <button onClick={() => setMode("system")}>Use system theme ({resolvedMode})</button>;
 }
 ```
 
-The theme context reads a saved preference from local storage, otherwise it uses the system color preference. The generated CSS defines the light and dark color tokens and maps them to Tailwind v4 theme utilities such as `bg-background`, `text-foreground`, and `bg-primary`.
-
-## Connect providers manually
-
-If the CLI could not update your app root, import the generated `ThemeProvider` and Neuctra UI's `ToastProvider`, then wrap your app or route outlet. Adjust the context import path for your file location and framework:
-
-```jsx
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { ToastProvider } from "@neuctra/ui";
-
-export function AppProviders({ children }) {
-  return (
-    <ToastProvider>
-      <ThemeProvider>{children}</ThemeProvider>
-    </ToastProvider>
-  );
-}
-```
-
-For Vite, render your app inside `<AppProviders>`. For Next.js App Router, keep this provider component in a client component and place it inside the root layout's `<body>`. For Remix and React Router, wrap the root route's `<Outlet />`.
-
-## CLI commands
-
-```bash
-npx @neuctra/ui-cli init     # Configure the current project
-npx @neuctra/ui-cli --help   # Show command help
-npx @neuctra/ui-cli --version
-```
-
-You can also install the CLI globally and use `neuctra-ui init`:
-
-```bash
-npm install --global @neuctra/ui-cli
-neuctra-ui init
-```
+Change colors any time by editing the values inside the managed block in your CSS, or run `init` again with a new `--primary-color`.
 
 ## Troubleshooting
 
-### The CLI cannot find a CSS file
+**Components have no styles.** Check that your app root imports the global CSS file, and that the `@source` path in it points from the CSS file's folder to `node_modules/@neuctra/ui`. Run `init` again to fix both.
 
-Create or rename your global stylesheet to a supported location, such as `src/index.css` for Vite or `app/globals.css` for Next.js, then run the setup again.
+**The page flashes light before turning dark.** The inline theme script is missing from `<head>`. Run `init` again, or add `getThemeScript()` from `@neuctra/ui` yourself.
 
-### Providers were not connected automatically
+**React warns about a hydration mismatch on `<html>`.** Add `suppressHydrationWarning` to the `<html>` element (the theme script changes its class before React hydrates).
 
-The project may use a custom entry or root route. Check the CLI output for the detected files, then wrap the app root with `ThemeProvider` from the generated `ThemeContext` and `ToastProvider` from `@neuctra/ui`. Make sure the provider imports use paths relative to the file where they appear.
+**Providers were not added.** Your entry or root file has an unusual structure. The CLI tells you which file; wrap your app root in `<ThemeProvider><ToastProvider>…</ToastProvider></ThemeProvider>` from `@neuctra/ui`.
 
-### The selected theme color does not appear
+**Something went wrong.** Every file the CLI changed has a `.neuctra-backup` copy next to it.
 
-Confirm the application imports the configured global CSS file. The selected primary color is written to the `--primary` and `--ring` CSS variables in both the light and dark theme blocks.
+## Commands
 
-### Tailwind utilities from Neuctra UI do not appear
-
-Confirm Tailwind CSS v4 is installed and configured for your framework, and that the global stylesheet is imported by the application. See the [Neuctra UI setup documentation](https://neuctra.dev) for framework-specific Tailwind configuration.
+| Command | Description |
+|---|---|
+| `init` | Set up Neuctra UI in the current project |
+| `-h`, `--help` | Show help |
+| `-v`, `--version` | Show the version |
 
 ## Links
 
-- [Neuctra UI documentation](https://neuctra.dev)
-- [Neuctra UI on npm](https://www.npmjs.com/package/@neuctra/ui)
-- [CLI on npm](https://www.npmjs.com/package/@neuctra/ui-cli)
-- [GitHub repository and issue tracker](https://github.com/neuctra/ui)
+- Documentation: https://ui.neuctra.com/docs
+- Full setup guide: https://ui.neuctra.com/docs/full-setup
+- npm: https://www.npmjs.com/package/@neuctra/ui-cli
 
 ## License
 
-MIT. See the [LICENSE](LICENSE) file.
+MIT

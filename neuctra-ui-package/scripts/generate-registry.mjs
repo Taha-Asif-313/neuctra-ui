@@ -137,9 +137,14 @@ const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
 // doesn't follow the `<Component>Props` / `<Component>GroupProps` convention
 // (e.g. DrawerTriggerButton's props interface is named DrawerTriggerProps).
 // Hand-curated once; add a line here rather than renaming a published export.
+// Runtime exports that are not components (helper functions, constants).
+// They are documented in the theme setup guidance instead of the registry.
+const NON_COMPONENT_EXPORTS = new Set(["getThemeScript", "DEFAULT_THEME_STORAGE_KEY"]);
+
 const INTERFACE_ALIAS = {
   DrawerTriggerButton: "DrawerTriggerProps",
   ThemeToggleButton: "ThemeToggleProps",
+  ThemeScript: "ThemeScriptOptions",
   // Table/Card sub-components that intentionally share one prop shape
   // across siblings rather than each having its own `<Name>Props`.
   CardBody: "CardSectionProps",
@@ -477,6 +482,7 @@ function main() {
     const sourceFile = project.addSourceFileAtPath(filePath);
 
     for (const name of compNames) {
+      if (NON_COMPONENT_EXPORTS.has(name)) continue;
       const defaults = findDefaults(sourceFile, name);
 
       let ifaceName = INTERFACE_ALIAS[name] && types.includes(INTERFACE_ALIAS[name])

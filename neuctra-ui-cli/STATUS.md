@@ -70,7 +70,7 @@ npm publish             # Done!
 | PUBLISH.md | Quick publish reference | 89 lines |
 | bin/index.js | CLI entry point | existing |
 | lib/*.js | Core functionality | existing |
-| templates/ | ThemeContext template | existing |
+| lib/framework-setup.js | Provider wiring, no-flash script, legacy ThemeContext migration | updated |
 
 ---
 

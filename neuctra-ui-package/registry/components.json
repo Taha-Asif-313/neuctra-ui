@@ -2,8 +2,8 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
   "version": "1.1.1",
-  "generatedAt": "2026-11-21T11:58:01.490Z",
-  "componentCount": 132,
+  "generatedAt": "2026-11-21T13:28:32.782Z",
+  "componentCount": 134,
   "components": [
     {
       "name": "Accordion",
@@ -12957,6 +12957,39 @@
       "example": "// app/providers.jsx\n\"use client\";\nimport { ThemeProvider } from \"@neuctra/ui\";\n\nexport default function Providers({ children }) {\n  return (\n    <ThemeProvider defaultMode=\"system\" disableTransitionOnChange>\n      {children}\n    </ThemeProvider>\n  );\n}"
     },
     {
+      "name": "ThemeScript",
+      "importFrom": "@neuctra/ui",
+      "module": "ThemeProvider",
+      "category": "layout",
+      "propsInterface": "ThemeScriptOptions",
+      "description": "Light, dark and system theming for your whole app. Persists the choice, follows OS changes, syncs across tabs, and exposes a useTheme hook for toggles and settings screens.",
+      "props": [
+        {
+          "name": "storageKey",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Storage key to read; must match the `ThemeProvider` `storageKey`."
+        },
+        {
+          "name": "defaultMode",
+          "type": "ThemeMode",
+          "required": false,
+          "default": null,
+          "description": "Mode used when nothing is stored yet; must match the `ThemeProvider` `defaultMode`."
+        },
+        {
+          "name": "attribute",
+          "type": "\"class\" | \"data-theme\" | \"both\"",
+          "required": false,
+          "default": null,
+          "description": "How the dark theme is marked; must match the `ThemeProvider` `attribute`."
+        }
+      ],
+      "extends": [],
+      "example": ""
+    },
+    {
       "name": "ThemeToggleButton",
       "importFrom": "@neuctra/ui",
       "module": "ThemeToggleButton",
@@ -12967,9 +13000,9 @@
         {
           "name": "context",
           "type": "ThemeToggleContext",
-          "required": true,
+          "required": false,
           "default": null,
-          "description": "The current theme state and the toggle callback, typically from a `useTheme()` hook."
+          "description": "Theme state and toggle callback. Optional: when omitted, the button reads\nthe nearest `<ThemeProvider>` from `@neuctra/ui`."
         },
         {
           "name": "className",
@@ -12991,6 +13024,13 @@
           "required": false,
           "default": null,
           "description": "The moon icon (shown in light mode)."
+        },
+        {
+          "name": "\"aria-label\"",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Accessible label override; defaults to \"Switch to light/dark mode\"."
         }
       ],
       "extends": [],
@@ -13943,6 +13983,17 @@
         "TableSectionProps"
       ],
       "example": "import { Table, THead, TBody, TRow, TH, TD } from '@neuctra/ui';\n\nfunction BasicExample() {\n  return (\n    <Table striped bordered>\n      <THead>\n        <TRow>\n          <TH>Name</TH>\n          <TH>Email</TH>\n        </TRow>\n      </THead>\n      <TBody>\n        <TRow>\n          <TD>John Doe</TD>\n          <TD>john@example.com</TD>\n        </TRow>\n        <TRow>\n          <TD>Jane Smith</TD>\n          <TD>jane@example.com</TD>\n        </TRow>\n      </TBody>\n    </Table>\n  );\n}"
+    },
+    {
+      "name": "useOptionalTheme",
+      "importFrom": "@neuctra/ui",
+      "module": "ThemeProvider",
+      "category": "layout",
+      "propsInterface": null,
+      "description": "Light, dark and system theming for your whole app. Persists the choice, follows OS changes, syncs across tabs, and exposes a useTheme hook for toggles and settings screens.",
+      "props": [],
+      "extends": [],
+      "example": ""
     },
     {
       "name": "useTheme",

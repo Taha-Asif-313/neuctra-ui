@@ -15,7 +15,7 @@ npm whoami  # Verify success
 npm pack --dry-run
 ```
 
-Check output includes all files (bin/, lib/, templates/, README.md).
+Check output includes all files (bin/, commands/, lib/, README.md).
 
 ### Step 3: Update Version
 ```bash

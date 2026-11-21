@@ -33,6 +33,12 @@ export interface ThemeContextValue {
   setMode: (mode: ThemeMode) => void;
   /** Switches between light and dark based on the currently resolved theme. */
   toggle: () => void;
+  /** `true` when the resolved theme is dark. Same shape `ThemeToggleButton` expects. */
+  isDark: boolean;
+  /** Alias of `toggle`, so `<ThemeToggleButton context={useTheme()} />` works directly. */
+  toggleTheme: () => void;
+  /** Alias of `setMode`, kept for apps migrated from the older generated ThemeContext. */
+  setTheme: (mode: ThemeMode) => void;
 }
 
 export interface ThemeProviderProps {
@@ -61,7 +67,9 @@ export interface ThemeProviderProps {
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
-const DEFAULT_STORAGE_KEY = "neuctra-theme";
+/** Storage key used by `ThemeProvider` and `getThemeScript` unless you pass another. */
+export const DEFAULT_THEME_STORAGE_KEY = "neuctra-theme";
+const DEFAULT_STORAGE_KEY = DEFAULT_THEME_STORAGE_KEY;
 
 function getStorage(storage: ThemeStorage | undefined): ThemeStorage | undefined {
   if (storage) return storage;
@@ -71,6 +79,47 @@ function getStorage(storage: ThemeStorage | undefined): ThemeStorage | undefined
     // Storage can be disabled entirely (private mode, sandboxed iframes).
     return undefined;
   }
+}
+
+/** Like `useTheme()`, but returns `null` instead of throwing when there is no provider. */
+export function useOptionalTheme(): ThemeContextValue | null {
+  return useContext(ThemeContext);
+}
+
+export interface ThemeScriptOptions {
+  /** Storage key to read; must match the `ThemeProvider` `storageKey`. */
+  storageKey?: string;
+  /** Mode used when nothing is stored yet; must match the `ThemeProvider` `defaultMode`. */
+  defaultMode?: ThemeMode;
+  /** How the dark theme is marked; must match the `ThemeProvider` `attribute`. */
+  attribute?: "class" | "data-theme" | "both";
+}
+
+/**
+ * Returns a tiny inline script that applies the saved (or system) theme to
+ * `<html>` before the first paint, so returning dark-mode visitors never see a
+ * light flash. Put it in `<head>`: in Next.js write it in the root layout with
+ * `dangerouslySetInnerHTML`, in Vite paste it into `index.html`.
+ */
+export function getThemeScript({
+  storageKey = DEFAULT_STORAGE_KEY,
+  defaultMode = "system",
+  attribute = "class",
+}: ThemeScriptOptions = {}): string {
+  const useClass = attribute === "class" || attribute === "both";
+  const useData = attribute === "data-theme" || attribute === "both";
+  return `(function(){try{var m=null;try{m=localStorage.getItem(${JSON.stringify(storageKey)})}catch(e){}if(m!=="light"&&m!=="dark"&&m!=="system")m=${JSON.stringify(defaultMode)};var d=m==="dark"||(m==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);var r=document.documentElement;${useClass ? 'r.classList.toggle("dark",d);' : ""}${useData ? 'r.setAttribute("data-theme",d?"dark":"light");' : ""}r.style.colorScheme=d?"dark":"light"}catch(e){}})();`;
+}
+
+/** Renders `getThemeScript()` as a `<script>` element for client-rendered apps. */
+export function ThemeScript({ nonce, ...options }: ThemeScriptOptions & { nonce?: string }) {
+  return (
+    <script
+      nonce={nonce}
+      // The script must run before React hydrates, so it is inlined as-is.
+      dangerouslySetInnerHTML={{ __html: getThemeScript(options) }}
+    />
+  );
 }
 
 /** Reads the current theme and control helpers from the nearest provider. */
@@ -204,7 +253,15 @@ export const ThemeProvider = forwardRef<HTMLDivElement, ThemeProviderProps>(
     }, [resolvedMode, setMode]);
 
     const value = useMemo<ThemeContextValue>(
-      () => ({ mode, resolvedMode, setMode, toggle }),
+      () => ({
+        mode,
+        resolvedMode,
+        setMode,
+        toggle,
+        isDark: resolvedMode === "dark",
+        toggleTheme: toggle,
+        setTheme: setMode,
+      }),
       [mode, resolvedMode, setMode, toggle],
     );
 

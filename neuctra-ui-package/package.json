@@ -56,7 +56,6 @@
     "prepublishOnly": "npm run clean && npm run typecheck && npm run registry:generate && npm run build"
   },
   "dependencies": {
-    "@neuctra/ui": "^1.0.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.536.0",
     "tailwind-merge": "^2.5.4"

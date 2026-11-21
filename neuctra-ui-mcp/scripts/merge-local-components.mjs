@@ -57,7 +57,16 @@ for (const [index, component] of local.components.entries()) {
   refreshedNames.push(component.name);
 }
 
-if (!additions.length && !refreshedNames.length) {
+// Drop entries the package no longer exports (renamed or removed), so the MCP
+// never recommends an import that would fail.
+const removedNames = local.components
+  .filter((component) => !generatedByName.has(component.name))
+  .map((component) => component.name);
+if (removedNames.length) {
+  local.components = local.components.filter((component) => generatedByName.has(component.name));
+}
+
+if (!additions.length && !refreshedNames.length && !removedNames.length) {
   console.log("No new or changed components to merge; local registry is already up to date.");
 }
 
@@ -97,6 +106,7 @@ const mergedComponents = [...local.components, ...additions].sort((a, b) =>
 const previousExtensions = local.localExtensions ?? {};
 const previousNames = new Set(previousExtensions.addedNames ?? []);
 for (const component of additions) previousNames.add(component.name);
+for (const name of [...previousNames]) if (!generatedByName.has(name)) previousNames.delete(name);
 const addedModules = new Set(
   mergedComponents
     .filter((component) => previousNames.has(component.name))
@@ -126,6 +136,7 @@ console.log(
     {
       merged: additions.length,
       refreshed: refreshedNames.length,
+      removed: removedNames,
       refreshedNames,
       totalComponents: enriched.components.length,
       version: enriched.version,

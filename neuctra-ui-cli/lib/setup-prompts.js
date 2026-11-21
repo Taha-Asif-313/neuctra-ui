@@ -78,11 +78,26 @@ const selectOption = ({ title, options, defaultIndex = 0, input, output, formatO
   input.on("keypress", onKeypress);
 });
 
-export const promptSetup = async ({ detectedFramework, detectedLanguage = "js", argv = process.argv.slice(3), input = process.stdin, output = process.stdout } = {}) => {
-  const args = Object.fromEntries(argv.filter((arg) => arg.startsWith("--")).map((arg) => {
-    const [key, ...value] = arg.slice(2).split("=");
-    return [key, value.join("=") || true];
-  }));
+/**
+ * Parses "--key=value", "--key value" and boolean "--flag" arguments.
+ * Supported: --yes, --framework, --language, --primary-color, --css, --skip-install.
+ */
+export const parseArgs = (argv = []) => {
+  const args = {};
+  const booleans = new Set(["yes", "y", "skip-install", "help"]);
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (!arg.startsWith("-")) continue;
+    const [rawKey, ...rest] = arg.replace(/^--?/, "").split("=");
+    const key = rawKey === "y" ? "yes" : rawKey;
+    if (rest.length) args[key] = rest.join("=");
+    else if (!booleans.has(key) && argv[i + 1] && !argv[i + 1].startsWith("-")) args[key] = argv[(i += 1)];
+    else args[key] = true;
+  }
+  return args;
+};
+
+export const promptSetup = async ({ detectedFramework, detectedLanguage = "js", args = parseArgs(process.argv.slice(3)), input = process.stdin, output = process.stdout } = {}) => {
   const frameworkDefault = FRAMEWORKS.some(({ id }) => id === detectedFramework) ? detectedFramework : "next";
   const languageDefault = detectedLanguage === "ts" ? "ts" : "js";
   const colorDefault = "#00c214";

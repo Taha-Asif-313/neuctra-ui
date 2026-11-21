@@ -1,8 +1,8 @@
 {
   "name": "@neuctra/ui-cli",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "type": "module",
-  "description": "Official CLI for Neuctra UI - Instantly setup React projects with automatic theme configuration, CSS initialization, and ThemeProvider wrapping for seamless dark mode support",
+  "description": "Official CLI for Neuctra UI: sets up @neuctra/ui in Next.js, Vite, React Router and Remix projects with Tailwind CSS v4, theme tokens, ThemeProvider and no theme flash.",
   "author": {
     "name": "Neuctra",
     "email": "contact@neuctra.dev",
@@ -28,7 +28,6 @@
     "bin",
     "commands",
     "lib",
-    "templates",
     "README.md",
     "LICENSE"
   ],
@@ -43,20 +42,19 @@
     "dark-theme",
     "theme-provider",
     "react-cli",
-    "css-in-js",
     "tailwindcss",
     "react",
     "component-library",
     "design-system",
     "vite",
-    "create-react-app",
-    "cra",
     "auto-setup",
-    "project-scaffolding"
+    "project-scaffolding",
+    "nextjs",
+    "react-router",
+    "remix"
   ],
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=7.0.0"
+    "node": ">=18.18.0"
   },
   "publishConfig": {
     "access": "public",
@@ -68,7 +66,7 @@
   "dependencies": {
     "fs-extra": "^11.3.4",
     "kleur": "^4.1.5",
-    "ora": "^9.3.0"
+    "ora": "^8.2.0"
   },
   "devDependencies": {},
   "funding": {

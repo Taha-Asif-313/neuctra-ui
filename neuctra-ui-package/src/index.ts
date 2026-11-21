@@ -281,12 +281,20 @@ export type { CarouselProps } from "./components/basic/Carousel";
 // ✅ MODERN COMPONENT ADDITIONS
 // ==============================
 
-export { ThemeProvider, useTheme } from "./components/basic/ThemeProvider";
+export {
+  ThemeProvider,
+  useTheme,
+  useOptionalTheme,
+  ThemeScript,
+  getThemeScript,
+  DEFAULT_THEME_STORAGE_KEY,
+} from "./components/basic/ThemeProvider";
 export type {
   ThemeMode,
   ThemeStorage,
   ThemeContextValue,
   ThemeProviderProps,
+  ThemeScriptOptions,
 } from "./components/basic/ThemeProvider";
 
 export { CommandPalette } from "./components/basic/CommandPalette";

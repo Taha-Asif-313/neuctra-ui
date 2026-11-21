@@ -3,7 +3,7 @@
   "package": "@neuctra/ui",
   "version": "1.1.1",
   "generatedAt": "2026-11-21T11:58:01.490Z",
-  "componentCount": 132,
+  "componentCount": 134,
   "components": [
     {
       "name": "Accordion",
@@ -26168,6 +26168,118 @@
       }
     },
     {
+      "name": "ThemeScript",
+      "importFrom": "@neuctra/ui",
+      "module": "ThemeProvider",
+      "category": "layout",
+      "propsInterface": "ThemeScriptOptions",
+      "description": "Light, dark and system theming for your whole app. Persists the choice, follows OS changes, syncs across tabs, and exposes a useTheme hook for toggles and settings screens.",
+      "props": [
+        {
+          "name": "storageKey",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Storage key to read; must match the `ThemeProvider` `storageKey`."
+        },
+        {
+          "name": "defaultMode",
+          "type": "ThemeMode",
+          "required": false,
+          "default": null,
+          "description": "Mode used when nothing is stored yet; must match the `ThemeProvider` `defaultMode`."
+        },
+        {
+          "name": "attribute",
+          "type": "\"class\" | \"data-theme\" | \"both\"",
+          "required": false,
+          "default": null,
+          "description": "How the dark theme is marked; must match the `ThemeProvider` `attribute`."
+        }
+      ],
+      "extends": [],
+      "example": "",
+      "search": {
+        "family": "theme-provider",
+        "aliases": [],
+        "useCases": [],
+        "keywords": [
+          "theme",
+          "script",
+          "provider",
+          "light",
+          "dark",
+          "system",
+          "theming",
+          "your",
+          "whole",
+          "app",
+          "persists",
+          "choice",
+          "follows",
+          "os",
+          "changes",
+          "syncs",
+          "across",
+          "tabs",
+          "exposes",
+          "hook",
+          "toggles",
+          "settings",
+          "screens",
+          "storage",
+          "key",
+          "default",
+          "mode",
+          "attribute"
+        ],
+        "related": [
+          "useOptionalTheme"
+        ],
+        "guidance": {
+          "ruleIds": [
+            40,
+            44,
+            47,
+            48,
+            50
+          ],
+          "rules": [
+            {
+              "number": 40,
+              "title": "Shadows",
+              "content": "Never add a shadow yourself, compulsory. Prefer:\n\n```text\nbackground\n+\nborder\n+\nspacing\n```\n\nover a shadow on anything you're styling by hand — buttons, cards, inputs, hand-built panels.\n\nThis is about classNames/markup you author. A number of `@neuctra/ui` components ship their own built-in elevation shadow as part of their default design (overlay/floating components like Modal, Dropdown, Popover, Drawer, Tooltip, and others like Table, DatePicker's calendar panel, Avatar's status dot, Kbd, and the Toast notification, among others — this isn't an exhaustive list to memorize). Leave every component's shipped defaults exactly as they ship: never add a shadow yourself, and never strip a component's built-in one with an override either — both are the same mistake in opposite directions.",
+              "block": "components"
+            },
+            {
+              "number": 44,
+              "title": "Component Selection Principle",
+              "block": "core",
+              "content": "When choosing a component, use this decision process. Always prefer the dedicated @neuctra/ui component over hand-building the same pattern, and call get-neuctra-ui-component for its exact props.\n\n```text\nNeed an app frame or navigation?\n→ AppShell (responsive frame: sidebar + header + main, mobile slide-in panel)\n→ Sidebar (grouped, collapsible or icon-rail navigation with badges and tooltips)\n→ BottomNavigation (mobile tab bar, 3 to 5 destinations)\n→ Menubar (desktop-style File / Edit / View menus)\n→ Tabs / Breadcrumb / Pagination / TableOfContents (in-page navigation)\n→ CommandPalette (Cmd/Ctrl+K global search and quick actions)\n\nNeed a multi-step flow?\n→ Wizard (validated steps with Back / Next and async checks)\n→ Stepper (progress indicator only)\n→ OnboardingTour (spotlight walkthrough of existing UI)\n\nNeed an action?\n→ Button / IconButton / CopyButton\n→ Dropdown (overflow menu) / ContextMenu (right-click menu)\n→ BulkActionBar (actions for selected rows) / FloatingToolbar (selection or canvas tools)\n→ SwipeActions (touch row actions, always also reachable by keyboard)\n\nNeed selection?\n→ Select (short fixed list) / Combobox (searchable, async, multi or creatable)\n→ RadioGroup / Checkbox / Switch / ToggleGroup\n→ Slider / RangeSlider (min and max) / NumberInput / Rating\n→ DatePicker / DateRangePicker / DateTimePicker / TimePicker / TimeRangePicker\n→ ColorPicker / TagInput / PinInput / FileUpload\n\nNeed a form structure?\n→ FormSection (titled group of fields) / SettingRow (label + description + control)\n\nNeed compact metadata?\n→ Badge / Chip / Kbd / Price\n\nNeed grouped content?\n→ Card (+ CardBody)\n\nNeed persistent message?\n→ Callout (in the page) / AnnouncementBar (app-wide banner)\n\nNeed temporary message?\n→ the toast system (import { toast, ToastProvider } from \"@neuctra/ui\" — not a \"Toast\" component)\n→ NotificationCenter (persistent read / unread history behind a bell)\n\nNeed focused interaction?\n→ Modal / AlertDialog (confirm destructive or irreversible actions)\n→ Drawer / ActionSheet (mobile action list)\n→ Popover / HoverCard (preview on hover or focus)\n→ Lightbox / ImageGallery (media viewing)\n\nNeed clarification?\n→ Tooltip\n\nNeed structured records?\n→ DataTable (sorting, selection, pagination, loading and empty states) / Table (static display)\n→ FilterBar (active filters and saved views above a table or list)\n→ List / VirtualList (thousands of rows) / TreeView (hierarchies) / Timeline\n\nNeed a workspace layout?\n→ ResizablePanelGroup + ResizablePanel + ResizableHandle / ScrollArea\n\nNeed chat or AI output?\n→ MessageList + ChatMessage / AttachmentCard / CodeBlock\n\nNeed loading?\n→ Skeleton / Spinner / LoadingOverlay (block a region while saving)\n\nNeed progress?\n→ Progress\n\nNeed to display code?\n→ react-syntax-highlighter (see Code Blocks rule)\n\nNeed to visualize stats or trends (dashboards)?\n→ Stat / Sparkline (inline trend) / ActivityHeatmap (activity density)\n→ ApexCharts via react-apexcharts for full charts (see Dashboard Charts rule)\n\nNeed hierarchy?\n→ Accordion / Breadcrumb / Stepper / TreeView\n\nNeed resilience or accessibility helpers?\n→ ErrorBoundary / SkipLink / VisuallyHidden / LiveAnnouncer / ThemeProvider\n```\n\nNever select a component merely because it looks attractive."
+            },
+            {
+              "number": 47,
+              "title": "Accessibility",
+              "block": "accessibilityInteraction",
+              "content": "Accessibility is part of the design.\n\nAlways consider:\n\n* Keyboard navigation\n* Focus states\n* Screen readers\n* Color contrast\n* Semantic HTML\n* Clear labels\n* Button names\n* Input descriptions\n* Error messages\n* Touch target sizes\n\nNever communicate meaning using color alone."
+            },
+            {
+              "number": 48,
+              "title": "Interaction Design",
+              "block": "accessibilityInteraction",
+              "content": "Every interactive element should provide feedback.\n\nExamples:\n\n```text\nDefault\n→ Hover\n→ Active\n→ Focus\n→ Disabled\n→ Loading\n→ Success/Error\n```\n\nDo not animate everything.\n\nUse subtle transitions for:\n\n* Hover\n* Opening/closing\n* State changes\n* Navigation\n* Feedback\n\nMotion should explain interaction, not distract."
+            },
+            {
+              "number": 50,
+              "title": "Do Not Overwrite Built-in Component Design",
+              "content": "Use each `@neuctra/ui` component's built-in design — its default spacing, radius, colors, and layout — as-is.\n\nDo not pass a `className` just to restyle a component's built-in appearance because of personal preference. The component's own design is already the intended, consistent look.\n\nOnly override with Tailwind's `!` important-modifier (e.g. `!bg-red-500`, `!p-2`, `!rounded-lg`) when there is a real, specific need:\n\n* The component's default would otherwise break the current page's existing layout.\n* The default collides or conflicts with the current UI/design of the site.\n* The component has no prop for the needed variation, and leaving the default would visually damage the surrounding design.\n\nNever reach for `!important` overrides as a routine styling habit, a stylistic preference, or 'just because'.\n\nPrefer:\n\n> built-in component design → prop-based variation (variant, size, etc.) → `!important` override (rare, only to prevent breakage)\n\nover:\n\n> restyle every component by default with className overrides\n\nA component that has been overridden with `!important` on every use is a sign the component itself, or the way it's being used, is wrong — not that every instance needs forcing.",
+              "block": "components"
+            }
+          ]
+        }
+      }
+    },
+    {
       "name": "ThemeToggleButton",
       "importFrom": "@neuctra/ui",
       "module": "ThemeToggleButton",
@@ -26178,9 +26290,9 @@
         {
           "name": "context",
           "type": "ThemeToggleContext",
-          "required": true,
+          "required": false,
           "default": null,
-          "description": "The current theme state and the toggle callback, typically from a `useTheme()` hook."
+          "description": "Theme state and toggle callback. Optional: when omitted, the button reads\nthe nearest `<ThemeProvider>` from `@neuctra/ui`."
         },
         {
           "name": "className",
@@ -26202,6 +26314,13 @@
           "required": false,
           "default": null,
           "description": "The moon icon (shown in light mode)."
+        },
+        {
+          "name": "\"aria-label\"",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "description": "Accessible label override; defaults to \"Switch to light/dark mode\"."
         }
       ],
       "extends": [],
@@ -26247,7 +26366,9 @@
           "driven",
           "system",
           "class",
-          "name"
+          "name",
+          "aria",
+          "label"
         ],
         "related": [
           "ThemeProvider",
@@ -28355,6 +28476,91 @@
       }
     },
     {
+      "name": "useOptionalTheme",
+      "importFrom": "@neuctra/ui",
+      "module": "ThemeProvider",
+      "category": "layout",
+      "propsInterface": null,
+      "description": "Light, dark and system theming for your whole app. Persists the choice, follows OS changes, syncs across tabs, and exposes a useTheme hook for toggles and settings screens.",
+      "props": [],
+      "extends": [],
+      "example": "",
+      "search": {
+        "family": "theme-provider",
+        "aliases": [],
+        "useCases": [],
+        "keywords": [
+          "optional",
+          "theme",
+          "provider",
+          "light",
+          "dark",
+          "system",
+          "theming",
+          "your",
+          "whole",
+          "app",
+          "persists",
+          "choice",
+          "follows",
+          "os",
+          "changes",
+          "syncs",
+          "across",
+          "tabs",
+          "exposes",
+          "hook",
+          "toggles",
+          "settings",
+          "screens"
+        ],
+        "related": [
+          "ThemeScript"
+        ],
+        "guidance": {
+          "ruleIds": [
+            40,
+            44,
+            47,
+            48,
+            50
+          ],
+          "rules": [
+            {
+              "number": 40,
+              "title": "Shadows",
+              "content": "Never add a shadow yourself, compulsory. Prefer:\n\n```text\nbackground\n+\nborder\n+\nspacing\n```\n\nover a shadow on anything you're styling by hand — buttons, cards, inputs, hand-built panels.\n\nThis is about classNames/markup you author. A number of `@neuctra/ui` components ship their own built-in elevation shadow as part of their default design (overlay/floating components like Modal, Dropdown, Popover, Drawer, Tooltip, and others like Table, DatePicker's calendar panel, Avatar's status dot, Kbd, and the Toast notification, among others — this isn't an exhaustive list to memorize). Leave every component's shipped defaults exactly as they ship: never add a shadow yourself, and never strip a component's built-in one with an override either — both are the same mistake in opposite directions.",
+              "block": "components"
+            },
+            {
+              "number": 44,
+              "title": "Component Selection Principle",
+              "block": "core",
+              "content": "When choosing a component, use this decision process. Always prefer the dedicated @neuctra/ui component over hand-building the same pattern, and call get-neuctra-ui-component for its exact props.\n\n```text\nNeed an app frame or navigation?\n→ AppShell (responsive frame: sidebar + header + main, mobile slide-in panel)\n→ Sidebar (grouped, collapsible or icon-rail navigation with badges and tooltips)\n→ BottomNavigation (mobile tab bar, 3 to 5 destinations)\n→ Menubar (desktop-style File / Edit / View menus)\n→ Tabs / Breadcrumb / Pagination / TableOfContents (in-page navigation)\n→ CommandPalette (Cmd/Ctrl+K global search and quick actions)\n\nNeed a multi-step flow?\n→ Wizard (validated steps with Back / Next and async checks)\n→ Stepper (progress indicator only)\n→ OnboardingTour (spotlight walkthrough of existing UI)\n\nNeed an action?\n→ Button / IconButton / CopyButton\n→ Dropdown (overflow menu) / ContextMenu (right-click menu)\n→ BulkActionBar (actions for selected rows) / FloatingToolbar (selection or canvas tools)\n→ SwipeActions (touch row actions, always also reachable by keyboard)\n\nNeed selection?\n→ Select (short fixed list) / Combobox (searchable, async, multi or creatable)\n→ RadioGroup / Checkbox / Switch / ToggleGroup\n→ Slider / RangeSlider (min and max) / NumberInput / Rating\n→ DatePicker / DateRangePicker / DateTimePicker / TimePicker / TimeRangePicker\n→ ColorPicker / TagInput / PinInput / FileUpload\n\nNeed a form structure?\n→ FormSection (titled group of fields) / SettingRow (label + description + control)\n\nNeed compact metadata?\n→ Badge / Chip / Kbd / Price\n\nNeed grouped content?\n→ Card (+ CardBody)\n\nNeed persistent message?\n→ Callout (in the page) / AnnouncementBar (app-wide banner)\n\nNeed temporary message?\n→ the toast system (import { toast, ToastProvider } from \"@neuctra/ui\" — not a \"Toast\" component)\n→ NotificationCenter (persistent read / unread history behind a bell)\n\nNeed focused interaction?\n→ Modal / AlertDialog (confirm destructive or irreversible actions)\n→ Drawer / ActionSheet (mobile action list)\n→ Popover / HoverCard (preview on hover or focus)\n→ Lightbox / ImageGallery (media viewing)\n\nNeed clarification?\n→ Tooltip\n\nNeed structured records?\n→ DataTable (sorting, selection, pagination, loading and empty states) / Table (static display)\n→ FilterBar (active filters and saved views above a table or list)\n→ List / VirtualList (thousands of rows) / TreeView (hierarchies) / Timeline\n\nNeed a workspace layout?\n→ ResizablePanelGroup + ResizablePanel + ResizableHandle / ScrollArea\n\nNeed chat or AI output?\n→ MessageList + ChatMessage / AttachmentCard / CodeBlock\n\nNeed loading?\n→ Skeleton / Spinner / LoadingOverlay (block a region while saving)\n\nNeed progress?\n→ Progress\n\nNeed to display code?\n→ react-syntax-highlighter (see Code Blocks rule)\n\nNeed to visualize stats or trends (dashboards)?\n→ Stat / Sparkline (inline trend) / ActivityHeatmap (activity density)\n→ ApexCharts via react-apexcharts for full charts (see Dashboard Charts rule)\n\nNeed hierarchy?\n→ Accordion / Breadcrumb / Stepper / TreeView\n\nNeed resilience or accessibility helpers?\n→ ErrorBoundary / SkipLink / VisuallyHidden / LiveAnnouncer / ThemeProvider\n```\n\nNever select a component merely because it looks attractive."
+            },
+            {
+              "number": 47,
+              "title": "Accessibility",
+              "block": "accessibilityInteraction",
+              "content": "Accessibility is part of the design.\n\nAlways consider:\n\n* Keyboard navigation\n* Focus states\n* Screen readers\n* Color contrast\n* Semantic HTML\n* Clear labels\n* Button names\n* Input descriptions\n* Error messages\n* Touch target sizes\n\nNever communicate meaning using color alone."
+            },
+            {
+              "number": 48,
+              "title": "Interaction Design",
+              "block": "accessibilityInteraction",
+              "content": "Every interactive element should provide feedback.\n\nExamples:\n\n```text\nDefault\n→ Hover\n→ Active\n→ Focus\n→ Disabled\n→ Loading\n→ Success/Error\n```\n\nDo not animate everything.\n\nUse subtle transitions for:\n\n* Hover\n* Opening/closing\n* State changes\n* Navigation\n* Feedback\n\nMotion should explain interaction, not distract."
+            },
+            {
+              "number": 50,
+              "title": "Do Not Overwrite Built-in Component Design",
+              "content": "Use each `@neuctra/ui` component's built-in design — its default spacing, radius, colors, and layout — as-is.\n\nDo not pass a `className` just to restyle a component's built-in appearance because of personal preference. The component's own design is already the intended, consistent look.\n\nOnly override with Tailwind's `!` important-modifier (e.g. `!bg-red-500`, `!p-2`, `!rounded-lg`) when there is a real, specific need:\n\n* The component's default would otherwise break the current page's existing layout.\n* The default collides or conflicts with the current UI/design of the site.\n* The component has no prop for the needed variation, and leaving the default would visually damage the surrounding design.\n\nNever reach for `!important` overrides as a routine styling habit, a stylistic preference, or 'just because'.\n\nPrefer:\n\n> built-in component design → prop-based variation (variant, size, etc.) → `!important` override (rare, only to prevent breakage)\n\nover:\n\n> restyle every component by default with className overrides\n\nA component that has been overridden with `!important` on every use is a sign the component itself, or the way it's being used, is wrong — not that every instance needs forcing.",
+              "block": "components"
+            }
+          ]
+        }
+      }
+    },
+    {
       "name": "useTheme",
       "importFrom": "@neuctra/ui",
       "module": "ThemeProvider",
@@ -29259,9 +29465,12 @@
     "enabled": true,
     "strategy": "local-registry-overlay",
     "source": "@neuctra/ui local package registry",
-    "addedCount": 0,
-    "addedModules": 0,
-    "addedNames": [],
+    "addedCount": 2,
+    "addedModules": 1,
+    "addedNames": [
+      "ThemeScript",
+      "useOptionalTheme"
+    ],
     "upstreamSynced": false
   },
   "search": {
@@ -29417,7 +29626,7 @@
         ]
       },
       "layout": {
-        "componentCount": 15,
+        "componentCount": 17,
         "components": [
           "AppShell",
           "Card",
@@ -29432,6 +29641,8 @@
           "ScrollArea",
           "SettingRow",
           "ThemeProvider",
+          "ThemeScript",
+          "useOptionalTheme",
           "useTheme",
           "VisuallyHidden"
         ]
@@ -34142,6 +34353,56 @@
           "Textarea"
         ]
       },
+      "theme-provider": {
+        "label": "Theme Provider",
+        "aliases": [],
+        "guidance": {
+          "ruleIds": [
+            40,
+            44,
+            47,
+            48,
+            50
+          ],
+          "rules": [
+            {
+              "number": 40,
+              "title": "Shadows",
+              "content": "Never add a shadow yourself, compulsory. Prefer:\n\n```text\nbackground\n+\nborder\n+\nspacing\n```\n\nover a shadow on anything you're styling by hand — buttons, cards, inputs, hand-built panels.\n\nThis is about classNames/markup you author. A number of `@neuctra/ui` components ship their own built-in elevation shadow as part of their default design (overlay/floating components like Modal, Dropdown, Popover, Drawer, Tooltip, and others like Table, DatePicker's calendar panel, Avatar's status dot, Kbd, and the Toast notification, among others — this isn't an exhaustive list to memorize). Leave every component's shipped defaults exactly as they ship: never add a shadow yourself, and never strip a component's built-in one with an override either — both are the same mistake in opposite directions.",
+              "block": "components"
+            },
+            {
+              "number": 44,
+              "title": "Component Selection Principle",
+              "block": "core",
+              "content": "When choosing a component, use this decision process. Always prefer the dedicated @neuctra/ui component over hand-building the same pattern, and call get-neuctra-ui-component for its exact props.\n\n```text\nNeed an app frame or navigation?\n→ AppShell (responsive frame: sidebar + header + main, mobile slide-in panel)\n→ Sidebar (grouped, collapsible or icon-rail navigation with badges and tooltips)\n→ BottomNavigation (mobile tab bar, 3 to 5 destinations)\n→ Menubar (desktop-style File / Edit / View menus)\n→ Tabs / Breadcrumb / Pagination / TableOfContents (in-page navigation)\n→ CommandPalette (Cmd/Ctrl+K global search and quick actions)\n\nNeed a multi-step flow?\n→ Wizard (validated steps with Back / Next and async checks)\n→ Stepper (progress indicator only)\n→ OnboardingTour (spotlight walkthrough of existing UI)\n\nNeed an action?\n→ Button / IconButton / CopyButton\n→ Dropdown (overflow menu) / ContextMenu (right-click menu)\n→ BulkActionBar (actions for selected rows) / FloatingToolbar (selection or canvas tools)\n→ SwipeActions (touch row actions, always also reachable by keyboard)\n\nNeed selection?\n→ Select (short fixed list) / Combobox (searchable, async, multi or creatable)\n→ RadioGroup / Checkbox / Switch / ToggleGroup\n→ Slider / RangeSlider (min and max) / NumberInput / Rating\n→ DatePicker / DateRangePicker / DateTimePicker / TimePicker / TimeRangePicker\n→ ColorPicker / TagInput / PinInput / FileUpload\n\nNeed a form structure?\n→ FormSection (titled group of fields) / SettingRow (label + description + control)\n\nNeed compact metadata?\n→ Badge / Chip / Kbd / Price\n\nNeed grouped content?\n→ Card (+ CardBody)\n\nNeed persistent message?\n→ Callout (in the page) / AnnouncementBar (app-wide banner)\n\nNeed temporary message?\n→ the toast system (import { toast, ToastProvider } from \"@neuctra/ui\" — not a \"Toast\" component)\n→ NotificationCenter (persistent read / unread history behind a bell)\n\nNeed focused interaction?\n→ Modal / AlertDialog (confirm destructive or irreversible actions)\n→ Drawer / ActionSheet (mobile action list)\n→ Popover / HoverCard (preview on hover or focus)\n→ Lightbox / ImageGallery (media viewing)\n\nNeed clarification?\n→ Tooltip\n\nNeed structured records?\n→ DataTable (sorting, selection, pagination, loading and empty states) / Table (static display)\n→ FilterBar (active filters and saved views above a table or list)\n→ List / VirtualList (thousands of rows) / TreeView (hierarchies) / Timeline\n\nNeed a workspace layout?\n→ ResizablePanelGroup + ResizablePanel + ResizableHandle / ScrollArea\n\nNeed chat or AI output?\n→ MessageList + ChatMessage / AttachmentCard / CodeBlock\n\nNeed loading?\n→ Skeleton / Spinner / LoadingOverlay (block a region while saving)\n\nNeed progress?\n→ Progress\n\nNeed to display code?\n→ react-syntax-highlighter (see Code Blocks rule)\n\nNeed to visualize stats or trends (dashboards)?\n→ Stat / Sparkline (inline trend) / ActivityHeatmap (activity density)\n→ ApexCharts via react-apexcharts for full charts (see Dashboard Charts rule)\n\nNeed hierarchy?\n→ Accordion / Breadcrumb / Stepper / TreeView\n\nNeed resilience or accessibility helpers?\n→ ErrorBoundary / SkipLink / VisuallyHidden / LiveAnnouncer / ThemeProvider\n```\n\nNever select a component merely because it looks attractive."
+            },
+            {
+              "number": 47,
+              "title": "Accessibility",
+              "block": "accessibilityInteraction",
+              "content": "Accessibility is part of the design.\n\nAlways consider:\n\n* Keyboard navigation\n* Focus states\n* Screen readers\n* Color contrast\n* Semantic HTML\n* Clear labels\n* Button names\n* Input descriptions\n* Error messages\n* Touch target sizes\n\nNever communicate meaning using color alone."
+            },
+            {
+              "number": 48,
+              "title": "Interaction Design",
+              "block": "accessibilityInteraction",
+              "content": "Every interactive element should provide feedback.\n\nExamples:\n\n```text\nDefault\n→ Hover\n→ Active\n→ Focus\n→ Disabled\n→ Loading\n→ Success/Error\n```\n\nDo not animate everything.\n\nUse subtle transitions for:\n\n* Hover\n* Opening/closing\n* State changes\n* Navigation\n* Feedback\n\nMotion should explain interaction, not distract."
+            },
+            {
+              "number": 50,
+              "title": "Do Not Overwrite Built-in Component Design",
+              "content": "Use each `@neuctra/ui` component's built-in design — its default spacing, radius, colors, and layout — as-is.\n\nDo not pass a `className` just to restyle a component's built-in appearance because of personal preference. The component's own design is already the intended, consistent look.\n\nOnly override with Tailwind's `!` important-modifier (e.g. `!bg-red-500`, `!p-2`, `!rounded-lg`) when there is a real, specific need:\n\n* The component's default would otherwise break the current page's existing layout.\n* The default collides or conflicts with the current UI/design of the site.\n* The component has no prop for the needed variation, and leaving the default would visually damage the surrounding design.\n\nNever reach for `!important` overrides as a routine styling habit, a stylistic preference, or 'just because'.\n\nPrefer:\n\n> built-in component design → prop-based variation (variant, size, etc.) → `!important` override (rare, only to prevent breakage)\n\nover:\n\n> restyle every component by default with className overrides\n\nA component that has been overridden with `!important` on every use is a sign the component itself, or the way it's being used, is wrong — not that every instance needs forcing.",
+              "block": "components"
+            }
+          ]
+        },
+        "componentCount": 2,
+        "components": [
+          "ThemeScript",
+          "useOptionalTheme"
+        ]
+      },
       "theme-toggle-button": {
         "label": "Themes & theme toggles",
         "aliases": [
@@ -35476,6 +35737,8 @@
           "ScrollArea",
           "SettingRow",
           "ThemeProvider",
+          "ThemeScript",
+          "useOptionalTheme",
           "useTheme",
           "VisuallyHidden"
         ]

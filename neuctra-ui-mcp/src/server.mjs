@@ -33,7 +33,7 @@ export function createServer(inputData = loadDataFromDisk()) {
   const data = withEmbeddedComponentRules(inputData);
   const server = new McpServer({ name: "neuctra-ui", version: "0.5.0" });
 
-  registerNeuctraUiSetupTool(server);
+  registerNeuctraUiSetupTool(server, data);
   registerGetNeuctraUiComponentTool(server, data.registry);
   registerNeuctraUiPageBuilderTool(server, data);
   registerNeuctraUiDesignFromPromptTool(server, data);

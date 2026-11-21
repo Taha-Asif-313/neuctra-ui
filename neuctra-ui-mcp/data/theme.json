@@ -38,43 +38,200 @@
     "Decent, restrained design, compulsory: build UI that is decent and intentional, never over-designed. When unsure whether an effect (gradient, glow, blur, animation) is warranted on something you're authoring yourself, leave it out; shadows on content surfaces and colors outside the theme are never warranted. A flat, token-colored, appropriately-radiused, unshadowed, responsive surface is the correct default for most neuctra-ui components. Brand effects are added on purpose, only where the effect rules above allow them."
   ],
   "tokens": [
-    { "token": "primary", "className": "bg-primary / text-primary / border-primary", "pairsWith": "primary-foreground", "light": "#00c214", "dark": "#00c214", "usage": "Brand color: primary buttons, active states, links, focus accents." },
-    { "token": "primary-foreground", "className": "text-primary-foreground", "light": "#ffffff", "dark": "#ffffff", "usage": "Text/icons on top of bg-primary." },
-    { "token": "background", "className": "bg-background", "light": "#ffffff", "dark": "#09090b", "usage": "Page/app background." },
-    { "token": "foreground", "className": "text-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Headings, titles, and anything that needs full emphasis." },
-    { "token": "secondary", "className": "text-secondary", "light": "#3f3f46", "dark": "#d4d4d8", "usage": "Paragraph text: body copy, section/card descriptions, supporting text under headings. Text color only, never a background (no bg-secondary)." },
-    { "token": "muted", "className": "bg-muted", "pairsWith": "muted-foreground", "light": "#f4f4f5", "dark": "#27272a", "usage": "Subtle/secondary surfaces (skeletons, disabled fills, code blocks)." },
-    { "token": "muted-foreground", "className": "text-muted-foreground", "light": "#71717a", "dark": "#a1a1aa", "usage": "Small, low-priority text only: timestamps, metadata, captions, placeholders, helper/hint text, disabled text. Never paragraphs (use text-secondary)." },
-    { "token": "accent", "className": "bg-accent", "pairsWith": "accent-foreground", "light": "#e4e4e7", "dark": "#18181b", "usage": "Hover/active background for interactive rows and menu items." },
-    { "token": "accent-foreground", "className": "text-accent-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Text on bg-accent." },
-    { "token": "border", "className": "border-border", "light": "#e4e4e7", "dark": "#27272a", "usage": "Default border color for inputs, cards, dividers." },
-    { "token": "input", "className": "bg-input / border-input", "light": "#f4f4f5", "dark": "#18181b", "usage": "Form control backgrounds." },
-    { "token": "ring", "className": "ring-ring / focus-visible:ring-ring", "light": "#a1a1aa", "dark": "#3f3f46", "usage": "Focus ring color — always pair interactive elements with focus-visible:ring-2 focus-visible:ring-ring." },
-    { "token": "card", "className": "bg-card", "pairsWith": "card-foreground", "light": "#ffffff", "dark": "#09090b", "usage": "Card / panel surfaces, distinct from the page background." },
-    { "token": "card-foreground", "className": "text-card-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Text inside cards." },
-    { "token": "popover", "className": "bg-popover", "pairsWith": "popover-foreground", "light": "#ffffff", "dark": "#18181b", "usage": "Dropdowns, popovers, tooltips, menus." },
-    { "token": "popover-foreground", "className": "text-popover-foreground", "light": "#09090b", "dark": "#fafafa", "usage": "Text inside popovers/dropdowns." },
-    { "token": "destructive", "className": "bg-destructive / text-destructive / border-destructive", "pairsWith": "destructive-foreground", "light": "#d40000", "dark": "#e7000b", "usage": "Errors, delete/danger actions, invalid form states." },
-    { "token": "destructive-foreground", "className": "text-destructive-foreground", "light": "#fafafa", "dark": "#fafafa", "usage": "Text on bg-destructive." },
-    { "token": "success", "className": "bg-success / text-success / border-success", "pairsWith": "success-foreground", "light": "#16a34a", "dark": "#22c55e", "usage": "Confirmation, online status, valid form states, positive metrics." },
-    { "token": "success-foreground", "className": "text-success-foreground", "light": "#fafafa", "dark": "#052e16", "usage": "Text on bg-success." },
-    { "token": "warning", "className": "bg-warning / text-warning / border-warning", "pairsWith": "warning-foreground", "light": "#d97706", "dark": "#f59e0b", "usage": "Caution states, pending status, non-blocking alerts." },
-    { "token": "warning-foreground", "className": "text-warning-foreground", "light": "#fafafa", "dark": "#451a03", "usage": "Text on bg-warning." },
-    { "token": "info", "className": "bg-info / text-info / border-info", "pairsWith": "info-foreground", "light": "#2563eb", "dark": "#3b82f6", "usage": "Neutral notices, informational banners/badges." },
-    { "token": "info-foreground", "className": "text-info-foreground", "light": "#fafafa", "dark": "#eff6ff", "usage": "Text on bg-info." }
+    {
+      "token": "primary",
+      "className": "bg-primary / text-primary / border-primary",
+      "pairsWith": "primary-foreground",
+      "light": "#00c214",
+      "dark": "#00c214",
+      "usage": "Brand color: primary buttons, active states, links, focus accents."
+    },
+    {
+      "token": "primary-foreground",
+      "className": "text-primary-foreground",
+      "light": "#ffffff",
+      "dark": "#ffffff",
+      "usage": "Text/icons on top of bg-primary."
+    },
+    {
+      "token": "background",
+      "className": "bg-background",
+      "light": "#fafafa",
+      "dark": "#09090b",
+      "usage": "Page/app background."
+    },
+    {
+      "token": "foreground",
+      "className": "text-foreground",
+      "light": "#18181b",
+      "dark": "#fafafa",
+      "usage": "Headings, titles, and anything that needs full emphasis."
+    },
+    {
+      "token": "secondary",
+      "className": "text-secondary",
+      "light": "#52525b",
+      "dark": "#d4d4d8",
+      "usage": "Paragraph text: body copy, section/card descriptions, supporting text under headings. Text color only, never a background (no bg-secondary)."
+    },
+    {
+      "token": "muted",
+      "className": "bg-muted",
+      "pairsWith": "muted-foreground",
+      "light": "#f4f4f5",
+      "dark": "#27272a",
+      "usage": "Subtle/secondary surfaces (skeletons, disabled fills, code blocks)."
+    },
+    {
+      "token": "muted-foreground",
+      "className": "text-muted-foreground",
+      "light": "#71717a",
+      "dark": "#a1a1aa",
+      "usage": "Small, low-priority text only: timestamps, metadata, captions, placeholders, helper/hint text, disabled text. Never paragraphs (use text-secondary)."
+    },
+    {
+      "token": "accent",
+      "className": "bg-accent",
+      "pairsWith": "accent-foreground",
+      "light": "#f4f4f5",
+      "dark": "#1c1c1f",
+      "usage": "Hover/active background for interactive rows and menu items."
+    },
+    {
+      "token": "accent-foreground",
+      "className": "text-accent-foreground",
+      "light": "#18181b",
+      "dark": "#fafafa",
+      "usage": "Text on bg-accent."
+    },
+    {
+      "token": "border",
+      "className": "border-border",
+      "light": "#e4e4e7",
+      "dark": "#27272a",
+      "usage": "Default border color for inputs, cards, dividers."
+    },
+    {
+      "token": "input",
+      "className": "bg-input / border-input",
+      "light": "#f4f4f5",
+      "dark": "#1c1c1f",
+      "usage": "Form control backgrounds."
+    },
+    {
+      "token": "ring",
+      "className": "ring-ring / focus-visible:ring-ring",
+      "light": "#00c214",
+      "dark": "#00c214",
+      "usage": "Focus ring color — always pair interactive elements with focus-visible:ring-2 focus-visible:ring-ring."
+    },
+    {
+      "token": "card",
+      "className": "bg-card",
+      "pairsWith": "card-foreground",
+      "light": "#ffffff",
+      "dark": "#121214",
+      "usage": "Card / panel surfaces, distinct from the page background."
+    },
+    {
+      "token": "card-foreground",
+      "className": "text-card-foreground",
+      "light": "#18181b",
+      "dark": "#fafafa",
+      "usage": "Text inside cards."
+    },
+    {
+      "token": "popover",
+      "className": "bg-popover",
+      "pairsWith": "popover-foreground",
+      "light": "#ffffff",
+      "dark": "#18181b",
+      "usage": "Dropdowns, popovers, tooltips, menus."
+    },
+    {
+      "token": "popover-foreground",
+      "className": "text-popover-foreground",
+      "light": "#18181b",
+      "dark": "#fafafa",
+      "usage": "Text inside popovers/dropdowns."
+    },
+    {
+      "token": "destructive",
+      "className": "bg-destructive / text-destructive / border-destructive",
+      "pairsWith": "destructive-foreground",
+      "light": "#dc2626",
+      "dark": "#ef4444",
+      "usage": "Errors, delete/danger actions, invalid form states."
+    },
+    {
+      "token": "destructive-foreground",
+      "className": "text-destructive-foreground",
+      "light": "#ffffff",
+      "dark": "#fafafa",
+      "usage": "Text on bg-destructive."
+    },
+    {
+      "token": "success",
+      "className": "bg-success / text-success / border-success",
+      "pairsWith": "success-foreground",
+      "light": "#15803d",
+      "dark": "#22c55e",
+      "usage": "Confirmation, online status, valid form states, positive metrics."
+    },
+    {
+      "token": "success-foreground",
+      "className": "text-success-foreground",
+      "light": "#ffffff",
+      "dark": "#052e16",
+      "usage": "Text on bg-success."
+    },
+    {
+      "token": "warning",
+      "className": "bg-warning / text-warning / border-warning",
+      "pairsWith": "warning-foreground",
+      "light": "#b45309",
+      "dark": "#f59e0b",
+      "usage": "Caution states, pending status, non-blocking alerts."
+    },
+    {
+      "token": "warning-foreground",
+      "className": "text-warning-foreground",
+      "light": "#ffffff",
+      "dark": "#451a03",
+      "usage": "Text on bg-warning."
+    },
+    {
+      "token": "info",
+      "className": "bg-info / text-info / border-info",
+      "pairsWith": "info-foreground",
+      "light": "#2563eb",
+      "dark": "#3b82f6",
+      "usage": "Neutral notices, informational banners/badges."
+    },
+    {
+      "token": "info-foreground",
+      "className": "text-info-foreground",
+      "light": "#ffffff",
+      "dark": "#eff6ff",
+      "usage": "Text on bg-info."
+    }
   ],
-  "note": "Values shown are the CLI-generated defaults (npx @neuctra/ui-cli init). A consumer project may have redefined these hex values in its own CSS — the token NAMES and pairing rules are the stable contract; always prefer the class names over the hex values.",
+  "note": "Values shown are the defaults written by `npx @neuctra/ui-cli init` (primary and ring take the chosen brand color; primary-foreground is picked automatically for contrast). A project may redefine these hex values in its own CSS: the token NAMES and pairing rules are the stable contract, so always use the class names, not the hex values.",
   "setup": {
     "recommendedCommand": "npx @neuctra/ui-cli@latest init",
+    "nonInteractive": "npx @neuctra/ui-cli@latest init --yes --primary-color=#2563eb  (also --framework next|vite|react-router|remix, --language ts|js, --css <path>, --skip-install)",
     "whatItDoes": [
-      "Installs @neuctra/ui.",
-      "Checks React (upgrades to >=18 if needed) and Tailwind CSS (upgrades to v4 if needed) — @neuctra/ui requires Tailwind v4 syntax (@theme, @source, @custom-variant).",
-      "Writes/updates the project's global CSS with the token blocks shown in this response (:root + .dark + @theme mapping) and the correct @source path for the project's own layout.",
-      "Generates a theme context file at src/contexts/ThemeContext.jsx (or .tsx if the project is TypeScript) exporting ThemeProvider and useTheme — handles localStorage persistence, system-preference detection with live updates, and avoids a flash of the wrong theme on load.",
-      "Wraps the app's entry point in <ThemeProvider>."
+      "Detects the framework (Next.js App Router, Vite, React Router framework, Remix) and the package manager (npm, pnpm, yarn, bun).",
+      "Installs @neuctra/ui and lucide-react; makes sure React is 18 or newer.",
+      "Sets up Tailwind CSS v4 for the bundler: keeps an existing v4 setup (including the @tailwindcss/turbopack rule of Next.js 16), adds @tailwindcss/vite to vite.config, or writes a v4 postcss.config.mjs; flags leftover v3 tailwind.config files.",
+      "Finds the global stylesheet the app actually imports (or creates one and imports it), then MERGES the setup into it without removing the project's own CSS: @import \"tailwindcss\", the @source path to node_modules/@neuctra/ui, the class-based dark variant, and a managed block (between /* NEUCTRA_THEME_START */ and /* NEUCTRA_THEME_END */) with :root and .dark tokens plus the @theme mapping. The original file is backed up once as <file>.neuctra-backup. Re-running only replaces the managed block.",
+      "Wraps the app in ThemeProvider and ToastProvider from @neuctra/ui (Next.js: app/providers.tsx + layout; Vite: src/main; React Router/Remix: app/root around <Outlet />).",
+      "Adds a no-flash theme script (same as getThemeScript() from @neuctra/ui) to <head> and suppressHydrationWarning on <html>, so dark mode is applied before the first paint with no hydration warnings.",
+      "Migrates ThemeContext files generated by older CLI versions into thin wrappers around the library ThemeProvider, keeping the saved preference."
     ],
-    "whenToSuggestIt": "If a project doesn't have @neuctra/ui installed yet, or has no theme token CSS / no ThemeContext, suggest running this command instead of hand-writing the CSS token blocks or a theme context from scratch — it is the maintained, correct source for both.",
-    "manualSetupStillDocumented": "If the consumer can't run a CLI (e.g. you're only shown existing code, not given shell access), the full manual step-by-step — including the exact ThemeContext implementation the CLI generates — is at the project's /docs/full-setup page (FullSetupDocPage) and is safe to reproduce by hand."
+    "themeApi": "import { ThemeProvider, useTheme, ThemeToggleButton, ThemeScript, getThemeScript } from '@neuctra/ui'. useTheme() returns { mode, resolvedMode, setMode, toggle, isDark, toggleTheme, setTheme } (mode is 'light' | 'dark' | 'system'). <ThemeToggleButton /> needs no props inside ThemeProvider; it also accepts context={useTheme()} or any { isDark, toggleTheme } object. The dark theme is the .dark class on <html>; persistence uses localStorage key 'neuctra-theme'.",
+    "whenToSuggestIt": "If a project doesn't have @neuctra/ui installed, has no theme token CSS, or no ThemeProvider, suggest running the CLI instead of hand-writing the CSS or a theme context: it is the maintained, correct source for both and it keeps existing CSS.",
+    "manualSetupStillDocumented": "If the CLI cannot be run, call neuctra-ui-setup with setupMode=manual: it returns the same steps and the exact token CSS. The /docs/full-setup page documents the manual setup too."
   },
   "toastNote": "@neuctra/ui's toast notification system is a standalone function, not hook-only: import { toast, ToastProvider } from '@neuctra/ui' and call toast(...) / toast.success(...) / toast.error(...) / toast.warning(...) / toast.info(...) / toast.loading(...) / toast.promise(...) from anywhere — event handlers, API clients, utility files — no useToast() hook required at the call site. Mount <ToastProvider> once near the app root so there is somewhere for toasts to render; mounting it more than once duplicates every toast. useToast() still exists for consumers who prefer a hook — it returns the identical global toast/dismiss, so both styles stay in sync. Use get-neuctra-ui-component with componentName \"ToastProvider\" for the full prop list (including position, one of top-left/top-center/top-right/bottom-left/bottom-center/bottom-right)."
 }
