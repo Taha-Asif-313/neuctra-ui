@@ -75,6 +75,58 @@ const DOCS_SLUG = {
   Toggle: "toggle",
   ToggleGroup: "toggle",
   Tooltip: "tooltip",
+
+  // Local modern additions
+  ThemeProvider: "theme-provider",
+  useTheme: "theme-provider",
+  CommandPalette: "command-palette",
+  AppShell: "app-shell",
+  Sidebar: "sidebar",
+  AlertDialog: "alert-dialog",
+  ContextMenu: "context-menu",
+  LoadingOverlay: "loading-overlay",
+  ErrorBoundary: "error-boundary",
+  OnboardingTour: "onboarding-tour",
+  AnnouncementBar: "announcement-bar",
+  SkipLink: "skip-link",
+  DataTable: "data-table",
+  DateRangePicker: "date-range-picker",
+  FilterBar: "filter-bar",
+  Combobox: "combobox",
+  RangeSlider: "range-slider",
+  Wizard: "wizard",
+  NotificationCenter: "notification-center",
+  Sparkline: "sparkline",
+  BulkActionBar: "bulk-action-bar",
+  HoverCard: "hover-card",
+  CodeBlock: "code-block",
+  ChatMessage: "chat-message",
+  MessageList: "chat-message",
+  VirtualList: "virtual-list",
+  TreeView: "tree-view",
+  TableOfContents: "table-of-contents",
+  ScrollArea: "scroll-area",
+  ColorPicker: "color-picker",
+  DateTimePicker: "date-time-picker",
+  TimeRangePicker: "time-range-picker",
+  ActionSheet: "action-sheet",
+  BottomNavigation: "bottom-navigation",
+  SwipeActions: "swipe-actions",
+  Lightbox: "lightbox",
+  ImageGallery: "lightbox",
+  AttachmentCard: "attachment-card",
+  FormSection: "form-section",
+  SettingRow: "setting-row",
+  Price: "price",
+  PriceTag: "price",
+  ActivityHeatmap: "activity-heatmap",
+  LiveAnnouncer: "live-announcer",
+  VisuallyHidden: "visually-hidden",
+  FloatingToolbar: "floating-toolbar",
+  Menubar: "menubar",
+  ResizablePanelGroup: "resizable-panel",
+  ResizablePanel: "resizable-panel",
+  ResizableHandle: "resizable-panel",
 };
 const OUT_DIR = path.join(ROOT, "registry");
 const OUT_FILE = path.join(OUT_DIR, "components.json");
@@ -152,6 +204,53 @@ const CATEGORY = {
   Pagination: "navigation",
   Stepper: "navigation",
   Tabs: "navigation",
+
+  // Local modern additions. Category is keyed by module so every export from
+  // a family (MessageList, ResizableHandle, ...) inherits the same category.
+  ThemeProvider: "layout",
+  CommandPalette: "navigation",
+  AppShell: "layout",
+  Sidebar: "navigation",
+  AlertDialog: "overlay",
+  ContextMenu: "overlay",
+  LoadingOverlay: "feedback",
+  ErrorBoundary: "feedback",
+  OnboardingTour: "overlay",
+  AnnouncementBar: "feedback",
+  SkipLink: "navigation",
+  DataTable: "data-display",
+  DateRangePicker: "form",
+  FilterBar: "form",
+  Combobox: "form",
+  RangeSlider: "form",
+  Wizard: "navigation",
+  NotificationCenter: "feedback",
+  Sparkline: "data-display",
+  BulkActionBar: "data-display",
+  HoverCard: "overlay",
+  CodeBlock: "data-display",
+  ChatMessage: "data-display",
+  VirtualList: "data-display",
+  TreeView: "data-display",
+  TableOfContents: "navigation",
+  ScrollArea: "layout",
+  ColorPicker: "form",
+  DateTimePicker: "form",
+  TimeRangePicker: "form",
+  ActionSheet: "overlay",
+  BottomNavigation: "navigation",
+  SwipeActions: "data-display",
+  Lightbox: "overlay",
+  AttachmentCard: "form",
+  FormSection: "form",
+  SettingRow: "layout",
+  Price: "data-display",
+  ActivityHeatmap: "data-display",
+  LiveAnnouncer: "feedback",
+  VisuallyHidden: "layout",
+  FloatingToolbar: "overlay",
+  Menubar: "navigation",
+  ResizablePanel: "layout",
 };
 
 /** Parse `export { A, B } from "./components/basic/File"` and the matching
@@ -321,10 +420,17 @@ function extractExample(text, componentName) {
   // Two shapes appear across docs pages: `code={\`...\`}` inline, and
   // `code: \`...\`,` inside an examples array literal.
   const patterns = [/code=\{`([\s\S]*?)`\}/g, /code:\s*`([\s\S]*?)`/g];
+  // Hooks are called rather than rendered as JSX, so match `useThing(...)` in
+  // addition to `<Thing` for names that follow React's use* convention.
+  const hookCall = /^use[A-Z]/.test(componentName)
+    ? new RegExp(`\\b${componentName}\\s*\\(`)
+    : null;
   for (const re of patterns) {
     let m;
     while ((m = re.exec(text))) {
-      if (m[1].includes(`<${componentName}`)) return m[1].trim();
+      if (m[1].includes(`<${componentName}`) || hookCall?.test(m[1])) {
+        return m[1].trim();
+      }
     }
   }
   return "";

@@ -7,7 +7,8 @@
     "Inside one existing app, consistency wins: if the project already has an app shell, sidebar or stat card style, reuse it for new pages instead of introducing a new variant. Variety applies across different products and contexts, not between pages of the same product.",
     "Content must come from the domain. A clinic dashboard shows appointments, no-shows and wait time; a SaaS dashboard shows MRR, churn and activation. Never ship generic 'Total Users / Revenue / Orders / Growth' placeholders unless the request is literally about those.",
     "Do not combine more than two stat card variants on one page, and keep a single variant within one row.",
-    "Vary the active-state treatment, header style and grid to fit the variant. Do not fall back to the same left-border active item, four equal stat cards and chart-plus-table grid every time."
+    "Vary the active-state treatment, header style and grid to fit the variant. Do not fall back to the same left-border active item, four equal stat cards and chart-plus-table grid every time.",
+    "Build every variant from its `components` list using the exact @neuctra/ui exports and the `componentRecipe`; call get-neuctra-ui-component for each one to get its props before writing code. Never hand-build a sidebar, app shell, bottom tab bar, data table, filter bar or command palette when the recipe names the component."
   ],
   "groups": {
     "navigationShell": {
@@ -63,7 +64,16 @@
           "avoid": [
             "More than 5 groups",
             "Descriptions under nav items"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Sidebar",
+            "Dropdown",
+            "Avatar",
+            "SkipLink",
+            "Breadcrumb"
+          ],
+          "componentRecipe": "AppShell sidebar={<Sidebar sections={[{ title, items: [{ id, label, icon, badge }] }]} activeId onSelect header={logo} footer={<Dropdown trigger={<Avatar ...>} items={userMenu} />} />} header={<Breadcrumb ... />}. Sidebar sections render the small muted group labels and the primary-tinted active item; AppShell turns the sidebar into a slide-in panel below lg. Do not hand-build nav items from Buttons."
         },
         {
           "id": "icon-rail",
@@ -101,7 +111,14 @@
           "avoid": [
             "More than 7 icons",
             "Icons without tooltips"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Sidebar",
+            "Tooltip",
+            "BottomNavigation"
+          ],
+          "componentRecipe": "AppShell sidebar={<Sidebar sections={...} collapsed collapsible={false} />}: a collapsed Sidebar is the icon rail and already shows each label in a Tooltip and keeps it for screen readers. On phones render BottomNavigation (position=\"fixed\") with the same destinations instead of the rail."
         },
         {
           "id": "rail-plus-panel",
@@ -142,7 +159,19 @@
           ],
           "avoid": [
             "Duplicating the same links in rail and panel"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Sidebar",
+            "Input",
+            "List",
+            "VirtualList",
+            "Badge",
+            "ResizablePanelGroup",
+            "ResizablePanel",
+            "ResizableHandle"
+          ],
+          "componentRecipe": "AppShell sidebar={<Sidebar collapsed sections={modules} />}; main = ResizablePanelGroup stackBelow={640} with a ResizablePanel (search Input with prefixIcon + List or VirtualList of folders/threads with Badge counts) | ResizableHandle | ResizablePanel for the selected item."
         },
         {
           "id": "collapsible-sidebar",
@@ -178,7 +207,16 @@
           ],
           "avoid": [
             "Animating anything except width"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Sidebar",
+            "CommandPalette",
+            "NotificationCenter",
+            "Avatar",
+            "Dropdown"
+          ],
+          "componentRecipe": "AppShell sidebar={<Sidebar sections={...} collapsible collapsed={collapsed} onCollapsedChange={setCollapsed} />} (persist collapsed in localStorage). header holds the page title, a search trigger for CommandPalette (hotkey=\"k\"), NotificationCenter and an Avatar Dropdown."
         },
         {
           "id": "top-navbar",
@@ -219,7 +257,18 @@
           ],
           "avoid": [
             "More than 6 top-level links"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Button",
+            "Tabs",
+            "CommandPalette",
+            "NotificationCenter",
+            "Avatar",
+            "Dropdown",
+            "Drawer"
+          ],
+          "componentRecipe": "No sidebar: a sticky header row (logo, ghost Button links with an underline active state or Tabs for the section switch, a CommandPalette trigger, NotificationCenter, Avatar Dropdown) above main max-w-7xl. On phones collapse the links into a Drawer opened from an IconButton."
         },
         {
           "id": "inset-sidebar",
@@ -257,7 +306,14 @@
           ],
           "avoid": [
             "Shadows or gradients on the inset panel"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Sidebar",
+            "Card",
+            "CardBody"
+          ],
+          "componentRecipe": "AppShell sidebar={<Sidebar sections={...} className=\"border-0 bg-transparent\" />}; render the page inside main as one inset surface: <Card className=\"m-2 min-h-full\"><CardBody>...</CardBody></Card>."
         },
         {
           "id": "workspace-sidebar",
@@ -294,7 +350,16 @@
           ],
           "avoid": [
             "Showing the switcher when there is only one workspace"
-          ]
+          ],
+          "components": [
+            "AppShell",
+            "Sidebar",
+            "Dropdown",
+            "Avatar",
+            "Progress",
+            "Badge"
+          ],
+          "componentRecipe": "Sidebar header={<Dropdown trigger={<Avatar + workspace name + chevron>} items={workspaces} />} footer={<Progress value={usage} label=\"Seats used\" size=\"sm\" /> + user Avatar}; pinned projects as a Sidebar section whose items use small Avatar initials as icons."
         },
         {
           "id": "bottom-tab-bar",
@@ -329,7 +394,14 @@
           "avoid": [
             "More than 5 tabs",
             "Hiding labels"
-          ]
+          ],
+          "components": [
+            "BottomNavigation",
+            "ActionSheet",
+            "SwipeActions",
+            "IconButton"
+          ],
+          "componentRecipe": "Slim top bar (title + one IconButton) | main with pb-20 | <BottomNavigation items={[{ id, label, icon, badge }]} position=\"fixed\" maxBadgeCount={99} />. Secondary actions open an ActionSheet; list rows use SwipeActions for archive/delete. From sm up switch to the icon-rail shell."
         }
       ]
     },
@@ -378,7 +450,13 @@
           ],
           "avoid": [
             "More than two buttons"
-          ]
+          ],
+          "components": [
+            "Breadcrumb",
+            "Button",
+            "Dropdown"
+          ],
+          "componentRecipe": "Breadcrumb (when nested) > h1 + text-secondary description on the left; one primary Button on the right plus a Dropdown of secondary actions (never several primary buttons)."
         },
         {
           "id": "greeting",
@@ -412,7 +490,13 @@
           ],
           "avoid": [
             "Using it for admin or multi-user operational screens"
-          ]
+          ],
+          "components": [
+            "Avatar",
+            "Text",
+            "Button"
+          ],
+          "componentRecipe": "Avatar + 'Good morning, {name}' heading + one line of text-secondary context (what changed since last visit), optional single primary Button."
         },
         {
           "id": "title-toolbar",
@@ -447,7 +531,14 @@
           ],
           "avoid": [
             "Hiding the date range inside a menu"
-          ]
+          ],
+          "components": [
+            "DateRangePicker",
+            "FilterBar",
+            "Select",
+            "Button"
+          ],
+          "componentRecipe": "Title row, then a toolbar row: DateRangePicker with presets (Last 7 days, Last 30 days, This quarter) + FilterBar (or a Select for one dimension) + an export Button. The toolbar wraps on small screens."
         },
         {
           "id": "title-tabs",
@@ -480,7 +571,14 @@
           ],
           "avoid": [
             "Tabs with a single item"
-          ]
+          ],
+          "components": [
+            "Breadcrumb",
+            "Tabs",
+            "Badge",
+            "Button"
+          ],
+          "componentRecipe": "Breadcrumb > entity title + status Badge + primary Button, then Tabs (Overview, Activity, Settings) directly under the header; each tab renders its own section."
         },
         {
           "id": "status-banner",
@@ -514,7 +612,14 @@
           ],
           "avoid": [
             "Showing green when data is stale"
-          ]
+          ],
+          "components": [
+            "AnnouncementBar",
+            "Callout",
+            "Badge",
+            "Button"
+          ],
+          "componentRecipe": "Overall health first: a Callout (type success/warning/error) or AnnouncementBar for app-wide incidents, with a Badge per subsystem and one Button to the incident detail."
         }
       ]
     },
@@ -561,7 +666,13 @@
           ],
           "avoid": [
             "Deltas without a comparison period"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat"
+          ],
+          "componentRecipe": "Card > CardBody > Stat label value trend=\"up|down\" trendValue=\"+12.4%\" description=\"vs last month\". One row of 3 to 4, grid-cols-1 sm:grid-cols-2 lg:grid-cols-4."
         },
         {
           "id": "sparkline",
@@ -595,7 +706,14 @@
           ],
           "avoid": [
             "Axes or tooltips cluttering the sparkline"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat",
+            "Sparkline"
+          ],
+          "componentRecipe": "Card > CardBody > Stat (label, value, trend) with <Sparkline data={last30} responsive fill showLastPoint tone=\"success|destructive\" /> under the number. Tone follows whether the trend is good, not the sign."
         },
         {
           "id": "progress-goal",
@@ -636,7 +754,14 @@
           ],
           "avoid": [
             "Using it for values without a real target"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat",
+            "Progress"
+          ],
+          "componentRecipe": "Card > CardBody > Stat (value + 'of {target}') + <Progress value max size=\"sm\" showValue />. Use warning/destructive tones near limits."
         },
         {
           "id": "icon-tile",
@@ -674,7 +799,14 @@
           ],
           "avoid": [
             "Four different icon colors in one row for no reason"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat",
+            "Button"
+          ],
+          "componentRecipe": "Clickable Card > CardBody > Stat with icon (lucide) + count + description; the whole tile links to the filtered list (e.g. 'Open tickets')."
         },
         {
           "id": "hero-metric",
@@ -711,7 +843,16 @@
           ],
           "avoid": [
             "Making every stat a hero"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat",
+            "Price",
+            "Sparkline",
+            "DateRangePicker"
+          ],
+          "componentRecipe": "One large Card with the north-star number (Price for money values) + Sparkline responsive across the width + a DateRangePicker; 2 to 3 small Stat tiles beside or below it."
         },
         {
           "id": "compact-strip",
@@ -748,7 +889,14 @@
           ],
           "avoid": [
             "Large numbers; this variant is about density"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat",
+            "Divider"
+          ],
+          "componentRecipe": "One Card > CardBody split into columns: Stat | <Divider orientation=\"vertical\" /> | Stat ... (stack with horizontal Dividers on phones). No separate cards."
         },
         {
           "id": "breakdown",
@@ -783,7 +931,15 @@
           ],
           "avoid": [
             "Pie charts inside small cards"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardHeader",
+            "CardBody",
+            "Progress",
+            "Badge"
+          ],
+          "componentRecipe": "Card > CardHeader (total) > CardBody with one row per part: label + Badge count + Progress value={share}. Sort parts by size."
         },
         {
           "id": "radial-score",
@@ -818,7 +974,14 @@
           ],
           "avoid": [
             "More than three radial cards on a page"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Progress",
+            "Badge"
+          ],
+          "componentRecipe": "Card > CardBody > <Progress variant=\"circular\" value={score} showValue size=\"lg\" /> with a Badge for the rating band and one sentence of text-secondary explanation."
         }
       ]
     },
@@ -857,7 +1020,17 @@
           ],
           "avoid": [
             "Four identical stat cards followed by two identical charts"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardHeader",
+            "CardBody",
+            "Stat",
+            "DataTable",
+            "FilterBar",
+            "EmptyState"
+          ],
+          "componentRecipe": "KPI row (statCard variant) > chart Card (ApexCharts in CardBody) > Card with DataTable columns data sortable pagination={{ page, totalPages, onPageChange: setPage }} emptyState={<EmptyState ... />} for the latest records."
         },
         {
           "id": "bento",
@@ -891,7 +1064,17 @@
           ],
           "avoid": [
             "Filling tiles with decorative content"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardHeader",
+            "CardBody",
+            "Stat",
+            "Sparkline",
+            "ActivityHeatmap",
+            "Progress"
+          ],
+          "componentRecipe": "CSS grid of Cards with varied spans: one hero metric spanning 2 columns, an ActivityHeatmap tile, Progress goal tiles and a chart tile. Collapse to one column on phones."
         },
         {
           "id": "main-side-rail",
@@ -929,7 +1112,18 @@
           ],
           "avoid": [
             "Putting the primary data in the side rail"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardHeader",
+            "CardBody",
+            "List",
+            "Timeline",
+            "NotificationCenter",
+            "Badge",
+            "Button"
+          ],
+          "componentRecipe": "lg:grid-cols-[1fr_320px]: main column with the work items (List or DataTable) | right rail with 'Up next' List, an activity Timeline and approvals with Buttons. The rail stacks under main on phones."
         },
         {
           "id": "table-first",
@@ -965,7 +1159,16 @@
           ],
           "avoid": [
             "Big charts pushing the table below the fold"
-          ]
+          ],
+          "components": [
+            "FilterBar",
+            "DataTable",
+            "BulkActionBar",
+            "Pagination",
+            "EmptyState",
+            "Button"
+          ],
+          "componentRecipe": "FilterBar fields filters onChange > DataTable selectable selectedIds onSelectedIdsChange sortable stickyHeader pagination={{ page, totalPages, onPageChange }} getRowLabel > <BulkActionBar count={selected.length} total={rows.length} actions={[...]} onClear position=\"fixed\" />. Empty results use EmptyState with a clear-filters Button."
         },
         {
           "id": "single-focus",
@@ -1001,7 +1204,15 @@
           ],
           "avoid": [
             "Adding unrelated KPI cards above the hero"
-          ]
+          ],
+          "components": [
+            "Card",
+            "CardBody",
+            "Stat",
+            "DateRangePicker",
+            "Tabs"
+          ],
+          "componentRecipe": "One dominant Card: Stat + full-width chart + DateRangePicker (or Tabs for 7d / 30d / 90d); a short list of supporting facts underneath."
         },
         {
           "id": "pipeline-board",
@@ -1038,7 +1249,17 @@
           ],
           "avoid": [
             "Duplicating stage counts in separate stat cards"
-          ]
+          ],
+          "components": [
+            "ScrollArea",
+            "Card",
+            "CardBody",
+            "Badge",
+            "Avatar",
+            "Price",
+            "Button"
+          ],
+          "componentRecipe": "<ScrollArea scrollbars=\"x\"> with one column per stage (header: stage name + Badge count + total Price); each deal is a Card > CardBody with title, Price, Avatar owner and age. Columns keep a fixed width and scroll on small screens."
         },
         {
           "id": "tabbed-sections",
@@ -1072,7 +1293,16 @@
           ],
           "avoid": [
             "Every tab having the identical layout"
-          ]
+          ],
+          "components": [
+            "Tabs",
+            "Card",
+            "CardHeader",
+            "CardBody",
+            "Stat",
+            "DataTable"
+          ],
+          "componentRecipe": "Tabs (Acquisition, Engagement, Revenue) under the page header; each panel has its own KPI row and Cards with charts or a DataTable."
         },
         {
           "id": "feed-center",
@@ -1105,7 +1335,16 @@
           ],
           "avoid": [
             "Infinite feed without grouping"
-          ]
+          ],
+          "components": [
+            "Timeline",
+            "VirtualList",
+            "Avatar",
+            "Badge",
+            "FilterBar",
+            "NotificationCenter"
+          ],
+          "componentRecipe": "Centered feed: FilterBar on top, then Timeline (or VirtualList for long histories) of events with Avatar, actor, action and Badge type; NotificationCenter in the header for unread items."
         }
       ]
     }

@@ -48,6 +48,7 @@
           "componentQueries": [
             "input form controls",
             "upload dropzone",
+            "upload progress file",
             "progress and status feedback",
             "tool result or preview",
             "action buttons",
@@ -462,11 +463,12 @@
             "Loading, empty, stale-data, and error states"
           ],
           "componentQueries": [
-            "date range picker",
-            "metric cards",
+            "app shell sidebar navigation",
+            "date range picker with presets",
+            "kpi card with trend",
             "chart",
-            "data table",
-            "filters",
+            "sortable table with row selection",
+            "table filters",
             "export menu"
           ],
           "designRuleNumbers": [
@@ -501,7 +503,7 @@
           "seoNotes": [
             "Private analytics data should be authenticated and excluded from public indexing."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         },
         {
           "id": "authentication",
@@ -599,9 +601,10 @@
           "componentQueries": [
             "kanban board",
             "data table",
-            "search input",
-            "select filters",
-            "drawer details"
+            "table filters",
+            "searchable select",
+            "drawer details",
+            "product price"
           ],
           "designRuleNumbers": [
             1,
@@ -637,7 +640,7 @@
           "seoNotes": [
             "Protect customer and opportunity data behind authorization."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         },
         {
           "id": "dashboard",
@@ -669,12 +672,13 @@
             "Loading, empty, error, and success states"
           ],
           "componentQueries": [
-            "dashboard layout container",
+            "app shell",
             "sidebar navigation",
-            "metric cards",
+            "kpi card with trend",
             "charts and data display",
-            "data table and filters",
-            "tabs and menus"
+            "data table with filters and bulk actions",
+            "notification bell",
+            "cmd k search"
           ],
           "designRuleNumbers": [
             1,
@@ -716,7 +720,7 @@
           "seoNotes": [
             "Private dashboards should normally be noindex and require authentication; do not expose private data in public structured data or sitemaps."
           ],
-          "responsiveNotes": "Prioritize the main task and key metrics; adapt navigation, charts, and tables for narrow screens without hiding essential status.",
+          "responsiveNotes": "Prioritize the main task and key metrics; adapt navigation, charts, and tables for narrow screens without hiding essential status. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar.",
           "category": "saas-app"
         },
         {
@@ -748,12 +752,12 @@
             "Empty, loading, error, and no-results states"
           ],
           "componentQueries": [
-            "data table rows columns",
-            "search input",
-            "filters select",
+            "sortable table with row selection",
+            "table filters",
+            "bulk delete selected rows",
             "pagination",
             "empty state",
-            "action menu"
+            "right click menu"
           ],
           "designRuleNumbers": [
             1,
@@ -787,7 +791,7 @@
           "seoNotes": [
             "Index curated public directories when they provide unique value; noindex private, thin, or arbitrary filtered result URLs."
           ],
-          "responsiveNotes": "Prioritize columns and actions; use a responsive list/card pattern or controlled horizontal scrolling for genuinely tabular data.",
+          "responsiveNotes": "Prioritize columns and actions; use a responsive list/card pattern or controlled horizontal scrolling for genuinely tabular data. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar.",
           "category": "saas-app"
         },
         {
@@ -817,11 +821,12 @@
             "Empty, loading, and error states"
           ],
           "componentQueries": [
-            "tabs",
+            "split pane editor",
+            "virtualized list",
             "search input",
-            "list",
-            "textarea",
-            "avatar",
+            "chat with ai assistant",
+            "upload progress file",
+            "swipe row actions",
             "badge"
           ],
           "designRuleNumbers": [
@@ -855,7 +860,7 @@
           "seoNotes": [
             "Keep message content private and support keyboard navigation between list and detail."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         },
         {
           "id": "kanban-board",
@@ -884,12 +889,12 @@
             "Empty and loading states"
           ],
           "componentQueries": [
-            "tabs",
-            "filters",
+            "kanban board",
+            "table filters",
             "dropdown menu",
             "dialog form",
             "badge",
-            "button"
+            "avatar"
           ],
           "designRuleNumbers": [
             1,
@@ -924,7 +929,7 @@
           "seoNotes": [
             "Provide an accessible alternative to drag-and-drop and preserve status meaning."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         },
         {
           "id": "project-workspace",
@@ -955,9 +960,9 @@
             "sidebar navigation",
             "tabs",
             "progress",
-            "task list",
+            "file tree explorer",
             "avatar group",
-            "activity list"
+            "timeline activity"
           ],
           "designRuleNumbers": [
             1,
@@ -992,7 +997,7 @@
           "seoNotes": [
             "Keep project data private and avoid exposing member information publicly."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         },
         {
           "id": "report-builder",
@@ -1017,12 +1022,12 @@
             "Save, schedule, or export actions"
           ],
           "componentQueries": [
-            "select controls",
-            "filter builder",
-            "tabs",
+            "searchable select",
+            "table filters",
+            "date range picker with presets",
             "chart",
-            "data table",
-            "modal"
+            "sortable table",
+            "split pane editor"
           ],
           "designRuleNumbers": [
             1,
@@ -1056,7 +1061,7 @@
           "seoNotes": [
             "Keep saved reports scoped to the right user or organization."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         },
         {
           "id": "settings",
@@ -1086,11 +1091,12 @@
             "Confirmation and feedback states"
           ],
           "componentQueries": [
-            "settings tabs navigation",
-            "input form controls",
-            "switch toggle",
+            "form section",
+            "settings toggle row",
             "select dropdown",
-            "confirmation dialog",
+            "brand color picker",
+            "opening hours time range",
+            "confirm delete dialog",
             "toast feedback"
           ],
           "designRuleNumbers": [
@@ -1123,7 +1129,7 @@
           "seoNotes": [
             "Signed-in settings should require authentication, be noindex, and stay out of public sitemaps."
           ],
-          "responsiveNotes": "Convert side navigation to a compact selector or stacked navigation and keep save actions reachable.",
+          "responsiveNotes": "Convert side navigation to a compact selector or stacked navigation and keep save actions reachable. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar.",
           "category": "saas-app"
         },
         {
@@ -1152,10 +1158,11 @@
             "Confirmation and permission states"
           ],
           "componentQueries": [
-            "data table",
-            "invite form",
+            "sortable table with row selection",
+            "bulk delete selected rows",
+            "searchable select",
             "dropdown menu",
-            "dialog",
+            "confirm delete dialog",
             "badge"
           ],
           "designRuleNumbers": [
@@ -1191,7 +1198,7 @@
           "seoNotes": [
             "Do not reveal private user data or imply access changes that have not succeeded."
           ],
-          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information."
+          "responsiveNotes": "Preserve the primary task and content order on small screens. Adapt navigation, dense content, and controls to touch without hiding essential information. Build the frame with AppShell + Sidebar (or BottomNavigation on mobile-first products); do not hand-build the sidebar."
         }
       ]
     },
@@ -1506,6 +1513,7 @@
           ],
           "componentQueries": [
             "pricing cards",
+            "product price with discount",
             "billing toggle",
             "comparison table",
             "FAQ accordion",
@@ -1643,11 +1651,12 @@
           ],
           "componentQueries": [
             "text input form",
+            "form section",
             "select checkbox radio controls",
-            "date picker",
+            "searchable select",
+            "date time picker",
             "form validation feedback",
-            "buttons",
-            "progress stepper"
+            "multi step onboarding form"
           ],
           "designRuleNumbers": [
             1,
@@ -1713,10 +1722,10 @@
             "Validation, processing, and confirmation states"
           ],
           "componentQueries": [
-            "stepper",
+            "multi step onboarding form",
             "form inputs",
             "radio group",
-            "order summary",
+            "product price with discount",
             "callout",
             "button"
           ],
@@ -1921,9 +1930,10 @@
             "Related products and useful FAQs"
           ],
           "componentQueries": [
-            "image gallery",
+            "image gallery lightbox",
             "select variant",
             "quantity input",
+            "product price with discount",
             "button",
             "tabs",
             "accordion",
@@ -1989,7 +1999,8 @@
           ],
           "componentQueries": [
             "breadcrumb",
-            "filters",
+            "table filters",
+            "price range filter",
             "select sort",
             "product cards",
             "pagination",
@@ -2054,6 +2065,7 @@
           "componentQueries": [
             "cart item list",
             "quantity input",
+            "product price",
             "button",
             "callout",
             "order summary"
@@ -2118,6 +2130,7 @@
             "store navigation",
             "search input",
             "product cards",
+            "product price",
             "carousel",
             "category links",
             "cart button"
@@ -2191,13 +2204,13 @@
             "FAQs where they answer common questions"
           ],
           "componentQueries": [
-            "documentation sidebar navigation",
+            "sidebar navigation",
             "breadcrumbs",
             "table of contents",
-            "code blocks",
+            "code block",
             "tabs",
             "callout",
-            "accordion"
+            "cmd k search"
           ],
           "designRuleNumbers": [
             1,
@@ -2745,7 +2758,7 @@
           "componentQueries": [
             "search input",
             "tabs",
-            "filters",
+            "table filters",
             "result list",
             "pagination",
             "empty state"
@@ -2806,8 +2819,10 @@
           ],
           "componentQueries": [
             "status badge",
+            "announcement bar",
             "incident list",
             "timeline",
+            "github contribution graph",
             "callout"
           ],
           "designRuleNumbers": [

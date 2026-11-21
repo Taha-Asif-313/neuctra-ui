@@ -24,6 +24,28 @@ const SYNONYMS = {
   drawers: "drawer panel sheet overlay",
   card: "card panel surface",
   cards: "card panel surface",
+  command: "command-palette cmdk cmd+k palette actions",
+  "command-palette": "command palette cmdk actions search",
+  shell: "app-shell sidebar topbar dashboard admin layout",
+  "app-shell": "app shell sidebar header dashboard layout",
+  sidebar: "sidebar side navigation nav rail menu",
+  "data-table": "data table grid datagrid sorting filtering selection pagination",
+  grid: "data-table table rows columns grid",
+  combobox: "combobox select typeahead async searchable",
+  range: "range-slider slider min max price",
+  "range-slider": "range slider dual thumb min max",
+  wizard: "wizard stepper multi-step form onboarding checkout",
+  notification: "notification-center toast inbox bell",
+  inbox: "notification-center notification bell messages",
+  chat: "chat-message message-list assistant conversation streaming",
+  assistant: "chat-message message-list ai chat streaming",
+  tree: "tree-view tree file folder hierarchy",
+  toc: "table-of-contents on-this-page docs outline",
+  docs: "code-block table-of-contents documentation api reference",
+  lightbox: "lightbox image-gallery zoom media",
+  pricing: "price price-tag commerce savings checkout",
+  a11y: "skip-link visually-hidden live-announcer accessibility",
+  resizable: "resizable-panel split pane drag resize",
 };
 
 const STOP_WORDS = new Set(["a", "an", "and", "for", "i", "in", "it", "of", "on", "the", "to", "ui", "use", "with"]);
@@ -55,16 +77,68 @@ function rankComponent(component, query) {
   if (name === queryText) score += 100;
   else if (name.includes(queryText) && queryText) score += 50;
 
+  // "date picker", "text area", "icon button": the spaced spelling of an export name.
+  const compact = queryTokens.join("");
+  if (compact && compact !== queryText) {
+    if (name === compact) score += 90;
+    else if (compact.length >= 6 && name.includes(compact)) score += 40;
+  }
+
+  // Words of the export name ("OnboardingTour" -> onboarding, tour). Short
+  // query words must match a whole name word, so "board" no longer hits
+  // OnboardingTour; longer words may still match inside a name ("datepicker").
+  const nameParts = component.name.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase().split(/\s+/);
+  const nameHas = (term) => nameParts.includes(term) || (term.length >= 6 && name.includes(term));
+
   for (const token of queryTokens) {
     const expanded = tokens(SYNONYMS[token] ?? token);
     for (const term of expanded) {
       if (name === term) score += 32;
-      else if (name.includes(term)) score += 18;
+      else if (nameHas(term)) score += 18;
+      else if (stem(term) !== term && nameHas(stem(term))) score += 18;
       if (component.category.toLowerCase() === term) score += 10;
       if (haystack.includes(term)) score += 3;
     }
   }
 
+  return score + semanticScore(component, queryText, queryTokens);
+}
+
+// Plural-insensitive comparison key ("filters" -> "filter", "tabs" -> "tab").
+const stem = (word) => (word.length > 3 && word.endsWith("s") && !word.endsWith("ss") ? word.slice(0, -1) : word);
+const phrase = (text) => ` ${String(text).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()} `;
+
+// Uses the semantic layer written by enrichRegistry (aliases, use cases,
+// family, keywords). Whole alias / use-case phrases found in the request weigh
+// the most, so "confirm delete dialog" reaches AlertDialog and "cmd k search"
+// reaches CommandPalette even though neither name appears in the request.
+function semanticScore(component, queryText, queryTokens) {
+  const search = component.search;
+  if (!search) return 0;
+  const text = phrase(queryText);
+  const stemmedQuery = phrase(queryTokens.map(stem).join(" "));
+  let score = 0;
+
+  for (const [list, base] of [[search.aliases, 22], [search.useCases, 16]]) {
+    for (const entry of list ?? []) {
+      const words = tokens(entry);
+      if (!words.length) continue;
+      const exact = text.includes(phrase(words.join(" ")));
+      const loose = !exact && words.length > 1 && stemmedQuery.includes(phrase(words.map(stem).join(" ")));
+      if (exact || loose) score += base + Math.min(words.length, 4) * 4;
+    }
+  }
+
+  const aliasTokens = new Set((search.aliases ?? []).flatMap(tokens).map(stem));
+  const useCaseTokens = new Set((search.useCases ?? []).flatMap(tokens).map(stem));
+  const keywordTokens = new Set((search.keywords ?? []).map(stem));
+  const family = (search.family ?? "").split("-").map(stem);
+  for (const token of queryTokens.map(stem)) {
+    if (aliasTokens.has(token)) score += 5;
+    if (useCaseTokens.has(token)) score += 3;
+    if (family.includes(token)) score += 4;
+    if (keywordTokens.has(token)) score += 1;
+  }
   return score;
 }
 

@@ -21,6 +21,14 @@ export function registerCheckNeuctraUiRegistryTool(server, data) {
     searchVersion: registry.search?.version ?? null,
     componentRules: registry.search?.componentRules?.length ?? 0,
     designRules: Object.keys(registry.search?.designRules ?? {}).length,
+    localExtensions: registry.localExtensions
+      ? {
+          enabled: registry.localExtensions.enabled ?? false,
+          addedCount: registry.localExtensions.addedCount ?? 0,
+          addedModules: registry.localExtensions.addedModules ?? 0,
+          upstreamSynced: registry.localExtensions.upstreamSynced ?? false,
+        }
+      : null,
     fingerprint,
   };
 

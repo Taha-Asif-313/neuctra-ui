@@ -168,7 +168,9 @@ Read-only registry freshness report. It never syncs, writes files, or bumps vers
 }
 ```
 
-Returns the local version, component count, search version, rule counts, a short fingerprint, and whether the supplied upstream version is `current`, `needs-review`, or `unknown`. Use it before deciding manually to run `sync-registry`.
+Returns the local version, component count, search version, rule counts, local-extension provenance, a short fingerprint, and whether the supplied upstream version is `current`, `needs-review`, or `unknown`. Use it before deciding manually to run `sync-registry`.
+
+This fork also supports locally authored modern components. Run `npm run merge-local-components` after regenerating the sibling package registry; it adds new components, refreshes the props, examples and descriptions of components whose generated API changed, records the additions under `localExtensions`, and never runs `sync-registry`. Run it again whenever a component's props change, otherwise the MCP keeps serving the old API. The current registry contains 132 public entries from the 44 new module families (53 named exports).
 
 ### `neuctra-ui-page-builder`
 
@@ -211,7 +213,7 @@ For "give me every component for X" questions, use `layout` or `family` instead 
 { "family": "drawer", "detail": "summary" }
 ```
 
-Available layout IDs: `forms`, `display`, `dialogs`, `data-tables`, `navigation`, `feedback`, `layout`, `actions`, `typography`, `dashboards`, `authentication`, `settings`. For example, `layout: "forms"` returns all form controls plus the card/toast shell and validation feedback; `layout: "dialogs"` returns modals, drawers, dropdowns, popovers, and tooltips; `layout: "display"` returns tables, lists, cards, stats, timelines, and other data views.
+Available layout IDs: `forms`, `display`, `dialogs`, `data-tables`, `navigation`, `feedback`, `layout`, `actions`, `typography`, `dashboards`, `authentication`, `settings`, `app-shells`, `ai-chat`, `onboarding`, `commerce`, `docs`. For example, `layout: "forms"` returns all form controls plus the card/toast shell and validation feedback; `layout: "dialogs"` returns modals, drawers, dropdowns, popovers, and tooltips; `layout: "app-shells"` returns sidebar/topbar shells with their skip links and theme controls; `layout: "ai-chat"` returns chat messages, streaming helpers, code blocks, and attachments.
 
 Use `family` for a single related group, for example `family: "table"` (Table, TBody, TD, TH, THead, TRow) or `family: "toast"`. Omit both `request` and `layout`/`family` to list every available layout, category, and family.
 

@@ -151,7 +151,7 @@ const COMPONENT_HINTS = {
   Callout: { aliases: ["inline alert", "banner"], useCases: ["persistent messages", "form validation summary"] },
   Modal: { aliases: ["dialog", "popup", "confirmation dialog"], useCases: ["confirmations", "focused tasks", "nested forms"] },
   Drawer: { aliases: ["sheet", "side panel", "sidebar"], useCases: ["mobile navigation", "filters", "settings panels"] },
-  Dropdown: { aliases: ["action menu", "context menu"], useCases: ["row actions", "overflow menus"] },
+  Dropdown: { aliases: ["action menu", "overflow menu", "more menu", "export menu", "user menu"], useCases: ["row actions", "overflow menus"] },
   Popover: { aliases: ["floating panel", "popper"], useCases: ["rich content on click", "small forms"] },
   Tooltip: { aliases: ["hint", "hover help"], useCases: ["icon explanations", "short help text"] },
   Slider: { aliases: ["range input"], useCases: ["volume and price ranges", "settings"] },
@@ -175,6 +175,7 @@ const COMPONENT_HINTS = {
   Skeleton: { aliases: ["loading placeholder"], useCases: ["content loading"] },
   Spinner: { aliases: ["loader"], useCases: ["busy states"] },
   CopyButton: { aliases: ["clipboard button"], useCases: ["copying commands", "copying links"] },
+  Stat: { aliases: ["kpi card", "metric card", "stat card", "kpi tile"], useCases: ["dashboard KPIs", "headline numbers"] },
   ThemeToggleButton: { aliases: ["dark mode", "theme switch"], useCases: ["light and dark mode"] },
 };
 
@@ -183,24 +184,24 @@ const COMPONENT_HINTS = {
 Object.assign(COMPONENT_HINTS, {
   ThemeProvider: { family: "theme-toggle-button", aliases: ["theme context", "color mode provider"], useCases: ["system dark mode", "persisted theme preference"] },
   useTheme: { family: "theme-toggle-button", aliases: ["theme hook", "use color mode"], useCases: ["reading and changing theme"] },
-  CommandPalette: { family: "command-palette", aliases: ["cmd+k", "command menu", "spotlight"], useCases: ["global search", "keyboard navigation", "quick actions"] },
-  AppShell: { family: "app-shell", aliases: ["dashboard frame", "admin shell"], useCases: ["SaaS apps", "admin panels", "responsive app navigation"] },
+  CommandPalette: { family: "command-palette", aliases: ["cmd+k", "ctrl+k", "command menu", "spotlight", "global search", "quick search"], useCases: ["global search", "keyboard navigation", "quick actions"] },
+  AppShell: { family: "app-shell", aliases: ["dashboard frame", "admin shell", "dashboard layout", "admin layout", "app layout"], useCases: ["SaaS apps", "admin panels", "responsive app navigation"] },
   Sidebar: { family: "sidebar", aliases: ["side nav", "nav rail"], useCases: ["workspace navigation", "docs navigation"] },
-  AlertDialog: { family: "modal", aliases: ["confirmation dialog", "destructive dialog"], useCases: ["delete confirmation", "irreversible actions"] },
+  AlertDialog: { family: "modal", aliases: ["confirmation dialog", "destructive dialog", "confirm delete", "confirm dialog", "are you sure dialog", "delete confirmation"], useCases: ["delete confirmation", "irreversible actions"] },
   ContextMenu: { family: "dropdown", aliases: ["right click menu"], useCases: ["row actions", "file actions"] },
   LoadingOverlay: { family: "spinner", aliases: ["busy overlay", "saving overlay"], useCases: ["blocking a region during save", "async refetch"] },
   ErrorBoundary: { family: "error-boundary", aliases: ["crash fallback"], useCases: ["render errors", "widget isolation"] },
   OnboardingTour: { family: "onboarding", aliases: ["product tour", "spotlight tour"], useCases: ["first-run guidance", "feature walkthroughs"] },
   AnnouncementBar: { family: "callout", aliases: ["global notice", "maintenance banner"], useCases: ["app-wide announcements", "dismissible notices"] },
   SkipLink: { family: "accessibility", aliases: ["skip to content"], useCases: ["keyboard navigation", "WCAG compliance"] },
-  DataTable: { family: "table", aliases: ["data grid", "datagrid"], useCases: ["sortable records", "selectable rows", "paginated tables"] },
-  DateRangePicker: { family: "date-picker", aliases: ["range calendar", "date range"], useCases: ["analytics filters", "booking ranges"] },
-  FilterBar: { family: "filter-bar", aliases: ["facets", "query builder"], useCases: ["data filtering", "saved views"] },
-  Combobox: { family: "select", aliases: ["async select", "searchable select", "typeahead"], useCases: ["large option sets", "model pickers", "creatable options"] },
+  DataTable: { family: "table", aliases: ["data grid", "datagrid", "sortable table", "selectable table", "paginated table", "records table"], useCases: ["sortable records", "selectable rows", "paginated tables"] },
+  DateRangePicker: { family: "date-picker", aliases: ["range calendar", "date range", "period picker", "date filter"], useCases: ["analytics filters", "booking ranges"] },
+  FilterBar: { family: "filter-bar", aliases: ["facets", "query builder", "table filters", "list filters", "filter chips", "advanced filters"], useCases: ["data filtering", "saved views"] },
+  Combobox: { family: "select", aliases: ["async select", "searchable select", "typeahead", "autocomplete", "multi select with search", "user picker"], useCases: ["large option sets", "model pickers", "creatable options"] },
   RangeSlider: { family: "slider", aliases: ["dual slider", "min max slider"], useCases: ["price ranges", "numeric thresholds"] },
-  Wizard: { family: "stepper", aliases: ["guided form", "multi-step form"], useCases: ["checkout", "onboarding", "validated steps"] },
+  Wizard: { family: "stepper", aliases: ["guided form", "multi-step form", "multi step", "step by step form", "onboarding flow", "setup flow"], useCases: ["checkout", "onboarding", "validated steps"] },
   NotificationCenter: { family: "notification-center", aliases: ["inbox", "notification bell"], useCases: ["persistent notifications", "read unread history"] },
-  Sparkline: { family: "stat", aliases: ["mini chart", "inline trend"], useCases: ["KPI trends", "dense dashboards"] },
+  Sparkline: { family: "stat", aliases: ["mini chart", "inline trend", "trend line", "kpi trend"], useCases: ["KPI trends", "dense dashboards"] },
   BulkActionBar: { family: "table", aliases: ["selection bar", "mass actions"], useCases: ["bulk delete", "bulk export"] },
   HoverCard: { family: "popover", aliases: ["hover preview"], useCases: ["user previews", "link previews"] },
   CodeBlock: { family: "code-block", aliases: ["snippet", "syntax block"], useCases: ["documentation", "AI answers", "developer tools"] },
@@ -209,12 +210,12 @@ Object.assign(COMPONENT_HINTS, {
   VirtualList: { family: "list", aliases: ["virtualized list", "windowed list"], useCases: ["large lists", "logs", "inboxes"] },
   TreeView: { family: "tree-view", aliases: ["file tree", "nested list"], useCases: ["folders", "permission trees", "categories"] },
   TableOfContents: { family: "table-of-contents", aliases: ["toc", "on this page"], useCases: ["documentation navigation", "long articles"] },
-  ScrollArea: { family: "scroll-area", aliases: ["custom scrollbar"], useCases: ["tall panels", "wide tables"] },
+  ScrollArea: { family: "scroll-area", aliases: ["custom scrollbar", "kanban board", "kanban columns", "horizontal rail"], useCases: ["tall panels", "wide tables"] },
   ColorPicker: { family: "color-picker", aliases: ["hex picker", "swatch picker"], useCases: ["theme builders", "white-label settings"] },
   DateTimePicker: { family: "date-picker", aliases: ["date time field"], useCases: ["scheduling", "event forms"] },
-  TimeRangePicker: { family: "time-picker", aliases: ["start end time"], useCases: ["availability", "booking hours"] },
+  TimeRangePicker: { family: "time-picker", aliases: ["start end time", "opening hours", "business hours", "working hours", "time range", "shift hours"], useCases: ["availability", "booking hours"] },
   ActionSheet: { family: "drawer", aliases: ["mobile action list", "bottom action sheet"], useCases: ["mobile choices", "destructive actions"] },
-  BottomNavigation: { family: "bottom-navigation", aliases: ["mobile tabs"], useCases: ["PWA navigation", "mobile apps"] },
+  BottomNavigation: { family: "bottom-navigation", aliases: ["mobile tabs", "bottom tabs", "mobile navigation", "tab bar"], useCases: ["PWA navigation", "mobile apps"] },
   SwipeActions: { family: "swipe-actions", aliases: ["touch row actions"], useCases: ["mobile inbox", "touch lists"] },
   Lightbox: { family: "image", aliases: ["image zoom", "gallery modal"], useCases: ["product images", "media viewing"] },
   ImageGallery: { family: "image", aliases: ["gallery", "lightbox"], useCases: ["image collections", "commerce media"] },
@@ -245,7 +246,7 @@ Object.assign(COMPONENT_HINTS, {
 const BASE_GUIDANCE = { ruleIds: [40, 44, 47, 48, 50] };
 
 // Applies to every component, so it is stored once at the top level and
-// returned once per search instead of duplicated on all 79 component entries.
+// returned once per search instead of duplicated on every component entry.
 const GUIDANCE_BASELINE = {
   ruleIds: BASE_GUIDANCE.ruleIds,
   requirements: [
@@ -473,6 +474,115 @@ const FAMILY_GUIDANCE = {
   ),
 };
 
+Object.assign(FAMILY_GUIDANCE, {
+  "theme-toggle-button": {
+    ruleIds: [44],
+    useFor: ["Dark mode", "Persisted theme preference", "System theme following"],
+    requirements: ["ThemeProvider owns the `dark` class; ThemeToggleButton stays presentational."],
+  },
+  "command-palette": {
+    ruleIds: [16, 18, 44],
+    useFor: ["Global navigation", "Quick actions", "Keyboard-first search"],
+    avoid: ["Long forms", "Primary page content"],
+    requirements: ["Always expose Cmd/Ctrl+K and keep results keyboard navigable."],
+  },
+  "app-shell": {
+    ruleIds: [3, 8, 44],
+    useFor: ["SaaS applications", "Admin panels", "Responsive dashboards"],
+    requirements: ["Keep one main landmark and a visible skip target."],
+  },
+  sidebar: {
+    ruleIds: [4, 44],
+    useFor: ["Persistent app navigation", "Workspace sections", "Docs navigation"],
+    avoid: ["Duplicating every navigation item in the topbar"],
+  },
+  "error-boundary": {
+    ruleIds: [24, 44],
+    useFor: ["Isolating widget crashes", "Themed retry fallbacks"],
+    requirements: ["Give the user a retry or next action; never show a blank screen."],
+  },
+  onboarding: {
+    ruleIds: [32, 44],
+    useFor: ["First-run guidance", "Feature announcements", "Guided setup"],
+    avoid: ["Blocking every screen with a tour"],
+  },
+  accessibility: {
+    ruleIds: [44],
+    useFor: ["Keyboard navigation", "Screen reader context", "Icon-only labels"],
+    requirements: ["Use semantic HTML first; these utilities enhance it, never replace it."],
+  },
+  "notification-center": {
+    ruleIds: [23, 25],
+    useFor: ["Persistent notification history", "Read/unread inboxes"],
+    avoid: ["Transient success feedback (use toast)"],
+  },
+  "code-block": {
+    ruleIds: [64],
+    useFor: ["Documentation", "API examples", "AI code answers"],
+    requirements: ["Keep copy behavior and overflow handling; syntax colors must come from theme tokens."],
+  },
+  chat: {
+    ruleIds: [23, 44],
+    useFor: ["AI assistants", "Support chat", "Streaming responses"],
+    requirements: ["Expose role, streaming, and thinking states explicitly; never fake completion."],
+  },
+  "filter-bar": {
+    ruleIds: [12, 22],
+    useFor: ["Data filtering", "Saved views", "Faceted search"],
+    requirements: ["Show active filters as removable chips and provide clear-all."],
+  },
+  commerce: {
+    ruleIds: [11, 65],
+    useFor: ["Product pricing", "Savings display", "Checkout summaries"],
+    requirements: ["Format currency with locale and keep compare-at values visually secondary."],
+  },
+  "tree-view": {
+    ruleIds: [23],
+    useFor: ["Hierarchies", "File trees", "Nested permissions"],
+    requirements: ["Support keyboard expansion and roving focus."],
+  },
+  "table-of-contents": {
+    ruleIds: [4, 30],
+    useFor: ["Long documentation", "Guides", "Articles"],
+    requirements: ["Track the active heading and keep heading levels meaningful."],
+  },
+  "scroll-area": {
+    ruleIds: [8],
+    useFor: ["Tall panels", "Wide tables", "Bounded content regions"],
+    avoid: ["Scroll traps with no visible scroll affordance"],
+  },
+  "color-picker": FORM_GUIDANCE,
+  "bottom-navigation": {
+    ruleIds: [4],
+    useFor: ["Mobile primary navigation", "PWAs"],
+    avoid: ["More than five destinations"],
+  },
+  "swipe-actions": {
+    ruleIds: [13],
+    useFor: ["Mobile list actions", "Inbox rows"],
+    requirements: ["Every swipe action must also be reachable by keyboard."],
+  },
+  "attachment-card": {
+    ruleIds: [26],
+    useFor: ["Upload progress", "Chat attachments", "File retry and removal"],
+  },
+  "form-section": FORM_GUIDANCE,
+  "floating-toolbar": {
+    ruleIds: [14, 18],
+    useFor: ["Selection formatting", "Canvas actions"],
+  },
+  menubar: {
+    ruleIds: [18],
+    useFor: ["Desktop-style application menus", "Pro tools"],
+    requirements: ["Use roving focus and Escape-to-close."],
+  },
+  "resizable-panel": {
+    ruleIds: [3, 8],
+    useFor: ["IDE layouts", "Chat with sidebar", "Admin builders"],
+    requirements: ["Expose keyboard resizing and min/max sizes."],
+  },
+});
+
 const COMPONENT_GUIDANCE = {
   Card: {
     useFor: ["Grouping related settings or content", "Feature and product blocks"],
@@ -484,6 +594,106 @@ const COMPONENT_GUIDANCE = {
   ToastProvider: { requirements: ["Wrap the app so toast() can render notifications app-wide."] },
   useToast: { requirements: ["Call the hook to trigger programmatic notifications; there is no \"Toast\" component."] },
 };
+
+// Decision guidance for the extension components: when to choose each one over
+// its simpler sibling, what it is composed of, and what to pair it with. This is
+// what lets a model pick DataTable over Table, Combobox over Select, etc.
+Object.assign(COMPONENT_GUIDANCE, {
+  AppShell: {
+    composition: "AppShell sidebar={<Sidebar … />} header={…} footer? > page content",
+    useFor: ["The outer frame of any SaaS, admin or dashboard app"],
+    requirements: [
+      "Pass a Sidebar as `sidebar`; AppShell turns it into a slide-in panel below lg and renders the menu button for you.",
+      "Use `contained` only when the shell must live inside a bounded box (previews, embedded panes).",
+    ],
+    avoid: ["Hand-building the aside/header/main frame and the mobile drawer yourself"],
+  },
+  Sidebar: {
+    composition: "Sidebar sections=[{ title, items: [{ id, label, icon, badge, href, disabled }] }] header? footer?",
+    useFor: ["Grouped app navigation", "Icon rail (collapsed)", "Workspace navigation with a switcher in `header`"],
+    requirements: ["Keep 2 to 5 items per section; counts go in the item `badge` field.", "Collapsed mode shows labels in a Tooltip automatically."],
+    avoid: ["Hand-building nav items from Buttons", "Large cards or descriptions inside the sidebar"],
+  },
+  BottomNavigation: {
+    useFor: ["Primary navigation of mobile-first apps and PWAs"],
+    requirements: ["3 to 5 destinations, each with icon and short label; give main content bottom padding so the bar never covers it."],
+    avoid: ["Using it on desktop layouts (switch to Sidebar from sm/lg up)"],
+  },
+  CommandPalette: {
+    useFor: ["Cmd/Ctrl+K search across pages and actions in apps with many destinations"],
+    requirements: ["Group commands (Navigation, Actions); set `hotkey=\"k\"`; show a visible trigger with a Kbd hint in the header."],
+  },
+  Menubar: { useFor: ["Editors and pro tools with File / Edit / View menus"], avoid: ["Marketing sites and simple dashboards"] },
+  DataTable: {
+    composition: "FilterBar? > DataTable columns data (sortable, selectable, pagination, loading, emptyState) > BulkActionBar when rows are selected",
+    useFor: ["Records users sort, select, page through or act on in bulk"],
+    requirements: [
+      "Prefer DataTable over hand-assembling Table + sorting + checkboxes; row selection already uses the Neuctra Checkbox.",
+      "Pass `getRowLabel` so each row checkbox has an accessible name; wide tables scroll inside their own container.",
+    ],
+    avoid: ["Using it for 3 static rows (a plain Table or List is enough)"],
+  },
+  FilterBar: {
+    useFor: ["Showing and editing active filters above a DataTable or List", "Saved views"],
+    requirements: ["Keep filters in state and apply them to your data; pair with an EmptyState that offers Clear filters."],
+  },
+  BulkActionBar: {
+    useFor: ["Actions on the rows selected in a DataTable"],
+    requirements: ["Render only while count > 0; pass `total` + `onSelectAll` to offer select-all; mark destructive actions."],
+  },
+  Combobox: {
+    useFor: ["Long or async option lists", "Multi-select with chips", "Creatable values (labels, tags)"],
+    requirements: ["Use Select instead for short fixed lists (under ~10 options) that need no search."],
+  },
+  DateRangePicker: {
+    useFor: ["Analytics periods", "Booking ranges"],
+    requirements: ["Offer presets (Last 7 days, Last 30 days, This quarter) on dashboards; use DatePicker for a single date."],
+  },
+  DateTimePicker: { useFor: ["Scheduling an exact moment (publish at, meeting start)"], requirements: ["Built from Calendar + TimePicker; use DatePicker when the time does not matter."] },
+  TimePicker: { useFor: ["Choosing a time of day"], requirements: ["Use `step` for slot length, `minTime`/`maxTime` or `isTimeDisabled` for bounds and booked slots, `hour12` for 12-hour locales."] },
+  TimeRangePicker: { useFor: ["Opening hours, availability, quiet hours"], requirements: ["Built from two TimePickers; end times before the start are disabled automatically."] },
+  RangeSlider: { useFor: ["Min and max numeric filters (price, size)"], requirements: ["Use Slider for a single value; set `minDistance` so the handles keep a sensible gap."] },
+  ColorPicker: { useFor: ["Brand or theme color settings", "Labels and tags"], requirements: ["Provide `swatches` with the product's preset colors."] },
+  Wizard: {
+    useFor: ["Validated multi-step forms: onboarding, checkout, setup"],
+    requirements: ["Use Wizard (it renders Stepper + Back/Next + async validation) instead of wiring Stepper and buttons by hand.", "Each step must be a meaningful stage."],
+  },
+  FormSection: { composition: "FormSection title description actions? > fields", useFor: ["Grouping related fields on settings and edit pages"], avoid: ["Wrapping every single field in its own section"] },
+  SettingRow: { composition: "SettingRow label description control={<Switch|Select|Button …/>}", useFor: ["Preference lists on settings pages"], requirements: ["Use `stackOnMobile` when the control is wide (Select, Input)."] },
+  AlertDialog: { useFor: ["Confirming destructive or irreversible actions"], requirements: ["Prefer AlertDialog over a custom Modal for confirmations; use `requireText` for high-risk deletes."] },
+  ActionSheet: { useFor: ["Mobile list of actions for one item"], avoid: ["Desktop menus (use Dropdown or ContextMenu)"] },
+  ContextMenu: { useFor: ["Right-click actions on files, rows and canvas objects"], requirements: ["Every action must also be reachable from a visible button or Dropdown."] },
+  HoverCard: { useFor: ["Previewing a user, repo or link on hover or focus"], avoid: ["Essential actions that touch users cannot reach"] },
+  NotificationCenter: { useFor: ["Bell with unread count and persistent notification history in the app header"], avoid: ["Transient confirmations (use toast)"] },
+  AnnouncementBar: { useFor: ["App-wide notices: incidents, launches, billing problems"], avoid: ["Page-specific messages (use Callout)"] },
+  LoadingOverlay: { useFor: ["Blocking one region while it saves or refetches"], avoid: ["Initial page loads (use Skeleton)"] },
+  OnboardingTour: { useFor: ["First-run walkthrough of existing UI"], avoid: ["Explaining what a clearer label could explain"] },
+  Sparkline: { useFor: ["Inline trend under a KPI number"], requirements: ["Pick the tone from whether the trend is good, not from its sign."] },
+  ActivityHeatmap: { useFor: ["Daily activity density over weeks (contributions, deploys, usage)"] },
+  Price: { useFor: ["Formatted prices, sale prices and savings"], requirements: ["Pass `currency` and `locale`; never format money by hand."] },
+  ChatMessage: { composition: "MessageList > ChatMessage role=user|assistant|system", useFor: ["AI assistant and support chat transcripts"] },
+  MessageList: { useFor: ["Auto-scrolling chat transcripts that follow streaming output"] },
+  AttachmentCard: { useFor: ["Files in upload queues and chat composers with progress, error and retry"] },
+  CodeBlock: { useFor: ["Short snippets inside product UI (install commands, AI answers)"] },
+  VirtualList: { useFor: ["Thousands of rows: logs, contacts, inboxes"], requirements: ["Give it a fixed `height` and an `estimateSize` close to the real row height."] },
+  TreeView: { useFor: ["File explorers, nested categories, permission trees"] },
+  TableOfContents: { useFor: ["On-this-page navigation for long docs and articles"] },
+  ScrollArea: { useFor: ["Bounded scroll regions: kanban columns, card rails, side panels"] },
+  ResizablePanelGroup: { composition: "ResizablePanelGroup direction stackBelow? > ResizablePanel > ResizableHandle > ResizablePanel", useFor: ["IDE, inbox and builder layouts with adjustable panes"], requirements: ["Set `stackBelow` so panes stack instead of squeezing on phones."] },
+  SwipeActions: { useFor: ["Archive/delete on touch list rows"], requirements: ["Actions stay reachable with Tab for keyboard users."] },
+  FloatingToolbar: { useFor: ["Formatting or bulk actions that appear on selection"] },
+  Lightbox: { useFor: ["Full-screen viewing of product or listing photos"] },
+  ImageGallery: { useFor: ["Thumbnail grids that open a Lightbox"] },
+  ErrorBoundary: { useFor: ["Isolating a widget so one crash does not blank the page"] },
+  ThemeProvider: { useFor: ["App-wide light/dark/system mode with persistence"], requirements: ["Wrap the app once at the root; read and change the mode with useTheme."] },
+  SkipLink: { useFor: ["First focusable element of every app or site, pointing at main"] },
+});
+
+// ActionSheet is a mobile overlay, not a side panel: give it its own family so
+// it does not inherit the drawer family's "sidebar" aliases.
+FAMILY_INFO["action-sheet"] = { label: "Action sheets", aliases: ["bottom sheet", "mobile action menu"] };
+COMPONENT_HINTS.ActionSheet = { family: "action-sheet", aliases: ["mobile action list", "bottom action sheet"], useCases: ["mobile choices", "destructive actions"] };
+FAMILY_GUIDANCE["action-sheet"] = { ruleIds: [17, 18], useFor: ["Short lists of actions for one item on mobile"], avoid: ["Desktop menus"] };
 
 const LAYOUT_GUIDANCE = {
   forms: FORM_GUIDANCE,
@@ -498,6 +708,13 @@ const LAYOUT_GUIDANCE = {
   dashboards: { ruleIds: [65, 7, 44], requirements: ["Visualize dashboard stats with ApexCharts, not divs or static images."] },
   authentication: { ruleIds: [15, 44] },
   settings: { ruleIds: [7, 15] },
+  "app-shells": { ruleIds: [3, 4, 8, 44] },
+  "ai-chat": { ruleIds: [23, 44], useFor: ["Assistant transcripts", "Streaming responses", "Prompt composers"] },
+  onboarding: { ruleIds: [32, 44] },
+  commerce: { ruleIds: [11, 33, 65] },
+  docs: { ruleIds: [30, 64], useFor: ["API references", "Guides", "Long-form documentation"] },
+  "mobile-apps": { ruleIds: [4, 13, 17, 47], useFor: ["Phone-first navigation", "Touch row actions", "Mobile action menus"], requirements: ["Touch targets of at least 44px; content keeps bottom padding above a fixed BottomNavigation."] },
+  "workspace-tools": { ruleIds: [3, 8, 14, 18], useFor: ["Editors", "IDEs", "Builders", "File managers"], requirements: ["Keyboard shortcuts for frequent actions, shown with Kbd in menus and the command palette."] },
 };
 
 function mergeGuidance(...parts) {
@@ -613,8 +830,8 @@ const LAYOUTS = [
     label: "Data tables",
     description: "Table structure plus the controls used around real tables: search, filtering, paging, and empty states.",
     signals: ["data table", "data grid", "datagrid", "table", "tables", "rows and columns", "pagination", "sorting", "filtering a table"],
-    families: ["table"],
-    components: ["Pagination", "Input", "Select", "Button", "EmptyState", "Skeleton"],
+    families: ["table", "filter-bar"],
+    components: ["Pagination", "Input", "Select", "Checkbox", "Button", "EmptyState", "Skeleton", "Dropdown", "VirtualList"],
   },
   {
     id: "navigation",
@@ -662,8 +879,8 @@ const LAYOUTS = [
     label: "Dashboards & analytics",
     description: "KPI cards, charts-adjacent stats, tables, and progress for admin screens.",
     signals: ["dashboard", "admin panel", "analytics", "metrics", "kpi", "stats", "overview page", "saas dashboard"],
-    families: ["stat", "card", "table", "progress", "timeline", "tabs"],
-    components: ["Button", "Select", "DatePicker"],
+    families: ["stat", "card", "table", "progress", "timeline", "tabs", "app-shell", "sidebar", "filter-bar", "notification-center", "command-palette"],
+    components: ["Button", "Select", "DatePicker", "DateRangePicker", "Badge", "Avatar", "Dropdown", "EmptyState", "Skeleton"],
   },
   {
     id: "authentication",
@@ -677,10 +894,71 @@ const LAYOUTS = [
     label: "Settings & preferences",
     description: "Grouped controls, toggles, and save actions for configuration screens.",
     signals: ["settings", "preferences", "configuration", "profile settings", "account settings"],
-    families: ["tabs", "card"],
-    components: ["Input", "Select", "Switch", "Checkbox", "RadioGroup", "Slider", "Button", "ToastProvider", "Callout", "Divider"],
+    families: ["tabs", "card", "form-section", "color-picker", "theme-toggle-button"],
+    components: ["Input", "Select", "Switch", "Checkbox", "RadioGroup", "Slider", "Button", "ToastProvider", "Callout", "Divider", "TimePicker", "TimeRangePicker", "AlertDialog", "FileUpload", "Avatar"],
   },
 ];
+
+// Local extension intents. They are appended rather than merged into the
+// upstream list so the original 12 buckets stay byte-stable.
+LAYOUTS.push(
+  {
+    id: "app-shells",
+    label: "App shells & admin frames",
+    description: "Responsive application frames with persistent navigation and a main content region.",
+    signals: ["app shell", "application shell", "dashboard shell", "admin layout", "saas shell", "sidebar layout", "topbar layout"],
+    families: ["app-shell", "sidebar", "menubar", "resizable-panel"],
+    components: ["SkipLink", "Breadcrumb", "ThemeProvider", "ThemeToggleButton"],
+  },
+  {
+    id: "ai-chat",
+    label: "AI chat & assistant interfaces",
+    description: "Message transcripts, streaming responses, prompt inputs, and attachments.",
+    signals: ["ai chat", "chat ui", "chatbot", "assistant", "messages", "conversation", "streaming response", "prompt"],
+    families: ["chat", "code-block", "attachment-card", "file-upload"],
+    components: ["Textarea", "Button", "CopyButton", "IconButton", "Spinner"],
+  },
+  {
+    id: "onboarding",
+    label: "Onboarding & guided flows",
+    description: "Tours, wizards, and validated multi-step setup.",
+    signals: ["onboarding", "product tour", "walkthrough", "guided setup", "wizard", "multi-step form"],
+    families: ["onboarding", "stepper"],
+    components: ["Button", "Modal", "Callout", "Progress"],
+  },
+  {
+    id: "commerce",
+    label: "Commerce & pricing",
+    description: "Product prices, savings, ratings, and storefront surfaces.",
+    signals: ["commerce", "storefront", "product", "pricing", "price", "cart", "checkout", "savings"],
+    families: ["commerce", "image", "rating", "badge"],
+    components: ["Card", "Button", "Chip", "Stat"],
+  },
+  {
+    id: "docs",
+    label: "Documentation & developer content",
+    description: "Code blocks, tables of contents, breadcrumbs, and reference navigation.",
+    signals: ["docs", "documentation", "api reference", "guide", "table of contents", "code sample", "developer content"],
+    families: ["table-of-contents", "code-block", "breadcrumb", "chat"],
+    components: ["Tabs", "Callout", "Kbd", "CopyButton", "Accordion"],
+  },
+  {
+    id: "mobile-apps",
+    label: "Mobile apps & PWAs",
+    description: "Touch-first navigation, action sheets and swipeable rows for phone-sized screens.",
+    signals: ["mobile app", "mobile first", "mobile-first", "pwa", "phone", "touch", "bottom tabs", "tab bar", "ios", "android"],
+    families: ["bottom-navigation", "action-sheet", "swipe-actions", "drawer"],
+    components: ["IconButton", "Button", "List", "Avatar", "Badge", "EmptyState", "Skeleton"],
+  },
+  {
+    id: "workspace-tools",
+    label: "Editors & workspace tools",
+    description: "Pro-tool layouts: menubars, resizable panes, file trees, toolbars and command menus.",
+    signals: ["editor", "ide", "builder", "canvas", "design tool", "workspace", "file manager", "explorer", "split pane", "pro tool", "studio"],
+    families: ["menubar", "resizable-panel", "tree-view", "floating-toolbar", "command-palette", "scroll-area"],
+    components: ["ContextMenu", "Tabs", "IconButton", "Tooltip", "Kbd", "CodeBlock"],
+  },
+);
 
 function tokens(text) {
   return String(text ?? "")

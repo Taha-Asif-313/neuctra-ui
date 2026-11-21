@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useId, useRef } from "react";
+import React, { useState, useId, useRef, useEffect } from "react";
 import clsx from "clsx";
 import { cn } from "../../lib/cn";
 
@@ -35,6 +35,12 @@ export interface CheckboxGroupProps {
   checked?: boolean;
   /** Called with the next checked state in `mode="single"`. */
   onCheckedChange?: (checked: boolean) => void;
+  /** Renders the mixed (partially checked) state in `mode="single"`, e.g. a "select all" box when only some rows are selected. Shows a dash and sets `aria-checked="mixed"`. Toggling still calls `onCheckedChange(!checked)`. */
+  indeterminate?: boolean;
+  /** Accessible name. In `mode="single"` it labels the input (use it when there is no visible `label`); in `mode="group"` it labels the group. */
+  "aria-label"?: string;
+  /** Id applied to the input in `mode="single"`. */
+  id?: string;
 
   /** Disables the checkbox(es) and prevents toggling. */
   disabled?: boolean;
@@ -109,6 +115,9 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
   label,
   checked = false,
   onCheckedChange,
+  indeterminate = false,
+  "aria-label": ariaLabel,
+  id,
 
   disabled = false,
   readOnly = false,
@@ -138,6 +147,14 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
   renderItem,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const singleInputRef = useRef<HTMLInputElement>(null);
+  const mixed = mode === "single" && indeterminate && !checked;
+
+  // `indeterminate` is a DOM property only (no HTML attribute), so it has to
+  // be synced imperatively for the native input to expose the mixed state.
+  useEffect(() => {
+    if (singleInputRef.current) singleInputRef.current.indeterminate = mixed;
+  }, [mixed]);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
 
   const generatedId = useId();
@@ -177,11 +194,12 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
   /* =========================
      Default Icon
   ========================= */
-  const DefaultIcon = (isChecked: boolean) => (
+  const DefaultIcon = (isChecked: boolean, isMixed = false) => (
     <span
+      aria-hidden="true"
       className={cn(
         "inline-flex items-center justify-center rounded border transition-colors shrink-0",
-        isChecked
+        isChecked || isMixed
           ? "border-primary bg-primary"
           : "border-border bg-transparent",
         // The real input is sr-only, so the focus ring has to be rendered here.
@@ -207,6 +225,19 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
           <polyline points="20 6 9 17 4 12" />
         </svg>
       )}
+      {!isChecked && isMixed && (
+        <svg
+          viewBox="0 0 24 24"
+          className={cn("text-primary-foreground", checkClassName)}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={3}
+          strokeLinecap="round"
+          style={{ width: iconSize * 0.6, height: iconSize * 0.6 }}
+        >
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      )}
     </span>
   );
 
@@ -215,6 +246,7 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
   ========================= */
   if (mode === "single") {
     const toggle = handleSingleChange;
+    const hasLabel = label !== undefined && label !== null && label !== "";
 
     if (renderItem) {
       return (
@@ -232,21 +264,29 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
       <div className={className} style={style}>
         <label
           className={cn(
-            "relative flex items-center justify-between gap-3",
+            // Without visible text the row collapses to just the box, so it
+            // can sit in a table cell without stretching or adding a gap.
+            hasLabel
+              ? "relative flex items-center justify-between gap-3"
+              : "relative inline-flex items-center align-middle",
             disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer",
             itemClassName,
             labelClassName,
           )}
           style={{ ...itemStyle, ...labelStyle }}
         >
-          <span
-            className={cn("text-sm text-foreground", textClassName)}
-            style={textStyle}
-          >
-            {label}
-          </span>
+          {hasLabel && (
+            <span
+              className={cn("text-sm text-foreground", textClassName)}
+              style={textStyle}
+            >
+              {label}
+            </span>
+          )}
 
           <input
+            ref={singleInputRef}
+            id={id}
             type="checkbox"
             // `hidden` (display:none) took this out of the tab order and the
             // a11y tree, and made `required` block form submission. `sr-only`
@@ -256,12 +296,14 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
             checked={checked}
             disabled={disabled || readOnly}
             required={required}
+            aria-label={ariaLabel}
+            aria-checked={mixed ? "mixed" : undefined}
             aria-invalid={error ? true : undefined}
             aria-describedby={errorId}
             onChange={toggle}
           />
 
-          {customIcon ? customIcon(checked) : DefaultIcon(checked)}
+          {customIcon ? customIcon(checked) : DefaultIcon(checked, mixed)}
         </label>
 
         {error && (
@@ -285,6 +327,7 @@ export const Checkbox: React.FC<CheckboxGroupProps> = ({
     <div
       ref={containerRef}
       role="group"
+      aria-label={ariaLabel}
       aria-invalid={error ? true : undefined}
       aria-describedby={errorId}
       className={cn("flex flex-col gap-2", containerClassName || className)}

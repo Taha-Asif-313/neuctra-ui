@@ -1,6 +1,6 @@
 {
   "name": "neuctra-ui-docs-v2",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@neuctra/ui": "^1.0.14",
+    "@neuctra/ui": "^1.1.1",
     "clsx": "^2.1.1",
     "framer-motion": "^13.2.0",
     "lucide-react": "^0.548.0",

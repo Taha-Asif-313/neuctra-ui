@@ -52,7 +52,7 @@ const UX_SIGNALS = [
     pattern: /\b(form|forms|input|inputs|field|fields|signup|sign up|login|log in|register|checkout|validation|otp|verification)\b/i,
     rules: [15, 63, 72, 73],
     hints: "form data entry input validation",
-    componentQuery: "form input validation",
+    componentQuery: "form section input combobox validation",
   },
   {
     id: "confirmation",
@@ -60,15 +60,15 @@ const UX_SIGNALS = [
     pattern: /\b(confirm|confirmation|delete|remove|destructive|modal|dialog|popup)\b/i,
     rules: [16, 72, 73],
     hints: "modal dialog confirmation overlay",
-    componentQuery: "modal dialog confirmation",
+    componentQuery: "alert dialog confirmation modal",
   },
   {
     id: "tables",
     label: "Tables, lists and findability",
-    pattern: /\b(table|tables|record|records|grid|rows|columns|list|search|filter|sort|pagination|empty state|no results)\b/i,
+    pattern: /\b(table|tables|record|records|grid|rows|columns|list|search|filters?|sort|pagination|bulk|empty state|no results)\b/i,
     rules: [22, 23, 24, 31, 74],
     hints: "data table records list search filter pagination empty state",
-    componentQuery: "data table records pagination",
+    componentQuery: "data table filter bar bulk action bar pagination",
   },
   {
     id: "dashboard",
@@ -76,15 +76,15 @@ const UX_SIGNALS = [
     pattern: /\b(dashboard|analytics|metrics|kpi|stats|charts?|overview|admin panel)\b/i,
     rules: [7, 55, 57, 65],
     hints: "dashboard analytics metrics stats admin panel",
-    componentQuery: "dashboard stat card analytics",
+    componentQuery: "app shell sidebar kpi card with trend date range picker",
   },
   {
     id: "navigation",
     label: "Navigation and wayfinding",
-    pattern: /\b(navigation|navigate|sidebar|menu|tabs?|breadcrumb|stepper|wizard)\b/i,
+    pattern: /\b(navigation|navigate|sidebar|menu|tabs?|breadcrumb|stepper|wizard|app shell|command palette|bottom nav\w*)\b/i,
     rules: [4, 5, 6, 21, 30, 74],
     hints: "navigation sidebar tabs breadcrumb stepper",
-    componentQuery: "navigation sidebar tabs breadcrumb",
+    componentQuery: "sidebar navigation app shell bottom navigation breadcrumb command palette",
   },
   {
     id: "feedback",
@@ -92,7 +92,7 @@ const UX_SIGNALS = [
     pattern: /\b(loading|skeleton|spinner|progress|toast|notification|alert|error|success|status)\b/i,
     rules: [25, 26, 27, 28, 72],
     hints: "feedback loading skeleton toast notification status",
-    componentQuery: "alert toast notification skeleton spinner",
+    componentQuery: "toast notification center loading overlay skeleton",
   },
   {
     id: "commerce",
@@ -100,7 +100,7 @@ const UX_SIGNALS = [
     pattern: /\b(checkout|cart|product|store|shop|pricing|plan|purchase|order)\b/i,
     rules: [13, 22, 63, 71, 73],
     hints: "checkout product store commerce pricing order",
-    componentQuery: "product checkout cart order",
+    componentQuery: "product price with discount image gallery multi step checkout",
   },
   {
     id: "marketing",
@@ -116,7 +116,7 @@ const UX_SIGNALS = [
     pattern: /\b(documentation|docs|help|article|guide|faq|tutorial)\b/i,
     rules: [21, 30, 45, 53, 64],
     hints: "documentation help article guide faq",
-    componentQuery: "documentation help article code block",
+    componentQuery: "code block table of contents sidebar navigation",
   },
   {
     id: "settings",
@@ -124,7 +124,7 @@ const UX_SIGNALS = [
     pattern: /\b(settings|preferences|configuration|profile|account)\b/i,
     rules: [8, 21, 48, 73],
     hints: "settings preferences configuration account",
-    componentQuery: "settings form tabs card",
+    componentQuery: "form section settings toggle row tabs",
   },
   {
     id: "media",
@@ -132,7 +132,7 @@ const UX_SIGNALS = [
     pattern: /\b(image|images|photo|gallery|carousel|slider|video|media|icon)\b/i,
     rules: [33, 34, 60, 61],
     hints: "image gallery carousel media icon",
-    componentQuery: "image avatar carousel gallery",
+    componentQuery: "image gallery lightbox carousel avatar",
   },
   {
     id: "motion",

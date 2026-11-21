@@ -299,6 +299,7 @@ const current = STEPS[step];
                   ["onStepClick", "(index: number) => void", "-", "Makes completed steps clickable"],
                   ["orientation", '"horizontal" | "vertical"', '"horizontal"', "Layout direction"],
                   ["size", '"sm" | "md"', '"md"', "Marker and text scale"],
+                  ["labelVisibility", '"auto" | "all" | "active"', '"auto"', "Horizontal only. auto shows every label from sm up and, on narrow screens, only the markers plus the active label on its own line. all always shows every label; active always uses the compact layout."],
                   ["itemClassName", "string", "-", "Styles each individual step (indicator + content) wrapper"],
                   ["dotClassName", "string", "-", "Styles the circular step indicator/dot"],
                   ["dotButtonClassName", "string", "-", "Styles the button wrapping a clickable (completed) dot"],

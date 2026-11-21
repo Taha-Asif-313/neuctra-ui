@@ -277,6 +277,238 @@ export type { TimePickerProps } from "./components/basic/TimePicker";
 export { Carousel } from "./components/basic/Carousel";
 export type { CarouselProps } from "./components/basic/Carousel";
 
+// ==============================
+// ✅ MODERN COMPONENT ADDITIONS
+// ==============================
+
+export { ThemeProvider, useTheme } from "./components/basic/ThemeProvider";
+export type {
+  ThemeMode,
+  ThemeStorage,
+  ThemeContextValue,
+  ThemeProviderProps,
+} from "./components/basic/ThemeProvider";
+
+export { CommandPalette } from "./components/basic/CommandPalette";
+export type {
+  CommandPaletteGroup,
+  CommandPaletteItem,
+  CommandPaletteProps,
+} from "./components/basic/CommandPalette";
+
+export { AppShell } from "./components/basic/AppShell";
+export type { AppShellProps } from "./components/basic/AppShell";
+
+export { Sidebar } from "./components/basic/Sidebar";
+export type {
+  SidebarItem,
+  SidebarSection,
+  SidebarProps,
+} from "./components/basic/Sidebar";
+
+export { AlertDialog } from "./components/basic/AlertDialog";
+export type { AlertDialogProps } from "./components/basic/AlertDialog";
+
+export { ContextMenu } from "./components/basic/ContextMenu";
+export type {
+  ContextMenuItem,
+  ContextMenuProps,
+} from "./components/basic/ContextMenu";
+
+export { LoadingOverlay } from "./components/basic/LoadingOverlay";
+export type { LoadingOverlayProps } from "./components/basic/LoadingOverlay";
+
+export { ErrorBoundary } from "./components/basic/ErrorBoundary";
+export type { ErrorBoundaryProps } from "./components/basic/ErrorBoundary";
+
+export { OnboardingTour } from "./components/basic/OnboardingTour";
+export type {
+  TourStep,
+  OnboardingTourProps,
+} from "./components/basic/OnboardingTour";
+
+export { AnnouncementBar } from "./components/basic/AnnouncementBar";
+export type { AnnouncementBarProps } from "./components/basic/AnnouncementBar";
+
+export { SkipLink } from "./components/basic/SkipLink";
+export type { SkipLinkProps } from "./components/basic/SkipLink";
+
+export { DataTable } from "./components/basic/DataTable";
+export type {
+  DataTableColumn,
+  DataTableSort,
+  DataTableProps,
+} from "./components/basic/DataTable";
+
+export { DateRangePicker } from "./components/basic/DateRangePicker";
+export type {
+  DateRange,
+  DateRangePreset,
+  DateRangePickerProps,
+} from "./components/basic/DateRangePicker";
+
+export { FilterBar } from "./components/basic/FilterBar";
+export type {
+  FilterOption,
+  FilterDefinition,
+  ActiveFilter,
+  FilterBarProps,
+} from "./components/basic/FilterBar";
+
+export { Combobox } from "./components/basic/Combobox";
+export type {
+  ComboboxOption,
+  ComboboxProps,
+} from "./components/basic/Combobox";
+
+export { RangeSlider } from "./components/basic/RangeSlider";
+export type { RangeSliderProps } from "./components/basic/RangeSlider";
+
+export { Wizard } from "./components/basic/Wizard";
+export type { WizardStep, WizardProps } from "./components/basic/Wizard";
+
+export { NotificationCenter } from "./components/basic/NotificationCenter";
+export type {
+  NotificationItemData,
+  NotificationCenterProps,
+} from "./components/basic/NotificationCenter";
+
+export { Sparkline } from "./components/basic/Sparkline";
+export type { SparklineProps } from "./components/basic/Sparkline";
+
+export { BulkActionBar } from "./components/basic/BulkActionBar";
+export type {
+  BulkAction,
+  BulkActionBarProps,
+} from "./components/basic/BulkActionBar";
+
+export { HoverCard } from "./components/basic/HoverCard";
+export type { HoverCardProps } from "./components/basic/HoverCard";
+
+export { CodeBlock } from "./components/basic/CodeBlock";
+export type {
+  CodeBlockTab,
+  CodeBlockProps,
+} from "./components/basic/CodeBlock";
+
+export { ChatMessage, MessageList } from "./components/basic/ChatMessage";
+export type {
+  ChatMessageRole,
+  ChatMessageProps,
+  MessageListProps,
+} from "./components/basic/ChatMessage";
+
+export { VirtualList } from "./components/basic/VirtualList";
+export type {
+  VirtualListRenderProps,
+  VirtualListProps,
+} from "./components/basic/VirtualList";
+
+export { TreeView } from "./components/basic/TreeView";
+export type { TreeNode, TreeViewProps } from "./components/basic/TreeView";
+
+export { TableOfContents } from "./components/basic/TableOfContents";
+export type {
+  TocHeading,
+  TableOfContentsProps,
+} from "./components/basic/TableOfContents";
+
+export { ScrollArea } from "./components/basic/ScrollArea";
+export type { ScrollAreaProps } from "./components/basic/ScrollArea";
+
+export { ColorPicker } from "./components/basic/ColorPicker";
+export type {
+  ColorFormat,
+  ColorPickerProps,
+} from "./components/basic/ColorPicker";
+
+export { DateTimePicker } from "./components/basic/DateTimePicker";
+export type { DateTimePickerProps } from "./components/basic/DateTimePicker";
+
+export { TimeRangePicker } from "./components/basic/TimeRangePicker";
+export type {
+  TimeRange,
+  TimeRangePickerProps,
+} from "./components/basic/TimeRangePicker";
+
+export { ActionSheet } from "./components/basic/ActionSheet";
+export type {
+  ActionSheetAction,
+  ActionSheetProps,
+} from "./components/basic/ActionSheet";
+
+export { BottomNavigation } from "./components/basic/BottomNavigation";
+export type {
+  BottomNavigationItem,
+  BottomNavigationProps,
+} from "./components/basic/BottomNavigation";
+
+export { SwipeActions } from "./components/basic/SwipeActions";
+export type {
+  SwipeAction,
+  SwipeActionsProps,
+  SwipeActionsSide,
+} from "./components/basic/SwipeActions";
+
+export { Lightbox, ImageGallery } from "./components/basic/Lightbox";
+export type {
+  LightboxImage,
+  LightboxProps,
+  ImageGalleryProps,
+} from "./components/basic/Lightbox";
+
+export { AttachmentCard } from "./components/basic/AttachmentCard";
+export type { AttachmentCardProps } from "./components/basic/AttachmentCard";
+
+export { FormSection } from "./components/basic/FormSection";
+export type { FormSectionProps } from "./components/basic/FormSection";
+
+export { SettingRow } from "./components/basic/SettingRow";
+export type { SettingRowProps } from "./components/basic/SettingRow";
+
+export { Price, PriceTag } from "./components/basic/Price";
+export type { PriceProps, PriceTagProps } from "./components/basic/Price";
+
+export { ActivityHeatmap, HeatmapDay } from "./components/basic/ActivityHeatmap";
+export type {
+  HeatmapDayProps,
+  ActivityHeatmapProps,
+} from "./components/basic/ActivityHeatmap";
+
+export { LiveAnnouncer } from "./components/basic/LiveAnnouncer";
+export type { LiveAnnouncerProps } from "./components/basic/LiveAnnouncer";
+
+export { VisuallyHidden } from "./components/basic/VisuallyHidden";
+export type {
+  VisuallyHiddenElement,
+  VisuallyHiddenProps,
+} from "./components/basic/VisuallyHidden";
+
+export { FloatingToolbar, FloatingToolbarItem } from "./components/basic/FloatingToolbar";
+export type {
+  FloatingToolbarItemProps,
+  FloatingToolbarProps,
+} from "./components/basic/FloatingToolbar";
+
+export { Menubar, MenubarMenu } from "./components/basic/Menubar";
+export type {
+  MenubarItem,
+  MenubarMenuData,
+  MenubarMenuProps,
+  MenubarProps,
+} from "./components/basic/Menubar";
+
+export {
+  ResizablePanelGroup,
+  ResizablePanel,
+  ResizableHandle,
+} from "./components/basic/ResizablePanel";
+export type {
+  ResizablePanelGroupProps,
+  ResizablePanelProps,
+  ResizableHandleProps,
+} from "./components/basic/ResizablePanel";
+
 // Utilities
 export { cn } from "./lib/cn";
 

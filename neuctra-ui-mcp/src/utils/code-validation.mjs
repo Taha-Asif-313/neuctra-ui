@@ -22,6 +22,14 @@ const REACT_PROPS = new Set([
   "dangerouslySetInnerHTML", "suppressHydrationWarning", "defaultChecked", "defaultValue",
 ]);
 
+// Native attributes accepted by components whose props extend HTML attributes.
+const HTML_ATTRIBUTES = new Set([
+  "hidden", "lang", "dir", "draggable", "translate", "slot", "inert", "autoFocus",
+  "href", "target", "rel", "type", "name", "value", "disabled", "placeholder",
+  "htmlFor", "form", "required", "readOnly", "multiple", "accept", "alt", "src",
+  "width", "height", "loading", "download", "spellCheck", "autoComplete", "contentEditable",
+]);
+
 const severityWeight = { error: 20, warning: 8, info: 2 };
 const unique = (values) => [...new Set(values.filter(Boolean))];
 
@@ -55,20 +63,78 @@ function extractNeuctraImports(code) {
   return { sources: unique(sources), names };
 }
 
-function extractTags(code) {
-  return [...code.matchAll(/<([A-Za-z][A-Za-z0-9.]*)\b([^>]*)>/g)].map((match) => ({
-    name: match[1],
-    attributes: match[2] ?? "",
-  }));
+// Skip a quoted string or template literal starting at `i`; returns the index
+// just past its closing quote.
+function skipString(code, i) {
+  const quote = code[i];
+  let j = i + 1;
+  while (j < code.length) {
+    if (code[j] === "\\") { j += 2; continue; }
+    if (code[j] === quote) return j + 1;
+    if (quote === "`" && code[j] === "$" && code[j + 1] === "{") { j = skipBraces(code, j + 1); continue; }
+    j += 1;
+  }
+  return j;
 }
 
-function extractAttributes(text) {
-  return [...text.matchAll(/(?:^|\s)([A-Za-z_][A-Za-z0-9_:-]*)(?=\s*=|\s|\/?$)/g)]
-    .map((match) => match[1])
-    .filter((name) => !REACT_PROPS.has(name)
-      && !name.startsWith("data-")
-      && !name.startsWith("aria-")
-      && !/^on[A-Z]/.test(name));
+// Skip a balanced {...} expression starting at the "{" at `i`. Strings and
+// nested braces are respected, so `onChange={() => setOpen(a > b)}` and
+// `sidebar={<Sidebar sections={[]} />}` are consumed as one value.
+function skipBraces(code, i) {
+  let depth = 0;
+  let j = i;
+  while (j < code.length) {
+    const ch = code[j];
+    if (ch === "\"" || ch === "'" || ch === "`") { j = skipString(code, j); continue; }
+    if (ch === "{") depth += 1;
+    else if (ch === "}") { depth -= 1; if (depth === 0) return j + 1; }
+    j += 1;
+  }
+  return j;
+}
+
+// Read the top-level attribute names of the JSX opening tag whose name ends
+// at `i`. Attributes of JSX nested inside attribute values are NOT included;
+// those tags are found separately by extractTags.
+function readTagAttributes(code, i) {
+  const names = [];
+  let j = i;
+  while (j < code.length) {
+    while (/\s/.test(code[j] ?? "")) j += 1;
+    const ch = code[j];
+    if (ch === undefined || ch === ">" || (ch === "/" && code[j + 1] === ">")) break;
+    if (ch === "{") { j = skipBraces(code, j); continue; } // {...spread}
+    const match = /^[A-Za-z_][A-Za-z0-9_:.-]*/.exec(code.slice(j, j + 200));
+    if (!match) { j += 1; continue; }
+    names.push(match[0]);
+    j += match[0].length;
+    while (/\s/.test(code[j] ?? "")) j += 1;
+    if (code[j] !== "=") continue;
+    j += 1;
+    while (/\s/.test(code[j] ?? "")) j += 1;
+    if (code[j] === "\"" || code[j] === "'") j = skipString(code, j);
+    else if (code[j] === "{") j = skipBraces(code, j);
+  }
+  return names;
+}
+
+function extractTags(code) {
+  const tags = [];
+  // A JSX opening tag starts with "<Name" that is not part of a comparison or
+  // a TypeScript generic call such as useState<string>(...).
+  for (const match of code.matchAll(/<([A-Za-z][A-Za-z0-9.]*)/g)) {
+    const before = code.slice(Math.max(0, match.index - 1), match.index);
+    if (/[A-Za-z0-9_)\]]/.test(before)) continue; // a < b, foo<T>, arr[i]<x
+    tags.push({ name: match[1], attributes: readTagAttributes(code, match.index + match[0].length) });
+  }
+  return tags;
+}
+
+function extractAttributes(names) {
+  return names.filter((name) => !REACT_PROPS.has(name)
+    && !name.startsWith("data-")
+    && !name.startsWith("aria-")
+    && !/^on[A-Z]/.test(name));
 }
 
 export function validateUiCode(code, {
@@ -119,8 +185,10 @@ export function validateUiCode(code, {
       continue;
     }
     const validProps = new Set((component.props ?? []).map((prop) => prop.name));
-    const attrs = extractAttributes(tags.find((tag) => tag.name === name)?.attributes ?? "");
-    const unknown = attrs.filter((attr) => !validProps.has(attr));
+    // Components that extend native HTML attributes accept those too.
+    const extendsHtml = /HTMLAttributes|HTMLProps|ComponentProps/.test(JSON.stringify(component.extends ?? ""));
+    const attrs = unique(tags.filter((tag) => tag.name === name).flatMap((tag) => extractAttributes(tag.attributes)));
+    const unknown = attrs.filter((attr) => !validProps.has(attr) && !(extendsHtml && /^[a-z][a-zA-Z]*$/.test(attr) && HTML_ATTRIBUTES.has(attr)));
     if (unknown.length) {
       add("error", `${name} received unknown prop(s): ${unknown.join(", ")}`, {
         component: name,

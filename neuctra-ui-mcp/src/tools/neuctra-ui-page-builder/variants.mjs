@@ -56,7 +56,7 @@ function scoreVariant(variant, { text, layoutId, density, platform, seed }) {
   return { score: score + tieBreak(`${seed}:${variant.id}`), reasons };
 }
 
-const summarize = ({ id, name, bestFor, structure }) => ({ id, name, bestFor, structure });
+const summarize = ({ id, name, bestFor, structure, components }) => ({ id, name, bestFor, structure, ...(components && { components }) });
 
 export function selectDesignVariants(variantData, { request, layoutId, preferences = {} }) {
   const groups = variantData?.groups ?? {};

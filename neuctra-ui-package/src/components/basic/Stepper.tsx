@@ -25,6 +25,13 @@ export interface StepperProps
   orientation?: "horizontal" | "vertical";
   /** Marker and text scale. */
   size?: "sm" | "md";
+  /**
+   * Which step labels a horizontal stepper shows under its markers.
+   * `"auto"` shows every label from the `sm` breakpoint up, and on narrow screens shows only
+   * the markers plus the active step's label on its own line, so four or more steps fit a phone.
+   * `"all"` always shows every label (the strip scrolls when it overflows); `"active"` always uses the compact layout.
+   */
+  labelVisibility?: "auto" | "all" | "active";
 
   // 🔥 Full Customization
   /** Wraps each individual step (indicator + content). */
@@ -44,8 +51,8 @@ export interface StepperProps
 }
 
 const SIZES = {
-  sm: { dot: "h-7 w-7 text-xs [&_svg]:h-3.5 [&_svg]:w-3.5", label: "text-xs", desc: "text-[11px]", itemMinWidth: "min-w-20" },
-  md: { dot: "h-9 w-9 text-sm [&_svg]:h-4 [&_svg]:w-4", label: "text-sm", desc: "text-xs", itemMinWidth: "min-w-24" },
+  sm: { dot: "h-7 w-7 text-xs [&_svg]:h-3.5 [&_svg]:w-3.5", label: "text-xs", desc: "text-[11px]", itemMinWidth: "min-w-20", itemMinWidthSm: "sm:min-w-20" },
+  md: { dot: "h-9 w-9 text-sm [&_svg]:h-4 [&_svg]:w-4", label: "text-sm", desc: "text-xs", itemMinWidth: "min-w-24", itemMinWidthSm: "sm:min-w-24" },
 } as const;
 
 export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
@@ -56,6 +63,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
       onStepClick,
       orientation = "horizontal",
       size = "md",
+      labelVisibility = "auto",
       className,
       itemClassName,
       dotClassName,
@@ -71,6 +79,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
     const sizes = SIZES[size] ?? SIZES.md;
     const vertical = orientation === "vertical";
     const activeItemRef = useRef<HTMLDivElement | null>(null);
+    const stripRef = useRef<HTMLDivElement | null>(null);
 
     // Many steps (or long labels) overflow a fixed-width row — the strip
     // scrolls horizontally instead of squishing every item unreadably (see
@@ -78,11 +87,14 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
     // view as it changes, since it can otherwise scroll off either edge.
     useEffect(() => {
       if (vertical) return;
-      activeItemRef.current?.scrollIntoView({
-        block: "nearest",
-        inline: "center",
-        behavior: "smooth",
-      });
+      const strip = stripRef.current;
+      const item = activeItemRef.current;
+      if (!strip || !item) return;
+      // Scroll only the strip itself. scrollIntoView() also scrolled the
+      // page vertically, which yanked the document to the stepper on mount.
+      if (strip.scrollWidth <= strip.clientWidth) return;
+      const target = item.offsetLeft - (strip.clientWidth - item.offsetWidth) / 2;
+      strip.scrollTo?.({ left: Math.max(0, target), behavior: "smooth" });
     }, [activeStep, vertical]);
 
     const renderDot = (index: number, step: StepperStep) => {
@@ -195,7 +207,7 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
           }
           .stepper-scroll-strip::-webkit-scrollbar { display: none; }
         `}</style>
-        <div className="stepper-scroll-strip flex w-full items-start">
+        <div ref={stripRef} className="stepper-scroll-strip relative flex w-full items-start">
           {steps.map((step, i) => {
             const done = i < activeStep;
             const active = i === activeStep;
@@ -207,12 +219,21 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
                   ref={active ? activeItemRef : undefined}
                   className={cn(
                     "flex shrink-0 flex-col items-center gap-2 text-center",
-                    sizes.itemMinWidth,
+                    labelVisibility === "all"
+                      ? sizes.itemMinWidth
+                      : labelVisibility === "auto" && sizes.itemMinWidthSm,
                     itemClassName,
                   )}
                 >
                   {renderDot(i, step)}
-                  <div className={cn("min-w-0 px-1", contentClassName)}>
+                  <div
+                    className={cn(
+                      "min-w-0 px-1",
+                      labelVisibility === "auto" && "sr-only sm:not-sr-only",
+                      labelVisibility === "active" && "sr-only",
+                      contentClassName,
+                    )}
+                  >
                     <p
                       aria-current={active ? "step" : undefined}
                       title={typeof step.label === "string" ? step.label : undefined}
@@ -244,7 +265,8 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
                   <span
                     aria-hidden="true"
                     className={cn(
-                      "mx-2 mt-4 h-0.5 min-w-4 flex-1 rounded-full",
+                      "mt-4 h-0.5 min-w-4 flex-1 rounded-full",
+                      labelVisibility === "all" ? "mx-2" : labelVisibility === "auto" ? "mx-1.5 sm:mx-2" : "mx-1.5",
                       size === "sm" && "mt-3.5",
                       done ? "bg-primary" : "bg-border",
                       connectorClassName,
@@ -255,6 +277,25 @@ export const Stepper = forwardRef<HTMLDivElement, StepperProps>(
             );
           })}
         </div>
+        {labelVisibility !== "all" && steps[activeStep] && (
+          // Compact layout: the active step's label sits on its own line
+          // under the markers. Hidden from assistive tech because the
+          // per-step labels (sr-only / hidden below sm) already carry it.
+          <p
+            aria-hidden="true"
+            className={cn(
+              "mt-3 truncate text-center font-medium text-foreground",
+              sizes.label,
+              labelVisibility === "auto" && "sm:hidden",
+              labelClassName,
+            )}
+          >
+            <span className="text-muted-foreground tabular-nums">
+              {activeStep + 1}/{steps.length}
+            </span>{" "}
+            {steps[activeStep].label}
+          </p>
+        )}
       </div>
     );
   },

@@ -34,8 +34,31 @@ const additions = (generated.components ?? []).filter(
   (component) => !localNames.has(component.name),
 );
 
-if (!additions.length) {
-  console.log("No new components to merge; local registry is already up to date.");
+// Refresh components that already exist locally but whose generated API data
+// changed in the package (new props, new example, new description). Without
+// this, a component added once would keep its first-seen props forever.
+// Only the generated fields are replaced; `search` is rebuilt by enrichRegistry.
+const GENERATED_FIELDS = ["importFrom", "module", "category", "propsInterface", "description", "props", "extends", "example"];
+const generatedByName = new Map((generated.components ?? []).map((component) => [component.name, component]));
+const refreshedNames = [];
+for (const [index, component] of local.components.entries()) {
+  const fresh = generatedByName.get(component.name);
+  if (!fresh) continue;
+  const changed = GENERATED_FIELDS.some(
+    (field) => JSON.stringify(component[field] ?? null) !== JSON.stringify(fresh[field] ?? null),
+  );
+  if (!changed) continue;
+  const next = { ...component };
+  for (const field of GENERATED_FIELDS) {
+    if (fresh[field] === undefined) delete next[field];
+    else next[field] = fresh[field];
+  }
+  local.components[index] = next;
+  refreshedNames.push(component.name);
+}
+
+if (!additions.length && !refreshedNames.length) {
+  console.log("No new or changed components to merge; local registry is already up to date.");
 }
 
 // Validate before writing. enrichRegistry does not deduplicate or repair shape.
@@ -74,6 +97,11 @@ const mergedComponents = [...local.components, ...additions].sort((a, b) =>
 const previousExtensions = local.localExtensions ?? {};
 const previousNames = new Set(previousExtensions.addedNames ?? []);
 for (const component of additions) previousNames.add(component.name);
+const addedModules = new Set(
+  mergedComponents
+    .filter((component) => previousNames.has(component.name))
+    .map((component) => component.module),
+).size;
 
 const source = {
   ...local,
@@ -84,6 +112,7 @@ const source = {
     strategy: "local-registry-overlay",
     source: "@neuctra/ui local package registry",
     addedCount: previousNames.size,
+    addedModules,
     addedNames: [...previousNames].sort((a, b) => a.localeCompare(b)),
     upstreamSynced: false,
   },
@@ -96,9 +125,14 @@ console.log(
   JSON.stringify(
     {
       merged: additions.length,
+      refreshed: refreshedNames.length,
+      refreshedNames,
       totalComponents: enriched.components.length,
       version: enriched.version,
-      localExtensions: enriched.localExtensions.addedCount,
+      localExtensions: {
+        addedCount: enriched.localExtensions.addedCount,
+        addedModules: enriched.localExtensions.addedModules,
+      },
       searchVersion: enriched.search.version,
       families: Object.keys(enriched.search.families).length,
       layouts: Object.keys(enriched.search.layouts).length,

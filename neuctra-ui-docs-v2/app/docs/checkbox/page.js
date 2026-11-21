@@ -373,6 +373,34 @@ function CheckboxGroupExample() {
                   <td className="p-3">Called when toggled in single mode.</td>
                 </tr>
 
+                <tr>
+                  <td className="p-3">indeterminate</td>
+                  <td className="p-3">boolean</td>
+                  <td className="p-3">false</td>
+                  <td className="p-3">
+                    Mixed state in single mode, e.g. a select all box when only
+                    some rows are selected. Shows a dash and sets
+                    aria-checked="mixed".
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3">aria-label</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">-</td>
+                  <td className="p-3">
+                    Accessible name. Labels the input in single mode (use it
+                    when there is no visible label) or the group in group mode.
+                  </td>
+                </tr>
+
+                <tr>
+                  <td className="p-3">id</td>
+                  <td className="p-3">string</td>
+                  <td className="p-3">-</td>
+                  <td className="p-3">Id applied to the input in single mode.</td>
+                </tr>
+
                 {/* Group Mode Props */}
                 <tr>
                   <td className="p-3">options</td>

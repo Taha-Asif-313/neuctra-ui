@@ -932,7 +932,7 @@ function SizeExample() {
             {/* Wrong value type */}
             <div className="flex items-start gap-2 text-red-500">
               <X size={16} className="mt-1" />
-              <div>
+              <div className="min-w-0 flex-1">
                 <code>{"<Select value={123} />"}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   Value must be string or string[] - never number or object.
@@ -943,7 +943,7 @@ function SizeExample() {
             {/* Wrong options format */}
             <div className="flex items-start gap-2 text-red-500">
               <X size={16} className="mt-1" />
-              <div>
+              <div className="min-w-0 flex-1">
                 <code>{'<Select options={[ "Apple", "Banana" ]} />'}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   Options must be objects with label and value keys.
@@ -954,7 +954,7 @@ function SizeExample() {
             {/* uncontrolled vs controlled confusion */}
             <div className="flex items-start gap-2 text-red-500">
               <X size={16} className="mt-1" />
-              <div>
+              <div className="min-w-0 flex-1">
                 <code>{'<Select value="a" defaultValue="b" />'}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   Do not mix controlled (value) and uncontrolled
@@ -966,7 +966,7 @@ function SizeExample() {
             {/* multiple misuse */}
             <div className="flex items-start gap-2 text-red-500">
               <X size={16} className="mt-1" />
-              <div>
+              <div className="min-w-0 flex-1">
                 <code>{'<Select multiple value="single" />'}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   When multiple is true, value must be an array of strings.
@@ -977,7 +977,7 @@ function SizeExample() {
             {/* correct usage */}
             <div className="flex items-start gap-2 text-green-500">
               <Check size={16} className="mt-1" />
-              <div>
+              <div className="min-w-0 flex-1">
                 <code>{'<Select options={[{label:"A", value:"a"}]} />'}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   Always pass structured options with label and value.
@@ -988,7 +988,7 @@ function SizeExample() {
             {/* performance mistake */}
             <div className="flex items-start gap-2 text-red-500">
               <X size={16} className="mt-1" />
-              <div>
+              <div className="min-w-0 flex-1">
                 <code>{"options.filter(...).map(...) inside render"}</code>
                 <p className="text-gray-400 text-xs mt-1">
                   Large option lists without memoization can cause lag.
@@ -1008,7 +1008,7 @@ function SizeExample() {
                 size={18}
                 className="text-yellow-500 flex-shrink-0 mt-0.5"
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <span className="text-yellow-400">
                   Use controlled components for forms
                 </span>
@@ -1036,7 +1036,7 @@ const [formData, setFormData] = useState({ category: '', priority: 'medium' });
                 size={18}
                 className="text-yellow-500 flex-shrink-0 mt-0.5"
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <span className="text-yellow-400">
                   Leverage rich content options
                 </span>
@@ -1077,7 +1077,7 @@ const userOptions = [
                 size={18}
                 className="text-yellow-500 flex-shrink-0 mt-0.5"
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <span className="text-yellow-400">
                   Optimize performance with large datasets
                 </span>
@@ -1104,7 +1104,7 @@ const userOptions = [
                 size={18}
                 className="text-yellow-500 flex-shrink-0 mt-0.5"
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <span className="text-yellow-400">
                   Use size variants strategically
                 </span>
@@ -1133,7 +1133,7 @@ const userOptions = [
                 size={18}
                 className="text-yellow-500 flex-shrink-0 mt-0.5"
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <span className="text-yellow-400">
                   Combine with other form components
                 </span>
@@ -1163,7 +1163,7 @@ import { Select, Input, Button } from '@neuctra/ui';
                 size={18}
                 className="text-yellow-500 flex-shrink-0 mt-0.5"
               />
-              <div>
+              <div className="min-w-0 flex-1">
                 <span className="text-yellow-400">
                   Handle loading and disabled states
                 </span>

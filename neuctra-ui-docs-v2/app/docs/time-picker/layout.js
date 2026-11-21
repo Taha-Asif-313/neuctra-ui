@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
 });
 
 const timePickerFaq = buildComponentFaq("TimePicker", {
-  sizes: ["sm", "md", "lg"],
+  sizes: ["xs", "sm", "md", "lg"],
 });
 
 export default function TimePickerLayout({ children }) {
