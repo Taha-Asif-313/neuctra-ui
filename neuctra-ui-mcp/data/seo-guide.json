@@ -196,6 +196,7 @@
       "checks": [
         "Verify relevant AI search crawlers can access intended public pages under the site's robots.txt and access policies.",
         "Check HTTP responses, rendered HTML, JavaScript dependencies, and essential content availability.",
+        "Fetch the production HTML without running JavaScript and confirm that the H1, main content, FAQ answers, and JSON-LD are present.",
         "Ensure important content is not unintentionally blocked, hidden, or dependent on user interaction."
       ]
     },
@@ -311,11 +312,243 @@
     "Treat SEO practices as context-dependent, not mandatory for every page."
   ],
 
+  "common_fixes": {
+    "description": "Problems found repeatedly in real SEO, AEO, and GEO reviews, with how to detect, fix, and verify each one. Check them in order before writing new content. Apply only the ones confirmed by evidence.",
+    "order": [
+      "empty-initial-html",
+      "claims-do-not-match-product",
+      "lost-social-image",
+      "generic-titles",
+      "unsafe-or-misleading-schema",
+      "stale-machine-readable-urls",
+      "thin-or-generic-content",
+      "invalid-landmarks"
+    ],
+    "fixes": [
+      {
+        "id": "empty-initial-html",
+        "name": "Public page has no content in its initial HTML",
+        "category": "technical",
+        "priority": "critical",
+        "symptoms": [
+          "The page looks complete in a browser, but View Source shows only the navigation and footer.",
+          "The raw HTML has no H1, article, FAQ answers, or page-specific JSON-LD."
+        ],
+        "whyItMatters": "Googlebot can render JavaScript, but a published crawl study found that the OpenAI, Anthropic, and Perplexity crawlers it measured did not. Content that only exists after JavaScript runs may be unavailable to them.",
+        "commonCause": "A browser-only library made someone disable server rendering for the whole page, or the app is a client-only single-page app.",
+        "detect": [
+          "Fetch the production URL or built HTML without executing JavaScript, then count H1 elements, visible words, and JSON-LD blocks.",
+          "Search the code for whole-page client-only rendering, such as ssr: false around a page component, and check every match: one occurrence usually means siblings share it.",
+          "Do not rely on browser DevTools: the Elements panel shows the page after JavaScript runs."
+        ],
+        "fix": [
+          "Render the H1, introduction, article, steps, FAQ, internal links, and JSON-LD on the server or at build time.",
+          "Make only the interactive widget client-only, behind the smallest possible loader component.",
+          "Move page copy and FAQ data into a plain module with no browser imports, so server code and the widget can both use it.",
+          "Keep collapsed FAQ answers in the HTML and hide them visually, rather than mounting them on click.",
+          "Give the loading placeholder the same height as the widget's first state to avoid layout shift."
+        ],
+        "frameworks": {
+          "nextjs-app": "Make page.jsx a Server Component and put dynamic(() => import('./Widget'), { ssr: false, loading }) in a separate 'use client' loader. ssr: false is not allowed in Server Components. Client Components are still prerendered, so 'use client' alone is not the problem.",
+          "nextjs-pages": "Keep the page component server rendered and use dynamic(..., { ssr: false }) only for the widget inside it.",
+          "react-router": "In framework mode, use server rendering or the prerender config for public routes. SPA mode (ssr: false without prerender) does not prerender individual routes. Load the widget after mount.",
+          "remix": "Keep the route server rendered and load the browser-only widget after mount.",
+          "react-vite": "A plain Vite single-page app sends an empty root element. Prerender the public routes at build time or move them to a framework that prerenders. Ask before adding a dependency or migrating.",
+          "astro": "Write the content in the .astro page and use client:only=\"react\" on the widget only, with a slot=\"fallback\" placeholder.",
+          "tanstack-start": "Keep ssr: true on public routes and make only the widget client-only. ssr: false or 'data-only' on the route removes the component's HTML, and child routes inherit it.",
+          "gatsby": "Keep the page statically built and load the widget with loadable-components or a client-only lazy import.",
+          "html": "Put the content in the HTML file and let the script enhance a placeholder element."
+        },
+        "verify": [
+          "The production HTML, fetched without JavaScript, contains exactly one relevant H1, the main content, every FAQ answer, and valid JSON-LD.",
+          "The widget still works on the production build, with no hydration errors and no new layout shift."
+        ]
+      },
+      {
+        "id": "lost-social-image",
+        "name": "Page metadata removes the inherited social image",
+        "category": "metadata",
+        "priority": "high",
+        "symptoms": [
+          "Shared links have no image even though the root layout defines one.",
+          "The built HTML has og:title but no og:image."
+        ],
+        "whyItMatters": "Link previews on social and chat apps lose their image.",
+        "commonCause": "Framework metadata is merged shallowly, so a page that sets openGraph replaces the parent's whole openGraph object, images included.",
+        "detect": [
+          "Check og:image and twitter:image in the built HTML of a deep page, not only the homepage."
+        ],
+        "fix": [
+          "Set a default image in the shared metadata helper and allow a per-page override.",
+          "Use absolute URLs and real width, height, and alt values. Confirm the image file exists."
+        ],
+        "frameworks": {
+          "nextjs-app": "Nested metadata such as openGraph and robots is replaced by the last segment that defines it. Include images in the same openGraph and twitter objects, and set metadataBase."
+        },
+        "verify": [
+          "og:image and twitter:image are present, absolute, and return 200 on a sample of page types."
+        ]
+      },
+      {
+        "id": "generic-titles",
+        "name": "Title, description, and H1 miss the page's real advantage",
+        "category": "on-page",
+        "priority": "high",
+        "symptoms": [
+          "The H1 is only a product label.",
+          "The title lists features that every competitor also has."
+        ],
+        "whyItMatters": "A new site rarely outranks established brands on the broadest term. A specific, true advantage can match narrower searches.",
+        "commonCause": "Copy was written from the feature list without checking search results.",
+        "detect": [
+          "Compare the title, description, and H1 with the pages that rank now and with the questions users ask.",
+          "List claims that are true for this page and that competitors cannot make."
+        ],
+        "fix": [
+          "Lead with the task people search for, then the verified difference.",
+          "Keep titles near 60 characters and descriptions near 155, without keyword stuffing.",
+          "Answer the main question in the first paragraph of the article."
+        ],
+        "frameworks": {},
+        "verify": [
+          "The title and description are unique on the site, and every claim in them was checked against the product."
+        ]
+      },
+      {
+        "id": "claims-do-not-match-product",
+        "name": "Copy or structured data claims more than the product does",
+        "category": "trust",
+        "priority": "critical",
+        "symptoms": [
+          "A name or summary says secure, permanent, unlimited, or offline, while the FAQ or the code says otherwise.",
+          "Buttons or listed features only show a placeholder message.",
+          "Tool counts, limits, or dates differ between pages and machine-readable files."
+        ],
+        "whyItMatters": "Wrong claims harm users, especially about privacy and security, and search and answer engines may repeat them.",
+        "commonCause": "Marketing text, schema, llms.txt, and the product were updated at different times.",
+        "detect": [
+          "Read the implementation behind each privacy, security, pricing, limit, and compatibility claim.",
+          "List the third-party requests the page makes before saying that nothing leaves the device.",
+          "Click every advertised feature on the production build.",
+          "Compare counts and names in the page, schema, llms.txt, and the source registry."
+        ],
+        "fix": [
+          "Correct the product or narrow the claim. Report safety problems to the user first.",
+          "State real limits plainly, such as hiding content visually without removing it from the file.",
+          "Generate counts from one source where possible."
+        ],
+        "frameworks": {},
+        "verify": [
+          "Each material claim has a code path, test, or document behind it. Mark the rest unverified."
+        ]
+      },
+      {
+        "id": "stale-machine-readable-urls",
+        "name": "llms.txt, sitemap, or internal links point to redirects or miss pages",
+        "category": "crawl",
+        "priority": "medium",
+        "symptoms": [
+          "Listed URLs return 301 or 404.",
+          "A new page is missing from llms.txt or the sitemap."
+        ],
+        "whyItMatters": "Redirects and dead links waste crawling and can send users to the wrong place. Google says it ignores llms.txt, so treat the file as optional support for other services.",
+        "commonCause": "Slugs were renamed and only the redirect rules were updated.",
+        "detect": [
+          "Compare every URL in llms.txt, the sitemap, and internal links with the built routes and the redirect configuration."
+        ],
+        "fix": [
+          "Replace each redirected URL with its final destination.",
+          "Add missing pages with a factual one-line summary.",
+          "Do not create llms.txt only for Google."
+        ],
+        "frameworks": {},
+        "verify": [
+          "Every listed URL resolves directly to a 200 response or to a built page."
+        ]
+      },
+      {
+        "id": "thin-or-generic-content",
+        "name": "Page has little original or verifiable content",
+        "category": "geo",
+        "priority": "medium",
+        "symptoms": [
+          "The text could describe any competitor.",
+          "There is no example, evidence, limitation, date, or author."
+        ],
+        "whyItMatters": "Google's guidance asks for helpful, non-commodity content. Specific evidence also gives people and answer engines something to cite, though it does not guarantee a citation.",
+        "commonCause": "The page was built as a tool with a short generated description.",
+        "detect": [
+          "Ask what on the page could not be copied from another site.",
+          "Check that each key question has a direct answer near its heading."
+        ],
+        "fix": [
+          "Add a real before and after example, made with the product, with accurate alt text and dimensions.",
+          "Add a comparison table of approaches, a troubleshooting table, and honest limits.",
+          "Publish first-party test results only with sample size, date, and caveat, and only after the user approves them.",
+          "Show a last-updated date that matches dateModified, and change it only for real updates.",
+          "Link to the related pages that solve the next problem."
+        ],
+        "frameworks": {},
+        "verify": [
+          "Examples and numbers can be reproduced, and visible dates match the schema."
+        ]
+      },
+      {
+        "id": "unsafe-or-misleading-schema",
+        "name": "Structured data is unsafe, invented, or hidden",
+        "category": "schema",
+        "priority": "high",
+        "symptoms": [
+          "JSON-LD contains ratings nobody gave, or answers that are not visible.",
+          "JSON-LD is built with an unescaped JSON.stringify."
+        ],
+        "whyItMatters": "Misleading markup can lead to a manual action. Unescaped text can close the script tag.",
+        "commonCause": "Markup was copied from a template or chased a rich result.",
+        "detect": [
+          "Parse every JSON-LD block in the built HTML and compare it with visible text.",
+          "Check for < characters in serialized content."
+        ],
+        "fix": [
+          "Build visible steps and FAQs and their schema from the same data.",
+          "Escape < as \\u003c when serializing.",
+          "Use supported types for clarity. Do not add ratings, reviews, or special AI schema that does not exist."
+        ],
+        "frameworks": {},
+        "verify": [
+          "All blocks parse, match visible content, and pass the Schema Markup Validator. Use the Rich Results Test for types Google supports."
+        ]
+      },
+      {
+        "id": "invalid-landmarks",
+        "name": "Page has nested or repeated main landmarks",
+        "category": "accessibility",
+        "priority": "low",
+        "symptoms": [
+          "The HTML has more than one main element, often one in the layout and one in a page shell."
+        ],
+        "whyItMatters": "Screen reader users lose a clear main region. Search impact is usually small.",
+        "commonCause": "A shared layout and a page shell both add the landmark.",
+        "detect": [
+          "Count main elements in the built HTML."
+        ],
+        "fix": [
+          "Keep the landmark in one place, usually the layout, and use a div or section in the shell."
+        ],
+        "frameworks": {},
+        "verify": [
+          "There is exactly one visible main element per page."
+        ]
+      }
+    ]
+  },
+
   "validation": {
     "checks": [
       "Run the 11-item on-page checklist where applicable.",
       "Run the 5-item GEO checklist where applicable.",
       "Run the 5-item AEO checklist where applicable.",
+      "Review common_fixes and confirm or rule out each applicable problem.",
+      "Compare the raw production HTML, without JavaScript, with the rendered page.",
       "Verify rendered content, metadata, HTTP status codes, redirects, and crawlable links.",
       "Check robots directives, canonical tags, sitemap consistency, and intended indexability.",
       "Validate structured data when present.",
@@ -360,7 +593,10 @@
     "https://developers.google.com/search/docs/crawling-indexing/",
     "https://developers.google.com/search/docs/appearance/structured-data/",
     "https://developers.google.com/search/docs/essentials/spam-policies",
-    "https://web.dev/articles/vitals"
+    "https://web.dev/articles/vitals",
+    "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+    "https://developers.google.com/search/docs/appearance/ai-features",
+    "https://vercel.com/blog/the-rise-of-the-ai-crawler"
   ],
 
   "principle": "Inspect -> Audit -> Prioritize -> Implement -> Validate -> Report. Follow evidence, website architecture, business goals, and user needs. Never prioritize ranking manipulation over useful content, accessibility, safety, or compliance."

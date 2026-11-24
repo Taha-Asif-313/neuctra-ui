@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema#",
   "package": "@neuctra/ui",
   "version": "1.1.1",
-  "generatedAt": "2026-11-21T11:58:01.490Z",
+  "generatedAt": "2026-11-21T13:28:32.782Z",
   "componentCount": 134,
   "components": [
     {
@@ -29465,12 +29465,9 @@
     "enabled": true,
     "strategy": "local-registry-overlay",
     "source": "@neuctra/ui local package registry",
-    "addedCount": 2,
-    "addedModules": 1,
-    "addedNames": [
-      "ThemeScript",
-      "useOptionalTheme"
-    ],
+    "addedCount": 0,
+    "addedModules": 0,
+    "addedNames": [],
     "upstreamSynced": false
   },
   "search": {

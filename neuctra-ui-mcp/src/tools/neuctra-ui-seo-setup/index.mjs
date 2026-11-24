@@ -20,6 +20,19 @@ function selectGuideSections(seoGuide, ruleIds) {
   return Object.fromEntries([...keys].filter((key) => seoGuide[key] !== undefined).map((key) => [key, seoGuide[key]]));
 }
 
+/** Keeps only the implementation note for the requested framework; auto keeps them all. */
+function selectCommonFixes(commonFixes, framework) {
+  if (!commonFixes) return undefined;
+  return {
+    description: commonFixes.description,
+    order: commonFixes.order,
+    fixes: commonFixes.fixes.map(({ frameworks = {}, ...fix }) => {
+      if (framework === "auto") return Object.keys(frameworks).length ? { ...fix, frameworks } : fix;
+      return frameworks[framework] ? { ...fix, frameworkNote: frameworks[framework] } : fix;
+    }),
+  };
+}
+
 /** Builds context from the current SEO Agent Rules schema. */
 export function buildSeoGuideContext(seoGuide, { framework = "auto", ruleIds } = {}) {
   if (!seoGuide) return null;
@@ -51,9 +64,11 @@ export function buildSeoGuideContext(seoGuide, { framework = "auto", ruleIds } =
       requested: framework,
       detectedFromProjectContext: framework === "auto",
       projectContextRequiredForDetection: framework === "auto",
-      frameworkSpecificImplementation: "Follow the detected framework's existing metadata, rendering, routing, and asset conventions. This guide does not prescribe framework-specific code snippets.",
+      frameworkSpecificImplementation: "Follow the detected framework's existing metadata, rendering, routing, and asset conventions. common_fixes includes short framework notes where the fix differs; confirm them against the installed version.",
     },
     ...selected,
+    // The page builder asks for rule groups and keeps its smaller response.
+    ...(!ruleIds?.length && seoGuide.common_fixes && { common_fixes: selectCommonFixes(seoGuide.common_fixes, framework) }),
     // Kept for the page builder's existing response contract.
     seoRules: checklists,
     implementationSteps: seoGuide.workflow,
@@ -71,7 +86,7 @@ export function registerNeuctraUiSeoSetupTool(server, { seoGuide }) {
     {
       title: "Neuctra UI SEO setup guide",
       description:
-        "Return the current SEO Agent Rules for planning or carrying out an evidence-based SEO review in a Neuctra UI project. Covers technical and on-page SEO, GEO, AEO, local and off-page SEO, safe implementation, validation, and reporting. The default mode is read-only audit; implementation should follow the guide and existing project conventions. It does not guarantee rankings, indexing, rich results, or AI citations.",
+        "Return the current SEO Agent Rules for planning or carrying out an evidence-based SEO review in a Neuctra UI project. Covers technical and on-page SEO, GEO, AEO, local and off-page SEO, safe implementation, validation, and reporting. Includes a prioritized common-fixes guide (empty initial HTML, lost social images, inaccurate claims, stale URLs, unsafe schema, and more) with detection, fix, and verification steps. The default mode is read-only audit; implementation should follow the guide and existing project conventions. It does not guarantee rankings, indexing, rich results, or AI citations.",
       inputSchema: {
         framework: z
           .enum(FRAMEWORK_OPTIONS)

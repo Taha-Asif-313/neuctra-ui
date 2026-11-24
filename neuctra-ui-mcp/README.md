@@ -284,6 +284,8 @@ Returns the complete SEO, AEO, and GEO rules and ordered implementation steps. F
 
 The guidance covers titles and descriptions, keyword and search intent, heading structure, canonical URLs, robots directives, sitemaps, structured data (JSON-LD), visible FAQs, performance, trust signals, and framework-specific implementation. It is a reference for the assistant; it does not generate a one-off metadata snippet or audit a page.
 
+The response also has a `common_fixes` guide: problems that often appear in real reviews, such as content missing from the initial HTML, lost social images, inaccurate claims, outdated URLs, and unsafe schema. Each one lists its symptoms, cause, detection, fix, and verification steps. When you pass a framework, you get only that framework’s notes.
+
 ### `neuctra-ui-landing-design`
 
 Design landing and marketing pages that do not look AI-generated, and that do not look like each other. Use it in two steps.
